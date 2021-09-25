@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1.开发软件vscodevscode特点：  开源，免费； 自定义配置 集成git 智能提示强大 支持各种文件格式（html&#x2F;jade&#x2F;css&#x2F;less&#x2F;sass&#x2F;xml） 调试功能强大 各种方便的快捷键 强大的插件扩展  插件安装Debugger for Chrome：从VS Code调试在Google Chrome中运行的JavaScript代码。 beautify：格式化代码工具，美化Jav">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建第一个VUE项目，入门级别">
+<meta property="og:url" content="http://example.com/2021/08/19/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E6%90%AD%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AAVUE%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%85%A5%E9%97%A8%E7%BA%A7%E5%88%AB/index.html">
+<meta property="og:site_name" content="Jadeliu&#39;s blog">
+<meta property="og:description" content="1.开发软件vscodevscode特点：  开源，免费； 自定义配置 集成git 智能提示强大 支持各种文件格式（html&#x2F;jade&#x2F;css&#x2F;less&#x2F;sass&#x2F;xml） 调试功能强大 各种方便的快捷键 强大的插件扩展  插件安装Debugger for Chrome：从VS Code调试在Google Chrome中运行的JavaScript代码。 beautify：格式化代码工具，美化Jav">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/2499596/202108/2499596-20210817150434095-1939209105.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/2499596/202108/2499596-20210817150350056-832764408.png">
+<meta property="article:published_time" content="2021-08-19T11:52:00.000Z">
+<meta property="article:modified_time" content="2021-09-25T13:54:54.044Z">
+<meta property="article:author" content="Jade liu">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2020.cnblogs.com/blog/2499596/202108/2499596-20210817150434095-1939209105.png">
+
+<link rel="canonical" href="http://example.com/2021/08/19/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E6%90%AD%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AAVUE%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%85%A5%E9%97%A8%E7%BA%A7%E5%88%AB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>搭建第一个VUE项目，入门级别 | Jadeliu's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jadeliu's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E6%90%AD%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AAVUE%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%85%A5%E9%97%A8%E7%BA%A7%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          搭建第一个VUE项目，入门级别
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-19 19:52:00" itemprop="dateCreated datePublished" datetime="2021-08-19T19:52:00+08:00">2021-08-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-25 21:54:54" itemprop="dateModified" datetime="2021-09-25T21:54:54+08:00">2021-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1-开发软件vscode"><a href="#1-开发软件vscode" class="headerlink" title="1.开发软件vscode"></a>1.开发软件vscode</h3><p>vscode特点：</p>
+<ul>
+<li>开源，免费；</li>
+<li>自定义配置</li>
+<li>集成git</li>
+<li>智能提示强大</li>
+<li>支持各种文件格式（html/jade/css/less/sass/xml）</li>
+<li>调试功能强大</li>
+<li>各种方便的快捷键</li>
+<li>强大的插件扩展</li>
+</ul>
+<h4 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h4><p>Debugger for Chrome：从VS Code调试在Google Chrome中运行的JavaScript代码。</p>
+<p>beautify：格式化代码工具，美化Javascript，JSON，CSS，Sass，和HTML在Visual Studio代码。</p>
+<p>Atuo Rename Tag：修改 html 标签，自动帮你完成头部和尾部闭合标签的同步修改。</p>
+<p>中文（简体）语言包</p>
+<p>Code Spell Checker：代码拼写检查器，一个与camelCase代码配合良好的基本拼写检查程序。此拼写检查程序的目标是帮助捕获常见的拼写错误，同时保持误报数量较低。 </p>
+<p>vscode-icons：显示Visual Studio代码的图标，目前该插件已被vscode内部支持：”文件” -&gt; “首选项” -&gt; “文件图标主题”。 </p>
+<p>guides：显示代码对齐辅助线，很好用。</p>
+<p>filesize：在状态栏中显示当前文件大小，点击后还可以看到详细创建</p>
+<p>Path Intellisense：可自动填充文件名。 </p>
+<h3 id="2-入门"><a href="#2-入门" class="headerlink" title="2.入门"></a>2.入门</h3><ol>
+<li><strong>HTML</strong> 定义了网页的内容</li>
+<li><strong>CSS</strong> 描述了网页的布局</li>
+<li><strong>JavaScript</strong> 控制了网页的行为</li>
+<li><strong>Vue.js</strong>（读音 /vjuː/, 类似于 view） 是一套构建用户界面的渐进式框架。<br>Vue 只关注视图层， 采用自底向上增量开发的设计。<br>Vue 的目标是通过尽可能简单的 API 实现响应的数据绑定和组合的视图组件。</li>
+</ol>
+<h3 id="3-开始一个vue项目"><a href="#3-开始一个vue项目" class="headerlink" title="3.开始一个vue项目"></a>3.开始一个vue项目</h3><h4 id="1）安装node环境"><a href="#1）安装node环境" class="headerlink" title="1）安装node环境"></a>1）安装node环境</h4><h5 id="Node-js简介"><a href="#Node-js简介" class="headerlink" title="Node.js简介"></a>Node.js简介</h5><p>简单的说 Node.js 就是运行在服务端的 JavaScript。Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。Node.js 的包管理器 npm，是全球最大的开源库生态系统。</p>
+<p>Node.js是一个让JavaScript运行在服务端的开发平台，它让JavaScript成为与PHP、Python、Perl、Ruby等服务端语言平起平坐的脚本语言</p>
+<p>类似于J2EE</p>
+<blockquote>
+<p>Java的三个版本 : JAVASE(标准版),JAVAEE(企业版),JAVAME(微型版).</p>
+<p>java是一个平台。他包括了，java语言，java开发环境(jdk)。java有三个版本，j2se(标准版),j2ee(企业版),j2me(微型版)不管哪个版本，都是java语言实现的一个框架。之所以要分版本，是因为3个版本是针对不同问题，设计的解决方案。j2EE是java的企业级开发版本，其实换句话说就是用来做web开发的java框架。javaEE通过设定统一的标准来解决web开发的问题，javaEE的接口，抽象类，规定了web开发所需要实现的流程。整个web的开发，有2层，第1层是服务器容器，比如tomcat，weblogic。他们在javaEE的规范下，实现套接字的连接，封装消息等等，第2层是业务，而这一层是你要做的，通过tomcat封装的消息，进行相应的业务处理。服务器容器的开发由大型的产商开发，而我们通常做的开发是在服务器容器上的业务开发，正是sun的javaEE统一了规范(比如用servlet)我们的业务代码，能和comcat进行很好的通讯。</p>
+</blockquote>
+<p>下载地址为：<a target="_blank" rel="noopener" href="https://nodejs.org/en/">https://nodejs.org/en/</a></p>
+<h5 id="npm简介"><a href="#npm简介" class="headerlink" title="npm简介"></a>npm简介</h5><p>npm：Node.js的包管理工具（package manager）大家都把自己开发的模块打包后放到npm官网上，如果要使用，</p>
+<p>直接通过npm安装就可以直接用，不用管代码存在哪，应该从哪下载。</p>
+<p>更重要的是，如果我们要使用模块A，而模块A又依赖于模块B，模块B又依赖于模块X</p>
+<p>npm可以根据依赖关系，把所有依赖的包都下载下来并管理起来。</p>
+<p>类似与MAVEN</p>
+<p><code>npm install -g cnpm –registry=https://registry.npm.taobao.org</code>，即可安装npm镜像，以后再用到npm的地方直接用cnpm来代替就好了。</p>
+<h4 id="2）搭建vue项目环境"><a href="#2）搭建vue项目环境" class="headerlink" title="2）搭建vue项目环境"></a>2）搭建vue项目环境</h4><p><strong>vue-cli简介</strong></p>
+<p>vue-cli是vue官方提供的一个命令行工具，可用于快速搭建大型单页应用。该工具提供开箱即用的构建工具配置，带来现代化的前端开发流程。只需一分钟即可启动带热重载、保存时静态检查以及可用于生产环境的构建配置的项目。</p>
+<p>安装vue-cli：vue-cli是vue.js的脚手架，用于自动生成vue.js+webpack的项目模板，自动化前端项目工具</p>
+<p>webpack是一个<strong>打包器（bundler）</strong>，它能将多个js文件打包成一个文件（其实不止能打包js文件，也能打包其他类型的文件，比如css文件，json文件等）。</p>
+<p><code>npm install --global vue-cli</code></p>
+<h4 id="2-5）centos下安装"><a href="#2-5）centos下安装" class="headerlink" title="2.5）centos下安装"></a>2.5）centos下安装</h4><p><code>sudo yum install -y nodejs</code></p>
+<p><code>sudo yum install -y npm</code></p>
+<p><code>npm install --global vue-cli</code>    //发生错误，无法成功安装</p>
+<blockquote>
+<p><code>npm config set strict-ssl false</code>   //绕过https</p>
+<p>再sudo执行还是不行👋🏻  卡住了。。。</p>
+<p>Yarn是facebook发布的一款取代npm的包管理工具。</p>
+<p><code>sudo npm install -g yarn</code>  同样的错误：npm ERR! Error: CERT_UNTRUSTED</p>
+</blockquote>
+<p>挥之不去的错误：npm安装过不了</p>
+<p><strong>转战MAC安装：</strong></p>
+<blockquote>
+<p>1.安装node.js(<a target="_blank" rel="noopener" href="http://www.runoob.com/nodejs/nodejs-install-setup.html">http://www.runoob.com/nodejs/nodejs-install-setup.html</a>)  node -v<br>2.安装npm：略  npm -v<br>3.安装cnpm：sudo npm install -g cnpm –registry=<a target="_blank" rel="noopener" href="https://registry.npm.taobao.org/">https://registry.npm.taobao.org</a><br>4.安装全局vue-cli脚手架,用于帮助搭建所需的模板框架：sudo cnpm install -g vue-cli</p>
+</blockquote>
+<h4 id="3-创建一个基于webpack模板的新项目"><a href="#3-创建一个基于webpack模板的新项目" class="headerlink" title="3)创建一个基于webpack模板的新项目"></a>3)创建一个基于webpack模板的新项目</h4><p>进入项目目录，创建一个基于webpack模板的新项目<br><code>vue init webpack myfirstvue</code></p>
+<p>选择项目名字、项目描述、作者等等Vue build ==&gt; 打包方式，回车即可；</p>
+<p>Install vue-router ==&gt; 是否要安装 vue-router</p>
+<p>Use ESLint to lint your code ==&gt; 是否需要 js 语法检测 </p>
+<p>Set up unit tests ==&gt; 是否安装 单元测试工具</p>
+<p>Setup e2e tests with Nightwatch ==&gt; 是否需要 端到端测试工具 </p>
+<p>顺便还安装了yarn</p>
+<h4 id="4）进入项目，安装依赖"><a href="#4）进入项目，安装依赖" class="headerlink" title="4）进入项目，安装依赖"></a>4）进入项目，安装依赖</h4><p>cd myfirstvue 进入项目</p>
+<p>安装成功后，项目文件夹中会多出一个目录：node_modules</p>
+<h4 id="5）运行项目"><a href="#5）运行项目" class="headerlink" title="5）运行项目"></a>5）运行项目</h4><p>npm run dev  </p>
+<p>运行效果：</p>
+<p><img src="https://img2020.cnblogs.com/blog/2499596/202108/2499596-20210817150434095-1939209105.png"></p>
+<h4 id="6）项目目录解读"><a href="#6）项目目录解读" class="headerlink" title="6）项目目录解读"></a>6）项目目录解读</h4><p>1、build：构建脚本目录</p>
+<p>　　　　1）build.js  ==&gt; 生产环境构建脚本；``</p>
+<p>　　　　2）check-versions.js  ==&gt; 检查npm，node.js版本；</p>
+<p>　　　　3）utils.js  ==&gt; 构建相关工具方法；</p>
+<p>　　　　4）vue-loader.conf.js  ==&gt; 配置了css加载器以及编译css之后自动添加前缀；</p>
+<p>　　　　5）webpack.base.conf.js  ==&gt; webpack基本配置；</p>
+<p>　　　　6）webpack.dev.conf.js  ==&gt; webpack开发环境配置；</p>
+<p>　　　　7）webpack.prod.conf.js  ==&gt; webpack生产环境配置；</p>
+<p>2、config：项目配置</p>
+<p>　　　　1）dev.env.js  ==&gt; 开发环境变量；</p>
+<p>　　　　2）index.js  ==&gt; 项目配置文件；</p>
+<p>　　　　3）prod.env.js  ==&gt; 生产环境变量；</p>
+<p>3、node_modules：npm 加载的项目依赖模块</p>
+<p>4、src：这里是我们要开发的目录，基本上要做的事情都在这个目录里。里面包含了几个目录及文件：</p>
+<p>　　　　1）assets：资源目录，放置一些图片或者公共js、公共css。这里的资源会被webpack构建；</p>
+<p>　　　　2）components：组件目录，我们写的组件就放在这个目录里面；</p>
+<p>　　　　3）router：前端路由，我们需要配置的路由路径写在index.js里面；</p>
+<p>　　　　4）App.vue：根组件；</p>
+<p>　　　　5）main.js：入口js文件；</p>
+<p>5、static：静态资源目录，如图片、字体等。不会被webpack构建</p>
+<p>6、index.html：首页入口文件，可以添加一些 meta 信息等</p>
+<p>7、package.json：npm包配置文件，定义了项目的npm脚本，依赖包等信息``</p>
+<p>8、README.md：项目的说明文档，markdown 格式</p>
+<p>9、.xxxx文件：这些是一些配置文件，包括语法配置，git配置等</p>
+<h4 id="7）项目改造"><a href="#7）项目改造" class="headerlink" title="7）项目改造"></a>7）项目改造</h4><p>1.在components目录下新建一个views目录，里面写我们的vue组件<br>  在views目录下新建First.vue</p>
+<p>2.在router目录下的index.js里面配置路由路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#x27;vue&#x27;</span><br><span class="line">import Router from &#x27;vue-router&#x27;</span><br><span class="line">import HelloWorld from &#x27;@/components/HelloWorld&#x27;</span><br><span class="line">import first from &#x27;@components/views/first&#x27;</span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line"></span><br><span class="line">export default new Router(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: &#x27;/&#x27;,</span><br><span class="line">      name: &#x27;HelloWorld&#x27;,</span><br><span class="line">      component: HelloWorld</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      path: &#x27;/first&#x27;,</span><br><span class="line">      name: &#x27;first&#x27;,</span><br><span class="line">      component: first</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>3.template 写 html，script写 js，style写样式（运行会提示空格引号错误之类的，按要求修改即可）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">template&gt;</span><br><span class="line">  &lt;div class=&quot;first-app&quot;&gt;</span><br><span class="line">    &#123;&#123;msg&#125;&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;first&#x27;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &#x27;welcome to firstapp&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- what --&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>4.效果：</p>
+<p><img src="https://img2020.cnblogs.com/blog/2499596/202108/2499596-20210817150350056-832764408.png"></p>
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hellman/p/10985377.html">https://www.cnblogs.com/hellman/p/10985377.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/miller-star/p/6394760.html">https://www.cnblogs.com/miller-star/p/6394760.html</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"># vue</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/19/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-go%E5%85%A5%E9%97%A82.0/" rel="prev" title="学习笔记-go入门2.0">
+      <i class="fa fa-chevron-left"></i> 学习笔记-go入门2.0
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/19/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-HTML/" rel="next" title="前端寄出-html层叠样式表">
+      前端寄出-html层叠样式表 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%BC%80%E5%8F%91%E8%BD%AF%E4%BB%B6vscode"><span class="nav-number">1.</span> <span class="nav-text">1.开发软件vscode</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">插件安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%85%A5%E9%97%A8"><span class="nav-number">2.</span> <span class="nav-text">2.入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%BC%80%E5%A7%8B%E4%B8%80%E4%B8%AAvue%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.</span> <span class="nav-text">3.开始一个vue项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%BC%89%E5%AE%89%E8%A3%85node%E7%8E%AF%E5%A2%83"><span class="nav-number">3.1.</span> <span class="nav-text">1）安装node环境</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Node-js%E7%AE%80%E4%BB%8B"><span class="nav-number">3.1.1.</span> <span class="nav-text">Node.js简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#npm%E7%AE%80%E4%BB%8B"><span class="nav-number">3.1.2.</span> <span class="nav-text">npm简介</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%BC%89%E6%90%AD%E5%BB%BAvue%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83"><span class="nav-number">3.2.</span> <span class="nav-text">2）搭建vue项目环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5%EF%BC%89centos%E4%B8%8B%E5%AE%89%E8%A3%85"><span class="nav-number">3.3.</span> <span class="nav-text">2.5）centos下安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8Ewebpack%E6%A8%A1%E6%9D%BF%E7%9A%84%E6%96%B0%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.4.</span> <span class="nav-text">3)创建一个基于webpack模板的新项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%EF%BC%89%E8%BF%9B%E5%85%A5%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="nav-number">3.5.</span> <span class="nav-text">4）进入项目，安装依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%EF%BC%89%E8%BF%90%E8%A1%8C%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.6.</span> <span class="nav-text">5）运行项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6%EF%BC%89%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E8%A7%A3%E8%AF%BB"><span class="nav-number">3.7.</span> <span class="nav-text">6）项目目录解读</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7%EF%BC%89%E9%A1%B9%E7%9B%AE%E6%94%B9%E9%80%A0"><span class="nav-number">3.8.</span> <span class="nav-text">7）项目改造</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">参考：</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jade liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jade liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
