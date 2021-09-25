@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1.安装vscode2.插件安装安装“C&#x2F;C++”、“C&#x2F;C++ Clang Command Adapter” 3.新建cpp文件4.配置1 c_cpp_properties.json按 Command + Shift + P 打开命令行面板，输入 C&#x2F;Cpp: Edit Configurations命令此时会在当前工作空间目录生成.vscode配置目录同时在配置目录会生成一个c_cpp_prop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mac下vscode配置cpp环境">
+<meta property="og:url" content="http://example.com/2021/08/23/jade's%20blog/cpp%E4%BF%AE%E7%82%BC/Mac%E4%B8%8Bvscode%E9%85%8D%E7%BD%AEcpp%E7%8E%AF%E5%A2%83/index.html">
+<meta property="og:site_name" content="Jadeliu&#39;s blog">
+<meta property="og:description" content="1.安装vscode2.插件安装安装“C&#x2F;C++”、“C&#x2F;C++ Clang Command Adapter” 3.新建cpp文件4.配置1 c_cpp_properties.json按 Command + Shift + P 打开命令行面板，输入 C&#x2F;Cpp: Edit Configurations命令此时会在当前工作空间目录生成.vscode配置目录同时在配置目录会生成一个c_cpp_prop">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-23T04:57:31.000Z">
+<meta property="article:modified_time" content="2021-09-25T13:57:47.546Z">
+<meta property="article:author" content="Jade liu">
+<meta property="article:tag" content="cpp">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/08/23/jade's%20blog/cpp%E4%BF%AE%E7%82%BC/Mac%E4%B8%8Bvscode%E9%85%8D%E7%BD%AEcpp%E7%8E%AF%E5%A2%83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>mac下vscode配置cpp环境 | Jadeliu's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jadeliu's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/23/jade's%20blog/cpp%E4%BF%AE%E7%82%BC/Mac%E4%B8%8Bvscode%E9%85%8D%E7%BD%AEcpp%E7%8E%AF%E5%A2%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mac下vscode配置cpp环境
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-23 12:57:31" itemprop="dateCreated datePublished" datetime="2021-08-23T12:57:31+08:00">2021-08-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-25 21:57:47" itemprop="dateModified" datetime="2021-09-25T21:57:47+08:00">2021-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cpp%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">cpp开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1-安装vscode"><a href="#1-安装vscode" class="headerlink" title="1.安装vscode"></a>1.安装vscode</h3><h3 id="2-插件安装"><a href="#2-插件安装" class="headerlink" title="2.插件安装"></a>2.插件安装</h3><p>安装“C/C++”、“C/C++ Clang Command Adapter”</p>
+<h3 id="3-新建cpp文件"><a href="#3-新建cpp文件" class="headerlink" title="3.新建cpp文件"></a>3.新建cpp文件</h3><h3 id="4-配置1-c-cpp-properties-json"><a href="#4-配置1-c-cpp-properties-json" class="headerlink" title="4.配置1 c_cpp_properties.json"></a>4.配置1 c_cpp_properties.json</h3><p>按 <code>Command + Shift + P</code> 打开命令行面板，输入 <code>C/Cpp: Edit Configurations</code>命令<br>此时会在当前工作空间目录生成.vscode配置目录<br>同时在配置目录会生成一个c_cpp_properties.json文件</p>
+<p>将要用到的库的路径添加到includePath数组中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;Mac&quot;,</span><br><span class="line">            &quot;includePath&quot;: [</span><br><span class="line">                        &quot;$&#123;workspaceFolder&#125;&quot;,</span><br><span class="line">                        &quot;/Library/Developer/CommandLineTools/usr/include/c++/v1&quot;,</span><br><span class="line">                        &quot;/usr/local/include&quot;,</span><br><span class="line">                        &quot;/Library/Developer/CommandLineTools/usr/include&quot;,</span><br><span class="line">                    ],</span><br><span class="line">            &quot;defines&quot;: [],</span><br><span class="line">            &quot;macFrameworkPath&quot;: [</span><br><span class="line">                &quot;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks&quot;</span><br><span class="line">            ],</span><br><span class="line">            &quot;compilerPath&quot;: &quot;/usr/bin/clang&quot;,</span><br><span class="line">            &quot;cStandard&quot;: &quot;c17&quot;,</span><br><span class="line">            &quot;cppStandard&quot;: &quot;c++98&quot;,</span><br><span class="line">            &quot;intelliSenseMode&quot;: &quot;macos-clang-x64&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;version&quot;: 4</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-配置2-tasks-json"><a href="#5-配置2-tasks-json" class="headerlink" title="5.配置2 tasks.json"></a>5.配置2 tasks.json</h3><p>按 <code>Command + Shift + P</code> 打开命令行面板，输入 <code>tasks</code>，选择 <code>Tasks:Configure Task</code> 生成 <code>tasks.json</code> 配置文件，选择的模板为MSBuild</p>
+<p>该文件其实就是一个命令行构建工具<br>把运行程序时在终端输入的命令和参数对于”command”和”args”的值<br>输入shift+command+b，便可构建成功，生成可执行文件a.out</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // See https://go.microsoft.com/fwlink/?LinkId=733558</span><br><span class="line">    // for the documentation about the tasks.json format</span><br><span class="line">        &quot;version&quot;: &quot;2.0.0&quot;,</span><br><span class="line">        &quot;tasks&quot;: [</span><br><span class="line">            &#123;</span><br><span class="line">                &quot;label&quot;: &quot;c++&quot;,</span><br><span class="line">                &quot;command&quot;: &quot;clang++&quot;,</span><br><span class="line">                &quot;type&quot;: &quot;shell&quot;,</span><br><span class="line">                &quot;args&quot;: [</span><br><span class="line">                    &quot;main.cpp&quot;,</span><br><span class="line">                    &quot;-std=c++11&quot;,</span><br><span class="line">                    &quot;-g&quot;</span><br><span class="line">                ],</span><br><span class="line">                &quot;presentation&quot;: &#123;</span><br><span class="line">                    &quot;echo&quot;: true,</span><br><span class="line">                    &quot;reveal&quot;: &quot;always&quot;,</span><br><span class="line">                    &quot;focus&quot;: false,</span><br><span class="line">                    &quot;panel&quot;: &quot;new&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+<h3 id="6-配置3-launch-json"><a href="#6-配置3-launch-json" class="headerlink" title="6.配置3 launch.json"></a>6.配置3 <strong>launch.json</strong></h3><p>如果需要对项目进行进行 <code>debug</code>，则需要先生成 <code>launch.json</code> 文件并对其做相应的配置</p>
+<ul>
+<li><p>按 <code>Command + Shift + D</code> 进入到运行界面</p>
+</li>
+<li><p>点击 <code>创建 launch.json 文件</code>，选择 <code>C++(GDB/LLDB)</code></p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // 使用 IntelliSense 了解相关属性。 </span><br><span class="line">    // 悬停以查看现有属性的描述。</span><br><span class="line">    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387</span><br><span class="line">    &quot;version&quot;: &quot;0.2.0&quot;,</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;c/c++ Launch&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;cppdbg&quot;,</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">            &quot;program&quot;: &quot;$&#123;workspaceFolder&#125;/a.out&quot;,</span><br><span class="line">            &quot;args&quot;: [],</span><br><span class="line">            &quot;stopAtEntry&quot;: false,</span><br><span class="line">            &quot;cwd&quot;: &quot;$&#123;workspaceFolder&#125;&quot;,</span><br><span class="line">            &quot;environment&quot;: [],</span><br><span class="line">            &quot;externalConsole&quot;: true,</span><br><span class="line">            &quot;MIMode&quot;: &quot;lldb&quot;,</span><br><span class="line">            &quot;preLaunchTask&quot;:&quot;c++&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
+
+<p>![image-20210816193726334](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210816193726334.png)</p>
+<h3 id="7-shift-command-b编译失败"><a href="#7-shift-command-b编译失败" class="headerlink" title="7.shift+command+b编译失败"></a>7.shift+command+b编译失败</h3><p>于VScode报错“终端将被任务重用，按任意键关闭”的解决方案：</p>
+<p>原因是本地端口是被共享的，所以必须关闭一个进程才能执行另一个，只需要对 <code>tasks.json</code>文件做一些修改即可。</p>
+<p>tasks.json里把”panel”=”shared”改成：”panel”=”new”</p>
+<h3 id="8-如何运行？"><a href="#8-如何运行？" class="headerlink" title="8.如何运行？"></a>8.如何运行？</h3><p>输入shift+command+b，便可构建成功，生成可执行文件a.out</p>
+<p>编译完成后，会在项目路径下生成 <code>main</code> 文件，使用 <code>./main</code> 即可执行</p>
+<hr>
+<p>出现错误，重新参考，理解三个配置文件</p>
+<hr>
+<p>在配置环境之前先检查一下机器上都安装了什么C++编译器，通过以下两条命令可以查看是否安装了g++/clang编译器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ --version</span><br><span class="line">clang++ --version</span><br></pre></td></tr></table></figure>
+
+<p>然后安装两个插件</p>
+<p>然后新建工程目录，在里面新建一个cpp文件命名为main.cpp。</p>
+<p>然后点击侧边栏的Debug按钮，点击设置图标，便会提示你选择环境，这里就选择C++那一项。</p>
+<p>此时VSCode会在你的工程目录下自动新建一个.vscode的文件夹，并新建了一个launch.json的文件，这里需要对生成的文件进行一些小改动。本人配置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // 使用 IntelliSense 了解相关属性。 </span><br><span class="line">    // 悬停以查看现有属性的描述。</span><br><span class="line">    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387</span><br><span class="line">    &quot;version&quot;: &quot;0.2.0&quot;,</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;(lldb) Launch&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;cppdbg&quot;,</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">            &quot;program&quot;: &quot;$&#123;workspaceFolder&#125;/a.out&quot;,</span><br><span class="line">            //a.out 是需要运行的二进制文件可以改名</span><br><span class="line">            &quot;args&quot;: [],</span><br><span class="line">            &quot;stopAtEntry&quot;: false,</span><br><span class="line">            &quot;cwd&quot;: &quot;$&#123;workspaceFolder&#125;&quot;,</span><br><span class="line">            &quot;environment&quot;: [],</span><br><span class="line">            &quot;externalConsole&quot;: true,</span><br><span class="line">            &quot;MIMode&quot;: &quot;lldb&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>保存后按快捷键⇧⌘B编译，此时会出现提示没有找到要运行的生成任务，所以接下来将进行生成任务的配置工作，VSCode提供了一些模版，有需要的可以自行选择，这里就选则Others。</p>
+<p>此时.vscode目录下会出现一个task.json文件，对它进行改写。本人配置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // See https://go.microsoft.com/fwlink/?LinkId=733558</span><br><span class="line">    // for the documentation about the tasks.json format</span><br><span class="line">    &quot;version&quot;: &quot;2.0.0&quot;,</span><br><span class="line">    &quot;tasks&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;label&quot;: &quot;hello world&quot;,  //描述</span><br><span class="line">            &quot;type&quot;: &quot;shell&quot;,</span><br><span class="line">            &quot;command&quot;: &quot;clang++&quot;,</span><br><span class="line">            &quot;args&quot;: [</span><br><span class="line">            </span><br><span class="line">                &quot;main.cpp&quot;  //文件名</span><br><span class="line">            ],</span><br><span class="line">            &quot;group&quot;: &#123;</span><br><span class="line">                &quot;kind&quot;:&quot;build&quot;,</span><br><span class="line">                &quot;isDefault&quot;: true</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;presentation&quot;: &#123;</span><br><span class="line">                &quot;echo&quot;: true,</span><br><span class="line">                &quot;reveal&quot;: &quot;always&quot;,</span><br><span class="line">                &quot;focus&quot;: false,</span><br><span class="line">                &quot;panel&quot;: &quot;new&quot;  //新建端口</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>保存后再次按快捷键⇧⌘B就能够顺利编译了，编译完成后按F5执行，得到输出结果。</p>
+<p>每次编译完成后，我们会发现目录下多了一个a.out文件，这个文件是Linux/Unix环境下编译器编译源代码并连接产生的可执行文件，在未指定的情况下其默认命名为a.out。那么如何通过修改配置文件来修改这个文件的命名呢？</p>
+<p>方法很简单，在task.json中的args属性下填入<code>-o yourfilename.out</code></p>
+<p>可以发现这里的command和args两个属性就相当于在命令行中执行了<code>clang++ -o yourfilename.out main.cpp</code>，所以如果还有其他的需求也可以对这里进行改写。最后不要忘记修改launch.json中的program属性，将.out的文件名修改为与task.json一致。便可以成功编译执行了。</p>
+<hr>
+<p>用了第二种之后，control+command+b 编译</p>
+<p>再F5执行，不行，应该是branch文件配置的原因。</p>
+<p>但是./\ app.out 可以运行。先这样。</p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43119354/article/details/89219180?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-0.control&amp;spm=1001.2101.3001.4242">https://blog.csdn.net/qq_43119354/article/details/89219180?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-0.control&amp;spm=1001.2101.3001.4242</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/cpp/" rel="tag"># cpp</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/20/jade's%20blog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="prev" title="go-操作mysql数据库">
+      <i class="fa fa-chevron-left"></i> go-操作mysql数据库
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/23/jade's%20blog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-Vue/" rel="next" title="前端寄出-vue">
+      前端寄出-vue <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85vscode"><span class="nav-number">1.</span> <span class="nav-text">1.安装vscode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">2.插件安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%96%B0%E5%BB%BAcpp%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">3.新建cpp文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E9%85%8D%E7%BD%AE1-c-cpp-properties-json"><span class="nav-number">4.</span> <span class="nav-text">4.配置1 c_cpp_properties.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E9%85%8D%E7%BD%AE2-tasks-json"><span class="nav-number">5.</span> <span class="nav-text">5.配置2 tasks.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E9%85%8D%E7%BD%AE3-launch-json"><span class="nav-number">6.</span> <span class="nav-text">6.配置3 launch.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-shift-command-b%E7%BC%96%E8%AF%91%E5%A4%B1%E8%B4%A5"><span class="nav-number">7.</span> <span class="nav-text">7.shift+command+b编译失败</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%EF%BC%9F"><span class="nav-number">8.</span> <span class="nav-text">8.如何运行？</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jade liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jade liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="查看ssd寿命brew安装查询工具：brew install smartmontools 参看磁盘：diskutil list 参看使用情况：smartctl -a disk0 12345678910111213141516SMART&#x2F;Health Information (NVMe Log 0x02)Critical Warning:                   0x00Temperat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac日常使用">
+<meta property="og:url" content="http://example.com/2021/08/27/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/MAC%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Jadeliu&#39;s blog">
+<meta property="og:description" content="查看ssd寿命brew安装查询工具：brew install smartmontools 参看磁盘：diskutil list 参看使用情况：smartctl -a disk0 12345678910111213141516SMART&#x2F;Health Information (NVMe Log 0x02)Critical Warning:                   0x00Temperat">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-27T08:02:49.000Z">
+<meta property="article:modified_time" content="2021-09-25T13:51:25.376Z">
+<meta property="article:author" content="Jade liu">
+<meta property="article:tag" content="Mac">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/08/27/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/MAC%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Mac日常使用 | Jadeliu's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jadeliu's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/27/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/MAC%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mac日常使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-27 16:02:49" itemprop="dateCreated datePublished" datetime="2021-08-27T16:02:49+08:00">2021-08-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-25 21:51:25" itemprop="dateModified" datetime="2021-09-25T21:51:25+08:00">2021-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="查看ssd寿命"><a href="#查看ssd寿命" class="headerlink" title="查看ssd寿命"></a>查看ssd寿命</h3><p>brew安装查询工具：<code>brew install smartmontools</code></p>
+<p>参看磁盘：<code>diskutil list</code></p>
+<p>参看使用情况：<code>smartctl -a disk0</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">SMART/Health Information (NVMe Log 0x02)</span><br><span class="line">Critical Warning:                   0x00</span><br><span class="line">Temperature:                        47 Celsius</span><br><span class="line">Available Spare:                    83%</span><br><span class="line">Available Spare Threshold:          2%</span><br><span class="line">Percentage Used:                    5%</span><br><span class="line">Data Units Read:                    97,383,945 [49.8 TB]</span><br><span class="line">Data Units Written:                 85,617,562 [43.8 TB]</span><br><span class="line">Host Read Commands:                 1,110,595,079</span><br><span class="line">Host Write Commands:                574,485,961</span><br><span class="line">Controller Busy Time:               0</span><br><span class="line">Power Cycles:                       11,730</span><br><span class="line">Power On Hours:                     389</span><br><span class="line">Unsafe Shutdowns:                   34</span><br><span class="line">Media and Data Integrity Errors:    0</span><br><span class="line">Error Information Log Entries:      0</span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://www.xiaoyuanjiu.com/18812.html">https://www.xiaoyuanjiu.com/18812.html</a></p>
+<h3 id="打开终端"><a href="#打开终端" class="headerlink" title="打开终端"></a>打开终端</h3><p>command + 空格，搜索终端，即出来了。</p>
+<h3 id="打开后台"><a href="#打开后台" class="headerlink" title="打开后台"></a>打开后台</h3><p>command+option+esc：打开后台</p>
+<h3 id="文件夹添加为收藏"><a href="#文件夹添加为收藏" class="headerlink" title="文件夹添加为收藏"></a>文件夹添加为收藏</h3><p>文件夹往过拖就行</p>
+<h3 id="安装brew"><a href="#安装brew" class="headerlink" title="安装brew"></a>安装brew</h3><p><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;</code></p>
+<p>brew help检查</p>
+<h3 id="iterm2终端"><a href="#iterm2终端" class="headerlink" title="iterm2终端"></a>iterm2终端</h3><p>1.iTerm2 是默认终端的替代品，也是目前 macOS 下最好用的终端工具，集颜值和效率于一身。</p>
+<p>官网安装即可，配置颜色，窗口，光标等。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">参考：https://cloud.tencent.com/developer/article/1772592</span><br><span class="line">https://www.jianshu.com/p/5ba0a559416e</span><br></pre></td></tr></table></figure>
+
+<p>2.安装on my zsh </p>
+<p><code>$ sh -c &quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;&quot;</code></p>
+<p>如果不行，就自建脚本复制粘贴，然后允许，一样的意思。</p>
+<p>3.安装<strong>powerlevel10k</strong></p>
+<p>powerlevel10k是一款 zsh 主题，是 powerlevel9k的升级版，强调快速、高效和开箱即用。powerlevel10k 免去了之前 powerlevel9k 比较繁琐的安装方式，如安装字体，配置样式、修改主题等一系列繁琐的操作，开箱即用，非常简单。</p>
+<p><code>brew install romkatv/powerlevel10k/powerlevel10k</code>，并根据brew提示，在.zshrc中添加<code>source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme</code></p>
+<p><code>source ~/.zshrc</code></p>
+<p><code>p10k configure</code> //开始配置</p>
+<p>4.安装插件</p>
+<p>安装zsh命令行高亮插件<code>brew install zsh-syntax-highlighting</code>，并根据brew提示在.zshrc中添加<code>source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh</code></p>
+<p>安装zsh自动提示插件<code>brew install zsh-autosuggestions</code>，并根据brew提示在.zshrc中添加<code>source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh</code></p>
+<p><code>source ~/.zshrc</code></p>
+<h3 id="切换输入法"><a href="#切换输入法" class="headerlink" title="切换输入法"></a>切换输入法</h3><p>control+空格</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Mac/" rel="tag"># Mac</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/25/jade's%20blog/JAVA/Spring%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/" rel="prev" title="spring入门案例">
+      <i class="fa fa-chevron-left"></i> spring入门案例
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/09/02/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/git%E5%BA%94%E7%94%A8%E4%B8%8Egithub/" rel="next" title="git与github应用">
+      git与github应用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bssd%E5%AF%BF%E5%91%BD"><span class="nav-number">1.</span> <span class="nav-text">查看ssd寿命</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E7%BB%88%E7%AB%AF"><span class="nav-number">2.</span> <span class="nav-text">打开终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E5%90%8E%E5%8F%B0"><span class="nav-number">3.</span> <span class="nav-text">打开后台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B9%E6%B7%BB%E5%8A%A0%E4%B8%BA%E6%94%B6%E8%97%8F"><span class="nav-number">4.</span> <span class="nav-text">文件夹添加为收藏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85brew"><span class="nav-number">5.</span> <span class="nav-text">安装brew</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iterm2%E7%BB%88%E7%AB%AF"><span class="nav-number">6.</span> <span class="nav-text">iterm2终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E6%8D%A2%E8%BE%93%E5%85%A5%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">切换输入法</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jade liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jade liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
