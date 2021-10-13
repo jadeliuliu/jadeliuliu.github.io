@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1.mysql原始命令a.登录123456789101112131415161718192021222324252627登录：mysql -u root -p密码  &#x2F;&#x2F;连本机的SELECT User, Host, Password FROM mysql.user;  &#x2F;&#x2F;查看用户添加新用户：create user &amp;#x27;liuxuan14&amp;#x27;@&amp;#x27;localhost&amp;#x2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go-操作mysql数据库">
+<meta property="og:url" content="http://example.com/2021/08/20/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+<meta property="og:site_name" content="Jadeliu&#39;s blog">
+<meta property="og:description" content="1.mysql原始命令a.登录123456789101112131415161718192021222324252627登录：mysql -u root -p密码  &#x2F;&#x2F;连本机的SELECT User, Host, Password FROM mysql.user;  &#x2F;&#x2F;查看用户添加新用户：create user &amp;#x27;liuxuan14&amp;#x27;@&amp;#x27;localhost&amp;#x2">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-20T09:19:46.000Z">
+<meta property="article:modified_time" content="2021-09-25T13:59:16.965Z">
+<meta property="article:author" content="Jade liu">
+<meta property="article:tag" content="golang">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/08/20/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>go-操作mysql数据库 | Jadeliu's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jadeliu's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/20/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          go-操作mysql数据库
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-20 17:19:46" itemprop="dateCreated datePublished" datetime="2021-08-20T17:19:46+08:00">2021-08-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-25 21:59:16" itemprop="dateModified" datetime="2021-09-25T21:59:16+08:00">2021-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/golang%E5%85%A5%E9%97%A8/" itemprop="url" rel="index"><span itemprop="name">golang入门</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-mysql原始命令"><a href="#1-mysql原始命令" class="headerlink" title="1.mysql原始命令"></a>1.mysql原始命令</h2><h3 id="a-登录"><a href="#a-登录" class="headerlink" title="a.登录"></a>a.登录</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">登录：</span><br><span class="line">mysql <span class="operator">-</span>u root <span class="operator">-</span>p密码  <span class="operator">/</span><span class="operator">/</span>连本机的</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">User</span>, Host, Password <span class="keyword">FROM</span> mysql.user;  <span class="operator">/</span><span class="operator">/</span>查看用户</span><br><span class="line"></span><br><span class="line">添加新用户：</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">&#x27;liuxuan14&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line">修改密码：</span><br><span class="line"><span class="keyword">set</span> password <span class="keyword">for</span> <span class="string">&#x27;liuxuan14&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span><span class="operator">=</span>password(<span class="string">&#x27;1998&#x27;</span>);</span><br><span class="line">为用户授权：</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>允许访问所有数据库下的所有表</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;指定ip&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;新用户密码&#x27;</span> ;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>指定数据库下的指定表</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> test.test <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;指定ip&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;新用户密码&#x27;</span> ;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>只拥有查询权限</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;指定ip&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;新用户密码&#x27;</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> OPTION;</span><br><span class="line">FLUSH PRIVILEGES;  <span class="operator">/</span><span class="operator">/</span>刷新权限</span><br><span class="line"></span><br><span class="line">删除用户：</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">user</span> liuxuan<span class="variable">@localhost</span>；</span><br><span class="line"></span><br><span class="line">连接远程数据库：</span><br><span class="line">MySQL 连接远程数据库（<span class="number">192.168</span><span class="number">.5</span><span class="number">.116</span>），端口“<span class="number">3306</span>”，用户名为“root”，密码“<span class="number">123456</span>”</span><br><span class="line">mysql <span class="operator">-</span>h <span class="number">192.168</span><span class="number">.5</span><span class="number">.116</span> <span class="operator">-</span>P <span class="number">3306</span> <span class="operator">-</span>u root <span class="operator">-</span>p123456</span><br><span class="line">mysql <span class="operator">-</span>h ip <span class="operator">-</span>P 端口 <span class="operator">-</span>A <span class="operator">-</span>u name  <span class="operator">-</span>p 密码</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> database name</span><br></pre></td></tr></table></figure>
+
+<h3 id="b-建表"><a href="#b-建表" class="headerlink" title="b.建表"></a>b.建表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS `mytable`(</span><br><span class="line">   `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT &#x27;自增&#x27;,</span><br><span class="line">   `app_id` bigint NOT NULL DEFAULT &#x27;0&#x27; COMMENT &#x27;应用id&#x27;,</span><br><span class="line">   `time` int NOT NULL DEFAULT &#x27;0&#x27; COMMENT &#x27;时间&#x27;,</span><br><span class="line">   `date` DATE,</span><br><span class="line">   PRIMARY KEY ( `id` )</span><br><span class="line">   UNIQUE KEY `idx_app` (`app_id`) USING BTREE</span><br><span class="line">   KEY `idx_ip` (`machine_ip`) USING BTREE,</span><br><span class="line">   KEY `idx_app_machineid` (`app_id`,`machine_id`) USING BTREE</span><br><span class="line">)ENGINE=InnoDB DEFAULT COMMENT=&#x27;表名&#x27;;</span><br><span class="line"></span><br><span class="line">AUTO_INCREMENT定义列为自增的属性，一般用于主键，数值会自动加1。</span><br><span class="line">PRIMARY KEY关键字用于定义列为主键。 您可以使用多列来定义主键，列间以逗号分隔。</span><br><span class="line">ENGINE 设置存储引擎，CHARSET 设置编码。</span><br><span class="line"></span><br><span class="line">表结构：desc name；</span><br><span class="line">建表语句：show create tablename；</span><br></pre></td></tr></table></figure>
+
+<p>注释</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">注释：comment</span><br><span class="line">create table test1 ( </span><br><span class="line">    field_name int comment &#x27;字段的注释&#x27; </span><br><span class="line">)comment=&#x27;表的注释&#x27;;</span><br><span class="line">修改表的注释：</span><br><span class="line">alter table test1 comment &#x27;修改后的表的注释&#x27;;</span><br><span class="line">修改字段的注释：</span><br><span class="line">alter table test1 modify column field_name int comment &#x27;修改后的字段注释&#x27;; </span><br><span class="line">查看表注释：</span><br><span class="line">show  create  table  test1; </span><br><span class="line">查看字段注释：</span><br><span class="line">show  full  columns  from  test1; </span><br></pre></td></tr></table></figure>
+
+<p>索引</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">唯一索引：</span><br><span class="line">UNIQUE KEY</span><br><span class="line">1  主键是一种约束，唯一索引是一种索引，两者在本质上是不同的。</span><br><span class="line">2  主键创建后一定包含一个唯一性索引，唯一性索引不一定就是主键。</span><br><span class="line">3   唯一性索引列允许空值， 而主键列不允许为空值。</span><br><span class="line">4   主键可以被其他表引用为外键，而唯一索引不能。</span><br><span class="line">5   一个表最多只能创建一个主键，但是可以创建多个唯一索引。</span><br><span class="line">6   主键更适合那些不容易改变的唯一标识，如自动递增列，身份证号等。</span><br><span class="line">7   在RBO 模式下，主键的执行计划优先级高于唯一索引。两者可以提高查询的速度。</span><br></pre></td></tr></table></figure>
+
+<h3 id="c-添加一个字段"><a href="#c-添加一个字段" class="headerlink" title="c.添加一个字段"></a>c.添加一个字段</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table tablename add `app_name` varchar(16) NOT NULL DEFAULT &#x27;&#x27;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="d-修改数据"><a href="#d-修改数据" class="headerlink" title="d.修改数据"></a>d.修改数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update tablename set 字段=&#x27;修改的值&#x27; where 条件；</span><br><span class="line">多个字段中间加,</span><br></pre></td></tr></table></figure>
+
+<h3 id="e-删除"><a href="#e-删除" class="headerlink" title="e.删除"></a>e.删除</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">删库：drop database name;</span><br><span class="line">删表：drop table name；</span><br><span class="line"></span><br><span class="line">mysql删除一行：</span><br><span class="line">delete from 表 where 条件；</span><br></pre></td></tr></table></figure>
+
+<h3 id="f-添加一行"><a href="#f-添加一行" class="headerlink" title="f.添加一行"></a>f.添加一行</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert into tablename (app_id,machine_id,machine_ip,ctime,use_perc) values(?,?,?,?,?);   //对应字段加</span><br><span class="line"></span><br><span class="line">insert into 表名 values(int,&#x27;string&#x27;)(..);  //可一次性加多行，一行全部数都有</span><br><span class="line"></span><br><span class="line">insert into 表名 set 列名=&#x27;&#x27;, ...;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-go操作数据库"><a href="#2-go操作数据库" class="headerlink" title="2.go操作数据库"></a>2.go操作数据库</h2><p>使用：database/sql包</p>
+<p>mysql默认端口号3306</p>
+<p>查看：mysql内，<code>show global variables like &#39;port&#39;; </code></p>
+<p>查看mysql配置文件目录：</p>
+<p><code>mysql --help|grep &#39;my.cnf&#39;</code></p>
+<h3 id="a-创建连接池"><a href="#a-创建连接池" class="headerlink" title="a.创建连接池"></a>a.创建连接池</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//1.创建连接池</span><br><span class="line">func newPool() *sql.DB &#123;  //sql.DB 表示一个连接池</span><br><span class="line">	cfg := mysql.NewConfig()</span><br><span class="line">	cfg.User = &quot;name&quot;</span><br><span class="line">	cfg.Passwd = &quot;123456&quot;</span><br><span class="line">	cfg.Net = &quot;tcp&quot;</span><br><span class="line">	cfg.Addr = &quot;127.0.0.1:3306&quot;</span><br><span class="line">	cfg.DBName = &quot;mydb&quot;</span><br><span class="line">	dsn := cfg.FormatDSN()</span><br><span class="line"></span><br><span class="line">	db, err := sql.Open(&quot;mysql&quot;, dsn)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	if err := db.Ping(); err != nil &#123; //ping测试网络连通性及用户密码是否正确</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	return db</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="b-query查询"><a href="#b-query查询" class="headerlink" title="b.query查询"></a>b.query查询</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">func QueryUser(id int64) (*User, error) &#123;</span><br><span class="line">  var db = newPool()  //创建连接</span><br><span class="line">	rows, err := db.Query(&quot;select `id`, `name` from `users` where `id` = ?&quot;, id)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return nil, err</span><br><span class="line">	&#125;</span><br><span class="line">	defer rows.Close() // 注意这里，一定要关闭</span><br><span class="line">	user := User&#123;&#125;</span><br><span class="line">	for rows.Next() &#123;</span><br><span class="line">		if err := rows.Scan(&amp;user.ID, &amp;user.Name); err != nil &#123;</span><br><span class="line">			return nil, err</span><br><span class="line">		&#125;</span><br><span class="line">		break</span><br><span class="line">	&#125;</span><br><span class="line">	if err := rows.Err(); err != nil &#123;</span><br><span class="line">		return nil, err</span><br><span class="line">	&#125;</span><br><span class="line">	return &amp;user, nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>连接池对程序员是透明的，这里并不需要显式的从连接池里获取连接，而是通过连接池来执行查询语句。<br>Query 方法返回一个 *Rows 指针，代表结果集。</p>
+<p>要注意的是 defer rows.Close() 如果忘了关闭，可能会造成连接泄露。</p>
+<p>rows.Scan 方法有个方便的特性，如果id在数据库里是 varchar(50) 类型，我们传的参数&amp;user.ID指向int64，这依然可以工作，Scan 方法会执行自动转换。</p>
+<h3 id="c-单行查询queryrow"><a href="#c-单行查询queryrow" class="headerlink" title="c.单行查询queryrow"></a>c.单行查询queryrow</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// QueryUser1 单行查询</span><br><span class="line">func QueryUser1(id int64) (*User, error) &#123;</span><br><span class="line">	row := pool.QueryRow(&quot;select `id`, `name` from `users` where `id` = ?&quot;, id)</span><br><span class="line">	user := User&#123;&#125;</span><br><span class="line">	if err := row.Scan(&amp;user.ID, &amp;user.Name); err != nil &#123;</span><br><span class="line">		if err == sql.ErrNoRows &#123;</span><br><span class="line">			return nil, nil  // 返回 (*User)(nil) 表示查询结果不错在</span><br><span class="line">		&#125;</span><br><span class="line">		return nil, err</span><br><span class="line">	&#125;</span><br><span class="line">	return &amp;user, nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="d-插入更新删除exec"><a href="#d-插入更新删除exec" class="headerlink" title="d.插入更新删除exec"></a>d.插入更新删除exec</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// InsertUser 插入用户</span><br><span class="line">func InsertUser(name string) (int64, error) &#123;</span><br><span class="line">	res, err := pool.Exec(&quot;insert into `users` (`name`) values (?)&quot;, name)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return 0, err</span><br><span class="line">	&#125;</span><br><span class="line">	return res.LastInsertId()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// UpdateUser 更新用户</span><br><span class="line">func UpdateUser(id int64, name string) error &#123;</span><br><span class="line">	_, err := pool.Exec(&quot;update `users` set `name` = ? where `id` = ?&quot;, name, id)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return err</span><br><span class="line">	&#125;</span><br><span class="line">	return nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// DeleteUser 删除用户</span><br><span class="line">func DeleteUser(id int64) error &#123;</span><br><span class="line">	_, err := pool.Exec(&quot;delete from `users` where `id` = ?&quot;, id)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return err</span><br><span class="line">	&#125;</span><br><span class="line">	return nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="e-事务"><a href="#e-事务" class="headerlink" title="e.事务"></a>e.事务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">// UpdateFooBar 更新</span><br><span class="line">func UpdateFooBar(id int64, x, y string) (err error) &#123;</span><br><span class="line">	tx, err := pool.Begin()</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	defer func() &#123;</span><br><span class="line">		switch &#123;</span><br><span class="line">		case err != nil:</span><br><span class="line">			tx.Rollback()</span><br><span class="line">		default:</span><br><span class="line">			err = tx.Commit()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	_, err = tx.Exec(&quot;update `foo` set `x` = ? where `id` = ?&quot;, x, id)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	_, err = tx.Exec(&quot;update `bar` set `y` = ? where `id` = ?&quot;, y, id)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-mysql加锁"><a href="#3-mysql加锁" class="headerlink" title="3.mysql加锁"></a>3.mysql加锁</h2><p>读锁全表锁(LOCK TABLE 表 READ)<br>读锁行锁(SELECT … LOCK IN SHARE MODE)<br>写锁全表锁(LOCK TABLE 表 WRITE)<br>写锁行锁(SELECT … FOR UPDATE)</p>
+<p>锁总体可以分为乐观锁和悲观锁，简单说，乐观锁用版本号控制，悲观锁用锁控制。<br>乐观锁：核心原理是增加一个version的字段来控制。添加一个version字段，每个更新时where条件都加上它，并且也更新它UPDATE users SET name=”雪山飞猪”,version=version+1 WHERE id=3 AND version=0 UPDATE users SET name=”chenqionghe”,version=version+1 WHERE id=3 AND version=0。这就是最简单的CAS机制。<br>悲观锁：类似Go语言里的Mutex和RwMutex</p>
+<p>共享锁(S锁)又称读锁，若事务T对数据对象A加上S锁，则事务T可以读A但不能修改A，其他事务只能再对A加S锁，而不能加X锁，直到T释放A上的S 锁。这保证了其他事务可以读A，但在T释放A上的S锁之前不能对A做任何修改。</p>
+<p>排他锁(X锁)又称写锁。若事务T对数据对象A加上X锁，事务T可以读A也可以修改A，其他事务不能再对A加任何锁，直到T释放A上的锁。这保证了其他事务在T释放A上的锁之前不能再读取和修改A。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">写锁表锁：</span><br><span class="line">加锁：lock table kiss_share_idproducer write;</span><br><span class="line">此时其他进程无法读也无法写。</span><br><span class="line">解锁：unlock table;</span><br><span class="line">--------------------------------</span><br><span class="line">写锁行锁：</span><br><span class="line">begin;</span><br><span class="line">加锁：select * from  kiss_share_idproducer where app_id=21 for update;</span><br><span class="line">其他再加锁，等待，直到占锁的commit；</span><br><span class="line">更新：update kiss_share_idproducer set mix_id=7 where app_id=21;</span><br><span class="line">解锁：commit;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">读锁表锁：</span><br><span class="line">加锁：lock table kiss_share_idproducer read;</span><br><span class="line">此时其他进程可以读但无法写。</span><br><span class="line">解锁：unlock table;</span><br><span class="line">-------------------------------</span><br><span class="line">读锁行锁：</span><br><span class="line">加锁：select * from  kiss_share_idproducer where app_id=21 lock in share mode;</span><br><span class="line">其他再加锁，等待，直到占锁的commit；</span><br><span class="line">更新：update kiss_share_idproducer set mix_id=7 where app_id=21;</span><br><span class="line">解锁：commit;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>go的mysql操作：<a target="_blank" rel="noopener" href="https://blog.csdn.net/embinux/article/details/84031620">https://blog.csdn.net/embinux/article/details/84031620</a></p>
+<p>mysql加锁：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33838871/article/details/113566444">https://blog.csdn.net/weixin_33838871/article/details/113566444</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/golang/" rel="tag"># golang</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/19/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/2021.8.15%20%E7%AC%94%E8%AF%95%E8%AE%B0%E5%BD%95/" rel="prev" title="2021.8.15 笔试记录">
+      <i class="fa fa-chevron-left"></i> 2021.8.15 笔试记录
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/23/myblog/cpp%E4%BF%AE%E7%82%BC/Mac%E4%B8%8Bvscode%E9%85%8D%E7%BD%AEcpp%E7%8E%AF%E5%A2%83/" rel="next" title="mac下vscode配置cpp环境">
+      mac下vscode配置cpp环境 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-mysql%E5%8E%9F%E5%A7%8B%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">1.mysql原始命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-%E7%99%BB%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">a.登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-%E5%BB%BA%E8%A1%A8"><span class="nav-number">1.2.</span> <span class="nav-text">b.建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E5%AD%97%E6%AE%B5"><span class="nav-number">1.3.</span> <span class="nav-text">c.添加一个字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE"><span class="nav-number">1.4.</span> <span class="nav-text">d.修改数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-%E5%88%A0%E9%99%A4"><span class="nav-number">1.5.</span> <span class="nav-text">e.删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#f-%E6%B7%BB%E5%8A%A0%E4%B8%80%E8%A1%8C"><span class="nav-number">1.6.</span> <span class="nav-text">f.添加一行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-go%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">2.go操作数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-%E5%88%9B%E5%BB%BA%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="nav-number">2.1.</span> <span class="nav-text">a.创建连接池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-query%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.2.</span> <span class="nav-text">b.query查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-%E5%8D%95%E8%A1%8C%E6%9F%A5%E8%AF%A2queryrow"><span class="nav-number">2.3.</span> <span class="nav-text">c.单行查询queryrow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-%E6%8F%92%E5%85%A5%E6%9B%B4%E6%96%B0%E5%88%A0%E9%99%A4exec"><span class="nav-number">2.4.</span> <span class="nav-text">d.插入更新删除exec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-%E4%BA%8B%E5%8A%A1"><span class="nav-number">2.5.</span> <span class="nav-text">e.事务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-mysql%E5%8A%A0%E9%94%81"><span class="nav-number">3.</span> <span class="nav-text">3.mysql加锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jade liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jade liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

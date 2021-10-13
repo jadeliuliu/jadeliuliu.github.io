@@ -155,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/12/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/hexo/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/13/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/1.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +169,238 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/09/12/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/hexo/" class="post-title-link" itemprop="url">如何搭建一个hexo博客</a>
+            <a href="/2021/10/13/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/1.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="post-title-link" itemprop="url">java二分查找</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-10-13 19:21:50 / Modified: 20:27:40" itemprop="dateCreated datePublished" datetime="2021-10-13T19:21:50+08:00">2021-10-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>有序的序列，每次都是以序列的中间位置的数来与待查找的关键字进行比较，每次缩小一半的查找范围，直到匹配成功。</p>
+<p>一个情景：将表中间位置记录的关键字与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置记录将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以上过程，直到找到满足条件的记录，使查找成功，或直到子表不存在为止，此时查找不成功。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> algorithm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">twosplit</span> </span>&#123;</span><br><span class="line">    <span class="comment">//类内二分查找函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">commonBinarySearch</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> high = arr.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> middle = <span class="number">0</span>;            <span class="comment">//定义middle</span></span><br><span class="line">        <span class="keyword">if</span> (key &lt; arr[low] || key &gt; arr[high]) &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line">            middle = low + (high - low) / <span class="number">2</span>;  <span class="comment">//防止溢出</span></span><br><span class="line">            <span class="comment">//如果 left 和 right 足够大，mid = (left + right)/2，可能会由于 left+right 导致 int 数据类型越界。</span></span><br><span class="line">            <span class="keyword">if</span> (arr[middle] &gt; key) &#123;</span><br><span class="line">                high = middle - <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (arr[middle] &lt; key) &#123;</span><br><span class="line">                low = middle + <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> middle;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;        <span class="comment">//最后仍然没有找到，则返回-1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//输入输出+测试代码</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入有序数组：&quot;</span>);</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str = sc.nextLine();</span><br><span class="line">        String[] arr = str.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        <span class="keyword">int</span>[] nums = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nums.length; j++) &#123;</span><br><span class="line">            nums[j] = Integer.parseInt(arr[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入目标值：&quot;</span>);</span><br><span class="line">        Scanner in=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span> target = in.nextInt();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> res=commonBinarySearch(nums, target);</span><br><span class="line">        System.out.printf(<span class="string">&quot;结果：%d&quot;</span>, res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/13/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/0.%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/13/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/0.%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" class="post-title-link" itemprop="url">java数和数组输入</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-10-13 16:02:14 / Modified: 20:31:20" itemprop="dateCreated datePublished" datetime="2021-10-13T16:02:14+08:00">2021-10-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>java的输入需要依赖Scanner类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br></pre></td></tr></table></figure>
+
+<p>如果需要输入，则先声明一个Scanner对象：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Scanner s = new Scanner(System.in);</span><br></pre></td></tr></table></figure>
+
+<p>Scanner附属于输入流System.in，声明Scanner对象之后，在输入的时候需要使用<strong>next()方法</strong>系列指定输入的类型，如输入整数、输入字符串等。</p>
+<p>常用的next()方法系列：nextInt():输入整数  nextLine():输入字符串   nextDouble():输入双精度数   next():输入字符串（以空格作为分隔符）。</p>
+<p>next()方法读取到空白符就结束l；<br>nextLine()读取到回车结束也就是“\r”；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输入数字</span></span><br><span class="line"><span class="keyword">package</span> inoutput;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">number</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">float</span> x;</span><br><span class="line">        Scanner in=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        x=in.nextFloat();</span><br><span class="line">        System.out.println(x);   <span class="comment">//换行输出，输出之后自动换行</span></span><br><span class="line">        System.out.print(x);    <span class="comment">//不换行打印</span></span><br><span class="line">        System.out.printf(<span class="string">&quot;输出是：%f&quot;</span>, x);   <span class="comment">//按格式输出</span></span><br><span class="line"></span><br><span class="line">        String s1;</span><br><span class="line">        Scanner sin=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        s1=sin.next();</span><br><span class="line">        System.out.println(s1);</span><br><span class="line"></span><br><span class="line">        String s2;</span><br><span class="line">        Scanner sin2=<span class="keyword">new</span> Scanner(System.in);  <span class="comment">//每次输入之前，都需要重新来？？？</span></span><br><span class="line">        s2=sin2.nextLine();</span><br><span class="line">        System.out.println(s2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输入数组</span></span><br><span class="line"><span class="keyword">package</span> inoutput;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">nums</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//输入不定长的数组</span></span><br><span class="line">        System.out.print(<span class="string">&quot;请输入：&quot;</span>);</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str = sc.nextLine();</span><br><span class="line">        String[] arr = str.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        <span class="keyword">int</span>[] b = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; b.length; j++) &#123;</span><br><span class="line">            b[j] = Integer.parseInt(arr[j]);</span><br><span class="line">            System.out.print(b[j] + <span class="string">&quot;,&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//输入定长数组</span></span><br><span class="line">        System.out.print(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入三个数：&quot;</span>);</span><br><span class="line">        Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span>[] c=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;c.length; i++)&#123;</span><br><span class="line">            c[i]=in.nextInt();</span><br><span class="line">            System.out.print(c[i] + <span class="string">&quot;,&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/07/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/07/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">javaのleecode两数之和</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-07 10:49:32" itemprop="dateCreated datePublished" datetime="2021-10-07T10:49:32+08:00">2021-10-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-10-13 21:13:35" itemprop="dateModified" datetime="2021-10-13T21:13:35+08:00">2021-10-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。</span><br><span class="line"></span><br><span class="line">你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。</span><br><span class="line">你可以按任意顺序返回答案。</span><br><span class="line"></span><br><span class="line">输入：nums = [2,7,11,15], target = 9</span><br><span class="line">输出：[0,1]</span><br><span class="line">解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。</span><br></pre></td></tr></table></figure>
+
+<p>关于hashmap的使用：</p>
+<p>m.put(a,b)  插入<br>m.containkey(a)  查找key</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> leecode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">twonumbersum</span> </span>&#123;</span><br><span class="line">    <span class="comment">//先写功能函数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt;m = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; ++i) &#123;</span><br><span class="line">            <span class="keyword">int</span> a= target - nums[i];</span><br><span class="line">            <span class="keyword">if</span> (m.containsKey(a)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;m.get(a), i&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            m.put(nums[i], i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//再写测试函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入数组：&quot;</span>);</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str = sc.nextLine();</span><br><span class="line">        String[] arr = str.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        <span class="keyword">int</span>[] nums = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nums.length; j++) &#123;</span><br><span class="line">            nums[j] = Integer.parseInt(arr[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入目标值：&quot;</span>);</span><br><span class="line">        Scanner in=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span> target = in.nextInt();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] res=twoSum(nums, target);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> re : res) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;结果：&quot;</span>);</span><br><span class="line">            System.out.print(re + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>疑问：功能函数不是static型时，main函数也不能事static的，但是无运行按钮。除非把两个函数都变成static型。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/12/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/hexo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/12/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/hexo/" class="post-title-link" itemprop="url">如何搭建一个hexo博客</a>
         </h2>
 
         <div class="post-meta">
@@ -249,7 +480,7 @@
 <h3 id="10-首页只显示文章标题"><a href="#10-首页只显示文章标题" class="headerlink" title="10.首页只显示文章标题"></a>10.首页只显示文章标题</h3>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/09/12/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/hexo/#more" rel="contents">
+              <a class="btn" href="/2021/09/12/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/hexo/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -273,7 +504,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/Linux%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/Linux%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -287,7 +518,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/09/02/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/Linux%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">Linux日常使用</a>
+            <a href="/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/Linux%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">Linux日常使用</a>
         </h2>
 
         <div class="post-meta">
@@ -458,7 +689,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/project%E7%9B%B8%E5%85%B3/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/project%E7%9B%B8%E5%85%B3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -472,7 +703,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/09/02/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/project%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">项目相关</a>
+            <a href="/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/project%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">项目相关</a>
         </h2>
 
         <div class="post-meta">
@@ -551,7 +782,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/mysql%E5%AE%9E%E6%88%98/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/mysql%E5%AE%9E%E6%88%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -565,7 +796,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/09/02/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/mysql%E5%AE%9E%E6%88%98/" class="post-title-link" itemprop="url">Mysql实战</a>
+            <a href="/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/mysql%E5%AE%9E%E6%88%98/" class="post-title-link" itemprop="url">Mysql实战</a>
         </h2>
 
         <div class="post-meta">
@@ -706,7 +937,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/git%E5%BA%94%E7%94%A8%E4%B8%8Egithub/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/git%E5%BA%94%E7%94%A8%E4%B8%8Egithub/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -720,7 +951,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/09/02/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/git%E5%BA%94%E7%94%A8%E4%B8%8Egithub/" class="post-title-link" itemprop="url">git与github应用</a>
+            <a href="/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/git%E5%BA%94%E7%94%A8%E4%B8%8Egithub/" class="post-title-link" itemprop="url">git与github应用</a>
         </h2>
 
         <div class="post-meta">
@@ -848,7 +1079,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/27/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/MAC%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/27/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/MAC%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -862,7 +1093,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/08/27/jade's%20blog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/MAC%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">Mac日常使用</a>
+            <a href="/2021/08/27/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/MAC%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">Mac日常使用</a>
         </h2>
 
         <div class="post-meta">
@@ -949,7 +1180,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/25/jade's%20blog/JAVA/Spring%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/25/myblog/JAVA/Spring%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -963,7 +1194,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/08/25/jade's%20blog/JAVA/Spring%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/" class="post-title-link" itemprop="url">spring入门案例</a>
+            <a href="/2021/08/25/myblog/JAVA/Spring%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/" class="post-title-link" itemprop="url">spring入门案例</a>
         </h2>
 
         <div class="post-meta">
@@ -1056,443 +1287,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/25/jade's%20blog/JAVA/MAC%E4%B8%8B%E5%AE%89%E8%A3%85java%E7%8E%AF%E5%A2%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/25/jade's%20blog/JAVA/MAC%E4%B8%8B%E5%AE%89%E8%A3%85java%E7%8E%AF%E5%A2%83/" class="post-title-link" itemprop="url">mac安装和配置java环境</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-25 16:47:53" itemprop="dateCreated datePublished" datetime="2021-08-25T16:47:53+08:00">2021-08-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 22:03:14" itemprop="dateModified" datetime="2021-09-25T22:03:14+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="MAC下java环境安装"><a href="#MAC下java环境安装" class="headerlink" title="MAC下java环境安装"></a>MAC下java环境安装</h1><h2 id="1-下载jdk8并且安装"><a href="#1-下载jdk8并且安装" class="headerlink" title="1.下载jdk8并且安装"></a>1.下载jdk8并且安装</h2><p><code>java -version</code>看一下有没有安装</p>
-<p>若没有，<a target="_blank" rel="noopener" href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></p>
-<h2 id="2-配置java环境"><a href="#2-配置java环境" class="headerlink" title="2.配置java环境"></a>2.配置java环境</h2><p>我们如果要在terminal终端上使JAVA命令，还有让其实应用知道JDK1.8环境的存在，那我们还需要配置系统的环境变量。</p>
-<p>访达中，打开资源库，打开java，下面有jdk目录。</p>
-<p><code>/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home</code>  右键打开终端</p>
-<p>终端运行：<code>sudo vim/etc/profile</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=&quot;/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home&quot;</span><br><span class="line">export JAVA_HOME</span><br><span class="line">CLASS_PATH=&quot;$JAVA_HOME/lib&quot;</span><br><span class="line">PATH=&quot;.$PATH:$JAVA_HOME/bin&quot;</span><br></pre></td></tr></table></figure>
-
-<p><code>source /etc/profile  //使配置生效</code></p>
-<p><code>echo $JAVA_HOME //得到配置的路径，说明配置成功</code></p>
-<h2 id="3-vim一个java程序"><a href="#3-vim一个java程序" class="headerlink" title="3.vim一个java程序"></a>3.vim一个java程序</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">文件名需要跟java文件中的类名一致！</span><br><span class="line">public class helloworld &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(&quot;Hello World&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">javac helloworld.java   //生成.class字节码文件</span><br><span class="line">java helloworld    //运行</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-java-IDE"><a href="#4-java-IDE" class="headerlink" title="4.java IDE"></a>4.java IDE</h3><p>官网下载：<a target="_blank" rel="noopener" href="https://www.jetbrains.com/">https://www.jetbrains.com/</a></p>
-<p>下载破解包，保存在百度云中了。</p>
-<p>安装IDEA，在注册页面，选择 Evaluate for free，点击 Evaluate 试用软件</p>
-<p>将下载的破解文件夹中的 jetbrains-agent.jar 文件拖动到软件内，然后点击 Restart 重启软件</p>
-<p>重启完成之后，如果弹出了激活方式，选择 Activation code，没有弹出则不用管，复制破解文件中的 Activation code，然后选择激活，重启软件</p>
-<p>重启软件，在 Get Help 中点击 About ，可以查看激活情况</p>
-<p><strong>不得行</strong></p>
-<p>更新：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bbc7cd207a85">https://www.jianshu.com/p/bbc7cd207a85</a></p>
-<h3 id="5-用idea的第一个java程序"><a href="#5-用idea的第一个java程序" class="headerlink" title="5.用idea的第一个java程序"></a>5.用idea的第一个java程序</h3><p>![image-20210823173916506](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210823173916506.png)</p>
-<p>右键运行。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/25/jade's%20blog/JAVA/MAC%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEMaven/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/25/jade's%20blog/JAVA/MAC%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEMaven/" class="post-title-link" itemprop="url">mac安装和配置maven</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-25 12:18:11" itemprop="dateCreated datePublished" datetime="2021-08-25T12:18:11+08:00">2021-08-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 22:02:48" itemprop="dateModified" datetime="2021-09-25T22:02:48+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="MAC安装和配置Maven"><a href="#MAC安装和配置Maven" class="headerlink" title="MAC安装和配置Maven"></a>MAC安装和配置Maven</h1><h2 id="1-Maven简介"><a href="#1-Maven简介" class="headerlink" title="1.Maven简介"></a>1.Maven简介</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">背景：开发A项目，A项目中的一些功能依赖于B项目中的某些类，那么如何维系这种依赖关系？需要用哪个项目中的哪些类，也就是用别人写好了的功能代码，导入jar包即可。所以这里也如此，可以将B项目打成jar包，然后在A项目的Library下导入B的jar文件，这样，A项目就可以调用B项目中的某些类了。如果在开发过程中，发现B中的bug，则必须将B项目修改好，并重新将B打包并对A项目进行重编译操作</span><br></pre></td></tr></table></figure>
-
-<p>Maven是基于项目对象模型(POM project object model)，可以通过一小段描述信息（配置）来管理项目的构建，报告和文档的软件项目管理工具。</p>
-<p>Maven的核心功能便是合理叙述项目间的依赖关系，通俗点讲，就是通过pom.xml文件的配置获取jar包，而不用手动去添加jar包。</p>
-<p>由于Maven仓库中所有的JAR都有其自己的坐标，该坐标告诉Maven它的组ID，构件ID，版本，打包方式等等， 因此Maven项目可以方便的进行依赖版本管理。</p>
-<h2 id="2-安装和配置Maven"><a href="#2-安装和配置Maven" class="headerlink" title="2.安装和配置Maven"></a>2.安装和配置Maven</h2><p>下载地址： <a target="_blank" rel="noopener" href="https://maven.apache.org/download.cgi">https://maven.apache.org/download.cgi</a></p>
-<p>![image-20210824144100726](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824144100726.png)</p>
-<p>我下载在了<code>/Library/ApacheMaven</code></p>
-<p><code>vim ~/.bash_profile</code>  //配置环境变量</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export M=&quot;/Library/ApacheMaven&quot;  //根据自己放在哪个目录</span><br><span class="line">export PATH=&quot;$M/bin:$PATH&quot;</span><br></pre></td></tr></table></figure>
-
-<p><code>source ~/.bash_profile</code>     //使配置生效</p>
-<p><code>mvn -v</code>   //查看版本</p>
-<p>或者，可以直接<code>brew install maven</code></p>
-<h3 id="下载远程仓库到本地"><a href="#下载远程仓库到本地" class="headerlink" title="下载远程仓库到本地"></a>下载远程仓库到本地</h3><p>maven 就像是一个大仓库，里面是很多的jar包，我们需要的时候就去里面拿，所以这就涉及到一个 ‘‘本地仓库’’（不能需要什么再去网上下载吧，速度有时候很慢的）,那么咱们就得先把这些jar包下载到咱们本地方便使用，<br>默认请况下，这个本地仓库会在/user/name/.m2下面（name 是你的用户名）。为了方便，把本地仓库改在Maven安装目录下。</p>
-<p>打开安装目录下的conf目录下的<code>settings.xml</code><br>加入<code>&lt;localRepository&gt;/Library/ApacheMaven/repository &lt;/localRepository&gt;</code></p>
-<p>输入<code>mvn help:system</code></p>
-<p>![image-20210824175620786](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824175620786.png)</p>
-<p>多了一个repository文件夹，这就是咱们从远程仓库下载到本地仓库的文件。</p>
-<h2 id="3-创建Maven项目"><a href="#3-创建Maven项目" class="headerlink" title="3.创建Maven项目"></a>3.创建Maven项目</h2><h3 id="a-使用命令行创建Maven项目"><a href="#a-使用命令行创建Maven项目" class="headerlink" title="a.使用命令行创建Maven项目"></a>a.使用命令行创建Maven项目</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn archetype:generate -DgroupId=cn.xuanliu.helloword -DartifactId=helloworld -Dpackage=cn.cxuanliu.helloword -Dversion=1.0-SNAPSHOT -DarchetypeArtifactId=maven-archetype-quickstart</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>mvn</code>:表示使用的是maven命令。</li>
-<li><code>archetype:generate</code>:表示使用generate这个插件为我们的maven项目自动生成一个maven骨架，即我们项目的工程结构。后边跟的是该插件为我们创建工程结构所需要的一连串的参数。</li>
-<li><code>-DgroupId</code>:标识项目的坐标元素之一，项目包名，可以是：域名的反写+项目名。</li>
-<li><code>-DartifactId</code>:标识项目的坐标元素之一，它的值为我们的项目名。我这里指定我要生成的项目名为helloword。</li>
-<li><code>-Dpackage</code>:标识项目的坐标元素之一,这里值就跟DgroupId的值保持一致即可。此属性在命令行中可选。</li>
-<li><code>-Dversion</code>:指定版本号。此属性在命令行中可选</li>
-<li><code>-DarchetypeArtifactId</code>:表示我们生成的工程结构为哪一种，这里的属性值为<code>maven-archetype-quickstart</code>表示生成工程目录结构为quickstart的结构。其值还可以为<code>maven-archetype-webapp</code>表示生成的工程目录结构为webapp的结构。</li>
-</ul>
-<p>![image-20210824155803431](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824155803431.png)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">目录解读：在maven项目的开发中，所有的源代码放在文件夹 /src/main/java/下, 所有的单元测试代码放入 /src/test/java/。</span><br><span class="line">pom.xml 描述了整个项目的信息</span><br></pre></td></tr></table></figure>
-
-<h3 id="b-使用IDEA创建Maven项目"><a href="#b-使用IDEA创建Maven项目" class="headerlink" title="b.使用IDEA创建Maven项目"></a>b.使用IDEA创建Maven项目</h3><p><code>Create New Project</code>，选择<code>Maven</code>，勾选<code>Create from archetype</code></p>
-<p><img src="https://img2018.cnblogs.com/blog/1068501/201809/1068501-20180914191722384-1695467171.png" alt="img"></p>
-<p>写<code>Maven</code>的坐标，“groupId”，“artifactId”，以及“version”，其中groupId是公司域名的反写，而artifactId是项目名或模块名，version就是该项目或模块所对应的版本号。</p>
-<p>![image-20210824174243856](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824174243856.png)</p>
-<p>![image-20210824180029943](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824180029943.png)</p>
-<p>maven会自动下载maven依赖，当所有的都自动完成后，创建的maven项目结构如下所示： </p>
-<p>![image-20210824180441439](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824180441439.png)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">（1）在大多数情况下，把项目的主代码放到 src/main/java 目录下（遵循Maven约定），如果没有其他的配置，Maven在运行时将自动搜寻该目录下的主代码。</span><br><span class="line">（2）为了使项目的结构保持清晰，所以IDEA自动创建了 test 文件，将主代码和测试代码分别放到了独立的目录中。</span><br><span class="line">（3）pom.xml为Maven的核心配置文件，它的全称为（Project Object Model，项目对象模型），我们在使用Maven的时候也通常在这个pom .xml 中配置。</span><br></pre></td></tr></table></figure>
-
-<h4 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml:"></a>pom.xml:</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>    <span class="comment">&lt;!-- xml头，指定xml文档的版本信息和编码方式 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- &lt;project&gt;为所有pom.xml的根元素，声明了一些POM相关的命名空间及xsd元素，</span></span><br><span class="line"><span class="comment">  这些元素不是pom.xml中必须添加的，但是使用这些属性可以使第三方工具，</span></span><br><span class="line"><span class="comment">  如IDE中的xml编辑器帮助开发者快速编辑POM。 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- &lt;modeVersion&gt; 指定了当前POM模板的版本 --&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.liuxuan<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>    <span class="comment">&lt;!-- &lt;groupId&gt; 定义了该项目属于哪个项目组 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>ideamaven<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>   <span class="comment">&lt;!-- &lt;&lt;artifactId&gt;定义了当前Maven项目在项目组的唯一一个ID,项目名 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span>  <span class="comment">&lt;!--&lt;version&gt;定义了Hello Maven项目当前的版本号 1.0-SNAPSHOT 为IDEA默认的初始版本号 --&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>在没有实际的java代码时，我们就可以完整的创建一个Maven项目的pom.xml，这说明了Maven可以使项目对象模型最大程度的与代码相独立，这充分体现了解耦的原则和理念！为开发者节省了时间，大大缩短了项目开发周期。在项目开发到稳定期时，升级版本时，开发者可以不需要修改实际的 java 代码，而是只修改pom.xml，这一特点使Maven被广泛的使用。</p>
-<h2 id="4-编写主代码"><a href="#4-编写主代码" class="headerlink" title="4.编写主代码"></a>4.编写主代码</h2><p><strong>项目主代码和测试代码不同，主代码会被打包到最终的构件中，而测试代码只在运行测试时用到，不会被打包。</strong></p>
-<p><strong>在src/main/java中创建文件com/feiyu/web/helloworld/helloWorld.java</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.liuxuan;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello liuxuan&#x27;s Maven!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="keyword">new</span> hello().sayHello());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>右键运行。</p>
-<p>目录：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---pom.xml　　　　核心配置，项目根下</span><br><span class="line">---src</span><br><span class="line">　　---main　　　　　　</span><br><span class="line">　　　   ---java　　　　java源码目录</span><br><span class="line">　　     ---resources　  java配置文件目录</span><br><span class="line">　　---test</span><br><span class="line">　　　　　---java　　　　测试源码目录</span><br><span class="line">　　　　　---resources　  测试配置目录</span><br><span class="line">---target    输出目录</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-Maven仓库"><a href="#5-Maven仓库" class="headerlink" title="5.Maven仓库"></a>5.Maven仓库</h2><p>Maven 仓库是项目中依赖的第三方库，这个库所在的位置叫做仓库。在 Maven 中，任何一个依赖、插件或者项目构建的输出，都可以称之为构件。Maven 仓库能帮助我们管理构件（主要是JAR），它就是放置所有JAR文件（WAR，ZIP，POM等等）的地方。</p>
-<p>Maven 仓库有三种类型：</p>
-<ul>
-<li>本地（local）</li>
-<li>中央（central）</li>
-<li>远程（remote）</li>
-</ul>
-<h3 id="a-本地仓库"><a href="#a-本地仓库" class="headerlink" title="a.本地仓库"></a>a.本地仓库</h3><p>第一次执行 maven 命令的时候才被创建。运行 Maven 的时候，Maven 所需要的任何构件都是直接从本地仓库获取的。如果本地仓库没有，它会首先尝试从远程仓库下载构件至本地仓库，然后再使用本地仓库的构件。</p>
-<p>默认情况下，不管Linux还是 Windows，每个用户在自己的用户目录下都有一个路径名为 .m2/respository/ 的仓库目录。</p>
-<p>可以修改默认位置，改变settings.xml中的配置。<br><code>&lt;localRepository&gt;C:/MyLocalRepository&lt;/localRepository&gt;</code></p>
-<h3 id="b-中央仓库"><a href="#b-中央仓库" class="headerlink" title="b.中央仓库"></a>b.中央仓库</h3><p>Maven 中央仓库是由 Maven 社区提供的仓库，其中包含了大量常用的库。</p>
-<p>中央仓库包含了绝大多数流行的开源Java构件，以及源码、作者信息、SCM、信息、许可证信息等。一般来说，简单的Java项目依赖的构件都可以在这里下载到。</p>
-<p>中央仓库的关键概念：</p>
-<ul>
-<li>这个仓库由 Maven 社区管理。</li>
-<li>不需要配置。</li>
-<li>需要通过网络才能访问。</li>
-</ul>
-<p>要浏览中央仓库的内容，maven 社区提供了一个 URL：<a target="_blank" rel="noopener" href="http://search.maven.org/#browse%E3%80%82%E4%BD%BF%E7%94%A8%E8%BF%99%E4%B8%AA%E4%BB%93%E5%BA%93%EF%BC%8C%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E5%8F%AF%E4%BB%A5%E6%90%9C%E7%B4%A2%E6%89%80%E6%9C%89%E5%8F%AF%E4%BB%A5%E8%8E%B7%E5%8F%96%E7%9A%84%E4%BB%A3%E7%A0%81%E5%BA%93%E3%80%82">http://search.maven.org/#browse。使用这个仓库，开发人员可以搜索所有可以获取的代码库。</a></p>
-<h3 id="c-远程仓库"><a href="#c-远程仓库" class="headerlink" title="c.远程仓库"></a>c.远程仓库</h3><p>中央仓库是一些常用的库？远程仓库是开发人员自己定制仓库，包含了所需要的代码库或者其他工程中用到的 jar 文件。</p>
-<h3 id="d-Maven依赖搜索顺序"><a href="#d-Maven依赖搜索顺序" class="headerlink" title="d.Maven依赖搜索顺序"></a>d.Maven依赖搜索顺序</h3><ul>
-<li><strong>步骤 1</strong> － 在本地仓库中搜索，如果找不到，执行步骤 2，如果找到了则执行其他操作。</li>
-<li><strong>步骤 2</strong> － 在中央仓库中搜索，如果找不到，并且有一个或多个远程仓库已经设置，则执行步骤 4，如果找到了则下载到本地仓库中以备将来引用。</li>
-<li><strong>步骤 3</strong> － 如果远程仓库没有被设置，Maven 将简单的停滞处理并抛出错误（无法找到依赖的文件）。</li>
-<li><strong>步骤 4</strong> － 在一个或多个远程仓库中搜索依赖的文件，如果找到则下载到本地仓库以备将来引用，否则 Maven 将停止处理并抛出错误（无法找到依赖的文件）。</li>
-</ul>
-<h3 id="e-更换Maven阿里云仓库"><a href="#e-更换Maven阿里云仓库" class="headerlink" title="e.更换Maven阿里云仓库"></a>e.更换Maven阿里云仓库</h3><p>Maven根目录下，conf文件夹下setting.xml文件，mirrors节点上修改。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirrors&gt;</span><br><span class="line">  &lt;mirror&gt;</span><br><span class="line">    &lt;id&gt;alimaven&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;aliyun maven&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span><br><span class="line">    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;</span><br><span class="line">  &lt;/mirror&gt;</span><br><span class="line">&lt;/mirrors&gt;</span><br></pre></td></tr></table></figure>
-
-<p>第二步：pom.xml文件里添加：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;repositories&gt;  </span><br><span class="line">        &lt;repository&gt;  </span><br><span class="line">            &lt;id&gt;alimaven&lt;/id&gt;  </span><br><span class="line">            &lt;name&gt;aliyun maven&lt;/name&gt;  </span><br><span class="line">            &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;  </span><br><span class="line">            &lt;releases&gt;  </span><br><span class="line">                &lt;enabled&gt;true&lt;/enabled&gt;  </span><br><span class="line">            &lt;/releases&gt;  </span><br><span class="line">            &lt;snapshots&gt;  </span><br><span class="line">                &lt;enabled&gt;false&lt;/enabled&gt;  </span><br><span class="line">            &lt;/snapshots&gt;  </span><br><span class="line">        &lt;/repository&gt;  </span><br><span class="line">&lt;/repositories&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="6-Maven命令"><a href="#6-Maven命令" class="headerlink" title="6.Maven命令"></a>6.Maven命令</h2><p><code>maven -version   Maven版本及控制信息</code></p>
-<p><code>mvn archetype:create  -DgroupId=   DartifactId=   构建java项目</code>   </p>
-<p><code>mvn archetype:create  -DgroupId=   DartifactId=   -DarchetypeArtifactId=maven-archetype-webapp ls创建web项目</code></p>
-<p><code>mvn compile     编译源代码</code>     </p>
-<p><code>mvn test-compile    编译测试代码</code></p>
-<p><code>mvn clean   打包前清理掉之前有过打包的文件夹target</code></p>
-<p><code>mvn package  打包，package包括了编译、打包这两步</code>    </p>
-<p>![image-20210825113016694](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210825113016694.png)</p>
-<p><code>mvn install   将打包好的jar包部署到本地，放到本地仓库</code> </p>
-<h2 id="7-运行jar包"><a href="#7-运行jar包" class="headerlink" title="7.运行jar包"></a>7.运行jar包</h2><p><code>java -jar ideamaven-1.0-SNAPSHOT.jar</code></p>
-<p>问题：<code>ideamaven-1.0-SNAPSHOT.jar中没有主清单属性</code></p>
-<p>解决：找不到<code>main</code>方法，需要在<code>pom.xml</code>配置<code>main</code>方法的位置。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--  添加main方法   --&gt;</span><br><span class="line">&lt;plugin&gt;</span><br><span class="line">  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;1.2.1&lt;/version&gt;</span><br><span class="line">  &lt;executions&gt;</span><br><span class="line">    &lt;execution&gt;</span><br><span class="line">      &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">      &lt;goals&gt;</span><br><span class="line">        &lt;goal&gt;shade&lt;/goal&gt;</span><br><span class="line">      &lt;/goals&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;transformers&gt;</span><br><span class="line">          &lt;transformer implementation=&quot;org.apache.maven.plugins.shade.resource.ManifestResourceTransformer&quot;&gt;</span><br><span class="line">            &lt;!-- 在这里指定入口类 --&gt;</span><br><span class="line">            &lt;mainClass&gt;com.liuxuan.hello&lt;/mainClass&gt;</span><br><span class="line">          &lt;/transformer&gt;</span><br><span class="line">        &lt;/transformers&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/execution&gt;</span><br><span class="line">  &lt;/executions&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
-
-<p>mvn打包和jar包运行问题未解决。</p>
-<p>问题：<code>Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.0:compile (default-compile) on project ideamaven: Compilation failure</code></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://console.cloud.baidu-int.com/devops/icode/repos/baidu/netdisk/platform-idproducter/reviews/18480257/files/base...latest/service/create_service.go">https://console.cloud.baidu-int.com/devops/icode/repos/baidu/netdisk/platform-idproducter/reviews/18480257/files/base...latest/service/create_service.go</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wfy2695766757/article/details/81189291">https://blog.csdn.net/wfy2695766757/article/details/81189291</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/23/jade's%20blog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-Vue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/23/jade's%20blog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-Vue/" class="post-title-link" itemprop="url">前端寄出-vue</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-23 14:57:27" itemprop="dateCreated datePublished" datetime="2021-08-23T14:57:27+08:00">2021-08-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 21:56:43" itemprop="dateModified" datetime="2021-09-25T21:56:43+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="VUE"><a href="#VUE" class="headerlink" title="VUE"></a>VUE</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。</p>
-<p>Vue 的目标是通过尽可能简单的 API 实现响应的数据绑定和组合的视图组件。</p>
-<h2 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h2><h3 id="1-CDN方法"><a href="#1-CDN方法" class="headerlink" title="(1)CDN方法"></a>(1)CDN方法</h3><p>在页面上以 CDN 包的形式导入。<br><code>&lt;script src=&quot;https://unpkg.com/vue@next&quot;&gt;&lt;/script&gt;</code></p>
-<blockquote>
-<p>CDN的全称是Content Delivery Network，即内容分发网络。CDN是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。CDN的关键技术主要有内容存储和分发技术。</p>
-<p>由于CDN是为加快网络访问速度而被优化的网络覆盖层，因此被形象地称为“网络加速器”。</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.staticfile.org/vue/2.2.2/vue.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span>    </span><br><span class="line">//<span class="tag">&lt;<span class="name">div</span>&gt;</span> 标签可以把文档分割为独立的、不同的部分。它可以用作严格的组织工具，并且不使用任何格式与其关联。用 id 或 class 来标记 <span class="tag">&lt;<span class="name">div</span>&gt;</span>，那么该标签的作用会变得更加有效。</span><br><span class="line">//如果与 CSS 一同使用，<span class="tag">&lt;<span class="name">div</span>&gt;</span> 元素可用于对大的内容块设置样式属性。</span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">//&#123;&#123; &#125;&#125; 用于输出对象属性和函数返回值。</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">  <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,   <span class="comment">//id选择器</span></span></span><br><span class="line"><span class="javascript">  <span class="attr">data</span>: &#123;         <span class="comment">//输出什么东西？</span></span></span><br><span class="line"><span class="javascript">    <span class="attr">message</span>: <span class="string">&#x27;Hello Vue.js!&#x27;</span></span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">&#125;)</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-使用npm方法"><a href="#2-使用npm方法" class="headerlink" title="(2)使用npm方法"></a>(2)使用npm方法</h3><p>npm run dev</p>
-<p>Vue.js 提供一个官方命令行工具vue-cli，可用于快速搭建大型单页应用。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 全局安装 vue-cli</span><br><span class="line">$ cnpm install --global vue-cli</span><br><span class="line"># 创建一个基于 webpack 模板的新项目</span><br><span class="line">$ vue init webpack my-project</span><br><span class="line"></span><br><span class="line">安装及运行：</span><br><span class="line">$ cd my-project</span><br><span class="line">$ cnpm install</span><br><span class="line">$ cnpm run dev</span><br><span class="line"></span><br><span class="line">项目打包：</span><br><span class="line">npm run build</span><br><span class="line">执行完成后，会在 Vue 项目下生成一个 dist 目录，一般包含 index.html 文件及 static 目录，static 目录包含了静态文件 js、css 以及图片目录 images。</span><br><span class="line">直接双击 dist/index.html 文件就可以在浏览器中看到效果了。</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-VUE项目"><a href="#3-VUE项目" class="headerlink" title="3.VUE项目"></a>3.VUE项目</h2><h3 id="1-项目目录"><a href="#1-项目目录" class="headerlink" title="(1)项目目录"></a>(1)项目目录</h3><table>
-<thead>
-<tr>
-<th align="left">目录/文件</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">build</td>
-<td align="left">项目构建(webpack)相关代码</td>
-</tr>
-<tr>
-<td align="left">config</td>
-<td align="left">配置目录，包括端口号等。我们初学可以使用默认的。</td>
-</tr>
-<tr>
-<td align="left">node_modules</td>
-<td align="left">npm 加载的项目依赖模块</td>
-</tr>
-<tr>
-<td align="left">src</td>
-<td align="left">这里是我们要开发的目录，基本上要做的事情都在这个目录里。里面包含了几个目录及文件：assets: 放置一些图片，如logo等。components: 目录里面放了一个组件文件，可以不用。App.vue: 项目入口文件，我们也可以直接将组件写这里，而不使用 components 目录。main.js: 项目的核心文件。</td>
-</tr>
-<tr>
-<td align="left">static</td>
-<td align="left">静态资源目录，如图片、字体等。</td>
-</tr>
-<tr>
-<td align="left">test</td>
-<td align="left">初始测试目录，可删除</td>
-</tr>
-<tr>
-<td align="left">.xxxx文件</td>
-<td align="left">这些是一些配置文件，包括语法配置，git配置等。</td>
-</tr>
-<tr>
-<td align="left">index.html</td>
-<td align="left">首页入口文件，你可以添加一些 meta 信息或统计代码啥的。</td>
-</tr>
-<tr>
-<td align="left">package.json</td>
-<td align="left">项目配置文件。</td>
-</tr>
-<tr>
-<td align="left">README.md</td>
-<td align="left">项目的说明文档，markdown 格式</td>
-</tr>
-</tbody></table>
-<p>app.vue:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 展示模板 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./assets/logo.png&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hello</span>&gt;</span><span class="tag">&lt;/<span class="name">hello</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="comment">// 导入组件</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> Hello <span class="keyword">from</span> <span class="string">&#x27;./components/Hello&#x27;</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  <span class="attr">name</span>: <span class="string">&#x27;app&#x27;</span>,</span></span><br><span class="line"><span class="javascript">  <span class="attr">components</span>: &#123;</span></span><br><span class="line"><span class="javascript">    Hello</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">&#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 样式代码 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-id">#app</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="attribute">font-family</span>: <span class="string">&#x27;Avenir&#x27;</span>, Helvetica, Arial, sans-serif;</span></span><br><span class="line"><span class="css">  -webkit-<span class="attribute">font-smoothing</span>: antialiased;</span></span><br><span class="line"><span class="css">  -moz-osx-<span class="attribute">font-smoothing</span>: grayscale;</span></span><br><span class="line"><span class="css">  <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">  <span class="attribute">color</span>: <span class="number">#2c3e50</span>;</span></span><br><span class="line"><span class="css">  <span class="attribute">margin-top</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-template标签"><a href="#2-template标签" class="headerlink" title="(2)template标签"></a>(2)template标签</h3><p>使用 <code>&lt;template&gt;</code> 保留页面加载时隐藏的内容。使用 JavaScript 来显示：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;h1&gt;template 元素&lt;/h1&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;单击下面的按钮，显示 template 元素中的隐藏内容。&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;button onclick=&quot;showContent()&quot;&gt;显示隐藏的内容&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;     //点击按钮才会显示，JavaScript响应事件</span><br><span class="line">  &lt;h2&gt;Flower&lt;/h2&gt;</span><br><span class="line">  &lt;img src=&quot;/i/photo/flower.gif&quot; width=&quot;180&quot; height=&quot;180&quot;&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">function showContent() &#123;</span><br><span class="line">  var temp = document.getElementsByTagName(&quot;template&quot;)[0];</span><br><span class="line">  var clon = temp.content.cloneNode(true);</span><br><span class="line">  document.body.appendChild(clon);</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-vue应用"><a href="#3-vue应用" class="headerlink" title="(3)vue应用"></a>(3)vue应用</h3><p>每个 Vue 应用都需要通过实例化 Vue 来实现。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  // 选项</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Vue 测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.staticfile.org/vue/2.4.2/vue.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;vue_det&quot;</span>&gt;</span>   //块儿</span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>site : &#123;&#123;site&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>url : &#123;&#123;url&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Alexa : &#123;&#123;alexa&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 我们的数据对象</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> data = &#123; <span class="attr">site</span>: <span class="string">&quot;hello&quot;</span>, <span class="attr">url</span>: <span class="string">&quot;www.runoob.com&quot;</span>, <span class="attr">alexa</span>: <span class="number">10000</span>&#125;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;    <span class="comment">//vue应用</span></span></span><br><span class="line"><span class="javascript">        <span class="attr">el</span>: <span class="string">&#x27;#vue_det&#x27;</span>,    <span class="comment">//id选择器</span></span></span><br><span class="line"><span class="javascript">        <span class="attr">data</span>: data       <span class="comment">//数据，在外面</span></span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 它们引用相同的对象！</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.write(vm.site === data.site) <span class="comment">// true</span></span></span><br><span class="line"><span class="javascript">	<span class="built_in">document</span>.write(<span class="string">&quot;&lt;br&gt;&quot;</span>)</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 设置属性也会影响到原始数据</span></span></span><br><span class="line"><span class="javascript">    vm.site = <span class="string">&quot;Runoob&quot;</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.write(data.site + <span class="string">&quot;&lt;br&gt;&quot;</span>) <span class="comment">// Runoob</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// ……反之亦然</span></span></span><br><span class="line"><span class="javascript">    data.alexa = <span class="number">1234</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.write(vm.alexa) <span class="comment">// 1234</span></span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>当一个 Vue 实例被创建时，它向 Vue 的响应式系统中加入了其 data 对象中能找到的所有的属性。当这些属性的值发生改变时，html 视图将也会产生相应的变化。</p>
-<h2 id="4-vscode运行html"><a href="#4-vscode运行html" class="headerlink" title="4.vscode运行html"></a>4.vscode运行html</h2><p>(1).新建.html文件</p>
-<p>(2).安装open in browser插件</p>
-<p>(3).html页面右键选择open in other browser</p>
-<h2 id="5-vue项目不用localhost"><a href="#5-vue项目不用localhost" class="headerlink" title="5.vue项目不用localhost"></a>5.vue项目不用localhost</h2><p>改变config下index.js里的ip，也是本机的私有ip，公网内的其他ip可访问。前提：一个公网。</p>
-<h2 id="6-项目解读"><a href="#6-项目解读" class="headerlink" title="6.项目解读"></a>6.项目解读</h2><p>main.js 像是加vue应用的。</p>
-<p>.vue 里面有<code>&lt;template&gt;</code> <code>&lt;script&gt;</code> <code>&lt;style&gt;</code></p>
-<p>首页入口文件：index.html</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width,initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>myfirstvue<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- built files will be auto injected --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>项目入口文件：App.vue</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./assets/logo.png&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-view</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  <span class="attr">name</span>: <span class="string">&#x27;App&#x27;</span></span></span><br><span class="line"><span class="javascript">&#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-id">#app</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="attribute">font-family</span>: <span class="string">&#x27;Avenir&#x27;</span>, Helvetica, Arial, sans-serif;</span></span><br><span class="line"><span class="css">  -webkit-<span class="attribute">font-smoothing</span>: antialiased;</span></span><br><span class="line"><span class="css">  -moz-osx-<span class="attribute">font-smoothing</span>: grayscale;</span></span><br><span class="line"><span class="css">  <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">  <span class="attribute">color</span>: <span class="number">#2c3e50</span>;</span></span><br><span class="line"><span class="css">  <span class="attribute">margin-top</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>ES6：全称 ECMAScript 6.0 ，是 JavaScript 的下一个版本标准，2015.06 发版。</p>
-<p>ES6 主要是为了解决 ES5 的先天不足，比如 JavaScript 里并没有类的概念，但是目前浏览器的 JavaScript 是 ES5 版本，大多数高版本的浏览器也支持 ES6，不过只实现了 ES6 的部分特性和功能。</p>
-<h3 id="export-default"><a href="#export-default" class="headerlink" title="export default"></a>export default</h3><p>用于导出常量、函数、文件、模块等。</p>
-<p>export可以有多个，export default只能有一个</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hello.vue中：</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;HelloWorld&#x27;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &#x27;Welcome to Your Vue.js App&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-vscode打开终端"><a href="#7-vscode打开终端" class="headerlink" title="7.vscode打开终端"></a>7.vscode打开终端</h3><p>ctrl+·（左上角esc下面的）</p>
-<p>或：查看-&gt;终端</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1561,20 +1355,20 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
