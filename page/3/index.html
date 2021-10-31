@@ -155,6 +155,226 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-JavaScript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-JavaScript/" class="post-title-link" itemprop="url">前端寄出-JavaScript</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-19 19:54:01" itemprop="dateCreated datePublished" datetime="2021-08-19T19:54:01+08:00">2021-08-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-25 21:56:19" itemprop="dateModified" datetime="2021-09-25T21:56:19+08:00">2021-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a><strong>JavaScript</strong></h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>JavaScript 是脚本语言，可用于 HTML 和 web，更可广泛用于服务器、PC、笔记本电脑、平板电脑和智能手机等设备。<br>JavaScript 是一种轻量级的编程语言。<br>JavaScript 是可插入 HTML 页面的编程代码。<br>JavaScript 插入 HTML 页面后，可由所有的现代浏览器执行。<br>JavaScript 语句向浏览器发出的命令。语句的作用是告诉浏览器该做什么。</p>
+<p>作用：直接写入html输出流。对事件做出反应。改变HTML内容。改变HTML图像。改变HTML样式。验证输入。等</p>
+<p>JavaScript 与 Java 是两种完全不同的语言，无论在概念上还是设计上。</p>
+<p>Java（由 Sun 发明）是更复杂的编程语言。</p>
+<p>JavaScript 由 Brendan Eich 发明。它于 1995 年出现，被 ECMA（一个标准协会）采纳。。</p>
+<h2 id="2-用法"><a href="#2-用法" class="headerlink" title="2.用法"></a>2.用法</h2><h3 id="1-内部方式"><a href="#1-内部方式" class="headerlink" title="(1)内部方式"></a>(1)内部方式</h3><p>脚本必须位于<code> &lt;script&gt;</code> 与 <code>&lt;/script&gt;</code> 标签之间。<br>脚本可被放置在 HTML 页面的 <code>&lt;body&gt; </code>和 <code>&lt;head&gt; </code>部分中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt; </span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt; </span><br><span class="line">&lt;title&gt;标题&lt;/title&gt; </span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	</span><br><span class="line">&lt;h1&gt;我的第一段 JavaScript&lt;/h1&gt;</span><br><span class="line">&lt;p id=&quot;demo&quot;&gt;</span><br><span class="line">JavaScript 能改变 HTML 元素的样式。</span><br><span class="line">&lt;/p&gt;</span><br><span class="line">&lt;script&gt;       //可以在body，也可以在head</span><br><span class="line">function myFunction()       //函数作用：捕获元素之后改变样式</span><br><span class="line">&#123;</span><br><span class="line">	x=document.getElementById(&quot;demo&quot;) // 找到元素  getElementById函数捕获id选择器</span><br><span class="line">	x.style.color=&quot;#ff0000&quot;;          // 改变样式</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;button type=&quot;button&quot; onclick=&quot;myFunction()&quot;&gt;点击这里&lt;/button&gt;  //使用函数</span><br><span class="line">	</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-外部方式"><a href="#2-外部方式" class="headerlink" title="(2)外部方式"></a>(2)外部方式</h3><p>以把脚本保存到外部文件中。外部文件通常包含被多个网页使用的代码。外部 JavaScript 文件的文件扩展名是 .js。</p>
+<p>导入方式：在 <code>&lt;script&gt;</code> 标签的 “src” 属性中设置该 .js 文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">&lt;script src=&quot;myScript.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-JavaScript输出"><a href="#3-JavaScript输出" class="headerlink" title="3.JavaScript输出"></a>3.JavaScript输出</h2><p>JavaScript 可以通过不同的方式来输出数据：<br>使用 window.alert() 弹出警告框。</p>
+<p>使用 document.write() 方法将内容写到 HTML 文档中。</p>
+<p>使用 innerHTML 写入到 HTML元素。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">document.getElementById(&quot;demo&quot;).innerHTML=&quot;段落已修改。&quot;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用 console.log() 写入到浏览器的控制台。</p>
+<h2 id="4-JavaScript语法"><a href="#4-JavaScript语法" class="headerlink" title="4.JavaScript语法"></a>4.JavaScript语法</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var points = 10;     // Number 通过表达式字面量赋值</span><br><span class="line">var lastName = &quot;Johnson&quot;;   // String 通过字符串字面量赋值</span><br><span class="line">var cars = [&quot;Saab&quot;, &quot;Volvo&quot;, &quot;BMW&quot;];    // Array  通过数组字面量赋值</span><br><span class="line">var person = &#123;firstName:&quot;John&quot;, lastName:&quot;Doe&quot;&#125;;  // Object 通过对象字面量赋值</span><br><span class="line">使用：对象是拥有属性和方法的数据。对象键值对的形式。</span><br><span class="line">name=person.lastname;</span><br><span class="line">name=person[&quot;lastname&quot;];</span><br></pre></td></tr></table></figure>
+
+<p>JavaScript 是脚本语言，浏览器会在读取代码时，逐行地执行脚本代码。而对于传统编程来说，会在执行前对所有代码进行编译。</p>
+<p>值类型(基本类型)：字符串（String）、数字(Number)、布尔(Boolean)、对空（Null）、未定义（Undefined）、Symbol。<br>引用数据类型：对象(Object)、数组(Array)、函数(Function)。<br>JavaScript 拥有动态类型。这意味着相同的变量可用作不同的类型。<br>JavaScript 只有一种数字类型。数字可以带小数点，也可以不带。</p>
+<h2 id="5-JavaScript事件"><a href="#5-JavaScript事件" class="headerlink" title="5.JavaScript事件"></a>5.JavaScript事件</h2><p>HTML 事件是发生在 HTML 元素上的事情。<br>当在 HTML 页面中使用 JavaScript 时， JavaScript 可以触发这些事件。<br>HTML 事件可以是浏览器行为，也可以是用户行为。<br>以下是 HTML 事件的实例：<br>HTML 页面完成加载<br>HTML input 字段改变时<br>HTML 按钮被点击</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt; </span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt; </span><br><span class="line">&lt;title&gt;标题&lt;/title&gt; </span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;button onclick=&quot;displayDate()&quot;&gt;点这里&lt;/button&gt;  </span><br><span class="line">//事件，onclick属性对应了script里的函数，点击运行script里的函数</span><br><span class="line">&lt;script&gt;</span><br><span class="line">function displayDate()&#123;</span><br><span class="line">	document.getElementById(&quot;demo&quot;).innerHTML=Date();</span><br><span class="line">&#125;      //写入html元素</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;p id=&quot;demo&quot;&gt;&lt;/p&gt;  //id选择器找元素</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-JavaScript数据类型"><a href="#6-JavaScript数据类型" class="headerlink" title="6.JavaScript数据类型"></a>6.JavaScript数据类型</h2><h3 id="1-字符串与对象"><a href="#1-字符串与对象" class="headerlink" title="(1)字符串与对象"></a>(1)字符串与对象</h3><p>var x = “John”;<br>var y = new String(“John”);<br>(x === y) // 结果为 false，因为 x 是字符串，y 是对象</p>
+<p>两个数字相加，返回数字相加的和，如果数字与字符串相加，返回字符串</p>
+<p>你可以使用 typeof 操作符来检测变量的数据类型。<br>typeof “John”                // 返回 string</p>
+<h3 id="2-undefined-和-null-的区别"><a href="#2-undefined-和-null-的区别" class="headerlink" title="(2)undefined 和 null 的区别"></a>(2)undefined 和 null 的区别</h3><p>null 和 undefined 的值相等，但类型不等：<br>typeof undefined             // undefined<br>typeof null                  // object<br>null === undefined           // false<br>null == undefined            // true<br>在严格的比较运算中，=== 为恒等计算符，同时检查表达式的值与类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">1、定义</span><br><span class="line"> （1）undefined：是所有没有赋值变量的默认值，自动赋值。</span><br><span class="line"> （2）null：主动释放一个变量引用的对象，表示一个变量不再指向任何对象地址。</span><br><span class="line">2、何时使用null?</span><br><span class="line">当使用完一个比较大的对象时，需要对其进行释放内存时，设置为 null。</span><br><span class="line">3、null 与 undefined 的异同点是什么呢？</span><br><span class="line">共同点：都是原始类型，保存在栈中变量本地。</span><br><span class="line">不同点：</span><br><span class="line">（1）undefined——表示变量声明过但并未赋过值。</span><br><span class="line">它是所有未赋值变量默认值，例如：</span><br><span class="line">var a;    // a 自动被赋值为 undefined</span><br><span class="line">（2）null——表示一个变量将来可能指向一个对象。</span><br><span class="line">一般用于主动释放指向对象的引用，例如：</span><br><span class="line">var emps = [&#x27;ss&#x27;,&#x27;nn&#x27;];</span><br><span class="line">emps = null;     // 释放指向数组的引用</span><br><span class="line">4、延伸——垃圾回收站</span><br><span class="line">它是专门释放对象内存的一个程序。</span><br><span class="line"> （1）在底层，后台伴随当前程序同时运行；引擎会定时自动调用垃圾回收期；</span><br><span class="line"> （2）总有一个对象不再被任何变量引用时，才释放。</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-类型转换"><a href="#3-类型转换" class="headerlink" title="(3)类型转换"></a>(3)类型转换</h3><p>JavaScript 数据类型：<br>在 JavaScript 中有 6 种不同的数据类型：string、number、boolean、object、function、symbol<br>3 种对象类型：Object、Date、Array<br>2 个不包含任何值的数据类型：null、undefined</p>
+<p>Number() 转换为数字， String() 转换为字符串， Boolean() 转换为布尔值。</p>
+<h3 id="4-声明提升"><a href="#4-声明提升" class="headerlink" title="(4)声明提升"></a>(4)声明提升</h3><p>JavaScript 中，函数及变量的声明都将被提升到函数的最顶部。<br>JavaScript 中，变量可以在使用后声明，也就是变量可以先使用再声明。<br>声明提升：函数声明和变量声明总是会被解释器悄悄地被”提升”到方法体的最顶部。<br>但是：只有声明会提升，初始化不会。</p>
+<h2 id="7-正则表达式"><a href="#7-正则表达式" class="headerlink" title="7.正则表达式"></a>7.正则表达式</h2><p>正则表达式：使用单个字符串来描述、匹配一系列符合某个句法规则的字符串搜索模式。<br>搜索模式可用于文本搜索和文本替换。</p>
+<p>正则表达式可用于所有文本搜索和文本替换的操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var patt = /runoob/i</span><br><span class="line">实例解析：</span><br><span class="line">/runoob/i  是一个正则表达式。</span><br><span class="line">runoob  是一个正则表达式主体 (用于检索)。</span><br><span class="line">i  是一个修饰符 (搜索不区分大小写)。</span><br></pre></td></tr></table></figure>
+
+<p>在 JavaScript 中，正则表达式通常用于两个字符串方法 : search() 和 replace()。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">search() 方法 用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串，并返回子串的起始位置。</span><br><span class="line">replace() 方法 用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。</span><br></pre></td></tr></table></figure>
+
+<p>正则表达式修饰符：<br>i    执行对大小写不敏感的匹配。<br>g    执行全局匹配（查找所有匹配而非在找到第一个匹配后停止）。<br>m    执行多行匹配。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test() 方法用于检测一个字符串是否匹配某个模式，如果字符串中含有匹配的文本，则返回 true，否则返回 false。</span><br><span class="line">var patt = /e/;</span><br><span class="line">patt.test(&quot;The best things in life are free!&quot;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">exec() 方法用于检索字符串中的正则表达式的匹配。</span><br><span class="line">该函数返回一个数组，其中存放匹配的结果。如果未找到匹配，则返回值为 null。</span><br><span class="line">/e/.exec(&quot;The best things in life are free!&quot;);</span><br><span class="line">字符串中含有 &quot;e&quot;，所以该实例输出为:e</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-JavaScript错误"><a href="#8-JavaScript错误" class="headerlink" title="8.JavaScript错误"></a>8.JavaScript错误</h2><p>try 语句测试代码块的错误。<br>catch 语句处理错误。<br>throw 语句创建自定义错误。<br>finally 语句在 try 和 catch 语句之后，无论是否有触发异常，该语句都会执行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">实现一个输入框，输入5-10之间数字，如果错误则报错，每次输入完自动清空输入框</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;菜鸟教程(runoob.com)&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p&gt;不管输入是否正确，输入框都会再输入后清空。&lt;/p&gt;</span><br><span class="line">&lt;p&gt;请输入 5 ~ 10 之间的数字：&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;input id=&quot;demo&quot; type=&quot;text&quot;&gt;    //输入框</span><br><span class="line">&lt;button type=&quot;button&quot; onclick=&quot;myFunction()&quot;&gt;点我&lt;/button&gt;  //按钮触发函数</span><br><span class="line"></span><br><span class="line">&lt;p id=&quot;p01&quot;&gt;&lt;/p&gt;    //用来输出错误信息的段落</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">function myFunction() &#123;</span><br><span class="line">  var message, x;</span><br><span class="line">  message = document.getElementById(&quot;p01&quot;);   //输出错误信息用</span><br><span class="line">  x = document.getElementById(&quot;demo&quot;).value;     //获得输入框的东西</span><br><span class="line">  try &#123;                                   //判断，抛出错误</span><br><span class="line">    if(x == &quot;&quot;) throw &quot;值是空的&quot;;</span><br><span class="line">    if(isNaN(x)) throw &quot;值不是一个数字&quot;;</span><br><span class="line">    x = Number(x);</span><br><span class="line">    if(x &gt; 10) throw &quot;太大&quot;;</span><br><span class="line">    if(x &lt; 5) throw &quot;太小&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">  catch(err) &#123;</span><br><span class="line">    message.innerHTML = &quot;错误: &quot; + err + &quot;.&quot;;     //错误信息写入元素中</span><br><span class="line">  &#125;</span><br><span class="line">  finally &#123;</span><br><span class="line">    document.getElementById(&quot;demo&quot;).value = &quot;&quot;;  //清空输入框</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="9-JavaScript表单"><a href="#9-JavaScript表单" class="headerlink" title="9.JavaScript表单"></a>9.JavaScript表单</h2><p>HTML 表单验证可以通过 JavaScript 来完成。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实现：输入一个东西，弹出新页表，提示输入的是什么</span></span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">function validateForm() &#123;       //进行验证的函数</span><br><span class="line">    var x = document.forms[&quot;myForm&quot;][&quot;fname&quot;].value;</span><br><span class="line">    if (x == null || x == &quot;&quot;) &#123;</span><br><span class="line">        alert(&quot;需要输入名字。&quot;);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;form name=&quot;myForm&quot; action=&quot;demo_form.php&quot;      //表单，有一些属性</span><br><span class="line">onsubmit=&quot;return validateForm()&quot; method=&quot;post&quot;&gt;</span><br><span class="line">名字: &lt;input type=&quot;text&quot; name=&quot;fname&quot;&gt;      //一个文本输入框</span><br><span class="line">&lt;input type=&quot;submit&quot; value=&quot;提交&quot;&gt;       //一个提交按钮</span><br><span class="line">&lt;/form&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-CSS%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-CSS%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8/" class="post-title-link" itemprop="url">前端寄出-CSS层叠样式表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-19 19:53:06" itemprop="dateCreated datePublished" datetime="2021-08-19T19:53:06+08:00">2021-08-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-25 21:55:28" itemprop="dateModified" datetime="2021-09-25T21:55:28+08:00">2021-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><p>CSS被用来同时控制多重网页的样式和布局。</p>
+<p>通过使用 CSS，所有的格式化均可从 HTML 中剥离出来，并存储于一个独立的文件中。</p>
+<p>CSS 指层叠样式表 (Cascading Style Sheets)<br>样式定义如何显示 HTML 元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;标题&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">body</span><br><span class="line">&#123;</span><br><span class="line">	background-color:#d0e4fe;</span><br><span class="line">&#125;</span><br><span class="line">h1    //h1是选择器</span><br><span class="line">&#123;          //大括号里是一条或多条声明</span><br><span class="line">	color:orange;     //每一条声明由属性和值组成 ：分开</span><br><span class="line">	text-align:center;</span><br><span class="line">&#125;</span><br><span class="line">p</span><br><span class="line">&#123;</span><br><span class="line">	font-family:&quot;Times New Roman&quot;;</span><br><span class="line">	font-size:20px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;     //style元素在head元素里</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;h1&gt;CSS 实例!&lt;/h1&gt;</span><br><span class="line">&lt;p&gt;这是一个段落。&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="1-语法"><a href="#1-语法" class="headerlink" title="1.语法"></a>1.语法</h2><p>CSS 规则由两个主要的部分构成：选择器，以及一条或多条声明:<br>选择器通常是您需要改变样式的 HTML 元素。<br>每条声明由一个属性和一个值组成。<br>属性（property）是您希望设置的样式属性（style attribute）。每个属性有一个值。属性和值被冒号分开。<br>css中，也就是<code>&lt;style&gt;</code>中，注释是 /*   */</p>
+<h2 id="2-id选择器"><a href="#2-id选择器" class="headerlink" title="2.id选择器"></a>2.id选择器</h2><p>id 选择器可以为标有特定 id 的 HTML 元素指定特定的样式。</p>
+<p>HTML元素以id属性来设置id选择器,CSS 中 id 选择器以 “#” 来定义。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt; </span><br><span class="line">&lt;title&gt;标题&lt;/title&gt; </span><br><span class="line">&lt;style&gt;</span><br><span class="line">#para1</span><br><span class="line">&#123;</span><br><span class="line">	text-align:center;</span><br><span class="line">	color:red;</span><br><span class="line">&#125; </span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p id=&quot;para1&quot;&gt;Hello World!&lt;/p&gt;</span><br><span class="line">&lt;p&gt;这个段落不受该样式的影响。&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>不要以数字开头</p>
+<h2 id="3-class选择器"><a href="#3-class选择器" class="headerlink" title="3.class选择器"></a>3.class选择器</h2><p>class 选择器用于描述一组元素的样式，class 选择器有别于id选择器，class可以在多个元素中使用。</p>
+<p>class 选择器在HTML中以class属性表示, 在 CSS 中，类选择器以一个点”.”号显示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt; </span><br><span class="line">&lt;title&gt;标题&lt;/title&gt; </span><br><span class="line">&lt;style&gt;</span><br><span class="line">.center</span><br><span class="line">&#123;</span><br><span class="line">	text-align:center;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1 class=&quot;center&quot;&gt;标题居中&lt;/h1&gt;</span><br><span class="line">&lt;p class=&quot;center&quot;&gt;段落居中。&lt;/p&gt; </span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>你也可以指定特定的HTML元素使用class。比如<code>p.center</code> 就只有标了类属性的段落起作用</p>
+<h2 id="4-如何创建"><a href="#4-如何创建" class="headerlink" title="4.如何创建"></a>4.如何创建</h2><h3 id="（1）内联模式"><a href="#（1）内联模式" class="headerlink" title="（1）内联模式"></a>（1）内联模式</h3><p><code>&lt;p style=&quot;color:sienna;margin-left:20px&quot;&gt;这是一个段落。&lt;/p&gt;</code></p>
+<h3 id="2-内部样式表"><a href="#2-内部样式表" class="headerlink" title="(2) 内部样式表"></a>(2) 内部样式表</h3><p>上面的示例都是，<code>&lt;head&gt;</code>里的<code>&lt;style&gt;</code></p>
+<h3 id="（3）外部样式表"><a href="#（3）外部样式表" class="headerlink" title="（3）外部样式表"></a>（3）外部样式表</h3><p>当样式需要应用于很多页面时，外部样式表将是理想的选择。可以通过改变一个文件来改变整个站点的外观。</p>
+<p>使用 <code>&lt;link&gt; </code>标签链接到样式表。</p>
+<p>html中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;mystyle.css&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br></pre></td></tr></table></figure>
+
+<p>css：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hr &#123;color:sienna;&#125;</span><br><span class="line">p &#123;margin-left:20px;&#125;</span><br><span class="line">body &#123;background-image:url(&quot;/images/back40.gif&quot;);&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-HTML/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1043,171 +1263,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BAip/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BAip/" class="post-title-link" itemprop="url">go-获取本机id</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-19 19:36:59" itemprop="dateCreated datePublished" datetime="2021-08-19T19:36:59+08:00">2021-08-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 22:00:09" itemprop="dateModified" datetime="2021-09-25T22:00:09+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/golang%E5%85%A5%E9%97%A8/" itemprop="url" rel="index"><span itemprop="name">golang入门</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>~~~<br>package main</p>
-<p>import (<br>    “fmt”<br>    “net”<br>)</p>
-<p>func main() {<br>    netInterfaces, err := net.Interfaces()<br>    if err != nil {<br>        fmt.Println(“net.Interfaces failed, err:”, err.Error())<br>    }<br>    for i := 0; i &lt; len(netInterfaces); i++ {<br>        if (netInterfaces[i].Flags &amp; net.FlagUp) != 0 {<br>            addrs, _ := netInterfaces[i].Addrs()</p>
-<pre><code>        for _, address := range addrs &#123;
-            if ipnet, ok := address.(*net.IPNet); ok &amp;&amp; !ipnet.IP.IsLoopback() &#123;
-                if ipnet.IP.To4() != nil &#123;
-                    fmt.Println(ipnet.IP.String())
-                &#125;
-            &#125;
-        &#125;
-    &#125;
-&#125;
-</code></pre>
-<p>}</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-http%E8%AF%B7%E6%B1%82/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-http%E8%AF%B7%E6%B1%82/" class="post-title-link" itemprop="url">go-http请求</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-19 19:36:15" itemprop="dateCreated datePublished" datetime="2021-08-19T19:36:15+08:00">2021-08-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 22:01:43" itemprop="dateModified" datetime="2021-09-25T22:01:43+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/golang%E5%85%A5%E9%97%A8/" itemprop="url" rel="index"><span itemprop="name">golang入门</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>内容丢失</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1272,7 +1331,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

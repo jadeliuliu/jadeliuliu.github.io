@@ -22,26 +22,26 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="Jadeliu&#39;s blog">
-<meta property="og:url" content="http://example.com/archives/2021/page/3/index.html">
+<meta property="og:url" content="http://example.com/page/4/index.html">
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Jade liu">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/archives/2021/page/3/">
+<link rel="canonical" href="http://example.com/page/4/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
+    isHome : true,
     isPost : false,
     lang   : 'en'
   };
 </script>
 
-  <title>Archive | Jadeliu's blog</title>
+  <title>Jadeliu's blog</title>
   
 
 
@@ -149,234 +149,173 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BAip/">
 
-  
-  
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        <span class="collection-header">OK! 32 posts in total. Keep on posting.</span>
-      </div>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BAip/" class="post-title-link" itemprop="url">go-获取本机id</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-19 19:36:59" itemprop="dateCreated datePublished" datetime="2021-08-19T19:36:59+08:00">2021-08-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-25 22:00:09" itemprop="dateModified" datetime="2021-09-25T22:00:09+08:00">2021-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/golang%E5%85%A5%E9%97%A8/" itemprop="url" rel="index"><span itemprop="name">golang入门</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+          <p>~~~<br>package main</p>
+<p>import (<br>    “fmt”<br>    “net”<br>)</p>
+<p>func main() {<br>    netInterfaces, err := net.Interfaces()<br>    if err != nil {<br>        fmt.Println(“net.Interfaces failed, err:”, err.Error())<br>    }<br>    for i := 0; i &lt; len(netInterfaces); i++ {<br>        if (netInterfaces[i].Flags &amp; net.FlagUp) != 0 {<br>            addrs, _ := netInterfaces[i].Addrs()</p>
+<pre><code>        for _, address := range addrs &#123;
+            if ipnet, ok := address.(*net.IPNet); ok &amp;&amp; !ipnet.IP.IsLoopback() &#123;
+                if ipnet.IP.To4() != nil &#123;
+                    fmt.Println(ipnet.IP.String())
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>}</p>
+
+      
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-19T19:54:01+08:00"
-              content="2021-08-19">
-          08-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-JavaScript/" itemprop="url">
-            <span itemprop="name">前端寄出-JavaScript</span>
-          </a>
-      </div>
-
-    </header>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
   </article>
+  
+  
+  
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-http%E8%AF%B7%E6%B1%82/">
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-19T19:53:06+08:00"
-              content="2021-08-19">
-          08-19
-        </time>
-      </div>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-CSS%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8/" itemprop="url">
-            <span itemprop="name">前端寄出-CSS层叠样式表</span>
-          </a>
-      </div>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-http%E8%AF%B7%E6%B1%82/" class="post-title-link" itemprop="url">go-http请求</a>
+        </h2>
 
-    </header>
-  </article>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+              <time title="Created: 2021-08-19 19:36:15" itemprop="dateCreated datePublished" datetime="2021-08-19T19:36:15+08:00">2021-08-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-25 22:01:43" itemprop="dateModified" datetime="2021-09-25T22:01:43+08:00">2021-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/golang%E5%85%A5%E9%97%A8/" itemprop="url" rel="index"><span itemprop="name">golang入门</span></a>
+                </span>
+            </span>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-19T19:52:32+08:00"
-              content="2021-08-19">
-          08-19
-        </time>
-      </div>
+          
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-HTML/" itemprop="url">
-            <span itemprop="name">前端基础-html层叠样式表</span>
-          </a>
-      </div>
+        </div>
+      </header>
 
-    </header>
-  </article>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+          <p>内容丢失</p>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-19T19:52:00+08:00"
-              content="2021-08-19">
-          08-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E6%90%AD%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AAVUE%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%85%A5%E9%97%A8%E7%BA%A7%E5%88%AB/" itemprop="url">
-            <span itemprop="name">搭建第一个VUE项目，入门级别</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-19T19:50:21+08:00"
-              content="2021-08-19">
-          08-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-go%E5%85%A5%E9%97%A82.0/" itemprop="url">
-            <span itemprop="name">学习笔记-go入门2.0</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-19T19:49:40+08:00"
-              content="2021-08-19">
-          08-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-go%E5%85%A5%E9%97%A81.0/" itemprop="url">
-            <span itemprop="name">学习笔记-go入门1.0</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-19T19:48:57+08:00"
-              content="2021-08-19">
-          08-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E9%98%9F%E5%88%97queue/" itemprop="url">
-            <span itemprop="name">go-实现一个队列queue</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-19T19:48:08+08:00"
-              content="2021-08-19">
-          08-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-%E5%87%BD%E6%95%B0%E7%BB%93%E6%9D%9F%E5%8D%8F%E7%A8%8B%E7%BB%93%E6%9D%9F%E5%90%97/" itemprop="url">
-            <span itemprop="name">go-函数结束协程结束吗</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-19T19:45:30+08:00"
-              content="2021-08-19">
-          08-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-channel/" itemprop="url">
-            <span itemprop="name">go-channel</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-19T19:37:30+08:00"
-              content="2021-08-19">
-          08-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-mutex%E9%94%81/" itemprop="url">
-            <span itemprop="name">go-mutex锁</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-
+      
     </div>
-  </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
   
   
+
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2021/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/archives/2021/">1</a><a class="page-number" href="/archives/2021/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/2021/page/4/">4</a><a class="extend next" rel="next" href="/archives/2021/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
   </nav>
 
 

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="虾皮-后端-一面-2021.7.181.redis数据类型的底层结构 set2.hashmap底层结构3.c++禁止拷贝构造4.tcp三次握手四次挥手5.四次挥手time_wait机制6.http、ip、dns属于什么层7.cpu调度算法8.linux命令，看文件后几行，日志关键词查询9.进程间通信 信号量10.逻辑地址与物理地址映射11.编程：翻转句子但不翻转单词 字节-商业化后端-一面-202">
+<meta property="og:type" content="article">
+<meta property="og:title" content="秋招面经">
+<meta property="og:url" content="http://example.com/2021/10/31/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/%E7%A7%8B%E6%8B%9B%E9%9D%A2%E7%BB%8F/index.html">
+<meta property="og:site_name" content="Jadeliu&#39;s blog">
+<meta property="og:description" content="虾皮-后端-一面-2021.7.181.redis数据类型的底层结构 set2.hashmap底层结构3.c++禁止拷贝构造4.tcp三次握手四次挥手5.四次挥手time_wait机制6.http、ip、dns属于什么层7.cpu调度算法8.linux命令，看文件后几行，日志关键词查询9.进程间通信 信号量10.逻辑地址与物理地址映射11.编程：翻转句子但不翻转单词 字节-商业化后端-一面-202">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-10-31T08:24:02.928Z">
+<meta property="article:modified_time" content="2021-10-31T08:24:54.134Z">
+<meta property="article:author" content="Jade liu">
+<meta property="article:tag" content="面经">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/10/31/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/%E7%A7%8B%E6%8B%9B%E9%9D%A2%E7%BB%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>秋招面经 | Jadeliu's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jadeliu's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/31/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/%E7%A7%8B%E6%8B%9B%E9%9D%A2%E7%BB%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          秋招面经
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-10-31 16:24:02 / Modified: 16:24:54" itemprop="dateCreated datePublished" datetime="2021-10-31T16:24:02+08:00">2021-10-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/" itemprop="url" rel="index"><span itemprop="name">笔经面经</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="虾皮-后端-一面-2021-7-18"><a href="#虾皮-后端-一面-2021-7-18" class="headerlink" title="虾皮-后端-一面-2021.7.18"></a>虾皮-后端-一面-2021.7.18</h3><p>1.redis数据类型的底层结构 set<br>2.hashmap底层结构<br>3.c++禁止拷贝构造<br>4.tcp三次握手四次挥手<br>5.四次挥手time_wait机制<br>6.http、ip、dns属于什么层<br>7.cpu调度算法<br>8.linux命令，看文件后几行，日志关键词查询<br>9.进程间通信 信号量<br>10.逻辑地址与物理地址映射<br>11.编程：翻转句子但不翻转单词</p>
+<h3 id="字节-商业化后端-一面-2021-7-18"><a href="#字节-商业化后端-一面-2021-7-18" class="headerlink" title="字节-商业化后端-一面-2021.7.18"></a>字节-商业化后端-一面-2021.7.18</h3><p>1.redis分布式锁机制<br>2.redis数据类型使用场景<br>3.hashmap用红黑树优点是什么，map底层数据结构<br>4.vector和list底层实现原理<br>5.互斥锁底层原理，如何实现原子性<br>6.智力题：圆上取三点，构成锐角、直角、钝角三角形的概率？<br>7.编程：合并区间<br>8.编程：最长回文子串</p>
+<h3 id="字节-商业化后端-二面-2021-7-18"><a href="#字节-商业化后端-二面-2021-7-18" class="headerlink" title="字节-商业化后端-二面-2021.7.18"></a>字节-商业化后端-二面-2021.7.18</h3><p>1.编程：给定一个多任务场景， 不同任务执行过程中是有相互依赖关系的；<br>输入： n 代表n个任务<br>输出： k代表k个依赖关系<br>输出： n个任务能够完成一次调度执行；<br>提示：用节点的入度，入度为0可以删掉。<br>2.redis如何保证原子性<br>3.redis事务<br>4.mysql避免死锁底层如何实现<br>5.tcp是保序的吗？seq、syn<br>6.五层模型都是干嘛的</p>
+<h3 id="商汤scg-三面-2021-7-19"><a href="#商汤scg-三面-2021-7-19" class="headerlink" title="商汤scg-三面-2021.7.19"></a>商汤scg-三面-2021.7.19</h3><p>1.乐观锁的版本号机制如何实现<br>2.redis集群主从同步失败怎么办<br>3.网站打不开的原因，发散<br>4.聚簇索引和非聚簇索引，增量索引？<br>5.编程：岛屿数量<br>6.go结构体嵌套，new操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line">type a struct &#123;</span><br><span class="line">    add string</span><br><span class="line">&#125;</span><br><span class="line">type b struct &#123;</span><br><span class="line">    *a</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line">    b := new(b)</span><br><span class="line">    b.add = &quot;add&quot;</span><br><span class="line">    fmt.Println(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="字节-商业化后端-三面-2021-7-20"><a href="#字节-商业化后端-三面-2021-7-20" class="headerlink" title="字节-商业化后端-三面-2021.7.20"></a>字节-商业化后端-三面-2021.7.20</h3><p>1.编程：二叉树转化为双向链表<br>2.智力：老虎吃羊问题<br>3.redis索引原理<br>4.线程池实现考虑什么，伪代码<br>5.c++的锁<br>6.c++管理内存泄漏的方法<br>7.说说智能指针，几种的区别<br>8.单继承和多继承的虚函数表的区别<br>9.多态如何实现<br>10.IO多路复用<br>11.redis持久化</p>
+<h3 id="字节-数据中台后端-一面-2021-7-29"><a href="#字节-数据中台后端-一面-2021-7-29" class="headerlink" title="字节-数据中台后端-一面-2021.7.29"></a>字节-数据中台后端-一面-2021.7.29</h3><p>1.redis持久化写硬盘，对内存操作有没有影响？<br>2.写硬盘的方法，怎么最快<br>3.mysql索引底层<br>4.数据库锁<br>5.select * from table where a between 10 and 20 for update；之后再插入一条20-20之间的数据，发生什么？<br>可重复读：不能插，解决了幻读。读未提交，能插入？<br>6.实现strncpy函数<br>7.二分查找<br>8.截断数组的查找</p>
+<h3 id="字节-数据中台后端-二面-2021-8-2"><a href="#字节-数据中台后端-二面-2021-8-2" class="headerlink" title="字节-数据中台后端-二面-2021.8.2"></a>字节-数据中台后端-二面-2021.8.2</h3><p>1.redis单线程如何实现的<br>2.http输入url过程<br>3.http和https<br>4.评论系统数据库表设计<br>5.写代码，求一条评论的所有子评论个数<br>6.网络攻击手段，sql注入，怎么防止，把自己套圈子里了</p>
+<h3 id="虾皮-后端-二面-2021-8-3"><a href="#虾皮-后端-二面-2021-8-3" class="headerlink" title="虾皮-后端-二面-2021.8.3"></a>虾皮-后端-二面-2021.8.3</h3><p>1.hashtable怎么实现的<br>2.c++ stl用过什么，数组与链表<br>3.二叉树路径-回溯算法<br>4.针对订单的安全id怎么生成</p>
+<h3 id="阿里云-后端-二面-2021-8-3"><a href="#阿里云-后端-二面-2021-8-3" class="headerlink" title="阿里云-后端-二面-2021.8.3"></a>阿里云-后端-二面-2021.8.3</h3><p>1.个人云和企业云的区别的看法，toB和toC<br>2.发号器不需要做切流，下线吗？<br>    系统自保、准入条件、云计算：资源的池化、分割售卖、安全隔离、资源隔离、超卖、服务契约<br>3.哈希打散的id怎么生成？<br>4.雪花算法，时间回滚，机器不知道，不能识别，怎么办？<br>5.code：求相对路径</p>
+<h3 id="商汤-hr面-2021-8-5"><a href="#商汤-hr面-2021-8-5" class="headerlink" title="商汤-hr面-2021.8.5"></a>商汤-hr面-2021.8.5</h3><p>1.性格缺点<br>2.选择公司最看重什么<br>3.对智慧交通看法</p>
+<h3 id="360-后端一面-2021-8-6"><a href="#360-后端一面-2021-8-6" class="headerlink" title="360-后端一面-2021.8.6"></a>360-后端一面-2021.8.6</h3><p>1.平衡二叉树和红黑树，为什么用红黑树<br>2.服务器实例无法访问数据库怎么办，db不能平衡扩展<br>3.编程：扑克牌判断是不是顺子<br>4.udp怎么可靠</p>
+<h3 id="虾皮-后端-hr面-2021-8-10"><a href="#虾皮-后端-hr面-2021-8-10" class="headerlink" title="虾皮-后端-hr面-2021.8.10"></a>虾皮-后端-hr面-2021.8.10</h3><p>1.如何看待加班<br>2.评价一下自己，他人眼中的你什么样的<br>3.有什么其他offer或者流程中<br>4.想要什么公司氛围<br>5.想去什么业务<br>6.为啥选后端</p>
+<h3 id="腾讯-交通平台产品部-一面-2021-8-10"><a href="#腾讯-交通平台产品部-一面-2021-8-10" class="headerlink" title="腾讯-交通平台产品部-一面-2021.8.10"></a>腾讯-交通平台产品部-一面-2021.8.10</h3><p>1.有啥爱好？？？？？<br>2.推荐悬疑书？？？<br>3.手撕：一个字符串切片成字典里的字符串，回溯<br>4.unordered_set和set区别，实现方面<br>5.c++和go<br>6.set什么语法实现降序</p>
+<h3 id="阿里-三面-凉经"><a href="#阿里-三面-凉经" class="headerlink" title="阿里-三面-凉经"></a>阿里-三面-凉经</h3><p>1.做过网络编程没有<br>2.一个程序运行，资源空间如何变化<br>3.拷问项目<br>4.为什么对边缘计算感兴趣<br>5.怎么看边缘计算<br>6.大致觉得没有网络相关的项目，没有可问的，问我自己认为有什么优点<br>7.大佬就是大佬，秒凉</p>
+<h3 id="阿里-高德-后端-一面"><a href="#阿里-高德-后端-一面" class="headerlink" title="阿里-高德-后端-一面"></a>阿里-高德-后端-一面</h3><p>1.用过除redis、mysql之外的中间件吗<br>2.mysql innodb为什么用B+树<br>3.redis数据结构底层实现<br>4.redis集群怎么部署<br>5.设计模式了解哪些，平常用的<br>6.zookeeper优缺点<br>7.聚集索引和非聚集索引</p>
+<h3 id="网易-AI-c-算法落地-一面"><a href="#网易-AI-c-算法落地-一面" class="headerlink" title="网易-AI-c++算法落地-一面"></a>网易-AI-c++算法落地-一面</h3><p>1.深挖项目<br>2.为什么不用高频？？高频-&gt;波长短-&gt;按说传输距离高，因为频率高衰减大<br>  说成了多普勒，开始深挖多普勒<br>3.手撕：1.最少跳跃次数 （用广度优先，没写过）换：2.最小编辑距离（ac）        </p>
+<h3 id="渤海银行-提前批-软开-2021-8-29-笔试准备"><a href="#渤海银行-提前批-软开-2021-8-29-笔试准备" class="headerlink" title="渤海银行-提前批-软开-2021.8.29-笔试准备"></a>渤海银行-提前批-软开-2021.8.29-笔试准备</h3><p>渤海银行成立时间：</p>
+<p>渤海企业文化：诚信、远见、开放、创新、关爱</p>
+<p>品牌主张：一旦选择,终身相伴</p>
+<h3 id="阿里高德-一面-笔试面"><a href="#阿里高德-一面-笔试面" class="headerlink" title="阿里高德-一面-笔试面"></a>阿里高德-一面-笔试面</h3><p>笔试构造什么数据结构，父子结构的，<br>分布式事务<br>CAP原则<br>一致性哈希<br>消息队列<br>限流算法</p>
+<h3 id="网易有道AI-c-算法开发工程师-二面"><a href="#网易有道AI-c-算法开发工程师-二面" class="headerlink" title="网易有道AI-c++算法开发工程师-二面"></a>网易有道AI-c++算法开发工程师-二面</h3><p>深挖项目<br>手撕：给一个数组变成偶数位上都是偶数或是奇数位上都是奇数<br>手撕：二叉树回溯，求路径和</p>
+<h3 id="阿里-高德-二面-凉经"><a href="#阿里-高德-二面-凉经" class="headerlink" title="阿里-高德-二面-凉经"></a>阿里-高德-二面-凉经</h3><p>上来自己的IDE共享屏幕手撕：多线程输出<br>手撕：最长无重复子串的长度<br>思考：相交链表找相交节点<br>数据库隔离级别如何实现<br>手里的offer，规划之类<br>面试官一副高高在上的样子，和一面面试官比差远了，体验极差。</p>
+<h3 id="阿里-高德-三面"><a href="#阿里-高德-三面" class="headerlink" title="阿里-高德-三面"></a>阿里-高德-三面</h3><p>面试官还不错，上来问我以后用啥语言，跟我讲阿里的java生态<br>思考题：城市有公交站和地铁站，每个站有辐射面积，算城市交通的覆盖率。<br>聊聊面向对象三个特征<br>自己的优缺点<br>平常怎么提高效率的<br>有了解什么新技术吗？面试官讲了一通中国软件界的兼容问题<br>反问：学习java意见<br>1、学语言思想，《深入浅出java虚拟机》《java编程思想》学习语法<br>2、应用，java web spring mvc boot<br>数据库MYbrits，关系型数据库，分布式数据库H-base，分库分表，catch<br>RPC框架，分布式高并发高响应。</p>
+<h3 id="渤海-一面"><a href="#渤海-一面" class="headerlink" title="渤海-一面"></a>渤海-一面</h3><p>java垃圾回收，sb了应该说一些的<br>hashmap负载因子<br>hashmap和hashtable<br>数据库存储引擎<br>写代码多少年了<br>redis持久化<br>重载和重写<br>异常处理，catch和finish，蒙了一些</p>
+<h3 id="农行-测试-2021-9-13"><a href="#农行-测试-2021-9-13" class="headerlink" title="农行-测试-2021.9.13"></a>农行-测试-2021.9.13</h3><p>三道题，a了一点多道</p>
+<h3 id="华为-通信算法-一面-2021-9-13"><a href="#华为-通信算法-一面-2021-9-13" class="headerlink" title="华为-通信算法-一面-2021.9.13"></a>华为-通信算法-一面-2021.9.13</h3><p>全程问项目论文，对于细节问的蛮多<br>本来2点开始，结果2.20才叫面试<br>三点10分还没结束，无奈最后的写一个框图的题写得草率。</p>
+<h3 id="华为-通信算法-二面"><a href="#华为-通信算法-二面" class="headerlink" title="华为-通信算法-二面"></a>华为-通信算法-二面</h3><p>论文+项目<br>做一道题，关于似然等概率知识的，都忘光了</p>
+<h3 id="华为-通信算法-主管面"><a href="#华为-通信算法-主管面" class="headerlink" title="华为-通信算法-主管面"></a>华为-通信算法-主管面</h3><p>论文，还可以</p>
+<h3 id="农行-2021-9-14-凉经"><a href="#农行-2021-9-14-凉经" class="headerlink" title="农行-2021.9.14-凉经"></a>农行-2021.9.14-凉经</h3><p>c++连接数据库的方式<br>c++不能重载的运算符<br>c++创建进程的方式<br>创建线程的类<br>创建线程池的方式</p>
+<h3 id="网易-总监面-2021-9-14"><a href="#网易-总监面-2021-9-14" class="headerlink" title="网易-总监面-2021.9.14"></a>网易-总监面-2021.9.14</h3><p>手撕求平方，精确到小数点后10位<br>手撕两个四边形面积的重叠面积/总面积<br>看我的论文？？？</p>
+<h3 id="网易-hr面"><a href="#网易-hr面" class="headerlink" title="网易-hr面"></a>网易-hr面</h3><h3 id="阿里-hr面"><a href="#阿里-hr面" class="headerlink" title="阿里-hr面"></a>阿里-hr面</h3><p>介绍个项目，遇到的难点，如何解决<br>遇到过什么困难，如何化解</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag"># 面经</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/31/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/java%E3%81%AEleecode%E6%95%B0%E7%BB%84%E7%AF%87/" rel="prev" title="javaのleecode刷题数组篇">
+      <i class="fa fa-chevron-left"></i> javaのleecode刷题数组篇
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%BE%E7%9A%AE-%E5%90%8E%E7%AB%AF-%E4%B8%80%E9%9D%A2-2021-7-18"><span class="nav-number">1.</span> <span class="nav-text">虾皮-后端-一面-2021.7.18</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E8%8A%82-%E5%95%86%E4%B8%9A%E5%8C%96%E5%90%8E%E7%AB%AF-%E4%B8%80%E9%9D%A2-2021-7-18"><span class="nav-number">2.</span> <span class="nav-text">字节-商业化后端-一面-2021.7.18</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E8%8A%82-%E5%95%86%E4%B8%9A%E5%8C%96%E5%90%8E%E7%AB%AF-%E4%BA%8C%E9%9D%A2-2021-7-18"><span class="nav-number">3.</span> <span class="nav-text">字节-商业化后端-二面-2021.7.18</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%95%86%E6%B1%A4scg-%E4%B8%89%E9%9D%A2-2021-7-19"><span class="nav-number">4.</span> <span class="nav-text">商汤scg-三面-2021.7.19</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E8%8A%82-%E5%95%86%E4%B8%9A%E5%8C%96%E5%90%8E%E7%AB%AF-%E4%B8%89%E9%9D%A2-2021-7-20"><span class="nav-number">5.</span> <span class="nav-text">字节-商业化后端-三面-2021.7.20</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E8%8A%82-%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%8F%B0%E5%90%8E%E7%AB%AF-%E4%B8%80%E9%9D%A2-2021-7-29"><span class="nav-number">6.</span> <span class="nav-text">字节-数据中台后端-一面-2021.7.29</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E8%8A%82-%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%8F%B0%E5%90%8E%E7%AB%AF-%E4%BA%8C%E9%9D%A2-2021-8-2"><span class="nav-number">7.</span> <span class="nav-text">字节-数据中台后端-二面-2021.8.2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%BE%E7%9A%AE-%E5%90%8E%E7%AB%AF-%E4%BA%8C%E9%9D%A2-2021-8-3"><span class="nav-number">8.</span> <span class="nav-text">虾皮-后端-二面-2021.8.3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91-%E5%90%8E%E7%AB%AF-%E4%BA%8C%E9%9D%A2-2021-8-3"><span class="nav-number">9.</span> <span class="nav-text">阿里云-后端-二面-2021.8.3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%95%86%E6%B1%A4-hr%E9%9D%A2-2021-8-5"><span class="nav-number">10.</span> <span class="nav-text">商汤-hr面-2021.8.5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#360-%E5%90%8E%E7%AB%AF%E4%B8%80%E9%9D%A2-2021-8-6"><span class="nav-number">11.</span> <span class="nav-text">360-后端一面-2021.8.6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%BE%E7%9A%AE-%E5%90%8E%E7%AB%AF-hr%E9%9D%A2-2021-8-10"><span class="nav-number">12.</span> <span class="nav-text">虾皮-后端-hr面-2021.8.10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%85%BE%E8%AE%AF-%E4%BA%A4%E9%80%9A%E5%B9%B3%E5%8F%B0%E4%BA%A7%E5%93%81%E9%83%A8-%E4%B8%80%E9%9D%A2-2021-8-10"><span class="nav-number">13.</span> <span class="nav-text">腾讯-交通平台产品部-一面-2021.8.10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C-%E4%B8%89%E9%9D%A2-%E5%87%89%E7%BB%8F"><span class="nav-number">14.</span> <span class="nav-text">阿里-三面-凉经</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C-%E9%AB%98%E5%BE%B7-%E5%90%8E%E7%AB%AF-%E4%B8%80%E9%9D%A2"><span class="nav-number">15.</span> <span class="nav-text">阿里-高德-后端-一面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E6%98%93-AI-c-%E7%AE%97%E6%B3%95%E8%90%BD%E5%9C%B0-%E4%B8%80%E9%9D%A2"><span class="nav-number">16.</span> <span class="nav-text">网易-AI-c++算法落地-一面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%A4%E6%B5%B7%E9%93%B6%E8%A1%8C-%E6%8F%90%E5%89%8D%E6%89%B9-%E8%BD%AF%E5%BC%80-2021-8-29-%E7%AC%94%E8%AF%95%E5%87%86%E5%A4%87"><span class="nav-number">17.</span> <span class="nav-text">渤海银行-提前批-软开-2021.8.29-笔试准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E9%AB%98%E5%BE%B7-%E4%B8%80%E9%9D%A2-%E7%AC%94%E8%AF%95%E9%9D%A2"><span class="nav-number">18.</span> <span class="nav-text">阿里高德-一面-笔试面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E6%98%93%E6%9C%89%E9%81%93AI-c-%E7%AE%97%E6%B3%95%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88-%E4%BA%8C%E9%9D%A2"><span class="nav-number">19.</span> <span class="nav-text">网易有道AI-c++算法开发工程师-二面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C-%E9%AB%98%E5%BE%B7-%E4%BA%8C%E9%9D%A2-%E5%87%89%E7%BB%8F"><span class="nav-number">20.</span> <span class="nav-text">阿里-高德-二面-凉经</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C-%E9%AB%98%E5%BE%B7-%E4%B8%89%E9%9D%A2"><span class="nav-number">21.</span> <span class="nav-text">阿里-高德-三面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%A4%E6%B5%B7-%E4%B8%80%E9%9D%A2"><span class="nav-number">22.</span> <span class="nav-text">渤海-一面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%9C%E8%A1%8C-%E6%B5%8B%E8%AF%95-2021-9-13"><span class="nav-number">23.</span> <span class="nav-text">农行-测试-2021.9.13</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8E%E4%B8%BA-%E9%80%9A%E4%BF%A1%E7%AE%97%E6%B3%95-%E4%B8%80%E9%9D%A2-2021-9-13"><span class="nav-number">24.</span> <span class="nav-text">华为-通信算法-一面-2021.9.13</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8E%E4%B8%BA-%E9%80%9A%E4%BF%A1%E7%AE%97%E6%B3%95-%E4%BA%8C%E9%9D%A2"><span class="nav-number">25.</span> <span class="nav-text">华为-通信算法-二面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8E%E4%B8%BA-%E9%80%9A%E4%BF%A1%E7%AE%97%E6%B3%95-%E4%B8%BB%E7%AE%A1%E9%9D%A2"><span class="nav-number">26.</span> <span class="nav-text">华为-通信算法-主管面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%9C%E8%A1%8C-2021-9-14-%E5%87%89%E7%BB%8F"><span class="nav-number">27.</span> <span class="nav-text">农行-2021.9.14-凉经</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E6%98%93-%E6%80%BB%E7%9B%91%E9%9D%A2-2021-9-14"><span class="nav-number">28.</span> <span class="nav-text">网易-总监面-2021.9.14</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E6%98%93-hr%E9%9D%A2"><span class="nav-number">29.</span> <span class="nav-text">网易-hr面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C-hr%E9%9D%A2"><span class="nav-number">30.</span> <span class="nav-text">阿里-hr面</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jade liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jade liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
