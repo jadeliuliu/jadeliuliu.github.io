@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="栈stack1234567Stack&lt;Character&gt; st &#x3D; new Stack&lt;Character&gt;();或Deque&lt;Character&gt; st &#x3D; new LinkedList&lt;Character&gt;();st.isEmpty()st.peek()st.pop();st.push(ch);  20题.有效的括号123给定一个只包括 &amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaのleecode栈与队列篇">
+<meta property="og:url" content="http://example.com/2021/11/07/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/java%E3%81%AEleecode%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/index.html">
+<meta property="og:site_name" content="Jadeliu&#39;s blog">
+<meta property="og:description" content="栈stack1234567Stack&lt;Character&gt; st &#x3D; new Stack&lt;Character&gt;();或Deque&lt;Character&gt; st &#x3D; new LinkedList&lt;Character&gt;();st.isEmpty()st.peek()st.pop();st.push(ch);  20题.有效的括号123给定一个只包括 &amp;#x">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-07T05:42:43.354Z">
+<meta property="article:modified_time" content="2021-11-07T07:03:52.922Z">
+<meta property="article:author" content="Jade liu">
+<meta property="article:tag" content="leecode">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/11/07/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/java%E3%81%AEleecode%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>javaのleecode栈与队列篇 | Jadeliu's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jadeliu's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/07/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/java%E3%81%AEleecode%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          javaのleecode栈与队列篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-11-07 13:42:43 / Modified: 15:03:52" itemprop="dateCreated datePublished" datetime="2021-11-07T13:42:43+08:00">2021-11-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="栈stack"><a href="#栈stack" class="headerlink" title="栈stack"></a>栈stack</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Stack&lt;Character&gt; st = new Stack&lt;Character&gt;();</span><br><span class="line">或</span><br><span class="line">Deque&lt;Character&gt; st = new LinkedList&lt;Character&gt;();</span><br><span class="line">st.isEmpty()</span><br><span class="line">st.peek()</span><br><span class="line">st.pop();</span><br><span class="line">st.push(ch);</span><br></pre></td></tr></table></figure>
+
+<h2 id="20题-有效的括号"><a href="#20题-有效的括号" class="headerlink" title="20题.有效的括号"></a>20题.有效的括号</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定一个只包括 &#x27;(&#x27;，&#x27;)&#x27;，&#x27;&#123;&#x27;，&#x27;&#125;&#x27;，&#x27;[&#x27;，&#x27;]&#x27; 的字符串，判断字符串是否有效。</span><br><span class="line">输入: &quot;&#123;[]&#125;&quot;</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean isValid(String s) &#123;</span><br><span class="line">        int n = s.length();</span><br><span class="line">        if (n % 2 == 1) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Map&lt;Character, Character&gt; pairs = new HashMap&lt;Character, Character&gt;() &#123;&#123;</span><br><span class="line">            put(&#x27;)&#x27;, &#x27;(&#x27;);</span><br><span class="line">            put(&#x27;]&#x27;, &#x27;[&#x27;);</span><br><span class="line">            put(&#x27;&#125;&#x27;, &#x27;&#123;&#x27;);</span><br><span class="line">        &#125;&#125;;</span><br><span class="line">        //Deque&lt;Character&gt; stack = new LinkedList&lt;Character&gt;();</span><br><span class="line">        Stack&lt;Character&gt; stack = new Stack&lt;Character&gt;();</span><br><span class="line">        for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">            char ch = s.charAt(i);</span><br><span class="line">            if (pairs.containsKey(ch)) &#123;</span><br><span class="line">                if (stack.isEmpty() || stack.peek() != pairs.get(ch)) &#123;</span><br><span class="line">                    return false;</span><br><span class="line">                &#125;</span><br><span class="line">                stack.pop();</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                stack.push(ch);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return stack.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Queue&lt;Integer&gt; queue1= new LinkedList&lt;&gt;();</span><br><span class="line">queue1.isEmpty()</span><br><span class="line">queue2.offer(x);   //添加一个元素并返回true   如果队列已满，则返回false</span><br><span class="line">queue1.poll()   //移除并返问队列头部的元素  如果队列为空，则返回null</span><br><span class="line">queue1.peek()  //返回队列头部的元素   如果队列为空，则返回null</span><br><span class="line">remove   移除并返回队列头部的元素 如果队列为空，则抛出一个NoSuchElementException异常</span><br><span class="line">element  返回队列头部的元素  如果队列为空，则抛出一个NoSuchElementException异常</span><br><span class="line">add       增加一个元索   如果队列已满，则抛出一个IIIegaISlabEepeplian异常</span><br><span class="line">put       添加一个元素  如果队列满，则阻塞</span><br><span class="line">take      移除并返回队列头部的元素    如果队列为空，则阻塞</span><br><span class="line"></span><br><span class="line">1、add()和offer()区别:</span><br><span class="line">add()和offer()都是向队列中添加一个元素。一些队列有大小限制，因此如果想在一个满的队列中加入一个新项，调用 add() 方法就会抛出一个 unchecked 异常，而调用 offer() 方法会返回 false。因此就可以在程序中进行有效的判断！</span><br><span class="line"></span><br><span class="line"> 2、poll()和remove()区别：</span><br><span class="line">remove() 和 poll() 方法都是从队列中删除第一个元素。如果队列元素为空，调用remove() 的行为与 Collection 接口的版本相似会抛出异常，但是新的 poll() 方法在用空集合调用时只是返回 null。因此新的方法更适合容易出现异常条件的情况。</span><br><span class="line"></span><br><span class="line">3、element() 和 peek() 区别：</span><br><span class="line">element() 和 peek() 用于在队列的头部查询元素。与 remove() 方法类似，在队列为空时， element() 抛出一个异常，而 peek() 返回 null。</span><br></pre></td></tr></table></figure>
+
+<h2 id="deque与queue"><a href="#deque与queue" class="headerlink" title="deque与queue"></a>deque与queue</h2><p><strong>Queue</strong>是简单的FIFO队列，<strong>Deque</strong>继承<strong>Queue</strong>实现双端队列。</p>
+<p>队列(queue)是一种常用的<strong>数据结构</strong>，可以将队列看做是一种特殊的线性表，该结构遵循的先进先出原则。Java中，<strong>LinkedList实现了Queue接口</strong>,因为LinkedList进行插入、删除操作效率较高。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">      抛出异常	返回特殊值</span><br><span class="line">插入	add(e)	offer(e)</span><br><span class="line">移除	remove()	poll()</span><br><span class="line">检查	element()	peek()</span><br><span class="line"></span><br><span class="line">boolean add(E e);将指定的元素插入此队列（如果立即可行且不会违反容量限制），在成功时返回 true，如果当前没有可用的空间，则抛出 IllegalStateException。</span><br><span class="line">boolean offer(E e);将指定的元素插入此队列（如果立即可行且不会违反容量限制），当使用有容量限制的队列时，此方法通常要优于 add(E)，后者可能无法插入元素，而只是抛出一个异常。</span><br><span class="line">E remove();获取并移除此队列的头。</span><br><span class="line">E poll();获取并移除此队列的头，如果此队列为空，则返回 null。</span><br><span class="line">E element();获取，但是不移除此队列的头。</span><br><span class="line">E peek();获取但不移除此队列的头；如果此队列为空，则返回 null。</span><br></pre></td></tr></table></figure>
+
+<p>双向队列<strong>Deque</strong>继承了<strong>Queue</strong>，此队列两端都能进行出列和入列操作。除了继承了<strong>Queue</strong>的接口，又对每种方法额外添加了<code>first</code>与<code>last</code>方法用以实现操作双端队列。</p>
+<h3 id="队列queue的使用："><a href="#队列queue的使用：" class="headerlink" title="队列queue的使用："></a>队列queue的使用：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> inoutput;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testQueue</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        test();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建队列</span></span><br><span class="line">        Queue&lt;String&gt;que = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">        que.offer(<span class="string">&quot;aa&quot;</span>);</span><br><span class="line">        que.offer(<span class="string">&quot;bb&quot;</span>);</span><br><span class="line">        que.offer(<span class="string">&quot;cc&quot;</span>);</span><br><span class="line">        <span class="comment">//输出队列</span></span><br><span class="line">        System.out.println(<span class="string">&quot;录入后的队列：&quot;</span>+que);</span><br><span class="line">        String str=<span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">while</span>(que.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            str=que.poll();</span><br><span class="line">            System.out.println(<span class="string">&quot;依次输出：&quot;</span>+str);</span><br><span class="line">            System.out.println(<span class="string">&quot;输出后的队列：&quot;</span>+que);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="双向队列deque的使用："><a href="#双向队列deque的使用：" class="headerlink" title="双向队列deque的使用："></a>双向队列deque的使用：</h3><p>第一种用法：同queue一样，作为单向队列使用，此时使用offer入列，poll出列</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> inoutput;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Deque;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testDeque1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        test();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建队列</span></span><br><span class="line">        Deque&lt;String&gt; deq = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">        deq.offer(<span class="string">&quot;aa&quot;</span>);</span><br><span class="line">        deq.offer(<span class="string">&quot;bb&quot;</span>);</span><br><span class="line">        deq.offer(<span class="string">&quot;cc&quot;</span>);</span><br><span class="line">        <span class="comment">//输出队列</span></span><br><span class="line">        System.out.println(<span class="string">&quot;录入后的队列：&quot;</span>+deq);</span><br><span class="line">        String str=<span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">while</span>(deq.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            str=deq.poll();</span><br><span class="line">            System.out.println(<span class="string">&quot;依次输出：&quot;</span>+str);</span><br><span class="line">            System.out.println(<span class="string">&quot;输出后的队列：&quot;</span>+deq);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二种用法：作为双向队列使用，此时使用offerFirst、pollFirst，offerLast、pollFirst，则可以实现队首队尾入列或者出列</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> inoutput;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Deque;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testDeque2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        test();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建队列</span></span><br><span class="line">        Deque&lt;String&gt; deq2 = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">        deq2.offerLast(<span class="string">&quot;aa&quot;</span>);  <span class="comment">//从后面进入</span></span><br><span class="line">        deq2.offerLast(<span class="string">&quot;bb&quot;</span>);</span><br><span class="line">        deq2.offerLast(<span class="string">&quot;cc&quot;</span>);</span><br><span class="line">        <span class="comment">//输出队列</span></span><br><span class="line">        System.out.println(<span class="string">&quot;录入后的队列：&quot;</span>+deq2);</span><br><span class="line">        String str=<span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">while</span>(deq2.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            str= deq2.pollFirst();  <span class="comment">//从前面输出</span></span><br><span class="line">            System.out.println(<span class="string">&quot;依次输出：&quot;</span>+str);</span><br><span class="line">            System.out.println(<span class="string">&quot;输出后的队列：&quot;</span>+deq2);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第三种用法：作为栈来使用，遵循先入后出的原则，使用push和pop进行入栈和出栈。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> inoutput;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Deque;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testDeque3</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        test();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建队列</span></span><br><span class="line">        Deque&lt;String&gt; st = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">        st.push(<span class="string">&quot;aa&quot;</span>);</span><br><span class="line">        st.push(<span class="string">&quot;bb&quot;</span>);</span><br><span class="line">        st.push(<span class="string">&quot;cc&quot;</span>);</span><br><span class="line">        <span class="comment">//输出队列</span></span><br><span class="line">        System.out.println(<span class="string">&quot;录入后的栈：&quot;</span>+st);</span><br><span class="line">        String str=<span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">while</span>(st.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            str= st.pop(); </span><br><span class="line">            System.out.println(<span class="string">&quot;依次输出：&quot;</span>+str);</span><br><span class="line">            System.out.println(<span class="string">&quot;输出后的栈：&quot;</span>+st);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结：<br>queue是单向队列，遵循先入先出的原则，而deque是queue的子接口，不仅可以作为单向队列使用，同时可以作为双向队列使用，根据入列出列在队尾或者队首决定输出元素顺序，在使用push和poll方法时，deque被称为栈，实现先入后出的原则。</p>
+<h2 id="239题-滑动窗口最大值"><a href="#239题-滑动窗口最大值" class="headerlink" title="239题.滑动窗口最大值"></a>239题.滑动窗口最大值</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">给定一个数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。</span><br><span class="line">返回滑动窗口中的最大值。</span><br><span class="line">输入：nums = [1,3,-1,-3,5,3,6,7], k = 3</span><br><span class="line">输出：[3,3,5,5,6,7]</span><br></pre></td></tr></table></figure>
+
+<p>思路：单调队列，放进去窗口里的元素，然后随着窗口的移动，队列也一进一出，每次移动之后，队列告诉我们里面的最大值是什么。</p>
+<p>每次窗口移动的时候，调用que.pop(滑动窗口中移除元素的数值)，que.push(滑动窗口添加元素的数值)，然后que.front()就返回我们要的最大值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//利用双端队列手动实现单调队列</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] maxSlidingWindow(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k) &#123;</span><br><span class="line">        ArrayDeque&lt;Integer&gt; deque = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[n - k + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="comment">// 根据题意，i为nums下标，是要在[i - k + 1, i] 中选到最大值，只需要保证两点</span></span><br><span class="line">            <span class="comment">// 1.队列头结点需要在[i - k + 1, i]范围内，不符合则要弹出</span></span><br><span class="line">            <span class="keyword">while</span>(!deque.isEmpty() &amp;&amp; deque.peek() &lt; i - k + <span class="number">1</span>)&#123;</span><br><span class="line">                deque.poll();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 2.既然是单调，就要保证每次放进去的数字要比末尾的都大，否则也弹出</span></span><br><span class="line">            <span class="keyword">while</span>(!deque.isEmpty() &amp;&amp; nums[deque.peekLast()] &lt; nums[i]) &#123;</span><br><span class="line">                deque.pollLast();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            deque.offer(i);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 因为单调，当i增长到符合第一个k范围的时候，每滑动一步都将队列头节点放入结果就行了</span></span><br><span class="line">            <span class="keyword">if</span>(i &gt;= k - <span class="number">1</span>)&#123;</span><br><span class="line">                res[idx++] = nums[deque.peek()];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="347题-前K个高频元素（优先级队列）"><a href="#347题-前K个高频元素（优先级队列）" class="headerlink" title="347题.前K个高频元素（优先级队列）"></a>347题.前K个高频元素（优先级队列）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">给定一个非空的整数数组，返回其中出现频率前 k 高的元素。</span><br><span class="line">示例 1:</span><br><span class="line">输入: nums = [1,1,1,2,2,3], k = 2</span><br><span class="line">输出: [1,2]</span><br></pre></td></tr></table></figure>
+
+<p>思路：统计元素出现的频率，对频率进行排序，找出前k个高频元素。首先统计元素出现的频率，这一类的问题可以使用map来进行统计。然后是对频率进行排序，这里我们可以使用一种 容器适配器就是<strong>优先级队列</strong>。</p>
+<p>优先级队列：其实<strong>就是一个披着队列外衣的堆</strong>，因为优先级队列对外接口只是从队头取元素，从队尾添加元素，再无其他取元素的方式，看起来就是一个队列。</p>
+<p>而且优先级队列内部元素是自动依照元素的权值排列。那么它是如何有序排列的呢？</p>
+<p>缺省情况下priority_queue利用max-heap（大顶堆）完成对元素的排序，这个大顶堆是以vector为表现形式的complete binary tree（完全二叉树）。</p>
+<p><strong>堆是一颗完全二叉树，树中每个结点的值都不小于（或不大于）其左右孩子的值。</strong> 如果父亲结点是大于等于左右孩子就是大顶堆，小于等于左右孩子就是小顶堆。</p>
+<p>大顶堆（堆头是最大元素），小顶堆（堆头是最小元素），如果懒得自己实现的话，就直接用priority_queue（优先级队列）就可以了，底层实现都是一样的，从小到大排就是小顶堆，从大到小排就是大顶堆。</p>
+<p>本题<strong>要用小顶堆，因为要统计最大前k个元素，只有小顶堆每次将最小的元素弹出，最后小顶堆里积累的才是前k个最大元素。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] topKFrequent(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span>[k];</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            map.put(num, map.getOrDefault(num, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Set&lt;Map.Entry&lt;Integer, Integer&gt;&gt; entries = map.entrySet();</span><br><span class="line">        <span class="comment">// 根据map的value值正序排，相当于一个小顶堆</span></span><br><span class="line">        PriorityQueue&lt;Map.Entry&lt;Integer, Integer&gt;&gt; queue = <span class="keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; o1.getValue() - o2.getValue());</span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;Integer, Integer&gt; entry : entries) &#123;</span><br><span class="line">            queue.offer(entry);</span><br><span class="line">            <span class="keyword">if</span> (queue.size() &gt; k) &#123;</span><br><span class="line">                queue.poll();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = k - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            result[i] = queue.poll().getKey();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/leecode/" rel="tag"># leecode</a>
+              <a href="/tags/java/" rel="tag"># java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/11/03/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/java%E3%81%AEleecode%E5%93%88%E5%B8%8C%E8%A1%A8%E7%AF%87/" rel="prev" title="javaのleecode哈希表篇">
+      <i class="fa fa-chevron-left"></i> javaのleecode哈希表篇
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/11/07/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/java%E3%81%AEleecode%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AF%87/" rel="next" title="javaのleecode字符串篇">
+      javaのleecode字符串篇 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88stack"><span class="nav-number">1.</span> <span class="nav-text">栈stack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20%E9%A2%98-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7"><span class="nav-number">2.</span> <span class="nav-text">20题.有效的括号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%9F%E5%88%97"><span class="nav-number">3.</span> <span class="nav-text">队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deque%E4%B8%8Equeue"><span class="nav-number">4.</span> <span class="nav-text">deque与queue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%9F%E5%88%97queue%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%9A"><span class="nav-number">4.1.</span> <span class="nav-text">队列queue的使用：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E5%90%91%E9%98%9F%E5%88%97deque%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%9A"><span class="nav-number">4.2.</span> <span class="nav-text">双向队列deque的使用：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#239%E9%A2%98-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC"><span class="nav-number">5.</span> <span class="nav-text">239题.滑动窗口最大值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#347%E9%A2%98-%E5%89%8DK%E4%B8%AA%E9%AB%98%E9%A2%91%E5%85%83%E7%B4%A0%EF%BC%88%E4%BC%98%E5%85%88%E7%BA%A7%E9%98%9F%E5%88%97%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">347题.前K个高频元素（优先级队列）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jade liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jade liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
