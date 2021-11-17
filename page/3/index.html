@@ -155,6 +155,182 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/25/myblog/JAVA/MAC%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEMaven/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/25/myblog/JAVA/MAC%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEMaven/" class="post-title-link" itemprop="url">mac安装和配置maven</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-25 12:18:11" itemprop="dateCreated datePublished" datetime="2021-08-25T12:18:11+08:00">2021-08-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-25 22:02:48" itemprop="dateModified" datetime="2021-09-25T22:02:48+08:00">2021-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="MAC安装和配置Maven"><a href="#MAC安装和配置Maven" class="headerlink" title="MAC安装和配置Maven"></a>MAC安装和配置Maven</h1><h2 id="1-Maven简介"><a href="#1-Maven简介" class="headerlink" title="1.Maven简介"></a>1.Maven简介</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">背景：开发A项目，A项目中的一些功能依赖于B项目中的某些类，那么如何维系这种依赖关系？需要用哪个项目中的哪些类，也就是用别人写好了的功能代码，导入jar包即可。所以这里也如此，可以将B项目打成jar包，然后在A项目的Library下导入B的jar文件，这样，A项目就可以调用B项目中的某些类了。如果在开发过程中，发现B中的bug，则必须将B项目修改好，并重新将B打包并对A项目进行重编译操作</span><br></pre></td></tr></table></figure>
+
+<p>Maven是基于项目对象模型(POM project object model)，可以通过一小段描述信息（配置）来管理项目的构建，报告和文档的软件项目管理工具。</p>
+<p>Maven的核心功能便是合理叙述项目间的依赖关系，通俗点讲，就是通过pom.xml文件的配置获取jar包，而不用手动去添加jar包。</p>
+<p>由于Maven仓库中所有的JAR都有其自己的坐标，该坐标告诉Maven它的组ID，构件ID，版本，打包方式等等， 因此Maven项目可以方便的进行依赖版本管理。</p>
+<h2 id="2-安装和配置Maven"><a href="#2-安装和配置Maven" class="headerlink" title="2.安装和配置Maven"></a>2.安装和配置Maven</h2><p>下载地址： <a target="_blank" rel="noopener" href="https://maven.apache.org/download.cgi">https://maven.apache.org/download.cgi</a></p>
+<p>![image-20210824144100726](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824144100726.png)</p>
+<p>我下载在了<code>/Library/ApacheMaven</code></p>
+<p><code>vim ~/.bash_profile</code>  //配置环境变量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export M=&quot;/Library/ApacheMaven&quot;  //根据自己放在哪个目录</span><br><span class="line">export PATH=&quot;$M/bin:$PATH&quot;</span><br></pre></td></tr></table></figure>
+
+<p><code>source ~/.bash_profile</code>     //使配置生效</p>
+<p><code>mvn -v</code>   //查看版本</p>
+<p>或者，可以直接<code>brew install maven</code></p>
+<h3 id="下载远程仓库到本地"><a href="#下载远程仓库到本地" class="headerlink" title="下载远程仓库到本地"></a>下载远程仓库到本地</h3><p>maven 就像是一个大仓库，里面是很多的jar包，我们需要的时候就去里面拿，所以这就涉及到一个 ‘‘本地仓库’’（不能需要什么再去网上下载吧，速度有时候很慢的）,那么咱们就得先把这些jar包下载到咱们本地方便使用，<br>默认请况下，这个本地仓库会在/user/name/.m2下面（name 是你的用户名）。为了方便，把本地仓库改在Maven安装目录下。</p>
+<p>打开安装目录下的conf目录下的<code>settings.xml</code><br>加入<code>&lt;localRepository&gt;/Library/ApacheMaven/repository &lt;/localRepository&gt;</code></p>
+<p>输入<code>mvn help:system</code></p>
+<p>![image-20210824175620786](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824175620786.png)</p>
+<p>多了一个repository文件夹，这就是咱们从远程仓库下载到本地仓库的文件。</p>
+<h2 id="3-创建Maven项目"><a href="#3-创建Maven项目" class="headerlink" title="3.创建Maven项目"></a>3.创建Maven项目</h2><h3 id="a-使用命令行创建Maven项目"><a href="#a-使用命令行创建Maven项目" class="headerlink" title="a.使用命令行创建Maven项目"></a>a.使用命令行创建Maven项目</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn archetype:generate -DgroupId=cn.xuanliu.helloword -DartifactId=helloworld -Dpackage=cn.cxuanliu.helloword -Dversion=1.0-SNAPSHOT -DarchetypeArtifactId=maven-archetype-quickstart</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>mvn</code>:表示使用的是maven命令。</li>
+<li><code>archetype:generate</code>:表示使用generate这个插件为我们的maven项目自动生成一个maven骨架，即我们项目的工程结构。后边跟的是该插件为我们创建工程结构所需要的一连串的参数。</li>
+<li><code>-DgroupId</code>:标识项目的坐标元素之一，项目包名，可以是：域名的反写+项目名。</li>
+<li><code>-DartifactId</code>:标识项目的坐标元素之一，它的值为我们的项目名。我这里指定我要生成的项目名为helloword。</li>
+<li><code>-Dpackage</code>:标识项目的坐标元素之一,这里值就跟DgroupId的值保持一致即可。此属性在命令行中可选。</li>
+<li><code>-Dversion</code>:指定版本号。此属性在命令行中可选</li>
+<li><code>-DarchetypeArtifactId</code>:表示我们生成的工程结构为哪一种，这里的属性值为<code>maven-archetype-quickstart</code>表示生成工程目录结构为quickstart的结构。其值还可以为<code>maven-archetype-webapp</code>表示生成的工程目录结构为webapp的结构。</li>
+</ul>
+<p>![image-20210824155803431](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824155803431.png)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">目录解读：在maven项目的开发中，所有的源代码放在文件夹 /src/main/java/下, 所有的单元测试代码放入 /src/test/java/。</span><br><span class="line">pom.xml 描述了整个项目的信息</span><br></pre></td></tr></table></figure>
+
+<h3 id="b-使用IDEA创建Maven项目"><a href="#b-使用IDEA创建Maven项目" class="headerlink" title="b.使用IDEA创建Maven项目"></a>b.使用IDEA创建Maven项目</h3><p><code>Create New Project</code>，选择<code>Maven</code>，勾选<code>Create from archetype</code></p>
+<p><img src="https://img2018.cnblogs.com/blog/1068501/201809/1068501-20180914191722384-1695467171.png" alt="img"></p>
+<p>写<code>Maven</code>的坐标，“groupId”，“artifactId”，以及“version”，其中groupId是公司域名的反写，而artifactId是项目名或模块名，version就是该项目或模块所对应的版本号。</p>
+<p>![image-20210824174243856](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824174243856.png)</p>
+<p>![image-20210824180029943](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824180029943.png)</p>
+<p>maven会自动下载maven依赖，当所有的都自动完成后，创建的maven项目结构如下所示： </p>
+<p>![image-20210824180441439](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824180441439.png)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">（1）在大多数情况下，把项目的主代码放到 src/main/java 目录下（遵循Maven约定），如果没有其他的配置，Maven在运行时将自动搜寻该目录下的主代码。</span><br><span class="line">（2）为了使项目的结构保持清晰，所以IDEA自动创建了 test 文件，将主代码和测试代码分别放到了独立的目录中。</span><br><span class="line">（3）pom.xml为Maven的核心配置文件，它的全称为（Project Object Model，项目对象模型），我们在使用Maven的时候也通常在这个pom .xml 中配置。</span><br></pre></td></tr></table></figure>
+
+<h4 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml:"></a>pom.xml:</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>    <span class="comment">&lt;!-- xml头，指定xml文档的版本信息和编码方式 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- &lt;project&gt;为所有pom.xml的根元素，声明了一些POM相关的命名空间及xsd元素，</span></span><br><span class="line"><span class="comment">  这些元素不是pom.xml中必须添加的，但是使用这些属性可以使第三方工具，</span></span><br><span class="line"><span class="comment">  如IDE中的xml编辑器帮助开发者快速编辑POM。 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- &lt;modeVersion&gt; 指定了当前POM模板的版本 --&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.liuxuan<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>    <span class="comment">&lt;!-- &lt;groupId&gt; 定义了该项目属于哪个项目组 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>ideamaven<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>   <span class="comment">&lt;!-- &lt;&lt;artifactId&gt;定义了当前Maven项目在项目组的唯一一个ID,项目名 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span>  <span class="comment">&lt;!--&lt;version&gt;定义了Hello Maven项目当前的版本号 1.0-SNAPSHOT 为IDEA默认的初始版本号 --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在没有实际的java代码时，我们就可以完整的创建一个Maven项目的pom.xml，这说明了Maven可以使项目对象模型最大程度的与代码相独立，这充分体现了解耦的原则和理念！为开发者节省了时间，大大缩短了项目开发周期。在项目开发到稳定期时，升级版本时，开发者可以不需要修改实际的 java 代码，而是只修改pom.xml，这一特点使Maven被广泛的使用。</p>
+<h2 id="4-编写主代码"><a href="#4-编写主代码" class="headerlink" title="4.编写主代码"></a>4.编写主代码</h2><p><strong>项目主代码和测试代码不同，主代码会被打包到最终的构件中，而测试代码只在运行测试时用到，不会被打包。</strong></p>
+<p><strong>在src/main/java中创建文件com/feiyu/web/helloworld/helloWorld.java</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.liuxuan;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello liuxuan&#x27;s Maven!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="keyword">new</span> hello().sayHello());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>右键运行。</p>
+<p>目录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---pom.xml　　　　核心配置，项目根下</span><br><span class="line">---src</span><br><span class="line">　　---main　　　　　　</span><br><span class="line">　　　   ---java　　　　java源码目录</span><br><span class="line">　　     ---resources　  java配置文件目录</span><br><span class="line">　　---test</span><br><span class="line">　　　　　---java　　　　测试源码目录</span><br><span class="line">　　　　　---resources　  测试配置目录</span><br><span class="line">---target    输出目录</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-Maven仓库"><a href="#5-Maven仓库" class="headerlink" title="5.Maven仓库"></a>5.Maven仓库</h2><p>Maven 仓库是项目中依赖的第三方库，这个库所在的位置叫做仓库。在 Maven 中，任何一个依赖、插件或者项目构建的输出，都可以称之为构件。Maven 仓库能帮助我们管理构件（主要是JAR），它就是放置所有JAR文件（WAR，ZIP，POM等等）的地方。</p>
+<p>Maven 仓库有三种类型：</p>
+<ul>
+<li>本地（local）</li>
+<li>中央（central）</li>
+<li>远程（remote）</li>
+</ul>
+<h3 id="a-本地仓库"><a href="#a-本地仓库" class="headerlink" title="a.本地仓库"></a>a.本地仓库</h3><p>第一次执行 maven 命令的时候才被创建。运行 Maven 的时候，Maven 所需要的任何构件都是直接从本地仓库获取的。如果本地仓库没有，它会首先尝试从远程仓库下载构件至本地仓库，然后再使用本地仓库的构件。</p>
+<p>默认情况下，不管Linux还是 Windows，每个用户在自己的用户目录下都有一个路径名为 .m2/respository/ 的仓库目录。</p>
+<p>可以修改默认位置，改变settings.xml中的配置。<br><code>&lt;localRepository&gt;C:/MyLocalRepository&lt;/localRepository&gt;</code></p>
+<h3 id="b-中央仓库"><a href="#b-中央仓库" class="headerlink" title="b.中央仓库"></a>b.中央仓库</h3><p>Maven 中央仓库是由 Maven 社区提供的仓库，其中包含了大量常用的库。</p>
+<p>中央仓库包含了绝大多数流行的开源Java构件，以及源码、作者信息、SCM、信息、许可证信息等。一般来说，简单的Java项目依赖的构件都可以在这里下载到。</p>
+<p>中央仓库的关键概念：</p>
+<ul>
+<li>这个仓库由 Maven 社区管理。</li>
+<li>不需要配置。</li>
+<li>需要通过网络才能访问。</li>
+</ul>
+<p>要浏览中央仓库的内容，maven 社区提供了一个 URL：<a target="_blank" rel="noopener" href="http://search.maven.org/#browse%E3%80%82%E4%BD%BF%E7%94%A8%E8%BF%99%E4%B8%AA%E4%BB%93%E5%BA%93%EF%BC%8C%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E5%8F%AF%E4%BB%A5%E6%90%9C%E7%B4%A2%E6%89%80%E6%9C%89%E5%8F%AF%E4%BB%A5%E8%8E%B7%E5%8F%96%E7%9A%84%E4%BB%A3%E7%A0%81%E5%BA%93%E3%80%82">http://search.maven.org/#browse。使用这个仓库，开发人员可以搜索所有可以获取的代码库。</a></p>
+<h3 id="c-远程仓库"><a href="#c-远程仓库" class="headerlink" title="c.远程仓库"></a>c.远程仓库</h3><p>中央仓库是一些常用的库？远程仓库是开发人员自己定制仓库，包含了所需要的代码库或者其他工程中用到的 jar 文件。</p>
+<h3 id="d-Maven依赖搜索顺序"><a href="#d-Maven依赖搜索顺序" class="headerlink" title="d.Maven依赖搜索顺序"></a>d.Maven依赖搜索顺序</h3><ul>
+<li><strong>步骤 1</strong> － 在本地仓库中搜索，如果找不到，执行步骤 2，如果找到了则执行其他操作。</li>
+<li><strong>步骤 2</strong> － 在中央仓库中搜索，如果找不到，并且有一个或多个远程仓库已经设置，则执行步骤 4，如果找到了则下载到本地仓库中以备将来引用。</li>
+<li><strong>步骤 3</strong> － 如果远程仓库没有被设置，Maven 将简单的停滞处理并抛出错误（无法找到依赖的文件）。</li>
+<li><strong>步骤 4</strong> － 在一个或多个远程仓库中搜索依赖的文件，如果找到则下载到本地仓库以备将来引用，否则 Maven 将停止处理并抛出错误（无法找到依赖的文件）。</li>
+</ul>
+<h3 id="e-更换Maven阿里云仓库"><a href="#e-更换Maven阿里云仓库" class="headerlink" title="e.更换Maven阿里云仓库"></a>e.更换Maven阿里云仓库</h3><p>Maven根目录下，conf文件夹下setting.xml文件，mirrors节点上修改。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirrors&gt;</span><br><span class="line">  &lt;mirror&gt;</span><br><span class="line">    &lt;id&gt;alimaven&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;aliyun maven&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span><br><span class="line">    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;</span><br><span class="line">  &lt;/mirror&gt;</span><br><span class="line">&lt;/mirrors&gt;</span><br></pre></td></tr></table></figure>
+
+<p>第二步：pom.xml文件里添加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;repositories&gt;  </span><br><span class="line">        &lt;repository&gt;  </span><br><span class="line">            &lt;id&gt;alimaven&lt;/id&gt;  </span><br><span class="line">            &lt;name&gt;aliyun maven&lt;/name&gt;  </span><br><span class="line">            &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;  </span><br><span class="line">            &lt;releases&gt;  </span><br><span class="line">                &lt;enabled&gt;true&lt;/enabled&gt;  </span><br><span class="line">            &lt;/releases&gt;  </span><br><span class="line">            &lt;snapshots&gt;  </span><br><span class="line">                &lt;enabled&gt;false&lt;/enabled&gt;  </span><br><span class="line">            &lt;/snapshots&gt;  </span><br><span class="line">        &lt;/repository&gt;  </span><br><span class="line">&lt;/repositories&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-Maven命令"><a href="#6-Maven命令" class="headerlink" title="6.Maven命令"></a>6.Maven命令</h2><p><code>maven -version   Maven版本及控制信息</code></p>
+<p><code>mvn archetype:create  -DgroupId=   DartifactId=   构建java项目</code>   </p>
+<p><code>mvn archetype:create  -DgroupId=   DartifactId=   -DarchetypeArtifactId=maven-archetype-webapp ls创建web项目</code></p>
+<p><code>mvn compile     编译源代码</code>     </p>
+<p><code>mvn test-compile    编译测试代码</code></p>
+<p><code>mvn clean   打包前清理掉之前有过打包的文件夹target</code></p>
+<p><code>mvn package  打包，package包括了编译、打包这两步</code>    </p>
+<p>![image-20210825113016694](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210825113016694.png)</p>
+<p><code>mvn install   将打包好的jar包部署到本地，放到本地仓库</code> </p>
+<h2 id="7-运行jar包"><a href="#7-运行jar包" class="headerlink" title="7.运行jar包"></a>7.运行jar包</h2><p><code>java -jar ideamaven-1.0-SNAPSHOT.jar</code></p>
+<p>问题：<code>ideamaven-1.0-SNAPSHOT.jar中没有主清单属性</code></p>
+<p>解决：找不到<code>main</code>方法，需要在<code>pom.xml</code>配置<code>main</code>方法的位置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--  添加main方法   --&gt;</span><br><span class="line">&lt;plugin&gt;</span><br><span class="line">  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;1.2.1&lt;/version&gt;</span><br><span class="line">  &lt;executions&gt;</span><br><span class="line">    &lt;execution&gt;</span><br><span class="line">      &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">      &lt;goals&gt;</span><br><span class="line">        &lt;goal&gt;shade&lt;/goal&gt;</span><br><span class="line">      &lt;/goals&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;transformers&gt;</span><br><span class="line">          &lt;transformer implementation=&quot;org.apache.maven.plugins.shade.resource.ManifestResourceTransformer&quot;&gt;</span><br><span class="line">            &lt;!-- 在这里指定入口类 --&gt;</span><br><span class="line">            &lt;mainClass&gt;com.liuxuan.hello&lt;/mainClass&gt;</span><br><span class="line">          &lt;/transformer&gt;</span><br><span class="line">        &lt;/transformers&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/execution&gt;</span><br><span class="line">  &lt;/executions&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
+
+<p>mvn打包和jar包运行问题未解决。</p>
+<p>问题：<code>Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.0:compile (default-compile) on project ideamaven: Compilation failure</code></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://console.cloud.baidu-int.com/devops/icode/repos/baidu/netdisk/platform-idproducter/reviews/18480257/files/base...latest/service/create_service.go">https://console.cloud.baidu-int.com/devops/icode/repos/baidu/netdisk/platform-idproducter/reviews/18480257/files/base...latest/service/create_service.go</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wfy2695766757/article/details/81189291">https://blog.csdn.net/wfy2695766757/article/details/81189291</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/23/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-Vue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1199,185 +1375,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E6%90%AD%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AAVUE%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%85%A5%E9%97%A8%E7%BA%A7%E5%88%AB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E6%90%AD%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AAVUE%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%85%A5%E9%97%A8%E7%BA%A7%E5%88%AB/" class="post-title-link" itemprop="url">搭建第一个VUE项目，入门级别</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-19 19:52:00" itemprop="dateCreated datePublished" datetime="2021-08-19T19:52:00+08:00">2021-08-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 21:54:54" itemprop="dateModified" datetime="2021-09-25T21:54:54+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-开发软件vscode"><a href="#1-开发软件vscode" class="headerlink" title="1.开发软件vscode"></a>1.开发软件vscode</h3><p>vscode特点：</p>
-<ul>
-<li>开源，免费；</li>
-<li>自定义配置</li>
-<li>集成git</li>
-<li>智能提示强大</li>
-<li>支持各种文件格式（html/jade/css/less/sass/xml）</li>
-<li>调试功能强大</li>
-<li>各种方便的快捷键</li>
-<li>强大的插件扩展</li>
-</ul>
-<h4 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h4><p>Debugger for Chrome：从VS Code调试在Google Chrome中运行的JavaScript代码。</p>
-<p>beautify：格式化代码工具，美化Javascript，JSON，CSS，Sass，和HTML在Visual Studio代码。</p>
-<p>Atuo Rename Tag：修改 html 标签，自动帮你完成头部和尾部闭合标签的同步修改。</p>
-<p>中文（简体）语言包</p>
-<p>Code Spell Checker：代码拼写检查器，一个与camelCase代码配合良好的基本拼写检查程序。此拼写检查程序的目标是帮助捕获常见的拼写错误，同时保持误报数量较低。 </p>
-<p>vscode-icons：显示Visual Studio代码的图标，目前该插件已被vscode内部支持：”文件” -&gt; “首选项” -&gt; “文件图标主题”。 </p>
-<p>guides：显示代码对齐辅助线，很好用。</p>
-<p>filesize：在状态栏中显示当前文件大小，点击后还可以看到详细创建</p>
-<p>Path Intellisense：可自动填充文件名。 </p>
-<h3 id="2-入门"><a href="#2-入门" class="headerlink" title="2.入门"></a>2.入门</h3><ol>
-<li><strong>HTML</strong> 定义了网页的内容</li>
-<li><strong>CSS</strong> 描述了网页的布局</li>
-<li><strong>JavaScript</strong> 控制了网页的行为</li>
-<li><strong>Vue.js</strong>（读音 /vjuː/, 类似于 view） 是一套构建用户界面的渐进式框架。<br>Vue 只关注视图层， 采用自底向上增量开发的设计。<br>Vue 的目标是通过尽可能简单的 API 实现响应的数据绑定和组合的视图组件。</li>
-</ol>
-<h3 id="3-开始一个vue项目"><a href="#3-开始一个vue项目" class="headerlink" title="3.开始一个vue项目"></a>3.开始一个vue项目</h3><h4 id="1）安装node环境"><a href="#1）安装node环境" class="headerlink" title="1）安装node环境"></a>1）安装node环境</h4><h5 id="Node-js简介"><a href="#Node-js简介" class="headerlink" title="Node.js简介"></a>Node.js简介</h5><p>简单的说 Node.js 就是运行在服务端的 JavaScript。Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。Node.js 的包管理器 npm，是全球最大的开源库生态系统。</p>
-<p>Node.js是一个让JavaScript运行在服务端的开发平台，它让JavaScript成为与PHP、Python、Perl、Ruby等服务端语言平起平坐的脚本语言</p>
-<p>类似于J2EE</p>
-<blockquote>
-<p>Java的三个版本 : JAVASE(标准版),JAVAEE(企业版),JAVAME(微型版).</p>
-<p>java是一个平台。他包括了，java语言，java开发环境(jdk)。java有三个版本，j2se(标准版),j2ee(企业版),j2me(微型版)不管哪个版本，都是java语言实现的一个框架。之所以要分版本，是因为3个版本是针对不同问题，设计的解决方案。j2EE是java的企业级开发版本，其实换句话说就是用来做web开发的java框架。javaEE通过设定统一的标准来解决web开发的问题，javaEE的接口，抽象类，规定了web开发所需要实现的流程。整个web的开发，有2层，第1层是服务器容器，比如tomcat，weblogic。他们在javaEE的规范下，实现套接字的连接，封装消息等等，第2层是业务，而这一层是你要做的，通过tomcat封装的消息，进行相应的业务处理。服务器容器的开发由大型的产商开发，而我们通常做的开发是在服务器容器上的业务开发，正是sun的javaEE统一了规范(比如用servlet)我们的业务代码，能和comcat进行很好的通讯。</p>
-</blockquote>
-<p>下载地址为：<a target="_blank" rel="noopener" href="https://nodejs.org/en/">https://nodejs.org/en/</a></p>
-<h5 id="npm简介"><a href="#npm简介" class="headerlink" title="npm简介"></a>npm简介</h5><p>npm：Node.js的包管理工具（package manager）大家都把自己开发的模块打包后放到npm官网上，如果要使用，</p>
-<p>直接通过npm安装就可以直接用，不用管代码存在哪，应该从哪下载。</p>
-<p>更重要的是，如果我们要使用模块A，而模块A又依赖于模块B，模块B又依赖于模块X</p>
-<p>npm可以根据依赖关系，把所有依赖的包都下载下来并管理起来。</p>
-<p>类似与MAVEN</p>
-<p><code>npm install -g cnpm –registry=https://registry.npm.taobao.org</code>，即可安装npm镜像，以后再用到npm的地方直接用cnpm来代替就好了。</p>
-<h4 id="2）搭建vue项目环境"><a href="#2）搭建vue项目环境" class="headerlink" title="2）搭建vue项目环境"></a>2）搭建vue项目环境</h4><p><strong>vue-cli简介</strong></p>
-<p>vue-cli是vue官方提供的一个命令行工具，可用于快速搭建大型单页应用。该工具提供开箱即用的构建工具配置，带来现代化的前端开发流程。只需一分钟即可启动带热重载、保存时静态检查以及可用于生产环境的构建配置的项目。</p>
-<p>安装vue-cli：vue-cli是vue.js的脚手架，用于自动生成vue.js+webpack的项目模板，自动化前端项目工具</p>
-<p>webpack是一个<strong>打包器（bundler）</strong>，它能将多个js文件打包成一个文件（其实不止能打包js文件，也能打包其他类型的文件，比如css文件，json文件等）。</p>
-<p><code>npm install --global vue-cli</code></p>
-<h4 id="2-5）centos下安装"><a href="#2-5）centos下安装" class="headerlink" title="2.5）centos下安装"></a>2.5）centos下安装</h4><p><code>sudo yum install -y nodejs</code></p>
-<p><code>sudo yum install -y npm</code></p>
-<p><code>npm install --global vue-cli</code>    //发生错误，无法成功安装</p>
-<blockquote>
-<p><code>npm config set strict-ssl false</code>   //绕过https</p>
-<p>再sudo执行还是不行👋🏻  卡住了。。。</p>
-<p>Yarn是facebook发布的一款取代npm的包管理工具。</p>
-<p><code>sudo npm install -g yarn</code>  同样的错误：npm ERR! Error: CERT_UNTRUSTED</p>
-</blockquote>
-<p>挥之不去的错误：npm安装过不了</p>
-<p><strong>转战MAC安装：</strong></p>
-<blockquote>
-<p>1.安装node.js(<a target="_blank" rel="noopener" href="http://www.runoob.com/nodejs/nodejs-install-setup.html">http://www.runoob.com/nodejs/nodejs-install-setup.html</a>)  node -v<br>2.安装npm：略  npm -v<br>3.安装cnpm：sudo npm install -g cnpm –registry=<a target="_blank" rel="noopener" href="https://registry.npm.taobao.org/">https://registry.npm.taobao.org</a><br>4.安装全局vue-cli脚手架,用于帮助搭建所需的模板框架：sudo cnpm install -g vue-cli</p>
-</blockquote>
-<h4 id="3-创建一个基于webpack模板的新项目"><a href="#3-创建一个基于webpack模板的新项目" class="headerlink" title="3)创建一个基于webpack模板的新项目"></a>3)创建一个基于webpack模板的新项目</h4><p>进入项目目录，创建一个基于webpack模板的新项目<br><code>vue init webpack myfirstvue</code></p>
-<p>选择项目名字、项目描述、作者等等Vue build ==&gt; 打包方式，回车即可；</p>
-<p>Install vue-router ==&gt; 是否要安装 vue-router</p>
-<p>Use ESLint to lint your code ==&gt; 是否需要 js 语法检测 </p>
-<p>Set up unit tests ==&gt; 是否安装 单元测试工具</p>
-<p>Setup e2e tests with Nightwatch ==&gt; 是否需要 端到端测试工具 </p>
-<p>顺便还安装了yarn</p>
-<h4 id="4）进入项目，安装依赖"><a href="#4）进入项目，安装依赖" class="headerlink" title="4）进入项目，安装依赖"></a>4）进入项目，安装依赖</h4><p>cd myfirstvue 进入项目</p>
-<p>安装成功后，项目文件夹中会多出一个目录：node_modules</p>
-<h4 id="5）运行项目"><a href="#5）运行项目" class="headerlink" title="5）运行项目"></a>5）运行项目</h4><p>npm run dev  </p>
-<p>运行效果：</p>
-<p><img src="https://img2020.cnblogs.com/blog/2499596/202108/2499596-20210817150434095-1939209105.png"></p>
-<h4 id="6）项目目录解读"><a href="#6）项目目录解读" class="headerlink" title="6）项目目录解读"></a>6）项目目录解读</h4><p>1、build：构建脚本目录</p>
-<p>　　　　1）build.js  ==&gt; 生产环境构建脚本；``</p>
-<p>　　　　2）check-versions.js  ==&gt; 检查npm，node.js版本；</p>
-<p>　　　　3）utils.js  ==&gt; 构建相关工具方法；</p>
-<p>　　　　4）vue-loader.conf.js  ==&gt; 配置了css加载器以及编译css之后自动添加前缀；</p>
-<p>　　　　5）webpack.base.conf.js  ==&gt; webpack基本配置；</p>
-<p>　　　　6）webpack.dev.conf.js  ==&gt; webpack开发环境配置；</p>
-<p>　　　　7）webpack.prod.conf.js  ==&gt; webpack生产环境配置；</p>
-<p>2、config：项目配置</p>
-<p>　　　　1）dev.env.js  ==&gt; 开发环境变量；</p>
-<p>　　　　2）index.js  ==&gt; 项目配置文件；</p>
-<p>　　　　3）prod.env.js  ==&gt; 生产环境变量；</p>
-<p>3、node_modules：npm 加载的项目依赖模块</p>
-<p>4、src：这里是我们要开发的目录，基本上要做的事情都在这个目录里。里面包含了几个目录及文件：</p>
-<p>　　　　1）assets：资源目录，放置一些图片或者公共js、公共css。这里的资源会被webpack构建；</p>
-<p>　　　　2）components：组件目录，我们写的组件就放在这个目录里面；</p>
-<p>　　　　3）router：前端路由，我们需要配置的路由路径写在index.js里面；</p>
-<p>　　　　4）App.vue：根组件；</p>
-<p>　　　　5）main.js：入口js文件；</p>
-<p>5、static：静态资源目录，如图片、字体等。不会被webpack构建</p>
-<p>6、index.html：首页入口文件，可以添加一些 meta 信息等</p>
-<p>7、package.json：npm包配置文件，定义了项目的npm脚本，依赖包等信息``</p>
-<p>8、README.md：项目的说明文档，markdown 格式</p>
-<p>9、.xxxx文件：这些是一些配置文件，包括语法配置，git配置等</p>
-<h4 id="7）项目改造"><a href="#7）项目改造" class="headerlink" title="7）项目改造"></a>7）项目改造</h4><p>1.在components目录下新建一个views目录，里面写我们的vue组件<br>  在views目录下新建First.vue</p>
-<p>2.在router目录下的index.js里面配置路由路径</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#x27;vue&#x27;</span><br><span class="line">import Router from &#x27;vue-router&#x27;</span><br><span class="line">import HelloWorld from &#x27;@/components/HelloWorld&#x27;</span><br><span class="line">import first from &#x27;@components/views/first&#x27;</span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line"></span><br><span class="line">export default new Router(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: &#x27;/&#x27;,</span><br><span class="line">      name: &#x27;HelloWorld&#x27;,</span><br><span class="line">      component: HelloWorld</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      path: &#x27;/first&#x27;,</span><br><span class="line">      name: &#x27;first&#x27;,</span><br><span class="line">      component: first</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>3.template 写 html，script写 js，style写样式（运行会提示空格引号错误之类的，按要求修改即可）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">template&gt;</span><br><span class="line">  &lt;div class=&quot;first-app&quot;&gt;</span><br><span class="line">    &#123;&#123;msg&#125;&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;first&#x27;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &#x27;welcome to firstapp&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- what --&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
-
-<p>4.效果：</p>
-<p><img src="https://img2020.cnblogs.com/blog/2499596/202108/2499596-20210817150350056-832764408.png"></p>
-<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hellman/p/10985377.html">https://www.cnblogs.com/hellman/p/10985377.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/miller-star/p/6394760.html">https://www.cnblogs.com/miller-star/p/6394760.html</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1446,7 +1443,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
