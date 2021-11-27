@@ -155,6 +155,212 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/27/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/MAC%E5%AE%89%E8%A3%85mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/11/27/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/MAC%E5%AE%89%E8%A3%85mysql/" class="post-title-link" itemprop="url">MAC安装MySQL</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-11-27 19:23:22 / Modified: 20:49:08" itemprop="dateCreated datePublished" datetime="2021-11-27T19:23:22+08:00">2021-11-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装：<code>brew install mysql</code></p>
+<p>查看：<code>brew info mysql</code></p>
+<p>启动数据库服务：<code>mysql.server start</code></p>
+<p>登录：<code>mysql -u root -p </code></p>
+<blockquote>
+<p>遇到问题，发现是brew没更新，brew update更新后再试就可以</p>
+</blockquote>
+<p>MySQL数据库第一次安装完成后,root用户初始的登录密码为空。直接回车进行登录。</p>
+<h2 id="显示"><a href="#显示" class="headerlink" title="显示"></a>显示</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from t_goods \G</span><br></pre></td></tr></table></figure>
+
+<p>一行一行地显示，注意：\G为大写字母，不可使用小写；使用\G参数后，SQL语句后可以不加分隔符，如果加分隔符，则会报“error:no query specified”的错误。</p>
+<h2 id="添加用户改密码"><a href="#添加用户改密码" class="headerlink" title="添加用户改密码"></a>添加用户改密码</h2><p><code>select User, Host, password_expired from mysql.user;</code>  显示用户</p>
+<p><strong>创建用户</strong>：<code>create user &#39;name&#39;@&#39;localhost&#39; identified by &#39;password&#39;;</code></p>
+<p>username：你将创建的用户名<br>host：指定该用户在哪个主机上可以登陆，如果是本地用户可用localhost，如果想让该用户可以从任意远程主机登陆，可以使用通配符%<br>password：该用户的登陆密码，密码可以为空，如果为空则该用户可以不需要密码登陆服务器</p>
+<p><code>CREATE USER &#39;dog&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;123456&#39;;</code><br><code>CREATE USER &#39;pig&#39;@&#39;192.168.1.101_&#39; IDENDIFIED BY &#39;123456&#39;;</code><br><code>CREATE USER &#39;pig&#39;@&#39;%&#39; IDENTIFIED BY &#39;123456&#39;;</code></p>
+<p><strong>授权</strong>：<code>grant privileges on databasename.tablename to &#39;username&#39;@&#39;host&#39;</code></p>
+<p>privileges：用户的操作权限，如SELECT，INSERT，UPDATE等，如果要授予所的权限则使用ALL<br>databasename：数据库名<br>tablename：表名，如果要授予该用户对所有数据库和表的相应操作权限则可用<em>表示，如</em>.*</p>
+<p>例子:<br><code>GRANT SELECT, INSERT ON test.user TO &#39;pig&#39;@&#39;%&#39;;</code><br><code>GRANT ALL ON *.* TO &#39;pig&#39;@&#39;%&#39;;</code><br><code>GRANT ALL ON maindataplus.* TO &#39;pig&#39;@&#39;%&#39;;</code></p>
+<p><strong>修改密码</strong>：<code>set password for &#39;name&#39;@&#39;localhost&#39;=password(&#39;newpass&#39;);</code></p>
+<p>如果是当前登陆用户用:<br><code>SET PASSWORD = PASSWORD(&quot;newpassword&quot;);</code><br>例子:<br><code>SET PASSWORD FOR &#39;pig&#39;@&#39;%&#39; = PASSWORD(&quot;123456&quot;);</code></p>
+<p><strong>撤销授权</strong>：<code>REVOKE privilege ON databasename.tablename FROM &#39;username&#39;@&#39;host&#39;;</code></p>
+<p>例子:<br><code>REVOKE SELECT ON *.* FROM &#39;pig&#39;@&#39;%&#39;;</code></p>
+<p><strong>查看授权</strong>：<code>SHOW GRANTS FOR &#39;pig&#39;@&#39;%&#39;; </code></p>
+<p><strong>删除用户</strong>：<code>DROP USER &#39;username&#39;@&#39;host&#39;;</code></p>
+<p><strong>刷新权限</strong>：<code>flush privileges;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select User, Host, password_expired from mysql.user;</span><br><span class="line">grant all on *.* to &#x27;liuxuan&#x27;@&#x27;localhost&#x27;;</span><br><span class="line">mysql -u liuxuan -p</span><br><span class="line">登录</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/27/myblog/JAVA/%E3%80%8Ajava%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E3%80%8B%E4%B9%8BJDBC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/11/27/myblog/JAVA/%E3%80%8Ajava%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E3%80%8B%E4%B9%8BJDBC/" class="post-title-link" itemprop="url">《Java基础入门》之JDBC</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-11-27 19:20:17 / Modified: 22:39:58" itemprop="dateCreated datePublished" datetime="2021-11-27T19:20:17+08:00">2021-11-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>实际开发中，项目中的数据是存储在数据库中的，Java对数据库的操作提供了一套可以执行SQL语句的API，即JDBC。</p>
+<h2 id="JDBC概念"><a href="#JDBC概念" class="headerlink" title="JDBC概念"></a>JDBC概念</h2><p>JDBC（java database connectivity，Java数据库连接）是一套用于执行SQL语句的Java API。应用程序通过该API连接到关系型数据库，并使用SQL语句来完成对数据库中数据的增删改查。</p>
+<p>JDBC要求各个数据库厂商按照统一的规范来提供数据库驱动，在程序中由JDBC和具体的数据库驱动联系，使得应用程序不必直接与底层数据库交互，使得代码的通用性更强。</p>
+<p>JDBC在应用程序与数据库之间起到一个桥梁作用。当应用程序使用JDBC访问特定的数据库时，只需要通过不同的数据库驱动与其对应的数据库进行连接，连接后即可对该数据库进行相应的操作。</p>
+<h2 id="JDBC常用API"><a href="#JDBC常用API" class="headerlink" title="JDBC常用API"></a>JDBC常用API</h2><p>JDBC的API主要位于java.sql包中，定义了一系列访问数据库的接口和类。</p>
+<h3 id="Driver接口"><a href="#Driver接口" class="headerlink" title="Driver接口"></a>Driver接口</h3><p>是所有JDBC驱动程序必须实现的接口，专门提供给数据库厂商使用。</p>
+<h3 id="DriverManager类"><a href="#DriverManager类" class="headerlink" title="DriverManager类"></a>DriverManager类</h3><p>用于加载JDBC驱动并创建与数据库的连接。在加载数据库驱动时，通常使用Class类的静态方法forName()来实现。参数是数据库驱动类所对应的字符串。</p>
+<h3 id="Connection接口"><a href="#Connection接口" class="headerlink" title="Connection接口"></a>Connection接口</h3><p>代表Java程序和数据库的连接对象，只有获得该连接对象后，才能访问数据库，并操作数据表。</p>
+<h3 id="Statement接口"><a href="#Statement接口" class="headerlink" title="Statement接口"></a>Statement接口</h3><p>用于执行静态的SQL语句，并返回一个结果对象。</p>
+<p>Statement接口对象可以通过Connection实例的createStatement()方法获得，该方法把静态的SQL语句发送到数据库中编译执行，然后返回数据库的处理结果。</p>
+<h3 id="PreparedStatement接口"><a href="#PreparedStatement接口" class="headerlink" title="PreparedStatement接口"></a>PreparedStatement接口</h3><p>使用Statement接口操作SQL语句会过于繁琐，并且存在安全隐患，因此，JDBC提供了扩展的PreparedStatement接口。是Statement的子接口，用于执行预编译的SQL语句，可以使用占位符？来替代参数，然后通过setXXX()方法为SQL语句的参数赋值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String sql=<span class="string">&quot;insert into users(is,name,email) values(?,?,?)&quot;</span>;</span><br><span class="line">PreparedStatement prestmt = conn.preparedStatement(sql);</span><br><span class="line">prestmt.setInt(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">prestmt.setString(<span class="number">2</span>,<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">prestmt.setObject(<span class="number">3</span>,<span class="string">&quot;111@1.com&quot;</span>);  <span class="comment">//通用方法？</span></span><br><span class="line">prestmt.executeUpdate();</span><br></pre></td></tr></table></figure>
+
+<h3 id="ResultSet接口"><a href="#ResultSet接口" class="headerlink" title="ResultSet接口"></a>ResultSet接口</h3><p>用于保存JDBC执行查询时返回的结果集，结果集封装在一个逻辑表格中。接口内部有一个指向表格数据行的游标（或指针），ResultSet对象初始化时，游标在第一行之前。调用next()方法，游标移动到下一行，若下一行没有数据，则返回false。</p>
+<p>应用程序中使用next方法作为while循环的条件来迭代ResultSet结果集。</p>
+<p>getXXX方法用于获取指定的数据，可以用索引（从1开始）也可用字段的名称来获取。</p>
+<p>例如第1列字段名为id，字段类型int，可以用getInt(“id”)或getInt(1)获得该列的值。</p>
+<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><h3 id="第一步：加载数据库驱动"><a href="#第一步：加载数据库驱动" class="headerlink" title="第一步：加载数据库驱动"></a><em>第一步：加载数据库驱动</em></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);  <span class="comment">//加载mysql数据库的驱动</span></span><br><span class="line">Class.forName(<span class="string">&quot;oracle.jdbc.driver.OracleDriver&quot;</span>);   <span class="comment">//加载Oracle数据库的驱动</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="第二步：获取数据库连接"><a href="#第二步：获取数据库连接" class="headerlink" title="第二步：获取数据库连接"></a><em>第二步：获取数据库连接</em></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Connection conn = DriverManager.getConnection(String url, String user, String pwd);</span><br></pre></td></tr></table></figure>
+
+<p>连接数据库的url需要遵循固定写法：</p>
+<p><code>jdbc:mysql://hostname:port/databasename</code></p>
+<p>mysql指MySQL数据库，hostname指主机的名称（如果数据库在本机上，hostname可以为localhost或127.0.0.1。如果在其他机器上，那么hostname为所要连接机器的IP地址。port指端口号，mysql默认端口号为3306，databasename指的是mysql中相应数据库的名字。</p>
+<h3 id="第三步：通过Connection对象获取Statement对象"><a href="#第三步：通过Connection对象获取Statement对象" class="headerlink" title="第三步：通过Connection对象获取Statement对象"></a><em>第三步：通过Connection对象获取Statement对象</em></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Statement stmt = conn.createStatement();</span><br></pre></td></tr></table></figure>
+
+<p>也可以用PreparedStatement。</p>
+<h3 id="第四步：使用Statement执行SQL语句"><a href="#第四步：使用Statement执行SQL语句" class="headerlink" title="第四步：使用Statement执行SQL语句"></a><em>第四步：使用Statement执行SQL语句</em></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">execute(String sql);  用于执行任意sql语句</span><br><span class="line">executeQuery(String sql);   执行查询操作，返回一个ResultSet结果集对象</span><br><span class="line">executeUpdate(String sql);  执行insert、update、delete会返回受sql语句影响的行数，执行create、alter返回<span class="number">0</span></span><br><span class="line"></span><br><span class="line">ResultSet rs=stmt.executeQuery(sql);</span><br></pre></td></tr></table></figure>
+
+<h3 id="第五步：操作ResultSet结果集"><a href="#第五步：操作ResultSet结果集" class="headerlink" title="第五步：操作ResultSet结果集"></a><em>第五步：操作ResultSet结果集</em></h3><h3 id="第六步：关闭连接，释放资源"><a href="#第六步：关闭连接，释放资源" class="headerlink" title="第六步：关闭连接，释放资源"></a><em>第六步：关闭连接，释放资源</em></h3><p>顺序为：ResultSet、Statement、Connection。为了保证在异常情况下也能关闭资源，用try…catch的finally代码块统一关闭资源。</p>
+<h2 id="第一个JDBC程序"><a href="#第一个JDBC程序" class="headerlink" title="第一个JDBC程序"></a>第一个JDBC程序</h2><h3 id="数据库建表"><a href="#数据库建表" class="headerlink" title="数据库建表"></a>数据库建表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">create database jdbc;</span><br><span class="line">show databases;</span><br><span class="line">use jdbc;</span><br><span class="line">create table test_table(</span><br><span class="line">    id int primary key auto_increment,</span><br><span class="line">    name varchar(40),</span><br><span class="line">    sex varchar(2),</span><br><span class="line">    birthday date</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">查看表结构： desc test_table;</span><br><span class="line">查看建表语句：show create table test_table;</span><br></pre></td></tr></table></figure>
+
+<p>如果出现中文乱码的情况，是因为MySQL数据库默认使用UTF-8编码格式，而命令行窗口默认使用的是GBK编码格式，所以执行带有中文数据的插入语句会出现解析错误。需要执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set character_set_client=gbk;</span><br><span class="line">set character_set_results=gbk;</span><br></pre></td></tr></table></figure>
+
+<h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">insert into test_table(name, sex, birthday)</span><br><span class="line">values(&#x27;jade&#x27;,&#x27;男&#x27;,&#x27;2000-1-1&#x27;),(&#x27;marry&#x27;,&#x27;女&#x27;,&#x27;1999-2-21&#x27;),(&#x27;james&#x27;,&#x27;男&#x27;,&#x27;2010-2-3&#x27;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="新建项目，导入数据库驱动"><a href="#新建项目，导入数据库驱动" class="headerlink" title="新建项目，导入数据库驱动"></a>新建项目，导入数据库驱动</h3><p>IDE下正常创建一个项目，右键新建一个文件夹，取名libs。</p>
+<p>下载Mysql驱动文件：<a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/connector/j/%EF%BC%8C%E9%80%89%E6%8B%A9platform">https://dev.mysql.com/downloads/connector/j/，选择platform</a> independent，下载 <strong>ZIP Archive</strong>。直接No thanks, just start my download.  复制到libs文件夹下。</p>
+<p>把jar包添加到项目里，类似eclipse的add to build path功能，file – project structure – modules – dependencies – 加号 – 第一项–添加jar包 – apply。</p>
+<h3 id="编写JDBC程序"><a href="#编写JDBC程序" class="headerlink" title="编写JDBC程序"></a>编写JDBC程序</h3><p>src下新建包com.liuxuan.jdbc。创建类Test。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.liuxuan.jdbc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> jdk.nashorn.internal.parser.JSONParser;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@program</span>: JDBCdemo</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: jdbc</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: liuxuan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2021-11-27 22:09</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        Connection conn = <span class="keyword">null</span>;</span><br><span class="line">        Statement stmt = <span class="keyword">null</span>;</span><br><span class="line">        ResultSet rs = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//1.加载数据库驱动 com.mysql.jdbc.Driver 多加了cj</span></span><br><span class="line">            Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">            <span class="comment">//2.通过DriverManager获取数据库连接</span></span><br><span class="line">            String url = <span class="string">&quot;jdbc:mysql://localhost:3306/jdbc&quot;</span>;</span><br><span class="line">            String username = <span class="string">&quot;liuxuan&quot;</span>;</span><br><span class="line">            String password = <span class="string">&quot;jade&quot;</span>;</span><br><span class="line">            conn = DriverManager.getConnection(url, username, password);</span><br><span class="line">            <span class="comment">//3.通过Connection对象获取Statement对象</span></span><br><span class="line">            stmt = conn.createStatement();</span><br><span class="line">            <span class="comment">//4.使用Statement执行SQL语句</span></span><br><span class="line">            String sql = <span class="string">&quot;select * from test_table&quot;</span>;</span><br><span class="line">            rs = stmt.executeQuery(sql);</span><br><span class="line">            <span class="comment">//5.操作ResultSet结果集</span></span><br><span class="line">            System.out.println(<span class="string">&quot;id  |  name  |  sex  &quot;</span></span><br><span class="line">                            +<span class="string">&quot;  birthday  &quot;</span>);</span><br><span class="line">            <span class="keyword">while</span>(rs.next())&#123;</span><br><span class="line">                <span class="keyword">int</span> id = rs.getInt(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">                String name = rs.getString(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">                String sex = rs.getString(<span class="string">&quot;sex&quot;</span>);</span><br><span class="line">                Date birthday = rs.getDate(<span class="string">&quot;birthday&quot;</span>);</span><br><span class="line">                System.out.println(id+<span class="string">&quot;  |  &quot;</span>+name+<span class="string">&quot;  |  &quot;</span></span><br><span class="line">                                +sex+<span class="string">&quot;  |  &quot;</span>+birthday);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="comment">//6.关闭连接，释放资源</span></span><br><span class="line">            <span class="keyword">if</span>(rs != <span class="keyword">null</span>)&#123;rs.close();&#125;</span><br><span class="line">            <span class="keyword">if</span>(stmt != <span class="keyword">null</span>)&#123;stmt.close();&#125;</span><br><span class="line">            <span class="keyword">if</span>(conn != <span class="keyword">null</span>)&#123;conn.close();&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/26/myblog/JAVA/%E3%80%8Ajava%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E3%80%8B%E4%B9%8BGUI/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1633,231 +1839,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/02/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/%E9%93%BE%E8%A1%A8%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/11/02/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/%E9%93%BE%E8%A1%A8%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" class="post-title-link" itemprop="url">javaのleecode刷题链表篇</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-11-02 14:47:32" itemprop="dateCreated datePublished" datetime="2021-11-02T14:47:32+08:00">2021-11-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-03 21:33:34" itemprop="dateModified" datetime="2021-11-03T21:33:34+08:00">2021-11-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="链表的定义输入输出"><a href="#链表的定义输入输出" class="headerlink" title="链表的定义输入输出"></a>链表的定义输入输出</h2><p>首先使用结构体定义，与c++不同，java中没有指针，隐藏指针，让指向某对象的指针看起来更像那个对象本身。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">为什么java中的main函数不能是非static？</span><br><span class="line"></span><br><span class="line">不能在main方法中打印this关键字的信息，因为不能在静态方法中调用this。理由很简单，this表示“这个对象”，也就是声明一个类的对象，然而静态方法是不属于某一个特定对象而是属于这个类的。那么问题来了，为什么main函数必须设置成静态的呢？</span><br><span class="line"></span><br><span class="line">首先，main函数作为java程序的入口，也可以理解为一个接口，这个接口不是提供给程序员使用的，这时提供给用户等使用的，用户等不需要知道程序内部的实现，只需要知道接口就可以了，如果是非静态的，那么当用户开始使用时，就必须先去创建对象，那么创建对象的代码又写在哪里呢？呵呵，所以这个很难讲清。</span><br><span class="line"></span><br><span class="line">Main方法是我们学习Java编程语言时知道的第一个方法，你是否曾经想过为什么main方法是public、static、void的。当然，很多人首先学的是C和C++，但是在Java中main方法与前者有些细微的不同，它不会返回任何值，为什么main方式是public、static、void，这篇文章尝试去找到一些答案。</span><br><span class="line"></span><br><span class="line">Main方法是Java程序的入口，记住，我们这里不会讨论Servlet、MIDlet和其他任何容器管理的java程序，在java核心编程中，JVM会查找类中的public static void main(String[] args)，如果找不到该方法就抛出错误NoSuchMethodError:main 程序终止。</span><br><span class="line">Main方法必须严格遵循它的语法规则，方法签名必须是public static void，参数是字符串数组类型，如果是Java1.5及以后的版本还可以使用可变参数：</span><br><span class="line">public  static void main(String... args)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">为什么main方法是静态的（static）</span><br><span class="line"></span><br><span class="line">正因为main方法是静态的，JVM调用这个方法就不需要创建任何包含这个main方法的实例。</span><br><span class="line">因为C和C++同样有类似的main方法作为程序执行的入口。</span><br><span class="line">如果main方法不声明为静态的，JVM就必须创建main类的实例，因为构造器可以被重载，JVM就没法确定调用哪个main方法。</span><br><span class="line">静态方法和静态数据加载到内存就可以直接调用而不需要像实例方法一样创建实例后才能调用，如果main方法是静态的，那么它就会被加载到JVM上下文中成为可执行的方法。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">为什么main方法是公有的（public）</span><br><span class="line">Java指定了一些可访问的修饰符如：private、protected、public，任何方法或变量都可以声明为public，Java可以从该类之外的地方访问。因为main方法是公共的，JVM就可以轻松的访问执行它。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">为什么main方法没有返回值（Void） </span><br><span class="line"></span><br><span class="line">因为main返回任何值对程序都没任何意义，所以设计成void，意味着main不会有任何值返回</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">总结</span><br><span class="line"></span><br><span class="line">main方法必须声明为public、static、void，否则JVM没法运行程序</span><br><span class="line">如果JVM找不到main方法就抛出NoSuchMethodError:main异常，例如：如果你运行命令：java HelloWrold，JVM就会在HelloWorld.class文件中搜索public static void main (String[] args) 放法</span><br><span class="line">main方式是程序的入口，程序执行的开始处。</span><br><span class="line">main方法被一个特定的线程”main”运行，程序会一直运行直到main线程结束或者non-daemon线程终止。</span><br><span class="line">当你看到“Exception in Thread main”如：Excpetion in Thread main:Java.lang.NullPointedException ,意味着异常来自于main线程</span><br><span class="line">你可以声明main方法使用java1.5的可变参数的方式如：</span><br><span class="line">public  static void main(String... args)</span><br><span class="line">除了static、void、和public，你可以使用final，synchronized、和strictfp修饰符在main方法的签名中，如：</span><br><span class="line">public  strictfp final  synchronized static  void main(String[] args)</span><br><span class="line">main方法在Java可以像其他方法一样被重载，但是JVM只会调用上面这种签名规范的main方法。</span><br><span class="line">你可以使用throws子句在方法签名中，可以抛出任何checked和unchecked异常</span><br><span class="line">静态初始化块在JVM调用main方法前被执行，它们在类被JVM加载到内存的时候就被执行了。</span><br></pre></td></tr></table></figure>
-
-<p>参考：</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/peikunye/article/details/100513579">https://blog.csdn.net/peikunye/article/details/100513579</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/maxiao1204/article/details/75142811?yyue=a21bo.50862.201879">https://blog.csdn.net/maxiao1204/article/details/75142811?yyue=a21bo.50862.201879</a></p>
-<p>对于java的构造函数有点懵逼，有参构造和无参构造可以同时存在吗？</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">链表节点定义：</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> val;  <span class="comment">//必须要加public吗？</span></span><br><span class="line">    <span class="keyword">public</span> ListNode next = <span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ListNode</span><span class="params">(<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.val=val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">反转链表：</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">reverseListNode</span> </span>&#123;</span><br><span class="line">    <span class="comment">//输入输出+测试代码</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//输入不定长的数组</span></span><br><span class="line">        System.out.print(<span class="string">&quot;请输入链表：&quot;</span>);</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str = sc.nextLine();</span><br><span class="line">        String[] arr = str.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        <span class="keyword">int</span>[] b = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length];</span><br><span class="line">        ListNode head = <span class="keyword">null</span>; <span class="comment">//代表是个空节点</span></span><br><span class="line">        ListNode pre = <span class="keyword">null</span>; <span class="comment">//pre在这里定义</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; b.length; j++) &#123;</span><br><span class="line">            b[j] = Integer.parseInt(arr[j]);</span><br><span class="line">            ListNode node = <span class="keyword">new</span> ListNode(b[j]); <span class="comment">//真正的构造节点</span></span><br><span class="line">            <span class="keyword">if</span>(head==<span class="keyword">null</span>)&#123;  <span class="comment">//首先判断是不是头节点</span></span><br><span class="line">                head = node;</span><br><span class="line">                pre = head; <span class="comment">//pre在这里等于head，不能在上面等于</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            pre.next=node;</span><br><span class="line">            pre = pre.next;</span><br><span class="line">        &#125;</span><br><span class="line">        printList(head);</span><br><span class="line">        ListNode res = reversal(head);</span><br><span class="line">        printList(res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//输出链表</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(head != <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.print(head.val + <span class="string">&quot;,&quot;</span>);</span><br><span class="line">            head = head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//反转函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">reversal</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode front = <span class="keyword">null</span>;</span><br><span class="line">        ListNode cur = head;</span><br><span class="line">        ListNode next;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</span><br><span class="line">            next = cur.next;</span><br><span class="line">            cur.next = front;</span><br><span class="line">            front = cur;</span><br><span class="line">            cur = next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> front;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="203题-移除链表元素"><a href="#203题-移除链表元素" class="headerlink" title="203题.移除链表元素"></a>203题.移除链表元素</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">题意：删除链表中等于给定值 val 的所有节点。</span><br><span class="line">示例 1：</span><br><span class="line">输入：head = [1,2,6,3,4,5,6], val = 6</span><br><span class="line">输出：[1,2,3,4,5]</span><br></pre></td></tr></table></figure>
-
-<p>思路：有可能头节点是要删除的，所以用prehead节点。c/c++需要清理节点内存。java/python则不需要。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">链表节点定义：</span><br><span class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">     <span class="keyword">int</span> val;</span><br><span class="line">     ListNode next;</span><br><span class="line">     ListNode() &#123;&#125;</span><br><span class="line">     ListNode(<span class="keyword">int</span> val) &#123; <span class="keyword">this</span>.val = val; &#125;</span><br><span class="line">     ListNode(<span class="keyword">int</span> val, ListNode next) &#123; <span class="keyword">this</span>.val = val; <span class="keyword">this</span>.next = next; &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">removeElements</span><span class="params">(ListNode head, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        ListNode prehead = <span class="keyword">new</span> ListNode();</span><br><span class="line">        prehead.next = head;</span><br><span class="line">        <span class="comment">//ListNode prehead = new ListNode(-1, head);</span></span><br><span class="line">        ListNode pre = prehead;</span><br><span class="line">        <span class="keyword">while</span>(pre.next != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">//括号内不可以只是pre.next</span></span><br><span class="line">            <span class="keyword">if</span>(pre.next.val == val)&#123;</span><br><span class="line">                pre.next=pre.next.next;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                pre = pre.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> prehead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="24题-两两交换链表中得节点"><a href="#24题-两两交换链表中得节点" class="headerlink" title="24题.两两交换链表中得节点"></a>24题.两两交换链表中得节点</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。</span><br><span class="line">输入：head = [1,2,3,4]</span><br><span class="line">输出：[2,1,4,3]</span><br></pre></td></tr></table></figure>
-
-<p>思路：相当于是swap节点，不能只改变值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">swapPairs</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode prehead = <span class="keyword">new</span> ListNode();</span><br><span class="line">        prehead.next = head;</span><br><span class="line">        ListNode pre = prehead;</span><br><span class="line">        <span class="keyword">while</span>(pre.next!=<span class="keyword">null</span> &amp;&amp; pre.next.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            ListNode node1 = pre.next;</span><br><span class="line">            pre.next = node1.next;</span><br><span class="line">            ListNode node2 = pre.next.next;</span><br><span class="line">            pre.next.next = node1;</span><br><span class="line">            node1.next = node2;</span><br><span class="line">            pre = pre.next.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> prehead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="19题-删除链表的倒数第N个节点"><a href="#19题-删除链表的倒数第N个节点" class="headerlink" title="19题.删除链表的倒数第N个节点"></a>19题.删除链表的倒数第N个节点</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。</span><br><span class="line">输入：head = [1,2,3,4,5], n = 2 输出：[1,2,3,5] </span><br></pre></td></tr></table></figure>
-
-<p>思路：明显的双指针法，为了降低时间复杂度，尽可能扫描一次链表来解决。一个指针先走n步，再一起走，当前面的走到头，那就是要删除的倒数第n个节点。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">removeNthFromEnd</span><span class="params">(ListNode head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode prehead = <span class="keyword">new</span> ListNode();</span><br><span class="line">        prehead.next=head;</span><br><span class="line">        ListNode left = prehead;</span><br><span class="line">        ListNode right = prehead;</span><br><span class="line">        <span class="keyword">while</span>(n--&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            right = right.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(right.next != <span class="keyword">null</span>)&#123;</span><br><span class="line">            left=left.next;</span><br><span class="line">            right=right.next;</span><br><span class="line">        &#125;</span><br><span class="line">        left.next=left.next.next;</span><br><span class="line">        <span class="keyword">return</span> prehead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="面试题02-07-链表相交"><a href="#面试题02-07-链表相交" class="headerlink" title="面试题02.07.链表相交"></a>面试题02.07.链表相交</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。</span><br></pre></td></tr></table></figure>
-
-<p>思路：一眼双指针，阿里二面题目，这道题里链表相交的话后面是重叠了，合并，而不是只交一个点，交一个点的话只能双层for循环了。两个指针走完了都走另一个，会同时到达合并的第一个节点。如果没有合并，同时遍历到空节点返回空节点。如果两个合并的长度一样，则走到第一个点就会返回。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        ListNode a = headA;</span><br><span class="line">        ListNode b = headB;</span><br><span class="line">        <span class="keyword">while</span>(a!=b)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a==<span class="keyword">null</span>)  a=headB;</span><br><span class="line">            <span class="keyword">else</span> a=a.next;</span><br><span class="line">            <span class="keyword">if</span>(b==<span class="keyword">null</span>)  b=headA;</span><br><span class="line">            <span class="keyword">else</span> b=b.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="142题-环形链表Ⅱ"><a href="#142题-环形链表Ⅱ" class="headerlink" title="142题.环形链表Ⅱ"></a>142题.环形链表Ⅱ</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">题意： 给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</span><br><span class="line">为了表示给定链表中的环，使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。</span><br><span class="line">输入：head = [3,2,0,-4], pos = 1</span><br><span class="line">输出：返回索引为 1 的链表节点</span><br><span class="line">解释：链表中有一个环，其尾部连接到第二个节点。</span><br></pre></td></tr></table></figure>
-
-<p>思路：经典的快慢指针。一个一次走一格，一个一次走两格。不需要虚拟头节点。这是判断链表是否有环的方法，如果有环，两个指针都会一直走，两个指针一定会相遇。但是相遇的点不一定是环的入口。</p>
-<p>这个环肯定是后面一个环就不再出来了。</p>
-<p>而要找到环的入口，画个图，最后得出来：x = (n - 1) (y + z) + z。再跑一遍就可以得到环的入口。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">detectCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        ListNode fast = head;</span><br><span class="line">        <span class="keyword">while</span>(fast!=<span class="keyword">null</span> &amp;&amp; fast.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            slow=slow.next;</span><br><span class="line">            fast=fast.next.next;</span><br><span class="line">            <span class="keyword">if</span>(slow==fast)&#123;  <span class="comment">//有环了，下面再找入口</span></span><br><span class="line">                <span class="keyword">while</span>(head!=slow)&#123;</span><br><span class="line">                    head=head.next;</span><br><span class="line">                    slow=slow.next;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> slow;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>链表的种类主要为：单链表，双链表，循环链表</li>
-<li>链表的存储方式：链表的节点在内存中是分散存储的，通过指针连在一起。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/31/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/%E7%A7%8B%E6%8B%9B%E9%9D%A2%E7%BB%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/31/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/%E7%A7%8B%E6%8B%9B%E9%9D%A2%E7%BB%8F/" class="post-title-link" itemprop="url">秋招面经</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-10-31 16:24:02 / Modified: 16:24:54" itemprop="dateCreated datePublished" datetime="2021-10-31T16:24:02+08:00">2021-10-31</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/" itemprop="url" rel="index"><span itemprop="name">笔经面经</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="虾皮-后端-一面-2021-7-18"><a href="#虾皮-后端-一面-2021-7-18" class="headerlink" title="虾皮-后端-一面-2021.7.18"></a>虾皮-后端-一面-2021.7.18</h3><p>1.redis数据类型的底层结构 set<br>2.hashmap底层结构<br>3.c++禁止拷贝构造<br>4.tcp三次握手四次挥手<br>5.四次挥手time_wait机制<br>6.http、ip、dns属于什么层<br>7.cpu调度算法<br>8.linux命令，看文件后几行，日志关键词查询<br>9.进程间通信 信号量<br>10.逻辑地址与物理地址映射<br>11.编程：翻转句子但不翻转单词</p>
-<h3 id="字节-商业化后端-一面-2021-7-18"><a href="#字节-商业化后端-一面-2021-7-18" class="headerlink" title="字节-商业化后端-一面-2021.7.18"></a>字节-商业化后端-一面-2021.7.18</h3><p>1.redis分布式锁机制<br>2.redis数据类型使用场景<br>3.hashmap用红黑树优点是什么，map底层数据结构<br>4.vector和list底层实现原理<br>5.互斥锁底层原理，如何实现原子性<br>6.智力题：圆上取三点，构成锐角、直角、钝角三角形的概率？<br>7.编程：合并区间<br>8.编程：最长回文子串</p>
-<h3 id="字节-商业化后端-二面-2021-7-18"><a href="#字节-商业化后端-二面-2021-7-18" class="headerlink" title="字节-商业化后端-二面-2021.7.18"></a>字节-商业化后端-二面-2021.7.18</h3><p>1.编程：给定一个多任务场景， 不同任务执行过程中是有相互依赖关系的；<br>输入： n 代表n个任务<br>输出： k代表k个依赖关系<br>输出： n个任务能够完成一次调度执行；<br>提示：用节点的入度，入度为0可以删掉。<br>2.redis如何保证原子性<br>3.redis事务<br>4.mysql避免死锁底层如何实现<br>5.tcp是保序的吗？seq、syn<br>6.五层模型都是干嘛的</p>
-<h3 id="商汤scg-三面-2021-7-19"><a href="#商汤scg-三面-2021-7-19" class="headerlink" title="商汤scg-三面-2021.7.19"></a>商汤scg-三面-2021.7.19</h3><p>1.乐观锁的版本号机制如何实现<br>2.redis集群主从同步失败怎么办<br>3.网站打不开的原因，发散<br>4.聚簇索引和非聚簇索引，增量索引？<br>5.编程：岛屿数量<br>6.go结构体嵌套，new操作</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line">type a struct &#123;</span><br><span class="line">    add string</span><br><span class="line">&#125;</span><br><span class="line">type b struct &#123;</span><br><span class="line">    *a</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line">    b := new(b)</span><br><span class="line">    b.add = &quot;add&quot;</span><br><span class="line">    fmt.Println(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="字节-商业化后端-三面-2021-7-20"><a href="#字节-商业化后端-三面-2021-7-20" class="headerlink" title="字节-商业化后端-三面-2021.7.20"></a>字节-商业化后端-三面-2021.7.20</h3><p>1.编程：二叉树转化为双向链表<br>2.智力：老虎吃羊问题<br>3.redis索引原理<br>4.线程池实现考虑什么，伪代码<br>5.c++的锁<br>6.c++管理内存泄漏的方法<br>7.说说智能指针，几种的区别<br>8.单继承和多继承的虚函数表的区别<br>9.多态如何实现<br>10.IO多路复用<br>11.redis持久化</p>
-<h3 id="字节-数据中台后端-一面-2021-7-29"><a href="#字节-数据中台后端-一面-2021-7-29" class="headerlink" title="字节-数据中台后端-一面-2021.7.29"></a>字节-数据中台后端-一面-2021.7.29</h3><p>1.redis持久化写硬盘，对内存操作有没有影响？<br>2.写硬盘的方法，怎么最快<br>3.mysql索引底层<br>4.数据库锁<br>5.select * from table where a between 10 and 20 for update；之后再插入一条20-20之间的数据，发生什么？<br>可重复读：不能插，解决了幻读。读未提交，能插入？<br>6.实现strncpy函数<br>7.二分查找<br>8.截断数组的查找</p>
-<h3 id="字节-数据中台后端-二面-2021-8-2"><a href="#字节-数据中台后端-二面-2021-8-2" class="headerlink" title="字节-数据中台后端-二面-2021.8.2"></a>字节-数据中台后端-二面-2021.8.2</h3><p>1.redis单线程如何实现的<br>2.http输入url过程<br>3.http和https<br>4.评论系统数据库表设计<br>5.写代码，求一条评论的所有子评论个数<br>6.网络攻击手段，sql注入，怎么防止，把自己套圈子里了</p>
-<h3 id="虾皮-后端-二面-2021-8-3"><a href="#虾皮-后端-二面-2021-8-3" class="headerlink" title="虾皮-后端-二面-2021.8.3"></a>虾皮-后端-二面-2021.8.3</h3><p>1.hashtable怎么实现的<br>2.c++ stl用过什么，数组与链表<br>3.二叉树路径-回溯算法<br>4.针对订单的安全id怎么生成</p>
-<h3 id="阿里云-后端-二面-2021-8-3"><a href="#阿里云-后端-二面-2021-8-3" class="headerlink" title="阿里云-后端-二面-2021.8.3"></a>阿里云-后端-二面-2021.8.3</h3><p>1.个人云和企业云的区别的看法，toB和toC<br>2.发号器不需要做切流，下线吗？<br>    系统自保、准入条件、云计算：资源的池化、分割售卖、安全隔离、资源隔离、超卖、服务契约<br>3.哈希打散的id怎么生成？<br>4.雪花算法，时间回滚，机器不知道，不能识别，怎么办？<br>5.code：求相对路径</p>
-<h3 id="商汤-hr面-2021-8-5"><a href="#商汤-hr面-2021-8-5" class="headerlink" title="商汤-hr面-2021.8.5"></a>商汤-hr面-2021.8.5</h3><p>1.性格缺点<br>2.选择公司最看重什么<br>3.对智慧交通看法</p>
-<h3 id="360-后端一面-2021-8-6"><a href="#360-后端一面-2021-8-6" class="headerlink" title="360-后端一面-2021.8.6"></a>360-后端一面-2021.8.6</h3><p>1.平衡二叉树和红黑树，为什么用红黑树<br>2.服务器实例无法访问数据库怎么办，db不能平衡扩展<br>3.编程：扑克牌判断是不是顺子<br>4.udp怎么可靠</p>
-<h3 id="虾皮-后端-hr面-2021-8-10"><a href="#虾皮-后端-hr面-2021-8-10" class="headerlink" title="虾皮-后端-hr面-2021.8.10"></a>虾皮-后端-hr面-2021.8.10</h3><p>1.如何看待加班<br>2.评价一下自己，他人眼中的你什么样的<br>3.有什么其他offer或者流程中<br>4.想要什么公司氛围<br>5.想去什么业务<br>6.为啥选后端</p>
-<h3 id="腾讯-交通平台产品部-一面-2021-8-10"><a href="#腾讯-交通平台产品部-一面-2021-8-10" class="headerlink" title="腾讯-交通平台产品部-一面-2021.8.10"></a>腾讯-交通平台产品部-一面-2021.8.10</h3><p>1.有啥爱好？？？？？<br>2.推荐悬疑书？？？<br>3.手撕：一个字符串切片成字典里的字符串，回溯<br>4.unordered_set和set区别，实现方面<br>5.c++和go<br>6.set什么语法实现降序</p>
-<h3 id="阿里-三面-凉经"><a href="#阿里-三面-凉经" class="headerlink" title="阿里-三面-凉经"></a>阿里-三面-凉经</h3><p>1.做过网络编程没有<br>2.一个程序运行，资源空间如何变化<br>3.拷问项目<br>4.为什么对边缘计算感兴趣<br>5.怎么看边缘计算<br>6.大致觉得没有网络相关的项目，没有可问的，问我自己认为有什么优点<br>7.大佬就是大佬，秒凉</p>
-<h3 id="阿里-高德-后端-一面"><a href="#阿里-高德-后端-一面" class="headerlink" title="阿里-高德-后端-一面"></a>阿里-高德-后端-一面</h3><p>1.用过除redis、mysql之外的中间件吗<br>2.mysql innodb为什么用B+树<br>3.redis数据结构底层实现<br>4.redis集群怎么部署<br>5.设计模式了解哪些，平常用的<br>6.zookeeper优缺点<br>7.聚集索引和非聚集索引</p>
-<h3 id="网易-AI-c-算法落地-一面"><a href="#网易-AI-c-算法落地-一面" class="headerlink" title="网易-AI-c++算法落地-一面"></a>网易-AI-c++算法落地-一面</h3><p>1.深挖项目<br>2.为什么不用高频？？高频-&gt;波长短-&gt;按说传输距离高，因为频率高衰减大<br>  说成了多普勒，开始深挖多普勒<br>3.手撕：1.最少跳跃次数 （用广度优先，没写过）换：2.最小编辑距离（ac）        </p>
-<h3 id="渤海银行-提前批-软开-2021-8-29-笔试准备"><a href="#渤海银行-提前批-软开-2021-8-29-笔试准备" class="headerlink" title="渤海银行-提前批-软开-2021.8.29-笔试准备"></a>渤海银行-提前批-软开-2021.8.29-笔试准备</h3><p>渤海银行成立时间：</p>
-<p>渤海企业文化：诚信、远见、开放、创新、关爱</p>
-<p>品牌主张：一旦选择,终身相伴</p>
-<h3 id="阿里高德-一面-笔试面"><a href="#阿里高德-一面-笔试面" class="headerlink" title="阿里高德-一面-笔试面"></a>阿里高德-一面-笔试面</h3><p>笔试构造什么数据结构，父子结构的，<br>分布式事务<br>CAP原则<br>一致性哈希<br>消息队列<br>限流算法</p>
-<h3 id="网易有道AI-c-算法开发工程师-二面"><a href="#网易有道AI-c-算法开发工程师-二面" class="headerlink" title="网易有道AI-c++算法开发工程师-二面"></a>网易有道AI-c++算法开发工程师-二面</h3><p>深挖项目<br>手撕：给一个数组变成偶数位上都是偶数或是奇数位上都是奇数<br>手撕：二叉树回溯，求路径和</p>
-<h3 id="阿里-高德-二面-凉经"><a href="#阿里-高德-二面-凉经" class="headerlink" title="阿里-高德-二面-凉经"></a>阿里-高德-二面-凉经</h3><p>上来自己的IDE共享屏幕手撕：多线程输出<br>手撕：最长无重复子串的长度<br>思考：相交链表找相交节点<br>数据库隔离级别如何实现<br>手里的offer，规划之类<br>面试官一副高高在上的样子，和一面面试官比差远了，体验极差。</p>
-<h3 id="阿里-高德-三面"><a href="#阿里-高德-三面" class="headerlink" title="阿里-高德-三面"></a>阿里-高德-三面</h3><p>面试官还不错，上来问我以后用啥语言，跟我讲阿里的java生态<br>思考题：城市有公交站和地铁站，每个站有辐射面积，算城市交通的覆盖率。<br>聊聊面向对象三个特征<br>自己的优缺点<br>平常怎么提高效率的<br>有了解什么新技术吗？面试官讲了一通中国软件界的兼容问题<br>反问：学习java意见<br>1、学语言思想，《深入浅出java虚拟机》《java编程思想》学习语法<br>2、应用，java web spring mvc boot<br>数据库MYbrits，关系型数据库，分布式数据库H-base，分库分表，catch<br>RPC框架，分布式高并发高响应。</p>
-<h3 id="渤海-一面"><a href="#渤海-一面" class="headerlink" title="渤海-一面"></a>渤海-一面</h3><p>java垃圾回收，sb了应该说一些的<br>hashmap负载因子<br>hashmap和hashtable<br>数据库存储引擎<br>写代码多少年了<br>redis持久化<br>重载和重写<br>异常处理，catch和finish，蒙了一些</p>
-<h3 id="农行-测试-2021-9-13"><a href="#农行-测试-2021-9-13" class="headerlink" title="农行-测试-2021.9.13"></a>农行-测试-2021.9.13</h3><p>三道题，a了一点多道</p>
-<h3 id="华为-通信算法-一面-2021-9-13"><a href="#华为-通信算法-一面-2021-9-13" class="headerlink" title="华为-通信算法-一面-2021.9.13"></a>华为-通信算法-一面-2021.9.13</h3><p>全程问项目论文，对于细节问的蛮多<br>本来2点开始，结果2.20才叫面试<br>三点10分还没结束，无奈最后的写一个框图的题写得草率。</p>
-<h3 id="华为-通信算法-二面"><a href="#华为-通信算法-二面" class="headerlink" title="华为-通信算法-二面"></a>华为-通信算法-二面</h3><p>论文+项目<br>做一道题，关于似然等概率知识的，都忘光了</p>
-<h3 id="华为-通信算法-主管面"><a href="#华为-通信算法-主管面" class="headerlink" title="华为-通信算法-主管面"></a>华为-通信算法-主管面</h3><p>论文，还可以</p>
-<h3 id="农行-2021-9-14-凉经"><a href="#农行-2021-9-14-凉经" class="headerlink" title="农行-2021.9.14-凉经"></a>农行-2021.9.14-凉经</h3><p>c++连接数据库的方式<br>c++不能重载的运算符<br>c++创建进程的方式<br>创建线程的类<br>创建线程池的方式</p>
-<h3 id="网易-总监面-2021-9-14"><a href="#网易-总监面-2021-9-14" class="headerlink" title="网易-总监面-2021.9.14"></a>网易-总监面-2021.9.14</h3><p>手撕求平方，精确到小数点后10位<br>手撕两个四边形面积的重叠面积/总面积<br>看我的论文？？？</p>
-<h3 id="网易-hr面"><a href="#网易-hr面" class="headerlink" title="网易-hr面"></a>网易-hr面</h3><h3 id="阿里-hr面"><a href="#阿里-hr面" class="headerlink" title="阿里-hr面"></a>阿里-hr面</h3><p>介绍个项目，遇到的难点，如何解决<br>遇到过什么困难，如何化解</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1926,7 +1907,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

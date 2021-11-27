@@ -155,6 +155,181 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-mutex%E9%94%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-mutex%E9%94%81/" class="post-title-link" itemprop="url">go-mutex锁</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-19 19:37:30" itemprop="dateCreated datePublished" datetime="2021-08-19T19:37:30+08:00">2021-08-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-25 22:01:56" itemprop="dateModified" datetime="2021-09-25T22:01:56+08:00">2021-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/golang%E5%85%A5%E9%97%A8/" itemprop="url" rel="index"><span itemprop="name">golang入门</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Go语言里的Mutex和RwMutex"><a href="#Go语言里的Mutex和RwMutex" class="headerlink" title="Go语言里的Mutex和RwMutex"></a>Go语言里的Mutex和RwMutex</h3><p>共享锁(S锁)又称读锁，若事务T对数据对象A加上S锁，则事务T可以读A但不能修改A，其他事务只能再对A加S锁，而不能加X锁，直到T释放A上的S 锁。这保证了其他事务可以读A，但在T释放A上的S锁之前不能对A做任何修改。（多读/单写）</p>
+<p>排他锁(X锁)又称写锁。若事务T对数据对象A加上X锁，事务T可以读A也可以修改A，其他事务不能再对A加任何锁，直到T释放A上的锁。这保证了其他事务在T释放A上的锁之前不能再读取和修改A。（单读/单写）</p>
+<p>go里的mutex（普通锁）：全局互斥锁特性(不支持同时读)—-读写操作一样待遇 （类似于：只能加X锁，读写都是X锁）<br>sync.RWMutex：读写锁，支持单写多读特性。—-读写操作不同待遇  （类似于：分两种Lock排他锁，RLock共享锁）</p>
+<p>意思是：RWMutex是完全可以实现mutex的功能的，而RWMtex可以实现同时读。</p>
+<ul>
+<li>func (m *Mutex) Lock()<br>Lock⽅法锁住m，如果m已经加锁，则阻塞直到m解锁。</li>
+<li>func (m *Mutex) Unlock()<br>Unlock⽅法解锁m，如果m未加锁会导致运⾏时错误。锁和线程无关，可以由不同的线程加锁和解锁。</li>
+</ul>
+<p>1.mutex无法实现分布式，多个请求怎么共享一个公共变量？</p>
+<p>2.除非分布式请求，共享 sync.RWMutex 变量</p>
+<h3 id="Mutex使用"><a href="#Mutex使用" class="headerlink" title="Mutex使用"></a>Mutex使用</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;sync&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">// 共享变量</span><br><span class="line">var (</span><br><span class="line">	m  sync.Mutex</span><br><span class="line">	v1 int</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">// 修改共享变量</span><br><span class="line">// 在Lock()和Unlock()之间的代码部分是临界区</span><br><span class="line">func change(i int, m *sync.Mutex) &#123;</span><br><span class="line">	m.Lock()</span><br><span class="line">	time.Sleep(time.Second)</span><br><span class="line">	v1 = v1 + 1</span><br><span class="line">	fmt.Printf(&quot;Write %dth time, v1:%d.\n&quot;, i, v1)</span><br><span class="line">	m.Unlock()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func read(i int, m *sync.Mutex) &#123;</span><br><span class="line">	m.Lock()</span><br><span class="line">	fmt.Printf(&quot;Read %dth time, v1:%d.\n&quot;, i, v1)</span><br><span class="line">	m.Unlock()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var numGR = 10</span><br><span class="line">	var wg sync.WaitGroup</span><br><span class="line">	for i := 0; i &lt; numGR; i++ &#123;</span><br><span class="line">		wg.Add(1)</span><br><span class="line">		go func(i int) &#123;</span><br><span class="line">			defer wg.Done()</span><br><span class="line">			change(i, &amp;m)</span><br><span class="line">			read(i, &amp;m)     //读和写都不会同时进行</span><br><span class="line">		&#125;(i)</span><br><span class="line">	&#125;</span><br><span class="line">	wg.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="RWMutex使用"><a href="#RWMutex使用" class="headerlink" title="RWMutex使用"></a>RWMutex使用</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;sync&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">// 共享变量</span><br><span class="line">var (</span><br><span class="line">	m  sync.RWMutex</span><br><span class="line">	v1 int</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">// 修改共享变量</span><br><span class="line">// 在Lock()和Unlock()之间的代码部分是临界区</span><br><span class="line">func change(i int, m *sync.RWMutex) &#123;</span><br><span class="line">	m.Lock()</span><br><span class="line">	time.Sleep(time.Second)</span><br><span class="line">	v1 = v1 + 1</span><br><span class="line">	fmt.Printf(&quot;Write %dth time, v1:%d.\n&quot;, i, v1)</span><br><span class="line">	m.Unlock()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func read(i int, m *sync.RWMutex) &#123;</span><br><span class="line">	m.RLock()</span><br><span class="line">	time.Sleep(time.Second)</span><br><span class="line">	v1 = v1 + 1</span><br><span class="line">	fmt.Printf(&quot;Read %dth time, v1:%d.\n&quot;, i, v1)</span><br><span class="line">	m.RUnlock()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var numGR = 10000</span><br><span class="line">	var wg sync.WaitGroup</span><br><span class="line">	for i := 0; i &lt; numGR; i++ &#123;</span><br><span class="line">		wg.Add(1)</span><br><span class="line">		go func(i int) &#123;</span><br><span class="line">			defer wg.Done()</span><br><span class="line">		//	change(i, &amp;m)</span><br><span class="line">			read(i, &amp;m)</span><br><span class="line">		&#125;(i)</span><br><span class="line">	&#125;</span><br><span class="line">	wg.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>提示：并发量不高的情况下，如100，发现用共享锁获得的数据是完全没重复的，像是互斥锁的效果。但是只是并发量不高，10000并发量，共享锁的效果就提现出来了。猜测：for循环间隔时间大于自增时间了？？盲猜</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BAip/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BAip/" class="post-title-link" itemprop="url">go-获取本机id</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-19 19:36:59" itemprop="dateCreated datePublished" datetime="2021-08-19T19:36:59+08:00">2021-08-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-25 22:00:09" itemprop="dateModified" datetime="2021-09-25T22:00:09+08:00">2021-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/golang%E5%85%A5%E9%97%A8/" itemprop="url" rel="index"><span itemprop="name">golang入门</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>~~~<br>package main</p>
+<p>import (<br>    “fmt”<br>    “net”<br>)</p>
+<p>func main() {<br>    netInterfaces, err := net.Interfaces()<br>    if err != nil {<br>        fmt.Println(“net.Interfaces failed, err:”, err.Error())<br>    }<br>    for i := 0; i &lt; len(netInterfaces); i++ {<br>        if (netInterfaces[i].Flags &amp; net.FlagUp) != 0 {<br>            addrs, _ := netInterfaces[i].Addrs()</p>
+<pre><code>        for _, address := range addrs &#123;
+            if ipnet, ok := address.(*net.IPNet); ok &amp;&amp; !ipnet.IP.IsLoopback() &#123;
+                if ipnet.IP.To4() != nil &#123;
+                    fmt.Println(ipnet.IP.String())
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>}</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-http%E8%AF%B7%E6%B1%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -293,7 +468,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
