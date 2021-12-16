@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="java中的常用类String类String类的几种初始化方式： 12345678910111.使用字符串常量直接初始化一个String对象String ss &#x3D; null;  初始化为空String ss &#x3D; “”;  初始化为空字符串String ss &#x3D; “abc”;  初始化为abc2.使用String的构造方法初始化字符串对象String ss &#x3D; new String();  初始化为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Java基础入门》类与集合">
+<meta property="og:url" content="http://example.com/2021/11/11/myblog/JAVA/%E3%80%8Ajava%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E3%80%8B%E4%B8%8B/index.html">
+<meta property="og:site_name" content="Jadeliu&#39;s blog">
+<meta property="og:description" content="java中的常用类String类String类的几种初始化方式： 12345678910111.使用字符串常量直接初始化一个String对象String ss &#x3D; null;  初始化为空String ss &#x3D; “”;  初始化为空字符串String ss &#x3D; “abc”;  初始化为abc2.使用String的构造方法初始化字符串对象String ss &#x3D; new String();  初始化为">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/11/11/myblog/JAVA/%E3%80%8Ajava%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E3%80%8B%E4%B8%8B/Users/Lenovo/Documents/Typora/java/image-20211113111401531.png">
+<meta property="article:published_time" content="2021-11-11T03:09:09.519Z">
+<meta property="article:modified_time" content="2021-11-17T06:11:50.413Z">
+<meta property="article:author" content="Jade liu">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/11/11/myblog/JAVA/%E3%80%8Ajava%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E3%80%8B%E4%B8%8B/Users/Lenovo/Documents/Typora/java/image-20211113111401531.png">
+
+<link rel="canonical" href="http://example.com/2021/11/11/myblog/JAVA/%E3%80%8Ajava%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E3%80%8B%E4%B8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>《Java基础入门》类与集合 | Jadeliu's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jadeliu's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/11/myblog/JAVA/%E3%80%8Ajava%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E3%80%8B%E4%B8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《Java基础入门》类与集合
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-11-11 11:09:09" itemprop="dateCreated datePublished" datetime="2021-11-11T11:09:09+08:00">2021-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-17 14:11:50" itemprop="dateModified" datetime="2021-11-17T14:11:50+08:00">2021-11-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="java中的常用类"><a href="#java中的常用类" class="headerlink" title="java中的常用类"></a>java中的常用类</h2><h3 id="String类"><a href="#String类" class="headerlink" title="String类"></a>String类</h3><p>String类的几种初始化方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>使用字符串常量直接初始化一个String对象</span><br><span class="line">String ss = <span class="keyword">null</span>;  初始化为空</span><br><span class="line">String ss = “”;  初始化为空字符串</span><br><span class="line">String ss = “abc”;  初始化为abc</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>使用String的构造方法初始化字符串对象</span><br><span class="line">String ss = <span class="keyword">new</span> String();  初始化为空字符串</span><br><span class="line">String ss = <span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>);  初始化为abc</span><br><span class="line"><span class="comment">//根据指定字符数组创建字符串</span></span><br><span class="line"><span class="keyword">char</span>[] ch = <span class="keyword">new</span> <span class="keyword">char</span>[]&#123;<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">String ss = <span class="keyword">new</span> String(ch);</span><br></pre></td></tr></table></figure>
+
+<p>String类基本操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String s=<span class="string">&quot;abcdefghigk&quot;</span>;</span><br><span class="line">System.out.println(<span class="string">&quot;字符串长度：&quot;</span>+s.length());</span><br><span class="line"><span class="comment">//字符串是.length()，数组是.length</span></span><br><span class="line">System.out.println(<span class="string">&quot;字符串第i个字符：&quot;</span>+s.charAt(i));</span><br><span class="line">System.out.println(<span class="string">&quot;字符c第一次出现的位置：&quot;</span>+s.indexOf(<span class="string">&#x27;c&#x27;</span>));</span><br><span class="line">System.out.println(<span class="string">&quot;字符c最后一次出现的位置：&quot;</span>+s.lastIndexOf(<span class="string">&#x27;c&#x27;</span>));</span><br><span class="line">System.out.println(<span class="string">&quot;子字符串第一次出现的位置：&quot;</span>+s.indexOf(<span class="string">&quot;ab&quot;</span>));</span><br><span class="line">System.out.println(<span class="string">&quot;子字符串最后一次出现的位置：&quot;</span>+s.lastIndexOf(<span class="string">&quot;ab&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>字符串的转换操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String s=<span class="string">&quot;abcdefg&quot;</span>;</span><br><span class="line"><span class="comment">//字符串转换为字符数组：</span></span><br><span class="line"><span class="keyword">char</span>[] ch=s.toCharArray();</span><br><span class="line">System.out.println(<span class="string">&quot;int值转换为string类型：&quot;</span>+String.valueOf(<span class="number">100</span>));</span><br><span class="line">System.out.println(<span class="string">&quot;字符串转换为大写：&quot;</span>+s.toUpperCase());</span><br></pre></td></tr></table></figure>
+
+<p>字符串的替换和去除空格操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String s=<span class="string">&quot;  a b &quot;</span>;</span><br><span class="line">System.out.println(<span class="string">&quot;去除字符串两端空格后的结果：&quot;</span>+s.trim());</span><br><span class="line"><span class="comment">//用字符串替换操作完成去除空格</span></span><br><span class="line">System.out.println(<span class="string">&quot;去除字符串所有空格后的结果：&quot;</span>+s.replace(<span class="string">&quot; &quot;</span>,<span class="string">&quot;&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>replace()方法是可以替换子字符串的。</p>
+<p>字符串的判断操作：返回boolean类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String s=<span class="string">&quot;Starter&quot;</span>;</span><br><span class="line">System.out.println(<span class="string">&quot;判断是否以字符串St开头：&quot;</span>+s.startWith(<span class="string">&quot;St&quot;</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;判断是否以字符串er结尾：&quot;</span>+s.endWith(<span class="string">&quot;er&quot;</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;判断是否包含ar：&quot;</span>+s.contains(<span class="string">&quot;ar&quot;</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;判断是否为空：&quot;</span>+s.isEmpty());</span><br><span class="line">System.out.println(<span class="string">&quot;判断是否相等：&quot;</span>+s.equals(<span class="string">&quot;St&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="和equals"><a href="#和equals" class="headerlink" title="==和equals()"></a>==和equals()</h4><p> ==对于基本类型和引用类型 的作用效果是不同的，如下所示：</p>
+<ul>
+<li>基本类型：比较的是值是否相同</li>
+<li>引用类型：比较的是引用（对象的内存地址）是否相同，string是引用类型。</li>
+</ul>
+<p>equals 本质上就是 ==，只不过 String 和 Integer 等重写了 equals 方法，<strong>把它变成了值比较。</strong></p>
+<p>在String类中，重写了父类Object中的equals()方法。把它变成了<strong>值比较</strong>。</p>
+<p>==和equals()方法不同，equals方法用来比较两个字符串中的字符值是否相等，==方法用于比较两个字符串对象的内存地址是否相等。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String x = <span class="string">&quot;string&quot;</span>;</span><br><span class="line">String y = <span class="string">&quot;string&quot;</span>;</span><br><span class="line">x==y  (<span class="keyword">true</span>)  x.equals(y)  (<span class="keyword">true</span>)</span><br><span class="line">String z = <span class="keyword">new</span> String(<span class="string">&quot;string&quot;</span>);</span><br><span class="line">String m = <span class="keyword">new</span> String(<span class="string">&quot;string&quot;</span>);</span><br><span class="line">z==m  (<span class="keyword">false</span>)  z.equals(m)  (<span class="keyword">true</span>)</span><br><span class="line">x==z  (<span class="keyword">false</span>)  x.equals(z)  (<span class="keyword">true</span>)</span><br></pre></td></tr></table></figure>
+
+<p>字符串的截取与分割：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String s=<span class="string">&quot;2021-11-11&quot;</span>;</span><br><span class="line">System.out.println(<span class="string">&quot;截取：&quot;</span>+s.substring(<span class="number">5</span>));</span><br><span class="line"><span class="comment">//结果为11-24  左闭右开原则，从下标5开始截取</span></span><br><span class="line">System.out.println(<span class="string">&quot;截取：&quot;</span>+s.substring(<span class="number">5</span>,<span class="number">7</span>));</span><br><span class="line"><span class="comment">//结果为11</span></span><br><span class="line">String[] sArray=s.split(<span class="string">&quot;-&quot;</span>);</span><br><span class="line"><span class="comment">//将字符串按照某个字符进行分割，变为字符串数组</span></span><br></pre></td></tr></table></figure>
+
+<p>java中，String类是final类型的，所以使用String类定义的字符串是一个常量，它一旦创建，内容和长度不可改变。</p>
+<h3 id="StringBuffer类"><a href="#StringBuffer类" class="headerlink" title="StringBuffer类"></a>StringBuffer类</h3><p>类似一个字符容器，在其中添加和删除字符时，操作的都是这个字符容器，不会产生新的StringBuffer对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb=<span class="keyword">new</span> StringBuffer();</span><br><span class="line">sb.append(<span class="string">&quot;abc&quot;</span>);   <span class="comment">//添加字符串，始终是添加到缓冲区的末尾</span></span><br><span class="line">sb.insert(<span class="number">3</span>,<span class="string">&quot;de&quot;</span>);   <span class="comment">//在3的前面插入，变为abcde</span></span><br><span class="line">sb.setCharAt(<span class="number">2</span>,<span class="string">&#x27;f&#x27;</span>);  <span class="comment">//修改指定位置字符，变为abfde</span></span><br><span class="line">sb.replace(<span class="number">3</span>,<span class="number">5</span>,<span class="string">&quot;gh&quot;</span>);  <span class="comment">//左闭右开替换指定位置字符串或字符</span></span><br><span class="line">System.out.println(sb.reverse());   <span class="comment">//字符串翻转结果</span></span><br><span class="line">sb.delete(<span class="number">3</span>,<span class="number">7</span>);   <span class="comment">//左闭右开删除</span></span><br><span class="line">sb.deleteCharAt(<span class="number">2</span>);   <span class="comment">//删除指定位置字符</span></span><br><span class="line">sb.delete(<span class="number">0</span>,sb.length());   <span class="comment">//清空缓冲区</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="String和StringBuffer区别"><a href="#String和StringBuffer区别" class="headerlink" title="String和StringBuffer区别"></a>String和StringBuffer区别</h3><p>（1）String类定义的字符串是常量，一旦创建后，内容和长度都是无法改变的。StringBuffer类表示字符容器，其内容和长度可以随时修改。</p>
+<p>（2）String类重写了Object类的equals()方法，而StringBuffer类没有重写Object类的equals方法，依然表示内存地址相同？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s1=<span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>);String s2=<span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>);System.out.println(s1.equals(s2));   <span class="comment">//结果为trueStringBuffer sb1=new StringBuffer(&quot;abc&quot;);StringBuffer sb2=new StringBuffer(&quot;abc&quot;);System.out.println(sb1.equals(sb2));   //结果为false</span></span><br></pre></td></tr></table></figure>
+
+<p>（3）String类对象可以用操作符+进行连接，而StringBuffer类对象之间不能。</p>
+<h3 id="StringBuilder类"><a href="#StringBuilder类" class="headerlink" title="StringBuilder类"></a>StringBuilder类</h3><p>除了使用StringBuffer外，JDK1.5之后提供了StringBuilder类，同样可以操作字符串。</p>
+<p>不同之处在于，StringBuffer是线程安全的，而StringBuilder没有实现线程安全功能，所以性能略高。因此，一般创建一个内容可变的字符串对象，应该优先考虑StringBuilder类。</p>
+<p>StringBuilder类的方法和StringBuffer类一样。</p>
+<h3 id="System类"><a href="#System类" class="headerlink" title="System类"></a>System类</h3><p>System类定义了一些与系统相关的属性和方法，它所提供的属性和方法都是静态的，可以直接使用System类进行调用（不用创建对象进行调用）。</p>
+<h4 id="getProperties-方法"><a href="#getProperties-方法" class="headerlink" title="getProperties()方法"></a>getProperties()方法</h4><p>用于获取当前系统的全部属性，该方法返回一个Properties对象，其中封装了系统的所有属性，这些属性以键值对的形式存在。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Properties;<span class="keyword">import</span> java.util.Set; <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SystemPropertiesDemo</span> </span>&#123;	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;	    <span class="comment">//获取系统所有属性		Properties pro = System.getProperties();		//获取所有系统属性的key，返回set对象        Set&lt;String&gt;proName=pro.stringPropertyNames();        for(String key:proName)&#123;            //获取key（属性名）对应的属性值            String value=System.getProperty(key);            System.out.println(key+&quot;-&gt;&quot;+value);        &#125;	&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="currentTimeMillis"><a href="#currentTimeMillis" class="headerlink" title="currentTimeMillis()"></a>currentTimeMillis()</h4><p>currentTimeMillis()方法返回一个long类型的值，表示当前时间与1970年1月1日0点0分0秒之间的时间差，单位毫秒。</p>
+<h4 id="arraycopy-方法"><a href="#arraycopy-方法" class="headerlink" title="arraycopy()方法"></a>arraycopy()方法</h4><p>用于将一个数组中的元素快速拷贝到另一个数组中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a=&#123;<span class="number">101</span>,<span class="number">102</span>,<span class="number">103</span>,<span class="number">104</span>,<span class="number">105</span>,<span class="number">106</span>&#125;;  <span class="comment">//源数组int[] b=&#123;201,202,203,204,205&#125;;   //目标数组System.arraycopy(a,2,b,0,4);//最终b变为103，104，105，106，205</span></span><br></pre></td></tr></table></figure>
+
+<p>以上例子中，从a数组索引为2的元素开始拷贝，并且拷贝4个元素存放在目标数组中索引为0的位置。</p>
+<p>注意：进行数组拷贝时，一定要保证源数组类型和目标数组类型一致，截取的长度不能超过源数组界限，也不能超过目标数组可以容纳的个数。</p>
+<h4 id="gc-方法和exit-int-status-方法"><a href="#gc-方法和exit-int-status-方法" class="headerlink" title="gc()方法和exit(int status)方法"></a>gc()方法和exit(int status)方法</h4><p>gc()方法用于启动java的垃圾回收器，并对内存中的垃圾对象进行回收。</p>
+<p>exit(int status)用于终止当前正在运行的java虚拟机，参数表示当前发生的异常状态，一般指定0，表示正常退出，否则表示异常终止。</p>
+<h3 id="Runtime类"><a href="#Runtime类" class="headerlink" title="Runtime类"></a>Runtime类</h3><p>Runtime类用于表示Java虚拟机运行时的状态，用于封装Java虚拟机进程，因此可以通过该类的实例对象来获取当前虚拟机的相关信息。</p>
+<p>每次使用java命令启动java虚拟机时都会对应一个Runtime实例，并且只有一个实例，应用程序会通过该实例与其运行时的环境相连。应用程序不能创建自己的Runtime实例，若想在程序中获得一个Runtime实例，可以通过getRuntime()方法获取与之相关的Runtime对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Runtime rt=Runtime.getRuntime(); <span class="comment">//获取java程序关联的运行时对象System.out.println(&quot;处理器个数：&quot;+rt.availableProcessors()); //单位个System.out.println(&quot;空闲内存大小：&quot;+rt.freeMemory()); //单位字节System.out.println(&quot;最大可用内存大小：&quot;+rt.maxMemory()); //单位字节</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="exec-方法"><a href="#exec-方法" class="headerlink" title="exec()方法"></a>exec()方法</h4><p>该方法用于执行一个DOS命令，实现和在终端中输入DOS命令同样的效果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Runtime rt=Runtime.getRuntime();rt.exec(<span class="string">&quot;notepad.exe&quot;</span>)   <span class="comment">//打开记事本</span></span><br></pre></td></tr></table></figure>
+
+<p>exec()方法返回一个Process对象，该对象表示操作系统的一个进程，通过Process对象可对产生的新进程进行管理，如关闭destroy()方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Runtime rt=Runtime.getRuntime();Process pr = rt.exec(<span class="string">&quot;notepad.exe&quot;</span>)   <span class="comment">//打开记事本//程序休眠3sThread.sleep(3000);pr.destroy();   //关闭进程</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Math类"><a href="#Math类" class="headerlink" title="Math类"></a>Math类</h3><p>Math类是一个工具类，主要用于完成复杂的数学运算，如求绝对值，三角函数，指数运算等。其构造方法被定义为private，因此无法创建Math类的对象。</p>
+<p>Math类的多有方法都是静态方法，可以直接通过类名来调用它们。</p>
+<p>除静态方法外，Math类中还有两个静态常量PI和E，分别表示Π和e。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Math.abs(-1);Math.sin/tan/cos(2.0);Math.sqrt(4);  //求平方根Math.cbrt(9);  //求立方根Math.pow(2,2);  //幂次运算Math.ceil(1.2);  //大于参数的最小整数，返回double类型的数Math.floor(1.2);  //小于参数的最大整数，返回double类型的数Math.round(1.2);  //四舍五入的整数，返回int类型的数Math.max(1,2);Math.min(1,2);Math.random();   //生成一个大于等于0.0小于1.0的随机值</span><br></pre></td></tr></table></figure>
+
+<h3 id="Random类"><a href="#Random类" class="headerlink" title="Random类"></a>Random类</h3><p>在JDK的java.util包中，有一个Random类，可以在指定的取值范围内随机产生数字。</p>
+<p>Random类有两个构造方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Random()   无参构造，通过它创建的Random实例对象每次使用的种子随机，因此每个对象所产生的随机数不同。Random(<span class="keyword">long</span> seed)  有参构造，使用种子创建伪随机数生成器，当seed相同时，每次实例化Random对象会生成相同的随机数</span><br></pre></td></tr></table></figure>
+
+<p>Random类的各种方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Random r = <span class="keyword">new</span> Random();r.nextBoolean()    随机的booleanr.nextDouble()   <span class="keyword">double</span>类型的随机数r.nextFloat()  <span class="keyword">float</span>类型的随机数r.nextInt()   <span class="keyword">int</span>类型的随机数r.nextInt(<span class="number">10</span>)  <span class="number">0</span>到<span class="number">10</span>之间<span class="keyword">int</span>类型的随机数r.nextLong()   <span class="keyword">long</span>型随机数</span><br></pre></td></tr></table></figure>
+
+<h3 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h3><p>虽然Java是面向对象的编程语言，但它所包含的8种基本数据类型却不支持面向对象的编程机制（没有属性和方法）。Java之所以提供这8种基本数据类型，是为了方便常规数据的处理。但是在Java种，很多类的方法都需要接收引用类型的对象，此时就无法将一个基本数据类型的值传入。</p>
+<p>为了解决这一问题，JDK提供了一系列的包装类，通过包装类可以将基本数据类型的值包装为引用数据类型的对象。</p>
+<table>
+<thead>
+<tr>
+<th align="center">byte</th>
+<th align="center">Byte</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">char</td>
+<td align="center">Character</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">Integer</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">Short</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">Long</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">Float</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">Double</td>
+</tr>
+<tr>
+<td align="center">boolean</td>
+<td align="center">Boolean</td>
+</tr>
+</tbody></table>
+<p>包装类和基本数据类型在转换时，引入了自动装箱和自动拆箱</p>
+<p>装箱：将基本数据类型的变量赋给对应的包装类变量（对象）。</p>
+<p><code>int a=20;    Integer b=a;</code></p>
+<p>拆箱：将包装类对象类型直接赋给一个对应的基本数据类型变量。</p>
+<p><code>int c=b</code></p>
+<p>此外，Java还提供了其他方法来支持基本数据类型、基本数据包装类以及字符串之间的相互转换。</p>
+<p>（1）String类的valueOf()方法，将八种基本数据类型转化为字符串类型。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int num=123;String s=String.valueOf(num);</span><br></pre></td></tr></table></figure>
+
+<p>（2）包装类的valueOf()方法，既可以实现装箱，也可以实现将内容匹配的字符串转换为对应的包装类（除Character包装类）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int num=123;Integer in=Integer.valueOf(num);String s=&quot;123&quot;;Integer in2=Integer.valueOf(s);</span><br></pre></td></tr></table></figure>
+
+<p>（3）通过包装类的有参构造方法将基本数据类型转换为包装类（装箱），也可以将字符串转换为包装类（除Character包装类）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int num=123;Integer in=new Integer(num);String s=&quot;123&quot;;Integer in2=new Integer(s);</span><br></pre></td></tr></table></figure>
+
+<p>（4）通过包装类的静态方法parseXxx()方法将字符串转换为对应的基本数据类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s=&quot;123&quot;;int num=Integer.parseInt(s);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>凡是类名.方法名的，都是静态static方法</p>
+</blockquote>
+<p>（5）包装类都重写了Object类中的toString方法，将包装类转换为字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer in=new Integer(123);//Integer in=Integer.valueOf(123);String s=in.toString();</span><br></pre></td></tr></table></figure>
+
+<p>注意：包装类的<code>valueOf(String s)</code>和<code>parseInt(String s)</code> 中，参数s不能为null，而且需要和解析对应。</p>
+<h3 id="Date类"><a href="#Date类" class="headerlink" title="Date类"></a>Date类</h3><p>JDK中的java.util包中，提供了一个Date类用来表示日期和时间，该类在JDK1.0时已经开始使用。JDK8中有两个构造方法可以使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date()  <span class="comment">//用来创建当前日期时间的Date对象。Date date1=new Date();  //Sat Jan 11:09:21 CST 2021Date(long date)  //用于创建指定时间的Date对象，date是1970.1.1.0.0.0以来的毫秒数，即时间戳Date date2=new Date(System.currentTimeMillis()+1000);//Sat Jan 11:09:22 CST 2021</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Calendar类"><a href="#Calendar类" class="headerlink" title="Calendar类"></a>Calendar类</h3><p>Calendar类用于完成日期和时间字段的操作，可以通过特定方法设置和读取日期的特定部分。</p>
+<p>Calendar类是一个抽象类，不可以被实例化，在程序中需要调用静态方法getInstance()来得到一个Calendar对象，然后才能调用其相应的方法。</p>
+<blockquote>
+<p>疑问？抽象类创建对象，这是什么操作？</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Calendar ca = Calendar.getInstance();<span class="keyword">int</span> year=ca.get(Calendar.YEAR);<span class="keyword">int</span> month=ca.get(Calendar.MONTH)+<span class="number">1</span>;  <span class="comment">//注意月份0-11，需要加1int date=ca.get(Calendar.DATE);int hour=ca.get(Calendar.HOUR);int minute=ca.get(Calendar.MINUTE);int second=ca.get(Calendar.SECOND);</span></span><br></pre></td></tr></table></figure>
+
+<p>添加和修改时间的功能可以通过add和set方法实现。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Calendar ca = Calendar.getInstance();ca.set(2021.11.11);   //设置指定日期ca.add(Calendar.DATE,100);  //为指定日期增加时间输出时间依然需要用get方法来获取年月日。</span><br></pre></td></tr></table></figure>
+
+<p>Calendar有两种解释日历字段的模式，容错模式和非容错模式，容错模式下，月是12是可以接受的。默认容错。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Calendar ca = Calendar.getInstance();ca.set(Calendar.MONTH, 13);  //不会报错//开启non-lenient非容错模式ca.setLenient(false);ca.set(Calendar.MONTH, 13);  //会报错</span><br></pre></td></tr></table></figure>
+
+<p>Date和Calendar对象之间的转化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(ca.getTime());  //Calendar的getTime方法返回一个表示Calendar时间值的Date对象。setTime(Date date)Calendar ca = setTime(date);  //Calendar的setTime方法接收一个Date对象，将Date对象表示的时间值设置给Calendar对象。</span><br></pre></td></tr></table></figure>
+
+<h3 id="JDK8的日期和时间类"><a href="#JDK8的日期和时间类" class="headerlink" title="JDK8的日期和时间类"></a>JDK8的日期和时间类</h3><p>为了满足更多的需求，JDK8比之前的版本增加了一个java.time包，在该包下包含了更多日期和时间操作类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>、Clock类Clock cl = Clock.systemUTC();获取UTC时区转换的当前时间： cl.instance()获取UTC时区转换的毫秒数： cl.millis()<span class="number">2.</span>Duration类Duration du = Duration.ofDays(<span class="number">1</span>);一天等于多少小时：  du.toHours()一天等于多少分钟：  du.toMinutes()一天等于多少秒：  du.toMillis()    <span class="number">3.</span>Instant类Instant in = Instant.now();UTC时区的当前时间：in当前时间一小时后的时间：in.plusSeconds(<span class="number">3600</span>)当前时间一小时前的时间：in.minusSeconds(<span class="number">3600</span>)    <span class="number">4.</span>LocalDateLocalDate lo = LocalDate.now();从默认时区的系统时钟获得当前日期：lo    <span class="number">5.</span>LocalTimeLocalDate lo = LocalDate.now();从默认时区的系统时钟获得当前时间：lo    <span class="number">6.</span>LocalDateTimeLocalDateTime lo = LocalDateTime.now();从默认时区的系统时钟获得当前日期和时间：lo当前的日期和时间加上<span class="number">1</span>天<span class="number">3</span>小时<span class="number">30</span>分钟：LocalDateTime time = LocalDateTime.plusDays(<span class="number">1</span>).plusHours(<span class="number">3</span>).plusMinutes(<span class="number">30</span>);<span class="number">7.</span>Year、YearMonth、MonthDay当前年份：Year ye = Year.now();当前年月：YearMonth ym = YearMonth.now();当前月日：MonthDay md = MonthDay.now();<span class="number">8.</span>获取系统默认时区ZoneId zi = ZoneId.systemDefault();</span><br></pre></td></tr></table></figure>
+
+<p>注意，clock.instant()和Instant.now()获取的时间都是默认使用UTC时区（世界协调时间，世界标准时间），比中国标准时间CST早八小时。</p>
+<h3 id="格式化类"><a href="#格式化类" class="headerlink" title="格式化类"></a>格式化类</h3><h4 id="DateFormat类"><a href="#DateFormat类" class="headerlink" title="DateFormat类"></a>DateFormat类</h4><p>使用Date类时，程序打印Date对象所输出的当前时间都是英文格式输出的，要想以中文的格式输出，就需要DateFormat类。</p>
+<p>DateFormat类专门用于将日期格式化为字符串或者将用特定格式显示的日期字符串转换为一个Date对象。</p>
+<p>DateFormat类是一个抽象类，不能被直接实例化，但它提供了一系列的静态方法来获取DateFormat类的实例对象，并能调用其他相应的方法进行操作。</p>
+<p>定义了四种静态方法用于获取DateFormat类的实例对象，它们分别对日期或者时间部分进行格式化。</p>
+<blockquote>
+<p>疑问。</p>
+</blockquote>
+<p>在DateFormat类中还定义了许多常量，其中四个常量值是用于作为参数传递给方法的，包括FULL、LONG、MEDIUM、SHORT。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建Date对象Date date = new Date();//1.当前日期的完整格式对象//静态方法DateFormat fullFormat = DateFormat.getDateInstance(DateFormat.FULL);//format将一个Date格式化为日期/时间字符串System.out.println(fullFormat.format(date));//2.当前日期的长格式对象//静态方法DateFormat longFormat = DateFormat.getDateInstance(DateFormat.LONG);//format将一个Date格式化为日期/时间字符串System.out.println(longFormat.format(date));//3.当前日期时间的普通格式对象//静态方法DateFormat mediumFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM);//format将一个Date格式化为日期/时间字符串System.out.println(mediumFormat.format(date));//4.当前日期时间的短格式对象//静态方法DateFormat shortFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT);//format将一个Date格式化为日期/时间字符串System.out.println(shortFormat.format(date));</span></span><br></pre></td></tr></table></figure>
+
+<p>DateFormat类中还有parse(String source)方法，能够将一个字符串解析为Date对象，但是它要求字符串必须符合日期/时间的格式要求。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建普通格式的DateFormat对象DateFormat dt1 = DateFormat.getDateInstance();//创建Long格式的DateFormat对象DateFormat dt2 = DateFormat.getDateInstance(DateFormat.LONG);//定义日期格式的字符串String s1 = &quot;2021-11-11&quot;;String s2 = &quot;2021年11月11日&quot;;//输出对应格式的字符串解析为Date对象后的结果System.out.println(dt1.parse(s1));System.out.println(dt2.parse(s2));</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="SimpleDateFormat类"><a href="#SimpleDateFormat类" class="headerlink" title="SimpleDateFormat类"></a>SimpleDateFormat类</h4><p>DateFormat类中parse方法将字符串解析为日期时，需要固定格式，不灵活。</p>
+<p>SimpleDateFormat类是DateFormat类的子类，可以使用new关键字创建实例对象。在创建实例对象时，构造方法需要接收一个表示日期格式模板的字符串参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;Gyyyy年MM月dd日：今年时yyyy年的第D天，星期：E&quot;</span>);    <span class="comment">//创建对象//按SimpleDateFormat对象的日期模板格式化Date对象System.out.println(sdf.format(new Date()));</span></span><br></pre></td></tr></table></figure>
+
+<p>上面是将一个Date时间对象转换为指定格式字符串形式。</p>
+<p>SimpleDateFormat类也可以将一个指定格式字符串解析为Date对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;yyyy/MM/dd&quot;</span>);    <span class="comment">//创建对象,并指定日期格式String s = &quot;2021/11/11&quot;;//将字符串解析为Date对象System.out.println(sdf.parse(s));</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="DateTimeFormatter类"><a href="#DateTimeFormatter类" class="headerlink" title="DateTimeFormatter类"></a>DateTimeFormatter类</h4><p>除DateFormat类以及SimpleDateFormat类，JDK8在java.time.format包下还提供了一个DateTimeFormatter类，该类也是格式化类，相当于DateFormat类以及SimpleDateFormat类的合体，它不仅可以将日期时间类型转换为字符串，还可以将字符串解析成日期、时间对象。</p>
+<p>1.字符串转换成日期时间类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testStringT0LocalDate</span><span class="params">()</span> </span>&#123;        <span class="comment">// String --&gt; LocalDate        //使用模式字符串创建DateTimeFormatter格式器        LocalDate localDate = LocalDate.parse(&quot;2019-12-07&quot;);　　　　　DateTimeFormatter pattern = DateTimeFormatter.ofPattern(&quot;yyyy年MM月dd日&quot;);		　　　　　　    　　　　　System.out.println(LocalDate.parse(&quot;2019-10-09&quot;).format(pattern));　　　　　        // String --&gt; LocalTime        LocalTime localTime = LocalTime.parse(&quot;07:43:53&quot;);        // String --&gt;LocalDateTime        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd hh:mm:ss&quot;); // 12小时　　　　 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd HH:mm:ss&quot;); // 24小时              LocalDate localDate = LocalDate.parse(&quot;2019-12-07 07:43:53&quot;,formatter);                System.out.println(localDate);        System.out.println(localTime);        System.out.println(localDate);&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>2.日期时间类型转换成字符串</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testLocalDateToString</span><span class="params">()</span> </span>&#123;        <span class="comment">//localDate --&gt; String         //使用常量创建DateTimeFormatte        LocalDate localDate = LocalDate.now();        String format1 = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);    //yyyyMMdd        String format2 = localDate.format(DateTimeFormatter.ISO_DATE);            //yyyy-MM-dd                //2.LocalTime  --&gt; String        LocalTime localTime = LocalTime.now();        String format3 = localTime.format(DateTimeFormatter.ISO_TIME);            //20:19:22.42        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&quot;hh:mm:ss&quot;);        String format4 = localTime.format(formatter);                //3.LocalDateTime  --&gt; String                LocalDateTime localDateTime = LocalDateTime.now();        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd hh:mm:ss&quot;);        String format5 = localDateTime.format(formatter2);                System.out.println(format1);        System.out.println(format2);        System.out.println(format3);        System.out.println(format4);        System.out.println(format5);     &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p>数组的长度不可变，因此为了保存数目不确定的对象，Java提供了一系列特殊的类，统称集合，集合可以存储任意类型的对象，并且长度可变。</p>
+<h3 id="集合概述"><a href="#集合概述" class="headerlink" title="集合概述"></a>集合概述</h3><p>Java中的集合就像一个容器，专门用来存储Java对象（实际上是对象的引用），这些对象可以是任意的数据类型，并且长度可变。这些集合类都位于java.util包中。</p>
+<p>集合类按照其存储结构可以分为两大类：单列集合Collection，双列集合Map。</p>
+<p>（1）Collection：单列集合的根接口，用于存储一系列符合某种规律的元素。Collection集合有两个重要的子接口，分别是List和Set。List集合特点：元素有序，可重复。Set集合特点：元素无序，不可重复。List接口的主要实现类：ArrayList、LinkedList。Set接口的主要实现类：HashSet、TreeSet。</p>
+<p>（2）Map：双列集合的根接口，用于存储具有键值映射关系的元素。Map接口的主要实现类：HashMap、TreeMap。</p>
+<p><img src="/2021/11/11/myblog/JAVA/%E3%80%8Ajava%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E3%80%8B%E4%B8%8B/Users/Lenovo\Documents\Typora\java\image-20211113111401531.png" alt="image-20211113111401531"></p>
+<p>虚线是接口类型，实线是实现类。</p>
+<h3 id="List接口"><a href="#List接口" class="headerlink" title="List接口"></a>List接口</h3><p>List接口继承自Collection接口，是单列集合的一个重要分支，习惯性地将实现了List接口的对象称为List集合。</p>
+<p>在List集合中<strong>允许出现重复</strong>的元素，所有的元素以一种线性方式进行存储，在程序中可以通过索引来访问集合中的指定元素，另外，List集合<strong>元素有序</strong>，即元素的存入顺序和取出顺序一致。</p>
+<h4 id="ArrayList集合"><a href="#ArrayList集合" class="headerlink" title="ArrayList集合"></a>ArrayList集合</h4><p>ArrayList是程序中最常见的一种集合。在ArrayList内部封装了一个长度可变的数组对象，当存入的元素超过数组长度时，ArrayList会在内存中分配一个更大的数组来存储这些元素，因此ArrayList可以看作是一个长度可变的数组。</p>
+<p>正是由于ArrayList内部的数据存储结构是数组形式，在增加和删除指定位置的元素时，会创建新的数组，效率比较低，因此不适合做大量的增删操作。但是在遍历和查找元素时显得非常高效。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建ArrayList集合</span></span><br><span class="line">ArrayList lis = <span class="keyword">new</span> ArrayList();</span><br><span class="line">lis.add(<span class="string">&quot;aa&quot;</span>);</span><br><span class="line">lis.add(<span class="string">&quot;bb&quot;</span>);</span><br><span class="line">长度： lis.size();</span><br><span class="line">查询： lis.get(i);</span><br></pre></td></tr></table></figure>
+
+<p>注意：在使用ArrayList集合时并没有显式地指定集合中存储什么类型的元素，会产生安全隐患，涉及到泛型安全机制的问题。</p>
+<h4 id="LinkedList集合"><a href="#LinkedList集合" class="headerlink" title="LinkedList集合"></a>LinkedList集合</h4><p>ArrayList查询时速度很快，增删时效率较低，因此另一个实现类：LinkedList。</p>
+<p>该集合内部包含两个Node类型的first和last属性维护一个双向循环链表，链表中的每一个元素都使用引用的方式记住它的前一个元素和后一个元素，从而可以将所有的元素彼此连接起来。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">LinkedList lik = <span class="keyword">new</span> LinkedList();</span><br><span class="line">lik.add(<span class="string">&quot;bb&quot;</span>);   <span class="comment">//添加元素</span></span><br><span class="line">lik.add(<span class="string">&quot;cc&quot;</span>);</span><br><span class="line">lik.offer(<span class="string">&quot;dd&quot;</span>);  <span class="comment">//向集合尾部追加元素</span></span><br><span class="line">lik.push(<span class="string">&quot;aa&quot;</span>);  <span class="comment">//向集合头部添加元素</span></span><br><span class="line">System.out.println(lik);   <span class="comment">//输出集合中的元素</span></span><br><span class="line"><span class="comment">//获取元素</span></span><br><span class="line">Object obj = lik.peek();   <span class="comment">//获取集合第一个元素</span></span><br><span class="line">System.out.println(obj);</span><br><span class="line"><span class="comment">//删除元素</span></span><br><span class="line">lik.removeFirst();   <span class="comment">//删除集合第一个元素</span></span><br><span class="line">lik.pollLast();   <span class="comment">//删除集合最后一个元素</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Collection集合遍历"><a href="#Collection集合遍历" class="headerlink" title="Collection集合遍历"></a>Collection集合遍历</h3><h4 id="Iterator遍历集合"><a href="#Iterator遍历集合" class="headerlink" title="Iterator遍历集合"></a>Iterator遍历集合</h4><p>Iterator接口是Java集合框架中的一员，但它与Collection、Map接口有所不同，Collection接口与Map接口主要用来存储元素，而Iterator主要用于迭代访问（即遍历）Collection中的元素，因此Iterator对象也被叫做迭代器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建ArrayList集合</span></span><br><span class="line">ArrayList lis = <span class="keyword">new</span> ArrayList();</span><br><span class="line">lis.add(<span class="string">&quot;aa&quot;</span>);</span><br><span class="line">lis.add(<span class="string">&quot;bb&quot;</span>);</span><br><span class="line"><span class="comment">//获取Iterator对象</span></span><br><span class="line">Iterator it = lis.iterator();</span><br><span class="line"><span class="comment">//判断集合中是否存在下一个元素</span></span><br><span class="line"><span class="keyword">while</span>(it.hashNext())&#123;</span><br><span class="line">	Object obj = it.next();  <span class="comment">//获取ArrayList集合中的元素</span></span><br><span class="line">	System.out.println(obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Iterator迭代器对象在遍历集合时，内部采用指针的方式来跟踪集合中的元素。</p>
+<p>在调用Iterator的next()方法之前，迭代器的索引位于第一个元素之前，不指向任何元素，第一次调用迭代器的next()方法后，迭代器的索引指向第一个元素并将该元素返回。</p>
+<p>注意：在使用Iterator迭代器对集合中的元素进行迭代时，如果调用了集合对象的remove()方法去删除元素，会出现异常。因为集合中删除了元素会导致迭代器预期的迭代次数发生变化，导致迭代器的结果不准确。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(it.hashNext())&#123;</span><br><span class="line">	Object obj = it.next();  <span class="comment">//获取ArrayList集合中的元素</span></span><br><span class="line">	System.out.println(obj);</span><br><span class="line">	<span class="keyword">if</span>(<span class="string">&quot;aa&quot;</span>.equals(obj))&#123;</span><br><span class="line">		lis.remove(obj);  <span class="comment">//删除集合元素</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解决方法一：在删除后用break退出。</p>
+<p>解决方法二：使用迭代器本身的删除方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(&quot;aa&quot;.equals(obj))&#123;</span><br><span class="line">	it.remove();   //删除集合元素</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用迭代器对象的remove()方法删除元素导致的迭代次数变化，对迭代器对象本身来讲是可预知的。</p>
+<h4 id="foreach遍历集合"><a href="#foreach遍历集合" class="headerlink" title="foreach遍历集合"></a>foreach遍历集合</h4><p>JDK5开始提供，是一种简洁的for循环，也称增强for循环，用于遍历数组或集合中的元素。会自动遍历容器中的每个元素。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ArrayList lis = <span class="keyword">new</span> ArrayList();</span><br><span class="line"><span class="keyword">for</span>(Object obj:lis)&#123;</span><br><span class="line">    System.out.println(obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是，在foreach循环遍历集合和数组时，只能访问集合中的元素，不能对其中的元素进行修改。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> String[] str = &#123;<span class="string">&quot;aa&quot;</span>,<span class="string">&quot;bb&quot;</span>&#125;;</span><br><span class="line"><span class="keyword">for</span>(String s:str)&#123;</span><br><span class="line">	s=<span class="string">&quot;aa&quot;</span>;   <span class="comment">//改变对string数组没效果</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>没有效果是因为代码中<code>s=&quot;aa&quot;;</code>只是将临时变量s指向一个新的字符串，和数组中的元素没有关系。</p>
+<p>而在普通的for循环中，可以通过索引来进行修改。</p>
+<h4 id="JDK8的forEach遍历集合"><a href="#JDK8的forEach遍历集合" class="headerlink" title="JDK8的forEach遍历集合"></a>JDK8的forEach遍历集合</h4><p>在JDK8中，根据Lambda表达式特性，增加了一个<code>forEach(Consumer action)</code>方法来遍历集合，该方法需要一个函数式接口作为参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList lis = <span class="keyword">new</span> ArrayList();</span><br><span class="line">lis.forEach(obj-&gt;System.out.println(<span class="string">&quot;迭代集合元素：&quot;</span>+obj))</span><br></pre></td></tr></table></figure>
+
+<p>该方法传递的是一个Lambda表达式形式书写的函数式接口。forEach方法在执行时会自动遍历集合元素并将元素逐个传递给Lambda表达式的形参。</p>
+<p>除此之外，JDK8还为Iterator迭代器对象增加了forEachRemaining(Consumer action)方法来进行遍历，同样需要一个函数式接口作为参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ArrayList lis = <span class="keyword">new</span> ArrayList();</span><br><span class="line">Iterator it = lis.iterator();</span><br><span class="line">it.forEachRemianing(obj-&gt;System.out.println(<span class="string">&quot;迭代集合元素：&quot;</span>+obj));</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示：本节对lList集合遍历的方法，对单列集合Collection进行遍历，因此对Set集合也适用。</p>
+</blockquote>
+<h3 id="Set接口"><a href="#Set接口" class="headerlink" title="Set接口"></a>Set接口</h3><p>习惯性地将实现了Set接口的对象称为Set集合。Set集合中的元素<strong>无序</strong>（指存入的顺序和一起输出的顺序是否一致），并且会以某种规则保证存入的<strong>元素不出现重复</strong>。Set接口主要有两个实现类：HashSet、TreeSet。</p>
+<p>HashSet是根据对象的哈希值来确定元素在集合中的存储的位置，因此具有良好的存取和查找性能。</p>
+<p>TreeSet是以二叉树的方式来存储元素，它可以实现对集合中的元素进行排序。</p>
+<h4 id="HashSet集合"><a href="#HashSet集合" class="headerlink" title="HashSet集合"></a>HashSet集合</h4><p>HashSet是Set接口的一个实现类，元素不可重复且无序。</p>
+<p>保重不重复：当向HashSet集合中添加一个元素时，即调用HashSet集合的add()方法，首先调用当前存入元素的hashCode()方法获得对象的哈希值，然后根据对象的哈希值计算出一个存储位置：如果该位置上没有元素，则直接将元素存入；如果该位置上有元素存在，则会调用equals()方法让当前存入的元素依次和该位置上的元素进行比较。如果返回的结果为false就将该元素存入集合；返回的结果为true则说明有重复元素，就将该元素舍弃。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HashSet se = <span class="keyword">new</span> HashSet();</span><br><span class="line">se.add(<span class="string">&quot;aa&quot;</span>);</span><br><span class="line">se.add(<span class="string">&quot;bb&quot;</span>);</span><br><span class="line"><span class="comment">//遍历输出Set集合的元素</span></span><br><span class="line">set.forEach(obj-&gt;System.out.println(obj));</span><br></pre></td></tr></table></figure>
+
+<p>为了保证HashSet的正常工作，在存入对象时，需要重写Object类中的hashCode()和equals()方法。String类已经默认重写了<code>hashCode()</code>和<code>equals()</code></p>
+<p>如果将开发者自定义的类型对象存入HashSet，需要重写<code>hashCode()</code>和<code>equals()</code>，改为值比较，否则没重写的<code>equals()</code>方法认为两个值相同的引用变量所引用的对象地址不同，认为是两个不同的对象，达不到去重的效果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String id;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String id, String name)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id=id;</span><br><span class="line">		<span class="keyword">this</span>.name=name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//重写toString()方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id+<span class="string">&quot;:&quot;</span>+name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//重写hashCode方法，根据id判定</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id.hashCode();  <span class="comment">//返回id属性的哈希值</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//重写equals方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span></span>&#123;</span><br><span class="line">		<span class="comment">//this表示该对象，判断是否为同一对象，如果是则true相同</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">this</span> == obj)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//判断对象是否为Student类型，如果不是，返回false</span></span><br><span class="line">		<span class="keyword">if</span>(!(obj <span class="keyword">instanceof</span> Student))&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//将对象强制转换为Student类型</span></span><br><span class="line">		Student stu = (Student)obj;</span><br><span class="line">		<span class="comment">//根据id值是否相等</span></span><br><span class="line">		<span class="keyword">boolean</span> b = <span class="keyword">this</span>.id.equals(stu.id);</span><br><span class="line">		<span class="keyword">return</span> b;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="TreeSet集合"><a href="#TreeSet集合" class="headerlink" title="TreeSet集合"></a>TreeSet集合</h4><p>TreeSet内部采用平衡二叉树存储元素，这样的结构保证TreeSet集合中没有重复的元素，并且可以对元素进行排序（和Set的无序无关）。左子树小于根节点，右子树大于根节点。当插入一个元素时，首先与顶层元素进行比较，小于左边，大于右边，直到最后一个叶子节点，如果和叶子节点一样，则将该重复元素去掉。否则小于左边，大于右边。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">TreeSet ts = <span class="keyword">new</span> TreeSet();</span><br><span class="line">ts.add(<span class="number">3</span>);</span><br><span class="line">ts.add(<span class="number">9</span>);</span><br><span class="line">ts.add(<span class="number">1</span>);</span><br><span class="line">ts.add(<span class="number">21</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;ts集合：&quot;</span>+ts);  <span class="comment">//输出为[1,3,9,21]有序</span></span><br><span class="line">首元素： ts.first()  <span class="comment">//1</span></span><br><span class="line">尾元素： ts.last()   <span class="comment">//21</span></span><br><span class="line"><span class="comment">//比较并获取元素</span></span><br><span class="line">ts.floor(<span class="number">9</span>)  <span class="comment">//集合中小于或等于9的最大一个元素 9</span></span><br><span class="line">ts.higher(<span class="number">10</span>)  <span class="comment">//集合中大于10的最小元素 21</span></span><br><span class="line">删除并返回第一个元素： </span><br><span class="line">Object first = ts.pollFirst();</span><br><span class="line">删除并返回最后一个元素： </span><br><span class="line">Object last = ts.pollLast();</span><br></pre></td></tr></table></figure>
+
+<p>集合中元素添加顺序无论如何，最后都会按一定顺序排列。因为平衡二叉树，每次插入都会与其他元素进行比较，最后插入有序的对象序列中。</p>
+<p>集合中的元素在进行比较时，都会调用<code>compareTo()</code>方法，该方法是<code>Comparable</code>接口中定义的，因此要想对集合中的元素进行排序，就必须实现<code>Comparable</code>接口。Java中大多数类都实现了<code>Comparable</code>接口，并默认实现接口中的<code>compareTo()</code>方法，如Integer、Double、String等。</p>
+<p>实际开发中，对自定义类型的数据没有实现<code>Comparable</code>接口，无法直接在TreeSet集合中进行排序操作。因此，Java提供了两种TreeSet的排序规则：自然排序、定制排序。默认情况下采用自然排序。</p>
+<p>（1）自然排序</p>
+<p>自然排序要求向TreeSet集合中存储的元素所在类必须实现<code>Comparable</code>接口，并重写<code>compareTo()</code>方法。然后TreeSet集合就会对该类型元素使用<code>compareTo()</code>方法进行比较，默认升序排序。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义Teacher类实现Comparable接口</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> <span class="keyword">implements</span> <span class="title">Comparable</span></span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Teacher</span><span class="params">(String name, <span class="keyword">int</span> age)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name=name;</span><br><span class="line">		<span class="keyword">this</span>.age=age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name+<span class="string">&quot;:&quot;</span>+age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//重写compareTo方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Object obj)</span></span>&#123;</span><br><span class="line">		Teacher s = (Teacher)obj;</span><br><span class="line">		<span class="comment">//定义比较方式，先比较年龄age，再比较name,升序</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.age-s.age&gt;<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.age-s.age==<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span>.name.compareTo(s.name);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）定制排序</p>
+<p>通过在创建TreeSet集合时就自定义一个比较器来对元素进行定制排序。自定义的类型数据中无需实现Comparable接口，并且可以按照自己的想法进行排序。</p>
+<p>例子：按照集合中字符串的长度进行定制排序。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"><span class="keyword">import</span> java.util.TreeSet;</span><br><span class="line"><span class="comment">//定义比较器实现Comparator接口</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Object obj1, Object obj2)</span></span>&#123;</span><br><span class="line">		String s1=(String)obj1;</span><br><span class="line">		String s2=(String)obj2;</span><br><span class="line">		<span class="keyword">int</span> temp=s1.length()-s2.length();</span><br><span class="line">		<span class="keyword">return</span> temp;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">	<span class="comment">//法1.创建集合时，传入Comparator接口实现定制排序</span></span><br><span class="line">		TreeSet ts=<span class="keyword">new</span> TreeSet(<span class="keyword">new</span> MyComparator());</span><br><span class="line">		ts.add(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">		ts.add(<span class="string">&quot;bb&quot;</span>);</span><br><span class="line">		ts.add(<span class="string">&quot;ccc&quot;</span>);</span><br><span class="line">		System.out.println(ts);</span><br><span class="line">	<span class="comment">//法2.创建集合时，使用Lambda表达式定制排序，无序上面的MyComparator</span></span><br><span class="line">		TreeSet ts2=<span class="keyword">new</span> TreeSet((obj1,obj2)-&gt;&#123;</span><br><span class="line">			String s1=(String)obj1;</span><br><span class="line">			String s2=(String)obj2;</span><br><span class="line">			<span class="keyword">return</span> s1.length()-s2.length();</span><br><span class="line">		&#125;);</span><br><span class="line">		ts2.add(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">		ts2.add(<span class="string">&quot;bb&quot;</span>);</span><br><span class="line">		ts2.add(<span class="string">&quot;ccc&quot;</span>);</span><br><span class="line">		System.out.println(ts2);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Map接口"><a href="#Map接口" class="headerlink" title="Map接口"></a>Map接口</h3><p>Map接口是一种双列集合，包含键对象key和值value，键和值对象之间存在一种映射，一对一的，一个key对应唯一一个value，键对象key不可重复。</p>
+<h4 id="HashMap集合"><a href="#HashMap集合" class="headerlink" title="HashMap集合"></a>HashMap集合</h4><p>HahMap集合存储键值映射关系，该集合的键和值允许为空，但键不能重复，且集合中的元素是<strong>无序的</strong>。</p>
+<p>HashMap底层：哈希表结构=数组+链表。数组是HashMap的主体结构，链表则是为了解决哈希值冲突而存在的分支结构。因此HashMap对元素的增删改查表现出的效率都很高。</p>
+<p>水平方向上数组的长度称为HashMap集合的容量（capacity），竖直方向每个元素对应的链表结构称为一个桶（bucket），每个桶的位置在集合中都有对应的桶值，用于快速定位。每个链表结构是&lt;key,value&gt;的键值对。</p>
+<p>当向HashMap集合添加元素时，首先调用键对象k的hash(k)方法，快速定位并寻址到该元素在集合中要存储的位置。在定位到存储元素键对象k的哈希值所对应桶位置后，会出现两种情况：<br>1.键对象k的hash值所在的桶位置为空，则直接向该桶插入元素对象。<br>2.键对象k的hash值所在的桶位置不为空，则继续通过键对象的equals(k)方法比较新插入的元素键对象k和已存在的元素键对象k是否相同：<br>1.如果相同，则会对原有元素的值对象v进行替换并返回原来的旧值。<br>2.如果都不相同，则在该桶的链表结构头部新增一个节点来插入新的对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Map m = <span class="keyword">new</span> HashMap();</span><br><span class="line">m.put(<span class="string">&quot;1&quot;</span>,<span class="string">&quot;aa&quot;</span>);</span><br><span class="line">m.put(<span class="string">&quot;2&quot;</span>,<span class="string">&quot;bb&quot;</span>);</span><br><span class="line">m.put(<span class="string">&quot;3&quot;</span>,<span class="string">&quot;cc&quot;</span>);  <span class="comment">//put已存在的key，会进行覆盖</span></span><br><span class="line">System.out.println(m);  <span class="comment">//打印</span></span><br><span class="line"><span class="comment">//查看键是否存在</span></span><br><span class="line">m.containsKey(<span class="string">&quot;1&quot;</span>)</span><br><span class="line"><span class="comment">//获取键对应的值</span></span><br><span class="line">m.get(<span class="string">&quot;1&quot;</span>)</span><br><span class="line"><span class="comment">//获取键集合、值集合</span></span><br><span class="line">m.keySet()</span><br><span class="line">m.values()</span><br><span class="line"><span class="comment">//替换指定键的值</span></span><br><span class="line">m.replace(<span class="string">&quot;1&quot;</span>,<span class="string">&quot;dd&quot;</span>);</span><br><span class="line">删除指定键值对</span><br><span class="line">m.remove(<span class="string">&quot;1&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>注意，HashMap查找时，需要遍历链表，逐一通过equals方法进行比对，因此桶越多，HashMap中的链表越少，性能越好。属于空间换时间。</p>
+<p>HashMap中，<strong>动态分配桶的数量</strong>：通过<code>new HashMap()</code>方法创建HashMap时，会默认集合容量capacity大小为16，加载因子loadFactor为0.75，此时集合桶的阈值为12，超过12个时，HashMap会默认增加一倍桶的数量。开发者也可以使用<code>new HashMap(int intialCapacity, float loadFactor)</code>构造方法，在创建HashMap集合时指定集合容量和加载因子。</p>
+<h4 id="Map集合遍历"><a href="#Map集合遍历" class="headerlink" title="Map集合遍历"></a>Map集合遍历</h4><h5 id="Iterator迭代器遍历"><a href="#Iterator迭代器遍历" class="headerlink" title="Iterator迭代器遍历"></a>Iterator迭代器遍历</h5><p>使用Iterator迭代器遍历Map集合，需要先将Map集合转换为Iterator接口对象，然后进行遍历，有两种方法进行转换：</p>
+<p>（1）keySet()方法</p>
+<p>先将Map集合中所有键对象转换为Set单列集合，然后将Set集合转换为Iterator接口对象，遍历得到键，再获得值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Map m = <span class="keyword">new</span> HashMap();</span><br><span class="line">m.put(<span class="string">&quot;1&quot;</span>,<span class="string">&quot;aa&quot;</span>);</span><br><span class="line">m.put(<span class="string">&quot;2&quot;</span>,<span class="string">&quot;bb&quot;</span>);</span><br><span class="line">m.put(<span class="string">&quot;3&quot;</span>,<span class="string">&quot;cc&quot;</span>); </span><br><span class="line">Set keySet = map.keySet();   <span class="comment">//获取键的集合</span></span><br><span class="line">Iterator it = keySet.iterator();  <span class="comment">//迭代键的集合</span></span><br><span class="line"><span class="keyword">while</span>(it.hashNext())&#123;</span><br><span class="line">	Object k = it.next();</span><br><span class="line">	Object v = m.get(key);</span><br><span class="line">	System.out.println(k+<span class="string">&quot;:&quot;</span>+v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）entrySet()方法</p>
+<p>将原有Map集合中的键值对作为一个整体返回为Set集合，接着将Set转换为Iterator接口对象，然后获取键值对映射关系，取出键和值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Map m = <span class="keyword">new</span> HashMap();</span><br><span class="line">m.put(<span class="string">&quot;1&quot;</span>,<span class="string">&quot;aa&quot;</span>);</span><br><span class="line">m.put(<span class="string">&quot;2&quot;</span>,<span class="string">&quot;bb&quot;</span>);</span><br><span class="line">m.put(<span class="string">&quot;3&quot;</span>,<span class="string">&quot;cc&quot;</span>); </span><br><span class="line">Set entrySet = m.entrySet();</span><br><span class="line">Iterator it = entrySet.iterator();</span><br><span class="line"><span class="keyword">while</span>(it.hasNext())&#123;</span><br><span class="line">	Map.Entry en = (Map.Entry)(it.next());</span><br><span class="line">	Object k = en.getKey();</span><br><span class="line">	Object v = en.getValue();</span><br><span class="line">	System.out.println(k+<span class="string">&quot;:&quot;</span>+v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Map.Entry是Map接口内部类，每个Map.Entry对象代表Map中的一个键值对。getKey和getValue是映射对象的方法。</p>
+<h5 id="forEach-方法"><a href="#forEach-方法" class="headerlink" title="forEach()方法"></a>forEach()方法</h5><p>再JDK8中根据Lambda表达式特性新增了一个forEach方法来遍历Map集合，该方法需要的参数是一个函数式接口，可以用Lambda表达式书写这个函数式接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Map m = <span class="keyword">new</span> HashMap();</span><br><span class="line">m.put(<span class="string">&quot;1&quot;</span>,<span class="string">&quot;aa&quot;</span>);</span><br><span class="line">m.put(<span class="string">&quot;2&quot;</span>,<span class="string">&quot;bb&quot;</span>);</span><br><span class="line">m.put(<span class="string">&quot;3&quot;</span>,<span class="string">&quot;cc&quot;</span>); </span><br><span class="line">m.forEach((k,v)-&gt;System.out.println(k+<span class="string">&quot;:&quot;</span>+v));</span><br></pre></td></tr></table></figure>
+
+<p>如果只想遍历value：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Collection v = m.values();</span><br><span class="line">v.forEach(va-&gt;System.out.println(va));</span><br></pre></td></tr></table></figure>
+
+<h4 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h4><p>HashMap无序，不保证集合元素存入和取出的顺序。</p>
+<p>但是LinkedHashMap是HashMap的子类，和LinkedList一样使用双向链表来维护内部元素的关系，使得元素有序（存入和取出的顺序）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map m = <span class="keyword">new</span> LinkedHashMap();  <span class="comment">//创建</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="TreeMap集合"><a href="#TreeMap集合" class="headerlink" title="TreeMap集合"></a>TreeMap集合</h4><p>Map接口的另一个实现类TreeMap，同样不允许重复的键。TreeMap内部是通过二叉树的原理来保证键的唯一性，这与TreeSet集合存储的原理一样，因此，TreeMap中所有的键是按照某种顺序排列的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Map m = <span class="keyword">new</span> TreeMap();</span><br><span class="line">m.put(<span class="string">&quot;1&quot;</span>,<span class="string">&quot;aa&quot;</span>);</span><br><span class="line">m.put(<span class="string">&quot;2&quot;</span>,<span class="string">&quot;bb&quot;</span>);</span><br><span class="line">m.put(<span class="string">&quot;3&quot;</span>,<span class="string">&quot;cc&quot;</span>);</span><br><span class="line">System.out.println(m);</span><br></pre></td></tr></table></figure>
+
+<p>上面的键是String类型，String类实现了Comparable接口，因此默认会按照自然顺序从小到大进行排列。</p>
+<p>桶TreeSet一样，TreeMap可以自定义比较器Comparator的方式对所有的键进行定制排序。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自定义比较器</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Object obj1, Object obj2)</span></span>&#123;</span><br><span class="line">		String key1 = (String)obj1;</span><br><span class="line">		String key2 = (String)obj2;</span><br><span class="line">	    <span class="keyword">return</span> key2.compareTo(key1);  <span class="comment">//从大到小排列</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">Map m = <span class="keyword">new</span> TreeMap(<span class="keyword">new</span> MyComparator());</span><br></pre></td></tr></table></figure>
+
+<h4 id="Properties集合"><a href="#Properties集合" class="headerlink" title="Properties集合"></a>Properties集合</h4><p>Map接口还有一个实现来Hashtable，它和HashMap十分相似，区别在于Hashtable是线程安全的，因此在使用上Hashtable的效率不及HashMap。因此通常使用HashMap。</p>
+<p>但是Hashtable有一个子类Properties，主要用来存储字符串类型的键值，在实际开发中，经常用来存取应用的配置项。</p>
+<p>假设有一个配置文件：test.properties</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">color = red;</span><br><span class="line">size = 10;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">	<span class="comment">//1.通过Properties进行属性文件读取操作</span></span><br><span class="line">	Properties pps = <span class="keyword">new</span> Properties();</span><br><span class="line">	<span class="comment">//加载文件</span></span><br><span class="line">	pps.load(<span class="keyword">new</span> FileInputStream(<span class="string">&quot;test.properties&quot;</span>));</span><br><span class="line">	<span class="comment">//遍历键值对信息</span></span><br><span class="line">	pps.forEach((k,v)-&gt;System.out.println(k+<span class="string">&quot;:&quot;</span>+v));</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//2.通过Properties进行属性文件写入操作</span></span><br><span class="line">	<span class="comment">//指定写入操作的文件名称和位置</span></span><br><span class="line">	<span class="function">FileOutputStream out new <span class="title">FileOutputStream</span><span class="params">(<span class="string">&quot;test.properties&quot;</span>)</span></span>;</span><br><span class="line">	<span class="comment">//向Properties类文件进行写入键值对信息</span></span><br><span class="line">	pps.setProperty(<span class="string">&quot;charset&quot;</span>,<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">	<span class="comment">//将此Properties集合中新增的键值对写入配置文件</span></span><br><span class="line">	pps.store(out, <span class="string">&quot;新增charset编码&quot;</span>)；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Properties的setProperty方法，用来新增一个键值对元素。store方法用来将新增信息写入到properties配置文件。</p>
+<h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><p>在之前创建集合，当把一个对象存入集合后，集合会忘记这个对象的类型，将该对象从集合中取出时，这个对象的编译类型就会统一变成Object类型。也就是说，存入元素啥类型都行，但是取出元素后，进行强制转换容易出错。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ArrayList lis = new ArrayList();</span><br><span class="line">lis.add(&quot;aa&quot;);</span><br><span class="line">lis.add(&quot;bb&quot;);</span><br><span class="line">for(Object obj:lis)&#123;</span><br><span class="line">	String s = (String)obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为解决该问题，Java引入“参数化类型”概念，即泛型。泛型可以限定操作的数据类型，在定义集合类时，可以使用“&lt;参数化类型&gt;”的形式指定集合中存储的数据类型。</p>
+<p><code>ArrayList&lt;String&gt;lis = new ArrayList&lt;String&gt;();</code></p>
+<p>这样限定了集合元素的数据类型，程序编译时类型不必配的话会编译不通过，避免运行时发生错误。遍历时<code>for(String s:lis)&#123;&#125;</code></p>
+<h2 id="常用工具类"><a href="#常用工具类" class="headerlink" title="常用工具类"></a>常用工具类</h2><h3 id="Collections工具类"><a href="#Collections工具类" class="headerlink" title="Collections工具类"></a>Collections工具类</h3><p>Java提供的一个专门工具类用来操作集合，位于java.util包中。Collections类中提供了大量的静态方法用于对集合中的元素进行排序、查找、修改等操作。</p>
+<h4 id="添加、排序"><a href="#添加、排序" class="headerlink" title="添加、排序"></a>添加、排序</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt;lis = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="comment">//添加元素</span></span><br><span class="line">Collections.addAll(lis,<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>);</span><br><span class="line"><span class="comment">//集合可以直接输出，而数组不可以，数组可以用forEach的Lambda表达式？</span></span><br><span class="line">System.out.println(lis);</span><br><span class="line">Collections.sort(lis);  <span class="comment">//排序</span></span><br><span class="line">Collections.reverse(lis);  <span class="comment">//反转</span></span><br><span class="line">Collections.shuffle(lis);  <span class="comment">//随机打乱集合顺序</span></span><br><span class="line">Collections.swap(lis,<span class="number">0</span>,lis.size()-<span class="number">1</span>);  <span class="comment">//交换元素</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="查找、替换"><a href="#查找、替换" class="headerlink" title="查找、替换"></a>查找、替换</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt;lis = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="comment">//添加元素</span></span><br><span class="line">Collections.addAll(lis,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line">最大元素： Collections.max(lis);</span><br><span class="line">最小元素： Collections.min(lis);</span><br><span class="line">Collections.replace(lis,<span class="number">2</span>,<span class="number">0</span>);  <span class="comment">//将集合中的2用0替换掉</span></span><br><span class="line">Collections.sort(lis);  <span class="comment">//排序</span></span><br><span class="line"><span class="comment">//通过二分查找查找元素3所在的角标，一定要先排序</span></span><br><span class="line"><span class="keyword">int</span> index = Collections.binarySearch(lis, <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Arrays工具类"><a href="#Arrays工具类" class="headerlink" title="Arrays工具类"></a>Arrays工具类</h3><p>java针对数组操作提供的数据工具类Arrays，提供大量静态方法。</p>
+<h4 id="sort排序"><a href="#sort排序" class="headerlink" title="sort排序"></a>sort排序</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arr = &#123;<span class="number">9</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line">不能通过System.out直接打印数组，需要<span class="keyword">for</span>循环打印</span><br><span class="line">Arrays.sort(arr);  <span class="comment">//排序</span></span><br><span class="line">Arrays.sort(arr,<span class="number">1</span>,<span class="number">4</span>);  左闭右开</span><br></pre></td></tr></table></figure>
+
+<h4 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(arr);</span><br><span class="line"><span class="keyword">int</span> index=Arrays.binarySearch(arr,<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h4><p>在不破坏原数组的情况下使用数组的部分元素，将指定范围的元素拷贝到一个新的数组中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arr = &#123;<span class="number">9</span>,<span class="number">8</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">2</span>&#125;;</span><br><span class="line"><span class="keyword">int</span>[] cop = Arrays.copyOfRange(arr, <span class="number">1</span>, <span class="number">7</span>);</span><br><span class="line"><span class="comment">//结果cop：8，3，5，2，0，0，左闭右开共六个，没有的用默认0</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h4><p>将数组的所有元素替换为一个元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Arrays.fill(arr,<span class="number">8</span>);  <span class="comment">//全换为8</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="聚合操作"><a href="#聚合操作" class="headerlink" title="聚合操作"></a>聚合操作</h3><p>Lambda表达式可以简化集合和数组的遍历、过滤和提取等操作。基于此特性，JDK8新增了聚合操作。</p>
+<h4 id="Stream接口"><a href="#Stream接口" class="headerlink" title="Stream接口"></a>Stream接口</h4><p>JDK8提供，该接口将集合、数组中的元素转换为Stream流的形式，并结合Lambda表达式进一步简化集合、数组中元素的查找、过滤、转换操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.stream.Stream;</span><br><span class="line"></span><br><span class="line">List&lt;String&gt;lis <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">lis.add(<span class="string">&quot;aa&quot;</span>);</span><br><span class="line">lis.add(<span class="string">&quot;ccc&quot;</span>);</span><br><span class="line">lis.add(<span class="string">&quot;dddd&quot;</span>);</span><br><span class="line"><span class="comment">//创建一个Stream流对象</span></span><br><span class="line">Stream&lt;String&gt;stream = lis.stream();</span><br><span class="line"><span class="comment">//对Stream流中的元素进行过滤、截取</span></span><br><span class="line">Stream&lt;String&gt;stream2 = stream.filter(i-&gt;i.startsWith(<span class="string">&quot;a&quot;</span>));</span><br><span class="line">Stream&lt;String&gt;stream3 = stream.filter(i-&gt;i.length()&gt;<span class="number">1</span>);</span><br><span class="line">Stream&lt;String&gt;stream4 = stream2.limit(<span class="number">1</span>);</span><br><span class="line"><span class="comment">//对Stream流中的元素进行终结操作</span></span><br><span class="line">stream4.forEach(j-&gt;System.out.println(j));</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过链式表达式的形式完成聚合操作</span></span><br><span class="line">lis.stream().filter(i-&gt;i.startsWith(<span class="string">&quot;a&quot;</span>))</span><br><span class="line">			.limit(<span class="number">1</span>)</span><br><span class="line">			.forEach(j-&gt;System.out.println(j));</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>疑问：创建list时，最先的List和ArrayList有何区别？</p>
+<p>List<int>可以吗？还是说元素必须为引用类型</int></p>
+</blockquote>
+<p>链式表达式：调用有返回值的方法时不获取返回值而是直接再调用另一个方法，实现聚合操作，也被称为操作管道流。</p>
+<p>执行某个方法返回类型仍为stream流对象的方法归为中间操作，如过滤截取排序。</p>
+<p>执行方法后返回类型不再是Stream流对象的方法归为终结操作，如遍历统计收集。</p>
+<h4 id="创建Stream流对象"><a href="#创建Stream流对象" class="headerlink" title="创建Stream流对象"></a>创建Stream流对象</h4><p>聚合操作针对的是可迭代数据进行操作：如集合、数组。因此创建Stream流对象是将集合、数组通过一些方法转换为Stream流对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建Stream流对象的集中方法</span></span><br><span class="line">Integer[] arr = &#123;<span class="number">9</span>,<span class="number">8</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">2</span>&#125;;</span><br><span class="line"><span class="comment">//将数组转换为List集合</span></span><br><span class="line">List&lt;Integer&gt;lis=Arrays.asList(arr);</span><br><span class="line"><span class="comment">//1.使用集合对象的stream()静态方法创建stream流对象</span></span><br><span class="line">Stream&lt;Integer&gt;stream=lis.stream();</span><br><span class="line">stream.forEach(i-&gt;System.out.print(i+<span class="string">&quot; &quot;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.使用Stream接口的of()静态方法为基本类型包装类数组、引用类型数组、单个元素创建stream流对象</span></span><br><span class="line">Stream&lt;Integer&gt;stream2=Stream.of(arr);</span><br><span class="line">stream2.forEach(i-&gt;System.out.print(i+<span class="string">&quot; &quot;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//3.使用Arrays数组工具类的stream()静态方法创建stream流对象</span></span><br><span class="line">Stream&lt;Integer&gt;stream3=Arrays.stream(arr);</span><br><span class="line">stream3.forEach(i-&gt;System.out.print(i+<span class="string">&quot; &quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>注意：集合对象的stream()静态方法只是针对单列集合Collection接口对象提供的，对Map集合首先通过Map集合的<code>keySet()  values()  entrySet()</code>方法转换为单列Set集合。</p>
+<h4 id="map-映射"><a href="#map-映射" class="headerlink" title="map()映射"></a>map()映射</h4><p>Stream流对象的map()方法可以将流对象中的元素通过特定的规则进行修改然后映射为另一个流对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt;stream=Stream.of(<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>);</span><br><span class="line">stream.map(String::toUpperCase)  <span class="comment">//流中所有元素字母转为大写</span></span><br><span class="line">	  .sorted()</span><br><span class="line">	  .forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+
+<h4 id="截取limit"><a href="#截取limit" class="headerlink" title="截取limit()"></a>截取limit()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">stream.skip(<span class="number">1</span>)   <span class="comment">//跳过流中的前一个元素</span></span><br><span class="line">      .limit(<span class="number">2</span>)   <span class="comment">//截取前2个元素</span></span><br><span class="line">      .forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+
+<h4 id="收集"><a href="#收集" class="headerlink" title="收集"></a>收集</h4><p>forEach()操作无法将进行中间操作后的流元素作为我们熟悉的对象或是数据类型进行保存，为此JDK8为操作流对象增加了一个终结操作—-collect。</p>
+<p>collect可以把Stream中的元素保存为另一种形式，如集合、字符串。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//保存为List集合</span></span><br><span class="line">Stream&lt;String&gt;stre = Stream.of(<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>);</span><br><span class="line">List&lt;String&gt;lis = stre.filter(i-&gt;i,startWith(<span class="string">&quot;a&quot;</span>))</span><br><span class="line">					  .collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line"><span class="comment">//将流元素使用&quot;and&quot;连接，收集到一个字符串中</span></span><br><span class="line">Stream&lt;String&gt;stre = Stream.of(<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>);</span><br><span class="line">String st = stre.filter(i-&gt;i,startWith(<span class="string">&quot;a&quot;</span>))</span><br><span class="line">					  .collect(Collectors.joining(<span class="string">&quot;and&quot;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//保存为数组</span></span><br><span class="line">Stream&lt;String&gt;stre = Stream.of(<span class="string">&quot;a&quot;</span>,<span class="string">&quot;b&quot;</span>,<span class="string">&quot;c&quot;</span>);</span><br><span class="line">String[] arr = stre.filter(i-&gt;i,startWith(<span class="string">&quot;a&quot;</span>))</span><br><span class="line">					  .collect(Collectors.toArray());</span><br></pre></td></tr></table></figure>
+
+<p>注意：一个Stream可以进行多个中间操作，但只能进行一个终结操作，一旦进行了终结操作，流对象就不复存在了。因此，只能保存一次。</p>
+<h4 id="Parrel-Stream并行流"><a href="#Parrel-Stream并行流" class="headerlink" title="Parrel Stream并行流"></a>Parrel Stream并行流</h4><p>JDK8针对大批量数据提供并行流，并行流是将源数据分为多个子流对象进行多线程操作（多个管道流），然后将处理的结果再汇总为一个流对象。</p>
+<p>并行流可以提高程序执行效率，但是在多线程执行时会出现线程安全问题，需要保证源数据在并行执行时不会被改变。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建List集合数据源</span></span><br><span class="line">List&lt;String&gt;lis = Arrays.asList(<span class="string">&quot;aa&quot;</span>,<span class="string">&quot;bb&quot;</span>,<span class="string">&quot;cc&quot;</span>);</span><br><span class="line"><span class="comment">//1.直接用Collection接口的parallelStream()创建并行流</span></span><br><span class="line">Stream&lt;String&gt;para = lis.parallelStream();</span><br><span class="line"><span class="comment">//判断是否为并行流</span></span><br><span class="line">System.out.println(para.isParallel());</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.使用BaseStream接口的parallel()方法将串行流转变为并行流</span></span><br><span class="line">Stream&lt;String&gt;str = Stream.of(<span class="string">&quot;aa&quot;</span>,<span class="string">&quot;bb&quot;</span>.<span class="string">&quot;cc&quot;</span>);</span><br><span class="line">Stream&lt;String&gt;para = str.parallel();</span><br><span class="line"><span class="comment">//判断是否为并行流</span></span><br><span class="line">System.out.println(para.isParallel());</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/11/08/myblog/JAVA/%E3%80%8AJava%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E3%80%8B/" rel="prev" title="《Java基础入门》面向对象">
+      <i class="fa fa-chevron-left"></i> 《Java基础入门》面向对象
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/11/17/myblog/JAVA/%E3%80%8AJava%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8%E3%80%8B%E7%B1%BB%E4%B8%8E%E9%9B%86%E5%90%88/" rel="next" title="《Java基础入门》类与集合">
+      《Java基础入门》类与集合 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#java%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">java中的常用类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">String类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%92%8Cequals"><span class="nav-number">1.1.1.</span> <span class="nav-text">&#x3D;&#x3D;和equals()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuffer%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">StringBuffer类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E5%92%8CStringBuffer%E5%8C%BA%E5%88%AB"><span class="nav-number">1.3.</span> <span class="nav-text">String和StringBuffer区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuilder%E7%B1%BB"><span class="nav-number">1.4.</span> <span class="nav-text">StringBuilder类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#System%E7%B1%BB"><span class="nav-number">1.5.</span> <span class="nav-text">System类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#getProperties-%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.1.</span> <span class="nav-text">getProperties()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#currentTimeMillis"><span class="nav-number">1.5.2.</span> <span class="nav-text">currentTimeMillis()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#arraycopy-%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.3.</span> <span class="nav-text">arraycopy()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gc-%E6%96%B9%E6%B3%95%E5%92%8Cexit-int-status-%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.4.</span> <span class="nav-text">gc()方法和exit(int status)方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Runtime%E7%B1%BB"><span class="nav-number">1.6.</span> <span class="nav-text">Runtime类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#exec-%E6%96%B9%E6%B3%95"><span class="nav-number">1.6.1.</span> <span class="nav-text">exec()方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Math%E7%B1%BB"><span class="nav-number">1.7.</span> <span class="nav-text">Math类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Random%E7%B1%BB"><span class="nav-number">1.8.</span> <span class="nav-text">Random类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%85%E8%A3%85%E7%B1%BB"><span class="nav-number">1.9.</span> <span class="nav-text">包装类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Date%E7%B1%BB"><span class="nav-number">1.10.</span> <span class="nav-text">Date类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Calendar%E7%B1%BB"><span class="nav-number">1.11.</span> <span class="nav-text">Calendar类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK8%E7%9A%84%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4%E7%B1%BB"><span class="nav-number">1.12.</span> <span class="nav-text">JDK8的日期和时间类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%B1%BB"><span class="nav-number">1.13.</span> <span class="nav-text">格式化类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DateFormat%E7%B1%BB"><span class="nav-number">1.13.1.</span> <span class="nav-text">DateFormat类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SimpleDateFormat%E7%B1%BB"><span class="nav-number">1.13.2.</span> <span class="nav-text">SimpleDateFormat类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DateTimeFormatter%E7%B1%BB"><span class="nav-number">1.13.3.</span> <span class="nav-text">DateTimeFormatter类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88"><span class="nav-number">2.</span> <span class="nav-text">集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E6%A6%82%E8%BF%B0"><span class="nav-number">2.1.</span> <span class="nav-text">集合概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.2.</span> <span class="nav-text">List接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ArrayList%E9%9B%86%E5%90%88"><span class="nav-number">2.2.1.</span> <span class="nav-text">ArrayList集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LinkedList%E9%9B%86%E5%90%88"><span class="nav-number">2.2.2.</span> <span class="nav-text">LinkedList集合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Collection%E9%9B%86%E5%90%88%E9%81%8D%E5%8E%86"><span class="nav-number">2.3.</span> <span class="nav-text">Collection集合遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Iterator%E9%81%8D%E5%8E%86%E9%9B%86%E5%90%88"><span class="nav-number">2.3.1.</span> <span class="nav-text">Iterator遍历集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#foreach%E9%81%8D%E5%8E%86%E9%9B%86%E5%90%88"><span class="nav-number">2.3.2.</span> <span class="nav-text">foreach遍历集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JDK8%E7%9A%84forEach%E9%81%8D%E5%8E%86%E9%9B%86%E5%90%88"><span class="nav-number">2.3.3.</span> <span class="nav-text">JDK8的forEach遍历集合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.4.</span> <span class="nav-text">Set接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HashSet%E9%9B%86%E5%90%88"><span class="nav-number">2.4.1.</span> <span class="nav-text">HashSet集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TreeSet%E9%9B%86%E5%90%88"><span class="nav-number">2.4.2.</span> <span class="nav-text">TreeSet集合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.5.</span> <span class="nav-text">Map接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HashMap%E9%9B%86%E5%90%88"><span class="nav-number">2.5.1.</span> <span class="nav-text">HashMap集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map%E9%9B%86%E5%90%88%E9%81%8D%E5%8E%86"><span class="nav-number">2.5.2.</span> <span class="nav-text">Map集合遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Iterator%E8%BF%AD%E4%BB%A3%E5%99%A8%E9%81%8D%E5%8E%86"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">Iterator迭代器遍历</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#forEach-%E6%96%B9%E6%B3%95"><span class="nav-number">2.5.2.2.</span> <span class="nav-text">forEach()方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LinkedHashMap"><span class="nav-number">2.5.3.</span> <span class="nav-text">LinkedHashMap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TreeMap%E9%9B%86%E5%90%88"><span class="nav-number">2.5.4.</span> <span class="nav-text">TreeMap集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Properties%E9%9B%86%E5%90%88"><span class="nav-number">2.5.5.</span> <span class="nav-text">Properties集合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B"><span class="nav-number">2.6.</span> <span class="nav-text">泛型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">常用工具类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Collections%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="nav-number">3.1.</span> <span class="nav-text">Collections工具类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E3%80%81%E6%8E%92%E5%BA%8F"><span class="nav-number">3.1.1.</span> <span class="nav-text">添加、排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E3%80%81%E6%9B%BF%E6%8D%A2"><span class="nav-number">3.1.2.</span> <span class="nav-text">查找、替换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Arrays%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="nav-number">3.2.</span> <span class="nav-text">Arrays工具类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sort%E6%8E%92%E5%BA%8F"><span class="nav-number">3.2.1.</span> <span class="nav-text">sort排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE"><span class="nav-number">3.2.2.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D"><span class="nav-number">3.2.3.</span> <span class="nav-text">拷贝</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2"><span class="nav-number">3.2.4.</span> <span class="nav-text">替换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C"><span class="nav-number">3.3.</span> <span class="nav-text">聚合操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Stream%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.3.1.</span> <span class="nav-text">Stream接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAStream%E6%B5%81%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.3.2.</span> <span class="nav-text">创建Stream流对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-%E6%98%A0%E5%B0%84"><span class="nav-number">3.3.3.</span> <span class="nav-text">map()映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%88%AA%E5%8F%96limit"><span class="nav-number">3.3.4.</span> <span class="nav-text">截取limit()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B6%E9%9B%86"><span class="nav-number">3.3.5.</span> <span class="nav-text">收集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Parrel-Stream%E5%B9%B6%E8%A1%8C%E6%B5%81"><span class="nav-number">3.3.6.</span> <span class="nav-text">Parrel Stream并行流</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jade liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jade liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

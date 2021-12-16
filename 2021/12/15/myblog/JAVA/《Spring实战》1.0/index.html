@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本书介绍如何使用Spring和Spring Boot开发基于Web、数据库作为后端的Java应用。如何与其他应用进行集成，使用反应式类型进行编程，以及将应用拆分成离散的微服务。最后如何准备应用的部署。 Spring5.0和Spring Boot2.0 什么是springspring支持：面向云的由微服务组成的应用，反应式编程，致力于通过非阻塞操作提供更好的扩展性并提升性能。通过spring boo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Spring实战》1.0">
+<meta property="og:url" content="http://example.com/2021/12/15/myblog/JAVA/%E3%80%8ASpring%E5%AE%9E%E6%88%98%E3%80%8B1.0/index.html">
+<meta property="og:site_name" content="Jadeliu&#39;s blog">
+<meta property="og:description" content="本书介绍如何使用Spring和Spring Boot开发基于Web、数据库作为后端的Java应用。如何与其他应用进行集成，使用反应式类型进行编程，以及将应用拆分成离散的微服务。最后如何准备应用的部署。 Spring5.0和Spring Boot2.0 什么是springspring支持：面向云的由微服务组成的应用，反应式编程，致力于通过非阻塞操作提供更好的扩展性并提升性能。通过spring boo">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-15T10:52:13.995Z">
+<meta property="article:modified_time" content="2021-12-16T09:05:47.961Z">
+<meta property="article:author" content="Jade liu">
+<meta property="article:tag" content="java Spring">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/12/15/myblog/JAVA/%E3%80%8ASpring%E5%AE%9E%E6%88%98%E3%80%8B1.0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>《Spring实战》1.0 | Jadeliu's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jadeliu's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/15/myblog/JAVA/%E3%80%8ASpring%E5%AE%9E%E6%88%98%E3%80%8B1.0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          《Spring实战》1.0
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-15 18:52:13" itemprop="dateCreated datePublished" datetime="2021-12-15T18:52:13+08:00">2021-12-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-16 17:05:47" itemprop="dateModified" datetime="2021-12-16T17:05:47+08:00">2021-12-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本书介绍如何使用Spring和Spring Boot开发基于Web、数据库作为后端的Java应用。如何与其他应用进行集成，使用反应式类型进行编程，以及将应用拆分成离散的微服务。最后如何准备应用的部署。</p>
+<p>Spring5.0和Spring Boot2.0</p>
+<h2 id="什么是spring"><a href="#什么是spring" class="headerlink" title="什么是spring"></a>什么是spring</h2><p>spring支持：面向云的由微服务组成的应用，反应式编程，致力于通过非阻塞操作提供更好的扩展性并提升性能。通过spring boot简化自己的开发模型。</p>
+<p>Spring 的核心是一个 <em>容器（container）</em>，通常称为 <em>Spring 应用程序上下文</em>，用于创建和管理应用程序组件。这些组件（或 bean）在 Spring 应用程序上下文中连接在一起以构成一个完整的应用程序，就像将砖、灰浆、木材、钉子、管道和电线绑在一起以组成房屋。</p>
+<p>将 bean 连接在一起的行为是基于一种称为 <em>依赖注入</em>（dependency injection，DI）的模式。组件不会再去创建它所依赖的组件并管理它们的生命周期，使用依赖注入的应用依赖于单独的实体（容器）来创建和维护所有的组件，并将其注入到需要它们的bean中。通常通过构造函数参数或属性访问器方法完成此操作。总结：应用组件通过Spring的应用上下文来进行管理并实现互相注入。</p>
+<p>距离：商品服务需要依赖于库存服务，库存服务需要注入到商品服务。</p>
+<p>①从历史上看，引导 Spring 应用程序上下文将 bean 连接在一起的方式是使用一个或多个 XML 文件，这些文件描述了组件及其与其他组件的关系。例如，以下 XML 声明两个 bean，一个 <code>InventoryService bean</code> 和一个 <code>ProductService bean</code>，然后通过构造函数参数将 <code>InventoryService</code> 注入到 <code>ProductService</code> 中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">&quot;inventoryService&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;com.example.InventoryService&quot;</span> /&gt;</span><br><span class="line">&lt;bean id=<span class="string">&quot;productService&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;com.example.ProductService&quot;</span> &gt;</span><br><span class="line">    &lt;constructor-arg ref=<span class="string">&quot;inventoryService&quot;</span> /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+
+<p>②但是，在最新版本的 Spring 中，基于 Java 的配置更为常见。以下基于 Java 的配置类等效于 XML 配置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServiceConfiguration</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> InventoryService <span class="title">inventoryService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> InventoryService();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ProductService <span class="title">productService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductService(inventoryService());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@Configuration</code> 注释向 Spring 表明这是一个配置类，它将为 Spring 应用程序上下文提供 beans。 配置的类方法带有 <code>@Bean</code> 注释，指示它们返回的对象应作为 beans 添加到应用程序上下文中（默认情况下，它们各自的 bean IDs 将与定义它们的方法的名称相同）。</p>
+<p>与基于 XML 的配置相比，基于 Java 的配置具有多个优点，包括更高的类型安全性和改进的可重构性。即使这样，仅当 Spring 无法自动配置组件时，才需要使用 Java 或 XML 进行显式配置。</p>
+<p>③自动配置起源于 Spring 技术，即 <em>自动装配</em> 和 <em>组件扫描</em>。借助组件扫描，Spring 可以自动从应用程序的类路径中发现组件，并将其创建为 Spring 应用程序上下文中的 bean。通过自动装配，Spring 能够自动为组件注入它们所依赖的其他bean。</p>
+<p>最近，随着 Spring Boot 的推出，自动配置的优势已经远远超出了组件扫描和自动装配。Spring Boot 是 Spring 框架的扩展，它提供了多项生产力增强功能。这些增强功能中最著名的就是 <em>自动配置</em>，在这种配置中，Spring Boot 可以根据类路径中的条目、环境变量和其他因素，合理地猜测需要配置哪些组件，并将它们装配在一起。</p>
+<p>Spring Boot 自动配置大大减少了构建应用程序所需的显式配置（无论是 XML 还是 Java）的数量。</p>
+<h2 id="初始化Spring应用程序"><a href="#初始化Spring应用程序" class="headerlink" title="初始化Spring应用程序"></a>初始化Spring应用程序</h2><p>使用 Spring、Spring Boot 以及各种相关的库和框架，创建一个在线应用程序。</p>
+<p>依靠 Spring Initializr 来引导应用程序的创建。Spring Initializr 既是一个基于浏览器的 Web 应用程序，又是一个 REST API，它们可以生成一个基本的 Spring 项目结构，可以使用所需的任何功能充实自己。 使用 Spring Initializr 的几种方法如下：</p>
+<p>1.从 Web 应用程序 <a target="_blank" rel="noopener" href="http://start.spring.io/">http://start.spring.io</a> 创建<br>2.使用 curl 命令从命令行创建<br>3.使用 Spring Boot 命令行接口从命令行创建<br>4.使用 Spring Tool Suite 创建一个新项目的时候<br>5.使用 IntelliJ IDEA 创建一个新项目的时候<br>6.使用 NetBeans 创建一个新项目的时候</p>
+<h3 id="使用Intellij-IDEA初始化项目"><a href="#使用Intellij-IDEA初始化项目" class="headerlink" title="使用Intellij IDEA初始化项目"></a>使用Intellij IDEA初始化项目</h3><p>File -&gt; new -&gt; Project -&gt; Spring Initializr -&gt; next。</p>
+<p>type选Maven Project -&gt; next。（和maven的构建规范有关，Maven pom.xml）</p>
+<p>展示项目依赖页，依赖是按照分类来组织的，已经选中的依赖将会在最右侧。选择依赖：devtools、lombok、web、thymeleaf -&gt; next。</p>
+<p>输入项目名称和存放位置。finish</p>
+<p>项目从Initializr下载并加载到工作空间中。加载和构建完成，就可以开发应用功能了。</p>
+<h3 id="Spring项目目录"><a href="#Spring项目目录" class="headerlink" title="Spring项目目录"></a>Spring项目目录</h3><p>典型的Maven或Gradle项目结构，应用源码在src/main/java中，测试代码在src/test/java中，非java资源在src/main/resources。</p>
+<p><code>mvnw</code> 和 <code>mvnw.cmd</code> —— 这些是 Maven 包装器脚本。即使你的计算机上没有安装 Maven，也可以使用这些脚本构建项目。</p>
+<p><code>pom.xml</code> —— 这是 Maven 构建规范。</p>
+<p><code>TacoCloudApplication.java</code> —— 这是引导项目的 Spring Boot 主类。稍后，我们将在这节详细介绍。</p>
+<p><code>application.properties</code> —— 该文件最初为空，但提供了一个可以指定配置属性的地方。我们将在本章中对此文件进行一些修改，但在第 5 章中将详细介绍配置属性。</p>
+<p><code>static</code> —— 在此文件夹中，可以放置要提供给浏览器的任何静态内容（图像、样式表、JavaScript 等），最初为空。</p>
+<p><code>templates</code> —— 在此文件夹中，放置用于向浏览器呈现内容的模板文件。最初为空，但很快会添加 Thymeleaf 模板。</p>
+<p><code>TacoCloudApplicationTests.java</code> —— 这是一个简单的测试类，可确保成功加载 Spring 应用程序上下文。开发应用程序时，将添加更多的测试。</p>
+<h4 id="构建规范pom-xml"><a href="#构建规范pom-xml" class="headerlink" title="构建规范pom.xml"></a>构建规范pom.xml</h4><p>填写 Initializr 表单时，指定使用 Maven 构建项目。因此，Spring Initializr 给了一个 pom.xml 文件，该文件已经填充了所做的选择。</p>
+<p>依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Spring boot插件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">    &lt;plugins&gt;</span><br><span class="line">        &lt;plugin&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">            &lt;configuration&gt;</span><br><span class="line">                &lt;excludes&gt;</span><br><span class="line">                    &lt;exclude&gt;</span><br><span class="line">                        &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">                        &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">                    &lt;/exclude&gt;</span><br><span class="line">                &lt;/excludes&gt;</span><br><span class="line">            &lt;/configuration&gt;</span><br><span class="line">        &lt;/plugin&gt;</span><br><span class="line">    &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;packaging&gt;</code>选择将应用程序构建为可执行的 JAR 文件，而不是 WAR 文件。毕竟，传统的 Java web 应用程序被打包为 WAR 文件，而 JAR 文件是库和偶尔使用的桌面 UI 应用程序的首选打包方式。虽然 WAR 文件非常适合部署到传统的 Java 应用服务器，但是它们并不适合大多数云平台。尽管一些云平台（如 Cloud Foundry）能够部署和运行 WAR 文件，但是所有的 Java 云平台都能够运行可执行的 JAR 文件。因此，Spring Initializr 默认为 JAR 打包。</p>
+<p><code>&lt;parent&gt;</code> 元素，指定项目将 <code>spring-boot-starter-parent</code> 作为它的父 POM。除此之外，这个父 POM 还为 Spring 项目中常用的几个库提供依赖项管理。对于父 POM 覆盖的那些库，不必指定版本，因为它是从父 POM 继承的。</p>
+<p><code>&lt;dependencies&gt;</code> 元素下声明了三个依赖项。前两个看起来应该比较熟悉。它们直接对应于在单击 Spring Tool Suite 新建项目向导中的 Finish 按钮之前选择的 Web 和 Thymeleaf 依赖项。第三个依赖项提供了许多有用的测试功能，你不必选中包含它的方框，因为 Spring Initializr 假定你将编写测试。</p>
+<p>Spring Boot starter 依赖项的特殊之处在于，它们本身通常没有任何库代码，而是间接地引入其他库。这些 starter 依赖提供了三个主要的好处：</p>
+<ul>
+<li>构建的文件将会小得多，也更容易管理，因为不需要对每一个可能需要的库都声明一个依赖项。</li>
+<li>可以根据它们提供的功能来考虑需要的依赖关系，而不是根据库名来考虑。如果正在开发一个 web 应用程序，那么将添加 web starter 依赖项，而不是一个编写 web 应用程序的各个库的清单。</li>
+<li>不用担心 library 版本问题。可以相信的是，对于给定版本的 Spring Boot，可间接地引入的库的版本将是兼容的，只需要考虑使用的是哪个版本的 Spring Boot。</li>
+</ul>
+<p>最后，构建规范以 Spring Boot 插件结束。这个插件执行一些重要的功能：</p>
+<ul>
+<li>提供了一个 Maven 编译目标，让你能够使用 Maven 运行应用程序。</li>
+<li>确保所有的依赖库都包含在可执行的 JAR 文件中，并且在运行时类路径中可用。</li>
+<li>在 JAR 文件中生成一个 manifest 文件，将引导类（在本书例子中是 <code>TacoCloudApplication</code>）声明为可执行 JAR 的主类。</li>
+</ul>
+<h4 id="引导应用TacoCloudApplication"><a href="#引导应用TacoCloudApplication" class="headerlink" title="引导应用TacoCloudApplication"></a>引导应用TacoCloudApplication</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TacoCloudApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(TacoCloudApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@SpringBootApplication</code> 注释清楚地表明这是一个 Spring 引导应用程序。<code>@SpringBootApplication</code> 是一个组合了其他三个注释的复合应用程序：</p>
+<p>（1）<code>@SpringBootConfiguration</code> —— 指定这个类为配置类。尽管这个类中还没有太多配置，但是如果需要，可以将 Javabased Spring Framework 配置添加到这个类中。实际上，这个注释是<code>@Configuration</code> 注释的一种特殊形式。</p>
+<p>（2）<code>@EnableAutoConfiguration</code> —— 启用 Spring 自动配置。稍后我们将详细讨论自动配置。现在，要知道这个注释告诉 Spring Boot 自动配置它认为需要的任何组件。</p>
+<p>（3）<code>@ComponentScan</code> —— 启用组件扫描。这允许你声明其他带有 <code>@Component</code>、<code>@Controller</code>、<code>@Service</code> 等注释的类，以便让 Spring 自动发现它们并将它们注册为 Spring 应用程序上下文中的组件。</p>
+<p><code>TacoCloudApplication</code> 的另一个重要部分是 <code>main()</code> 方法。这个方法将在执行 JAR 文件时运行。在大多数情况下，这种方法是样板代码；编写的每个 Spring 引导应用程序都有一个类似或相同的方法（尽管类名不同）。</p>
+<p><code>main()</code> 方法调用 SpringApplication 类上的静态 <code>run()</code> 方法，该方法执行应用程序的实际引导，创建<code>Spring</code> 应用程序上下文。传递给 <code>run()</code> 方法的两个参数是一个配置类和命令行参数。虽然传递给 <code>run()</code> 的配置类不必与引导类相同，但这是最方便、最典型的选择。</p>
+<p>你可能不需要更改引导类中的任何内容。对于简单的应用程序，你可能会发现在引导类中配置一两个其他组件很方便，但是对于大多数应用程序，最好为任何没有自动配置的东西创建一个单独的配置类。</p>
+<h4 id="测试应用TacoCloudApplicationTests"><a href="#测试应用TacoCloudApplicationTests" class="headerlink" title="测试应用TacoCloudApplicationTests"></a>测试应用TacoCloudApplicationTests</h4><p>测试是软件开发的一个重要部分。认识到这一点后，Spring Initializr 提供了一个测试类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> tacos;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner;</span><br><span class="line">​</span><br><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TacoCloudApplicationTests</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextLoads</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>类中的一个测试方法是空的。尽管如此，这个测试类确实执行了必要的检查，以确保 Spring 应用程序上下文能够成功加载。如果做了任何阻止创建 Spring 应用程序上下文的更改，则此测试将失败，这样你就可以通过解决问题来应对。</p>
+<p>还要注意用 <code>@RunWith(SpringRunner.class)</code> 注释的类。<code>@RunWith</code> 是一个 JUnit 注释，提供了一个测试运行器来引导 JUnit 运行测试用例。请将清单 1.3 看作是对它的基准应用程序测试，即将插件应用到 JUnit 以提供自定义测试行为。在本例中，JUnit 被赋予了 SpringRunner，这是一个由 Spring 提供的测试运行程序，它提供了创建一个 Spring 应用程序上下文的功能，以供测试运行。</p>
+<p>尽管 <code>@RunWith(SpringRunner.class)</code> 和 <code>@SpringBootTest</code> 的任务是加载用于测试的 Spring 应用程序上下文，但是如果没有任何测试方法，它们将没有任何事情要做。即使没有任何断言或任何类型的代码，这个空的测试方法也会调用两个注释完成它们的工作，并加载 Spring 应用程序上下文。如果运行过程中有任何问题，测试就会失败。</p>
+<h3 id="编写Spring应用程序"><a href="#编写Spring应用程序" class="headerlink" title="编写Spring应用程序"></a>编写Spring应用程序</h3>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java-Spring/" rel="tag"># java Spring</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/02/myblog/JAVA/%E3%80%8AJava%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E3%80%8B%E4%B9%8B%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="prev" title="《Java基础入门》之网络编程">
+      <i class="fa fa-chevron-left"></i> 《Java基础入门》之网络编程
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFspring"><span class="nav-number">1.</span> <span class="nav-text">什么是spring</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96Spring%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">初始化Spring应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Intellij-IDEA%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.1.</span> <span class="nav-text">使用Intellij IDEA初始化项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95"><span class="nav-number">2.2.</span> <span class="nav-text">Spring项目目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E8%A7%84%E8%8C%83pom-xml"><span class="nav-number">2.2.1.</span> <span class="nav-text">构建规范pom.xml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E5%AF%BC%E5%BA%94%E7%94%A8TacoCloudApplication"><span class="nav-number">2.2.2.</span> <span class="nav-text">引导应用TacoCloudApplication</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E5%BA%94%E7%94%A8TacoCloudApplicationTests"><span class="nav-number">2.2.3.</span> <span class="nav-text">测试应用TacoCloudApplicationTests</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99Spring%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.3.</span> <span class="nav-text">编写Spring应用程序</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jade liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jade liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
