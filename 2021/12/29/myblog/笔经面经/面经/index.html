@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="阿里云一面自我介绍 挑个项目阐述一下，针对项目最难的一个问题，怎么解决的 TCP拥塞控制 100万台服务器找100台CPU利用率最高的 指针和引用的区别 多进程和多线程 100万个数据排序怎么控制内存 Linux熟悉吗 如何解决死锁 如果进来还有什么需要学习的 有什么问题 阿里钉钉一面面试官你好，思考了很久。可以用锁，但是平时偏底层的代码基本没写过，所以没写出来。  读写锁  public sta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实习面经">
+<meta property="og:url" content="http://example.com/2021/12/29/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/%E9%9D%A2%E7%BB%8F/index.html">
+<meta property="og:site_name" content="Jadeliu&#39;s blog">
+<meta property="og:description" content="阿里云一面自我介绍 挑个项目阐述一下，针对项目最难的一个问题，怎么解决的 TCP拥塞控制 100万台服务器找100台CPU利用率最高的 指针和引用的区别 多进程和多线程 100万个数据排序怎么控制内存 Linux熟悉吗 如何解决死锁 如果进来还有什么需要学习的 有什么问题 阿里钉钉一面面试官你好，思考了很久。可以用锁，但是平时偏底层的代码基本没写过，所以没写出来。  读写锁  public sta">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-29T07:34:48.510Z">
+<meta property="article:modified_time" content="2021-12-29T07:35:40.314Z">
+<meta property="article:author" content="Jade liu">
+<meta property="article:tag" content="面经">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/12/29/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/%E9%9D%A2%E7%BB%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>实习面经 | Jadeliu's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jadeliu's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/29/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/%E9%9D%A2%E7%BB%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          实习面经
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-29 15:34:48 / Modified: 15:35:40" itemprop="dateCreated datePublished" datetime="2021-12-29T15:34:48+08:00">2021-12-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/" itemprop="url" rel="index"><span itemprop="name">笔经面经</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="阿里云一面"><a href="#阿里云一面" class="headerlink" title="阿里云一面"></a>阿里云一面</h3><p>自我介绍</p>
+<p>挑个项目阐述一下，针对项目最难的一个问题，怎么解决的</p>
+<p>TCP拥塞控制</p>
+<p>100万台服务器找100台CPU利用率最高的</p>
+<p>指针和引用的区别</p>
+<p>多进程和多线程</p>
+<p>100万个数据排序怎么控制内存</p>
+<p>Linux熟悉吗</p>
+<p>如何解决死锁</p>
+<p>如果进来还有什么需要学习的</p>
+<p>有什么问题</p>
+<h3 id="阿里钉钉一面"><a href="#阿里钉钉一面" class="headerlink" title="阿里钉钉一面"></a>阿里钉钉一面</h3><p>面试官你好，思考了很久。可以用锁，但是平时偏底层的代码基本没写过，所以没写出来。</p>
+<ol>
+<li>读写锁</li>
+</ol>
+<p>public static void putIfAbsent(Vector vector, Object object) {<br>    synchronized(vector) {<br>        if (!vector.contains(object)) {<br>            vector.add(object);<br>        }<br>        else {<br>            System.out.println(“The vertor is contains the object of “ + object.toString());<br>        }<br>    }<br>}</p>
+<ol>
+<li>固定vector大小</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">v.<span class="built_in">resize</span>(<span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>struct和classs的区别，struct可以多态吗，可以继承吗</p>
+</li>
+<li><p>c++内存分配，举例</p>
+</li>
+<li><p>c++新特性</p>
+</li>
+<li><p>一个数据表如果量非常大，如何处理提高效率。</p>
+</li>
+<li><p>序列化和反序列化</p>
+</li>
+<li><p>目标：实现一个线程安全的vector<br>需求：<br>1、类似于std::vector的功能，比如push_back，insert，erase，size，clear，迭代功能等（按照自己的思路提供方法，比如你想提供哪些给别人用，就设计哪些方法）<br>2、要求能多线程安全<br>3、如果能跨平台则加分<br>备注：<br>1、考虑一下性能<br>2、可使用STL vector<br>3、需要单测</p>
+<p>//.h内容<br>//.cpp内容</p>
+</li>
+</ol>
+<h3 id="阿里钉钉二面"><a href="#阿里钉钉二面" class="headerlink" title="阿里钉钉二面"></a>阿里钉钉二面</h3><p>1.阐述项目，要比较清晰，半小时</p>
+<p>2.静态转换和动态转换</p>
+<p>3.c++内存分配，栈分配内存效率为什么高</p>
+<p>4.操作系统如何管理内存</p>
+<p>5.智能指针</p>
+<h3 id="腾讯游戏客户端开发，一面挂"><a href="#腾讯游戏客户端开发，一面挂" class="headerlink" title="腾讯游戏客户端开发，一面挂"></a>腾讯游戏客户端开发，一面挂</h3><p>1.多重继承问题</p>
+<p>2.虚析构函数</p>
+<p>3.内存对齐问题</p>
+<p>4.vector和list差别</p>
+<p>5.list删除元素操作</p>
+<p>6.erase函数用法</p>
+<p>7.物理内存和虚拟内存的辨析</p>
+<p>8.tcp和udp，http时tcp还是udp</p>
+<h3 id="字节跳动测开面经，1面-2面-3面-hr面"><a href="#字节跳动测开面经，1面-2面-3面-hr面" class="headerlink" title="字节跳动测开面经，1面+2面+3面+hr面"></a>字节跳动测开面经，1面+2面+3面+hr面</h3><p>看了那么多大佬的面经，现在来回馈牛客啦。可能记录不全，当时不会的肯定记得，会的有些忘记了。几次面试问的问题也是有重复的。楼主语言是C++。字节面试体验非常不错。</p>
+<p>每一面都有问到项目，跨专业的，跟计算机没啥关系，就不具体说了。</p>
+<h4 id="1面，一小时10分钟"><a href="#1面，一小时10分钟" class="headerlink" title="1面，一小时10分钟"></a>1面，一小时10分钟</h4><p>1.线程与进程</p>
+<p>2.TCP与UDP</p>
+<p>3.指针与引用</p>
+<p>4.new和malloc</p>
+<p>5.C++与C</p>
+<p>6.虚函数</p>
+<p>7.浏览器输入URL发生什么</p>
+<p>8.数据库三大范式</p>
+<p>（一面问的比较八股，都是基础知识，操作系统，计算机网络，数据库都有问到）</p>
+<p>9.测试用例设计，微信发朋友圈</p>
+<p>10.对测试开发的理解</p>
+<p>11.测试方法</p>
+<p>手撕代码：有效的IP地址。</p>
+<h4 id="2面，一个小时"><a href="#2面，一个小时" class="headerlink" title="2面，一个小时"></a>2面，一个小时</h4><p>1.HTTP和HTTPS</p>
+<p>2.端口</p>
+<p>3.static几种用法</p>
+<p>4.inline内联函数</p>
+<p>5.数组的sizeof</p>
+<p>6.-1在计算机中是怎么存储的</p>
+<p>7.堆和栈</p>
+<p>手撕代码：题目忘记了，用排序sort做很简单，但是面试官说超出限制，就让我写了快排。</p>
+<h4 id="3面，40分钟"><a href="#3面，40分钟" class="headerlink" title="3面，40分钟"></a>3面，40分钟</h4><p>1.事务</p>
+<p>2.刷抖音后面变卡了，找原因</p>
+<p>3.有限内存实现大量数据的排序，即外排</p>
+<p>4.快排的时间复杂度</p>
+<p>5.B+树</p>
+<p>6.数据库索引，A索引andB索引能否生效</p>
+<p>7.为什么不选开发</p>
+<p>8.有哪些offer，在面哪些公司</p>
+<p>9.对加班的看法</p>
+<p>10.说说自己的优点和缺点</p>
+<p>11.实习时间</p>
+<p>有点意外，没有手撕代码。而且40分钟结束，楼主本来已经做好了面一个多小时的准备。最后反问的时候才知道这一面是交叉面。</p>
+<h4 id="hr面，20分钟"><a href="#hr面，20分钟" class="headerlink" title="hr面，20分钟"></a>hr面，20分钟</h4><p>1.基本情况之类的</p>
+<p>2.保研还是考研，本科成绩</p>
+<p>3.其他offer</p>
+<p>4.面试过程中有啥收获</p>
+<p>5.对部门的了解</p>
+<p>6.反问实习工资，说有档次？</p>
+<p>许愿offer</p>
+<h3 id="阿里钉钉二、三面"><a href="#阿里钉钉二、三面" class="headerlink" title="阿里钉钉二、三面"></a>阿里钉钉二、三面</h3><p>没问很多技术的问题，更多的是深挖思考，都是突然袭击。</p>
+<p>第一个深挖的点是智能指针</p>
+<p>第二个是实现线程安全的vector</p>
+<p>手撕代码是字符串问题，不难，但是不能使用容器，有空间复杂度要求。</p>
+<h3 id="美团-买菜部门-一面"><a href="#美团-买菜部门-一面" class="headerlink" title="美团-买菜部门-一面"></a>美团-买菜部门-一面</h3><p>美团技术栈是java，会问面试前了解过java吗，这时候即使了解一点点也别说了解，就说没学过，不然会问java的问题，答不上来gg。</p>
+<p>HTTP为什么用TCP</p>
+<p>HTTP的短连接和长连接，用了什么机制进行改善？</p>
+<p>笔试的题目下去有没有再做？</p>
+<p>快排时间复杂度是多少，为什么？</p>
+<p>线程与进程的区别</p>
+<p>多线程，线程安全举例，什么时候需要加锁，为什么加锁，举例</p>
+<p>事务的特点</p>
+<p>事务的隔离级别</p>
+<p>可重复读指什么，怎么实现的？</p>
+<p>什么是幻读？</p>
+<p>手撕：字母组成的字符串a和字符串b，判断字符串a是否包含字符串b的所有字符，只要包含就行，不需要关心个数。用的26长度的数组代替set判断a中包含哪些字符，然后再遍历b，如果b中字符在数组中显示找不到，则不包含。时间复杂度On^2。</p>
+<p>反问：什么部门，新兴部门吗？进去实习做什么？对实习生的培养计划？</p>
+<h3 id="阿里-钉钉部门-HR面"><a href="#阿里-钉钉部门-HR面" class="headerlink" title="阿里-钉钉部门-HR面"></a>阿里-钉钉部门-HR面</h3><p>自我介绍</p>
+<p>讲一个有挑战的事情</p>
+<p>大学有啥实践工作</p>
+<p>坚持最久的事情是什么？</p>
+<p>在面其他什么公司</p>
+<p>反问</p>
+<h3 id="百度-C-开发-一面"><a href="#百度-C-开发-一面" class="headerlink" title="百度-C++开发-一面"></a>百度-C++开发-一面</h3><p>C++特点，与C相比，与其他语言相比</p>
+<p>C++11新特性</p>
+<p>多态，虚函数与纯虚函数</p>
+<p>C++内存管理，堆和栈的区别</p>
+<p>DNS属于哪一层，原理（不会）</p>
+<p>七层模型说一下</p>
+<p>数据库存储引擎区别</p>
+<p>HTTP状态码各个数字开头代表什么</p>
+<p>线程与进程的区别</p>
+<p>进程间同步（不会）死锁，如何避免死锁？</p>
+<p>Linux用过吗？用过什么指令，查看端口占用的指令用过吗</p>
+<p>LInux的IO模型了解吗</p>
+<p>手撕：删除链表的倒数第n个节点（1.先算节点个数，再删除。2.双指针，r指针先移动n）</p>
+<h3 id="百度-C-二面"><a href="#百度-C-二面" class="headerlink" title="百度-C++-二面"></a>百度-C++-二面</h3><p>项目介绍，项目中的难点</p>
+<p>C++虚函数和纯虚函数</p>
+<p>C++模板，泛型编程，STL用过什么</p>
+<p>多线程和多进程区别，多嘴说了单核多核，问了计算机组成原理的问题，CPU怎么组成的</p>
+<p>单核上多线程和多进程区别</p>
+<p>C++内存泄漏，如何排查</p>
+<p>mysql会到什么程度</p>
+<p>线程间通信方式</p>
+<p>互斥锁和自旋锁</p>
+<p>手撕：二叉树的层序遍历，需要自己构造二叉树。</p>
+<h3 id="百度-C-三面"><a href="#百度-C-三面" class="headerlink" title="百度-C++-三面"></a>百度-C++-三面</h3><p>项目介绍</p>
+<p>内存泄漏是第三次问了，怎么排查内存泄漏</p>
+<p>看过开源的代码吗</p>
+<p>问的技术问题不多，而且很多重复的</p>
+<p>手撕：给了个中难度的，二叉搜索树，给一个值，返回大于这个值的最小的节点，就是大于这个值，但是最靠近这个值的节点。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag"># 面经</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/23/myblog/JAVA/%E3%80%8ASpring%E5%AE%9E%E6%88%98%E3%80%8B%E7%AC%94%E8%AE%B0/" rel="prev" title="《Spring实战》笔记">
+      <i class="fa fa-chevron-left"></i> 《Spring实战》笔记
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%80%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">阿里云一面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E9%92%89%E9%92%89%E4%B8%80%E9%9D%A2"><span class="nav-number">2.</span> <span class="nav-text">阿里钉钉一面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E9%92%89%E9%92%89%E4%BA%8C%E9%9D%A2"><span class="nav-number">3.</span> <span class="nav-text">阿里钉钉二面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%80%E5%8F%91%EF%BC%8C%E4%B8%80%E9%9D%A2%E6%8C%82"><span class="nav-number">4.</span> <span class="nav-text">腾讯游戏客户端开发，一面挂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E6%B5%8B%E5%BC%80%E9%9D%A2%E7%BB%8F%EF%BC%8C1%E9%9D%A2-2%E9%9D%A2-3%E9%9D%A2-hr%E9%9D%A2"><span class="nav-number">5.</span> <span class="nav-text">字节跳动测开面经，1面+2面+3面+hr面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E9%9D%A2%EF%BC%8C%E4%B8%80%E5%B0%8F%E6%97%B610%E5%88%86%E9%92%9F"><span class="nav-number">5.1.</span> <span class="nav-text">1面，一小时10分钟</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E9%9D%A2%EF%BC%8C%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%97%B6"><span class="nav-number">5.2.</span> <span class="nav-text">2面，一个小时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E9%9D%A2%EF%BC%8C40%E5%88%86%E9%92%9F"><span class="nav-number">5.3.</span> <span class="nav-text">3面，40分钟</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hr%E9%9D%A2%EF%BC%8C20%E5%88%86%E9%92%9F"><span class="nav-number">5.4.</span> <span class="nav-text">hr面，20分钟</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E9%92%89%E9%92%89%E4%BA%8C%E3%80%81%E4%B8%89%E9%9D%A2"><span class="nav-number">6.</span> <span class="nav-text">阿里钉钉二、三面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BE%8E%E5%9B%A2-%E4%B9%B0%E8%8F%9C%E9%83%A8%E9%97%A8-%E4%B8%80%E9%9D%A2"><span class="nav-number">7.</span> <span class="nav-text">美团-买菜部门-一面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C-%E9%92%89%E9%92%89%E9%83%A8%E9%97%A8-HR%E9%9D%A2"><span class="nav-number">8.</span> <span class="nav-text">阿里-钉钉部门-HR面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BE%E5%BA%A6-C-%E5%BC%80%E5%8F%91-%E4%B8%80%E9%9D%A2"><span class="nav-number">9.</span> <span class="nav-text">百度-C++开发-一面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BE%E5%BA%A6-C-%E4%BA%8C%E9%9D%A2"><span class="nav-number">10.</span> <span class="nav-text">百度-C++-二面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BE%E5%BA%A6-C-%E4%B8%89%E9%9D%A2"><span class="nav-number">11.</span> <span class="nav-text">百度-C++-三面</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jade liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jade liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
