@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
 <meta property="og:description" content="gitGit 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。 是一个开源的分布式版本控制系统，可以有效、高速地处理从很小到非常大的项目版本管理。也是[Linus Torvalds]为了帮助管理Linux内核开发而开发的一个开放源码的版本控制软件。 sshSSH 为 [Secure Shell](https:&#x2F;&#x2F;baike.baidu.com&#x2F;item&#x2F;Secure Shel">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img2020.cnblogs.com/blog/2499596/202108/2499596-20210816104944872-1012651984.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/e1d1bb1fa97743cfb9074e383841a1eb.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
 <meta property="article:published_time" content="2021-09-02T06:43:27.000Z">
-<meta property="article:modified_time" content="2021-09-25T13:49:59.455Z">
+<meta property="article:modified_time" content="2022-01-05T08:22:18.052Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img2020.cnblogs.com/blog/2499596/202108/2499596-20210816104944872-1012651984.png">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/e1d1bb1fa97743cfb9074e383841a1eb.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
 
 <link rel="canonical" href="http://example.com/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/git%E5%BA%94%E7%94%A8%E4%B8%8Egithub/">
 
@@ -221,7 +221,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 21:49:59" itemprop="dateModified" datetime="2021-09-25T21:49:59+08:00">2021-09-25</time>
+                <time title="Modified: 2022-01-05 16:22:18" itemprop="dateModified" datetime="2022-01-05T16:22:18+08:00">2022-01-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,7 +258,7 @@
 <h3 id="与github建立连接"><a href="#与github建立连接" class="headerlink" title="与github建立连接"></a>与github建立连接</h3><p>1.github上建立仓库</p>
 <p>2.本地建立仓库 <code>git init // 把这个目录变成Git可以管理的仓库，本地多一个.git文件夹，用来跟踪管理版本库</code></p>
 <p><code>mac第一次建仓库出现问题：xcode-select --install</code></p>
-<p><code>git clone username@host:/path/to/repository    相当于创建一个远程仓库的克隆版本</code></p>
+<p><code>git clone git@github.com:jadeliuliu/HelloWorld.git（复制自项目的链接）    相当于创建一个远程仓库的克隆版本</code></p>
 <p>3.关联github仓库 <code>git remote add origin git@github.com:Hexagon-Man/HelloWorld.git</code></p>
 <p>4.提交代码</p>
 <p><code>git add 添加文件</code></p>
@@ -280,7 +280,7 @@
 <h3 id="git空间与命令"><a href="#git空间与命令" class="headerlink" title="git空间与命令"></a>git空间与命令</h3><p>Working Directory：即工作区。操作系统层面的目录树结构，也可以理解为一个tree目录对象</p>
 <p>Stage(Index)：即暂存区，为等待Commit的文件列表。是以扁平的文件清单实现的，不过从理解层面上也可以理解为tree目录对象</p>
 <p>Local Repository(History)：本地版本库。有向无环图，其每一个节点都是一个tree目录对象</p>
-<p>Remote Repository：远程版本库。有向无环图，其每一个节点都是一个tree目录对象<br><img src="https://img2020.cnblogs.com/blog/2499596/202108/2499596-20210816104944872-1012651984.png" alt="image"><br>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/kekec/p/9248487.html">https://www.cnblogs.com/kekec/p/9248487.html</a></p>
+<p>Remote Repository：远程版本库。有向无环图，其每一个节点都是一个tree目录对象<br><img src="https://img-blog.csdnimg.cn/e1d1bb1fa97743cfb9074e383841a1eb.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="image"><br>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/kekec/p/9248487.html">https://www.cnblogs.com/kekec/p/9248487.html</a></p>
 <p>git status 是看暂存区的改动，如果commit了，暂存区就空了。</p>
 <h3 id="应用：在本地进行了add-commit还未push，想要撤销本地的本次commit"><a href="#应用：在本地进行了add-commit还未push，想要撤销本地的本次commit" class="headerlink" title="应用：在本地进行了add-commit还未push，想要撤销本地的本次commit"></a>应用：在本地进行了add-commit还未push，想要撤销本地的本次commit</h3><p>git log 查看commit id，拿上一个commit id，而不是最新的commit id（这是要回退的id）<br>git reset ：回退到某个版本，不清空暂存区，工作区也不变，需要再提交的话需要add后commit<br>git reset –soft：回退到某个版本，不清空暂存区，工作区也不变，需要再提交的话直接commit<br>git reset –hard：彻底回退到某个版本，撤销的commit中的所有更改都被冲掉，暂存区为空了，工作区也恢复为版本库版本。</p>
 <h3 id="应用：本地修改了，没有add，想撤销修改变为版本库里的"><a href="#应用：本地修改了，没有add，想撤销修改变为版本库里的" class="headerlink" title="应用：本地修改了，没有add，想撤销修改变为版本库里的"></a>应用：本地修改了，没有add，想撤销修改变为版本库里的</h3><p>用git reset –hard 解决  //恢复为本地库里的内容</p>
@@ -409,20 +409,20 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
