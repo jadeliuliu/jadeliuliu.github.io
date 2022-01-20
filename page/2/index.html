@@ -183,6 +183,100 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/27/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/MAC%E5%AE%89%E8%A3%85mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/11/27/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/MAC%E5%AE%89%E8%A3%85mysql/" class="post-title-link" itemprop="url">MAC安装MySQL</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-11-27 19:23:22 / Modified: 20:49:08" itemprop="dateCreated datePublished" datetime="2021-11-27T19:23:22+08:00">2021-11-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装：<code>brew install mysql</code></p>
+<p>查看：<code>brew info mysql</code></p>
+<p>启动数据库服务：<code>mysql.server start</code></p>
+<p>登录：<code>mysql -u root -p </code></p>
+<blockquote>
+<p>遇到问题，发现是brew没更新，brew update更新后再试就可以</p>
+</blockquote>
+<p>MySQL数据库第一次安装完成后,root用户初始的登录密码为空。直接回车进行登录。</p>
+<h2 id="显示"><a href="#显示" class="headerlink" title="显示"></a>显示</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from t_goods \G</span><br></pre></td></tr></table></figure>
+
+<p>一行一行地显示，注意：\G为大写字母，不可使用小写；使用\G参数后，SQL语句后可以不加分隔符，如果加分隔符，则会报“error:no query specified”的错误。</p>
+<h2 id="添加用户改密码"><a href="#添加用户改密码" class="headerlink" title="添加用户改密码"></a>添加用户改密码</h2><p><code>select User, Host, password_expired from mysql.user;</code>  显示用户</p>
+<p><strong>创建用户</strong>：<code>create user &#39;name&#39;@&#39;localhost&#39; identified by &#39;password&#39;;</code></p>
+<p>username：你将创建的用户名<br>host：指定该用户在哪个主机上可以登陆，如果是本地用户可用localhost，如果想让该用户可以从任意远程主机登陆，可以使用通配符%<br>password：该用户的登陆密码，密码可以为空，如果为空则该用户可以不需要密码登陆服务器</p>
+<p><code>CREATE USER &#39;dog&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;123456&#39;;</code><br><code>CREATE USER &#39;pig&#39;@&#39;192.168.1.101_&#39; IDENDIFIED BY &#39;123456&#39;;</code><br><code>CREATE USER &#39;pig&#39;@&#39;%&#39; IDENTIFIED BY &#39;123456&#39;;</code></p>
+<p><strong>授权</strong>：<code>grant privileges on databasename.tablename to &#39;username&#39;@&#39;host&#39;</code></p>
+<p>privileges：用户的操作权限，如SELECT，INSERT，UPDATE等，如果要授予所的权限则使用ALL<br>databasename：数据库名<br>tablename：表名，如果要授予该用户对所有数据库和表的相应操作权限则可用<em>表示，如</em>.*</p>
+<p>例子:<br><code>GRANT SELECT, INSERT ON test.user TO &#39;pig&#39;@&#39;%&#39;;</code><br><code>GRANT ALL ON *.* TO &#39;pig&#39;@&#39;%&#39;;</code><br><code>GRANT ALL ON maindataplus.* TO &#39;pig&#39;@&#39;%&#39;;</code></p>
+<p><strong>修改密码</strong>：<code>set password for &#39;name&#39;@&#39;localhost&#39;=password(&#39;newpass&#39;);</code></p>
+<p>如果是当前登陆用户用:<br><code>SET PASSWORD = PASSWORD(&quot;newpassword&quot;);</code><br>例子:<br><code>SET PASSWORD FOR &#39;pig&#39;@&#39;%&#39; = PASSWORD(&quot;123456&quot;);</code></p>
+<p><strong>撤销授权</strong>：<code>REVOKE privilege ON databasename.tablename FROM &#39;username&#39;@&#39;host&#39;;</code></p>
+<p>例子:<br><code>REVOKE SELECT ON *.* FROM &#39;pig&#39;@&#39;%&#39;;</code></p>
+<p><strong>查看授权</strong>：<code>SHOW GRANTS FOR &#39;pig&#39;@&#39;%&#39;; </code></p>
+<p><strong>删除用户</strong>：<code>DROP USER &#39;username&#39;@&#39;host&#39;;</code></p>
+<p><strong>刷新权限</strong>：<code>flush privileges;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select User, Host, password_expired from mysql.user;</span><br><span class="line">grant all on *.* to &#x27;liuxuan&#x27;@&#x27;localhost&#x27;;</span><br><span class="line">mysql -u liuxuan -p</span><br><span class="line">登录</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/27/myblog/JAVA/%E3%80%8Ajava%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E3%80%8B%E4%B9%8BJDBC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1773,131 +1867,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/02/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/%E9%93%BE%E8%A1%A8%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/11/02/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/%E9%93%BE%E8%A1%A8%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" class="post-title-link" itemprop="url">javaのleecode刷题链表篇</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-11-02 14:47:32" itemprop="dateCreated datePublished" datetime="2021-11-02T14:47:32+08:00">2021-11-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-03 21:33:34" itemprop="dateModified" datetime="2021-11-03T21:33:34+08:00">2021-11-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="链表的定义输入输出"><a href="#链表的定义输入输出" class="headerlink" title="链表的定义输入输出"></a>链表的定义输入输出</h2><p>首先使用结构体定义，与c++不同，java中没有指针，隐藏指针，让指向某对象的指针看起来更像那个对象本身。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">为什么java中的main函数不能是非static？</span><br><span class="line"></span><br><span class="line">不能在main方法中打印this关键字的信息，因为不能在静态方法中调用this。理由很简单，this表示“这个对象”，也就是声明一个类的对象，然而静态方法是不属于某一个特定对象而是属于这个类的。那么问题来了，为什么main函数必须设置成静态的呢？</span><br><span class="line"></span><br><span class="line">首先，main函数作为java程序的入口，也可以理解为一个接口，这个接口不是提供给程序员使用的，这时提供给用户等使用的，用户等不需要知道程序内部的实现，只需要知道接口就可以了，如果是非静态的，那么当用户开始使用时，就必须先去创建对象，那么创建对象的代码又写在哪里呢？呵呵，所以这个很难讲清。</span><br><span class="line"></span><br><span class="line">Main方法是我们学习Java编程语言时知道的第一个方法，你是否曾经想过为什么main方法是public、static、void的。当然，很多人首先学的是C和C++，但是在Java中main方法与前者有些细微的不同，它不会返回任何值，为什么main方式是public、static、void，这篇文章尝试去找到一些答案。</span><br><span class="line"></span><br><span class="line">Main方法是Java程序的入口，记住，我们这里不会讨论Servlet、MIDlet和其他任何容器管理的java程序，在java核心编程中，JVM会查找类中的public static void main(String[] args)，如果找不到该方法就抛出错误NoSuchMethodError:main 程序终止。</span><br><span class="line">Main方法必须严格遵循它的语法规则，方法签名必须是public static void，参数是字符串数组类型，如果是Java1.5及以后的版本还可以使用可变参数：</span><br><span class="line">public  static void main(String... args)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">为什么main方法是静态的（static）</span><br><span class="line"></span><br><span class="line">正因为main方法是静态的，JVM调用这个方法就不需要创建任何包含这个main方法的实例。</span><br><span class="line">因为C和C++同样有类似的main方法作为程序执行的入口。</span><br><span class="line">如果main方法不声明为静态的，JVM就必须创建main类的实例，因为构造器可以被重载，JVM就没法确定调用哪个main方法。</span><br><span class="line">静态方法和静态数据加载到内存就可以直接调用而不需要像实例方法一样创建实例后才能调用，如果main方法是静态的，那么它就会被加载到JVM上下文中成为可执行的方法。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">为什么main方法是公有的（public）</span><br><span class="line">Java指定了一些可访问的修饰符如：private、protected、public，任何方法或变量都可以声明为public，Java可以从该类之外的地方访问。因为main方法是公共的，JVM就可以轻松的访问执行它。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">为什么main方法没有返回值（Void） </span><br><span class="line"></span><br><span class="line">因为main返回任何值对程序都没任何意义，所以设计成void，意味着main不会有任何值返回</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">总结</span><br><span class="line"></span><br><span class="line">main方法必须声明为public、static、void，否则JVM没法运行程序</span><br><span class="line">如果JVM找不到main方法就抛出NoSuchMethodError:main异常，例如：如果你运行命令：java HelloWrold，JVM就会在HelloWorld.class文件中搜索public static void main (String[] args) 放法</span><br><span class="line">main方式是程序的入口，程序执行的开始处。</span><br><span class="line">main方法被一个特定的线程”main”运行，程序会一直运行直到main线程结束或者non-daemon线程终止。</span><br><span class="line">当你看到“Exception in Thread main”如：Excpetion in Thread main:Java.lang.NullPointedException ,意味着异常来自于main线程</span><br><span class="line">你可以声明main方法使用java1.5的可变参数的方式如：</span><br><span class="line">public  static void main(String... args)</span><br><span class="line">除了static、void、和public，你可以使用final，synchronized、和strictfp修饰符在main方法的签名中，如：</span><br><span class="line">public  strictfp final  synchronized static  void main(String[] args)</span><br><span class="line">main方法在Java可以像其他方法一样被重载，但是JVM只会调用上面这种签名规范的main方法。</span><br><span class="line">你可以使用throws子句在方法签名中，可以抛出任何checked和unchecked异常</span><br><span class="line">静态初始化块在JVM调用main方法前被执行，它们在类被JVM加载到内存的时候就被执行了。</span><br></pre></td></tr></table></figure>
-
-<p>参考：</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/peikunye/article/details/100513579">https://blog.csdn.net/peikunye/article/details/100513579</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/maxiao1204/article/details/75142811?yyue=a21bo.50862.201879">https://blog.csdn.net/maxiao1204/article/details/75142811?yyue=a21bo.50862.201879</a></p>
-<p>对于java的构造函数有点懵逼，有参构造和无参构造可以同时存在吗？</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">链表节点定义：</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> val;  <span class="comment">//必须要加public吗？</span></span><br><span class="line">    <span class="keyword">public</span> ListNode next = <span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ListNode</span><span class="params">(<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.val=val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">反转链表：</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">reverseListNode</span> </span>&#123;</span><br><span class="line">    <span class="comment">//输入输出+测试代码</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//输入不定长的数组</span></span><br><span class="line">        System.out.print(<span class="string">&quot;请输入链表：&quot;</span>);</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str = sc.nextLine();</span><br><span class="line">        String[] arr = str.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        <span class="keyword">int</span>[] b = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length];</span><br><span class="line">        ListNode head = <span class="keyword">null</span>; <span class="comment">//代表是个空节点</span></span><br><span class="line">        ListNode pre = <span class="keyword">null</span>; <span class="comment">//pre在这里定义</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; b.length; j++) &#123;</span><br><span class="line">            b[j] = Integer.parseInt(arr[j]);</span><br><span class="line">            ListNode node = <span class="keyword">new</span> ListNode(b[j]); <span class="comment">//真正的构造节点</span></span><br><span class="line">            <span class="keyword">if</span>(head==<span class="keyword">null</span>)&#123;  <span class="comment">//首先判断是不是头节点</span></span><br><span class="line">                head = node;</span><br><span class="line">                pre = head; <span class="comment">//pre在这里等于head，不能在上面等于</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            pre.next=node;</span><br><span class="line">            pre = pre.next;</span><br><span class="line">        &#125;</span><br><span class="line">        printList(head);</span><br><span class="line">        ListNode res = reversal(head);</span><br><span class="line">        printList(res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//输出链表</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(head != <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.print(head.val + <span class="string">&quot;,&quot;</span>);</span><br><span class="line">            head = head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//反转函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">reversal</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode front = <span class="keyword">null</span>;</span><br><span class="line">        ListNode cur = head;</span><br><span class="line">        ListNode next;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</span><br><span class="line">            next = cur.next;</span><br><span class="line">            cur.next = front;</span><br><span class="line">            front = cur;</span><br><span class="line">            cur = next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> front;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="203题-移除链表元素"><a href="#203题-移除链表元素" class="headerlink" title="203题.移除链表元素"></a>203题.移除链表元素</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">题意：删除链表中等于给定值 val 的所有节点。</span><br><span class="line">示例 1：</span><br><span class="line">输入：head = [1,2,6,3,4,5,6], val = 6</span><br><span class="line">输出：[1,2,3,4,5]</span><br></pre></td></tr></table></figure>
-
-<p>思路：有可能头节点是要删除的，所以用prehead节点。c/c++需要清理节点内存。java/python则不需要。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">链表节点定义：</span><br><span class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">     <span class="keyword">int</span> val;</span><br><span class="line">     ListNode next;</span><br><span class="line">     ListNode() &#123;&#125;</span><br><span class="line">     ListNode(<span class="keyword">int</span> val) &#123; <span class="keyword">this</span>.val = val; &#125;</span><br><span class="line">     ListNode(<span class="keyword">int</span> val, ListNode next) &#123; <span class="keyword">this</span>.val = val; <span class="keyword">this</span>.next = next; &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">removeElements</span><span class="params">(ListNode head, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        ListNode prehead = <span class="keyword">new</span> ListNode();</span><br><span class="line">        prehead.next = head;</span><br><span class="line">        <span class="comment">//ListNode prehead = new ListNode(-1, head);</span></span><br><span class="line">        ListNode pre = prehead;</span><br><span class="line">        <span class="keyword">while</span>(pre.next != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">//括号内不可以只是pre.next</span></span><br><span class="line">            <span class="keyword">if</span>(pre.next.val == val)&#123;</span><br><span class="line">                pre.next=pre.next.next;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                pre = pre.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> prehead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="24题-两两交换链表中得节点"><a href="#24题-两两交换链表中得节点" class="headerlink" title="24题.两两交换链表中得节点"></a>24题.两两交换链表中得节点</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。</span><br><span class="line">输入：head = [1,2,3,4]</span><br><span class="line">输出：[2,1,4,3]</span><br></pre></td></tr></table></figure>
-
-<p>思路：相当于是swap节点，不能只改变值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">swapPairs</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode prehead = <span class="keyword">new</span> ListNode();</span><br><span class="line">        prehead.next = head;</span><br><span class="line">        ListNode pre = prehead;</span><br><span class="line">        <span class="keyword">while</span>(pre.next!=<span class="keyword">null</span> &amp;&amp; pre.next.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            ListNode node1 = pre.next;</span><br><span class="line">            pre.next = node1.next;</span><br><span class="line">            ListNode node2 = pre.next.next;</span><br><span class="line">            pre.next.next = node1;</span><br><span class="line">            node1.next = node2;</span><br><span class="line">            pre = pre.next.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> prehead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="19题-删除链表的倒数第N个节点"><a href="#19题-删除链表的倒数第N个节点" class="headerlink" title="19题.删除链表的倒数第N个节点"></a>19题.删除链表的倒数第N个节点</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。</span><br><span class="line">输入：head = [1,2,3,4,5], n = 2 输出：[1,2,3,5] </span><br></pre></td></tr></table></figure>
-
-<p>思路：明显的双指针法，为了降低时间复杂度，尽可能扫描一次链表来解决。一个指针先走n步，再一起走，当前面的走到头，那就是要删除的倒数第n个节点。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">removeNthFromEnd</span><span class="params">(ListNode head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode prehead = <span class="keyword">new</span> ListNode();</span><br><span class="line">        prehead.next=head;</span><br><span class="line">        ListNode left = prehead;</span><br><span class="line">        ListNode right = prehead;</span><br><span class="line">        <span class="keyword">while</span>(n--&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            right = right.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(right.next != <span class="keyword">null</span>)&#123;</span><br><span class="line">            left=left.next;</span><br><span class="line">            right=right.next;</span><br><span class="line">        &#125;</span><br><span class="line">        left.next=left.next.next;</span><br><span class="line">        <span class="keyword">return</span> prehead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="面试题02-07-链表相交"><a href="#面试题02-07-链表相交" class="headerlink" title="面试题02.07.链表相交"></a>面试题02.07.链表相交</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。</span><br></pre></td></tr></table></figure>
-
-<p>思路：一眼双指针，阿里二面题目，这道题里链表相交的话后面是重叠了，合并，而不是只交一个点，交一个点的话只能双层for循环了。两个指针走完了都走另一个，会同时到达合并的第一个节点。如果没有合并，同时遍历到空节点返回空节点。如果两个合并的长度一样，则走到第一个点就会返回。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        ListNode a = headA;</span><br><span class="line">        ListNode b = headB;</span><br><span class="line">        <span class="keyword">while</span>(a!=b)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a==<span class="keyword">null</span>)  a=headB;</span><br><span class="line">            <span class="keyword">else</span> a=a.next;</span><br><span class="line">            <span class="keyword">if</span>(b==<span class="keyword">null</span>)  b=headA;</span><br><span class="line">            <span class="keyword">else</span> b=b.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="142题-环形链表Ⅱ"><a href="#142题-环形链表Ⅱ" class="headerlink" title="142题.环形链表Ⅱ"></a>142题.环形链表Ⅱ</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">题意： 给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</span><br><span class="line">为了表示给定链表中的环，使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。</span><br><span class="line">输入：head = [3,2,0,-4], pos = 1</span><br><span class="line">输出：返回索引为 1 的链表节点</span><br><span class="line">解释：链表中有一个环，其尾部连接到第二个节点。</span><br></pre></td></tr></table></figure>
-
-<p>思路：经典的快慢指针。一个一次走一格，一个一次走两格。不需要虚拟头节点。这是判断链表是否有环的方法，如果有环，两个指针都会一直走，两个指针一定会相遇。但是相遇的点不一定是环的入口。</p>
-<p>这个环肯定是后面一个环就不再出来了。</p>
-<p>而要找到环的入口，画个图，最后得出来：x = (n - 1) (y + z) + z。再跑一遍就可以得到环的入口。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">detectCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        ListNode fast = head;</span><br><span class="line">        <span class="keyword">while</span>(fast!=<span class="keyword">null</span> &amp;&amp; fast.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            slow=slow.next;</span><br><span class="line">            fast=fast.next.next;</span><br><span class="line">            <span class="keyword">if</span>(slow==fast)&#123;  <span class="comment">//有环了，下面再找入口</span></span><br><span class="line">                <span class="keyword">while</span>(head!=slow)&#123;</span><br><span class="line">                    head=head.next;</span><br><span class="line">                    slow=slow.next;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> slow;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>链表的种类主要为：单链表，双链表，循环链表</li>
-<li>链表的存储方式：链表的节点在内存中是分散存储的，通过指针连在一起。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1968,7 +1937,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
