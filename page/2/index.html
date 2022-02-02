@@ -206,10 +206,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-11-27 19:23:22 / Modified: 20:49:08" itemprop="dateCreated datePublished" datetime="2021-11-27T19:23:22+08:00">2021-11-27</time>
+              <time title="Created: 2021-11-27 19:23:22" itemprop="dateCreated datePublished" datetime="2021-11-27T19:23:22+08:00">2021-11-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-02 20:47:40" itemprop="dateModified" datetime="2022-02-02T20:47:40+08:00">2022-02-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -258,6 +264,25 @@
 <p><strong>刷新权限</strong>：<code>flush privileges;</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select User, Host, password_expired from mysql.user;</span><br><span class="line">grant all on *.* to &#x27;liuxuan&#x27;@&#x27;localhost&#x27;;</span><br><span class="line">mysql -u liuxuan -p</span><br><span class="line">登录</span><br></pre></td></tr></table></figure>
 
+<h3 id="2022-1-31-登录出错"><a href="#2022-1-31-登录出错" class="headerlink" title="2022.1.31.登录出错"></a>2022.1.31.登录出错</h3><p><code>ERROR 2002 (HY000): Can&#39;t connect to local MySQL server through socket &#39;/tmp/mysql.sock&#39; (2)</code></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u012373815/article/details/82188361">https://blog.csdn.net/u012373815/article/details/82188361</a></p>
+<p>无法连接本地sql服务，是mysql.sock文件找不到了，这个文件以前在/tmp 下现在没有了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第一步：找到mysql的安装目录，我的是：cd /usr/local/Cellar/mysql/8.0.7</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二步：执行 sudo ./support-files/mysql.server start  启动mysql</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#报错： ERROR! The server quit without updating PID file (/usr/local/var/mysql/liuxuan.pid).</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#可能是没有bogon/没有权限，我们给予权限即可：sudo chmod -R 777 /usr/local/var/mysql/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#重新执行第二步，success</span></span><br></pre></td></tr></table></figure>
+
+<p>可以查看mysql 的error 文件 /usr/local/var/mysql/abel-MacBook-Pro.local.err。</p>
+<h3 id="2022-2-1-MAC可视化sql软件Navicat"><a href="#2022-2-1-MAC可视化sql软件Navicat" class="headerlink" title="2022.2.1.MAC可视化sql软件Navicat"></a>2022.2.1.MAC可视化sql软件Navicat</h3><p>Navicat Premium for Mac 是Mac平台上优秀的数据库开发工具，你可以使用Navicat Premium 同时连接MySQL、SQL Server、Oracle、SQLite等数据库，功能强大，navicat premium 让你轻松创建、管理和维护数据库，非常实用。<br>————————————————</p>
+<p>Mac安装和破解参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/527c59277406">https://www.jianshu.com/p/527c59277406</a>  （公钥界面打不开）</p>
+<p>换一个：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8011db219dd9?from=groupmessage@">https://www.jianshu.com/p/8011db219dd9?from=groupmessage@</a></p>
+<p>使用：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45877226/article/details/105667708">https://blog.csdn.net/weixin_45877226/article/details/105667708</a></p>
+<p>直接下载的一个：<a target="_blank" rel="noopener" href="http://www.xue51.com/mac/3343.html">http://www.xue51.com/mac/3343.html</a></p>
+<p>都没成</p>
+<h3 id="2022-2-2-换一个DataGrip"><a href="#2022-2-2-换一个DataGrip" class="headerlink" title="2022.2.2.换一个DataGrip"></a>2022.2.2.换一个DataGrip</h3><p>DataGrip Mac版是由JetBrains公司推出的<a target="_blank" rel="noopener" href="http://www.pc6.com/mach/macsql/">数据库</a>管理软件，DataGrip支持几乎所有主流的关系数据库产品，如DB2、Derby、H2、MySQL、Oracle、PostgreSQL、SQL Server、Sqllite及Sybase等，并且提供了简单易用的界面，<a target="_blank" rel="noopener" href="http://www.pc6.com/mach/rjkfgj/">开发</a>者上手几乎不会遇到任何困难。目前市场上已经存在很多数据库客户端，如MySQL WorkBench、Toad、NaviCat、phpMyAdmin、Sequel Pro、SQLWave等等，这些既有的产品中，有些是免费的，有些则是收费的。</p>
+<p>安装与激活教程：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c914447618e7">https://www.jianshu.com/p/c914447618e7</a> （不能用）</p>
+<p>换一个教程：<a target="_blank" rel="noopener" href="https://www.yuque.com/docs/share/35877f5f-dd13-484b-a660-1a34f03d1f38">https://www.yuque.com/docs/share/35877f5f-dd13-484b-a660-1a34f03d1f38</a>  windows：<a target="_blank" rel="noopener" href="https://www.jb51.net/article/200560.htm">https://www.jb51.net/article/200560.htm</a>  （只有一个月，windows没准行）</p>
+<p>一个月的激活码：<a target="_blank" rel="noopener" href="https://tieba.baidu.com/p/7389553127">https://tieba.baidu.com/p/7389553127</a>  （每月更新）</p>
+<p>换一个激活：<a target="_blank" rel="noopener" href="https://www.hicxy.com/3487.html">https://www.hicxy.com/3487.html</a>  （没有试）</p>
+<p>连接数据库：<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/358570f684f305ce4724fc31.html">https://jingyan.baidu.com/article/358570f684f305ce4724fc31.html</a></p>
+<p><strong>有点问题，每月的激活码后来又不能用了，之后想办法破解吧</strong></p>
 
       
     </div>
