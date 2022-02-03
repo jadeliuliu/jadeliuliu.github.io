@@ -214,7 +214,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-02 20:51:03" itemprop="dateModified" datetime="2022-02-02T20:51:03+08:00">2022-02-02</time>
+                <time title="Modified: 2022-02-03 22:32:55" itemprop="dateModified" datetime="2022-02-03T22:32:55+08:00">2022-02-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -282,6 +282,7 @@
 <p><img src="https://img-blog.csdnimg.cn/7d4472b3d6674ef698ade89c5bf40865.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
 <h2 id="Day-3"><a href="#Day-3" class="headerlink" title="Day 3"></a>Day 3</h2><h3 id="IOC容器-1"><a href="#IOC容器-1" class="headerlink" title="IOC容器"></a>IOC容器</h3><p>控制反转，是面向对象编程的一种设计原则，降低代码耦合度。通过控制反转，对象在被创建时，由一个调控系统内所有对象的外界实体将其所依赖的对象的引用传递给它，也叫依赖注入DI。</p>
 <p>通俗：创建对象，原始方法new对象，IOC把对象的创建和对象之间的调用过程都交给Spring进行管理。使用IOC来使得耦合度降低。</p>
+<p>两种方式进行Bean管理：1.基于xml配置文件  2.基于注解方式</p>
 <h3 id="IOC底层原理"><a href="#IOC底层原理" class="headerlink" title="IOC底层原理"></a>IOC底层原理</h3><p>（1）xml解析、工厂模式、反射</p>
 <p>原始方式：一个类内调用另一个类的方法，需要在类A中创建一个类B的对象，再通过类B的对象调用类B的方法。这样做的缺点：耦合度太高，类B的路径和方法如果改变的话，类A也要跟着该，不利于程序扩展。</p>
 <p>工厂模式进行解耦合：除了类A和类B，还新建一个工厂类，里面public static方法中：return new B()； 返回类B的对象，因此在类A中调用类B的方法时，调用工厂类的方法来创建类B的对象，然后调用类B的方法。降低类A和类B之间的耦合度。总结来说，通过工厂类来创建对象，实现解耦。</p>
@@ -628,6 +629,75 @@
 <blockquote>
 <p>这个jdbc连接数据库的方法（通过配置文件），和《java开发入门jdbc》里面的连接数据库方法不同。</p>
 </blockquote>
+<h2 id="Day-8"><a href="#Day-8" class="headerlink" title="Day 8"></a>Day 8</h2><h3 id="JDBCTemplate操作数据库（修改、删除）"><a href="#JDBCTemplate操作数据库（修改、删除）" class="headerlink" title="JDBCTemplate操作数据库（修改、删除）"></a>JDBCTemplate操作数据库（修改、删除）</h3><p>1.首先dao接口创建两个方法，dao实现类里重写这两个方法。</p>
+<p>2.service层里创建dao实现类对象，创建方法，里面调用对象的dao层方法。service和dao的方法传入必要参数，user对象或是id之类的。</p>
+<p>3.重点写dao层内操作数据库的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;update user_db set username=?, ustate=? where user_id=?&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span> update = jdbcTemplate.update(sql, user.getUserName(), user.getUstate(), user.getUserId());</span><br><span class="line">    System.out.println(update);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;delete from user_db where user_id=?&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span> update = jdbcTemplate.update(sql, id);</span><br><span class="line">    System.out.println(update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.测试方法</p>
+<h3 id="JDBCTemplate操作数据库（查询返回某个值）"><a href="#JDBCTemplate操作数据库（查询返回某个值）" class="headerlink" title="JDBCTemplate操作数据库（查询返回某个值）"></a>JDBCTemplate操作数据库（查询返回某个值）</h3><p>例如返回多少行数据。<code>select count(*) from user_db;</code></p>
+<p>例如：查询表里有多少条记录。</p>
+<p>首先写一个service方法findCount，调用dao里的方法，写dao方法。dao方法里写select语句，并返回。使用jdbc方法queryForObject(sql语句, 返回类型的class例如Integer.class)。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">select</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;select count(*) from user_db&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span> nums = jdbcTemplate.queryForObject(sql, Integer.class);</span><br><span class="line">    <span class="keyword">return</span> nums;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JDBCTemplate操作数据库（查询返回对象）"><a href="#JDBCTemplate操作数据库（查询返回对象）" class="headerlink" title="JDBCTemplate操作数据库（查询返回对象）"></a>JDBCTemplate操作数据库（查询返回对象）</h3><p>例如：查询用户的详情页面。</p>
+<p>根据id返回一个对象，service写一个findUser方法，dao写一个find方法。dao内采用jdbc模版中的queryForObject方法，第一个参数：sql语句；第二个参数：RowMapper接口，spring提供，做到一些封装，使用这个接口里面的实现类可以完成数据的封装；第三个参数：sql语句?值。</p>
+<p>第二个参数：<code>new BeanPropertyRowMapper&lt;返回类型的名字&gt;(返回类型的class)</code> 。提供好的实现类，直接用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">find</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">    String sql= <span class="string">&quot;select * from user_db where user_id=?&quot;</span>;</span><br><span class="line">    User u = jdbcTemplate.queryForObject(sql, <span class="keyword">new</span> BeanPropertyRowMapper&lt;User&gt;(User.class), id);</span><br><span class="line">    <span class="keyword">return</span> u;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了显示User对象，重写里面的tostring方法。</p>
+<h3 id="JDBCTemplate操作数据库（查询返回集合）"><a href="#JDBCTemplate操作数据库（查询返回集合）" class="headerlink" title="JDBCTemplate操作数据库（查询返回集合）"></a>JDBCTemplate操作数据库（查询返回集合）</h3><p>场景：查询用户列表，返回一个集合。返回<code>List&lt;User&gt;</code></p>
+<p> 首先service调用dao的方法，编写dao方法。dao内用query方法操作数据库。query三个参数，第一个参数sql语句；第二个参数和上面一样；第三个可有可无？参数值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">findAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;select * from user_db&quot;</span>;</span><br><span class="line">    List&lt;User&gt;res = jdbcTemplate.query(sql, <span class="keyword">new</span> BeanPropertyRowMapper&lt;User&gt;(User.class));</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JDBCTemplate操作数据库（批量添加操作）"><a href="#JDBCTemplate操作数据库（批量添加操作）" class="headerlink" title="JDBCTemplate操作数据库（批量添加操作）"></a>JDBCTemplate操作数据库（批量添加操作）</h3><p>批量操作指操作表里的多条记录</p>
+<p>批量添加，使用 jdbc的<code>batchUpdate(sql语句, List&lt;Object[]&gt;batchArgs)</code>方法。返回的是int[]类型。底层是对集合进行遍历，挨个添加。数组输出要用Arrays.toString(数组名)。</p>
+<p>service层建一个batchAdd方法，传入List&lt;Object[]&gt;batchArgs。dao中创建方法，实现操作数据库，<code>insert into user_db values(?,?,?)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchAdd</span><span class="params">(List&lt;Object[]&gt; batchArgs)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;insert into user_db values(?,?,?)&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span>[] update = jdbcTemplate.batchUpdate(sql, batchArgs);</span><br><span class="line">    System.out.println(<span class="string">&quot;影响行数：&quot;</span>+ Arrays.toString(update));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JDBCTemplate操作数据库（批量修改操作）"><a href="#JDBCTemplate操作数据库（批量修改操作）" class="headerlink" title="JDBCTemplate操作数据库（批量修改操作）"></a>JDBCTemplate操作数据库（批量修改操作）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchUpdate</span><span class="params">(List&lt;Object[]&gt; batchArgs)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;update user_db set username=?,ustate=? where user_id=?&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span>[] update = jdbcTemplate.batchUpdate(sql, batchArgs);</span><br><span class="line">    System.out.println(<span class="string">&quot;批量更新影响行数：&quot;</span>+ Arrays.toString(update));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自建List</span></span><br><span class="line">List&lt;Object[]&gt; batchArgs2 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">Object[] o3 = &#123;<span class="string">&quot;java&quot;</span>, <span class="string">&quot;on&quot;</span>, <span class="number">1</span>&#125;;</span><br><span class="line">Object[] o4 = &#123;<span class="string">&quot;c++&quot;</span>, <span class="string">&quot;off&quot;</span>, <span class="number">2</span>&#125;;</span><br><span class="line">batchArgs2.add(o3);</span><br><span class="line">batchArgs2.add(o4);</span><br><span class="line">service.batchUpdate(batchArgs2);</span><br></pre></td></tr></table></figure>
+
+<h3 id="JDBCTemplate操作数据库（批量删除操作）"><a href="#JDBCTemplate操作数据库（批量删除操作）" class="headerlink" title="JDBCTemplate操作数据库（批量删除操作）"></a>JDBCTemplate操作数据库（批量删除操作）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchDelete</span><span class="params">(List&lt;Object[]&gt; batchArgs)</span> </span>&#123;</span><br><span class="line">    String sql = <span class="string">&quot;delete from user_db where user_id=?&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span>[] update = jdbcTemplate.batchUpdate(sql, batchArgs);</span><br><span class="line">    System.out.println(<span class="string">&quot;批量删除影响行数：&quot;</span>+ Arrays.toString(update));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自建List</span></span><br><span class="line">List&lt;Object[]&gt; batchArgs3 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">Object[] o5= &#123;<span class="number">17</span>&#125;;</span><br><span class="line">Object[] o6 = &#123;<span class="number">18</span>&#125;;</span><br><span class="line">batchArgs3.add(o5);</span><br><span class="line">batchArgs3.add(o6);</span><br><span class="line">service.batchDelete(batchArgs3);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Day-9"><a href="#Day-9" class="headerlink" title="Day 9"></a>Day 9</h2><h3 id="事务操作-事务概念"><a href="#事务操作-事务概念" class="headerlink" title="事务操作-事务概念"></a>事务操作-事务概念</h3><p>1、什么是事务？</p>
+<p>事务是数据库操作的最基本单元，逻辑上的一组操作，要么都成功，要么都失败。</p>
+<p>2、事务的四个特性：ACID：原子性、一致性、隔离性、持久性。</p>
+<h3 id="事务操作-搭建事务操作环境"><a href="#事务操作-搭建事务操作环境" class="headerlink" title="事务操作-搭建事务操作环境"></a>事务操作-搭建事务操作环境</h3><p>场景：转账环境</p>
+<p>javaee有三层：web层、service业务逻辑层、dao对数据库操作层不写业务操作。</p>
+<p>dao层创建两个方法：（1）少钱的方法（2）多钱的方法。</p>
+<p>service层创建方法：转账方法中调用dao的两个方法。</p>
+<p>1.创建数据库表，添加记录。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS `acount`(</span><br><span class="line">   `id` int unsigned NOT NULL,</span><br><span class="line">   `username` varchar(100) NOT NULL,</span><br><span class="line">   `money` bigint NOT NULL,</span><br><span class="line">   PRIMARY KEY(`id`)</span><br><span class="line">)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT=&#x27;acount&#x27;;</span><br><span class="line"></span><br><span class="line">insert into acount values(1, &quot;liu&quot;, 1000);</span><br><span class="line">insert into acount values(2, &quot;hao&quot;, 1000);</span><br></pre></td></tr></table></figure>
+
+<p>2.创建service，搭建dao，完成对象创建和注入关系。</p>
+<p>service注入dao，在dao注入JdbcTemplate，在JdbcTemplate注入DataSource。</p>
+<p>service类，使用注解@Service方式创建对象，@Autowired注入dao。同样在dao用@Autowired注入jdbc。</p>
+<p>3.在dao中创建两个方法，多钱addMoney和少钱reduceMoney的方法，在service中创建方法，转账的方法。dao中用update方法。</p>
+<p>4.测试</p>
+<p>5.发现问题，如果先执行完dao中的第一个方法，发生异常，第二个方法将不执行，产生数据异常。如何解决？使用事务。</p>
+<p>在service的方法中，try catch捕获异常。首先开启事务，然后进行事务操作，没有发现异常则提交事务，出现异常则事务回滚。</p>
+<h3 id="事务操作-Spring事务管理介绍"><a href="#事务操作-Spring事务管理介绍" class="headerlink" title="事务操作-Spring事务管理介绍"></a>事务操作-Spring事务管理介绍</h3><p>1.事务管理加到哪个层？建议加到业务逻辑层service。</p>
+<p>2.在Spring进行事务管理操作</p>
+<p>（1）有两种方式：编程式事务管理和声明式事务管理（一般使用声明式）</p>
+<p>编程式指的是用代码实现第一步第二步第三步。。。</p>
+<p>3.声明式事务管理两种方式</p>
+<p>（1）基于注解方式（使用）</p>
+<p>（2）基于xml配置文件方式</p>
+<p>4.在Spring进行声明式事务管理，底层使用AOP。</p>
+<p>5.Spring事务管理API</p>
+<p>（1）提供一个接口，代表事务管理器，这个接口针对不同的框架提供不同的实现类。</p>
+<p>PlatformTransactionManager接口。datasource实现类针对jdbc。</p>
+<h2 id="文件说明"><a href="#文件说明" class="headerlink" title="文件说明"></a>文件说明</h2><p>b_study中。</p>
+<p>xml：基于xml配置文件实现控制反转，管理bean对象，创建对象，依赖注入（注入属性）。</p>
+<p>zhujie：基于注解的bean管理。</p>
+<p>aop：面向切面编程</p>
+<p>jdbc：操作数据库</p>
+<p>transaction：事务相关</p>
 
       
     </div>
