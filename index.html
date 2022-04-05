@@ -183,6 +183,455 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/03/myblog/JAVA/log%E6%97%A5%E5%BF%97%E4%B8%8Emaven%E6%89%93%E5%8C%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/03/myblog/JAVA/log%E6%97%A5%E5%BF%97%E4%B8%8Emaven%E6%89%93%E5%8C%85/" class="post-title-link" itemprop="url">log日志与maven打包</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-03 11:02:33" itemprop="dateCreated datePublished" datetime="2022-04-03T11:02:33+08:00">2022-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-05 13:03:06" itemprop="dateModified" datetime="2022-04-05T13:03:06+08:00">2022-04-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>工作中需要将应用部署在本地，想来之前用go的时候貌似是直接编译运行就在本地部署了，但是java需要用到maven打包，还没打包过，学习一下。顺便工作中查看日志对log4j、sjf4j、logback、lomback这几个东西有点迷糊，所以先学一下日志相关的，然后建工程打包部署在本地看下效果。</p>
+<h3 id="1-lombok"><a href="#1-lombok" class="headerlink" title="1.lombok"></a>1.lombok</h3><p>自然不必多说，lombok可以通过简单的注解的形式来帮助我们简化和消除一些必须有但显得很臃肿的Java代码，比如常见的Getter&amp;Setter、toString()、构造函数等等。lombok不仅方便编写，同时也让我们的代码更简洁。</p>
+<p>lombok提供了一个功能完整的jar包，可以很方便的与我们的项目进行集成。</p>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>第一步：加入lombok依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.16.20<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>scop=provided，表示它只在编译阶段生效，不需要打入包中，lombok在编译期将带lombok注解的java文件正确编译为完整的class文件。</p>
+<p>第二步：idea中添加lombok插件</p>
+<p>否则会报缺少方法和没有设置属性的异常。</p>
+<p>第三步：设置启用注释处理</p>
+<p>设置中 Annotation processors，enable annotation processing。</p>
+<h4 id="lombok原理"><a href="#lombok原理" class="headerlink" title="lombok原理"></a>lombok原理</h4><ol>
+<li>javac对源代码进行分析，生成了一棵抽象语法树（AST）</li>
+<li>编译过程中调用实现了“JSR 269 API”的Lombok程序</li>
+<li>此时Lombok就对第一步骤得到的AST进行处理，找到@Data注解所在类对应的语法树（AST），然后修改该语法树（AST），增加getter和setter方法定义的相应树节点</li>
+<li>javac使用修改后的抽象语法树（AST）生成字节码文件，即给class增加新的节点（代码块）</li>
+</ol>
+<h3 id="2-SLF4J"><a href="#2-SLF4J" class="headerlink" title="2.SLF4J"></a>2.SLF4J</h3><h4 id="接口与包关系"><a href="#接口与包关系" class="headerlink" title="接口与包关系"></a>接口与包关系</h4><p>Simple logging Facade for Java，意思为简单日志门面，它是把不同的日志系统的实现进行了具体的抽象化，只提供了统一的日志使用接口，使用时只需要按照其提供的接口方法进行调用即可，由于<strong>它只是一个接口</strong>，并不是一个具体的可以直接单独使用的日志框架，所以最终日志的格式、记录级别、输出方式等都要<strong>通过接口绑定的具体的日志系统来实现</strong>，这些具体的日志系统就有log4j、logback、java.util.logging等，它们才实现了具体的日志系统的功能。</p>
+<p>SLF4J只是一个接口，实际使用时必须要结合具体的日志系统来使用，我们首先来看SLF4J和各个具体的日志系统进行绑定时的框架原理图：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/e5308c09a82e0c57889adea715d6a602.png"></p>
+<p>slf4j原理很简单，他只提供一个核心slf4j api(就是slf4j-api.jar包)，这个包只有日志的接口，并没有实现，所以如果要使用就得<strong>再给它提供一个实现了些接口的日志包</strong>，比 如：log4j、common logging、jdk log日志实现包等，但是<strong>这些日志实现又不能通过接口直接调用</strong>，实现上他们根本就和slf4j-api不一致，因此slf4j又增加了一层来<strong>转换各日志实现包的使用</strong>，当然slf4j-simple除外。其结构如下： </p>
+<blockquote>
+<p>slf4j-api(接口层)<br> | |<br>各日志实现包的连接层( slf4j-jdk14, slf4j-log4j)<br> | |<br>各日志实现包     </p>
+</blockquote>
+<p><strong>所以，结合各日志实现包使用时提供的jar包情况为：</strong></p>
+<p>SLF4J和logback结合使用时需要提供的jar：slf4j-api.jar、logback-classic.jar、logback-core.jar</p>
+<p>SLF4J和log4j结合使用时需要提供的jar：slf4j-api.jar、slf4j-log4j12.jar、log4j.jar</p>
+<p>和log4j2配合需要导入log4j2的<strong>log4j-api.jar</strong>、<strong>log4j-core.jar</strong>和桥接包<strong>log4j-slf4j-impl.jar</strong>。</p>
+<p>SLF4J和JDK中java.util.logging结合使用时需要提供的jar：slf4j-api.jar、slf4j-jdk14.jar</p>
+<p>SLF4J和simple(SLF4J本身提供的一个接口的简单实现)结合使用时需要提供的jar：slf4j-api.jar、slf4j-simple.jar</p>
+<p>当然还有其他的日志实现包，以上是经常会使用到的一些。</p>
+<p>*<strong>注意，以上slf4j和各日志实现包结合使用时最好只使用一种结合，不然的话会提示重复绑定日志，并且会导致日志无法输出。*</strong></p>
+<h4 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h4><p>*<strong>slf4j-api.jar:对外提供统一的日志调用接口，该接口具体提供的调用方式和方法举例说明：*</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">　　<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(Tester.class);  </span><br><span class="line">　　<span class="comment">//通过LoggerFactory获取Logger实例</span></span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//接口里的统一的调用方法，各具体的日志系统都有实现这些方法</span></span><br><span class="line">　　		logger.info(<span class="string">&quot;testlog: &#123;&#125;&quot;</span>, <span class="string">&quot;test&quot;</span>); </span><br><span class="line">       logger.debug(<span class="string">&quot;testlog: &#123;&#125;&quot;</span>, <span class="string">&quot;test&quot;</span>);</span><br><span class="line">       logger.error(<span class="string">&quot;testlog: &#123;&#125;&quot;</span>, <span class="string">&quot;test&quot;</span>);</span><br><span class="line">       logger.trace(<span class="string">&quot;testlog: &#123;&#125;&quot;</span>, <span class="string">&quot;test&quot;</span>);</span><br><span class="line">       logger.warn(<span class="string">&quot;testlog: &#123;&#125;&quot;</span>, <span class="string">&quot;test&quot;</span>);</span><br><span class="line">　　&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用Lombok提供的@Slf4j注解，可以省去获取Logger对象的步骤，直接使用log.info()…</p>
+<p><strong>如果系统中之前已经使用了log4j做日志输出，想使用slf4j作为统一的日志输出，该怎么办呢？</strong></p>
+<p>如果之前系统中是单独使用log4j做为日志输出的，这时再想使用slf4j做为日志输出时，如果系统中日志比较多，此时更改日志输出方法肯定是不太现实的，这个时候就可以使用log4j-over-slf4j.jar将使用log4j日志框架输出的日志路由到slf4j上来统一采用slf4j来输出日志。</p>
+<h4 id="为什么使用？"><a href="#为什么使用？" class="headerlink" title="为什么使用？"></a>为什么使用？</h4><p><strong>为什么要使用SLF4J?</strong></p>
+<ul>
+<li> slf4j是一个<strong>日志接口，自己没有具体实现日志系统</strong>，只提供了一组标准的调用api,这样<strong>将调用和具体的日志实现分离</strong>，<strong>使用slf4j后有利于根据自己实际的需求更换具体的日志系统</strong>，比如，之前使用的具体的日志系统为log4j，想更换为logback时，只需要删除log4j相关的jar，然后加入logback相关的jar和日志配置文件即可，而不需要改动具体的日志输出方法，试想如果没有采用这种方式，当你的系统中日志输出有成千上万条时，你要更换日志系统将是多么庞大的一项工程。如果你开发的是一个面向公众使用的组件或公共服务模块，那么一定要使用slf4的这种形式，这有利于别人在调用你的模块时保持和他系统中使用统一的日志输出。</li>
+<li><strong>slf4j日志输出时可以使用{}占位符</strong>，如，logger.info(“testlog: {}”, “test”)，而如果只使用log4j做日志输出时，只能以logger.info(“testlog:”+”test”)这种形式，前者要比后者在性能上更好，后者采用+连接字符串时就是new 一个String 字符串，在性能上就不如前者。</li>
+</ul>
+<h3 id="3-log4j-log-for-java"><a href="#3-log4j-log-for-java" class="headerlink" title="3.log4j(log for java)"></a>3.<strong>log4j(log for java)</strong></h3><p>Log4j是Apache的一个开源项目，通过使用Log4j，我们可以<strong>控制日志信息输送的目的地</strong>是控制台、文件、GUI组件，甚至是套接口服务器、NT的事件记录器、UNIX Syslog守护进程等；我们也可以<strong>控制每一条日志的输出格式</strong>；通过定义每一条日志信息的级别，我们能够更加细致地控制日志的生成过程。最令人感兴趣的就是，这些可以<strong>通过一个配置文件来灵活地进行配置</strong>，而不需要修改应用的代码。</p>
+<p><strong>如何使用？</strong></p>
+<ul>
+<li>引入jar,使用log4j时需要的jar为：log4j.jar。</li>
+<li>定义配置文件log4j.properties或log4j.xml</li>
+<li>在具体的类中进行使用：<ul>
+<li>在需要日志输出的类中加入：private static final Logger logger = Logger.getLogger(Tester.class);  //通过Logger获取Logger实例</li>
+<li>在需要输出日志的地方调用相应方法即可：logger.debug(“System …..”)</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-logback"><a href="#4-logback" class="headerlink" title="4.logback"></a>4.logback</h3><p>logback同样是由log4j的作者设计完成的，拥有更好的特性，用来取代log4j的一个日志框架，是slf4j的原生实现(即直接实现了slf4j的接口，而log4j并没有直接实现，所以就需要一个适配器slf4j-log4j12.jar)，logback一共有以下几个模块：</p>
+<ul>
+<li>logback-core：其它两个模块的基础模块</li>
+<li>logback-classic：它是log4j的一个改良版本，同时它完整实现了slf4j API使你可以很方便地更换成其它日志系统如log4j或JDK14 Logging</li>
+<li>logback-access：访问模块与Servlet容器集成提供通过Http来访问日志的功能</li>
+</ul>
+<p>同样，单独使用它时，需要引入以上jar，然后进行配置文件的配置，最后就是在相关类中进行使用，使用时加入以下语句:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(Test.class);</span><br><span class="line"> 　logger.info(<span class="string">&quot;打印日志&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5-log发展史"><a href="#5-log发展史" class="headerlink" title="5.log发展史"></a>5.log发展史</h3><p>从JDK1.4开始提供java.until.logging日志框架来打印日志，但是大佬觉得JUL太难用了，就自己手撸了个log4j，后来log4j发现安全漏洞，加上代码结构问题难以维护，于是从1.2就停止更新log4j，并又重新手撸了个log4j2，再后来，这个大佬又双手撸了一个性能更高、功能更全的logback。</p>
+<p>从此，这个大佬构建了log的世界，也创造了最常见的日志框架：log4j、log4j2、logback。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用log4j，需要log4j.jar</span></span><br><span class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</span><br><span class="line">Logger logger_log4j = Logger.getLogger(Test.class);</span><br><span class="line">logger_log4j.info(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用log4j2，需要log4j-api.jar、log4j-core.jar</span></span><br><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.LogManager;</span><br><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.Logger;</span><br><span class="line">Logger logger_log4j2 = LogManager.getLogger(Test.class);</span><br><span class="line">logger_log4j2.info(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// logback，需要logback-classic.jar、logback-core.jar</span></span><br><span class="line"><span class="keyword">import</span> ch.qos.logback.classic.Logger;</span><br><span class="line"><span class="keyword">import</span> ch.qos.logback.classic.LoggerContext;</span><br><span class="line">Logger logger_logback = <span class="keyword">new</span> LoggerContext().getLogger(Test.class);</span><br><span class="line">logger_logback.info(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// java.until.logging，简称jul</span></span><br><span class="line"><span class="keyword">import</span> java.util.logging.Logger;</span><br><span class="line">Logger logger_jul = Logger.getLogger(<span class="string">&quot;java.Test&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>从上面不难看出，使用不同的日志框架，就要引入不同的jar包，使用不同的代码获取Logger。</p>
+<p>于是Apache Commons Logging出现了。</p>
+<p>Common-logging提供了一个日志入口，称作”门面日志”，即它不负责写日志，而是<strong>提供用一个统一的接口，通过jar来决定使用的日志框架</strong>，这样就不要再更换框架的时候再修改代码了。后来开发了log4j的大佬又因为嫌弃Common-logging难用，开发了门面日志框架<strong>slf4j</strong>，今天就拿slf4j讲述门面日志。</p>
+<p>门面日志和设计模式中的<strong>外观模式</strong>如出一辙，本身不提供服务，为子系统提供统一的入口，封装子系统的复杂性，便于客户端调用。slf4j就像是菜鸟驿站，本身没有快递服务，但是提供顺丰、中通等快递服务，至于你想用顺丰还是用中通，完全取决于你的想法。</p>
+<p>使用slf4j：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line">Logger logger = LoggerFactory.getLogger(Test.class);</span><br><span class="line">logger.info(<span class="string">&quot;Hello World!&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>使用slf4j需要首先导入<strong>slf4j-api.jar</strong>，和log4j配合，需要导入<strong>log4j.jar</strong>，以及桥接包<strong>slf4j-log412.jar</strong>。</p>
+<p>logback只需要导入<strong>logback-classic.jar</strong>和<strong>logback-core.jar</strong>即可，不需要桥接包。</p>
+<h4 id="为什么使用桥接包？"><a href="#为什么使用桥接包？" class="headerlink" title="为什么使用桥接包？"></a>为什么使用桥接包？</h4><p>slf4j从LoggerFactory.getLogger()开始，原理就是就是让ClassLoader从classpath(依赖的jar)中找到<strong>StaticLoggerBinder</strong>这个类，然后利用他来返回log4j、logback中的Logger，然后打印日志。</p>
+<p>所谓的桥接包，就是实现StaticLoggerBinder类，用来连接slf4j和日志框架。因为log4j和log4j2刚开始没有StaticLoggerBinder这个类，为了不改变程序结构，只能重新写一个新的jar来实现StaticLoggerBinder。而logback出现slf4j之后，于是在logback本身的jar中实现了StaticLoggerBinder，所以就不需要桥接包。</p>
+<p>StaticLoggerBinder实现了使用底层日志框架创建Logger的功能，各自的StaticLoggerBinder为slf4j提供的Logger，再提供给用户打印日志。</p>
+<p>log4j和log4j2桥接包及logback依赖里，都有StaticLoggerBinder类。</p>
+<p>“Class path contains multiple SLF4J bindings.”在使用slf4j的时候会遇到以上的报告信息。究其根本是因为logback-classic、log4j-slf4j-impl、slf4j-log412、slf4j-jdk这些jar不能同时存在。他们都实现了StaticLoggerBinder类而导致冲突，slf4j无法确定到底用哪个日志框架。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li><p>lombok是一个可以简化代码的jar包，需要导入依赖，添加插件，可以说是开发必备。跟日志没啥关系，只不过@Slf4j注解是lombok提供的，用来在方法中直接使用log。</p>
+</li>
+<li><p>slf4j是日志门面，一个日志接口，而不提供日志系统实现，方便日志系统与调用的分离，可以方便更换日志系统。相当于是提供了一种日志输出的规范，下面的日志系统都需要实现这些方法，统一了日志输出规范。它实现了日志框架一些通用的api，log4j和logback是具体的日志框架。</p>
+</li>
+<li><p>log4j就是一个日志实现系统，具体的配置文件log4j.properties怎么写，还得再看看。log4j在结合slf4j时需要使用一个适配类桥接包。使用Logger.getLogger。</p>
+</li>
+<li><p>logback时比log4j新的日志实现系统，直接实现了slf4j接口，使用LoggerFactory.getLogger。</p>
+<p>他们可以单独的使用，也可以绑定slf4j一起使用。</p>
+<p>单独使用，分别调用框架自己的方法来输出日志信息。绑定slf4j一起使用。调用slf4j的api来输入日志信息，具体使用与底层日志框架无关（需要底层框架的配置文件）。显然不推荐单独使用日志框架。假设项目中已经使用了log4j，而我们此时加载了一个类库，而这个类库依赖另一个日志框架。这个时候我们就需要维护两个日志框架，这是一个非常麻烦的事情。而使用了slf4j就不同了，由于应用调用的抽象层的api，与底层日志框架是无关的，因此可以任意更换日志框架。</p>
+</li>
+</ol>
+<h3 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h3><h4 id="1-maven项目"><a href="#1-maven项目" class="headerlink" title="1.maven项目"></a>1.maven项目</h4><p>很久没在这个电脑上新建maven项目，结果问题来了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~/.m2 ❯ mvn -v      </span><br><span class="line">zsh: command not found: mvn</span><br></pre></td></tr></table></figure>
+
+<p>之前出现的问题又出现了，之前重新配置了一下就可以了，可是brew info maven 也找不到之前maven安装的路径，难道之前我不是通过brew安装的吗？</p>
+<p>另外在资源库中也没找到，好吧，重新 brew install maven 😅。可是brew安装报错。</p>
+<p>官网<a target="_blank" rel="noopener" href="https://maven.apache.org/download.cgi%E4%B8%8B%E8%BD%BDapache-maven-3.8.5-bin.tar.gz%E3%80%82%E8%A7%A3%E5%8E%8B%E5%88%B0%E8%B5%84%E6%BA%90%E5%BA%93%E4%B8%AD%E3%80%82%E9%82%A3%E4%B9%88%E5%A6%82%E4%BD%95%E4%BD%BF%E5%BE%97%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%AD%E8%BE%93%E5%85%A5mvn%E8%83%BD%E5%A4%9F%E6%89%BE%E5%88%B0maven%E5%8C%85%EF%BC%9F%E5%B0%B1%E9%9C%80%E8%A6%81%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%BA%86%E3%80%82">https://maven.apache.org/download.cgi下载apache-maven-3.8.5-bin.tar.gz。解压到资源库中。那么如何使得在命令行中输入mvn能够找到maven包？就需要配置环境变量了。</a></p>
+<p>下载之后，需要配置环境变量，不经想起之前的疑问：jdk环境变量在/etc/profile中配置，而maven中的环境变量在~/.bash_profile，这是为什么？</p>
+<p>我们常说的环境变量修改主要包含两类文件，分别是 profile 和 bashrc 文件。profile 文件又分为：”/etc/profile”，”<del>/.bash_profile”；bashrc 文件则又分为 “/etc/bashrc”，和 “</del>/.bashrc” 文件。</p>
+<p>说到这儿，可能迷惑了，我在我电脑里没看到.bash_profile和.bashrc啊，但是看到.zshrc了，这是为啥？</p>
+<blockquote>
+<p>iterm2以及mac自带的terminal都是终端模拟器。最开始时候就用起了iterm2.</p>
+<p>bash，zsh是shell，zsh兼容bash</p>
+<p>shell：壳，用它表示“为使用者提供的操作界面”，Shell泛指所有为用户提供操作界面的程序，分为两类：命令行（CLI）与图形界面（GUI）。通常情况下，我们在聊shell的时候，其实都是聊的Linux的命令行界面。</p>
+</blockquote>
+<blockquote>
+<p>sh和bash和zsh :</p>
+<p>sh全称为Bourne Shell，来自于1977年底的Unix v7版。二进制文件位置为<code>/bin/sh</code>。 </p>
+<p>bash全称为Bourne-Again Shell，是在1989年对sh的重写版，替代了sh。二进制文件位置为<code>/bin/bash</code>。 </p>
+<p>现在的Linux系统以及macOS系统的shell都默认使用bash。</p>
+<p>Zsh即Z shell，是一款可用作交互式登录的shell及脚本编写的命令解释器。Zsh对Bourne shell做出了大量改进，同时加入了Bash、ksh及tcsh的某些功能。 </p>
+<p>所以说Zsh也是一个Shell，就是会比bash能好用很多。所以这也是2019年起，macOS的默认Shell从Bash改为Zsh的原因？</p>
+<p>zsh拥有完善的插件机制以及丰富的生态，和oh my zsh一起食用更佳</p>
+</blockquote>
+<h5 id="查看本地Shell的命令"><a href="#查看本地Shell的命令" class="headerlink" title="查看本地Shell的命令"></a>查看本地Shell的命令</h5><ul>
+<li><p>查看当前Linux的全部Shell：<code>cat /etc/shells</code></p>
+</li>
+<li><p>查看当前使用的Shell：<code>echo $SHELL</code>或者<code>echo $0</code></p>
+</li>
+<li><p>切换默认的Shell：<code>chsh -s [shell的二进制文件路径]</code>，之后要重新登陆Shell才能生效哈。例如：</p>
+</li>
+<li><ul>
+<li>切换为Bash： <code>chsh -s /bin/bash</code></li>
+<li>切换为Zsh：<code>chsh -s /bin/zsh</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="Shell的各种配置文件"><a href="#Shell的各种配置文件" class="headerlink" title="Shell的各种配置文件"></a>Shell的各种配置文件</h5><p>无论是Bash还是Zsh，都是有各自的配置文件来完成自己的工作的。这些配置文件都是隐藏文件，也就是说，用户不需要知道这些配置。但是在这里也要给大家总结一下都有哪些配置文件，也许以后用的上呢。 </p>
+<h5 id="Bash的配置文件"><a href="#Bash的配置文件" class="headerlink" title="Bash的配置文件"></a>Bash的配置文件</h5><ul>
+<li>/etc/profile：为系统的<strong>每个用户</strong>设置环境信息，当用户第一次<strong>登录</strong>时会执行该文件里的命令。默认会直接调用/etc/bashrc。该文件的改动需要重启才能生效。用于设置系统级别的环境变量和启动程序，在这个文件下配置会对所有的用户生效。</li>
+<li>/etc/bashrc：为每一个运行bash shell的用户执行此文件。当bash shell被打开时，会读取并执行该文件中的命令。所以修改该文件后，重新打开Shell即可生效。</li>
+<li>~/.bash_profile：和/etc/profile类似，但是只对当前用户生效。只对单一用户生效，该文件是一个用户级别的设置，可以理解为某一用户下的profile</li>
+<li>~/.bashrc：和/etc/bashrc类似，但是只对当前用户生效。</li>
+<li>~/.bash_logout：当每次退出bash shell时，执行该文件。</li>
+<li>~/.bash_history：保存了历史命令。在Shell为Bash时，每次敲击命令时，都会保存在这个文件里</li>
+</ul>
+<h5 id="Zsh的配置文件"><a href="#Zsh的配置文件" class="headerlink" title="Zsh的配置文件"></a>Zsh的配置文件</h5><ul>
+<li>/etc/bashrc 对应 /etc/zshrc</li>
+<li>~/.bash_profile 对应 ~/.zprofile</li>
+</ul>
+<p>加载顺序：zshenv、zprofile、zshrc、zlogin</p>
+<hr>
+<p>所以说，各种教程里说的配置都是默认bash的，bash的配置文件对标到zsh中就可以。</p>
+<p><strong>/etc/profile 和 /etc/bashrc 这种在 /etc 目录下的配置则都属于全局配置，所有用户的shell都有权使用这些环境变量，～/ 则属于用户级别的</strong></p>
+<h5 id="总结一下：各种配置文件可以按两种方式分类："><a href="#总结一下：各种配置文件可以按两种方式分类：" class="headerlink" title="总结一下：各种配置文件可以按两种方式分类："></a>总结一下：各种配置文件可以按两种方式分类：</h5><table>
+<thead>
+<tr>
+<th></th>
+<th>profile</th>
+<th align="center">bashrc/zshrc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>全局</td>
+<td>/etc/profile（无关哪个shell）</td>
+<td align="center">/etc/bashrc</td>
+</tr>
+<tr>
+<td>用户</td>
+<td>~/.bash_profile （专用于哪个shell）</td>
+<td align="center">~/.bashrc</td>
+</tr>
+</tbody></table>
+<p>profile的bashrc区别?</p>
+<p>要搞清bashrc与profile的区别，首先要弄明白什么是交互式shell和非交互式shell，即login shell 和non-login shell。</p>
+<p>交互式模式就是shell等待你的输入，并且执行你提交的命令。这种模式被称作交互式是因为shell与用户进行交互。这种模式也是大多数用户非常熟悉的：登录、执行一些命令、签退。当你签退后，shell也终止了。 shell也可以运行在另外一种模式：非交互式模式。在这种模式下，shell不与你进行交互，而是读取存放在文件中的命令,并且执行它们。当它读到文件的结尾，shell也就终止了。</p>
+<p>bashrc 与 profile 都用于保存用户的环境信息，bashrc用于交互式non-loginshell，而profile用于交互式login shell。</p>
+<ol>
+<li><p>/etc/profile: 此文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行.并从/etc/profile.d目录的配置文件中搜集shell的设置.</p>
+</li>
+<li><p>/etc/bashrc: 为每一个运行bash shell的用户执行此文件.当bash shell被打开时,该文件被读取.</p>
+</li>
+<li><p>~/.bash_profile: 每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该文件仅仅执行一次!默认情况下,他设置一些环境变量,执行用户的.bashrc文件.</p>
+</li>
+<li><p>~/.bashrc: 该文件包含专用于你的bash shell的bash信息,当登录时以及每次打开新的shell时,该文件被读取.</p>
+</li>
+<li><p>~/.bash_logout: 当每次退出系统(退出bash shell)时,执行该文件.</p>
+</li>
+</ol>
+<p>另外,/etc/profile中设定的变量(全局)的可以作用于任何用户,而~/.bashrc等中设定的变量(局部)只能继承/etc/profile中的变量,他们是”父子”关系.</p>
+<hr>
+<p>当登入系统时候获得一个shell进程时，其读取环境设定档有三步</p>
+<p>1、首先读入的是全局环境变量设定档/etc/profile，然后根据其内容读取额外的设定的文档，如<br>/etc/profile.d和/etc/inputrc</p>
+<p>2、然后根据不同使用者帐号，去其家目录读取<del>/.bash_profile，如果这读取不了就读取</del>/.bash_login，这个也读取不了才会读取<br>~/.profile，这三个文档设定基本上是一样的，读取有优先关系</p>
+<p>3、然后在根据用户帐号读取~/.bashrc</p>
+<hr>
+<p>总结：配置文件全局/用户—交互的/非交互的，jdk的配置就是在/etc/profile中，maven的配置在～/.bash_profile既然用的是zsh，就在 ~/.zprofile里面配置。</p>
+<hr>
+<p>在～/.zprofile文件中，添加配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export M=&quot;/usr/local/ApacheMaven&quot;</span><br><span class="line">export PATH=&quot;$M/bin:$PATH&quot;</span><br></pre></td></tr></table></figure>
+
+<p>source ～/.zprofile 即可。</p>
+<p>然后配置一下阿里云仓库。在setting.xml文件中，要关注两个地方，<em><strong>localRepository</strong></em>和<em><strong>mirrors</strong></em>。第一个localRepository是你本地仓库所在的位置，你的包都会下载到这里，默认在你用户目录的.m2目录下，这里可以换成你想存放的地址。第二个mirror是你的包下载地址，因为有墙，所以建议增加阿里云仓库配置，来加速下载。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>aliyunmaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>阿里云公共仓库<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://maven.aliyun.com/repository/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-创建maven-web项目"><a href="#2-创建maven-web项目" class="headerlink" title="2.创建maven web项目"></a>2.创建maven web项目</h4><p>新建maven项目时选中create from archetype，选择org.apache.maven.archetypes:maven-archetype-webapp。</p>
+<p>选择自己maven的setting.xml。</p>
+<p>配置tomcat服务器，选择tomcat-local，给服务器取名字，选版本端口号之类的。</p>
+<p>deployment中artifact选择要部署的jar包，选exploded的。</p>
+<p>选择热部署，在实际开发中是很管用的web开发，你后台，改了啥他就热部署，不用你重启tomcat，前台的也是，你修改jsp,css,js什么的都可以直接进行热部署，你只要自己刷新一下你的页面就行了。</p>
+<h4 id="3-使用log4j集合slf4j"><a href="#3-使用log4j集合slf4j" class="headerlink" title="3.使用log4j集合slf4j"></a>3.使用log4j集合slf4j</h4><p>Apache Log4j是一个基于Java的日志记录工具，它的日志级别按下面顺序递减：</p>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OFF</td>
+<td>最高级别，用于关闭日志记录。</td>
+</tr>
+<tr>
+<td>FATAL</td>
+<td>将导致应用程序提前终止的严重错误的信息将立即呈现在日志上。</td>
+</tr>
+<tr>
+<td>ERROR</td>
+<td>将其他运行时错误或意外情况的信息呈现在日志上。</td>
+</tr>
+<tr>
+<td>WARN</td>
+<td>使用已过时的API，API的滥用，潜在错误，其他不良的或意外的运行时的状况（但不一定是错误的）</td>
+</tr>
+<tr>
+<td>INFO</td>
+<td>一些感兴趣的运行时事件（启动/关闭</td>
+</tr>
+<tr>
+<td>DEBUG</td>
+<td>一些详细信息，查看程序的运行状态</td>
+</tr>
+<tr>
+<td>TRACE</td>
+<td>最详细的信息。一般这些信息只记录到日志文件中。</td>
+</tr>
+</tbody></table>
+<h5 id="第一步：引入依赖"><a href="#第一步：引入依赖" class="headerlink" title="第一步：引入依赖"></a>第一步：引入依赖</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-log4j12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.0-alpha7<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.16.22<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="第二步：配置log4j的配置文件"><a href="#第二步：配置log4j的配置文件" class="headerlink" title="第二步：配置log4j的配置文件"></a>第二步：配置log4j的配置文件</h5><p>其配置文件名为log4j.properties，<strong>需要手动在java/resources下创建</strong>，如果建在其他位置，idea这个工具将无法识别。该配置文件用来设置记录器的级别、存放器和布局的，它可接key=value格式的设置或xml格式的设置信息。通过配置，可以创建出Log4J的运行环境。</p>
+<p>Log4J配置文件的基本格式如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### set log levels 配置根Logger###</span></span><br><span class="line"><span class="comment">### log4j.rootLogger  = [ level ] , appenderName1 , appenderName2 ,  … ###</span></span><br><span class="line"><span class="comment">###  level : 是日志记录的优先级 优先级从高到低分别是ERROR、WARN、INFO、DEBUG</span></span><br><span class="line"><span class="comment">###  比如在这里定义了INFO级别，则应用程序中所有DEBUG级别的日志信息将不被打印出来</span></span><br><span class="line"><span class="comment">### Appender 为日志输出目的地 这里 将debug层级及以上的信息输出到console和file，自己定义的名字  ###</span></span><br><span class="line"><span class="meta">log4j.rootLogger</span> = <span class="string">DEBUG,Console,File</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">###  输出到控制台  ###</span></span><br><span class="line"><span class="meta">log4j.appender.Console</span>=<span class="string">org.apache.log4j.ConsoleAppender</span></span><br><span class="line"><span class="meta">log4j.appender.Console.Target</span>=<span class="string">System.out</span></span><br><span class="line"><span class="meta">log4j.appender.Console.layout</span>=<span class="string">org.apache.log4j.PatternLayout</span></span><br><span class="line"><span class="meta">log4j.appender.Console.layout.ConversionPattern</span>=<span class="string">[%d&#123;yy/MM/dd HH:mm:ss:SSS&#125;]-%l:%m%n</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">### 输出到日志文件 ###</span></span><br><span class="line"><span class="meta">log4j.appender.File</span>=<span class="string">org.apache.log4j.RollingFileAppender</span></span><br><span class="line"><span class="meta">log4j.appender.File.File</span>=<span class="string">$&#123;project&#125;src/main/resources/log/app.log</span></span><br><span class="line"><span class="meta">log4j.appender.File.MaxFileSize</span>=<span class="string">10MB</span></span><br><span class="line"><span class="meta">log4j.appender.File.Threshold</span>=<span class="string">ALL</span></span><br><span class="line"><span class="meta">log4j.appender.File.layout</span>=<span class="string">org.apache.log4j.PatternLayout</span></span><br><span class="line"><span class="meta">log4j.appender.File.layout.ConversionPattern</span>=<span class="string">[%p][%d&#123;yyyy-MM-dd HH\:mm\:ss,SSS&#125;][%c]%m%n</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">#   %m   输出代码中指定的消息</span></span><br><span class="line"><span class="comment">#　　%p   输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL</span></span><br><span class="line"><span class="comment">#　　%r   输出自应用启动到输出该log信息耗费的毫秒数</span></span><br><span class="line"><span class="comment">#　　%c   输出所属的类目，通常就是所在类的全名</span></span><br><span class="line"><span class="comment">#　　%t   输出产生该日志事件的线程名</span></span><br><span class="line"><span class="comment">#　　%n   输出一个回车换行符，Windows平台为“\r\n”，Unix平台为“\n”</span></span><br><span class="line"><span class="comment">#　　%d   输出日志时间点的日期或时间，默认格式为ISO8601，也可以在其后指定格式，比如：%d&#123;yyy MMM dd HH:mm:ss , SSS&#125;，输出类似：2002年10月18日  22 ： 10 ： 28 ， 921</span></span><br><span class="line"><span class="comment">#　　%l   输出日志事件的发生位置，包括类目名、发生的线程，以及在代码中的行数。举例：Testlog4.main(TestLog4.java: 10 )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">### Appender 为日志输出目的地，Log4j提供的appender有以下几种：</span></span><br><span class="line"><span class="comment">#org.apache.log4j.ConsoleAppender（控制台），</span></span><br><span class="line"><span class="comment">#org.apache.log4j.FileAppender（文件），</span></span><br><span class="line"><span class="comment">#org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件），</span></span><br><span class="line"><span class="comment">#org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件），</span></span><br><span class="line"><span class="comment">#org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方）</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">### Layout：日志输出格式，Log4j提供的layout有以下几种</span></span><br><span class="line"><span class="comment">#org.apache.log4j.HTMLLayout（以HTML表格形式布局），</span></span><br><span class="line"><span class="comment">#org.apache.log4j.PatternLayout（可以灵活地指定布局模式），</span></span><br><span class="line"><span class="comment">#org.apache.log4j.SimpleLayout（包含日志信息的级别和信息字符串），</span></span><br><span class="line"><span class="comment">#org.apache.log4j.TTCCLayout（包含日志产生的时间、线程、类别等等信息）</span></span><br></pre></td></tr></table></figure>
+
+<p>当然，通过Threshold设置，可以把异常日志单独输出到一个文件中。</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### set log levels ###</span></span><br><span class="line"><span class="meta">log4j.rootLogger</span> = <span class="string">debug ,  stdout ,  D ,  E</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">### 输出到控制台 ###</span></span><br><span class="line"><span class="meta">log4j.appender.stdout</span> = <span class="string">org.apache.log4j.ConsoleAppender</span></span><br><span class="line"><span class="meta">log4j.appender.stdout.Target</span> = <span class="string">System.out</span></span><br><span class="line"><span class="meta">log4j.appender.stdout.layout</span> = <span class="string">org.apache.log4j.PatternLayout</span></span><br><span class="line"><span class="meta">log4j.appender.stdout.layout.ConversionPattern</span> =  <span class="string">[%p][%d&#123;yyyy-MM-dd HH\:mm\:ss,SSS&#125;][%c]%m%n</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">### 输出到日志文件 ###</span></span><br><span class="line"><span class="meta">log4j.appender.D</span> = <span class="string">org.apache.log4j.DailyRollingFileAppender</span></span><br><span class="line"><span class="meta">log4j.appender.D.File</span> = <span class="string">$&#123;project&#125;src/main/resources/log/app.log</span></span><br><span class="line"><span class="meta">log4j.appender.D.Append</span> = <span class="string">true</span></span><br><span class="line"><span class="meta">log4j.appender.D.Threshold</span> = <span class="string">DEBUG</span></span><br><span class="line"><span class="meta">log4j.appender.D.layout</span> = <span class="string">org.apache.log4j.PatternLayout</span></span><br><span class="line"><span class="meta">log4j.appender.D.layout.ConversionPattern</span> = <span class="string">[%p][%d&#123;yyyy-MM-dd HH\:mm\:ss,SSS&#125;][%c]%m%n</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">### 保存异常信息到单独文件 ###</span></span><br><span class="line"><span class="meta">log4j.appender.E</span> = <span class="string">org.apache.log4j.DailyRollingFileAppender</span></span><br><span class="line"><span class="meta">log4j.appender.E.File</span> = <span class="string">$&#123;project&#125;src/main/resources/log/error.log</span></span><br><span class="line"><span class="meta">log4j.appender.E.Append</span> = <span class="string">true</span></span><br><span class="line"><span class="meta">log4j.appender.E.Threshold</span> = <span class="string">ERROR</span></span><br><span class="line"><span class="meta">log4j.appender.E.layout</span> = <span class="string">org.apache.log4j.PatternLayout</span></span><br><span class="line"><span class="meta">log4j.appender.E.layout.ConversionPattern</span> = <span class="string">[%p][%d&#123;yyyy-MM-dd HH\:mm\:ss,SSS&#125;][%c]%m%n</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="第三步：编写测试类"><a href="#第三步：编写测试类" class="headerlink" title="第三步：编写测试类"></a>第三步：编写测试类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.liuxuan;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.apache.log4j.PropertyConfigurator;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Log4jDemo</span> </span>&#123;</span><br><span class="line">    <span class="comment">//private static Logger logger = LoggerFactory.getLogger(Log4jTestDemo.class);</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 获取当前项目的根目录</span></span><br><span class="line">        String relativelyPath=System.getProperty(<span class="string">&quot;user.dir&quot;</span>);</span><br><span class="line">        <span class="comment">// 指定properties文件位置</span></span><br><span class="line">        PropertyConfigurator.configure(relativelyPath+ <span class="string">&quot;/src/main/resources/conf/log4j.properties&quot;</span>);</span><br><span class="line">        <span class="comment">// 记录debug级别的信息</span></span><br><span class="line">        log.debug(<span class="string">&quot;This is debug message.&quot;</span>);</span><br><span class="line">        <span class="comment">// 记录info级别的信息</span></span><br><span class="line">        log.info(<span class="string">&quot;This is info message.&quot;</span>);</span><br><span class="line">        <span class="comment">// 记录error级别的信息</span></span><br><span class="line">        log.error(<span class="string">&quot;This is error message.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>除非配置文件在resources目录下，否则不能自己找到配置文件的位置，还需要在代码中指定位置，低效！</p>
+<p>这个问题貌似在spring中得到解决，在web.xml中增加配置：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/HenryMrZ/article/details/79258057">https://blog.csdn.net/HenryMrZ/article/details/79258057</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>log4jConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:/conf/log4j.properties<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-maven项目打包"><a href="#4-maven项目打包" class="headerlink" title="4.maven项目打包"></a>4.maven项目打包</h4><p>有个问题：web项目进行部署前，必须要将项目进行打包吗？</p>
+<p>直接部署在tomcat，并没有在target文件夹下找到war包。</p>
+<p>maven-web项目要使用servlet，就要导入依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>导入之后reimport一下pom.xml。</p>
+<p>发现部署之后，原本的System.getProperty输出的项目目录变成了tomcat的bin目录。</p>
+<h5 id="介绍一下System-getProperty"><a href="#介绍一下System-getProperty" class="headerlink" title="介绍一下System.getProperty()"></a>介绍一下System.getProperty()</h5><p>Java中给我们提供了System.getProperty()这个函数，这个函数可以获取到Java JVM以及操作系统的一些参数，可以供程序判断等。</p>
+<p>System.getProperty()方法中需要传递一个字符串的参数，表示需要获取那个环境配置，获得结果为String。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">System.getProperty(<span class="string">&quot;java.vm.version&quot;</span>);<span class="comment">//java虚拟机版本  </span></span><br><span class="line">System.getProperty(<span class="string">&quot;java.vendor.url&quot;</span>); <span class="comment">//java官方网站  </span></span><br><span class="line">System.getProperty(<span class="string">&quot;java.vm.nam&quot;</span>); <span class="comment">//java虚拟机名称  </span></span><br><span class="line">System.getProperty(<span class="string">&quot;user.country&quot;</span>); <span class="comment">//国家或地区  </span></span><br><span class="line">System.getProperty(<span class="string">&quot;user.dir&quot;</span>); <span class="comment">//工程的路径  </span></span><br><span class="line">System.getProperty(<span class="string">&quot;java.runtime.version&quot;</span>);<span class="comment">//java运行环境版本  </span></span><br><span class="line">System.getProperty(<span class="string">&quot;os.arch&quot;</span>); <span class="comment">//操作系统位数（32或64）  </span></span><br><span class="line">System.getProperty(<span class="string">&quot;os.name&quot;</span>); <span class="comment">//操作系统名称  </span></span><br><span class="line">System.getProperty(<span class="string">&quot;sun.jnu.encoding&quot;</span>); <span class="comment">//编码格式  </span></span><br><span class="line">System.getProperty(<span class="string">&quot;os.version&quot;</span>); <span class="comment">//操纵系统版本  </span></span><br><span class="line">System.getProperty(<span class="string">&quot;java.version&quot;</span>); <span class="comment">//java版本版本</span></span><br></pre></td></tr></table></figure>
+
+<p>那么如何找到路径下的log4j.properties配置文件呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String filePath = req.getServletContext().getRealPath(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">System.out.println(filePath); <span class="comment">// 文件存放的路径</span></span><br><span class="line"><span class="comment">// 指定properties文件位置</span></span><br><span class="line">PropertyConfigurator.configure(filePath + <span class="string">&quot;WEB-INF/classes/conf/log4j.properties&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h5 id="项目中target目录是什么？"><a href="#项目中target目录是什么？" class="headerlink" title="项目中target目录是什么？"></a>项目中target目录是什么？</h5><p>target是用来存放项目构建后的文件和目录、jar包、war包、编译的class文件，所有都是Maven构建时生成的。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.51cto.com/zhangzhixi/5102490?b=totalstatistic">https://blog.51cto.com/zhangzhixi/5102490?b=totalstatistic</a></p>
+<p>还有一个问题：tomcat运行之后，日志不保存在文件中了，难道是识别不了project目录了吗？</p>
+<p>确实，log输出到了tomcat中的bin目录中。改成绝对目录。</p>
+<h5 id="打包部署"><a href="#打包部署" class="headerlink" title="打包部署"></a>打包部署</h5><p>由于web项目没有写java文件没有main函数, 是无法直接运行的, 因此web项目需要放在一个容器里才能运行</p>
+<p>这里就将web项目放在Tomcat这个web服务器里运行</p>
+<p>基于maven的web项目 “ 打包、部署、使用” 操作步骤如下:</p>
+<ol>
+<li>打包：在IDEA主界面的右边找到maven, 在maven的生命周期Lifecycle下面找到package, 双击package命令进行运行。底下的控制台提示 BUILD SUCCESS 代表构建成功。构建成功之后, 根据控制台里提示的war包路径找到war的位置。</li>
+<li>部署：”部署“ 操作      (部署就是手动把打包好的war包复制到tomcat-webapps下边)</li>
+</ol>
+<blockquote>
+<p>不打jar包运行，tomcat文件夹下没有应用的痕迹啊。【todo】应该是把war包放在tomcat目录下和idea中启动不太一样。idea中需要idea一直在运行状态。但是idea中运行的也是tomcat？</p>
+</blockquote>
+<ol start="3">
+<li><p>运行，首先将Tomcat加载到系统环境变量</p>
+<blockquote>
+<p>配置tomcat环境变量：</p>
+<p>如果不配置的话，需要每次都进到tomcat的bin目录下运行startup.sh启动。</p>
+<p>在 ～/.zprofile 文件中增加  export PATH=${PATH}:tomcat bin目录</p>
+<p>​    语法：</p>
+<p>​    ${}为占位符，${PATH} 和 $PATH等效</p>
+<p>​    =前后不能有空格</p>
+<p>​    : 为分隔符（等同于windows环境变量中的 ; ）</p>
+<p>​    PATH=$PATH:xxx 可以理解为 “ PATH+=xxx “（当然不能这么写）<br>​    PATH=xxx:$PATH这种写法亦可，只是前后顺序的问题；</p>
+<p>export -p 查看所有环境变量</p>
+<ol>
+<li>sudo su 申请权限</li>
+<li>startup.sh            //启动tomacat</li>
+<li>shutdown.sh          //关闭tomcat</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<p>启动之后，好奇时一直在运行还是怎么的，应该是一直在运行。起个定时线程试一下。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();</span><br><span class="line">service.scheduleAtFixedRate(()-&gt;&#123;</span><br><span class="line">    log.info(<span class="string">&quot;Thread &#123;&#125;, now &#123;&#125;.&quot;</span>, Thread.currentThread(), <span class="keyword">new</span> Date());</span><br><span class="line">&#125;, <span class="number">1</span>, <span class="number">3</span>, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure>
+
+<p>报不能用lambada表达式的错误，我改了level等级为8，打包时还报错。不用试了，只要tomcat开的，应用就一直是起的。每访问一次，log文件中就记录日志。</p>
+<h3 id="maven打包"><a href="#maven打包" class="headerlink" title="maven打包"></a>maven打包</h3><h4 id="1-idea中使用maven插件打包"><a href="#1-idea中使用maven插件打包" class="headerlink" title="1.idea中使用maven插件打包"></a>1.idea中使用maven插件打包</h4><p>上面就是用此操作，应该先clean，再compile编译，再打包的。</p>
+<p>mvn clean 清空class文件<br>mvn compile 编译<br>mvn package 打包<br>mvn test 测试<br>mvn install 打包并上传到本地仓库<br>mvn deploy 上传到远程仓库<br>mvn -Dmaven.test.skip=true 跳过测试</p>
+<p>pom中的插件应该是自动给我加的：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>log-maven-package<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">pluginManagement</span>&gt;</span><span class="comment">&lt;!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-clean-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-resources-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-surefire-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.22.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-war-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-install-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-deploy-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">pluginManagement</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>  这种打包方式会有外部依赖包。</p>
+<h4 id="2-直接使用mvn-package打包"><a href="#2-直接使用mvn-package打包" class="headerlink" title="2.直接使用mvn package打包"></a>2.直接使用mvn package打包</h4><p>不在 POM 中配置任何插件，直接使用 <code>mvn package</code> 进行项目打包，这对于没有使用外部依赖包的项目是可行的。但如果项目中使用了第三方 JAR 包，就会出现问题，因为 <code>mvn package</code> 打的 JAR 包中是不含有依赖包，会导致作业运行时出现找不到第三方依赖的异常。这种方式局限性比较大，因为实际的项目往往很复杂，通常都会依赖第三方 JAR。</p>
+<p>大数据框架的开发者也考虑到这个问题，所以基本所有的框架都支持在提交作业时使用 <code>--jars</code> 指定第三方依赖包，但是这种方式的问题同样很明显，就是你必须保持生产环境与开发环境中的所有 JAR 包版本一致，这是有维护成本的。</p>
+<p>基于上面这些原因，最简单的是采用 <code>All In One</code> 的打包方式，把所有依赖都打包到一个 JAR 文件中，此时对环境的依赖性最小。要实现这个目的，可以使用 Maven 提供的 <code>maven-assembly-plugin</code> 或 <code>maven-shade-plugin</code> 插件。</p>
+<blockquote>
+<p>我直接使用mvn package 报错误</p>
+<p>[ERROR] No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK?</p>
+<p>未解决</p>
+</blockquote>
+<h4 id="3-maven-assembly-plugin插件"><a href="#3-maven-assembly-plugin插件" class="headerlink" title="3.maven-assembly-plugin插件"></a>3.maven-assembly-plugin插件</h4><p><code>Assembly</code> 插件支持将项目的所有依赖、文件都打包到同一个输出文件中。目前支持输出以下文件类型：</p>
+<ul>
+<li>zip</li>
+<li>tar</li>
+<li>tar.gz (or tgz)</li>
+<li>tar.bz2 (or tbz2)</li>
+<li>tar.snappy</li>
+<li>tar.xz (or txz)</li>
+<li>jar</li>
+<li>dir</li>
+<li>war</li>
+</ul>
+<p><strong>基本使用</strong></p>
+<p>在 POM.xml 中引入插件，指定打包格式的配置文件 <code>assembly.xml</code>(名称可自定义)，并指定作业的主入口类：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 项目最终打包成的名字 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>community<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-assembly-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">descriptors</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">descriptor</span>&gt;</span>src/main/resources/assembly.xml<span class="tag">&lt;/<span class="name">descriptor</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">descriptors</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">archive</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">manifest</span>&gt;</span></span><br><span class="line">                        <span class="comment">&lt;!-- 指定启动类 --&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>com.liuxuan.Log4jDemo<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">archive</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>assembly.xml 文件内容如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">assembly</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/ASSEMBLY/2.0.0&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/ASSEMBLY/2.0.0 </span></span></span><br><span class="line"><span class="string"><span class="tag">                              http://maven.apache.org/xsd/assembly-2.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>jar-with-dependencies<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--指明打包方式--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">formats</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">format</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">format</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">formats</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">includeBaseDirectory</span>&gt;</span>false<span class="tag">&lt;/<span class="name">includeBaseDirectory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencySets</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencySet</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">outputDirectory</span>&gt;</span>/<span class="tag">&lt;/<span class="name">outputDirectory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">useProjectArtifact</span>&gt;</span>true<span class="tag">&lt;/<span class="name">useProjectArtifact</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">unpack</span>&gt;</span>true<span class="tag">&lt;/<span class="name">unpack</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--这里以排除 storm 环境中已经提供的 storm-core 为例，演示排除 Jar 包--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">excludes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">exclude</span>&gt;</span>org.apache.storm:storm-core<span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencySet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencySets</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>采用 maven-assembly-plugin 进行打包时命令如下：</p>
+<p>mvn assembly:assembly </p>
+<blockquote>
+<p>问题：使用命令mvn compile 时，会报错 no compiler，但是idea中点击时没问题。所以得先点compile编译，再执行assembly命令。</p>
+</blockquote>
+<p>打包后会同时生成两个 JAR 包，其中后缀为 <code>jar-with-dependencies</code> 是含有第三方依赖的 JAR 包，后缀是由 <code>assembly.xml</code> 中 <code>&lt;id&gt;</code> 标签指定的，可以自定义修改。</p>
+<h4 id="4-maven-shade-plugin插件"><a href="#4-maven-shade-plugin插件" class="headerlink" title="4.maven-shade-plugin插件"></a>4.maven-shade-plugin插件</h4><p><code>maven-shade-plugin</code> 比 <code>maven-assembly-plugin</code> 功能更为强大，比如你的工程依赖很多的 JAR 包，而被依赖的 JAR 又会依赖其他的 JAR 包，这样,当工程中依赖到不同的版本的 JAR 时，并且 JAR 中具有相同名称的资源文件时，shade 插件会尝试将所有资源文件打包在一起时，而不是和 assembly 一样执行覆盖操作。</p>
+<p><strong>通常使用 <code>maven-shade-plugin</code> 就能够完成大多数的打包需求，其配置简单且适用性最广，因此建议优先使用此方式。</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 项目最终打包成的名字 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>community<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-shade-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>shade<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">transformers</span>&gt;</span></span><br><span class="line">                            <span class="comment">&lt;!-- 指定启动类 --&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">transformer</span></span></span><br><span class="line"><span class="tag">                   <span class="attr">implementation</span>=<span class="string">&quot;org.apache.maven.plugins.shade.resource.ManifestResourceTransformer&quot;</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>com.ronz.community.CommunityApplication<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">transformer</span>&gt;</span></span><br><span class="line">                            </span><br><span class="line">                            <span class="comment">&lt;!-- 下面的配置仅针对存在同名资源文件的情况，如没有则不用配置--&gt;</span></span><br><span class="line">                            <span class="comment">&lt;!-- 有些项目包可能会包含同文件名的资源文件（例如属性文件）--&gt;</span></span><br><span class="line">                            <span class="comment">&lt;!-- 为避免覆盖，可以将它们的内容合并到一个文件中 --&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">transformer</span></span></span><br><span class="line"><span class="tag">                   <span class="attr">implementation</span>=<span class="string">&quot;org.apache.maven.plugins.shade.resource.AppendingTransformer&quot;</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">resource</span>&gt;</span>META-INF/spring.handlers<span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">transformer</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">transformer</span></span></span><br><span class="line"><span class="tag">                   <span class="attr">implementation</span>=<span class="string">&quot;org.apache.maven.plugins.shade.resource.AppendingTransformer&quot;</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">resource</span>&gt;</span>META-INF/spring.schemas<span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">transformer</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">transformers</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用 maven-shade-plugin 进行打包的时候，打包命令和普通打包一样</p>
+<p>mvn package</p>
+<h4 id="5-使用-maven-jar-plugin-和-maven-dependency-plugin-插件"><a href="#5-使用-maven-jar-plugin-和-maven-dependency-plugin-插件" class="headerlink" title="5.使用 maven-jar-plugin 和 maven-dependency-plugin 插件"></a>5.使用 maven-jar-plugin 和 maven-dependency-plugin 插件</h4><p>此种打包方式有一个比较明显的缺点：打包后会在 <code>target</code> 目录下生成 <code>lib</code> 目录（存放依赖 Jar）和项目 Jar。也就是说由于依赖都存在于 <code>lib</code> 目录中，所以要想运行 Jar 包，必须将 Jar 包和 <code>lib</code>目录放在同一个路径下。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 项目最终打包成的名字 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>community<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-jar-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">archive</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">manifest</span>&gt;</span></span><br><span class="line">                        <span class="comment">&lt;!-- 会在 MANIFEST.MF 中生成 Class-Path 项 --&gt;</span></span><br><span class="line">                        <span class="comment">&lt;!-- 系统会根据 Class-Path 项配置的路径加载依赖 --&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">addClasspath</span>&gt;</span>true<span class="tag">&lt;/<span class="name">addClasspath</span>&gt;</span></span><br><span class="line">                        <span class="comment">&lt;!-- 指定依赖包所在目录，相对于项目最终 Jar 包的路径 --&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">classpathPrefix</span>&gt;</span>lib/<span class="tag">&lt;/<span class="name">classpathPrefix</span>&gt;</span></span><br><span class="line">                        <span class="comment">&lt;!-- 指定 MainClass --&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>com.ronz.community.CommunityApplication<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">archive</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 配置依赖包 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-dependency-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 相当于执行 mvn 命令，将依赖打包到指定目录 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">id</span>&gt;</span>copy-dependencies<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>copy-dependencies<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                        <span class="comment">&lt;!--将依赖打包至 target 下的 lib 目录--&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">outputDirectory</span>&gt;</span>$&#123;project.build.directory&#125;/lib<span class="tag">&lt;/<span class="name">outputDirectory</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个思想也比较简单。</p>
+<p>首先说 maven-jar-plugin 插件，它的思想就是：指定启动类、指定依赖包相对于项目最终 Jar 包所在的路径、给 MANIFEST.MF 文件添加 Class-Path 属性（运行项目 Jar 包时会根据 Class-Path 属性来找到具体依赖 Jar 包的路径）。</p>
+<p>接着是 maven-dependency-plugin 插件，它的主要思想就是：指定所有依赖被打包为 Jar 包后的存放路径。</p>
+<p>pom.xml 文件配置完毕之后，就可以运行打包命令了：<br><em># 跳过测试用例执行 package 命令</em> mvn package -Dmaven.test.skip=true</p>
+<p>这种方式打包出来的 Jar 包，在代码层面只包含了项目本身的代码。而项目的依赖都以 Jar 包的形式放在了项目 Jar 包同级别目录下的 <code>lib</code> 目录中，这些依赖 Jar 包的路径在 <code>MANIFEST.MF</code> 文件中都以路径的方式指明了。</p>
+<h4 id="打包总结"><a href="#打包总结" class="headerlink" title="打包总结"></a>打包总结</h4><p>工作中用到的命令只是：mvn package -Dmaven.test.skip=true，但是看项目中貌似使用的是assembly。</p>
+<p>推荐使用maven-shade-plugin插件，可以避免前面的资源文件被后面的覆盖掉。</p>
+<p>只是mvn compile 这个问题还没解决，为什么idea中点击compile能够编译，终端执行命令却不行。</p>
+<p>摘自：</p>
+<p>slf4j、log4j、logback：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/javalinux/p/15683735.html">https://www.cnblogs.com/javalinux/p/15683735.html</a></p>
+<p>log发展史：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7033021644142542878">https://juejin.cn/post/7033021644142542878</a></p>
+<p>idea中创建maven web项目：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/weiqingfeng/p/9494914.html">https://www.cnblogs.com/weiqingfeng/p/9494914.html</a></p>
+<p>mac区分.bash_profile 和/etc/profile：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42214743/article/details/116133257">https://blog.csdn.net/weixin_42214743/article/details/116133257</a></p>
+<p>bash和zsh：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20036548/answer/2345481001">https://www.zhihu.com/question/20036548/answer/2345481001</a></p>
+<p>log4j配置文件：<a target="_blank" rel="noopener" href="http://www.blogjava.net/zJun/archive/2006/06/28/55511.html">http://www.blogjava.net/zJun/archive/2006/06/28/55511.html</a></p>
+<p>maven项目打包部署到tomcat：<a target="_blank" rel="noopener" href="https://blog.csdn.net/asdx1020/article/details/104554811">https://blog.csdn.net/asdx1020/article/details/104554811</a>   &amp;&amp;   <a target="_blank" rel="noopener" href="https://blog.csdn.net/Shangxingya/article/details/107295800">https://blog.csdn.net/Shangxingya/article/details/107295800</a></p>
+<p>常用maven打包方式：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904067194437639#heading-1">https://juejin.cn/post/6844904067194437639#heading-1</a>   &amp;&amp; <a target="_blank" rel="noopener" href="https://blog.csdn.net/zhuxian1277/article/details/119880760">https://blog.csdn.net/zhuxian1277/article/details/119880760</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/19/myblog/JAVA/servlet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -214,7 +663,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-31 22:47:48" itemprop="dateModified" datetime="2022-03-31T22:47:48+08:00">2022-03-31</time>
+                <time title="Modified: 2022-04-03 10:57:16" itemprop="dateModified" datetime="2022-04-03T10:57:16+08:00">2022-04-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -237,13 +686,63 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="0-servlet概述"><a href="#0-servlet概述" class="headerlink" title="0.servlet概述"></a>0.servlet概述</h3><p>Servlet 是 Server 与 Applet 的缩写，是服务端小程序的意思。使用 Java 语言编写的服务器端程序，可以生成动态的 WEB 页，Servlet 主要运行在服务器端，并由服务器调用执行， 是一种按照 Servlet 标准来开发的类。 是 SUN 公司提供的一门用于开发动态 Web 资源的技术。（言外之意：要实现 web 开发，需要实现 Servlet 标准）</p>
+          <h3 id="1-Http协议"><a href="#1-Http协议" class="headerlink" title="1.Http协议"></a>1.Http协议</h3><p>HTTP协议的特点<br>1.支持客户 / 服务器模式<br>2.简单快速<br>3.灵活<br>4.无连接，HTTP1.1 版本后支持可持续连接<br>5.无状态</p>
+<p>HTTP url:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//host[:port]/[abs_path]</span></span><br><span class="line">http:<span class="comment">//IP(主机名/域名):端口/访问的资源路径</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>http 表示通过HTTP协议来定位网络资源</li>
+<li>host 表示合法的 Internet 主机名或者 ip 地址</li>
+<li>port 指一个端口号，为空则为 80</li>
+<li>abs_path 指定请求的 URL</li>
+</ul>
+<h4 id="HTTP-请求"><a href="#HTTP-请求" class="headerlink" title="HTTP 请求"></a>HTTP 请求</h4><ul>
+<li>http请求由请求行、<strong>请求头</strong>、请求正文组成。<ul>
+<li>请求体第一行就是请求行；请求行由请求方式，请求路径、请求协议版本三部分组成</li>
+<li>请求头指一行一行的键值对</li>
+<li>正文即是内容；GET请求没有正文，其内容直接跟在地址后面</li>
+</ul>
+</li>
+</ul>
+<h4 id="HTTP-响应"><a href="#HTTP-响应" class="headerlink" title="HTTP 响应"></a>HTTP 响应</h4><ul>
+<li>在接收和解释请求消息后，服务器返回一个 HTTP 响应消息。HTTP 响应由状态行、消息报头、响应正文组成<ul>
+<li>状态行由协议版本、状态码、请求结果组成</li>
+<li>消息报头与请求头大致相同</li>
+<li>响应正文就是浏览器呈现的内容</li>
+</ul>
+</li>
+</ul>
+<h4 id="消息头"><a href="#消息头" class="headerlink" title="消息头"></a>消息头</h4><p>  HTTP消息由客户端到服务器的请求和服务器到客户端的响应组成，请求消息和响应消息都是由开始行（对于请求消息， 开始行就是请求行；响应消息则是状态行），消息报头，空行，消息正文（可选）组成</p>
+<p>  每一个报头域都是由 名字+”:”+空格+值 组成，消息报头域的名字是大小写无关的</p>
+<p>1.请求头：</p>
+<p>  请求报头允许客户端向服务器传递请求的附加信息以及客户端自身的信息，无法通过参数来传递的用请求头。</p>
+<ul>
+<li><p>referer： 该请求头指明请求从哪里来</p>
+<p> 此请求头后面接的值为上一个页面的URL地址，通常用来做统计、防盗链。如果是从浏览器地址栏直接输入进行访问的，都没有该请求头。例如百度的广告，搜一个东西，出现广告字样的连接，点击会记录是从百度搜索进来的。例如邀请好友，用来记录是谁邀请进来的。例如从a页面到d页面，必须要经过b页面和c页面，防盗链。</p>
+</li>
+</ul>
+<p>2.响应头</p>
+<p>  响应报头允许服务器传递不能放在状态行中的附加响应消息，以及关于服务器的信息和对Request-URL所标识的资源进行下一步访问的信息</p>
+<ul>
+<li>location（重定向）：location 响应报头域用于重定向接收者到一个新位置</li>
+</ul>
+<p>  location响应报头域，常用在服务器更换域名时</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.sendRedirect(<span class="string">&quot;http://www.baidu.com&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>refresh：第一种是定时自动跳转到 [url]指定的页面（单位为秒）（307重定向过来的），可以在html页面通过meta标签实现，也可以在后台实现；第二种是不带 [url] 是指每 [content] 秒刷新一次页面    </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta http-equiv=<span class="string">&quot;refresh&quot;</span> content=<span class="string">&quot;3;url=http://www.baidu.com&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-servlet概述"><a href="#2-servlet概述" class="headerlink" title="2.servlet概述"></a>2.servlet概述</h3><p>Servlet 是 Server 与 Applet 的缩写，是服务端小程序的意思。使用 Java 语言编写的服务器端程序，可以生成动态的 WEB 页，Servlet 主要运行在服务器端，并由服务器调用执行， 是一种按照 Servlet 标准来开发的类。 是 SUN 公司提供的一门用于开发动态 Web 资源的技术。（言外之意：要实现 web 开发，需要实现 Servlet 标准）</p>
 <p>Servlet 本质上也是 Java 类，但要遵循 Servlet 规范进行编写，没有 main()方法，它的创建、使用、销毁都由 Servlet容器进行管理(如 Tomcat)。（言外之意：写自己的类，不用写 main 方法，别人自动调用）</p>
 <p>Servlet 是和 HTTP 协议是紧密联系的，其可以处理 HTTP 协议相关的所有内容。这也是 Servlet 应用广泛的原因之一。<br>提供了 Servlet 功能的服务器，叫做 Servlet 容器，其常见容器有很多，如 Tomcat, Jetty, WebLogic Server, WebSphere, JBoss 等等。</p>
 <p><strong>tomcat和servlet的关系</strong></p>
 <p>Tomcat 是Web应用服务器,是一个Servlet/JSP容器. Tomcat 作为Servlet容器,负责处理客户请求,把请求传送给Servlet,并将Servlet的响应传送回给客户.而Servlet是一种运行在支持Java语言的服务器上的组件。</p>
-<h3 id="1-使用servlet"><a href="#1-使用servlet" class="headerlink" title="1.使用servlet"></a>1.使用servlet</h3><h4 id="1-新建web项目"><a href="#1-新建web项目" class="headerlink" title="1.新建web项目"></a>1.新建web项目</h4><p>创建web工程，java enterprise - web application，引入jdk、tomcat。</p>
-<h4 id="2-实现servlet规范"><a href="#2-实现servlet规范" class="headerlink" title="2.实现servlet规范"></a>2.实现servlet规范</h4><p>实现 Servlet 规范，即继承 HttpServlet 类（tomcat里的jar包支持的），该类中已经完成了通信的规则，我们只需要进行业务的实现即可。</p>
+<h3 id="3-使用servlet"><a href="#3-使用servlet" class="headerlink" title="3.使用servlet"></a>3.使用servlet</h3><h4 id="3-1-新建web项目"><a href="#3-1-新建web项目" class="headerlink" title="3.1.新建web项目"></a>3.1.新建web项目</h4><p>创建web工程，java enterprise - web application，引入jdk、tomcat。</p>
+<h4 id="3-2-实现servlet规范"><a href="#3-2-实现servlet规范" class="headerlink" title="3.2.实现servlet规范"></a>3.2.实现servlet规范</h4><p>实现 Servlet 规范，即继承 HttpServlet 类（tomcat里的jar包支持的），该类中已经完成了通信的规则，我们只需要进行业务的实现即可。</p>
 <p><strong>重写 service 方法</strong><br>满足 Servlet 规范只是让我们的类能够满足接收请求的要求，接收到请求后需要对请求进行分析，以及进行业务逻辑处理，计算出结果，则需要添加代码，在规范中有一个叫做 service的方法，专门用来做请求处理的操作，业务代码则可以写在该方法中。</p>
 <p><strong>通过注解设置路径</strong></p>
 <p>在完成好了一切代码的编写后，还需要向服务器说明，特定请求对应特定资源。</p>
@@ -252,25 +751,25 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.liuxuan.servlet.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: liuxuan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2022-03-19 17:00</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="meta">@WebServlet(&quot;/ser01&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Servlet1</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello Servlet!&quot;</span>);</span><br><span class="line">        resp.getWriter().write(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="3-发布项目并启动服务"><a href="#3-发布项目并启动服务" class="headerlink" title="3.发布项目并启动服务"></a>3.发布项目并启动服务</h4><p>到此，需要编写和配置的地方已经完成，项目已经完整了，但是如果需要外界能够访问， 还需要将项目发布到服务器上并运行服务器。</p>
+<h4 id="3-3-发布项目并启动服务"><a href="#3-3-发布项目并启动服务" class="headerlink" title="3.3.发布项目并启动服务"></a>3.3.发布项目并启动服务</h4><p>到此，需要编写和配置的地方已经完成，项目已经完整了，但是如果需要外界能够访问， 还需要将项目发布到服务器上并运行服务器。</p>
 <p>设置tomcat配置，设置项目的站点名（项目对外访问路径）</p>
 <p>配置中选deployment更改站点名。</p>
 <p>然后启动就可以访问页面。</p>
 <p><a target="_blank" rel="noopener" href="http://localhost:8080/servlet_demo/ser01">http://localhost:8080/servlet_demo/ser01</a></p>
 <p>tomcat有个绿点表示正在运行。</p>
-<h3 id="2-servlet工作流程"><a href="#2-servlet工作流程" class="headerlink" title="2.servlet工作流程"></a>2.servlet工作流程</h3><p>1.通过请求头获知浏览器访问的是哪个主机</p>
+<h3 id="4-servlet工作流程"><a href="#4-servlet工作流程" class="headerlink" title="4.servlet工作流程"></a>4.servlet工作流程</h3><p>1.通过请求头获知浏览器访问的是哪个主机</p>
 <p>2.再通过请求行获取访问的是哪个一个web应用</p>
 <p>3.再通过请求行中的请求路径获知访问的是哪个资源</p>
 <p>4.通过获取的资源路径在配置中匹配到真实的路径</p>
 <p>5.服务器会创建servlet对象，（如果是第一次访问时，创建servlet实例，并调用init方法进行初始化操作）</p>
 <p>6.调用service（request， response）方法来处理请求和响应的操作</p>
 <p>7.调用service完毕后返回服务器，由服务器将response缓冲区的数据取出，以http响应的格式发送给浏览器</p>
-<h3 id="3-servlet工作模式"><a href="#3-servlet工作模式" class="headerlink" title="3.servlet工作模式"></a>3.servlet工作模式</h3><ul>
+<h3 id="5-servlet工作模式"><a href="#5-servlet工作模式" class="headerlink" title="5.servlet工作模式"></a>5.servlet工作模式</h3><ul>
 <li>客户端发送请求至服务器</li>
 <li>服务器启动并调用Servlet，Servlet根据客户端请求生成响应内容并将其传给服务器</li>
 <li>服务器将响应返回客户端</li>
 </ul>
-<h3 id="4-servlet生命周期"><a href="#4-servlet生命周期" class="headerlink" title="4.servlet生命周期"></a>4.servlet生命周期</h3><p>Servlet没有 main()方法，不能独立运行，它的运行完全由 Servlet 引擎来控制和调度。 所谓生命周期，指的是servlet 容器何时创建 servlet 实例、何时调用其方法进行请求的处理、 何时并销毁其实例的整个过程。</p>
+<h3 id="6-servlet生命周期"><a href="#6-servlet生命周期" class="headerlink" title="6.servlet生命周期"></a>6.servlet生命周期</h3><p>Servlet没有 main()方法，不能独立运行，它的运行完全由 Servlet 引擎来控制和调度。 所谓生命周期，指的是servlet 容器何时创建 servlet 实例、何时调用其方法进行请求的处理、 何时并销毁其实例的整个过程。</p>
 <ol>
 <li>实例和初始化时机（类加载和实力化）<br>当请求到达容器时，容器查找该 servlet 对象是否存在，如果不存在，则会创建实例并进行初始化。</li>
 <li>就绪/调用/服务阶段<br>有请求到达容器，容器调用 servlet 对象的 service()方法,处理请求的方法在整个生命周期中可以被多次调用；<br>HttpServlet 的 service()方法，会依据请求方式来调用 doGet()或者 doPost()方法。但是， 这两个 do 方法默认情况下，会抛出异常，需要子类去 override。</li>
@@ -292,7 +791,7 @@
 <li>HttpServlet 调用 HttpServletResponse 对象的有关方法，生成响应数据</li>
 <li>Servlet 容器把 HttpServlet 的响应结果传给 Web Client</li>
 </ol>
-<h3 id="5-形参：HttpServletRequest对象"><a href="#5-形参：HttpServletRequest对象" class="headerlink" title="5.形参：HttpServletRequest对象"></a>5.形参：HttpServletRequest对象</h3><p>HttpServletRequest 对象：主要作用是用来接收客户端发送过来的请求信息，例如：请求的参数，发送的头信息等都属于客户端发来的信息，service()方法中形参接收的HttpServletRequest 接口的实例化对象，表示该对象主要应用在 HTTP 协议上，该对象是由 Tomcat 封装好传递过来。</p>
+<h3 id="7-形参：HttpServletRequest对象"><a href="#7-形参：HttpServletRequest对象" class="headerlink" title="7.形参：HttpServletRequest对象"></a>7.形参：HttpServletRequest对象</h3><p>HttpServletRequest 对象：主要作用是用来接收客户端发送过来的请求信息，例如：请求的参数，发送的头信息等都属于客户端发来的信息，service()方法中形参接收的HttpServletRequest 接口的实例化对象，表示该对象主要应用在 HTTP 协议上，该对象是由 Tomcat 封装好传递过来。</p>
 <p>HttpServletRequest 是 ServletRequest 的子接口，ServletRequest 只有一个子接口，就是 HttpServletRequest。既然只有一个子接口为什么不将两个接口合并为一个？<br>从长远上讲：现在主要用的协议是 HTTP 协议，但以后可能出现更多新的协议。若以后想要支持这种新协议，只需要直接继承 ServletRequest 接口就行了。</p>
 <p>在 HttpServletRequest 接口中，定义的方法很多，但都是围绕接收客户端参数的。但是怎么拿到该对象呢？不需要，直接在 Service 方法中由容器传入过来，而我们需要做的就是取出对象中的数据，进行分析、处理。</p>
 <h4 id="接收请求"><a href="#接收请求" class="headerlink" title="接收请求"></a>接收请求</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.liuxuan.servlet.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: liuxuan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2022-03-20 09:41</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="meta">@WebServlet(&quot;/ser03&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Servlet3</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 常用方法</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">// 获取请求时的完整路径（从http开始，到？前面结束）</span></span><br><span class="line">        String url = req.getRequestURL() +<span class="string">&quot;&quot;</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;url:&quot;</span>+url);</span><br><span class="line">        <span class="comment">// 获取请求时的部分路径（从项目的站点名称开始，到？前面结束）</span></span><br><span class="line">        String uri = req.getRequestURI();</span><br><span class="line">        System.out.println(<span class="string">&quot;uri:&quot;</span>+uri);</span><br><span class="line">        <span class="comment">// 获取请求时的参数字符串（从？开始）</span></span><br><span class="line">        String queryString = req.getQueryString();</span><br><span class="line">        System.out.println(<span class="string">&quot;queryString:&quot;</span>+queryString);</span><br><span class="line">        <span class="comment">// 获取请求方式</span></span><br><span class="line">        String method = req.getMethod();</span><br><span class="line">        System.out.println(<span class="string">&quot;method:&quot;</span>+method);</span><br><span class="line">        <span class="comment">// 获取当前协议版本</span></span><br><span class="line">        String protocol = req.getProtocol();</span><br><span class="line">        System.out.println(<span class="string">&quot;protocol:&quot;</span>+protocol);</span><br><span class="line">        <span class="comment">// 获取项目的站点名</span></span><br><span class="line">        String webApp = req.getContextPath();</span><br><span class="line">        System.out.println(<span class="string">&quot;webApp:&quot;</span>+webApp);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 获取请求的参数</span></span><br><span class="line"><span class="comment">         * http://localhost:8080/servlet_demo/ser03?uname=lili&amp;upwd=lslsls&amp;input=111&amp;input=222&amp;input=333</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">// 获取指定名称的参数值,返回字符串</span></span><br><span class="line">        String uname = req.getParameter(<span class="string">&quot;uname&quot;</span>);</span><br><span class="line">        String upwd = req.getParameter(<span class="string">&quot;upwd&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;uname:&quot;</span>+uname);</span><br><span class="line">        System.out.println(<span class="string">&quot;upwd:&quot;</span>+upwd);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取指定名称的参数的所有参数值,返回字符串数组（用于复选框传值）</span></span><br><span class="line">        String[] strings = req.getParameterValues(<span class="string">&quot;input&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(strings != <span class="keyword">null</span> &amp;&amp; strings.length &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span>(String s : strings)&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;strings:&quot;</span>+s);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -322,7 +821,7 @@
 
 
 
-<h3 id="6-形参：HttpServletResponse对象"><a href="#6-形参：HttpServletResponse对象" class="headerlink" title="6.形参：HttpServletResponse对象"></a>6.形参：<strong>HttpServletResponse对象</strong></h3><p>Web服务器收到客户端的http请求，会针对每一次请求，分别创建一个用于代表请求的 request 对象和代表响应的 response 对象。<br>request 和 response 对象代表请求和响应：获取客户端数据，需要通过 request 对象；向客户端输出数据，需要通过 response 对象。</p>
+<h3 id="8-形参：HttpServletResponse对象"><a href="#8-形参：HttpServletResponse对象" class="headerlink" title="8.形参：HttpServletResponse对象"></a>8.形参：<strong>HttpServletResponse对象</strong></h3><p>Web服务器收到客户端的http请求，会针对每一次请求，分别创建一个用于代表请求的 request 对象和代表响应的 response 对象。<br>request 和 response 对象代表请求和响应：获取客户端数据，需要通过 request 对象；向客户端输出数据，需要通过 response 对象。</p>
 <p>HttpServletResponse 的主要功能用于服务器对客户端的请求进行响应，将 Web 服务器处理后的结果返回给客户端。service()方法中形参接收的是 HttpServletResponse 接口的实例化对象，这个对象中封装了向客户端发送数据、发送响应头，发送响应状态码的方法。</p>
 <h4 id="响应数据"><a href="#响应数据" class="headerlink" title="响应数据"></a>响应数据</h4><p>接收到客户端请求后，可以通过 HttpServletResponse 对象直接进行响应，响应时需要获取输出流。有两种形式：</p>
 <p>getWriter() 获取字符流(只能响应字符) </p>
@@ -350,7 +849,7 @@
 <p>对于请求转发，举个例子，前端页面输入用户名和密码，req.getAttribute获取参数，或是req.setAttribute设置参数，使用请求转发可以将参数传递到jsp页面，jsp页面使用req.getAttribute进行获取。</p>
 <p>而重定向是返回一个新的页面，两个页面之间没有参数传递。</p>
 <p>请求转发的地址只能是当前站点下（字符串参数就是加载项目根目录后面的字符串），重定向地址可以是任意地址。跨域跳转只能用重定向。</p>
-<h3 id="7-cookie"><a href="#7-cookie" class="headerlink" title="7.cookie"></a>7.cookie</h3><p>web程序使用http协议传输，http无状态，导致每一次连接传输的数据量增大。服务器从网络连接中无法获得客户端身份，cookie相当于是服务端颁发给客户端的通行证。不同的服务器应用给客户端的cookie也不一样，是隔离的。</p>
+<h3 id="9-cookie"><a href="#9-cookie" class="headerlink" title="9.cookie"></a>9.cookie</h3><p>web程序使用http协议传输，http无状态，导致每一次连接传输的数据量增大。服务器从网络连接中无法获得客户端身份，cookie相当于是服务端颁发给客户端的通行证。不同的服务器应用给客户端的cookie也不一样，是隔离的。</p>
 <p>cookie是浏览器提供的一种技术，通过服务器的程序能将一些只须保存在客户端，或者在客户端进行处理的数据，放在本地的计算机上，不需要通过网络传输，因而提高网页处理的效率，并且能够减少服务器的负载，但是由于cookie是服务器保存在客户端的信息，所以其安全性也是很差的。例如常见的记住密码则可以通过cookie来实现，还有通常的推荐显示。</p>
 <p>有一个专门操作Cookie的类javax.servlet.http.Cookie。随着服务器端的响应发送给客户端，保存在浏览器。当下次再访问服务器时把Cookie再带回服务器。</p>
 <p>Cookie的格式：键值对用=连接，多个键值对间用;隔开。</p>
@@ -416,7 +915,7 @@
 <p>如果我们设置path，如果当前访问的路径包含了cookie的路径（当前访问路径在cookie路径基础上要比cookie的范围小）cookie就会加载到request对象之中。</p>
 <p>cookie的路径指的是可以访问该cookie的顶层目录，该路径的子路径也可以访问该cookie。</p>
 <p>总结：当访问的路径包含了cookie的路径时，则该请求将带上该cookie；如果访问路径不包含cookie路径，则该请求不会携带该cookie。</p>
-<h3 id="8-HttpSession对象"><a href="#8-HttpSession对象" class="headerlink" title="8.HttpSession对象"></a>8.HttpSession对象</h3><p>上面讲解了请求的概念，无状态，无法做到多个请求之间的数据共享。</p>
+<h3 id="10-HttpSession对象"><a href="#10-HttpSession对象" class="headerlink" title="10.HttpSession对象"></a>10.HttpSession对象</h3><p>上面讲解了请求的概念，无状态，无法做到多个请求之间的数据共享。</p>
 <p>HttpSession对象是javax.servlet.http.HttpSession的实例，该接口并不像HttpServletRequest或HttpServletResponse还存在一个父接口，该接口只是一个纯粹的接口。这因为Session本身就属于HTTP协议的范畴。</p>
 <p>Session：在计算机中，尤其是在网络应用中，称为“会话控制”。Session对象存储特定用户会话所需的属性及配置信息。这样，当用户在应用程序的Web页之间跳转时，存储在Session对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。</p>
 <p>对于服务器而言，每一个连接到它的客户端都是一个 session，servlet 容器使用此接口创建 HTTP 客户端和 HTTP 服务器之间的会话。会话将保留指定的时间段，跨多个连接或来自用户的页面请求。<strong>一 个会话通常对应于一个用户，该用户可能多次访问一个站点。</strong>可以通过此接口查看和操作有关某个会话 的信息，比如会话标识符、创建时间和最后一次访问时间。在整个 session 中，最重要的就是属性的操 作。</p>
@@ -463,7 +962,7 @@
 <p>非正常关闭服务器时才会失效。      </p>
 <p>如果是正常关闭服务器，session会被钝化到本地磁盘，下次访问时会从本地磁盘中活化出来。在 工作空间 work 目录下的 SESSION.ser 文件中。 </p>
 <p>Session 失效则意味着此次会话结束，数据共享结束。</p>
-<h3 id="9-ServletContext对象"><a href="#9-ServletContext对象" class="headerlink" title="9.ServletContext对象"></a>9.ServletContext对象</h3><h4 id="ServletContext对象的获取"><a href="#ServletContext对象的获取" class="headerlink" title="ServletContext对象的获取"></a>ServletContext对象的获取</h4><p>每一个web应用都有且仅有一个ServletContext对象，又称为Application对象，从名称中可知，该对象是与应用程序相关的。在web容器启动时，会为每一个web应用程序创建一个对应的ServletContext对象。</p>
+<h3 id="11-ServletContext对象"><a href="#11-ServletContext对象" class="headerlink" title="11.ServletContext对象"></a>11.ServletContext对象</h3><h4 id="ServletContext对象的获取"><a href="#ServletContext对象的获取" class="headerlink" title="ServletContext对象的获取"></a>ServletContext对象的获取</h4><p>每一个web应用都有且仅有一个ServletContext对象，又称为Application对象，从名称中可知，该对象是与应用程序相关的。在web容器启动时，会为每一个web应用程序创建一个对应的ServletContext对象。</p>
 <p>该对象有两大作用，第一、作为域对象来共享数据，此时数据在整个应用程序中共享；第二、该对象中保存了当前应用程序相关信息。例如可以通过getServerInfo()方法获取当前服务器信息，getRealPath(String path)获取资源的真实路径等。</p>
 <p>ServletContext对象获取：</p>
 <p>①.通过request对象获取</p>
@@ -486,7 +985,7 @@
 <p>1.request域对象<br>在一次请求中有效。请求转发有效,重定向失败。</p>
 <p>2.session域对象<br>在一次会话中有效。请求转发和重定向都有效，session销毁后失效。</p>
 <p>3.servletContext域对象<br>在整个应用程序中有效。服务器关闭销毁。</p>
-<h3 id="10-文件上传和下载"><a href="#10-文件上传和下载" class="headerlink" title="10.文件上传和下载"></a>10.文件上传和下载</h3><p>servlet中如何实现文件的上传和下载。</p>
+<h3 id="12-文件上传和下载"><a href="#12-文件上传和下载" class="headerlink" title="12.文件上传和下载"></a>12.文件上传和下载</h3><p>servlet中如何实现文件的上传和下载。</p>
 <h4 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h4><p>文件上传涉及到前台页面的编写和后台服务器端代码的编写，前台发送文件，后台接收并保存文件，这才是一个完整的文件上传。</p>
 <h5 id="前台页面"><a href="#前台页面" class="headerlink" title="前台页面"></a>前台页面</h5><p>在做文件上传的时候，会有一个上传文件的界面，首先我们需要一个表单，并且表单的请求方式为 POST；其次我们的 form 表单的 enctype 必须设为”multipart/form-data”即 enctype=“multipart/form-data” 意思是设置表单的 MIME 编码。默认情况下这个编码格式是 ”application/x-www-form-urlencoded”，不能用于文件上传；只有使用了 multipart/form-data 才能完整地传递文件数据。</p>
 <figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line">  Created by IntelliJ IDEA.</span><br><span class="line">  User: mac</span><br><span class="line">  Date: <span class="number">2022</span>/<span class="number">3</span>/<span class="number">29</span></span><br><span class="line">  Time: 下午<span class="number">9</span>:<span class="number">41</span></span><br><span class="line">  To change <span class="keyword">this</span> template use File | Settings | File Templates.</span><br><span class="line">--%&gt;</span><br><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;文件上传&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!--</span><br><span class="line">        <span class="number">1.</span>准备表单</span><br><span class="line">        <span class="number">2.</span>设置表单的提交类型 method=<span class="string">&quot;post&quot;</span></span><br><span class="line">        <span class="number">3.</span>设置表单类型为文件上传表单 enctype=<span class="string">&quot;multipart/form-data&quot;</span></span><br><span class="line">        <span class="number">4.</span>设置文件提交的地址 action=<span class="string">&quot;uploadServlet&quot;</span></span><br><span class="line">        <span class="number">5.</span>准备表单元素 <span class="number">1.</span>普通表单项 type=<span class="string">&quot;text&quot;</span> <span class="number">2.</span>文件项 type=<span class="string">&quot;file&quot;</span></span><br><span class="line">        <span class="number">6.</span>设置表单元素的name属性值，否则后台无法接收数据</span><br><span class="line">        --&gt;</span><br><span class="line">    &lt;form method=<span class="string">&quot;post&quot;</span> action=<span class="string">&quot;uploadServlet&quot;</span> enctype=<span class="string">&quot;multipart/form-data&quot;</span>&gt;</span><br><span class="line">        姓名：&lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;uname&quot;</span>&gt;&lt;br/&gt;</span><br><span class="line">        文件：&lt;input type=<span class="string">&quot;file&quot;</span> name=<span class="string">&quot;myfile&quot;</span>&gt;&lt;br/&gt;</span><br><span class="line">        &lt;!-- button 默认的 type 属性是 submit，做提交按钮可以不设置 type --&gt;</span><br><span class="line">        &lt;button type=<span class="string">&quot;submit&quot;</span>&gt; 提交 &lt;/button&gt;</span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
@@ -1736,85 +2235,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/06/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2022.2.6.%E6%A3%80%E6%B5%8B%E5%A4%A7%E5%86%99%E5%AD%97%E6%AF%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/06/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2022.2.6.%E6%A3%80%E6%B5%8B%E5%A4%A7%E5%86%99%E5%AD%97%E6%AF%8D/" class="post-title-link" itemprop="url">javaのleecode 检测大写字母</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-02-06 10:33:36 / Modified: 11:29:41" itemprop="dateCreated datePublished" datetime="2022-02-06T10:33:36+08:00">2022-02-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">520.给你一个字符串 word 。</span><br><span class="line">我们定义，在以下情况时，单词的大写用法是正确的：</span><br><span class="line">全部字母都是大写，比如 &quot;USA&quot; 。</span><br><span class="line">单词中所有字母都不是大写，比如 &quot;leetcode&quot; 。</span><br><span class="line">如果单词不只含有一个字母，只有首字母大写， 比如 &quot;Google&quot; 。</span><br><span class="line"></span><br><span class="line">如果大写用法正确，返回 true ；否则，返回 false 。</span><br><span class="line">输入：word = &quot;Usa&quot;</span><br><span class="line">输出：true</span><br></pre></td></tr></table></figure>
-
-<p>关于字符串，遍历字符串使用<code>charAt</code>，以及判断字母是大写还是小写。ASC码中，A是65，a是97。大写小写相差32，而不是26.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> leecode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@program</span>: leeco</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 检测是否全大写520</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: liuxuan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2022-02-06 10:50</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JianceDaxie</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;输入字符串：&quot;</span>);</span><br><span class="line">        Scanner sin=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String ss = sin.next();</span><br><span class="line"><span class="comment">//        StringBuilder s = new StringBuilder(ss);  //String变StringBuilder</span></span><br><span class="line"><span class="comment">//        System.out.println(s);</span></span><br><span class="line">        JianceDaxieSolution s = <span class="keyword">new</span> JianceDaxieSolution();</span><br><span class="line">        System.out.println(<span class="string">&quot;结果：&quot;</span>+s.detectCapitalUse(ss));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JianceDaxieSolution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">detectCapitalUse_1</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//字符串遍历</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;word.length(); i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> num = word.charAt(i);  <span class="comment">//直接变acs码？？</span></span><br><span class="line">            <span class="keyword">if</span>(num &gt;=<span class="number">97</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">detectCapitalUse</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> allUpperCase = <span class="keyword">true</span>;  <span class="comment">//是否全部大写</span></span><br><span class="line">        <span class="keyword">boolean</span> allLowerCaseFromSecond = <span class="keyword">true</span>;  <span class="comment">//是否从第二个开始全部小写</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; word.length(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (word.charAt(i) &lt; <span class="string">&#x27;A&#x27;</span> || word.charAt(i) &gt; <span class="string">&#x27;Z&#x27;</span>) &#123; <span class="comment">//可以直接判断的</span></span><br><span class="line">                allUpperCase = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; (word.charAt(i) &lt; <span class="string">&#x27;a&#x27;</span> || word.charAt(i) &gt; <span class="string">&#x27;z&#x27;</span>)) &#123;</span><br><span class="line">                allLowerCaseFromSecond = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> allUpperCase || allLowerCaseFromSecond;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其他解法：</p>
-<p><code>Character.isLowerCase(word.charAt(0))</code>判断字符是大写还是小写</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">detectCapitalUse</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 若第 1 个字母为小写，并且第二个字母是大写，则肯定false</span></span><br><span class="line">        <span class="keyword">if</span> (word.length() &gt;= <span class="number">2</span> &amp;&amp; Character.isLowerCase(word.charAt(<span class="number">0</span>)) &amp;&amp; Character.isUpperCase(word.charAt(<span class="number">1</span>))) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 无论第 1 个字母是否大写，其他字母必须与第 2 个字母的大小写相同，比较绕了属于是</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; word.length(); ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Character.isLowerCase(word.charAt(i)) ^ Character.isLowerCase(word.charAt(<span class="number">1</span>))) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">作者：LeetCode-Solution</span><br><span class="line">链接：https:<span class="comment">//leetcode-cn.com/problems/detect-capital/solution/jian-ce-da-xie-zi-mu-by-leetcode-solutio-449z/</span></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
-
-<p><code>word.toUpperCase()</code>字符串内所有字符大小写转换</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">detectCapitalUse</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (word.toUpperCase().equals(word)) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (word.toLowerCase().equals(word)) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">int</span> n = word.length(), idx = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (Character.isUpperCase(word.charAt(<span class="number">0</span>))) &#123;</span><br><span class="line">            <span class="keyword">while</span> (idx &lt; n &amp;&amp; Character.isLowerCase(word.charAt(idx))) idx++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> idx == n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">作者：AC_OIer</span><br><span class="line">链接：https:<span class="comment">//leetcode-cn.com/problems/detect-capital/solution/gong-shui-san-xie-jian-dan-zi-fu-chuan-m-rpor/</span></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1885,7 +2305,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
