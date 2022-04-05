@@ -183,6 +183,99 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/project%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/project%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">项目相关</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-02 20:01:00" itemprop="dateCreated datePublished" datetime="2021-09-02T20:01:00+08:00">2021-09-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-25 21:54:06" itemprop="dateModified" datetime="2021-09-25T21:54:06+08:00">2021-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="修改路由"><a href="#修改路由" class="headerlink" title="修改路由"></a>修改路由</h2><p>![image-20210901112055198](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210901112055198.png)</p>
+<p>路由字符串可随意修改，后面跟action下的文件里的函数名就好。</p>
+<p>注意后面跟的create和文件名没关系，文件名可以改成别的。</p>
+<p>文件里的函数名必须是是Create，需要大写。</p>
+<p>访问的接口的create可大写可小写。</p>
+<h2 id="修改端口"><a href="#修改端口" class="headerlink" title="修改端口"></a>修改端口</h2><p>首先查看端口占用，再更改配置</p>
+<p>![image-20210901112159550](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210901112159550.png)</p>
+<h2 id="post请求怎么通过url访问"><a href="#post请求怎么通过url访问" class="headerlink" title="post请求怎么通过url访问"></a>post请求怎么通过url访问</h2><p>post请求当然无法通过url访问，内容不在url里，而在body里。</p>
+<p>用curl</p>
+<h2 id="访问网址的脚本"><a href="#访问网址的脚本" class="headerlink" title="访问网址的脚本"></a>访问网址的脚本</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">echo &quot;访问时间是：`date &#x27;+%Y%m%d %H:%M:%S&#x27;`--$code---&gt;$url&quot; &gt;&gt; result.log</span><br><span class="line">n=0</span><br><span class="line">max=11</span><br><span class="line">while(($n&lt;max))</span><br><span class="line">do</span><br><span class="line">    curl &#x27;https://www.baidu.com/&#x27; //访问url</span><br><span class="line">    n=($n+1)</span><br><span class="line">    sleep 1s</span><br><span class="line">done</span><br><span class="line">#while循环访问url,直到状态码为200跳出循环</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">result.log</span><br><span class="line">n=0</span><br><span class="line">max=20</span><br><span class="line"><span class="meta">while(($</span><span class="bash">n&lt;max))</span></span><br><span class="line">do</span><br><span class="line">    echo -e &quot;times:$n, time:`date &#x27;+%Y%m%d %H:%M:%S&#x27;`&quot; &gt;&gt; new.log</span><br><span class="line">    curl &#x27;http://10.12.205.134:8182/pt/idproducer/v2/create?appid=10001&#x27;&gt;&gt;new.log</span><br><span class="line">    echo -e &quot;\n&quot;&gt;&gt;new.log</span><br><span class="line">    </span><br><span class="line">    echo -e &quot;times:$n, time:`date &#x27;+%Y%m%d %H:%M:%S&#x27;`&quot; &gt;&gt; old.log</span><br><span class="line">    curl &#x27;http://10.12.205.134:8182/pt/idproducer/create?appid=3&#x27;&gt;&gt;old.log</span><br><span class="line">    echo -e &quot;\n&quot;&gt;&gt;old.log</span><br><span class="line">    n=($n+1)</span><br><span class="line">    sleep 1s</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>不加次数时间：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">n=0</span><br><span class="line">max=3600</span><br><span class="line"><span class="meta">while(($</span><span class="bash">n&lt;max))</span></span><br><span class="line">do</span><br><span class="line">    curl &#x27;http://10.229.66.155:2010/pt/idproducer/v2/create?appid=10001&#x27;&gt;&gt;new.log</span><br><span class="line">    echo -e &quot;\n&quot; &gt;&gt; new.log</span><br><span class="line">    curl &#x27;http://10.229.66.155:2010/pt/idproducer/create?appid=13&#x27;&gt;&gt;old.log</span><br><span class="line">    echo -e &quot;\n&quot; &gt;&gt; old.log</span><br><span class="line">    n=$n+1</span><br><span class="line">    sleep 1s</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<h2 id="快速计算的脚本"><a href="#快速计算的脚本" class="headerlink" title="快速计算的脚本"></a>快速计算的脚本</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">echo -n &quot;please input your name and age:&quot;</span><br><span class="line">read name age</span><br><span class="line">echo &quot;welcome $name, your age is $age&quot;</span><br><span class="line"></span><br><span class="line">read -p &quot;please input your name and age:&quot; name age</span><br><span class="line">echo &quot;welcome $name, your age is $age&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">echo -n &quot;please input your maxid and oldstep and newstep:&quot;</span><br><span class="line">read maxid oldstep newstep</span><br><span class="line">declare -i a=$maxid+$oldstep*5000000</span><br><span class="line">declare -i b=$a/$newstep</span><br><span class="line">echo &quot;after calcu is: $b&quot;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/mysql%E5%AE%9E%E6%88%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1372,81 +1465,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/2021.8.15%20%E7%AC%94%E8%AF%95%E8%AE%B0%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/19/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/2021.8.15%20%E7%AC%94%E8%AF%95%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">2021.8.15 笔试记录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-19 20:03:52" itemprop="dateCreated datePublished" datetime="2021-08-19T20:03:52+08:00">2021-08-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 21:46:45" itemprop="dateModified" datetime="2021-09-25T21:46:45+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/" itemprop="url" rel="index"><span itemprop="name">笔经面经</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>1.需要掌握以下图的深度优先遍历</p>
-<p>2.信号量上执行正确的PV操作可有效避免多进程并发执行产生的与时间有关的错误。信号量S=0时，表示当前？</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1517,7 +1535,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

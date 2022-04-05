@@ -183,6 +183,116 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/05/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%BC%A0%E5%88%B0github/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/05/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%BC%A0%E5%88%B0github/" class="post-title-link" itemprop="url">demo上传到github</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-05 13:34:09 / Modified: 14:31:50" itemprop="dateCreated datePublished" datetime="2022-04-05T13:34:09+08:00">2022-04-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="1-看一下与github的连接"><a href="#1-看一下与github的连接" class="headerlink" title="1.看一下与github的连接"></a>1.看一下与github的连接</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">没安装git的话，brew install git 安装一下</span><br><span class="line"></span><br><span class="line">设置ssh：</span><br><span class="line">ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot;</span><br><span class="line">~/下生成.ssh文件夹，进去，打开id_rsa.pub，复制里面的key，添加到github</span><br><span class="line"></span><br><span class="line">验证连接：ssh -T git@github.com</span><br><span class="line"></span><br><span class="line">设置用户名和邮箱：</span><br><span class="line">git config --global user.name &quot;jadeliuliu&quot;</span><br><span class="line">git config --global user.email &quot;xxxxx@163.com&quot;</span><br><span class="line">git config --list</span><br><span class="line"></span><br><span class="line">You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-代码push到github"><a href="#2-代码push到github" class="headerlink" title="2.代码push到github"></a>2.代码push到github</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git init  初始化该文件夹</span><br><span class="line">git add</span><br><span class="line">git commit 这样已经将要更改的文件提交到版本库中，但是呢还没有真正提交到网站上去</span><br><span class="line">github建立仓库</span><br><span class="line">关联github仓库：</span><br><span class="line">git remote add origin git@github.com:用户名/仓库名.git</span><br><span class="line">git remote add origin https://github.com/用户名/仓库名.git</span><br><span class="line">上面的两个命令结果一样，只是协议不一样，第一个速度会比较快。只是第一次提交项目时需要</span><br><span class="line">git push -u origin master 提交到github</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-git中使用ssh和http协议的区别"><a href="#3-git中使用ssh和http协议的区别" class="headerlink" title="3.git中使用ssh和http协议的区别"></a>3.git中使用ssh和http协议的区别</h4><p>git可以使用四种主要的协议来传输资料: 本地协议（Local），HTTP 协议，SSH（Secure Shell）协议及 git 协议。其中，本地协议由于目前大都是进行远程开发和共享代码所以一般不常用，而git协议由于缺乏授权机制且较难架设所以也不常用。</p>
+<p>最常用的便是SSH和HTTP(S)协议。git关联远程仓库可以使用http协议或者ssh协议。</p>
+<p><strong>【优缺点】</strong></p>
+<p><strong>ssh：</strong></p>
+<ul>
+<li>一般使用22端口；</li>
+<li>通过先在本地生成SSH密钥对再把公钥上传到服务器；</li>
+<li>速度相较慢点</li>
+</ul>
+<p><strong>https：</strong></p>
+<ul>
+<li>一般使用443端口；</li>
+<li>通过用户名/密码授权，可用性比较高；</li>
+<li>速度相较快点</li>
+</ul>
+<p>一般企业防火墙会打开80和443这两个http/https协议的端口，因此在架设了企业防火墙的时候使用http就可以很好的绕开安全限制使用git了，很方便；而对于ssh来说，企业防火墙很可能没打开22端口。</p>
+<p><strong>【使用区别】</strong></p>
+<p><strong>clone项目：</strong></p>
+<p>　　**使用ssh方式时，需要配置ssh key，即要将生成的SSH密钥对的公钥上传至服务器；<br>**</p>
+<p>　　<strong>使用http方式时，没有要求，可以直接克隆下来。</strong></p>
+<p><strong>push项目：</strong></p>
+<p>　　<strong>使用ssh方式时，不需要验证用户名和密码，*<em>**之前配置过ssh key，(如果你没设置密码)**</em>*直接push即可；</strong></p>
+<p>　　<strong>使用http方式时，需要验证用户名和密码。</strong></p>
+<p> <strong>总结：</strong></p>
+<p>HTTPS利于匿名访问，适合开源项目，可以方便被别人克隆和读取(但没有push权限)；</p>
+<p>SSH不利于匿名访问，比较适合内部项目，只要配置了SSH公钥极可自由实现clone和push操作。</p>
+<h4 id="4-github中的repository和project"><a href="#4-github中的repository和project" class="headerlink" title="4.github中的repository和project"></a>4.github中的repository和project</h4><pre><code>Github上边的repositories翻译为代码仓库，可以保存多个代码工程和项目的代码，资源，文本、图片......等;
+
+而projects可以翻译为项目板，是project-boards的简写。简单说，可以理解为工作计划表之类的书签，制定一下工作计划，Bug，流程什么的。
+</code></pre>
+<h4 id="5-git-add-之后取消加入"><a href="#5-git-add-之后取消加入" class="headerlink" title="5.git add 之后取消加入"></a>5.git add 之后取消加入</h4><p>如果已经执行了git add dir_name</p>
+<p>此时需要撤销 add操作，则需执行如下命令</p>
+<p>git rm -r dir_name –cached</p>
+<p>由于目录已经添加到git 暂存（stage）中了，所以需要加–cached参数</p>
+<p>git reset .   撤销全部git add</p>
+<p>git rm 与 git reset的区别<br>git rm：用于从工作区和索引中删除文件<br>git reset：用于将当前HEAD复位到指定状态。一般用于撤消之前的一些操作(如：git add,git commit等)。</p>
+<p><em>git reset HEAD 如果后面什么都不跟的话 就是上一次add 里面的全部撤销了<br>git reset HEAD XXX/XXX/XXX.java 就是对某个文件进行撤销了</em></p>
+<h4 id="6-main和master？"><a href="#6-main和master？" class="headerlink" title="6.main和master？"></a>6.main和master？</h4><p>在2020年10月1日，你创建的任何新仓库都将使用main作为默认分支，而不是master。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wannananana/p/12059806.html">https://www.cnblogs.com/wannananana/p/12059806.html</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/03/myblog/JAVA/log%E6%97%A5%E5%BF%97%E4%B8%8Emaven%E6%89%93%E5%8C%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2141,100 +2251,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/06/myblog/JAVA/SSMb%E7%AB%99%E9%BB%91%E9%A9%AC%E7%A8%8B%E5%BA%8F%E5%91%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/06/myblog/JAVA/SSMb%E7%AB%99%E9%BB%91%E9%A9%AC%E7%A8%8B%E5%BA%8F%E5%91%98/" class="post-title-link" itemprop="url">SSM了解一下</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-02-06 16:03:30" itemprop="dateCreated datePublished" datetime="2022-02-06T16:03:30+08:00">2022-02-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-07 19:09:16" itemprop="dateModified" datetime="2022-02-07T19:09:16+08:00">2022-02-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>SSM框架：Spring + SpringMVC + MyBatis</p>
-<p>Spring和SpringMVC是当前企业开发必用框架之一，MyBatis则是与数据库交互的持久层框架之一，由于易用性和轻便性，则被大多互联网公司所选用。SSM基础框架的掌握是当前企业开发最基本的要求，也是其他技术学习和进阶的必要基础。</p>
-<p>b站视频地址：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1WZ4y1P7Bp?p=42">https://www.bilibili.com/video/BV1WZ4y1P7Bp?p=42</a></p>
-<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><h3 id="SpringMVC简介"><a href="#SpringMVC简介" class="headerlink" title="SpringMVC简介"></a>SpringMVC简介</h3><p>MVC模式是什么？</p>
-<p>MVC 模式代表 Model-View-Controller（模型-视图-控制器） 模式。这种模式用于应用程序的分层开发。</p>
-<ul>
-<li><strong>Model（模型）</strong> - 模型代表一个存取数据的对象或 JAVA POJO。它也可以带有逻辑，在数据变化时更新控制器。</li>
-<li><strong>View（视图）</strong> - 视图代表模型包含的数据的可视化。</li>
-<li><strong>Controller（控制器）</strong> - 控制器作用于模型和视图上。它控制数据流向模型对象，并在数据变化时更新视图。它使视图与模型分离开。</li>
-</ul>
-<p>SpringMVC概述？</p>
-<p>SpringMVC是一种基于Java实现的MVC设计模型的请求驱动类型的轻量级Web框架，属于SpringFrameWork的后续产品，已经融合在Spring Web Flow中。</p>
-<p>SpringMVC已经成为目前最主流的MVC框架之一，并且随着Spring3.0的发布，全面超越Structs2，成为最优秀的MVC框架。它通过一套注解，让一个简单的Java类成为处理请求的控制器，而无须实现任何接口。同时它还支持RESTful编程风格的请求。web文件夹内servelet？</p>
-<h3 id="MyBatis简介"><a href="#MyBatis简介" class="headerlink" title="MyBatis简介"></a>MyBatis简介</h3><p>持久层框架，方便数据库操作的。</p>
-<p>原始比较繁琐的jdbc操作：注册驱动–获得连接–获得statement–执行查询–遍历结果集（封装实体，传递）–释放资源。</p>
-<p>缺点：代码重复（比如获得连接资源），资源频繁连接关闭，消耗资源，sql语句比较死，得解耦合，用配置文件。</p>
-<p>jdbc缺点：（1）数据库创建、释放资源造成系统资源浪费从而影响系统性能。（2）sql语句在代码中硬编码，造成代码不易维护，实际应用sql变化的可能较大，sql变动需要改变java代码，耦合性高。（3）查询操作时，需要手动将结果集中的数据手动封装到实体中，插入操作时，需要手动将实体的数据设置到sql语句的占位符位置。</p>
-<p>应对上述问题给出的解决方案：（1）使用数据库连接池初始化连接资源。（2）将sql语句抽到xml配置文件中。（3）使用反射、内省等底层技术，自动将实体与表进行属性与字段的自动映射。</p>
-<p>MyBatis是一个优秀的基于java的持久层框架，它内部封装了jdbc，使开发者只需要关注sql语句本身，而不需要花费精力去处理加载驱动、创建连接、创建statement等繁杂的过程，</p>
-<p>MyBatis通过xml或注解的方式将要执行的各种statement配置起来，并通过java对象和statement中的sql的动态参数进行映射生成最终执行的sql语句。</p>
-<p>MyBatis框架执行sql并将结果集映射为java对象并返回，采用ORM（对象关系映射）思想解决了实体和数据库映射的问题，对jdbc进行封装，屏蔽jdbc api底层访问细节，不与jdbc打交道就可以完成对数据库的持久化操作。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2305,7 +2321,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
