@@ -20,21 +20,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="tomcat为什么有tomcat？ 一个项目：客户端+后端+数据库。 如何访问到服务？需要在web应用服务器里进行部署。 tomcat就是一个web应用服务器，就是一个服务，里面放java程序。 web应用服务器：tomcat、Jboos、Weblogic、Jetty。 有了tomcat可以实现两个电脑之间的互相访问，前提是在一个局域网里。 1⃣️安装tomcat。apache出的，进入官网，选择">
+  <meta name="description" content="工作中遇到个aop的问题，jdk代理换cglib代理还不过来，以及jdk代理存在的一个问题。总结并实战一下。 概念aop相关术语 Target：代理的目标对象 Proxy：代理对象 Joinpoint：连接点，指那些被拦截到的点。在Spring中，这些点指方法，因为Spring只支持方法类型的连接点（可以被增强的方法） Pointcut：切入点是指我们要对哪些Joinpoint进行拦截的定义 Ad">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tomcat入门教程">
-<meta property="og:url" content="http://example.com/2022/03/12/myblog/JAVA/Tomcat%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:title" content="spring aop总结">
+<meta property="og:url" content="http://example.com/2022/04/09/myblog/JAVA/spring-aop/index.html">
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
-<meta property="og:description" content="tomcat为什么有tomcat？ 一个项目：客户端+后端+数据库。 如何访问到服务？需要在web应用服务器里进行部署。 tomcat就是一个web应用服务器，就是一个服务，里面放java程序。 web应用服务器：tomcat、Jboos、Weblogic、Jetty。 有了tomcat可以实现两个电脑之间的互相访问，前提是在一个局域网里。 1⃣️安装tomcat。apache出的，进入官网，选择">
+<meta property="og:description" content="工作中遇到个aop的问题，jdk代理换cglib代理还不过来，以及jdk代理存在的一个问题。总结并实战一下。 概念aop相关术语 Target：代理的目标对象 Proxy：代理对象 Joinpoint：连接点，指那些被拦截到的点。在Spring中，这些点指方法，因为Spring只支持方法类型的连接点（可以被增强的方法） Pointcut：切入点是指我们要对哪些Joinpoint进行拦截的定义 Ad">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-03-12T13:19:51.716Z">
-<meta property="article:modified_time" content="2022-03-12T13:21:59.741Z">
+<meta property="article:published_time" content="2022-04-09T03:56:23.971Z">
+<meta property="article:modified_time" content="2022-04-09T10:13:00.950Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
-<meta property="article:tag" content="tomcat">
+<meta property="article:tag" content="spring">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2022/03/12/myblog/JAVA/Tomcat%E5%85%A5%E9%97%A8/">
+<link rel="canonical" href="http://example.com/2022/04/09/myblog/JAVA/spring-aop/">
 
 
 <script id="page-configurations">
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>tomcat入门教程 | Jadeliu's blog</title>
+  <title>spring aop总结 | Jadeliu's blog</title>
   
 
 
@@ -190,7 +190,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/12/myblog/JAVA/Tomcat%E5%85%A5%E9%97%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/09/myblog/JAVA/spring-aop/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.gif">
@@ -203,7 +203,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          tomcat入门教程
+          spring aop总结
         </h1>
 
         <div class="post-meta">
@@ -214,7 +214,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-03-12 21:19:51 / Modified: 21:21:59" itemprop="dateCreated datePublished" datetime="2022-03-12T21:19:51+08:00">2022-03-12</time>
+              <time title="Created: 2022-04-09 11:56:23 / Modified: 18:13:00" itemprop="dateCreated datePublished" datetime="2022-04-09T11:56:23+08:00">2022-04-09</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -244,29 +244,71 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="tomcat"><a href="#tomcat" class="headerlink" title="tomcat"></a><strong>tomcat</strong></h3><p>为什么有tomcat？</p>
-<p>一个项目：客户端+后端+数据库。</p>
-<p>如何访问到服务？需要在web应用服务器里进行部署。</p>
-<p>tomcat就是一个web应用服务器，就是一个服务，里面放java程序。</p>
-<p>web应用服务器：tomcat、Jboos、Weblogic、Jetty。</p>
-<p>有了tomcat可以实现两个电脑之间的互相访问，前提是在一个局域网里。</p>
-<h3 id="1⃣️安装tomcat。"><a href="#1⃣️安装tomcat。" class="headerlink" title="1⃣️安装tomcat。"></a>1⃣️安装tomcat。</h3><p>apache出的，进入官网，选择tomcat9，下载压缩文件tar.gz</p>
-<p>解压缩，放library里。</p>
-<p>bin：存放各个平台下启动和停止tomcat服务的脚本文件。bat是windows系统下的脚本文件，sh是mac和linux的。</p>
-<p>conf：存放各种tomcat服务器的配置文件，可以配置端口，server.xml。</p>
-<p>lib：存放tomcat服务器需要的jar包。</p>
-<p>logs：存放tomcat服务运行的日志。</p>
-<p>temp：tomcat运行时的临时文件，文件上传下载io流的时候用，大文件放在java虚拟机内存里占用资源大，先放在temp文件夹里。</p>
-<p>webapps：存放允许客户端访问的资源（java程序）。</p>
-<p>work：存放tomcat将jsp转换之后的servlet文件。</p>
-<h3 id="2⃣️idea集成tomcat"><a href="#2⃣️idea集成tomcat" class="headerlink" title="2⃣️idea集成tomcat"></a>2⃣️idea集成tomcat</h3><p>create new project –&gt; java enterprise –&gt; web application –&gt; 完成</p>
-<p>index.jsp：写html的</p>
-<p>web.xml：配置应用的</p>
-<p>添加tomcat配置：右上角add configuration，点加号，tomcal，选local，配一个本地的tomcat，设置，写名字，选tomcat路径（主要就用tomcat的两个jar包：jsp、servlet）。相当于是把idea和tomcat映射起来了。设置url：默认浏览器，after launch是启动后自动打开浏览器，url是访问路径，访问到tomcat服务。然后选deployment添加java工程，点加号，选artifact，自动加进来了。相当于是把java工程放在test里了。然后apply，ok。</p>
-<p>点右上角虫子图标。自动跳出来页面。关掉idea，就没了。</p>
-<p>url由三部分组成：ip:port/application name</p>
-<p>可以改应用的名字，在右上角edit application，选deployment，下面context改名字。重启就可以了。</p>
-<p>也可以没有名字，只是一个/。</p>
+        <p>工作中遇到个aop的问题，jdk代理换cglib代理还不过来，以及jdk代理存在的一个问题。总结并实战一下。</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h4 id="aop相关术语"><a href="#aop相关术语" class="headerlink" title="aop相关术语"></a>aop相关术语</h4><ul>
+<li>Target：代理的目标对象</li>
+<li>Proxy：代理对象</li>
+<li>Joinpoint：连接点，指那些被拦截到的点。在Spring中，这些点指方法，因为Spring只支持方法类型的连接点（可以被增强的方法）</li>
+<li>Pointcut：切入点是指我们要对哪些Joinpoint进行拦截的定义</li>
+<li>Advice：（通知/增强）是指拦截到Joinpoint之后要做的事情就是通知</li>
+<li>Aspect：切面是切入点和通知（增强）的结合</li>
+<li>Weaving：织入实质把将切点和增强结合的过程是织入过程，Spring是动态代理织入，AspectJ是采用编译期织入和类装载期织入</li>
+</ul>
+<p>*连接点是可以被增强的方法，切点是实际上被增强过的方法，连接点范围更大</p>
+<h4 id="aop开发过程"><a href="#aop开发过程" class="headerlink" title="aop开发过程"></a>aop开发过程</h4><ol>
+<li><p>编写核心业务代码（Target的目标方法-切点）</p>
+</li>
+<li><p>编写切面类，切面类中有通知（增强功能方法）</p>
+</li>
+<li><p>在配置文件/注解当中，配置织入关系，即将那些通知与哪些连接点进行结合</p>
+</li>
+</ol>
+<p>AOP技术实现的内容：<br>Spring框架会监控切入点方法的执行–通过配置文件决定哪些方法是切点；一旦监控到切入点方法被运行，即使用代理机制，动态创建目标对象（切点）的代理对象。然后根据配置文件配置的增强类型（通知），在代理对象（切点）对应的位置，将通知对应的功能织入，完成完整的代码逻辑运行。<br>配置文件-执行切点方法-监控到并动态创建代理对象，调用代理对象同名方法-内部调用目标方法，进行增强方法的介入。</p>
+<p>AOP底层使用哪种代理方式：<br>Spring会根据目标类是否实现了接口来决定采用哪种动态代理。</p>
+<h3 id="实践-配置文件"><a href="#实践-配置文件" class="headerlink" title="实践-配置文件"></a>实践-配置文件</h3><p>新建个spring项目</p>
+<ol>
+<li><p>导入相关依赖：spring-context、spring-core、spring-beans，还有切面的包 Aspectjweaver</p>
+</li>
+<li><p>新建service接口，新建实现类Impl</p>
+</li>
+<li><p>新建切面类，定义切面方法</p>
+</li>
+<li><p>编写配置文件</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 开启注解扫描  --&gt;</span><br><span class="line">&lt;context:component-scan base-package=&quot;com.aop.demo&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;aop:config proxy-target-class=&quot;false&quot;&gt;</span><br><span class="line">    &lt;aop:pointcut id=&quot;userServiceImplPointcut&quot; expression=&quot;execution(* com.aop.demo.UserServiceImpl.addUser(..))&quot; /&gt;</span><br><span class="line">    &lt;aop:aspect id=&quot;aopClass&quot; ref=&quot;aopMethods&quot;&gt;</span><br><span class="line">        &lt;aop:before method=&quot;before&quot; pointcut-ref=&quot;userServiceImplPointcut&quot; /&gt;</span><br><span class="line">        &lt;aop:after method=&quot;after&quot; pointcut-ref=&quot;userServiceImplPointcut&quot; /&gt;</span><br><span class="line">    &lt;/aop:aspect&gt;</span><br><span class="line">&lt;/aop:config&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>测试方法<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class AopTest &#123;</span><br><span class="line">    @Test</span><br><span class="line">    public void testUserServiceAop()&#123;</span><br><span class="line">        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;spring-aop.xml&quot;);</span><br><span class="line">        // proxy-target-class=&quot;false&quot; 时，使用jdk代理</span><br><span class="line">        // 强制转换必须用父类接口来定义</span><br><span class="line">        UserService userService = (UserService)context.getBean(&quot;userServiceImpl&quot;);</span><br><span class="line">        userService.addUser();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>⚠️ proxy-target-class=”false” 或默认表示使用jdk代理，获取对象需要用父类接口，用实现类会报<code>java.lang.ClassCastException: com.sun.proxy.$Proxy* cannot be cast to***</code> 的错误。</p>
+<p>⚠️ proxy-target-class=”true”时，使用cglib代理，使用父类接口也可以，使用实现类定义对象也可以。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//UserService userService = (UserService)context.getBean(&quot;userServiceImpl&quot;);</span><br><span class="line">UserServiceImpl userService = (UserServiceImpl)context.getBean(&quot;userServiceImpl&quot;);</span><br><span class="line">userService.addUser();</span><br></pre></td></tr></table></figure>
+
+<p>⚠️ 另外，还有个现象是在jdk代理时存在的bug：<br>原本的： <code>UserService userService = (UserService)context.getBean(&quot;userServiceImpl&quot;);</code> 可以获得bean，没问题。<br>但是： <code>UserService userService = (UserService)context.getBean(UserServiceImpl.class);</code>  通过类的全路径获得bean就会出现<code>No qualifying bean of type</code> 的问题。<br>总结：jdk代理方式不用实现类，所以也不会用实现类的bean，即使配了实现类的bean，也不行。</p>
+<p>原因：spring aop默认是使用jdk动态代理的，也就是我通过getBean(ServiceImpl.class)，表达出的意思是希望程序通过jdk动态代理给我一个ServiceImpl类。而jdk的动态代理是基于接口实现的，因为它本身要继承一个Proxy类，而java是单继承（接口可以多继承），所以它通过实现接口进行代理。它通过实现我们给它的接口和继承Proxy类实现jdk动态代理。而我们给它的是一个ServiceImpl类，这个时候jdk动态代理就没有办法了。<br>jdk动态代理产生的对象属于Proxy类型，属于给定的接口（Service）类型，但不属于我们要代理的那个对象的类型，也就是本代码中ServiceImpl类型<br>因此，使用接口的类路径：<code>UserService userService = (UserService)context.getBean(UserService.class);</code> 也是可以的。这也解释了工作中遇到的问题。<br>但是，换成cglib，实现类/父类接口，获取bean的方式：id/类路径，都可以，没解释工作中为什么不能直接换成cglib的问题。</p>
+<p>总结：<br>jdk代理：必须父类接口获得bean，括号内可以是实现类的bean id，也可以是父类接口的全路径。<br>cglib代理：怎么都行。</p>
+<h3 id="实践-注解"><a href="#实践-注解" class="headerlink" title="实践-注解"></a>实践-注解</h3><ol>
+<li><p>使用@Aspect注解，出了aspectweaver包之外，还需要aspectjrt包</p>
+</li>
+<li><p>新建service接口，新建实现类Impl</p>
+</li>
+<li><p>新建切面类，定义切面方法</p>
+</li>
+<li><p>编写配置类</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@ComponentScan(basePackages = &#123;&quot;com.aop.demo.zhujie&quot;&#125;)</span><br><span class="line">@EnableAspectJAutoProxy(proxyTargetClass = false)</span><br><span class="line">public class SpringCfg &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>测试</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext context = new AnnotationConfigApplicationContext(SpringCfg.class);  //加载配置类</span><br></pre></td></tr></table></figure>
+
+<p>效果和配置文件一样。</p>
+<p>参考：<br>知识点：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Zhang-DevelopingPlatform/p/14723490.html">https://www.cnblogs.com/Zhang-DevelopingPlatform/p/14723490.html</a></p>
+<p>jdk代理找不到bean：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32080243/article/details/90261768">https://blog.csdn.net/qq_32080243/article/details/90261768</a></p>
+<p>cglib实现：<a target="_blank" rel="noopener" href="https://blog.csdn.net/shaoweijava/article/details/76474652">https://blog.csdn.net/shaoweijava/article/details/76474652</a></p>
 
     </div>
 
@@ -277,7 +319,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/java/" rel="tag"># java</a>
-              <a href="/tags/tomcat/" rel="tag"># tomcat</a>
+              <a href="/tags/spring/" rel="tag"># spring</a>
           </div>
 
         
@@ -286,13 +328,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/03/07/myblog/JAVA/springboot%20b%E7%AB%99/" rel="prev" title="spring boot入门教程">
-      <i class="fa fa-chevron-left"></i> spring boot入门教程
+    <a href="/2022/04/05/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%BC%A0%E5%88%B0github/" rel="prev" title="demo上传到github">
+      <i class="fa fa-chevron-left"></i> demo上传到github
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/03/12/myblog/JAVA/Mybatis%E5%85%A5%E9%97%A8/" rel="next" title="mybatis入门">
-      mybatis入门 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -351,7 +390,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#tomcat"><span class="nav-number">1.</span> <span class="nav-text">tomcat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E2%83%A3%EF%B8%8F%E5%AE%89%E8%A3%85tomcat%E3%80%82"><span class="nav-number">2.</span> <span class="nav-text">1⃣️安装tomcat。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E2%83%A3%EF%B8%8Fidea%E9%9B%86%E6%88%90tomcat"><span class="nav-number">3.</span> <span class="nav-text">2⃣️idea集成tomcat</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#aop%E7%9B%B8%E5%85%B3%E6%9C%AF%E8%AF%AD"><span class="nav-number">1.1.</span> <span class="nav-text">aop相关术语</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#aop%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">aop开发过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B5-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">实践-配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B5-%E6%B3%A8%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">实践-注解</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

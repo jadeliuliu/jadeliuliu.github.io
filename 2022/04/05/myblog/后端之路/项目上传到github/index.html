@@ -28,7 +28,7 @@
 <meta property="og:description" content="1.看一下与github的连接1234567891011121314没安装git的话，brew install git 安装一下设置ssh：ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot;~&#x2F;下生成.ssh文件夹，进去，打开id_rsa.pub，复制里面的key，添加到github验证连接：ssh -T git@github.com">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-05T05:34:09.508Z">
-<meta property="article:modified_time" content="2022-04-05T06:31:50.763Z">
+<meta property="article:modified_time" content="2022-04-09T10:12:54.038Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
@@ -211,10 +211,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-04-05 13:34:09 / Modified: 14:31:50" itemprop="dateCreated datePublished" datetime="2022-04-05T13:34:09+08:00">2022-04-05</time>
+              <time title="Created: 2022-04-05 13:34:09" itemprop="dateCreated datePublished" datetime="2022-04-05T13:34:09+08:00">2022-04-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-09 18:12:54" itemprop="dateModified" datetime="2022-04-09T18:12:54+08:00">2022-04-09</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -245,7 +251,7 @@
       
         <h4 id="1-看一下与github的连接"><a href="#1-看一下与github的连接" class="headerlink" title="1.看一下与github的连接"></a>1.看一下与github的连接</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">没安装git的话，brew install git 安装一下</span><br><span class="line"></span><br><span class="line">设置ssh：</span><br><span class="line">ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot;</span><br><span class="line">~/下生成.ssh文件夹，进去，打开id_rsa.pub，复制里面的key，添加到github</span><br><span class="line"></span><br><span class="line">验证连接：ssh -T git@github.com</span><br><span class="line"></span><br><span class="line">设置用户名和邮箱：</span><br><span class="line">git config --global user.name &quot;jadeliuliu&quot;</span><br><span class="line">git config --global user.email &quot;xxxxx@163.com&quot;</span><br><span class="line">git config --list</span><br><span class="line"></span><br><span class="line">You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
 
-<h4 id="2-代码push到github"><a href="#2-代码push到github" class="headerlink" title="2.代码push到github"></a>2.代码push到github</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git init  初始化该文件夹</span><br><span class="line">git add</span><br><span class="line">git commit 这样已经将要更改的文件提交到版本库中，但是呢还没有真正提交到网站上去</span><br><span class="line">github建立仓库</span><br><span class="line">关联github仓库：</span><br><span class="line">git remote add origin git@github.com:用户名/仓库名.git</span><br><span class="line">git remote add origin https://github.com/用户名/仓库名.git</span><br><span class="line">上面的两个命令结果一样，只是协议不一样，第一个速度会比较快。只是第一次提交项目时需要</span><br><span class="line">git push -u origin master 提交到github</span><br></pre></td></tr></table></figure>
+<h4 id="2-代码push到github"><a href="#2-代码push到github" class="headerlink" title="2.代码push到github"></a>2.代码push到github</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git init  初始化该文件夹</span><br><span class="line">git add</span><br><span class="line">git commit 这样已经将要更改的文件提交到版本库中，但是呢还没有真正提交到网站上去</span><br><span class="line">github新建仓库</span><br><span class="line">关联github仓库：</span><br><span class="line">git remote add origin git@github.com:用户名/仓库名.git</span><br><span class="line">git remote add origin https://github.com/用户名/仓库名.git</span><br><span class="line">上面的两个命令结果一样，只是协议不一样，第一个速度会比较快。只是第一次提交项目时需要</span><br><span class="line">git push -u origin master 提交到github</span><br></pre></td></tr></table></figure>
 
 <h4 id="3-git中使用ssh和http协议的区别"><a href="#3-git中使用ssh和http协议的区别" class="headerlink" title="3.git中使用ssh和http协议的区别"></a>3.git中使用ssh和http协议的区别</h4><p>git可以使用四种主要的协议来传输资料: 本地协议（Local），HTTP 协议，SSH（Secure Shell）协议及 git 协议。其中，本地协议由于目前大都是进行远程开发和共享代码所以一般不常用，而git协议由于缺乏授权机制且较难架设所以也不常用。</p>
 <p>最常用的便是SSH和HTTP(S)协议。git关联远程仓库可以使用http协议或者ssh协议。</p>
@@ -307,7 +313,10 @@
     <a href="/2022/04/03/myblog/JAVA/log%E6%97%A5%E5%BF%97%E4%B8%8Emaven%E6%89%93%E5%8C%85/" rel="prev" title="log日志与maven打包">
       <i class="fa fa-chevron-left"></i> log日志与maven打包
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/09/myblog/JAVA/spring-aop/" rel="next" title="spring aop总结">
+      spring aop总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -381,7 +390,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -394,7 +403,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
