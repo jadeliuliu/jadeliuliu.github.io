@@ -28,7 +28,7 @@
 <meta property="og:description" content="查看ssd寿命brew安装查询工具：brew install smartmontools 参看磁盘：diskutil list 参看使用情况：smartctl -a disk0 12345678910111213141516SMART&#x2F;Health Information (NVMe Log 0x02)Critical Warning:                   0x00Temperat">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-08-27T08:02:49.000Z">
-<meta property="article:modified_time" content="2022-03-12T09:27:38.552Z">
+<meta property="article:modified_time" content="2022-04-11T06:12:39.562Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="Mac">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-12 17:27:38" itemprop="dateModified" datetime="2022-03-12T17:27:38+08:00">2022-03-12</time>
+                <time title="Modified: 2022-04-11 14:12:39" itemprop="dateModified" datetime="2022-04-11T14:12:39+08:00">2022-04-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -278,6 +278,10 @@
 <p><code>source ~/.zshrc</code></p>
 <h3 id="切换输入法"><a href="#切换输入法" class="headerlink" title="切换输入法"></a>切换输入法</h3><p>control+空格</p>
 <h3 id="文件夹整理"><a href="#文件夹整理" class="headerlink" title="文件夹整理"></a>文件夹整理</h3><p>command+control+1</p>
+<h3 id="mvn、mysql开机须自启问题"><a href="#mvn、mysql开机须自启问题" class="headerlink" title="mvn、mysql开机须自启问题"></a>mvn、mysql开机须自启问题</h3><p>jdk配置在 /etc/profile中，开机时运行<br>mvn配置在 ~/.zprofile中，启动终端时运行<br>export PATH=”$Maven/bin:$PATH”<br>~/.zshrc 中增加 source /etc/profile 使得jdk配置生效<br>一些p10k的配置也在 ～/.zshrc中配置了</p>
+<p>关于mysql重启之后就没了<br>在 /etc/profile 中增加：<br>sudo ./support-files/mysql.server start<br>也不行。</p>
+<p>发现brew没了，不知道为什么。<br>重开一下终端就好了。</p>
+<p>目前是：<br>/etc/profile 中加了个开启mysql的语句<br>.zshrc中没有加 source /etc/profile的语句。<br>重启之后，mysql就不行啦，source /etc/profile 一下得了</p>
 
     </div>
 
@@ -361,7 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bssd%E5%AF%BF%E5%91%BD"><span class="nav-number">1.</span> <span class="nav-text">查看ssd寿命</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E7%BB%88%E7%AB%AF"><span class="nav-number">2.</span> <span class="nav-text">打开终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E5%90%8E%E5%8F%B0"><span class="nav-number">3.</span> <span class="nav-text">打开后台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B9%E6%B7%BB%E5%8A%A0%E4%B8%BA%E6%94%B6%E8%97%8F"><span class="nav-number">4.</span> <span class="nav-text">文件夹添加为收藏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85brew"><span class="nav-number">5.</span> <span class="nav-text">安装brew</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iterm2%E7%BB%88%E7%AB%AF"><span class="nav-number">6.</span> <span class="nav-text">iterm2终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E6%8D%A2%E8%BE%93%E5%85%A5%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">切换输入法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B9%E6%95%B4%E7%90%86"><span class="nav-number">8.</span> <span class="nav-text">文件夹整理</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bssd%E5%AF%BF%E5%91%BD"><span class="nav-number">1.</span> <span class="nav-text">查看ssd寿命</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E7%BB%88%E7%AB%AF"><span class="nav-number">2.</span> <span class="nav-text">打开终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E5%90%8E%E5%8F%B0"><span class="nav-number">3.</span> <span class="nav-text">打开后台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B9%E6%B7%BB%E5%8A%A0%E4%B8%BA%E6%94%B6%E8%97%8F"><span class="nav-number">4.</span> <span class="nav-text">文件夹添加为收藏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85brew"><span class="nav-number">5.</span> <span class="nav-text">安装brew</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iterm2%E7%BB%88%E7%AB%AF"><span class="nav-number">6.</span> <span class="nav-text">iterm2终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E6%8D%A2%E8%BE%93%E5%85%A5%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">切换输入法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B9%E6%95%B4%E7%90%86"><span class="nav-number">8.</span> <span class="nav-text">文件夹整理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mvn%E3%80%81mysql%E5%BC%80%E6%9C%BA%E9%A1%BB%E8%87%AA%E5%90%AF%E9%97%AE%E9%A2%98"><span class="nav-number">9.</span> <span class="nav-text">mvn、mysql开机须自启问题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -376,7 +380,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -389,7 +393,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

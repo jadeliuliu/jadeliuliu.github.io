@@ -183,6 +183,204 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/07/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/07/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">javaのleecode两数之和</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-07 10:49:32" itemprop="dateCreated datePublished" datetime="2021-10-07T10:49:32+08:00">2021-10-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-10-13 21:13:35" itemprop="dateModified" datetime="2021-10-13T21:13:35+08:00">2021-10-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。</span><br><span class="line"></span><br><span class="line">你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。</span><br><span class="line">你可以按任意顺序返回答案。</span><br><span class="line"></span><br><span class="line">输入：nums = [2,7,11,15], target = 9</span><br><span class="line">输出：[0,1]</span><br><span class="line">解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。</span><br></pre></td></tr></table></figure>
+
+<p>关于hashmap的使用：</p>
+<p>m.put(a,b)  插入<br>m.containkey(a)  查找key</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> leecode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">twonumbersum</span> </span>&#123;</span><br><span class="line">    <span class="comment">//先写功能函数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt;m = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; ++i) &#123;</span><br><span class="line">            <span class="keyword">int</span> a= target - nums[i];</span><br><span class="line">            <span class="keyword">if</span> (m.containsKey(a)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;m.get(a), i&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            m.put(nums[i], i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//再写测试函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入数组：&quot;</span>);</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str = sc.nextLine();</span><br><span class="line">        String[] arr = str.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        <span class="keyword">int</span>[] nums = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nums.length; j++) &#123;</span><br><span class="line">            nums[j] = Integer.parseInt(arr[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入目标值：&quot;</span>);</span><br><span class="line">        Scanner in=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span> target = in.nextInt();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] res=twoSum(nums, target);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> re : res) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;结果：&quot;</span>);</span><br><span class="line">            System.out.print(re + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>疑问：功能函数不是static型时，main函数也不能事static的，但是无运行按钮。除非把两个函数都变成static型。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/12/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/hexo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/12/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/hexo/" class="post-title-link" itemprop="url">如何搭建一个hexo博客</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-12 21:13:59" itemprop="dateCreated datePublished" datetime="2021-09-12T21:13:59+08:00">2021-09-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-10 15:52:48" itemprop="dateModified" datetime="2022-01-10T15:52:48+08:00">2022-01-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-新建仓库"><a href="#1-新建仓库" class="headerlink" title="1.新建仓库"></a>1.新建仓库</h3><p>jadeliuliu.github.io</p>
+<h3 id="2-安装hexo"><a href="#2-安装hexo" class="headerlink" title="2.安装hexo"></a>2.安装hexo</h3><p>首先需要安装npm，Node Package Manager ，是一个NodeJS包管理和分发工具，大家都把自己开发的模块打包后放到npm官网上，如果要使用，直接通过npm安装就可以直接用，不用管代码存在哪，应该从哪下载。</p>
+<h4 id="安装npm"><a href="#安装npm" class="headerlink" title="安装npm"></a>安装npm</h4><p><code>brew install node</code>     安装好了nodejs和npm </p>
+<p><code>npm -v</code>  检查</p>
+<p>安装hexo:<code>npm install -g hexo</code></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/390f202c5b0e">https://www.jianshu.com/p/390f202c5b0e</a></p>
+<h3 id="3-初始化项目"><a href="#3-初始化项目" class="headerlink" title="3.初始化项目"></a>3.初始化项目</h3><p><code>hexo init</code>  </p>
+<p><code>hexo s</code>  浏览器可访问</p>
+<h3 id="4-部署到github"><a href="#4-部署到github" class="headerlink" title="4.部署到github"></a>4.部署到github</h3><p>在项目根目录下找到 <code>_congif.yml</code>，找到 <code>deploy</code> 字段并填写完整</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">type: git</span><br><span class="line">  repo: https://github.com/jadeliuliu/jadeliuliu.github.io</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<p>需要额外的一个工具来帮助我们推到仓库上，是 <code>hexo-deployer-git</code></p>
+<p><code>npm install hexo-deployer-git --save</code></p>
+<p><code>hexo clean</code></p>
+<p><code>hexo deploy</code></p>
+<h3 id="5-出现443的问题"><a href="#5-出现443的问题" class="headerlink" title="5.出现443的问题"></a>5.出现443的问题</h3><p>连接超时的问题：网上主流解决方法是自定义一个接口代理或输入如下语句禁用接口代理</p>
+<p><code>git config --global --unset https.proxy</code></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/longroad1216/article/details/114853527">https://blog.csdn.net/longroad1216/article/details/114853527</a></p>
+<p>或者https换成git试一试</p>
+<p>6.登录github需要tocken</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41010198/article/details/119698015">https://blog.csdn.net/weixin_41010198/article/details/119698015</a></p>
+<h3 id="6-更换next主题"><a href="#6-更换next主题" class="headerlink" title="6.更换next主题"></a>6.更换next主题</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone <span class="symbol">https:</span>/<span class="regexp">/github.com/theme</span>-<span class="keyword">next</span>/hexo-theme-<span class="keyword">next</span> themes/<span class="keyword">next</span></span><br></pre></td></tr></table></figure>
+
+<p>配置文件里改theme</p>
+<p>hexo s 看效果</p>
+<p>hexo -s 看帮助</p>
+<h3 id="7-参考"><a href="#7-参考" class="headerlink" title="7.参考"></a>7.参考</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">https://blog.csdn.net/weixin_39766258/article/details/110638797</span><br><span class="line">（比较全的指南）</span><br><span class="line"></span><br><span class="line">https://www.jianshu.com/p/e17711e44e00</span><br><span class="line">（添加分类）</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-添加分类"><a href="#8-添加分类" class="headerlink" title="8.添加分类"></a>8.添加分类</h3><p>测试：</p>
+<p>// 我们可以写成一条命令<br>$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo s<br>$ hexo d</p>
+<p>文章：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 如何搭建一个hexo博客</span><br><span class="line">date: <span class="number">2021</span>年<span class="number">09</span>月<span class="number">15</span>日 <span class="number">20</span>:<span class="number">58</span>:<span class="number">49</span></span><br><span class="line">categories: </span><br><span class="line">- 后端</span><br><span class="line">tags:</span><br><span class="line">- hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-增加目录"><a href="#9-增加目录" class="headerlink" title="9.增加目录"></a>9.增加目录</h3><p>主题配置文件位于<code>themes/next/_config.yml</code></p>
+<p>每行目录超长自动换行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">toc:</span><br><span class="line">  enable: true  </span><br><span class="line">  wrap: true </span><br></pre></td></tr></table></figure>
+
+<h3 id="10-首页只显示文章标题"><a href="#10-首页只显示文章标题" class="headerlink" title="10.首页只显示文章标题"></a>10.首页只显示文章标题</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/12/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/hexo/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/Linux%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -214,7 +412,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-16 20:42:44" itemprop="dateModified" datetime="2021-12-16T20:42:44+08:00">2021-12-16</time>
+                <time title="Modified: 2022-04-14 22:22:19" itemprop="dateModified" datetime="2022-04-14T22:22:19+08:00">2022-04-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -351,6 +549,7 @@
 <h2 id="shell脚本后台一直运行"><a href="#shell脚本后台一直运行" class="headerlink" title="shell脚本后台一直运行"></a>shell脚本后台一直运行</h2><p>使用sh，其中test.sh为所执行的脚本，out.txt为输出信息的地方。<br>sh test.sh&gt;&amp;out.txt &amp;</p>
 <h2 id="rm-mv-cp"><a href="#rm-mv-cp" class="headerlink" title="rm mv cp"></a>rm mv cp</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">使用指令 cp 将当前目录 test/ 下的所有文件复制到新目录 newtest 下，输入如下命令：</span><br><span class="line">cp –r test/ newtest</span><br><span class="line"></span><br><span class="line">删除当前目录下的所有文件及目录，命令行为：</span><br><span class="line">rm  -r  *</span><br><span class="line">-f 即使原档案属性设为唯读，亦直接删除，无需逐一确认。</span><br><span class="line">-r 将目录及以下之档案亦逐一删除。</span><br><span class="line"></span><br><span class="line">将 /usr/runoob 下的所有文件和目录移到当前目录下</span><br><span class="line">mv /usr/runoob/*  . </span><br></pre></td></tr></table></figure>
 
+<h2 id="alias-设置指令的别名"><a href="#alias-设置指令的别名" class="headerlink" title="alias 设置指令的别名"></a>alias 设置指令的别名</h2><p>alis 别名 = 指令名称<br>输入alias可列出目前所有的别名设置。<br>alias只限于该次登录操作，若要永久，需要在～/.zshrc文件中设置<br>alias 简写 = 全写</p>
 
       
     </div>
@@ -811,7 +1010,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-12 17:27:38" itemprop="dateModified" datetime="2022-03-12T17:27:38+08:00">2022-03-12</time>
+                <time title="Modified: 2022-04-11 14:12:39" itemprop="dateModified" datetime="2022-04-11T14:12:39+08:00">2022-04-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -863,6 +1062,10 @@
 <p><code>source ~/.zshrc</code></p>
 <h3 id="切换输入法"><a href="#切换输入法" class="headerlink" title="切换输入法"></a>切换输入法</h3><p>control+空格</p>
 <h3 id="文件夹整理"><a href="#文件夹整理" class="headerlink" title="文件夹整理"></a>文件夹整理</h3><p>command+control+1</p>
+<h3 id="mvn、mysql开机须自启问题"><a href="#mvn、mysql开机须自启问题" class="headerlink" title="mvn、mysql开机须自启问题"></a>mvn、mysql开机须自启问题</h3><p>jdk配置在 /etc/profile中，开机时运行<br>mvn配置在 ~/.zprofile中，启动终端时运行<br>export PATH=”$Maven/bin:$PATH”<br>~/.zshrc 中增加 source /etc/profile 使得jdk配置生效<br>一些p10k的配置也在 ～/.zshrc中配置了</p>
+<p>关于mysql重启之后就没了<br>在 /etc/profile 中增加：<br>sudo ./support-files/mysql.server start<br>也不行。</p>
+<p>发现brew没了，不知道为什么。<br>重开一下终端就好了。</p>
+<p>目前是：<br>/etc/profile 中加了个开启mysql的语句<br>.zshrc中没有加 source /etc/profile的语句。<br>重启之后，mysql就不行啦，source /etc/profile 一下得了</p>
 
       
     </div>
@@ -1260,295 +1463,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/23/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-Vue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/23/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-Vue/" class="post-title-link" itemprop="url">前端基础-vue</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-23 14:57:27" itemprop="dateCreated datePublished" datetime="2021-08-23T14:57:27+08:00">2021-08-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-13 21:16:55" itemprop="dateModified" datetime="2021-10-13T21:16:55+08:00">2021-10-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="VUE"><a href="#VUE" class="headerlink" title="VUE"></a>VUE</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。</p>
-<p>Vue 的目标是通过尽可能简单的 API 实现响应的数据绑定和组合的视图组件。</p>
-<h2 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h2><h3 id="1-CDN方法"><a href="#1-CDN方法" class="headerlink" title="(1)CDN方法"></a>(1)CDN方法</h3><p>在页面上以 CDN 包的形式导入。<br><code>&lt;script src=&quot;https://unpkg.com/vue@next&quot;&gt;&lt;/script&gt;</code></p>
-<blockquote>
-<p>CDN的全称是Content Delivery Network，即内容分发网络。CDN是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。CDN的关键技术主要有内容存储和分发技术。</p>
-<p>由于CDN是为加快网络访问速度而被优化的网络覆盖层，因此被形象地称为“网络加速器”。</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.staticfile.org/vue/2.2.2/vue.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span>    </span><br><span class="line">//<span class="tag">&lt;<span class="name">div</span>&gt;</span> 标签可以把文档分割为独立的、不同的部分。它可以用作严格的组织工具，并且不使用任何格式与其关联。用 id 或 class 来标记 <span class="tag">&lt;<span class="name">div</span>&gt;</span>，那么该标签的作用会变得更加有效。</span><br><span class="line">//如果与 CSS 一同使用，<span class="tag">&lt;<span class="name">div</span>&gt;</span> 元素可用于对大的内容块设置样式属性。</span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">//&#123;&#123; &#125;&#125; 用于输出对象属性和函数返回值。</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">  <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,   <span class="comment">//id选择器</span></span></span><br><span class="line"><span class="javascript">  <span class="attr">data</span>: &#123;         <span class="comment">//输出什么东西？</span></span></span><br><span class="line"><span class="javascript">    <span class="attr">message</span>: <span class="string">&#x27;Hello Vue.js!&#x27;</span></span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">&#125;)</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-使用npm方法"><a href="#2-使用npm方法" class="headerlink" title="(2)使用npm方法"></a>(2)使用npm方法</h3><p>npm run dev</p>
-<p>Vue.js 提供一个官方命令行工具vue-cli，可用于快速搭建大型单页应用。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 全局安装 vue-cli</span><br><span class="line">$ cnpm install --global vue-cli</span><br><span class="line"># 创建一个基于 webpack 模板的新项目</span><br><span class="line">$ vue init webpack my-project</span><br><span class="line"></span><br><span class="line">安装及运行：</span><br><span class="line">$ cd my-project</span><br><span class="line">$ cnpm install</span><br><span class="line">$ cnpm run dev</span><br><span class="line"></span><br><span class="line">项目打包：</span><br><span class="line">npm run build</span><br><span class="line">执行完成后，会在 Vue 项目下生成一个 dist 目录，一般包含 index.html 文件及 static 目录，static 目录包含了静态文件 js、css 以及图片目录 images。</span><br><span class="line">直接双击 dist/index.html 文件就可以在浏览器中看到效果了。</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-VUE项目"><a href="#3-VUE项目" class="headerlink" title="3.VUE项目"></a>3.VUE项目</h2><h3 id="1-项目目录"><a href="#1-项目目录" class="headerlink" title="(1)项目目录"></a>(1)项目目录</h3><table>
-<thead>
-<tr>
-<th align="left">目录/文件</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">build</td>
-<td align="left">项目构建(webpack)相关代码</td>
-</tr>
-<tr>
-<td align="left">config</td>
-<td align="left">配置目录，包括端口号等。我们初学可以使用默认的。</td>
-</tr>
-<tr>
-<td align="left">node_modules</td>
-<td align="left">npm 加载的项目依赖模块</td>
-</tr>
-<tr>
-<td align="left">src</td>
-<td align="left">这里是我们要开发的目录，基本上要做的事情都在这个目录里。里面包含了几个目录及文件：assets: 放置一些图片，如logo等。components: 目录里面放了一个组件文件，可以不用。App.vue: 项目入口文件，我们也可以直接将组件写这里，而不使用 components 目录。main.js: 项目的核心文件。</td>
-</tr>
-<tr>
-<td align="left">static</td>
-<td align="left">静态资源目录，如图片、字体等。</td>
-</tr>
-<tr>
-<td align="left">test</td>
-<td align="left">初始测试目录，可删除</td>
-</tr>
-<tr>
-<td align="left">.xxxx文件</td>
-<td align="left">这些是一些配置文件，包括语法配置，git配置等。</td>
-</tr>
-<tr>
-<td align="left">index.html</td>
-<td align="left">首页入口文件，你可以添加一些 meta 信息或统计代码啥的。</td>
-</tr>
-<tr>
-<td align="left">package.json</td>
-<td align="left">项目配置文件。</td>
-</tr>
-<tr>
-<td align="left">README.md</td>
-<td align="left">项目的说明文档，markdown 格式</td>
-</tr>
-</tbody></table>
-<p>app.vue:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 展示模板 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./assets/logo.png&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hello</span>&gt;</span><span class="tag">&lt;/<span class="name">hello</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="comment">// 导入组件</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> Hello <span class="keyword">from</span> <span class="string">&#x27;./components/Hello&#x27;</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  <span class="attr">name</span>: <span class="string">&#x27;app&#x27;</span>,</span></span><br><span class="line"><span class="javascript">  <span class="attr">components</span>: &#123;</span></span><br><span class="line"><span class="javascript">    Hello</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">&#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 样式代码 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-id">#app</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="attribute">font-family</span>: <span class="string">&#x27;Avenir&#x27;</span>, Helvetica, Arial, sans-serif;</span></span><br><span class="line"><span class="css">  -webkit-<span class="attribute">font-smoothing</span>: antialiased;</span></span><br><span class="line"><span class="css">  -moz-osx-<span class="attribute">font-smoothing</span>: grayscale;</span></span><br><span class="line"><span class="css">  <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">  <span class="attribute">color</span>: <span class="number">#2c3e50</span>;</span></span><br><span class="line"><span class="css">  <span class="attribute">margin-top</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-template标签"><a href="#2-template标签" class="headerlink" title="(2)template标签"></a>(2)template标签</h3><p>使用 <code>&lt;template&gt;</code> 保留页面加载时隐藏的内容。使用 JavaScript 来显示：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;h1&gt;template 元素&lt;/h1&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;单击下面的按钮，显示 template 元素中的隐藏内容。&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;button onclick=&quot;showContent()&quot;&gt;显示隐藏的内容&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;     //点击按钮才会显示，JavaScript响应事件</span><br><span class="line">  &lt;h2&gt;Flower&lt;/h2&gt;</span><br><span class="line">  &lt;img src=&quot;/i/photo/flower.gif&quot; width=&quot;180&quot; height=&quot;180&quot;&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">function showContent() &#123;</span><br><span class="line">  var temp = document.getElementsByTagName(&quot;template&quot;)[0];</span><br><span class="line">  var clon = temp.content.cloneNode(true);</span><br><span class="line">  document.body.appendChild(clon);</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-vue应用"><a href="#3-vue应用" class="headerlink" title="(3)vue应用"></a>(3)vue应用</h3><p>每个 Vue 应用都需要通过实例化 Vue 来实现。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  // 选项</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Vue 测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.staticfile.org/vue/2.4.2/vue.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;vue_det&quot;</span>&gt;</span>   //块儿</span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>site : &#123;&#123;site&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>url : &#123;&#123;url&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Alexa : &#123;&#123;alexa&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 我们的数据对象</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> data = &#123; <span class="attr">site</span>: <span class="string">&quot;hello&quot;</span>, <span class="attr">url</span>: <span class="string">&quot;www.runoob.com&quot;</span>, <span class="attr">alexa</span>: <span class="number">10000</span>&#125;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;    <span class="comment">//vue应用</span></span></span><br><span class="line"><span class="javascript">        <span class="attr">el</span>: <span class="string">&#x27;#vue_det&#x27;</span>,    <span class="comment">//id选择器</span></span></span><br><span class="line"><span class="javascript">        <span class="attr">data</span>: data       <span class="comment">//数据，在外面</span></span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 它们引用相同的对象！</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.write(vm.site === data.site) <span class="comment">// true</span></span></span><br><span class="line"><span class="javascript">	<span class="built_in">document</span>.write(<span class="string">&quot;&lt;br&gt;&quot;</span>)</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 设置属性也会影响到原始数据</span></span></span><br><span class="line"><span class="javascript">    vm.site = <span class="string">&quot;Runoob&quot;</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.write(data.site + <span class="string">&quot;&lt;br&gt;&quot;</span>) <span class="comment">// Runoob</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// ……反之亦然</span></span></span><br><span class="line"><span class="javascript">    data.alexa = <span class="number">1234</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.write(vm.alexa) <span class="comment">// 1234</span></span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>当一个 Vue 实例被创建时，它向 Vue 的响应式系统中加入了其 data 对象中能找到的所有的属性。当这些属性的值发生改变时，html 视图将也会产生相应的变化。</p>
-<h2 id="4-vscode运行html"><a href="#4-vscode运行html" class="headerlink" title="4.vscode运行html"></a>4.vscode运行html</h2><p>(1).新建.html文件</p>
-<p>(2).安装open in browser插件</p>
-<p>(3).html页面右键选择open in other browser</p>
-<h2 id="5-vue项目不用localhost"><a href="#5-vue项目不用localhost" class="headerlink" title="5.vue项目不用localhost"></a>5.vue项目不用localhost</h2><p>改变config下index.js里的ip，也是本机的私有ip，公网内的其他ip可访问。前提：一个公网。</p>
-<h2 id="6-项目解读"><a href="#6-项目解读" class="headerlink" title="6.项目解读"></a>6.项目解读</h2><p>main.js 像是加vue应用的。</p>
-<p>.vue 里面有<code>&lt;template&gt;</code> <code>&lt;script&gt;</code> <code>&lt;style&gt;</code></p>
-<p>首页入口文件：index.html</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width,initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>myfirstvue<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- built files will be auto injected --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>项目入口文件：App.vue</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./assets/logo.png&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-view</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  <span class="attr">name</span>: <span class="string">&#x27;App&#x27;</span></span></span><br><span class="line"><span class="javascript">&#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-id">#app</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="attribute">font-family</span>: <span class="string">&#x27;Avenir&#x27;</span>, Helvetica, Arial, sans-serif;</span></span><br><span class="line"><span class="css">  -webkit-<span class="attribute">font-smoothing</span>: antialiased;</span></span><br><span class="line"><span class="css">  -moz-osx-<span class="attribute">font-smoothing</span>: grayscale;</span></span><br><span class="line"><span class="css">  <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">  <span class="attribute">color</span>: <span class="number">#2c3e50</span>;</span></span><br><span class="line"><span class="css">  <span class="attribute">margin-top</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>ES6：全称 ECMAScript 6.0 ，是 JavaScript 的下一个版本标准，2015.06 发版。</p>
-<p>ES6 主要是为了解决 ES5 的先天不足，比如 JavaScript 里并没有类的概念，但是目前浏览器的 JavaScript 是 ES5 版本，大多数高版本的浏览器也支持 ES6，不过只实现了 ES6 的部分特性和功能。</p>
-<h3 id="export-default"><a href="#export-default" class="headerlink" title="export default"></a>export default</h3><p>用于导出常量、函数、文件、模块等。</p>
-<p>export可以有多个，export default只能有一个</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hello.vue中：</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;HelloWorld&#x27;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &#x27;Welcome to Your Vue.js App&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-vscode打开终端"><a href="#7-vscode打开终端" class="headerlink" title="7.vscode打开终端"></a>7.vscode打开终端</h3><p>ctrl+·（左上角esc下面的）</p>
-<p>或：查看-&gt;终端</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/23/myblog/cpp%E4%BF%AE%E7%82%BC/Mac%E4%B8%8Bvscode%E9%85%8D%E7%BD%AEcpp%E7%8E%AF%E5%A2%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/23/myblog/cpp%E4%BF%AE%E7%82%BC/Mac%E4%B8%8Bvscode%E9%85%8D%E7%BD%AEcpp%E7%8E%AF%E5%A2%83/" class="post-title-link" itemprop="url">mac下vscode配置cpp环境</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-23 12:57:31" itemprop="dateCreated datePublished" datetime="2021-08-23T12:57:31+08:00">2021-08-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 21:57:47" itemprop="dateModified" datetime="2021-09-25T21:57:47+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cpp%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">cpp开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-安装vscode"><a href="#1-安装vscode" class="headerlink" title="1.安装vscode"></a>1.安装vscode</h3><h3 id="2-插件安装"><a href="#2-插件安装" class="headerlink" title="2.插件安装"></a>2.插件安装</h3><p>安装“C/C++”、“C/C++ Clang Command Adapter”</p>
-<h3 id="3-新建cpp文件"><a href="#3-新建cpp文件" class="headerlink" title="3.新建cpp文件"></a>3.新建cpp文件</h3><h3 id="4-配置1-c-cpp-properties-json"><a href="#4-配置1-c-cpp-properties-json" class="headerlink" title="4.配置1 c_cpp_properties.json"></a>4.配置1 c_cpp_properties.json</h3><p>按 <code>Command + Shift + P</code> 打开命令行面板，输入 <code>C/Cpp: Edit Configurations</code>命令<br>此时会在当前工作空间目录生成.vscode配置目录<br>同时在配置目录会生成一个c_cpp_properties.json文件</p>
-<p>将要用到的库的路径添加到includePath数组中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;Mac&quot;,</span><br><span class="line">            &quot;includePath&quot;: [</span><br><span class="line">                        &quot;$&#123;workspaceFolder&#125;&quot;,</span><br><span class="line">                        &quot;/Library/Developer/CommandLineTools/usr/include/c++/v1&quot;,</span><br><span class="line">                        &quot;/usr/local/include&quot;,</span><br><span class="line">                        &quot;/Library/Developer/CommandLineTools/usr/include&quot;,</span><br><span class="line">                    ],</span><br><span class="line">            &quot;defines&quot;: [],</span><br><span class="line">            &quot;macFrameworkPath&quot;: [</span><br><span class="line">                &quot;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks&quot;</span><br><span class="line">            ],</span><br><span class="line">            &quot;compilerPath&quot;: &quot;/usr/bin/clang&quot;,</span><br><span class="line">            &quot;cStandard&quot;: &quot;c17&quot;,</span><br><span class="line">            &quot;cppStandard&quot;: &quot;c++98&quot;,</span><br><span class="line">            &quot;intelliSenseMode&quot;: &quot;macos-clang-x64&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;version&quot;: 4</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-配置2-tasks-json"><a href="#5-配置2-tasks-json" class="headerlink" title="5.配置2 tasks.json"></a>5.配置2 tasks.json</h3><p>按 <code>Command + Shift + P</code> 打开命令行面板，输入 <code>tasks</code>，选择 <code>Tasks:Configure Task</code> 生成 <code>tasks.json</code> 配置文件，选择的模板为MSBuild</p>
-<p>该文件其实就是一个命令行构建工具<br>把运行程序时在终端输入的命令和参数对于”command”和”args”的值<br>输入shift+command+b，便可构建成功，生成可执行文件a.out</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // See https://go.microsoft.com/fwlink/?LinkId=733558</span><br><span class="line">    // for the documentation about the tasks.json format</span><br><span class="line">        &quot;version&quot;: &quot;2.0.0&quot;,</span><br><span class="line">        &quot;tasks&quot;: [</span><br><span class="line">            &#123;</span><br><span class="line">                &quot;label&quot;: &quot;c++&quot;,</span><br><span class="line">                &quot;command&quot;: &quot;clang++&quot;,</span><br><span class="line">                &quot;type&quot;: &quot;shell&quot;,</span><br><span class="line">                &quot;args&quot;: [</span><br><span class="line">                    &quot;main.cpp&quot;,</span><br><span class="line">                    &quot;-std=c++11&quot;,</span><br><span class="line">                    &quot;-g&quot;</span><br><span class="line">                ],</span><br><span class="line">                &quot;presentation&quot;: &#123;</span><br><span class="line">                    &quot;echo&quot;: true,</span><br><span class="line">                    &quot;reveal&quot;: &quot;always&quot;,</span><br><span class="line">                    &quot;focus&quot;: false,</span><br><span class="line">                    &quot;panel&quot;: &quot;new&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-
-<h3 id="6-配置3-launch-json"><a href="#6-配置3-launch-json" class="headerlink" title="6.配置3 launch.json"></a>6.配置3 <strong>launch.json</strong></h3><p>如果需要对项目进行进行 <code>debug</code>，则需要先生成 <code>launch.json</code> 文件并对其做相应的配置</p>
-<ul>
-<li><p>按 <code>Command + Shift + D</code> 进入到运行界面</p>
-</li>
-<li><p>点击 <code>创建 launch.json 文件</code>，选择 <code>C++(GDB/LLDB)</code></p>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // 使用 IntelliSense 了解相关属性。 </span><br><span class="line">    // 悬停以查看现有属性的描述。</span><br><span class="line">    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387</span><br><span class="line">    &quot;version&quot;: &quot;0.2.0&quot;,</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;c/c++ Launch&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;cppdbg&quot;,</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">            &quot;program&quot;: &quot;$&#123;workspaceFolder&#125;/a.out&quot;,</span><br><span class="line">            &quot;args&quot;: [],</span><br><span class="line">            &quot;stopAtEntry&quot;: false,</span><br><span class="line">            &quot;cwd&quot;: &quot;$&#123;workspaceFolder&#125;&quot;,</span><br><span class="line">            &quot;environment&quot;: [],</span><br><span class="line">            &quot;externalConsole&quot;: true,</span><br><span class="line">            &quot;MIMode&quot;: &quot;lldb&quot;,</span><br><span class="line">            &quot;preLaunchTask&quot;:&quot;c++&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
-
-<p>![image-20210816193726334](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210816193726334.png)</p>
-<h3 id="7-shift-command-b编译失败"><a href="#7-shift-command-b编译失败" class="headerlink" title="7.shift+command+b编译失败"></a>7.shift+command+b编译失败</h3><p>于VScode报错“终端将被任务重用，按任意键关闭”的解决方案：</p>
-<p>原因是本地端口是被共享的，所以必须关闭一个进程才能执行另一个，只需要对 <code>tasks.json</code>文件做一些修改即可。</p>
-<p>tasks.json里把”panel”=”shared”改成：”panel”=”new”</p>
-<h3 id="8-如何运行？"><a href="#8-如何运行？" class="headerlink" title="8.如何运行？"></a>8.如何运行？</h3><p>输入shift+command+b，便可构建成功，生成可执行文件a.out</p>
-<p>编译完成后，会在项目路径下生成 <code>main</code> 文件，使用 <code>./main</code> 即可执行</p>
-<hr>
-<p>出现错误，重新参考，理解三个配置文件</p>
-<hr>
-<p>在配置环境之前先检查一下机器上都安装了什么C++编译器，通过以下两条命令可以查看是否安装了g++/clang编译器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ --version</span><br><span class="line">clang++ --version</span><br></pre></td></tr></table></figure>
-
-<p>然后安装两个插件</p>
-<p>然后新建工程目录，在里面新建一个cpp文件命名为main.cpp。</p>
-<p>然后点击侧边栏的Debug按钮，点击设置图标，便会提示你选择环境，这里就选择C++那一项。</p>
-<p>此时VSCode会在你的工程目录下自动新建一个.vscode的文件夹，并新建了一个launch.json的文件，这里需要对生成的文件进行一些小改动。本人配置如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // 使用 IntelliSense 了解相关属性。 </span><br><span class="line">    // 悬停以查看现有属性的描述。</span><br><span class="line">    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387</span><br><span class="line">    &quot;version&quot;: &quot;0.2.0&quot;,</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;(lldb) Launch&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;cppdbg&quot;,</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">            &quot;program&quot;: &quot;$&#123;workspaceFolder&#125;/a.out&quot;,</span><br><span class="line">            //a.out 是需要运行的二进制文件可以改名</span><br><span class="line">            &quot;args&quot;: [],</span><br><span class="line">            &quot;stopAtEntry&quot;: false,</span><br><span class="line">            &quot;cwd&quot;: &quot;$&#123;workspaceFolder&#125;&quot;,</span><br><span class="line">            &quot;environment&quot;: [],</span><br><span class="line">            &quot;externalConsole&quot;: true,</span><br><span class="line">            &quot;MIMode&quot;: &quot;lldb&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>保存后按快捷键⇧⌘B编译，此时会出现提示没有找到要运行的生成任务，所以接下来将进行生成任务的配置工作，VSCode提供了一些模版，有需要的可以自行选择，这里就选则Others。</p>
-<p>此时.vscode目录下会出现一个task.json文件，对它进行改写。本人配置如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // See https://go.microsoft.com/fwlink/?LinkId=733558</span><br><span class="line">    // for the documentation about the tasks.json format</span><br><span class="line">    &quot;version&quot;: &quot;2.0.0&quot;,</span><br><span class="line">    &quot;tasks&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;label&quot;: &quot;hello world&quot;,  //描述</span><br><span class="line">            &quot;type&quot;: &quot;shell&quot;,</span><br><span class="line">            &quot;command&quot;: &quot;clang++&quot;,</span><br><span class="line">            &quot;args&quot;: [</span><br><span class="line">            </span><br><span class="line">                &quot;main.cpp&quot;  //文件名</span><br><span class="line">            ],</span><br><span class="line">            &quot;group&quot;: &#123;</span><br><span class="line">                &quot;kind&quot;:&quot;build&quot;,</span><br><span class="line">                &quot;isDefault&quot;: true</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;presentation&quot;: &#123;</span><br><span class="line">                &quot;echo&quot;: true,</span><br><span class="line">                &quot;reveal&quot;: &quot;always&quot;,</span><br><span class="line">                &quot;focus&quot;: false,</span><br><span class="line">                &quot;panel&quot;: &quot;new&quot;  //新建端口</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>保存后再次按快捷键⇧⌘B就能够顺利编译了，编译完成后按F5执行，得到输出结果。</p>
-<p>每次编译完成后，我们会发现目录下多了一个a.out文件，这个文件是Linux/Unix环境下编译器编译源代码并连接产生的可执行文件，在未指定的情况下其默认命名为a.out。那么如何通过修改配置文件来修改这个文件的命名呢？</p>
-<p>方法很简单，在task.json中的args属性下填入<code>-o yourfilename.out</code></p>
-<p>可以发现这里的command和args两个属性就相当于在命令行中执行了<code>clang++ -o yourfilename.out main.cpp</code>，所以如果还有其他的需求也可以对这里进行改写。最后不要忘记修改launch.json中的program属性，将.out的文件名修改为与task.json一致。便可以成功编译执行了。</p>
-<hr>
-<p>用了第二种之后，control+command+b 编译</p>
-<p>再F5执行，不行，应该是branch文件配置的原因。</p>
-<p>但是./\ app.out 可以运行。先这样。</p>
-<p>参考：</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43119354/article/details/89219180?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-0.control&amp;spm=1001.2101.3001.4242">https://blog.csdn.net/qq_43119354/article/details/89219180?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-0.control&amp;spm=1001.2101.3001.4242</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1619,7 +1533,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1632,7 +1546,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="单元测试(Unit test)：单元测试关注单一的类. 它们存在的目的是检查这个类中的代码是否按照期望正确运行. 集成测试(Integration test)顾名思义, 集成测试是检查开发的模块和其他模块整合时是否正常工作.虽然集成测试的代码影响范围比单元测试要广, 但是集成测试和单元测试一样, 也是针对于开发者而言的. 端到端测试(End-to-End test)端到端测试是将整个系统作为一个整">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java的junit与mock测试">
+<meta property="og:url" content="http://example.com/2022/04/14/myblog/JAVA/java%20junit%E4%B8%8Emock%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:site_name" content="Jadeliu&#39;s blog">
+<meta property="og:description" content="单元测试(Unit test)：单元测试关注单一的类. 它们存在的目的是检查这个类中的代码是否按照期望正确运行. 集成测试(Integration test)顾名思义, 集成测试是检查开发的模块和其他模块整合时是否正常工作.虽然集成测试的代码影响范围比单元测试要广, 但是集成测试和单元测试一样, 也是针对于开发者而言的. 端到端测试(End-to-End test)端到端测试是将整个系统作为一个整">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-14T14:22:37.710Z">
+<meta property="article:modified_time" content="2022-04-17T05:31:20.424Z">
+<meta property="article:author" content="Jade liu">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/04/14/myblog/JAVA/java%20junit%E4%B8%8Emock%E6%B5%8B%E8%AF%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>java的junit与mock测试 | Jadeliu's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jadeliu's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/14/myblog/JAVA/java%20junit%E4%B8%8Emock%E6%B5%8B%E8%AF%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          java的junit与mock测试
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-14 22:22:37" itemprop="dateCreated datePublished" datetime="2022-04-14T22:22:37+08:00">2022-04-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-17 13:31:20" itemprop="dateModified" datetime="2022-04-17T13:31:20+08:00">2022-04-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>单元测试(Unit test)：<br>单元测试关注单一的类. 它们存在的目的是检查这个类中的代码是否按照期望正确运行.</p>
+<p>集成测试(Integration test)<br>顾名思义, 集成测试是检查开发的模块和其他模块整合时是否正常工作.<br>虽然集成测试的代码影响范围比单元测试要广, 但是集成测试和单元测试一样, 也是针对于开发者而言的.</p>
+<p>端到端测试(End-to-End test)<br>端到端测试是将整个系统作为一个整体, 然后从用户的角度进行测试的.<br>端到端测试的目的是测试系统在实际使用的是否正常的, 因此通常来说是不需要测试替身的(Test Double)</p>
+<h2 id="1-Junit单元测试"><a href="#1-Junit单元测试" class="headerlink" title="1.Junit单元测试"></a>1.Junit单元测试</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>单元测试的目的: 测试当前所写的代码是否是正确的, 例如输入一组数据, 会输出期望的数据; 输入错误数据, 会产生错误异常等.</p>
+<p>在单元测试中, 我们需要保证被测系统是独立的(SUT 没有任何的 DOC), 即当被测系统通过测试时, 那么它在任何环境下都是能够正常工作的. 编写单元测试时, 仅仅需要关注单个类就可以了. 而不需要关注例如数据库服务, Web 服务等组件.</p>
+<p>【SUT】被测系统(System under test, SUT) 被测系统。根据测试类型的不同, SUT 指代的内容也不同, 例如 SUT 可以是一个类甚至是一整个系统.</p>
+<p>【DOC】被测系统所依赖的组件, 例如进程 UserService 的单元测试时, UserService 会依赖 UserDao, 因此 UserDao 就是 DOC</p>
+<p>【Test Double】测试替身<br>一个实际的系统会依赖多个外部对象, 但是在进行单元测试时, 我们会用一些功能较为简单的并且其行为和实际对象类似的假对象来作为 SUT 的依赖对象, 以此来降低单元测试的复杂性和可实现性. 在这里, 这些假对象就被称为 测试替身(Test Double).</p>
+<p>测试替身有以下五种：</p>
+<p>1.Test stub, 为 SUT 提供数据的假对象。stub 类有时候还会记录调用的一些信息。</p>
+<p>2.Fake object，实现了简单功能的一个假对象. Fake object 和 Test stub 的主要区别就是 Test stub 侧重于用于提供数据的假对象, 而 Fake object 没有这层含义，使用 Fake object 的最主要的原因就是在测试时某些组件不可用或运行速度太慢, 因而使用 Fake object 来代替它们.<br>譬如说，它存在内存中而不是真正的数据库中。</p>
+<p>3.Mock object<br>是指类或者接口的模拟实现，你可以自定义这个对象中某个方法的输出结果。<br>实际上, Mock object 是 Test stub 或 Fake object 一种, 但是 Mock object 有 Test stub/Fake object 没有的特性, Mock object 可以很灵活地配置所调用的方法所产生的行为, 并且它可以追踪方法调用, 例如一个 Mock Object 方法调用时传递了哪些参数, 方法调用了几次等.</p>
+<p>4.Dummy object: 在测试中并不使用的, 但是为了测试代码能够正常编译/运行而添加的对象. 例如我们调用一个 Test Double 对象的一个方法, 这个方法需要传递几个参数, 但是其中某个参数无论是什么值都不会影响测试的结果, 那么这个参数就是一个 Dummy object.<br>Dummy object 可以是一个空引用, 一个空对象或者是一个常量等.<br>简单的说, Dummy object 就是那些没有使用到的, 仅仅是为了填充参数列表的对象.</p>
+<p>5.Test Spy<br>可以包装一个真实的 Java 对象, 并返回一个包装后的新对象. 若没有特别配置的话, 对这个新对象的所有方法调用, 都会委派给实际的 Java 对象.</p>
+<p>mock 和 spy 的区别是: mock 是无中生有地生出一个<strong>完全虚拟的对象</strong>, 它的所有方法都是虚拟的; 而 spy 是在现有类的基础上包装了一个对象, 即如果我们没有重写 spy 的方法, 那么这些方法的实现其实都是调用的被包装的对象的方法.</p>
+<p>【test fixture】测试的先决条件，<br>@Before 在每个测试方法运行前都会被调用, @After 在每个测试方法运行后都会被调用.<br>因为 @Before 和 @After 会在每个测试方法前后都会被调用, 而有时我们仅仅需要在测试前进行一次初始化, 这样的情况下, 可以使用@BeforeClass 和@AfterClass 注解.</p>
+<p>【test case】测试用例<br>在 JUnit 3中, 测试方法都必须以 test 为前缀, 且必须是 public void 的, JUnit 4之后, 就没有这个限制了, 只要在每个测试方法标注 @Test 注解, 方法签名可以是任意的.</p>
+<p>【测试套件】通过 TestSuit 对象将多个测试用例组装成一个测试套件, 测试套件批量运行.<br>通过@RunWith 和@SuteClass 两个注解, 我们可以创建一个测试套件. 通过@RunWith 指定一个特殊的运行器, 并通过@SuiteClasses 注解, 将需要进行测试的类列表作为参数传入.</p>
+<h3 id="Junit4注解"><a href="#Junit4注解" class="headerlink" title="Junit4注解"></a>Junit4注解</h3><p>@Test (expected = Exception.class) 表示预期会抛出Exception.class 的异常</p>
+<p>@Ignore 含义是“某些方法尚未完成，暂不参与此次测试”。这样的话测试结果就会提示你有几个测试被忽略，而不是失败。一旦你完成了相应函数，只需要把@Ignore注解删去，就可以进行正常的测试。</p>
+<p>@Test(timeout=100) 表示预期方法执行不会超过 100 毫秒，控制死循环</p>
+<p>@Before 表示该方法在每一个测试方法之前运行，可以使用该方法进行初始化之类的操作</p>
+<p>@After 表示该方法在每一个测试方法之后运行，可以使用该方法进行释放资源，回收内存之类的操</p>
+<p>@BeforeClass 表示该方法只执行一次，并且在所有方法之前执行。一般可以使用该方法进行数据库连接操作，注意该注解运用在静态方法。</p>
+<p>@AfterClass 表示该方法只执行一次，并且在所有方法之后执行。一般可以使用该方法进行数据库连接关闭操作，注意该注解运用在静态方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import org.junit.runner.RunWith;  </span><br><span class="line">import org.junit.runners.Suite;  </span><br><span class="line">import org.junit.runners.Suite.SuiteClasses;  </span><br><span class="line">  </span><br><span class="line">@RunWith( Suite.class )  </span><br><span class="line">@SuiteClasses( &#123; JUnitTest1.class, JUnitTest2.class &#125; )  </span><br><span class="line">public class AllTests &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果有多个测试类, 可以合并成一个测试套件进行测试, 运行一个 Test Suite, 那么就会运行在这个 Test Suite 中的所用的测试.<br>在这个例子中, 我们定义了一个 Test Suite, 这个 Test Suite 包含了两个测试类: JUnitTest1 和 JUnitTest2, 因此运行 这个 Test Suite 时, 就会自动运行这两个测试类了.</p>
+<p>*在类名上按下command+shift+t，就可以生成对应测试类。</p>
+<p>来源：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000006731125">https://segmentfault.com/a/1190000006731125</a></p>
+<h2 id="2-Mockito中-Mock与-InjectMock"><a href="#2-Mockito中-Mock与-InjectMock" class="headerlink" title="2.Mockito中@Mock与@InjectMock"></a>2.Mockito中@Mock与@InjectMock</h2><p>Mockito 是一个流行 mock 框架，可以和JUnit结合起来使用。Mockito 允许你创建和配置 mock 对象。<br>Mockito是java单元测试中，最常用的mck工具之一，提供了诸多打桩方法和注解。其中有两个比较常用的注解，@Mock和@InjectMock，名字和在代码中使用 的位置都很像。但是是在功能上无任何可类比性的完全不同的东西。<br>程序员通常创造模拟对象来测试其他对象的行为，很类似汽车设计者使用碰撞测试假人来模拟车辆碰撞中人的动态行为。</p>
+<p>为什么使用mock？<br>在单元测试中，模拟对象可以模拟复杂的、真实的（非模拟）对象的行为， 如果真实的对象无法放入单元测试中，使用模拟对象就很有帮助。</p>
+<p>单元测试的思路是在不涉及依赖关系的情况下测试代码（隔离性），所以测试代码与其他类或者系统的关系应该尽量被消除。一个可行的消除方法是替换掉依赖类（测试替换），也就是说我们可以使用替身来替换掉真正的依赖对象。</p>
+<h3 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h3><p>@Mock：<br>在Mockito中用于创建mock对象，使用方法如下：<br><code>@Mock</code><br><code>private ClassName mockedObject；</code></p>
+<p>上面代码创建了一个名为mockedObject，类型为ClassName的mock对象，该对象所有的方法被置空，根据测试代码逻辑的需要使用.</p>
+<hr>
+<p>@InjectMock：<br>创建一个实例，简单的说是这个Mock可以调用真实代码的方法，其余用@Mock（或@Spy）注解创建的mock将被注入到用该实例中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(MockitoJUnitRunner.class)  </span><br><span class="line">public class Test &#123;  </span><br><span class="line">  </span><br><span class="line">    @InjectMocks  </span><br><span class="line">    private SomeHandler someHandler;  </span><br><span class="line">  </span><br><span class="line">    @Mock  </span><br><span class="line">    private OneDependency oneDependency; // 此mock将被注入到someHandler  </span><br><span class="line"></span><br><span class="line">    // ...   </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>这段代码中，@InjectMock下面声明了一个待测试的对象，@Mock定义的mock对象将会被注入到这个待测试的对象中。</p>
+<hr>
+<p>🤔 @Mock创建创建mock对象之后，在对具体的方法打桩之前，mock对象的所有属性和方法全被置空（0或者null），所以，对应的方法是不运行的。<br>*mock对象创建之后，被测试类中的该对象的方法就都不执行了。</p>
+<p>🤔 @Spy可以创建的对象的所有成员方法都会按照原方法的逻辑执行，直到被打桩返回某个具体的值。</p>
+<p>来源：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/langren1992/p/9681600.html">https://www.cnblogs.com/langren1992/p/9681600.html</a></p>
+<h3 id="mock使用"><a href="#mock使用" class="headerlink" title="mock使用"></a>mock使用</h3><p>maven注入依赖。</p>
+<p>如果你使用注解，那么必须要实例化 mock 对象。Mockito 在遇到使用注解的字段的时候必须使用@RunWith(MockitoJUnitRunner.class) 或 MockitoAnnotations.initMocks(this)进行mocks的初始化和注入。<br>(可以写一个init函数，加@Before注解)</p>
+<h4 id="配置mock"><a href="#配置mock" class="headerlink" title="配置mock"></a>配置mock</h4><p>when(…​.).thenReturn(…​.)可以被用来定义当条件满足时函数的返回值，当多次调用函数的时候，Mockito 会根据你定义的先后顺序来返回返回值（多次调用）。Mocks 还可以根据传入参数的不同来定义不同的返回值。譬如说你的函数可以将anyString 或者 anyInt作为输入参数，然后定义其特定的放回值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">import static org.mockito.Mockito.*;</span><br><span class="line">import static org.junit.Assert.*;</span><br><span class="line"></span><br><span class="line">@Test</span><br><span class="line">public void test1()  &#123;</span><br><span class="line">        //  创建 mock</span><br><span class="line">        MyClass test = Mockito.mock(MyClass.class);</span><br><span class="line"></span><br><span class="line">        // 自定义 getUniqueId() 的返回值</span><br><span class="line">        when(test.getUniqueId()).thenReturn(43);</span><br><span class="line"></span><br><span class="line">        // 在测试中使用mock对象</span><br><span class="line">        assertEquals(test.getUniqueId(), 43);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 返回多个值</span><br><span class="line">@Test</span><br><span class="line">public void testMoreThanOneReturnValue()  &#123;</span><br><span class="line">        Iterator i= mock(Iterator.class);</span><br><span class="line">        when(i.next()).thenReturn(&quot;Mockito&quot;).thenReturn(&quot;rocks&quot;);</span><br><span class="line">        String result=i.next()+&quot; &quot;+i.next();</span><br><span class="line">        // 断言</span><br><span class="line">        assertEquals(&quot;Mockito rocks&quot;, result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 如何根据输入来返回值</span><br><span class="line">@Test</span><br><span class="line">public void testReturnValueDependentOnMethodParameter()  &#123;</span><br><span class="line">        Comparable c= mock(Comparable.class);</span><br><span class="line">        when(c.compareTo(&quot;Mockito&quot;)).thenReturn(1);</span><br><span class="line">        when(c.compareTo(&quot;Eclipse&quot;)).thenReturn(2);</span><br><span class="line">        // 断言</span><br><span class="line">        assertEquals(1,c.compareTo(&quot;Mockito&quot;));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 如何让返回值不依赖于输入</span><br><span class="line">@Test</span><br><span class="line">public void testReturnValueInDependentOnMethodParameter()  &#123;</span><br><span class="line">        Comparable c= mock(Comparable.class);</span><br><span class="line">        when(c.compareTo(anyInt())).thenReturn(-1);</span><br><span class="line">        // 断言</span><br><span class="line">        assertEquals(-1 ,c.compareTo(9));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 根据参数类型来返回值</span><br><span class="line">@Test</span><br><span class="line">public void testReturnValueInDependentOnMethodParameter()  &#123;</span><br><span class="line">        Comparable c= mock(Comparable.class);</span><br><span class="line">        when(c.compareTo(isA(Todo.class))).thenReturn(0);</span><br><span class="line">        // 断言</span><br><span class="line">        Todo todo = new Todo(5);</span><br><span class="line">        assertEquals(todo ,c.compareTo(new Todo(1)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="无返回值的方法"><a href="#无返回值的方法" class="headerlink" title="无返回值的方法"></a>无返回值的方法</h4><p>mokito中，对无返回的函数什么都不做<br>Mokito.doNothing().when(对象).函数();</p>
+<p>对于无返回值的函数，我们可以使用doReturn(…​).when(…​).methodCall来获得类似的效果。例如我们想在调用某些无返回值函数的时候抛出异常，那么可以使用doThrow 方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import static org.mockito.Mockito.*;</span><br><span class="line">import static org.junit.Assert.*;</span><br><span class="line"></span><br><span class="line">// 下面测试用例描述了如何使用doThrow()方法</span><br><span class="line"></span><br><span class="line">@Test(expected=IOException.class)</span><br><span class="line">public void testForIOException() &#123;</span><br><span class="line">        // 创建并配置 mock 对象</span><br><span class="line">        OutputStream mockStream = mock(OutputStream.class);</span><br><span class="line">        doThrow(new IOException()).when(mockStream).close();</span><br><span class="line"></span><br><span class="line">        // 使用 mock</span><br><span class="line">        OutputStreamWriter streamWriter= new OutputStreamWriter(mockStream);</span><br><span class="line">        streamWriter.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="验证是否调用"><a href="#验证是否调用" class="headerlink" title="验证是否调用"></a>验证是否调用</h4><p>验证 query 方法是否被 MyDatabase 的 mock 对象调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import static org.mockito.Mockito.*;</span><br><span class="line"></span><br><span class="line">public class MockitoTest  &#123;</span><br><span class="line"></span><br><span class="line">        @Mock</span><br><span class="line">        MyDatabase databaseMock; (1)</span><br><span class="line"></span><br><span class="line">        @Rule public MockitoRule mockitoRule = MockitoJUnit.rule(); (2)</span><br><span class="line"></span><br><span class="line">        @Test</span><br><span class="line">        public void testQuery()  &#123;</span><br><span class="line">                ClassToTest t  = new ClassToTest(databaseMock); (3)</span><br><span class="line">                boolean check = t.query(&quot;* from t&quot;); (4)</span><br><span class="line">                assertTrue(check); (5)</span><br><span class="line">                verify(databaseMock).query(&quot;* from t&quot;); (6)</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Mockito 会跟踪 mock 对象里面所有的方法和变量。所以我们可以用来验证函数在传入特定参数的时候是否被调用。这种方式的测试称行为测试，行为测试并不会检查函数的返回值，而是检查在传入正确参数时候函数是否被调用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import static org.mockito.Mockito.*;</span><br><span class="line"></span><br><span class="line">@Test</span><br><span class="line">public void testVerify()  &#123;</span><br><span class="line">        // 创建并配置 mock 对象</span><br><span class="line">        MyClass test = Mockito.mock(MyClass.class);</span><br><span class="line">        when(test.getUniqueId()).thenReturn(43);</span><br><span class="line"></span><br><span class="line">        // 调用mock对象里面的方法并传入参数为12</span><br><span class="line">        test.testing(12);</span><br><span class="line">        test.getUniqueId();</span><br><span class="line">        test.getUniqueId();</span><br><span class="line"></span><br><span class="line">        // 查看在传入参数为12的时候方法是否被调用</span><br><span class="line">        verify(test).testing(Matchers.eq(12));</span><br><span class="line"></span><br><span class="line">        // 方法是否被调用两次</span><br><span class="line">        verify(test, times(2)).getUniqueId();</span><br><span class="line"></span><br><span class="line">        // 其他用来验证函数是否被调用的方法</span><br><span class="line">        verify(mock, never()).someMethod(&quot;never called&quot;);</span><br><span class="line">        verify(mock, atLeastOnce()).someMethod(&quot;called at least once&quot;);</span><br><span class="line">        verify(mock, atLeast(2)).someMethod(&quot;called at least twice&quot;);</span><br><span class="line">        verify(mock, times(5)).someMethod(&quot;called five times&quot;);</span><br><span class="line">        verify(mock, atMost(3)).someMethod(&quot;called at most 3 times&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="spy使用"><a href="#spy使用" class="headerlink" title="spy使用"></a>spy使用</h3><p>@Spy或者spy()方法可以被用来封装 java 对象。被封装后，除非特殊声明（打桩 stub），否则都会真正的调用对象里面的每一个方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import static org.mockito.Mockito.*;</span><br><span class="line"></span><br><span class="line">// Lets mock a LinkedList</span><br><span class="line">List list = new LinkedList();</span><br><span class="line">List spy = spy(list);</span><br><span class="line"></span><br><span class="line">// 可用 doReturn() 来打桩</span><br><span class="line">doReturn(&quot;foo&quot;).when(spy).get(0);</span><br><span class="line"></span><br><span class="line">// 下面代码不生效</span><br><span class="line">// 真正的方法会被调用</span><br><span class="line">// 将会抛出 IndexOutOfBoundsException 的异常，因为 List 为空</span><br><span class="line">when(spy.get(0)).thenReturn(&quot;foo&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f6e3ab9719b9">https://www.jianshu.com/p/f6e3ab9719b9</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7b67806b74f6">https://www.jianshu.com/p/7b67806b74f6</a></p>
+<h2 id="PowerMockRunner-和-MockitoJUnitRunner"><a href="#PowerMockRunner-和-MockitoJUnitRunner" class="headerlink" title="PowerMockRunner 和 MockitoJUnitRunner"></a>PowerMockRunner 和 MockitoJUnitRunner</h2><p>关于打桩：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/moshowgame/article/details/100983711">https://blog.csdn.net/moshowgame/article/details/100983711</a></p>
+<h2 id="when-thenReturn-和-doReturn-when-区别"><a href="#when-thenReturn-和-doReturn-when-区别" class="headerlink" title="when().thenReturn() 和 doReturn().when() 区别"></a>when().thenReturn() 和 doReturn().when() 区别</h2><p>使用@Mock时可以相互替换，但是@Spy时，它们的调用结果不同。<br>1.when().thenReturn() 会调用真实的方法，容易抛出异常<br>2.doReturn().when() 不会调用真实方法</p>
+<h2 id="PowerMockito"><a href="#PowerMockito" class="headerlink" title="PowerMockito"></a>PowerMockito</h2><p>PowerMock扩展了EasyMock和Mockito框架，增加了对static和final方法mock支持等功能.<br>PowerMock有两个重要的注解：<br> @RunWith(PowerMockRunner.class)<br> @prepareForTest({MyObject.class})<br> @PrepareForTest注解和@RunWith注解是结合使用的，不要单独使用@PrepareForTest，否则不起作用。当使用PowerMock去mock静态，final或者私有方法时，需要加上这两个注解。<br>————————————————<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/KeeYang108/article/details/79891588">https://blog.csdn.net/KeeYang108/article/details/79891588</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/13/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/redis/" rel="prev" title="redis">
+      <i class="fa fa-chevron-left"></i> redis
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Junit%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">1.Junit单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Junit4%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.2.</span> <span class="nav-text">Junit4注解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Mockito%E4%B8%AD-Mock%E4%B8%8E-InjectMock"><span class="nav-number">2.</span> <span class="nav-text">2.Mockito中@Mock与@InjectMock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.1.</span> <span class="nav-text">注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mock%E4%BD%BF%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">mock使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEmock"><span class="nav-number">2.2.1.</span> <span class="nav-text">配置mock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.2.</span> <span class="nav-text">无返回值的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E8%B0%83%E7%94%A8"><span class="nav-number">2.2.3.</span> <span class="nav-text">验证是否调用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spy%E4%BD%BF%E7%94%A8"><span class="nav-number">2.3.</span> <span class="nav-text">spy使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PowerMockRunner-%E5%92%8C-MockitoJUnitRunner"><span class="nav-number">3.</span> <span class="nav-text">PowerMockRunner 和 MockitoJUnitRunner</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#when-thenReturn-%E5%92%8C-doReturn-when-%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">when().thenReturn() 和 doReturn().when() 区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PowerMockito"><span class="nav-number">5.</span> <span class="nav-text">PowerMockito</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jade liu"
+      src="/images/head.gif">
+  <p class="site-author-name" itemprop="name">Jade liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jadeliuliu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jadeliuliu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jadeliu1998@163.com" title="E-Mail → mailto:jadeliu1998@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/jadeliu1998" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;jadeliu1998" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5823044646" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5823044646" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jade liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
