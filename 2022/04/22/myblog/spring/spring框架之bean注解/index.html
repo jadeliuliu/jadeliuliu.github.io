@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="@Bean注解作用在方法上的注解，Spring的@Bean注解用于告诉方法，产生一个Bean对象，然后这个Bean对象交给Spring管理。产生这个Bean对象的方法Spring只会调用一次，随后这个Spring将会将这个Bean对象放在自己的IOC容器中。(和xml配置中的bean标签的作用是一样的) @Bean主要用在@Configuration注解的类中，也可以用在@Component注解的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring框架@Bean注解、拦截器、监听器">
+<meta property="og:url" content="http://example.com/2022/04/22/myblog/spring/spring%E6%A1%86%E6%9E%B6%E4%B9%8Bbean%E6%B3%A8%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Jadeliu&#39;s blog">
+<meta property="og:description" content="@Bean注解作用在方法上的注解，Spring的@Bean注解用于告诉方法，产生一个Bean对象，然后这个Bean对象交给Spring管理。产生这个Bean对象的方法Spring只会调用一次，随后这个Spring将会将这个Bean对象放在自己的IOC容器中。(和xml配置中的bean标签的作用是一样的) @Bean主要用在@Configuration注解的类中，也可以用在@Component注解的">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-22T14:14:57.094Z">
+<meta property="article:modified_time" content="2022-04-23T04:44:56.210Z">
+<meta property="article:author" content="Jade liu">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/04/22/myblog/spring/spring%E6%A1%86%E6%9E%B6%E4%B9%8Bbean%E6%B3%A8%E8%A7%A3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>spring框架@Bean注解、拦截器、监听器 | Jadeliu's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jadeliu's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/22/myblog/spring/spring%E6%A1%86%E6%9E%B6%E4%B9%8Bbean%E6%B3%A8%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          spring框架@Bean注解、拦截器、监听器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-22 22:14:57" itemprop="dateCreated datePublished" datetime="2022-04-22T22:14:57+08:00">2022-04-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-23 12:44:56" itemprop="dateModified" datetime="2022-04-23T12:44:56+08:00">2022-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring%E7%90%86%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">spring理解</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="Bean注解"><a href="#Bean注解" class="headerlink" title="@Bean注解"></a>@Bean注解</h3><p>作用在方法上的注解，Spring的@Bean注解用于告诉方法，产生一个Bean对象，然后这个Bean对象交给Spring管理。产生这个Bean对象的方法Spring只会调用一次，随后这个Spring将会将这个Bean对象放在自己的IOC容器中。(和xml配置中的bean标签的作用是一样的)</p>
+<p>@Bean主要用在@Configuration注解的类中，也可以用在@Component注解的类中。</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class AppConfig &#123;</span><br><span class="line"> </span><br><span class="line">    // 使用@Bean 注解表明myBean需要交给Spring进行管理</span><br><span class="line">    // 未指定bean 的名称，默认采用的是方法名的配置方式</span><br><span class="line">    @Bean</span><br><span class="line">    public MyBean buildMyBean()&#123;</span><br><span class="line">        return new MyBean();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">public class MyBean &#123;</span><br><span class="line"> </span><br><span class="line">    public MyBean()&#123;</span><br><span class="line">        System.out.println(&quot;MyBean Initializing&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建一个测试类SpringBeanApplicationTests，测试上述代码的正确性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class SpringBeanApplicationTests &#123;</span><br><span class="line"> </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);</span><br><span class="line">        context.getBean(&quot;buildMyBean&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@Bean的属性：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">value：bean别名和name是相互依赖关联的，value,name如果都使用的话值必须要一致；</span><br><span class="line"></span><br><span class="line">name：bean名称，如果不写会默认为注解的方法名称；</span><br><span class="line"></span><br><span class="line">autowire：自定装配默认是不开启的，建议尽量不要开启，因为自动装配不能装配基本数据类型、字符串、数组等，这是自动装配设计的局限性，并且自动装配不如依赖注入精确；</span><br><span class="line"></span><br><span class="line">initMethod：bean的初始化之前的执行方法，该参数一般不怎么用，因为完全可以在代码中实现；</span><br><span class="line"></span><br><span class="line">destroyMethod：默认使用javaConfig配置的bean，如果存在close或者shutdown方法，则在bean销毁时会自动执行该方法，如果你不想执行该方法，则添加@Bean(destroyMethod=&quot;&quot;)来防止出发销毁方法；</span><br></pre></td></tr></table></figure>
+
+<p>Spring中的@Bean注解：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_36380516/article/details/119194065">https://blog.csdn.net/weixin_36380516/article/details/119194065</a></p>
+<h3 id="Bean和-Component"><a href="#Bean和-Component" class="headerlink" title="@Bean和@Component"></a>@Bean和@Component</h3><ul>
+<li>@Component注解表明一个类会作为组件类，并告知Spring要为这个类创建bean。</li>
+<li>@Bean注解告诉Spring这个方法将会返回一个对象，这个对象要注册为Spring应用上下文中的bean。通常方法体中包含了最终产生bean实例的逻辑。</li>
+</ul>
+<p>相同点：两者的结果都是为spring容器注册Bean.<br>不同点：@Component 通常是通过类路径扫描来自动侦测以及自动装配到Spring容器中。<br>　　　　@Bean 注解通常是我们在标有该注解的方法中定义产生这个bean的逻辑。</p>
+<blockquote>
+<p>@Component （@Controller @Service @Respository）作用于类上，只有在我们的SpringBoot应用程序启用了组件扫描并且包含了被注解的类时才有效。通过组件扫描，Spring将扫描整个类路径，并将所有@Component注释类添加到Spring Context，这里有的不足就是会把整个类当成bean注册到spring 容器上，如果这个类中并不是所有方法都需要注册为bean的话，会出现不需要的方法都注册成为bean，这时候必须确保这些不需要的方法也能注册为bean或者在扫描中加filter 过滤这些不需要的bean,否者spring将无法成功启动。</p>
+</blockquote>
+<blockquote>
+<p>@Bean相对来说就更加灵活了，它可以独立加在方法上，按需注册到spring容器，而且如果你要用到第三方类库里面某个方法的时候（或者类？），你就只能用@Bean把这个方法注册到spring容器，因为用@Component你需要配置组件扫描到这个第三方类路径而且还要在别人源代码加上这个注解，很明显是不现实的。</p>
+</blockquote>
+<p>❤️当我们引用第三方库中的类需要装配到Spring容器时，则只能通过@Bean来实现<br>总结：@Component和@Bean都是用来注册Bean并装配到Spring容器中，但是Bean比Component的自定义性更强。可以实现一些Component实现不了的自定义加载类。特别是二方库或三方库的类装配为bean，只能用@Bean。</p>
+<h3 id="实现FactoryBean接口"><a href="#实现FactoryBean接口" class="headerlink" title="实现FactoryBean接口"></a>实现FactoryBean接口</h3><p>org.springframework.beans.factory中</p>
+<p>FactoryBean是一个工厂Bean，可以生成某一个类型Bean实例，它最大的一个作用是：可以让我们自定义Bean的创建过程。BeanFactory是Spring容器中的一个基本类也是很重要的一个类，在BeanFactory中可以创建和管理Spring容器中的Bean，它对于Bean的创建有一个统一的流程。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public interface FactoryBean&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">    //返回的对象实例</span><br><span class="line">    T getObject() throws Exception;</span><br><span class="line">    //Bean的类型</span><br><span class="line">    Class&lt;?&gt; getObjectType();</span><br><span class="line">    //true是单例，false是非单例  在Spring5.0中此方法利用了JDK1.8的新特性变成了default方法，返回true</span><br><span class="line">    boolean isSingleton();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>FactoryBean中定义了一个Spring Bean的很重要的三个特性：是否单例、Bean类型、Bean实例。</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">//FactoryBean接口的实现类</span><br><span class="line">@Component</span><br><span class="line">public class FactoryBeanLearn implements FactoryBean &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object getObject() throws Exception &#123;</span><br><span class="line">        //这个Bean是我们自己new的，这里我们就可以控制Bean的创建过程了</span><br><span class="line">        return new FactoryBeanServiceImpl();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Class&lt;?&gt; getObjectType() &#123;</span><br><span class="line">        return FactoryBeanService.class;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean isSingleton() &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//接口</span><br><span class="line">public interface FactoryBeanService &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 测试FactoryBean</span><br><span class="line">     */</span><br><span class="line">    void testFactoryBean();</span><br><span class="line">&#125;</span><br><span class="line">//实现类</span><br><span class="line">public class FactoryBeanServiceImpl implements FactoryBeanService &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 测试FactoryBean</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void testFactoryBean() &#123;</span><br><span class="line">        System.out.println(&quot;我是FactoryBean的一个测试类。。。。&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//单测</span><br><span class="line">@Test</span><br><span class="line">public void test() &#123;</span><br><span class="line">        ClassPathXmlApplicationContext cac = new ClassPathXmlApplicationContext(&quot;classpath:com/zkn/spring/learn/base/applicationContext.xml&quot;);</span><br><span class="line">        FactoryBeanService beanService = cac.getBean(FactoryBeanService.class);</span><br><span class="line">        beanService.testFactoryBean();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>❤️FactoryBean是自定义了一种注入Bean的方法，在类中没有加注解，也没有xml中配置，但是实现FactoryBean接口，重写getObject方法来返回对象，表示注入了bean，重写getObjectType表示获取bean时bean的类型。然后就可以通过getBean(类型.class)获取bean实例了。<br>至于，如何通过ApplicationContext.getBean()，见：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zknxx/article/details/79572387">https://blog.csdn.net/zknxx/article/details/79572387</a></p>
+<h3 id="ApplicationContextAware接口"><a href="#ApplicationContextAware接口" class="headerlink" title="ApplicationContextAware接口"></a>ApplicationContextAware接口</h3><p>org.springframework.context中</p>
+<p>当一个类实现了这个接口之后，这个类就可以方便的获得ApplicationContext对象（spring上下文），Spring发现某个Bean实现了ApplicationContextAware接口，Spring容器会在创建该Bean之后，自动调用该Bean的setApplicationContext（参数）方法，调用该方法时，会将容器本身ApplicationContext对象作为参数传递给该方法。</p>
+<p>❤️之前获取ApplicationContext需要加载配置文件从而创建应用上下文，但是实现了ApplicationContextAware接口，spring自动将容器本身ApplicationContext对象传递给其中的方法setApplicationContext。实现它的类，可以在类中创建私有的ApplicationContext变量，在setApplicationContext中this. = 进行传递。</p>
+<h3 id="InitialzingBean接口"><a href="#InitialzingBean接口" class="headerlink" title="InitialzingBean接口"></a>InitialzingBean接口</h3><p>当一个类实现这个接口之后，Spring启动后，初始化Bean时，若该Bean实现InitialzingBean接口，会自动调用afterPropertiesSet()方法，完成一些用户自定义的初始化操作。</p>
+<p>同样配置Bean的时候使用init-method也可以实现类似的操作。</p>
+<p>Spring是通过反射来调用init-method指定方法，而实现InitializingBean接口是直接调用afterPropertiesSet方法，所以后者效率高，但使用init-method方式减少了对Spring的依赖。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40093255/article/details/117318760">https://blog.csdn.net/qq_40093255/article/details/117318760</a></p>
+<h3 id="MethodInterceptor接口-拦截器"><a href="#MethodInterceptor接口-拦截器" class="headerlink" title="MethodInterceptor接口-拦截器"></a>MethodInterceptor接口-拦截器</h3><p>org.aopalliance.intercept中<br>MethodInterceptor接口继承了Interceptor接口，Intercepto接口又继承了Advice接口，因此我个将这拦截器称为一个通知。</p>
+<p>实现MethodInterceptor 接口，在调用目标对象的方法时，就可以实现在调用方法之前、调用方法过程中、调用方法之后对其进行控制。</p>
+<p>拦截器就像是建立了一个通知。用切面做增强一样。</p>
+<p>简单的例子：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u012834750/article/details/71773887">https://blog.csdn.net/u012834750/article/details/71773887</a><br>1.实现接口重写invoke方法，做增强<br>2.写一个简单方法<br>3.测试中，用代理工厂设置代理对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">public class TestMethodInterceptor  &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // 初始化一个代理工厂</span><br><span class="line">        ProxyFactory proxyFactory=new ProxyFactory();</span><br><span class="line"></span><br><span class="line">        // 设置目标类，以便于Cglib工具包动态生成目标类的子类，即我们所需的代理类</span><br><span class="line">        // 最好把实现类单独写，这里设置的是实现类（业务）</span><br><span class="line">        proxyFactory.setTarget(new TestMethodInterceptor());</span><br><span class="line"></span><br><span class="line">        // 设置拦截器，而拦截器的&quot;public Object invoke(MethodInvocation mi)&quot;定义了代理类（实际是UserDaoImpl的子类）的方法生成策略。</span><br><span class="line">        proxyFactory.addAdvice(new adviseMethodInterceptor());</span><br><span class="line"></span><br><span class="line">        // 获取代理类</span><br><span class="line">        Object proxy = proxyFactory.getProxy();</span><br><span class="line">         // 向上转型，转型为父类类型</span><br><span class="line">        TestMethodInterceptor methodInterceptor = (TestMethodInterceptor) proxy;</span><br><span class="line"></span><br><span class="line">        methodInterceptor.doSomeThing(&quot;通过代理工厂设置代理对象，拦截代理方法&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static class adviseMethodInterceptor implements MethodInterceptor&#123;</span><br><span class="line">        @Override</span><br><span class="line">        public Object invoke(MethodInvocation methodInvocation) throws Throwable &#123;</span><br><span class="line"></span><br><span class="line">            Object result=null;</span><br><span class="line">            try&#123;</span><br><span class="line">                System.out.println(&quot;方法执行之前：&quot;+methodInvocation.getMethod().toString());</span><br><span class="line"></span><br><span class="line">                result= methodInvocation.proceed();</span><br><span class="line"></span><br><span class="line">                System.out.println(&quot;方法执行之后：&quot;+methodInvocation.getMethod().toString());</span><br><span class="line">                System.out.println(&quot;方法正常运行结果：&quot;+result);</span><br><span class="line"></span><br><span class="line">                return result;</span><br><span class="line"></span><br><span class="line">            &#125;catch (Exception e)&#123;</span><br><span class="line">                System.out.println(&quot;方法出现异常:&quot;+e.toString());</span><br><span class="line">                System.out.println(&quot;方法运行Exception结果：&quot;+result);</span><br><span class="line">                return result;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String doSomeThing(String someThing)&#123;</span><br><span class="line"></span><br><span class="line">        //int i=5/0;</span><br><span class="line">        return &quot;执行被拦截的方法：&quot;+someThing;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>AOP都是基于（Cglib）代理模式实现的，其中的关键点在于实现MethodInterceptor接口，在其“public Object invoke(MethodInvocation mi)”方法中制定代理方法的生成策略，而从此方法的MethodInvocation类型参数mi中可以获得目标对象、目标方法、方法的参数等信息，根据这些信息可以精确地控制增强效果。</p>
+<p>invoke方法的传参是MethodInvocation，表示方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 获取方法名</span><br><span class="line">String methodName = mi.getMethod().getName();</span><br><span class="line">if (methodName.startsWith(&quot;add&quot;))</span><br><span class="line"></span><br><span class="line">// 执行目标方法</span><br><span class="line">result= methodInvocation.proceed();</span><br><span class="line"></span><br><span class="line">// 获取方法参数</span><br><span class="line">Object[] args = methodInvocation.getArguments();</span><br></pre></td></tr></table></figure>
+
+<p>另一个比较复杂的例子：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gocode/p/aop-in-spring.html">https://www.cnblogs.com/gocode/p/aop-in-spring.html</a></p>
+<p>❤️总结：拦截器，可以以动态代理的方式执行方法，另一个作用是创建一个切面，具体的通知在invoke中加，传入参数可以获取目标对象、方法、方法参数，从而选择对不同切入点进行不同的通知/增强。也可以不加通知，只是proceed执行本方法。</p>
+<h3 id="ApplicationListener接口-监听器"><a href="#ApplicationListener接口-监听器" class="headerlink" title="ApplicationListener接口-监听器"></a>ApplicationListener接口-监听器</h3><p>ApplicationContext事件机制是观察者设计模式的实现，通过ApplicationEvent类和ApplicationListener接口，可以实现ApplicationContext事件处理。</p>
+<p>如果容器中有一个ApplicationListener Bean，每当ApplicationContext发布ApplicationEvent时，ApplicationListener Bean将自动被触发。这种事件机制都必须需要程序显示publish的触发。</p>
+<p>事件可以自定义、监听也可以自定义，完全根据自己的业务逻辑来处理。</p>
+<p>1.定义事件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class EmailEvent extends ApplicationEvent&#123;</span><br><span class="line">　　 private String address;</span><br><span class="line">　　 private String text;</span><br><span class="line">　　 public EmailEvent(Object source, String address, String text)&#123;</span><br><span class="line">　　 super(source);</span><br><span class="line">　　　　　 this.address = address;</span><br><span class="line">　　　　　 this.text = text;</span><br><span class="line">　　 &#125;</span><br><span class="line">　　 public EmailEvent(Object source) &#123;</span><br><span class="line">　　　　　super(source);</span><br><span class="line">　　 &#125;</span><br><span class="line">　　 //......address和text的setter、getter</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.监听事件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class EmailNotifier implements ApplicationListener&#123;</span><br><span class="line">    // 监听后事件处理的方法，可以对事件做一些判断</span><br><span class="line">　　 public void onApplicationEvent(ApplicationEvent event) &#123;</span><br><span class="line">　　　　　if (event instanceof EmailEvent) &#123;</span><br><span class="line">　　　　　　　 EmailEvent emailEvent = (EmailEvent)event;</span><br><span class="line">　　　　　　　 System.out.println(&quot;邮件地址：&quot; + emailEvent.getAddress());</span><br><span class="line">　　　　　　　 System.our.println(&quot;邮件内容：&quot; + emailEvent.getText());</span><br><span class="line">　　　　　&#125; else &#123;</span><br><span class="line">　　　　　　　 System.our.println(&quot;容器本身事件：&quot; + event);</span><br><span class="line">　　　　　&#125;</span><br><span class="line">　　 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.触发事件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class SpringTest &#123;</span><br><span class="line">　　 public static void main(String args[])&#123;</span><br><span class="line">　　　　　ApplicationContext context = new ClassPathXmlApplicationContext(&quot;bean.xml&quot;);</span><br><span class="line">　　　　　//创建一个ApplicationEvent对象</span><br><span class="line">　　　　　EmailEvent event = new EmailEvent(&quot;hello&quot;,&quot;abc@163.com&quot;,&quot;This is a test&quot;);</span><br><span class="line">　　　　　//主动触发该事件</span><br><span class="line">　　　　　context.publishEvent(event);</span><br><span class="line">　　 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以在拦截器中做增强触发。</p>
+<p>不管是内置监听还是外部自定义监听一定要把实现ApplicationListener的类定义成一个bean才行，可以是通过注解@Component等也可以通过xml的方式去执行。</p>
+<p>监听器实现类实现的ApplicationListener接口中，可以加范型，事件类型。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/Spring/" rel="tag"># Spring</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/14/myblog/JAVA/java%20junit%E4%B8%8Emock%E6%B5%8B%E8%AF%95/" rel="prev" title="java的junit与mock测试">
+      <i class="fa fa-chevron-left"></i> java的junit与mock测试
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/23/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/yarn%E5%92%8Cmapreduce/" rel="next" title="yarn和mapreduce模型">
+      yarn和mapreduce模型 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bean%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">@Bean注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bean%E5%92%8C-Component"><span class="nav-number">2.</span> <span class="nav-text">@Bean和@Component</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0FactoryBean%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.</span> <span class="nav-text">实现FactoryBean接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApplicationContextAware%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.</span> <span class="nav-text">ApplicationContextAware接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InitialzingBean%E6%8E%A5%E5%8F%A3"><span class="nav-number">5.</span> <span class="nav-text">InitialzingBean接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MethodInterceptor%E6%8E%A5%E5%8F%A3-%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="nav-number">6.</span> <span class="nav-text">MethodInterceptor接口-拦截器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApplicationListener%E6%8E%A5%E5%8F%A3-%E7%9B%91%E5%90%AC%E5%99%A8"><span class="nav-number">7.</span> <span class="nav-text">ApplicationListener接口-监听器</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jade liu"
+      src="/images/head.gif">
+  <p class="site-author-name" itemprop="name">Jade liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jadeliuliu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jadeliuliu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jadeliu1998@163.com" title="E-Mail → mailto:jadeliu1998@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/jadeliu1998" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;jadeliu1998" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5823044646" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5823044646" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jade liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

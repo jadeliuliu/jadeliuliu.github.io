@@ -183,6 +183,359 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-HTML/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-HTML/" class="post-title-link" itemprop="url">前端基础-html层叠样式表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-19 19:52:32" itemprop="dateCreated datePublished" datetime="2021-08-19T19:52:32+08:00">2021-08-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-25 22:14:54" itemprop="dateModified" datetime="2021-09-25T22:14:54+08:00">2021-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><p>HTML 是一种在 Web 上使用的通用标记语言。HTML 允许你格式化文本，添加图片，创建链接、输入表单、框架和表格等等，并可将之存为文本文件，浏览器即可读取和显示。</p>
+<p>HTML 的关键是标签，其作用是指示将出现的内容。</p>
+<p>页面F12看代码</p>
+<!--         -->是注释语句。
+
+<p>&lt;!     &gt;这不是，<!DOCTYPE HTML>这是放在第一行的声明，指示 web 浏览器关于页面使用哪个 HTML 版本进行编写的指令。</p>
+<p>对于中文网页需要使用 <meta charset="utf-8"> 声明编码，否则会出现乱码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;  //声明版本</span><br><span class="line">&lt;html&gt;     //根元素</span><br><span class="line">&lt;head&gt;    //包含文档元数据</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;    </span><br><span class="line">&lt;title&gt;标题&lt;/title&gt;  //文档标题</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;    //可见的页面部分</span><br><span class="line">&lt;h1&gt;我的第一个标题&lt;/h1&gt;    //h1 -- h6</span><br><span class="line">&lt;hr&gt;       //一条水平线</span><br><span class="line">&lt;p&gt;我的第一个段落。&lt;/p&gt;</span><br><span class="line">&lt;a href=&quot;https://www.runoob.com&quot;&gt;这是一个链接&lt;/a&gt;   </span><br><span class="line">//&lt;a是标签   href是属性</span><br><span class="line">&lt;img loading=&quot;lazy&quot; src=&quot;/images/logo.png&quot; width=&quot;258&quot; height=&quot;39&quot; /&gt;</span><br><span class="line">&lt;b&gt;加粗文本&lt;/b&gt;</span><br><span class="line">&lt;i&gt;斜体文本&lt;/i&gt;</span><br><span class="line">&lt;sub&gt; 下标&lt;/sub&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="（1）元素-amp-标签"><a href="#（1）元素-amp-标签" class="headerlink" title="（1）元素 &amp; 标签"></a>（1）元素 &amp; 标签</h3><ul>
+<li>HTML 元素以<strong>开始标签</strong>起始</li>
+<li>HTML 元素以<strong>结束标签</strong>终止</li>
+<li><strong>元素的内容</strong>是开始标签与结束标签之间的内容</li>
+<li>大多数 HTML 元素可拥有<strong>属性</strong></li>
+<li>HTML 标签对大小写不敏感：<P> 等同于 <p></p></P></li>
+</ul>
+<h3 id="（2）属性"><a href="#（2）属性" class="headerlink" title="（2）属性"></a>（2）属性</h3><ul>
+<li>HTML 元素可以设置<strong>属性</strong></li>
+<li>属性可以在元素中添加<strong>附加信息</strong></li>
+<li>属性一般描述于<strong>开始标签</strong> &lt;&gt;里面</li>
+<li>属性总是以名称/值对的形式出现，**比如：name=”value”**。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">class</td>
+<td align="left">为html元素定义一个或多个类名（classname）(类名从样式文件引入)</td>
+</tr>
+<tr>
+<td align="left">id</td>
+<td align="left">定义元素的唯一id</td>
+</tr>
+<tr>
+<td align="left">style</td>
+<td align="left">规定元素的行内样式（inline style）</td>
+</tr>
+<tr>
+<td align="left">title</td>
+<td align="left">描述了元素的额外信息 (作为工具条使用)</td>
+</tr>
+</tbody></table>
+<h3 id="（3）可添加在头部的标签"><a href="#（3）可添加在头部的标签" class="headerlink" title="（3）可添加在头部的标签"></a>（3）可添加在头部<head>的标签</head></h3><head> 元素包含了所有的头部标签元素。在 <head>元素中你可以插入脚本（scripts）, 样式文件（CSS），及各种meta信息。
+
+<p>可以添加在头部区域的元素标签为:<code> &lt;title&gt;, &lt;style&gt;, &lt;meta&gt;, &lt;link&gt;, &lt;script&gt;, &lt;noscript&gt; 和 &lt;base&gt;</code>。</p>
+<table>
+<thead>
+<tr>
+<th align="center">标签</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>&lt;title&gt;</code></td>
+<td align="center">搜索引擎以及收藏夹中的标题</td>
+</tr>
+<tr>
+<td align="center"><code>&lt;base&gt;</code></td>
+<td align="center">定义了页面链接标签的默认链接地址</td>
+</tr>
+<tr>
+<td align="center"><code>&lt;link&gt;</code></td>
+<td align="center">文档和外部资源之间的关系</td>
+</tr>
+<tr>
+<td align="center"><code>&lt;style&gt;</code></td>
+<td align="center">定义了HTML文档的样式文件</td>
+</tr>
+<tr>
+<td align="center"><code>&lt;meta&gt;</code></td>
+<td align="center">定义了文档的元数据</td>
+</tr>
+<tr>
+<td align="center"><code>&lt;script&gt;</code></td>
+<td align="center">定义了客户端的脚本文件</td>
+</tr>
+</tbody></table>
+<h3 id="（4）CSS"><a href="#（4）CSS" class="headerlink" title="（4）CSS"></a>（4）CSS</h3><p>CSS (Cascading Style Sheets) 用于渲染HTML元素标签的样式。使用方法：</p>
+<ul>
+<li>内联样式- 在HTML元素中使用”style” <strong>属性</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;body style=&quot;background-color:yellow;&quot;&gt;</span><br><span class="line">&lt;h2 style=&quot;background-color:red;&quot;&gt;这是一个标题&lt;/h2&gt;</span><br><span class="line">&lt;p style=&quot;background-color:green;&quot;&gt;这是一个段落。&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>内部样式表 -在HTML文档头部 <code>&lt;head&gt;</code> 区域使用<code>&lt;style&gt; </code><strong>标签</strong> 来包含CSS</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt; </span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt; </span><br><span class="line">&lt;title&gt;标题&lt;/title&gt; </span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">body &#123;background-color:yellow;&#125;</span><br><span class="line">p &#123;color:blue;&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h2&gt;这是一个标题&lt;/h2&gt;</span><br><span class="line">&lt;p&gt;这是一个段落。&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>外部引用 - 使用外部 CSS <strong>文件</strong>（适合一个样式应用与多个页面）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;mystyle.css&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="（5）script脚本"><a href="#（5）script脚本" class="headerlink" title="（5）script脚本"></a>（5）script脚本</h3><p>JavaScript 使 HTML 页面具有更强的动态和交互性。</p>
+<ul>
+<li>使用<code>&lt;script&gt;</code>标签，可以在<code>&lt;head&gt;</code>也可以在<code>&lt;body&gt;</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">document.write(&quot;Hello World!&quot;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></head></head>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E6%90%AD%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AAVUE%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%85%A5%E9%97%A8%E7%BA%A7%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E6%90%AD%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AAVUE%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%85%A5%E9%97%A8%E7%BA%A7%E5%88%AB/" class="post-title-link" itemprop="url">搭建第一个VUE项目，入门级别</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-19 19:52:00" itemprop="dateCreated datePublished" datetime="2021-08-19T19:52:00+08:00">2021-08-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-25 21:54:54" itemprop="dateModified" datetime="2021-09-25T21:54:54+08:00">2021-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-开发软件vscode"><a href="#1-开发软件vscode" class="headerlink" title="1.开发软件vscode"></a>1.开发软件vscode</h3><p>vscode特点：</p>
+<ul>
+<li>开源，免费；</li>
+<li>自定义配置</li>
+<li>集成git</li>
+<li>智能提示强大</li>
+<li>支持各种文件格式（html/jade/css/less/sass/xml）</li>
+<li>调试功能强大</li>
+<li>各种方便的快捷键</li>
+<li>强大的插件扩展</li>
+</ul>
+<h4 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h4><p>Debugger for Chrome：从VS Code调试在Google Chrome中运行的JavaScript代码。</p>
+<p>beautify：格式化代码工具，美化Javascript，JSON，CSS，Sass，和HTML在Visual Studio代码。</p>
+<p>Atuo Rename Tag：修改 html 标签，自动帮你完成头部和尾部闭合标签的同步修改。</p>
+<p>中文（简体）语言包</p>
+<p>Code Spell Checker：代码拼写检查器，一个与camelCase代码配合良好的基本拼写检查程序。此拼写检查程序的目标是帮助捕获常见的拼写错误，同时保持误报数量较低。 </p>
+<p>vscode-icons：显示Visual Studio代码的图标，目前该插件已被vscode内部支持：”文件” -&gt; “首选项” -&gt; “文件图标主题”。 </p>
+<p>guides：显示代码对齐辅助线，很好用。</p>
+<p>filesize：在状态栏中显示当前文件大小，点击后还可以看到详细创建</p>
+<p>Path Intellisense：可自动填充文件名。 </p>
+<h3 id="2-入门"><a href="#2-入门" class="headerlink" title="2.入门"></a>2.入门</h3><ol>
+<li><strong>HTML</strong> 定义了网页的内容</li>
+<li><strong>CSS</strong> 描述了网页的布局</li>
+<li><strong>JavaScript</strong> 控制了网页的行为</li>
+<li><strong>Vue.js</strong>（读音 /vjuː/, 类似于 view） 是一套构建用户界面的渐进式框架。<br>Vue 只关注视图层， 采用自底向上增量开发的设计。<br>Vue 的目标是通过尽可能简单的 API 实现响应的数据绑定和组合的视图组件。</li>
+</ol>
+<h3 id="3-开始一个vue项目"><a href="#3-开始一个vue项目" class="headerlink" title="3.开始一个vue项目"></a>3.开始一个vue项目</h3><h4 id="1）安装node环境"><a href="#1）安装node环境" class="headerlink" title="1）安装node环境"></a>1）安装node环境</h4><h5 id="Node-js简介"><a href="#Node-js简介" class="headerlink" title="Node.js简介"></a>Node.js简介</h5><p>简单的说 Node.js 就是运行在服务端的 JavaScript。Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。Node.js 的包管理器 npm，是全球最大的开源库生态系统。</p>
+<p>Node.js是一个让JavaScript运行在服务端的开发平台，它让JavaScript成为与PHP、Python、Perl、Ruby等服务端语言平起平坐的脚本语言</p>
+<p>类似于J2EE</p>
+<blockquote>
+<p>Java的三个版本 : JAVASE(标准版),JAVAEE(企业版),JAVAME(微型版).</p>
+<p>java是一个平台。他包括了，java语言，java开发环境(jdk)。java有三个版本，j2se(标准版),j2ee(企业版),j2me(微型版)不管哪个版本，都是java语言实现的一个框架。之所以要分版本，是因为3个版本是针对不同问题，设计的解决方案。j2EE是java的企业级开发版本，其实换句话说就是用来做web开发的java框架。javaEE通过设定统一的标准来解决web开发的问题，javaEE的接口，抽象类，规定了web开发所需要实现的流程。整个web的开发，有2层，第1层是服务器容器，比如tomcat，weblogic。他们在javaEE的规范下，实现套接字的连接，封装消息等等，第2层是业务，而这一层是你要做的，通过tomcat封装的消息，进行相应的业务处理。服务器容器的开发由大型的产商开发，而我们通常做的开发是在服务器容器上的业务开发，正是sun的javaEE统一了规范(比如用servlet)我们的业务代码，能和comcat进行很好的通讯。</p>
+</blockquote>
+<p>下载地址为：<a target="_blank" rel="noopener" href="https://nodejs.org/en/">https://nodejs.org/en/</a></p>
+<h5 id="npm简介"><a href="#npm简介" class="headerlink" title="npm简介"></a>npm简介</h5><p>npm：Node.js的包管理工具（package manager）大家都把自己开发的模块打包后放到npm官网上，如果要使用，</p>
+<p>直接通过npm安装就可以直接用，不用管代码存在哪，应该从哪下载。</p>
+<p>更重要的是，如果我们要使用模块A，而模块A又依赖于模块B，模块B又依赖于模块X</p>
+<p>npm可以根据依赖关系，把所有依赖的包都下载下来并管理起来。</p>
+<p>类似与MAVEN</p>
+<p><code>npm install -g cnpm –registry=https://registry.npm.taobao.org</code>，即可安装npm镜像，以后再用到npm的地方直接用cnpm来代替就好了。</p>
+<h4 id="2）搭建vue项目环境"><a href="#2）搭建vue项目环境" class="headerlink" title="2）搭建vue项目环境"></a>2）搭建vue项目环境</h4><p><strong>vue-cli简介</strong></p>
+<p>vue-cli是vue官方提供的一个命令行工具，可用于快速搭建大型单页应用。该工具提供开箱即用的构建工具配置，带来现代化的前端开发流程。只需一分钟即可启动带热重载、保存时静态检查以及可用于生产环境的构建配置的项目。</p>
+<p>安装vue-cli：vue-cli是vue.js的脚手架，用于自动生成vue.js+webpack的项目模板，自动化前端项目工具</p>
+<p>webpack是一个<strong>打包器（bundler）</strong>，它能将多个js文件打包成一个文件（其实不止能打包js文件，也能打包其他类型的文件，比如css文件，json文件等）。</p>
+<p><code>npm install --global vue-cli</code></p>
+<h4 id="2-5）centos下安装"><a href="#2-5）centos下安装" class="headerlink" title="2.5）centos下安装"></a>2.5）centos下安装</h4><p><code>sudo yum install -y nodejs</code></p>
+<p><code>sudo yum install -y npm</code></p>
+<p><code>npm install --global vue-cli</code>    //发生错误，无法成功安装</p>
+<blockquote>
+<p><code>npm config set strict-ssl false</code>   //绕过https</p>
+<p>再sudo执行还是不行👋🏻  卡住了。。。</p>
+<p>Yarn是facebook发布的一款取代npm的包管理工具。</p>
+<p><code>sudo npm install -g yarn</code>  同样的错误：npm ERR! Error: CERT_UNTRUSTED</p>
+</blockquote>
+<p>挥之不去的错误：npm安装过不了</p>
+<p><strong>转战MAC安装：</strong></p>
+<blockquote>
+<p>1.安装node.js(<a target="_blank" rel="noopener" href="http://www.runoob.com/nodejs/nodejs-install-setup.html">http://www.runoob.com/nodejs/nodejs-install-setup.html</a>)  node -v<br>2.安装npm：略  npm -v<br>3.安装cnpm：sudo npm install -g cnpm –registry=<a target="_blank" rel="noopener" href="https://registry.npm.taobao.org/">https://registry.npm.taobao.org</a><br>4.安装全局vue-cli脚手架,用于帮助搭建所需的模板框架：sudo cnpm install -g vue-cli</p>
+</blockquote>
+<h4 id="3-创建一个基于webpack模板的新项目"><a href="#3-创建一个基于webpack模板的新项目" class="headerlink" title="3)创建一个基于webpack模板的新项目"></a>3)创建一个基于webpack模板的新项目</h4><p>进入项目目录，创建一个基于webpack模板的新项目<br><code>vue init webpack myfirstvue</code></p>
+<p>选择项目名字、项目描述、作者等等Vue build ==&gt; 打包方式，回车即可；</p>
+<p>Install vue-router ==&gt; 是否要安装 vue-router</p>
+<p>Use ESLint to lint your code ==&gt; 是否需要 js 语法检测 </p>
+<p>Set up unit tests ==&gt; 是否安装 单元测试工具</p>
+<p>Setup e2e tests with Nightwatch ==&gt; 是否需要 端到端测试工具 </p>
+<p>顺便还安装了yarn</p>
+<h4 id="4）进入项目，安装依赖"><a href="#4）进入项目，安装依赖" class="headerlink" title="4）进入项目，安装依赖"></a>4）进入项目，安装依赖</h4><p>cd myfirstvue 进入项目</p>
+<p>安装成功后，项目文件夹中会多出一个目录：node_modules</p>
+<h4 id="5）运行项目"><a href="#5）运行项目" class="headerlink" title="5）运行项目"></a>5）运行项目</h4><p>npm run dev  </p>
+<p>运行效果：</p>
+<p><img src="https://img2020.cnblogs.com/blog/2499596/202108/2499596-20210817150434095-1939209105.png"></p>
+<h4 id="6）项目目录解读"><a href="#6）项目目录解读" class="headerlink" title="6）项目目录解读"></a>6）项目目录解读</h4><p>1、build：构建脚本目录</p>
+<p>　　　　1）build.js  ==&gt; 生产环境构建脚本；``</p>
+<p>　　　　2）check-versions.js  ==&gt; 检查npm，node.js版本；</p>
+<p>　　　　3）utils.js  ==&gt; 构建相关工具方法；</p>
+<p>　　　　4）vue-loader.conf.js  ==&gt; 配置了css加载器以及编译css之后自动添加前缀；</p>
+<p>　　　　5）webpack.base.conf.js  ==&gt; webpack基本配置；</p>
+<p>　　　　6）webpack.dev.conf.js  ==&gt; webpack开发环境配置；</p>
+<p>　　　　7）webpack.prod.conf.js  ==&gt; webpack生产环境配置；</p>
+<p>2、config：项目配置</p>
+<p>　　　　1）dev.env.js  ==&gt; 开发环境变量；</p>
+<p>　　　　2）index.js  ==&gt; 项目配置文件；</p>
+<p>　　　　3）prod.env.js  ==&gt; 生产环境变量；</p>
+<p>3、node_modules：npm 加载的项目依赖模块</p>
+<p>4、src：这里是我们要开发的目录，基本上要做的事情都在这个目录里。里面包含了几个目录及文件：</p>
+<p>　　　　1）assets：资源目录，放置一些图片或者公共js、公共css。这里的资源会被webpack构建；</p>
+<p>　　　　2）components：组件目录，我们写的组件就放在这个目录里面；</p>
+<p>　　　　3）router：前端路由，我们需要配置的路由路径写在index.js里面；</p>
+<p>　　　　4）App.vue：根组件；</p>
+<p>　　　　5）main.js：入口js文件；</p>
+<p>5、static：静态资源目录，如图片、字体等。不会被webpack构建</p>
+<p>6、index.html：首页入口文件，可以添加一些 meta 信息等</p>
+<p>7、package.json：npm包配置文件，定义了项目的npm脚本，依赖包等信息``</p>
+<p>8、README.md：项目的说明文档，markdown 格式</p>
+<p>9、.xxxx文件：这些是一些配置文件，包括语法配置，git配置等</p>
+<h4 id="7）项目改造"><a href="#7）项目改造" class="headerlink" title="7）项目改造"></a>7）项目改造</h4><p>1.在components目录下新建一个views目录，里面写我们的vue组件<br>  在views目录下新建First.vue</p>
+<p>2.在router目录下的index.js里面配置路由路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#x27;vue&#x27;</span><br><span class="line">import Router from &#x27;vue-router&#x27;</span><br><span class="line">import HelloWorld from &#x27;@/components/HelloWorld&#x27;</span><br><span class="line">import first from &#x27;@components/views/first&#x27;</span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line"></span><br><span class="line">export default new Router(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: &#x27;/&#x27;,</span><br><span class="line">      name: &#x27;HelloWorld&#x27;,</span><br><span class="line">      component: HelloWorld</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      path: &#x27;/first&#x27;,</span><br><span class="line">      name: &#x27;first&#x27;,</span><br><span class="line">      component: first</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>3.template 写 html，script写 js，style写样式（运行会提示空格引号错误之类的，按要求修改即可）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">template&gt;</span><br><span class="line">  &lt;div class=&quot;first-app&quot;&gt;</span><br><span class="line">    &#123;&#123;msg&#125;&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;first&#x27;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &#x27;welcome to firstapp&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- what --&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>4.效果：</p>
+<p><img src="https://img2020.cnblogs.com/blog/2499596/202108/2499596-20210817150350056-832764408.png"></p>
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hellman/p/10985377.html">https://www.cnblogs.com/hellman/p/10985377.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/miller-star/p/6394760.html">https://www.cnblogs.com/miller-star/p/6394760.html</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-go%E5%85%A5%E9%97%A82.0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -949,14 +1302,14 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
