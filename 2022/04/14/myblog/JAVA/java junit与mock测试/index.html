@@ -28,7 +28,7 @@
 <meta property="og:description" content="单元测试(Unit test)：单元测试关注单一的类. 它们存在的目的是检查这个类中的代码是否按照期望正确运行. 集成测试(Integration test)顾名思义, 集成测试是检查开发的模块和其他模块整合时是否正常工作.虽然集成测试的代码影响范围比单元测试要广, 但是集成测试和单元测试一样, 也是针对于开发者而言的. 端到端测试(End-to-End test)端到端测试是将整个系统作为一个整">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-14T14:22:37.710Z">
-<meta property="article:modified_time" content="2022-04-17T05:31:20.424Z">
+<meta property="article:modified_time" content="2022-04-28T15:08:08.025Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-17 13:31:20" itemprop="dateModified" datetime="2022-04-17T13:31:20+08:00">2022-04-17</time>
+                <time title="Modified: 2022-04-28 23:08:08" itemprop="dateModified" datetime="2022-04-28T23:08:08+08:00">2022-04-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -316,6 +316,9 @@
 <h2 id="PowerMockRunner-和-MockitoJUnitRunner"><a href="#PowerMockRunner-和-MockitoJUnitRunner" class="headerlink" title="PowerMockRunner 和 MockitoJUnitRunner"></a>PowerMockRunner 和 MockitoJUnitRunner</h2><p>关于打桩：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/moshowgame/article/details/100983711">https://blog.csdn.net/moshowgame/article/details/100983711</a></p>
 <h2 id="when-thenReturn-和-doReturn-when-区别"><a href="#when-thenReturn-和-doReturn-when-区别" class="headerlink" title="when().thenReturn() 和 doReturn().when() 区别"></a>when().thenReturn() 和 doReturn().when() 区别</h2><p>使用@Mock时可以相互替换，但是@Spy时，它们的调用结果不同。<br>1.when().thenReturn() 会调用真实的方法，容易抛出异常<br>2.doReturn().when() 不会调用真实方法</p>
 <h2 id="PowerMockito"><a href="#PowerMockito" class="headerlink" title="PowerMockito"></a>PowerMockito</h2><p>PowerMock扩展了EasyMock和Mockito框架，增加了对static和final方法mock支持等功能.<br>PowerMock有两个重要的注解：<br> @RunWith(PowerMockRunner.class)<br> @prepareForTest({MyObject.class})<br> @PrepareForTest注解和@RunWith注解是结合使用的，不要单独使用@PrepareForTest，否则不起作用。当使用PowerMock去mock静态，final或者私有方法时，需要加上这两个注解。<br>————————————————<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/KeeYang108/article/details/79891588">https://blog.csdn.net/KeeYang108/article/details/79891588</a></p>
+<h2 id="Mock测试踩坑"><a href="#Mock测试踩坑" class="headerlink" title="Mock测试踩坑"></a>Mock测试踩坑</h2><p>今天写了一个control层的mock单元测试，因为要调service层的方法，就把service接口做了一个mock，测试时候一直包空指针异常。<br>mock service实现类之后，正常。</p>
+<p>加@RunWith(PowerMockRunner.class)<br>要测试的类加@InjectMocks</p>
+<p>1.service实现类不加mock，到指定方法会报空指针异常，service对象为空<br>2.如果service方法无返回，可以不打桩，如果有返回，最好打个桩。<br>3.有返回的打了桩，可以根据不同的输入，返回不同的结果。有返回如果不打桩，相当于返回的是null，返回如果被后面用到，容易报空指针异常。</p>
 
     </div>
 
@@ -399,7 +402,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Junit%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">1.Junit单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Junit4%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.2.</span> <span class="nav-text">Junit4注解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Mockito%E4%B8%AD-Mock%E4%B8%8E-InjectMock"><span class="nav-number">2.</span> <span class="nav-text">2.Mockito中@Mock与@InjectMock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.1.</span> <span class="nav-text">注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mock%E4%BD%BF%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">mock使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEmock"><span class="nav-number">2.2.1.</span> <span class="nav-text">配置mock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.2.</span> <span class="nav-text">无返回值的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E8%B0%83%E7%94%A8"><span class="nav-number">2.2.3.</span> <span class="nav-text">验证是否调用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spy%E4%BD%BF%E7%94%A8"><span class="nav-number">2.3.</span> <span class="nav-text">spy使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PowerMockRunner-%E5%92%8C-MockitoJUnitRunner"><span class="nav-number">3.</span> <span class="nav-text">PowerMockRunner 和 MockitoJUnitRunner</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#when-thenReturn-%E5%92%8C-doReturn-when-%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">when().thenReturn() 和 doReturn().when() 区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PowerMockito"><span class="nav-number">5.</span> <span class="nav-text">PowerMockito</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Junit%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">1.Junit单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Junit4%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.2.</span> <span class="nav-text">Junit4注解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Mockito%E4%B8%AD-Mock%E4%B8%8E-InjectMock"><span class="nav-number">2.</span> <span class="nav-text">2.Mockito中@Mock与@InjectMock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.1.</span> <span class="nav-text">注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mock%E4%BD%BF%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">mock使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEmock"><span class="nav-number">2.2.1.</span> <span class="nav-text">配置mock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.2.</span> <span class="nav-text">无返回值的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E8%B0%83%E7%94%A8"><span class="nav-number">2.2.3.</span> <span class="nav-text">验证是否调用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spy%E4%BD%BF%E7%94%A8"><span class="nav-number">2.3.</span> <span class="nav-text">spy使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PowerMockRunner-%E5%92%8C-MockitoJUnitRunner"><span class="nav-number">3.</span> <span class="nav-text">PowerMockRunner 和 MockitoJUnitRunner</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#when-thenReturn-%E5%92%8C-doReturn-when-%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">when().thenReturn() 和 doReturn().when() 区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PowerMockito"><span class="nav-number">5.</span> <span class="nav-text">PowerMockito</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mock%E6%B5%8B%E8%AF%95%E8%B8%A9%E5%9D%91"><span class="nav-number">6.</span> <span class="nav-text">Mock测试踩坑</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -414,7 +417,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
