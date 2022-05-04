@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="@Pattern用来限定string格式，用正则表达式来限定。需要导入validation-api包。 1234567@Getter    @Setter    public static class StudentVO&amp;#123;        @Pattern(regexp &#x3D; &quot;^[A-Za-z]+$&quot;, message &#x3D; &quot;只能字母&quot;)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring常规注解">
+<meta property="og:url" content="http://example.com/2022/04/29/myblog/spring/spring%E6%B3%A8%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Jadeliu&#39;s blog">
+<meta property="og:description" content="@Pattern用来限定string格式，用正则表达式来限定。需要导入validation-api包。 1234567@Getter    @Setter    public static class StudentVO&amp;#123;        @Pattern(regexp &#x3D; &quot;^[A-Za-z]+$&quot;, message &#x3D; &quot;只能字母&quot;)">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-29T14:56:27.797Z">
+<meta property="article:modified_time" content="2022-04-30T05:16:02.789Z">
+<meta property="article:author" content="Jade liu">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/04/29/myblog/spring/spring%E6%B3%A8%E8%A7%A3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>spring常规注解 | Jadeliu's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jadeliu's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/29/myblog/spring/spring%E6%B3%A8%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          spring常规注解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-29 22:56:27" itemprop="dateCreated datePublished" datetime="2022-04-29T22:56:27+08:00">2022-04-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-30 13:16:02" itemprop="dateModified" datetime="2022-04-30T13:16:02+08:00">2022-04-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring%E7%90%86%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">spring理解</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="Pattern"><a href="#Pattern" class="headerlink" title="@Pattern"></a>@Pattern</h3><p>用来限定string格式，用正则表达式来限定。<br>需要导入validation-api包。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Getter</span><br><span class="line">    @Setter</span><br><span class="line">    public static class StudentVO&#123;</span><br><span class="line">        @Pattern(regexp = &quot;^[A-Za-z]+$&quot;, message = &quot;只能字母&quot;)</span><br><span class="line">        private String name;</span><br><span class="line">        private Long age;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>常用的正则表达式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">1 匹配首尾空格的正则表达式：(^\s*)|(\s*$)</span><br><span class="line">  2 整数或者小数：^[0-9]+\.&#123;0,1&#125;[0-9]&#123;0,2&#125;$</span><br><span class="line">  3 只能输入数字：&quot;^[0-9]*$&quot;。</span><br><span class="line">  4 只能输入n位的数字：&quot;^\d&#123;n&#125;$&quot;。</span><br><span class="line">  5 只能输入至少n位的数字：&quot;^\d&#123;n,&#125;$&quot;。</span><br><span class="line">  6 只能输入m~n位的数字：。&quot;^\d&#123;m,n&#125;$&quot;</span><br><span class="line">  7 只能输入零和非零开头的数字：&quot;^(0|[1-9][0-9]*)$&quot;。</span><br><span class="line">  8 只能输入有两位小数的正实数：&quot;^[0-9]+(.[0-9]&#123;2&#125;)?$&quot;。</span><br><span class="line">  9 只能输入有1~3位小数的正实数：&quot;^[0-9]+(.[0-9]&#123;1,3&#125;)?$&quot;。</span><br><span class="line"> 10 只能输入非零的正整数：&quot;^\+?[1-9][0-9]*$&quot;。</span><br><span class="line"> 11 只能输入非零的负整数：&quot;^\-[1-9][]0-9&quot;*$。</span><br><span class="line"> 12 只能输入长度为3的字符：&quot;^.&#123;3&#125;$&quot;。</span><br><span class="line"> 13 只能输入由26个英文字母组成的字符串：&quot;^[A-Za-z]+$&quot;。</span><br><span class="line"> 14 只能输入由26个大写英文字母组成的字符串：&quot;^[A-Z]+$&quot;。</span><br><span class="line"> 15 只能输入由26个小写英文字母组成的字符串：&quot;^[a-z]+$&quot;。</span><br><span class="line"> 16 只能输入由数字和26个英文字母组成的字符串：&quot;^[A-Za-z0-9]+$&quot;。</span><br><span class="line"> 17 只能输入由数字、26个英文字母或者下划线组成的字符串：&quot;^\w+$&quot;。</span><br><span class="line"> 18 验证用户密码：&quot;^[a-zA-Z]\w&#123;5,17&#125;$&quot;正确格式为：以字母开头，长度在6~18之间，只能包含字符、数字和下划线。</span><br><span class="line"> 19 验证是否含有^%&amp;&#x27;,;=?$\&quot;等字符：&quot;[^%&amp;&#x27;,;=?$\x22]+&quot;。</span><br><span class="line"> 20 只能输入汉字：&quot;^[\u4e00-\u9fa5]&#123;0,&#125;$&quot;</span><br><span class="line"> 21 验证Email地址：&quot;^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$&quot;。</span><br><span class="line"> 22 验证InternetURL：&quot;^http://([\w-]+\.)+[\w-]+(/[\w-./?%&amp;=]*)?$&quot;。</span><br><span class="line"> 23 验证电话号码：&quot;^(\(\d&#123;3,4&#125;-)|\d&#123;3.4&#125;-)?\d&#123;7,8&#125;$&quot;正确格式为：&quot;XXX-XXXXXXX&quot;、&quot;XXXX-XXXXXXXX&quot;、&quot;XXX-XXXXXXX&quot;、&quot;XXX-XXXXXXXX&quot;、&quot;XXXXXXX&quot;和&quot;XXXXXXXX&quot;。</span><br><span class="line"> 24 验证身份证号（15位或18位数字）：&quot;^\d&#123;15&#125;|\d&#123;18&#125;$&quot;。</span><br><span class="line"> 25 验证一年的12个月：&quot;^(0?[1-9]|1[0-2])$&quot;正确格式为：&quot;01&quot;～&quot;09&quot;和&quot;1&quot;～&quot;12&quot;。</span><br><span class="line"> 26 验证一个月的31天：&quot;^((0?[1-9])|((1|2)[0-9])|30|31)$&quot;正确格式为；&quot;01&quot;～&quot;09&quot;和&quot;1&quot;～&quot;31&quot;。</span><br><span class="line"> 27 匹配中文字符的正则表达式： [\u4e00-\u9fa5]</span><br><span class="line"> 28 匹配双字节字符(包括汉字在内)：[^\x00-\xff]</span><br><span class="line"> 29 应用：计算字符串的长度（一个双字节字符长度计2，ASCII字符计1）</span><br><span class="line"> 30 String.prototype.len=function()&#123;return this.replace(/[^\x00-\xff]/g,&quot;aa&quot;).length;&#125;</span><br><span class="line"> 31 匹配空行的正则表达式：\n[\s| ]*\r</span><br><span class="line"> 32 匹配html标签的正则表达式：&lt;(.*)&gt;(.*)&lt;\/(.*)&gt;|&lt;(.*)\/&gt;</span><br><span class="line">————————————————</span><br><span class="line">原文链接：https://blog.csdn.net/qq_36927265/article/details/87864026</span><br></pre></td></tr></table></figure>
+
+<p>在control层，前端调用来进行数据校验。</p>
+<p>一、VO对象内用@Pattern限定，control方法中用@Valid检查。<br><a target="_blank" rel="noopener" href="http://www.wpf123.com/post/97.html">http://www.wpf123.com/post/97.html</a></p>
+<p>二、control类用@Validated注解，方法内String参数用@Pattern</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@Validated</span><br><span class="line">class Controller &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping</span><br><span class="line">public ResponseEntity&lt;List&lt;Permission&gt;&gt; query(@RequestHeader(&quot;iv-user&quot;) String userId,</span><br><span class="line">                                                  @Pattern(regexp = &quot;^accessor$&quot;, message = &quot;请求参数不合法&quot;)</span><br><span class="line">                                                  @RequestParam(&quot;findBy&quot;) String accessor,</span><br><span class="line">                                                  @RequestParam(&quot;accessorId&quot;) long accessorId)&#123;</span><br><span class="line">        //...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="JSONField"><a href="#JSONField" class="headerlink" title="@JSONField"></a>@JSONField</h3><p>来自fastjson，fastjson是阿里巴巴出品的快速解析json的一个工具,</p>
+<p>一、name属性：用来指定JSON串中key的名称。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@JSONField(name = &quot;AGE&quot;)</span><br><span class="line">private String age;</span><br></pre></td></tr></table></figure>
+<p>也可以作用在setter、getter方法上。</p>
+<p>二、format规定日期格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@JSONField(format=&quot;yyyy-MM-dd HH:mm:ss&quot;)</span><br><span class="line">private Date date;</span><br></pre></td></tr></table></figure>
+
+<p>三、ordinal：规定字段的顺序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@JSONField(ordinal = 3)</span><br><span class="line">private int f0;</span><br><span class="line"></span><br><span class="line">@JSONField(ordinal = 2)</span><br><span class="line">private int f1;</span><br><span class="line"></span><br><span class="line">@JSONField(ordinal = 1)</span><br><span class="line">private int f2;</span><br></pre></td></tr></table></figure>
+
+<p>四、serialize/deserialize指定字段不序列化</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@JSONField(serialize=false)</span><br><span class="line">public Date date;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ToString"><a href="#ToString" class="headerlink" title="@ToString"></a>@ToString</h3><p>LomBok中的注解，用来简化代码。</p>
+<p>1.默认情况下，将打印所有非静态字段。<br>2.如果要跳过某些字段，可以用注释这些字段@ToString.Exclude。<br>3.可以使用精确指定要被toString方法包含的字段，先设置@ToString(onlyExplicitlyIncluded = true)，然后使用@ToString.Include标记每个要包含的字段。<br>4.可以更改用于标识成员的名称@ToString.Include(name = “some other name”)，name相当于给字段起别名。<br>5.可以通过更改成员的打印顺序@ToString.Include(rank = 1)。rank 表示该字段的优先级，值越大排在越前面，默认为 0，等级相同的成员以它们在源文件中出现的顺序打印。</p>
+<h3 id="RestController"><a href="#RestController" class="headerlink" title="@RestController"></a>@RestController</h3><p>开发restful API时，会用到，@RestController 是@controller和@ResponseBody 的结合。</p>
+<p>@Controller 将当前修饰的类注入Spring IOC容器，使得从该类所在的项目跑起来的过程中，这个类就被实例化。</p>
+<p>@ResponseBody 它的作用是指该类中所有的API接口返回的数据，甭管你对应的方法返回Map或是其他Object，它会以Json字符串的形式返回给客户端。</p>
+<h3 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping"></a>@RequestMapping</h3><p>@RequestMapping 是 Spring Web 应用程序中最常被用到的注解之一。在Spring MVC 中使用 @RequestMapping 来映射请求，也就是通过它来指定控制器可以处理哪些URL请求。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@RestController  </span><br><span class="line">@RequestMapping(&quot;/home&quot;)  </span><br><span class="line">public class IndexController &#123;  </span><br><span class="line">    @RequestMapping(&quot;/&quot;)  </span><br><span class="line">    String get() &#123;  </span><br><span class="line">        //mapped to hostname:port/home/  </span><br><span class="line">        return &quot;go to home&quot;;  </span><br><span class="line">    &#125;  </span><br><span class="line">    @RequestMapping(&quot;/index&quot;)  </span><br><span class="line">    String index() &#123;  </span><br><span class="line">        //mapped to hostname:port/home/index/  </span><br><span class="line">        return &quot;go to index&quot;;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>参考：<br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6f5aec232c97">https://www.jianshu.com/p/6f5aec232c97</a></p>
+<h3 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h3><p>@RequestParam：将请求参数绑定到你控制器的方法参数上（是springmvc中接收普通参数的注解）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">语法：@RequestParam(value=”参数名”,required=”true/false”,defaultValue=””)</span><br><span class="line"> </span><br><span class="line">value：参数名</span><br><span class="line"> </span><br><span class="line">required：是否包含该参数，默认为true，表示该请求路径中必须包含该参数，如果不包含就报错。</span><br><span class="line"> </span><br><span class="line">defaultValue：默认参数值，如果设置了该值，required=true将失效，自动为false,如果没有传该参数，就使用默认值</span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/Spring/" rel="tag"># Spring</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/26/myblog/spring/BeanFactory%E5%92%8CApplicationContext/" rel="prev" title="BeanFactory、ApplicationContext">
+      <i class="fa fa-chevron-left"></i> BeanFactory、ApplicationContext
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/30/myblog/JAVA/fastjson/" rel="next" title="fastjson">
+      fastjson <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pattern"><span class="nav-number">1.</span> <span class="nav-text">@Pattern</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSONField"><span class="nav-number">2.</span> <span class="nav-text">@JSONField</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ToString"><span class="nav-number">3.</span> <span class="nav-text">@ToString</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RestController"><span class="nav-number">4.</span> <span class="nav-text">@RestController</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RequestMapping"><span class="nav-number">5.</span> <span class="nav-text">@RequestMapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RequestParam"><span class="nav-number">6.</span> <span class="nav-text">@RequestParam</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jade liu"
+      src="/images/head.gif">
+  <p class="site-author-name" itemprop="name">Jade liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jadeliuliu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jadeliuliu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jadeliu1998@163.com" title="E-Mail → mailto:jadeliu1998@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/jadeliu1998" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;jadeliu1998" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5823044646" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5823044646" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jade liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

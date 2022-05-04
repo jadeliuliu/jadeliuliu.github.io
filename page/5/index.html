@@ -183,6 +183,471 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/07/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/java%E3%81%AEleecode%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/11/07/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/java%E3%81%AEleecode%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/" class="post-title-link" itemprop="url">javaのleecode栈与队列篇</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-11-07 13:42:43 / Modified: 15:03:52" itemprop="dateCreated datePublished" datetime="2021-11-07T13:42:43+08:00">2021-11-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="栈stack"><a href="#栈stack" class="headerlink" title="栈stack"></a>栈stack</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Stack&lt;Character&gt; st = new Stack&lt;Character&gt;();</span><br><span class="line">或</span><br><span class="line">Deque&lt;Character&gt; st = new LinkedList&lt;Character&gt;();</span><br><span class="line">st.isEmpty()</span><br><span class="line">st.peek()</span><br><span class="line">st.pop();</span><br><span class="line">st.push(ch);</span><br></pre></td></tr></table></figure>
+
+<h2 id="20题-有效的括号"><a href="#20题-有效的括号" class="headerlink" title="20题.有效的括号"></a>20题.有效的括号</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定一个只包括 &#x27;(&#x27;，&#x27;)&#x27;，&#x27;&#123;&#x27;，&#x27;&#125;&#x27;，&#x27;[&#x27;，&#x27;]&#x27; 的字符串，判断字符串是否有效。</span><br><span class="line">输入: &quot;&#123;[]&#125;&quot;</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean isValid(String s) &#123;</span><br><span class="line">        int n = s.length();</span><br><span class="line">        if (n % 2 == 1) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Map&lt;Character, Character&gt; pairs = new HashMap&lt;Character, Character&gt;() &#123;&#123;</span><br><span class="line">            put(&#x27;)&#x27;, &#x27;(&#x27;);</span><br><span class="line">            put(&#x27;]&#x27;, &#x27;[&#x27;);</span><br><span class="line">            put(&#x27;&#125;&#x27;, &#x27;&#123;&#x27;);</span><br><span class="line">        &#125;&#125;;</span><br><span class="line">        //Deque&lt;Character&gt; stack = new LinkedList&lt;Character&gt;();</span><br><span class="line">        Stack&lt;Character&gt; stack = new Stack&lt;Character&gt;();</span><br><span class="line">        for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">            char ch = s.charAt(i);</span><br><span class="line">            if (pairs.containsKey(ch)) &#123;</span><br><span class="line">                if (stack.isEmpty() || stack.peek() != pairs.get(ch)) &#123;</span><br><span class="line">                    return false;</span><br><span class="line">                &#125;</span><br><span class="line">                stack.pop();</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                stack.push(ch);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return stack.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Queue&lt;Integer&gt; queue1= new LinkedList&lt;&gt;();</span><br><span class="line">queue1.isEmpty()</span><br><span class="line">queue2.offer(x);   //添加一个元素并返回true   如果队列已满，则返回false</span><br><span class="line">queue1.poll()   //移除并返问队列头部的元素  如果队列为空，则返回null</span><br><span class="line">queue1.peek()  //返回队列头部的元素   如果队列为空，则返回null</span><br><span class="line">remove   移除并返回队列头部的元素 如果队列为空，则抛出一个NoSuchElementException异常</span><br><span class="line">element  返回队列头部的元素  如果队列为空，则抛出一个NoSuchElementException异常</span><br><span class="line">add       增加一个元索   如果队列已满，则抛出一个IIIegaISlabEepeplian异常</span><br><span class="line">put       添加一个元素  如果队列满，则阻塞</span><br><span class="line">take      移除并返回队列头部的元素    如果队列为空，则阻塞</span><br><span class="line"></span><br><span class="line">1、add()和offer()区别:</span><br><span class="line">add()和offer()都是向队列中添加一个元素。一些队列有大小限制，因此如果想在一个满的队列中加入一个新项，调用 add() 方法就会抛出一个 unchecked 异常，而调用 offer() 方法会返回 false。因此就可以在程序中进行有效的判断！</span><br><span class="line"></span><br><span class="line"> 2、poll()和remove()区别：</span><br><span class="line">remove() 和 poll() 方法都是从队列中删除第一个元素。如果队列元素为空，调用remove() 的行为与 Collection 接口的版本相似会抛出异常，但是新的 poll() 方法在用空集合调用时只是返回 null。因此新的方法更适合容易出现异常条件的情况。</span><br><span class="line"></span><br><span class="line">3、element() 和 peek() 区别：</span><br><span class="line">element() 和 peek() 用于在队列的头部查询元素。与 remove() 方法类似，在队列为空时， element() 抛出一个异常，而 peek() 返回 null。</span><br></pre></td></tr></table></figure>
+
+<h2 id="deque与queue"><a href="#deque与queue" class="headerlink" title="deque与queue"></a>deque与queue</h2><p><strong>Queue</strong>是简单的FIFO队列，<strong>Deque</strong>继承<strong>Queue</strong>实现双端队列。</p>
+<p>队列(queue)是一种常用的<strong>数据结构</strong>，可以将队列看做是一种特殊的线性表，该结构遵循的先进先出原则。Java中，<strong>LinkedList实现了Queue接口</strong>,因为LinkedList进行插入、删除操作效率较高。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">      抛出异常	返回特殊值</span><br><span class="line">插入	add(e)	offer(e)</span><br><span class="line">移除	remove()	poll()</span><br><span class="line">检查	element()	peek()</span><br><span class="line"></span><br><span class="line">boolean add(E e);将指定的元素插入此队列（如果立即可行且不会违反容量限制），在成功时返回 true，如果当前没有可用的空间，则抛出 IllegalStateException。</span><br><span class="line">boolean offer(E e);将指定的元素插入此队列（如果立即可行且不会违反容量限制），当使用有容量限制的队列时，此方法通常要优于 add(E)，后者可能无法插入元素，而只是抛出一个异常。</span><br><span class="line">E remove();获取并移除此队列的头。</span><br><span class="line">E poll();获取并移除此队列的头，如果此队列为空，则返回 null。</span><br><span class="line">E element();获取，但是不移除此队列的头。</span><br><span class="line">E peek();获取但不移除此队列的头；如果此队列为空，则返回 null。</span><br></pre></td></tr></table></figure>
+
+<p>双向队列<strong>Deque</strong>继承了<strong>Queue</strong>，此队列两端都能进行出列和入列操作。除了继承了<strong>Queue</strong>的接口，又对每种方法额外添加了<code>first</code>与<code>last</code>方法用以实现操作双端队列。</p>
+<h3 id="队列queue的使用："><a href="#队列queue的使用：" class="headerlink" title="队列queue的使用："></a>队列queue的使用：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> inoutput;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"><span class="keyword">import</span> java.util.Queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testQueue</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        test();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建队列</span></span><br><span class="line">        Queue&lt;String&gt;que = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">        que.offer(<span class="string">&quot;aa&quot;</span>);</span><br><span class="line">        que.offer(<span class="string">&quot;bb&quot;</span>);</span><br><span class="line">        que.offer(<span class="string">&quot;cc&quot;</span>);</span><br><span class="line">        <span class="comment">//输出队列</span></span><br><span class="line">        System.out.println(<span class="string">&quot;录入后的队列：&quot;</span>+que);</span><br><span class="line">        String str=<span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">while</span>(que.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            str=que.poll();</span><br><span class="line">            System.out.println(<span class="string">&quot;依次输出：&quot;</span>+str);</span><br><span class="line">            System.out.println(<span class="string">&quot;输出后的队列：&quot;</span>+que);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="双向队列deque的使用："><a href="#双向队列deque的使用：" class="headerlink" title="双向队列deque的使用："></a>双向队列deque的使用：</h3><p>第一种用法：同queue一样，作为单向队列使用，此时使用offer入列，poll出列</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> inoutput;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Deque;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testDeque1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        test();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建队列</span></span><br><span class="line">        Deque&lt;String&gt; deq = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">        deq.offer(<span class="string">&quot;aa&quot;</span>);</span><br><span class="line">        deq.offer(<span class="string">&quot;bb&quot;</span>);</span><br><span class="line">        deq.offer(<span class="string">&quot;cc&quot;</span>);</span><br><span class="line">        <span class="comment">//输出队列</span></span><br><span class="line">        System.out.println(<span class="string">&quot;录入后的队列：&quot;</span>+deq);</span><br><span class="line">        String str=<span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">while</span>(deq.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            str=deq.poll();</span><br><span class="line">            System.out.println(<span class="string">&quot;依次输出：&quot;</span>+str);</span><br><span class="line">            System.out.println(<span class="string">&quot;输出后的队列：&quot;</span>+deq);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二种用法：作为双向队列使用，此时使用offerFirst、pollFirst，offerLast、pollFirst，则可以实现队首队尾入列或者出列</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> inoutput;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Deque;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testDeque2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        test();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建队列</span></span><br><span class="line">        Deque&lt;String&gt; deq2 = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">        deq2.offerLast(<span class="string">&quot;aa&quot;</span>);  <span class="comment">//从后面进入</span></span><br><span class="line">        deq2.offerLast(<span class="string">&quot;bb&quot;</span>);</span><br><span class="line">        deq2.offerLast(<span class="string">&quot;cc&quot;</span>);</span><br><span class="line">        <span class="comment">//输出队列</span></span><br><span class="line">        System.out.println(<span class="string">&quot;录入后的队列：&quot;</span>+deq2);</span><br><span class="line">        String str=<span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">while</span>(deq2.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            str= deq2.pollFirst();  <span class="comment">//从前面输出</span></span><br><span class="line">            System.out.println(<span class="string">&quot;依次输出：&quot;</span>+str);</span><br><span class="line">            System.out.println(<span class="string">&quot;输出后的队列：&quot;</span>+deq2);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第三种用法：作为栈来使用，遵循先入后出的原则，使用push和pop进行入栈和出栈。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> inoutput;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Deque;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testDeque3</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        test();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建队列</span></span><br><span class="line">        Deque&lt;String&gt; st = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">        st.push(<span class="string">&quot;aa&quot;</span>);</span><br><span class="line">        st.push(<span class="string">&quot;bb&quot;</span>);</span><br><span class="line">        st.push(<span class="string">&quot;cc&quot;</span>);</span><br><span class="line">        <span class="comment">//输出队列</span></span><br><span class="line">        System.out.println(<span class="string">&quot;录入后的栈：&quot;</span>+st);</span><br><span class="line">        String str=<span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">while</span>(st.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            str= st.pop(); </span><br><span class="line">            System.out.println(<span class="string">&quot;依次输出：&quot;</span>+str);</span><br><span class="line">            System.out.println(<span class="string">&quot;输出后的栈：&quot;</span>+st);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结：<br>queue是单向队列，遵循先入先出的原则，而deque是queue的子接口，不仅可以作为单向队列使用，同时可以作为双向队列使用，根据入列出列在队尾或者队首决定输出元素顺序，在使用push和poll方法时，deque被称为栈，实现先入后出的原则。</p>
+<h2 id="239题-滑动窗口最大值"><a href="#239题-滑动窗口最大值" class="headerlink" title="239题.滑动窗口最大值"></a>239题.滑动窗口最大值</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">给定一个数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。</span><br><span class="line">返回滑动窗口中的最大值。</span><br><span class="line">输入：nums = [1,3,-1,-3,5,3,6,7], k = 3</span><br><span class="line">输出：[3,3,5,5,6,7]</span><br></pre></td></tr></table></figure>
+
+<p>思路：单调队列，放进去窗口里的元素，然后随着窗口的移动，队列也一进一出，每次移动之后，队列告诉我们里面的最大值是什么。</p>
+<p>每次窗口移动的时候，调用que.pop(滑动窗口中移除元素的数值)，que.push(滑动窗口添加元素的数值)，然后que.front()就返回我们要的最大值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//利用双端队列手动实现单调队列</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] maxSlidingWindow(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k) &#123;</span><br><span class="line">        ArrayDeque&lt;Integer&gt; deque = <span class="keyword">new</span> ArrayDeque&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[n - k + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="comment">// 根据题意，i为nums下标，是要在[i - k + 1, i] 中选到最大值，只需要保证两点</span></span><br><span class="line">            <span class="comment">// 1.队列头结点需要在[i - k + 1, i]范围内，不符合则要弹出</span></span><br><span class="line">            <span class="keyword">while</span>(!deque.isEmpty() &amp;&amp; deque.peek() &lt; i - k + <span class="number">1</span>)&#123;</span><br><span class="line">                deque.poll();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 2.既然是单调，就要保证每次放进去的数字要比末尾的都大，否则也弹出</span></span><br><span class="line">            <span class="keyword">while</span>(!deque.isEmpty() &amp;&amp; nums[deque.peekLast()] &lt; nums[i]) &#123;</span><br><span class="line">                deque.pollLast();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            deque.offer(i);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 因为单调，当i增长到符合第一个k范围的时候，每滑动一步都将队列头节点放入结果就行了</span></span><br><span class="line">            <span class="keyword">if</span>(i &gt;= k - <span class="number">1</span>)&#123;</span><br><span class="line">                res[idx++] = nums[deque.peek()];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="347题-前K个高频元素（优先级队列）"><a href="#347题-前K个高频元素（优先级队列）" class="headerlink" title="347题.前K个高频元素（优先级队列）"></a>347题.前K个高频元素（优先级队列）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">给定一个非空的整数数组，返回其中出现频率前 k 高的元素。</span><br><span class="line">示例 1:</span><br><span class="line">输入: nums = [1,1,1,2,2,3], k = 2</span><br><span class="line">输出: [1,2]</span><br></pre></td></tr></table></figure>
+
+<p>思路：统计元素出现的频率，对频率进行排序，找出前k个高频元素。首先统计元素出现的频率，这一类的问题可以使用map来进行统计。然后是对频率进行排序，这里我们可以使用一种 容器适配器就是<strong>优先级队列</strong>。</p>
+<p>优先级队列：其实<strong>就是一个披着队列外衣的堆</strong>，因为优先级队列对外接口只是从队头取元素，从队尾添加元素，再无其他取元素的方式，看起来就是一个队列。</p>
+<p>而且优先级队列内部元素是自动依照元素的权值排列。那么它是如何有序排列的呢？</p>
+<p>缺省情况下priority_queue利用max-heap（大顶堆）完成对元素的排序，这个大顶堆是以vector为表现形式的complete binary tree（完全二叉树）。</p>
+<p><strong>堆是一颗完全二叉树，树中每个结点的值都不小于（或不大于）其左右孩子的值。</strong> 如果父亲结点是大于等于左右孩子就是大顶堆，小于等于左右孩子就是小顶堆。</p>
+<p>大顶堆（堆头是最大元素），小顶堆（堆头是最小元素），如果懒得自己实现的话，就直接用priority_queue（优先级队列）就可以了，底层实现都是一样的，从小到大排就是小顶堆，从大到小排就是大顶堆。</p>
+<p>本题<strong>要用小顶堆，因为要统计最大前k个元素，只有小顶堆每次将最小的元素弹出，最后小顶堆里积累的才是前k个最大元素。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] topKFrequent(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span>[k];</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            map.put(num, map.getOrDefault(num, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Set&lt;Map.Entry&lt;Integer, Integer&gt;&gt; entries = map.entrySet();</span><br><span class="line">        <span class="comment">// 根据map的value值正序排，相当于一个小顶堆</span></span><br><span class="line">        PriorityQueue&lt;Map.Entry&lt;Integer, Integer&gt;&gt; queue = <span class="keyword">new</span> PriorityQueue&lt;&gt;((o1, o2) -&gt; o1.getValue() - o2.getValue());</span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;Integer, Integer&gt; entry : entries) &#123;</span><br><span class="line">            queue.offer(entry);</span><br><span class="line">            <span class="keyword">if</span> (queue.size() &gt; k) &#123;</span><br><span class="line">                queue.poll();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = k - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            result[i] = queue.poll().getKey();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/03/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/java%E3%81%AEleecode%E5%93%88%E5%B8%8C%E8%A1%A8%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/11/03/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/java%E3%81%AEleecode%E5%93%88%E5%B8%8C%E8%A1%A8%E7%AF%87/" class="post-title-link" itemprop="url">javaのleecode哈希表篇</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-11-03 21:33:12" itemprop="dateCreated datePublished" datetime="2021-11-03T21:33:12+08:00">2021-11-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-07 17:03:30" itemprop="dateModified" datetime="2021-11-07T17:03:30+08:00">2021-11-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>哈希表是根据关键码的值而直接进行访问的数据结构。</p>
+<p><strong>一般哈希表都是用来快速判断一个元素是否出现集合里。</strong></p>
+<p>哈希函数、哈希碰撞：拉链法。线性探测法（要求tableSize一定要大于dataSize ，要不然哈希表上就没有空置的位置来存放 冲突的数据了）</p>
+<p><strong>当我们遇到了要快速判断一个元素是否出现集合里的时候，就要考虑哈希法</strong>。</p>
+<p>但是哈希法也是<strong>牺牲了空间换取了时间</strong>，因为我们要使用额外的数组，set或者是map来存放数据，才能实现快速的查找。</p>
+<h3 id="Java中Map与HashMap-Hashtable-HashSet的区别"><a href="#Java中Map与HashMap-Hashtable-HashSet的区别" class="headerlink" title="Java中Map与HashMap,Hashtable,HashSet的区别"></a>Java中Map与HashMap,Hashtable,HashSet的区别</h3><p>HashMap和Hashtable两个类都实现了Map接口，二者保存K-V对（key-value对）；HashSet则实现了Set接口，性质类似于集合。</p>
+<p>HashTable和HashMap区别：</p>
+<p>一、继承的父类不同<br>Hashtable继承自Dictionary类，而HashMap继承自AbstractMap类。但二者都实现了Map接口。<br>二、线程安全性不同<br>Hashtable 中的方法是Synchronize的，而HashMap中的方法在缺省情况下是非Synchronize的。在多线程并发的环境下，可以直接使用Hashtable，不需要自己为它的方法实现同步，但使用HashMap时就必须要自己增加同步处理。<br>三、是否提供contains方法<br>HashMap把Hashtable的contains方法去掉了，改成containsValue和containsKey，因为contains方法容易让人引起误解。<br>Hashtable则保留了contains，containsValue和containsKey三个方法，其中contains和containsValue功能相同。<br>四、key和value是否允许null值<br>其中key和value都是对象，并且不能包含重复key，但可以包含重复的value。<br>Hashtable中，key和value都不允许出现null值。<br>HashMap中，null可以作为键，这样的键只有一个；可以有一个或多个键所对应的值为null。当get()方法返回null值时，可能是 HashMap中没有该键，也可能使该键所对应的值为null。因此，在HashMap中不能由get()方法来判断HashMap中是否存在某个键， 而应该用containsKey()方法来判断。<br>五、两个遍历方式的内部实现上不同<br>Hashtable、HashMap都使用了 Iterator。而由于历史原因，Hashtable还使用了Enumeration的方式 。<br>六、hash值不同<br>哈希值的使用不同，HashTable直接使用对象的hashCode。而HashMap重新计算hash值。<br>七、内部实现使用的数组初始化和扩容方式不同<br>Hashtable和HashMap它们两个内部实现方式的数组的初始大小和扩容的方式。HashTable中hash数组默认大小是11，增加的方式是 old*2+1。<br>HashMap中hash数组的默认大小是16，而且一定是2的指数。</p>
+<h2 id="242题-有效的字母异位词"><a href="#242题-有效的字母异位词" class="headerlink" title="242题.有效的字母异位词"></a>242题.有效的字母异位词</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。</span><br><span class="line">示例 1: 输入: s = &quot;anagram&quot;, t = &quot;nagaram&quot; 输出: true</span><br><span class="line">示例 2: 输入: s = &quot;rat&quot;, t = &quot;car&quot; 输出: false</span><br></pre></td></tr></table></figure>
+
+<p>思路：用map，先遍历一个往里加，再遍历另一个减，如果没有或者value是0，则false。看到只有小写字母，所以长度为26的数组来充当map也可以。</p>
+<p>知识：char ch : s.<strong>toCharArray()</strong>  遍历字符串中的字符。c++中的 ch：s 不可用。</p>
+<p>字符串中，获得第几个字符，不能用s[i]，而是：s.<strong>charAt(i)</strong></p>
+<p>判断map中是否有某key：if(!m.containsKey(ch))</p>
+<p>获得key对应的value：m.get(key)</p>
+<p>改变某key的value，直接覆盖？不能：m[i]++;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAnagram</span><span class="params">(String s, String t)</span> </span>&#123;</span><br><span class="line">        Map&lt;Character, Integer&gt;m = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span>(s.length() != t.length())&#123;</span><br><span class="line">        <span class="comment">//数组的长度length不加括号，字符串的长度要加括号</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> ch:s.toCharArray())&#123;</span><br><span class="line">            <span class="keyword">if</span>(!m.containsKey(ch))&#123;</span><br><span class="line">                m.put(ch,<span class="number">1</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                m.put(ch, m.get(ch)+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> ch:t.toCharArray())&#123;</span><br><span class="line">            <span class="keyword">if</span>(!m.containsKey(ch) || m.get(ch)==<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="comment">//a==0 和 a.equals(0) 一样</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                m.put(ch, m.get(ch)-<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>另一种方法：单纯的字符串排序比较</p>
+<p>首先将字符串变成字符数组，然后进行排序，然后进行比较</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAnagram</span><span class="params">(String s, String t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (s.length() != t.length()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">char</span>[] str1 = s.toCharArray();</span><br><span class="line">        <span class="keyword">char</span>[] str2 = t.toCharArray();</span><br><span class="line">        Arrays.sort(str1);</span><br><span class="line">        Arrays.sort(str2);</span><br><span class="line">        <span class="keyword">return</span> Arrays.equals(str1, str2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="349题-两个数组的交集"><a href="#349题-两个数组的交集" class="headerlink" title="349题.两个数组的交集"></a>349题.两个数组的交集</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">给定两个数组，编写一个函数来计算它们的交集。</span><br><span class="line">说明： 输出结果中的每个元素一定是唯一的。 我们可以不考虑输出结果的顺序。</span><br></pre></td></tr></table></figure>
+
+<p>思路：哈希set即可。一个遍历得到数字，一个存储结果。</p>
+<p>int[] 是固定长数组，没法像vector一样push_back</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] intersection(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums1 == <span class="keyword">null</span> || nums1.length == <span class="number">0</span> || nums2 == <span class="keyword">null</span> || nums2.length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        Set&lt;Integer&gt; set1 = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        Set&lt;Integer&gt; resSet = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="comment">//遍历数组1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : nums1) &#123;</span><br><span class="line">            set1.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//遍历数组2的过程中判断哈希表中是否存在该元素</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : nums2) &#123;</span><br><span class="line">            <span class="keyword">if</span> (set1.contains(i)) &#123;</span><br><span class="line">                resSet.add(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] resArr = <span class="keyword">new</span> <span class="keyword">int</span>[resSet.size()];</span><br><span class="line">        <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//将结果几何转为数组</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : resSet) &#123;  <span class="comment">//数组、set可以这样做，string不行</span></span><br><span class="line">            resArr[index++] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> resArr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="202题-快乐数"><a href="#202题-快乐数" class="headerlink" title="202题.快乐数"></a>202题.快乐数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">「快乐数」定义为：对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和，然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。如果 可以变为  1，那么这个数就是快乐数。</span><br></pre></td></tr></table></figure>
+
+<p>思路：使用哈希法，来判断这个sum是否重复出现，如果重复了就是return false， 否则一直找到sum为1为止。</p>
+<p>知识：set判断某数是否存在：s.contains(i);</p>
+<p>set添加一个数：s.add(i);</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isHappy</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        Set&lt;Integer&gt; record = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">while</span> (n != <span class="number">1</span> &amp;&amp; !record.contains(n)) &#123;</span><br><span class="line">            record.add(n);</span><br><span class="line">            n = getsum(n);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> n == <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获得n各位平方后的和</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getsum</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (n &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> temp = n % <span class="number">10</span>;</span><br><span class="line">            res += temp * temp;</span><br><span class="line">            n = n / <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="454题-四数相加"><a href="#454题-四数相加" class="headerlink" title="454题.四数相加"></a>454题.四数相加</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j, k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。</span><br><span class="line"></span><br><span class="line">为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500 。所有整数的范围在 -2^28 到 2^28 - 1 之间，最终结果不会超过 2^31 - 1 。</span><br></pre></td></tr></table></figure>
+
+<p>思路：用一个map代表双层循环，另外再来个双层循环。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">fourSumCount</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2, <span class="keyword">int</span>[] nums3, <span class="keyword">int</span>[] nums4)</span> </span>&#123;</span><br><span class="line">        Map&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> temp;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//统计两个数组中的元素之和，同时统计出现的次数，放入map</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : nums1) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j : nums2) &#123;</span><br><span class="line">                temp = i + j;</span><br><span class="line">                <span class="keyword">if</span> (map.containsKey(temp)) &#123;</span><br><span class="line">                    map.put(temp, map.get(temp) + <span class="number">1</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    map.put(temp, <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//统计剩余的两个元素的和，在map中找是否存在相加为0的情况，同时记录次数</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : nums3) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j : nums4) &#123;</span><br><span class="line">                temp = i + j;</span><br><span class="line">                <span class="keyword">if</span> (map.containsKey(<span class="number">0</span> - temp)) &#123;</span><br><span class="line">                    res += map.get(<span class="number">0</span> - temp);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="15题-三数之和"><a href="#15题-三数之和" class="headerlink" title="15题.三数之和"></a>15题.三数之和</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。</span><br><span class="line">注意： 答案中不可以包含重复的三元组。</span><br><span class="line">示例：给定数组 nums = [-1, 0, 1, 2, -1, -4]，满足要求的三元组集合为： [ [-1, 0, 1], [-1, -1, 2] ]</span><br></pre></td></tr></table></figure>
+
+<p>思路：难点在于去重</p>
+<p>方法一：两层循环，第二层加一个set。注意去重。</p>
+<p>方法二：双指针法，其实是三指针，i指针后，left和right。三数之和如果大了，右指针左移，小了，左指针右移。</p>
+<p>知识：动态数组ArrayList。添加数：result.add(Arrays.asList(nums[i], nums[left], nums[right])); （）asList是降int[]变成list的意思。</p>
+<p>数组int[] 排序：Arrays.sort(nums);</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; threeSum(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i - <span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> left = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> right = nums.length - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span> (right &gt; left) &#123;</span><br><span class="line">                <span class="keyword">int</span> sum = nums[i] + nums[left] + nums[right];</span><br><span class="line">                <span class="keyword">if</span> (sum &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    right--;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    left++;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));</span><br><span class="line">                    <span class="keyword">while</span> (right &gt; left &amp;&amp; nums[right] == nums[right - <span class="number">1</span>]) right--;</span><br><span class="line">                    <span class="keyword">while</span> (right &gt; left &amp;&amp; nums[left] == nums[left + <span class="number">1</span>]) left++;</span><br><span class="line">                    right--; </span><br><span class="line">                    left++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="18题-四数之和"><a href="#18题-四数之和" class="headerlink" title="18题.四数之和"></a>18题.四数之和</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">题意：给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。</span><br><span class="line">注意：答案中不可以包含重复的四元组。</span><br><span class="line">示例： 给定数组 nums = [1, 0, -1, 0, -2, 2]，和 target = 0。 满足要求的四元组集合为： [ [-1, 0, 0, 1], [-2, -1, 1, 2], [-2, 0, 0, 2] ]</span><br></pre></td></tr></table></figure>
+
+<p>四数之和，和15.三数之和是一个思路，都是使用双指针法, 基本解法就是在15.三数之和的基础上再套一层for循环。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; fourSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i - <span class="number">1</span>] == nums[i]) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; nums.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (j &gt; i + <span class="number">1</span> &amp;&amp; nums[j - <span class="number">1</span>] == nums[j]) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">int</span> left = j + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">int</span> right = nums.length - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span> (right &gt; left) &#123;</span><br><span class="line">                    <span class="keyword">int</span> sum = nums[i] + nums[j] + nums[left] + nums[right];</span><br><span class="line">                    <span class="keyword">if</span> (sum &gt; target) &#123;</span><br><span class="line">                        right--;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; target) &#123;</span><br><span class="line">                        left++;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        result.add(Arrays.asList(nums[i], nums[j], nums[left], nums[right])); </span><br><span class="line">                        <span class="keyword">while</span> (right &gt; left &amp;&amp; nums[right] == nums[right - <span class="number">1</span>]) right--;</span><br><span class="line">                        <span class="keyword">while</span> (right &gt; left &amp;&amp; nums[left] == nums[left + <span class="number">1</span>]) left++;</span><br><span class="line">                        left++;</span><br><span class="line">                        right--;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/02/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/%E9%93%BE%E8%A1%A8%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/11/02/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/%E9%93%BE%E8%A1%A8%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" class="post-title-link" itemprop="url">javaのleecode刷题链表篇</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-11-02 14:47:32" itemprop="dateCreated datePublished" datetime="2021-11-02T14:47:32+08:00">2021-11-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-03 21:33:34" itemprop="dateModified" datetime="2021-11-03T21:33:34+08:00">2021-11-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="链表的定义输入输出"><a href="#链表的定义输入输出" class="headerlink" title="链表的定义输入输出"></a>链表的定义输入输出</h2><p>首先使用结构体定义，与c++不同，java中没有指针，隐藏指针，让指向某对象的指针看起来更像那个对象本身。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">为什么java中的main函数不能是非static？</span><br><span class="line"></span><br><span class="line">不能在main方法中打印this关键字的信息，因为不能在静态方法中调用this。理由很简单，this表示“这个对象”，也就是声明一个类的对象，然而静态方法是不属于某一个特定对象而是属于这个类的。那么问题来了，为什么main函数必须设置成静态的呢？</span><br><span class="line"></span><br><span class="line">首先，main函数作为java程序的入口，也可以理解为一个接口，这个接口不是提供给程序员使用的，这时提供给用户等使用的，用户等不需要知道程序内部的实现，只需要知道接口就可以了，如果是非静态的，那么当用户开始使用时，就必须先去创建对象，那么创建对象的代码又写在哪里呢？呵呵，所以这个很难讲清。</span><br><span class="line"></span><br><span class="line">Main方法是我们学习Java编程语言时知道的第一个方法，你是否曾经想过为什么main方法是public、static、void的。当然，很多人首先学的是C和C++，但是在Java中main方法与前者有些细微的不同，它不会返回任何值，为什么main方式是public、static、void，这篇文章尝试去找到一些答案。</span><br><span class="line"></span><br><span class="line">Main方法是Java程序的入口，记住，我们这里不会讨论Servlet、MIDlet和其他任何容器管理的java程序，在java核心编程中，JVM会查找类中的public static void main(String[] args)，如果找不到该方法就抛出错误NoSuchMethodError:main 程序终止。</span><br><span class="line">Main方法必须严格遵循它的语法规则，方法签名必须是public static void，参数是字符串数组类型，如果是Java1.5及以后的版本还可以使用可变参数：</span><br><span class="line">public  static void main(String... args)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">为什么main方法是静态的（static）</span><br><span class="line"></span><br><span class="line">正因为main方法是静态的，JVM调用这个方法就不需要创建任何包含这个main方法的实例。</span><br><span class="line">因为C和C++同样有类似的main方法作为程序执行的入口。</span><br><span class="line">如果main方法不声明为静态的，JVM就必须创建main类的实例，因为构造器可以被重载，JVM就没法确定调用哪个main方法。</span><br><span class="line">静态方法和静态数据加载到内存就可以直接调用而不需要像实例方法一样创建实例后才能调用，如果main方法是静态的，那么它就会被加载到JVM上下文中成为可执行的方法。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">为什么main方法是公有的（public）</span><br><span class="line">Java指定了一些可访问的修饰符如：private、protected、public，任何方法或变量都可以声明为public，Java可以从该类之外的地方访问。因为main方法是公共的，JVM就可以轻松的访问执行它。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">为什么main方法没有返回值（Void） </span><br><span class="line"></span><br><span class="line">因为main返回任何值对程序都没任何意义，所以设计成void，意味着main不会有任何值返回</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">总结</span><br><span class="line"></span><br><span class="line">main方法必须声明为public、static、void，否则JVM没法运行程序</span><br><span class="line">如果JVM找不到main方法就抛出NoSuchMethodError:main异常，例如：如果你运行命令：java HelloWrold，JVM就会在HelloWorld.class文件中搜索public static void main (String[] args) 放法</span><br><span class="line">main方式是程序的入口，程序执行的开始处。</span><br><span class="line">main方法被一个特定的线程”main”运行，程序会一直运行直到main线程结束或者non-daemon线程终止。</span><br><span class="line">当你看到“Exception in Thread main”如：Excpetion in Thread main:Java.lang.NullPointedException ,意味着异常来自于main线程</span><br><span class="line">你可以声明main方法使用java1.5的可变参数的方式如：</span><br><span class="line">public  static void main(String... args)</span><br><span class="line">除了static、void、和public，你可以使用final，synchronized、和strictfp修饰符在main方法的签名中，如：</span><br><span class="line">public  strictfp final  synchronized static  void main(String[] args)</span><br><span class="line">main方法在Java可以像其他方法一样被重载，但是JVM只会调用上面这种签名规范的main方法。</span><br><span class="line">你可以使用throws子句在方法签名中，可以抛出任何checked和unchecked异常</span><br><span class="line">静态初始化块在JVM调用main方法前被执行，它们在类被JVM加载到内存的时候就被执行了。</span><br></pre></td></tr></table></figure>
+
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/peikunye/article/details/100513579">https://blog.csdn.net/peikunye/article/details/100513579</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/maxiao1204/article/details/75142811?yyue=a21bo.50862.201879">https://blog.csdn.net/maxiao1204/article/details/75142811?yyue=a21bo.50862.201879</a></p>
+<p>对于java的构造函数有点懵逼，有参构造和无参构造可以同时存在吗？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">链表节点定义：</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> val;  <span class="comment">//必须要加public吗？</span></span><br><span class="line">    <span class="keyword">public</span> ListNode next = <span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ListNode</span><span class="params">(<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.val=val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">反转链表：</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">reverseListNode</span> </span>&#123;</span><br><span class="line">    <span class="comment">//输入输出+测试代码</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//输入不定长的数组</span></span><br><span class="line">        System.out.print(<span class="string">&quot;请输入链表：&quot;</span>);</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str = sc.nextLine();</span><br><span class="line">        String[] arr = str.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        <span class="keyword">int</span>[] b = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length];</span><br><span class="line">        ListNode head = <span class="keyword">null</span>; <span class="comment">//代表是个空节点</span></span><br><span class="line">        ListNode pre = <span class="keyword">null</span>; <span class="comment">//pre在这里定义</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; b.length; j++) &#123;</span><br><span class="line">            b[j] = Integer.parseInt(arr[j]);</span><br><span class="line">            ListNode node = <span class="keyword">new</span> ListNode(b[j]); <span class="comment">//真正的构造节点</span></span><br><span class="line">            <span class="keyword">if</span>(head==<span class="keyword">null</span>)&#123;  <span class="comment">//首先判断是不是头节点</span></span><br><span class="line">                head = node;</span><br><span class="line">                pre = head; <span class="comment">//pre在这里等于head，不能在上面等于</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            pre.next=node;</span><br><span class="line">            pre = pre.next;</span><br><span class="line">        &#125;</span><br><span class="line">        printList(head);</span><br><span class="line">        ListNode res = reversal(head);</span><br><span class="line">        printList(res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//输出链表</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(head != <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.print(head.val + <span class="string">&quot;,&quot;</span>);</span><br><span class="line">            head = head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//反转函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">reversal</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode front = <span class="keyword">null</span>;</span><br><span class="line">        ListNode cur = head;</span><br><span class="line">        ListNode next;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</span><br><span class="line">            next = cur.next;</span><br><span class="line">            cur.next = front;</span><br><span class="line">            front = cur;</span><br><span class="line">            cur = next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> front;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="203题-移除链表元素"><a href="#203题-移除链表元素" class="headerlink" title="203题.移除链表元素"></a>203题.移除链表元素</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">题意：删除链表中等于给定值 val 的所有节点。</span><br><span class="line">示例 1：</span><br><span class="line">输入：head = [1,2,6,3,4,5,6], val = 6</span><br><span class="line">输出：[1,2,3,4,5]</span><br></pre></td></tr></table></figure>
+
+<p>思路：有可能头节点是要删除的，所以用prehead节点。c/c++需要清理节点内存。java/python则不需要。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">链表节点定义：</span><br><span class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">     <span class="keyword">int</span> val;</span><br><span class="line">     ListNode next;</span><br><span class="line">     ListNode() &#123;&#125;</span><br><span class="line">     ListNode(<span class="keyword">int</span> val) &#123; <span class="keyword">this</span>.val = val; &#125;</span><br><span class="line">     ListNode(<span class="keyword">int</span> val, ListNode next) &#123; <span class="keyword">this</span>.val = val; <span class="keyword">this</span>.next = next; &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">removeElements</span><span class="params">(ListNode head, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        ListNode prehead = <span class="keyword">new</span> ListNode();</span><br><span class="line">        prehead.next = head;</span><br><span class="line">        <span class="comment">//ListNode prehead = new ListNode(-1, head);</span></span><br><span class="line">        ListNode pre = prehead;</span><br><span class="line">        <span class="keyword">while</span>(pre.next != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">//括号内不可以只是pre.next</span></span><br><span class="line">            <span class="keyword">if</span>(pre.next.val == val)&#123;</span><br><span class="line">                pre.next=pre.next.next;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                pre = pre.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> prehead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="24题-两两交换链表中得节点"><a href="#24题-两两交换链表中得节点" class="headerlink" title="24题.两两交换链表中得节点"></a>24题.两两交换链表中得节点</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。</span><br><span class="line">输入：head = [1,2,3,4]</span><br><span class="line">输出：[2,1,4,3]</span><br></pre></td></tr></table></figure>
+
+<p>思路：相当于是swap节点，不能只改变值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">swapPairs</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode prehead = <span class="keyword">new</span> ListNode();</span><br><span class="line">        prehead.next = head;</span><br><span class="line">        ListNode pre = prehead;</span><br><span class="line">        <span class="keyword">while</span>(pre.next!=<span class="keyword">null</span> &amp;&amp; pre.next.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            ListNode node1 = pre.next;</span><br><span class="line">            pre.next = node1.next;</span><br><span class="line">            ListNode node2 = pre.next.next;</span><br><span class="line">            pre.next.next = node1;</span><br><span class="line">            node1.next = node2;</span><br><span class="line">            pre = pre.next.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> prehead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="19题-删除链表的倒数第N个节点"><a href="#19题-删除链表的倒数第N个节点" class="headerlink" title="19题.删除链表的倒数第N个节点"></a>19题.删除链表的倒数第N个节点</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。</span><br><span class="line">输入：head = [1,2,3,4,5], n = 2 输出：[1,2,3,5] </span><br></pre></td></tr></table></figure>
+
+<p>思路：明显的双指针法，为了降低时间复杂度，尽可能扫描一次链表来解决。一个指针先走n步，再一起走，当前面的走到头，那就是要删除的倒数第n个节点。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">removeNthFromEnd</span><span class="params">(ListNode head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode prehead = <span class="keyword">new</span> ListNode();</span><br><span class="line">        prehead.next=head;</span><br><span class="line">        ListNode left = prehead;</span><br><span class="line">        ListNode right = prehead;</span><br><span class="line">        <span class="keyword">while</span>(n--&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            right = right.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(right.next != <span class="keyword">null</span>)&#123;</span><br><span class="line">            left=left.next;</span><br><span class="line">            right=right.next;</span><br><span class="line">        &#125;</span><br><span class="line">        left.next=left.next.next;</span><br><span class="line">        <span class="keyword">return</span> prehead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="面试题02-07-链表相交"><a href="#面试题02-07-链表相交" class="headerlink" title="面试题02.07.链表相交"></a>面试题02.07.链表相交</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。</span><br></pre></td></tr></table></figure>
+
+<p>思路：一眼双指针，阿里二面题目，这道题里链表相交的话后面是重叠了，合并，而不是只交一个点，交一个点的话只能双层for循环了。两个指针走完了都走另一个，会同时到达合并的第一个节点。如果没有合并，同时遍历到空节点返回空节点。如果两个合并的长度一样，则走到第一个点就会返回。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        ListNode a = headA;</span><br><span class="line">        ListNode b = headB;</span><br><span class="line">        <span class="keyword">while</span>(a!=b)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a==<span class="keyword">null</span>)  a=headB;</span><br><span class="line">            <span class="keyword">else</span> a=a.next;</span><br><span class="line">            <span class="keyword">if</span>(b==<span class="keyword">null</span>)  b=headA;</span><br><span class="line">            <span class="keyword">else</span> b=b.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="142题-环形链表Ⅱ"><a href="#142题-环形链表Ⅱ" class="headerlink" title="142题.环形链表Ⅱ"></a>142题.环形链表Ⅱ</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">题意： 给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</span><br><span class="line">为了表示给定链表中的环，使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。</span><br><span class="line">输入：head = [3,2,0,-4], pos = 1</span><br><span class="line">输出：返回索引为 1 的链表节点</span><br><span class="line">解释：链表中有一个环，其尾部连接到第二个节点。</span><br></pre></td></tr></table></figure>
+
+<p>思路：经典的快慢指针。一个一次走一格，一个一次走两格。不需要虚拟头节点。这是判断链表是否有环的方法，如果有环，两个指针都会一直走，两个指针一定会相遇。但是相遇的点不一定是环的入口。</p>
+<p>这个环肯定是后面一个环就不再出来了。</p>
+<p>而要找到环的入口，画个图，最后得出来：x = (n - 1) (y + z) + z。再跑一遍就可以得到环的入口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">detectCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        ListNode fast = head;</span><br><span class="line">        <span class="keyword">while</span>(fast!=<span class="keyword">null</span> &amp;&amp; fast.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            slow=slow.next;</span><br><span class="line">            fast=fast.next.next;</span><br><span class="line">            <span class="keyword">if</span>(slow==fast)&#123;  <span class="comment">//有环了，下面再找入口</span></span><br><span class="line">                <span class="keyword">while</span>(head!=slow)&#123;</span><br><span class="line">                    head=head.next;</span><br><span class="line">                    slow=slow.next;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> slow;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>链表的种类主要为：单链表，双链表，循环链表</li>
+<li>链表的存储方式：链表的节点在内存中是分散存储的，通过指针连在一起。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/31/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/%E7%A7%8B%E6%8B%9B%E9%9D%A2%E7%BB%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/31/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/%E7%A7%8B%E6%8B%9B%E9%9D%A2%E7%BB%8F/" class="post-title-link" itemprop="url">秋招面经</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-31 16:24:02" itemprop="dateCreated datePublished" datetime="2021-10-31T16:24:02+08:00">2021-10-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-25 18:27:58" itemprop="dateModified" datetime="2021-12-25T18:27:58+08:00">2021-12-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/" itemprop="url" rel="index"><span itemprop="name">笔经面经</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="虾皮-后端-一面-2021-7-18"><a href="#虾皮-后端-一面-2021-7-18" class="headerlink" title="虾皮-后端-一面-2021.7.18"></a>虾皮-后端-一面-2021.7.18</h3><p>1.redis数据类型的底层结构 set<br>2.hashmap底层结构<br>3.c++禁止拷贝构造<br>4.tcp三次握手四次挥手<br>5.四次挥手time_wait机制<br>6.http、ip、dns属于什么层<br>7.cpu调度算法<br>8.linux命令，看文件后几行，日志关键词查询<br>9.进程间通信 信号量<br>10.逻辑地址与物理地址映射<br>11.编程：翻转句子但不翻转单词</p>
+<h3 id="字节-商业化后端-一面-2021-7-18"><a href="#字节-商业化后端-一面-2021-7-18" class="headerlink" title="字节-商业化后端-一面-2021.7.18"></a>字节-商业化后端-一面-2021.7.18</h3><p>1.redis分布式锁机制<br>2.redis数据类型使用场景<br>3.hashmap用红黑树优点是什么，map底层数据结构<br>4.vector和list底层实现原理<br>5.互斥锁底层原理，如何实现原子性<br>6.智力题：圆上取三点，构成锐角、直角、钝角三角形的概率？<br>7.编程：合并区间<br>8.编程：最长回文子串</p>
+<h3 id="字节-商业化后端-二面-2021-7-18"><a href="#字节-商业化后端-二面-2021-7-18" class="headerlink" title="字节-商业化后端-二面-2021.7.18"></a>字节-商业化后端-二面-2021.7.18</h3><p>1.编程：给定一个多任务场景， 不同任务执行过程中是有相互依赖关系的；<br>输入： n 代表n个任务<br>输出： k代表k个依赖关系<br>输出： n个任务能够完成一次调度执行；<br>提示：用节点的入度，入度为0可以删掉。<br>2.redis如何保证原子性<br>3.redis事务<br>4.mysql避免死锁底层如何实现<br>5.tcp是保序的吗？seq、syn<br>6.五层模型都是干嘛的</p>
+<h3 id="商汤scg-三面-2021-7-19"><a href="#商汤scg-三面-2021-7-19" class="headerlink" title="商汤scg-三面-2021.7.19"></a>商汤scg-三面-2021.7.19</h3><p>1.乐观锁的版本号机制如何实现<br>2.redis集群主从同步失败怎么办<br>3.网站打不开的原因，发散<br>4.聚簇索引和非聚簇索引，增量索引？<br>5.编程：岛屿数量<br>6.go结构体嵌套，new操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line">type a struct &#123;</span><br><span class="line">    add string</span><br><span class="line">&#125;</span><br><span class="line">type b struct &#123;</span><br><span class="line">    *a</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line">    b := new(b)</span><br><span class="line">    b.add = &quot;add&quot;</span><br><span class="line">    fmt.Println(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="字节-商业化后端-三面-2021-7-20"><a href="#字节-商业化后端-三面-2021-7-20" class="headerlink" title="字节-商业化后端-三面-2021.7.20"></a>字节-商业化后端-三面-2021.7.20</h3><p>1.编程：二叉树转化为双向链表<br>2.智力：老虎吃羊问题<br>3.redis索引原理<br>4.线程池实现考虑什么，伪代码<br>5.c++的锁<br>6.c++管理内存泄漏的方法<br>7.说说智能指针，几种的区别<br>8.单继承和多继承的虚函数表的区别<br>9.多态如何实现<br>10.IO多路复用<br>11.redis持久化</p>
+<h3 id="字节-数据中台后端-一面-2021-7-29"><a href="#字节-数据中台后端-一面-2021-7-29" class="headerlink" title="字节-数据中台后端-一面-2021.7.29"></a>字节-数据中台后端-一面-2021.7.29</h3><p>1.redis持久化写硬盘，对内存操作有没有影响？<br>2.写硬盘的方法，怎么最快<br>3.mysql索引底层<br>4.数据库锁<br>5.select * from table where a between 10 and 20 for update；之后再插入一条20-20之间的数据，发生什么？<br>可重复读：不能插，解决了幻读。读未提交，能插入？<br>6.实现strncpy函数<br>7.二分查找<br>8.截断数组的查找</p>
+<h3 id="字节-数据中台后端-二面-2021-8-2"><a href="#字节-数据中台后端-二面-2021-8-2" class="headerlink" title="字节-数据中台后端-二面-2021.8.2"></a>字节-数据中台后端-二面-2021.8.2</h3><p>1.redis单线程如何实现的<br>2.http输入url过程<br>3.http和https<br>4.评论系统数据库表设计<br>5.写代码，求一条评论的所有子评论个数<br>6.网络攻击手段，sql注入，怎么防止，把自己套圈子里了</p>
+<h3 id="虾皮-后端-二面-2021-8-3"><a href="#虾皮-后端-二面-2021-8-3" class="headerlink" title="虾皮-后端-二面-2021.8.3"></a>虾皮-后端-二面-2021.8.3</h3><p>1.hashtable怎么实现的<br>2.c++ stl用过什么，数组与链表<br>3.二叉树路径-回溯算法<br>4.针对订单的安全id怎么生成</p>
+<h3 id="阿里云-后端-二面-2021-8-3"><a href="#阿里云-后端-二面-2021-8-3" class="headerlink" title="阿里云-后端-二面-2021.8.3"></a>阿里云-后端-二面-2021.8.3</h3><p>1.个人云和企业云的区别的看法，toB和toC<br>2.发号器不需要做切流，下线吗？<br>    系统自保、准入条件、云计算：资源的池化、分割售卖、安全隔离、资源隔离、超卖、服务契约<br>3.哈希打散的id怎么生成？<br>4.雪花算法，时间回滚，机器不知道，不能识别，怎么办？<br>5.code：求相对路径</p>
+<h3 id="商汤-hr面-2021-8-5"><a href="#商汤-hr面-2021-8-5" class="headerlink" title="商汤-hr面-2021.8.5"></a>商汤-hr面-2021.8.5</h3><p>1.性格缺点<br>2.选择公司最看重什么<br>3.对智慧交通看法</p>
+<h3 id="360-后端一面-2021-8-6"><a href="#360-后端一面-2021-8-6" class="headerlink" title="360-后端一面-2021.8.6"></a>360-后端一面-2021.8.6</h3><p>1.平衡二叉树和红黑树，为什么用红黑树<br>2.服务器实例无法访问数据库怎么办，db不能平衡扩展<br>3.编程：扑克牌判断是不是顺子<br>4.udp怎么可靠</p>
+<h3 id="虾皮-后端-hr面-2021-8-10"><a href="#虾皮-后端-hr面-2021-8-10" class="headerlink" title="虾皮-后端-hr面-2021.8.10"></a>虾皮-后端-hr面-2021.8.10</h3><p>1.如何看待加班<br>2.评价一下自己，他人眼中的你什么样的<br>3.有什么其他offer或者流程中<br>4.想要什么公司氛围<br>5.想去什么业务<br>6.为啥选后端</p>
+<h3 id="腾讯-交通平台产品部-一面-2021-8-10"><a href="#腾讯-交通平台产品部-一面-2021-8-10" class="headerlink" title="腾讯-交通平台产品部-一面-2021.8.10"></a>腾讯-交通平台产品部-一面-2021.8.10</h3><p>1.有啥爱好？？？？？<br>2.推荐悬疑书？？？<br>3.手撕：一个字符串切片成字典里的字符串，回溯<br>4.unordered_set和set区别，实现方面<br>5.c++和go<br>6.set什么语法实现降序</p>
+<h3 id="阿里-三面-凉经"><a href="#阿里-三面-凉经" class="headerlink" title="阿里-三面-凉经"></a>阿里-三面-凉经</h3><p>1.做过网络编程没有<br>2.一个程序运行，资源空间如何变化<br>3.拷问项目<br>4.为什么对边缘计算感兴趣<br>5.怎么看边缘计算<br>6.大致觉得没有网络相关的项目，没有可问的，问我自己认为有什么优点<br>7.大佬就是大佬，秒凉</p>
+<h3 id="阿里-高德-后端-一面"><a href="#阿里-高德-后端-一面" class="headerlink" title="阿里-高德-后端-一面"></a>阿里-高德-后端-一面</h3><p>1.用过除redis、mysql之外的中间件吗<br>2.mysql innodb为什么用B+树<br>3.redis数据结构底层实现<br>4.redis集群怎么部署<br>5.设计模式了解哪些，平常用的<br>6.zookeeper优缺点<br>7.聚集索引和非聚集索引</p>
+<h3 id="网易-AI-c-算法落地-一面"><a href="#网易-AI-c-算法落地-一面" class="headerlink" title="网易-AI-c++算法落地-一面"></a>网易-AI-c++算法落地-一面</h3><p>1.深挖项目<br>2.为什么不用高频？？高频-&gt;波长短-&gt;按说传输距离高，因为频率高衰减大<br>  说成了多普勒，开始深挖多普勒<br>3.手撕：1.最少跳跃次数 （用广度优先，没写过）换：2.最小编辑距离（ac）        </p>
+<h3 id="渤海银行-提前批-软开-2021-8-29-笔试准备"><a href="#渤海银行-提前批-软开-2021-8-29-笔试准备" class="headerlink" title="渤海银行-提前批-软开-2021.8.29-笔试准备"></a>渤海银行-提前批-软开-2021.8.29-笔试准备</h3><p>渤海银行成立时间：</p>
+<p>渤海企业文化：诚信、远见、开放、创新、关爱</p>
+<p>品牌主张：一旦选择,终身相伴</p>
+<h3 id="阿里高德-一面-笔试面"><a href="#阿里高德-一面-笔试面" class="headerlink" title="阿里高德-一面-笔试面"></a>阿里高德-一面-笔试面</h3><p>笔试构造什么数据结构，父子结构的，<br>分布式事务<br>CAP原则<br>一致性哈希<br>消息队列<br>限流算法</p>
+<h3 id="网易有道AI-c-算法开发工程师-二面"><a href="#网易有道AI-c-算法开发工程师-二面" class="headerlink" title="网易有道AI-c++算法开发工程师-二面"></a>网易有道AI-c++算法开发工程师-二面</h3><p>深挖项目<br>手撕：给一个数组变成偶数位上都是偶数或是奇数位上都是奇数<br>手撕：二叉树回溯，求路径和</p>
+<h3 id="阿里-高德-二面-凉经"><a href="#阿里-高德-二面-凉经" class="headerlink" title="阿里-高德-二面-凉经"></a>阿里-高德-二面-凉经</h3><p>上来自己的IDE共享屏幕手撕：多线程输出<br>手撕：最长无重复子串的长度<br>思考：相交链表找相交节点<br>数据库隔离级别如何实现<br>手里的offer，规划之类</p>
+<h3 id="阿里-高德-三面"><a href="#阿里-高德-三面" class="headerlink" title="阿里-高德-三面"></a>阿里-高德-三面</h3><p>面试官还不错，上来问我以后用啥语言，跟我讲阿里的java生态<br>思考题：城市有公交站和地铁站，每个站有辐射面积，算城市交通的覆盖率。<br>聊聊面向对象三个特征<br>自己的优缺点<br>平常怎么提高效率的<br>有了解什么新技术吗？面试官讲了一通中国软件界的兼容问题<br>反问：学习java意见<br>1、学语言思想，《深入浅出java虚拟机》《java编程思想》学习语法<br>2、应用，java web spring mvc boot<br>数据库MYbrits，关系型数据库，分布式数据库H-base，分库分表，catch<br>RPC框架，分布式高并发高响应。</p>
+<h3 id="渤海-一面"><a href="#渤海-一面" class="headerlink" title="渤海-一面"></a>渤海-一面</h3><p>java垃圾回收，sb了应该说一些的<br>hashmap负载因子<br>hashmap和hashtable<br>数据库存储引擎<br>写代码多少年了<br>redis持久化<br>重载和重写<br>异常处理，catch和finish，蒙了一些</p>
+<h3 id="农行-测试-2021-9-13"><a href="#农行-测试-2021-9-13" class="headerlink" title="农行-测试-2021.9.13"></a>农行-测试-2021.9.13</h3><p>三道题，a了一点多道</p>
+<h3 id="华为-通信算法-一面-2021-9-13"><a href="#华为-通信算法-一面-2021-9-13" class="headerlink" title="华为-通信算法-一面-2021.9.13"></a>华为-通信算法-一面-2021.9.13</h3><p>全程问项目论文，对于细节问的蛮多<br>本来2点开始，结果2.20才叫面试<br>三点10分还没结束，无奈最后的写一个框图的题写得草率。</p>
+<h3 id="华为-通信算法-二面"><a href="#华为-通信算法-二面" class="headerlink" title="华为-通信算法-二面"></a>华为-通信算法-二面</h3><p>论文+项目<br>做一道题，关于似然等概率知识的，都忘光了</p>
+<h3 id="华为-通信算法-主管面"><a href="#华为-通信算法-主管面" class="headerlink" title="华为-通信算法-主管面"></a>华为-通信算法-主管面</h3><p>论文，还可以</p>
+<h3 id="农行-2021-9-14-凉经"><a href="#农行-2021-9-14-凉经" class="headerlink" title="农行-2021.9.14-凉经"></a>农行-2021.9.14-凉经</h3><p>c++连接数据库的方式<br>c++不能重载的运算符<br>c++创建进程的方式<br>创建线程的类<br>创建线程池的方式</p>
+<h3 id="网易-总监面-2021-9-14"><a href="#网易-总监面-2021-9-14" class="headerlink" title="网易-总监面-2021.9.14"></a>网易-总监面-2021.9.14</h3><p>手撕求平方，精确到小数点后10位<br>手撕两个四边形面积的重叠面积/总面积<br>看我的论文？？？</p>
+<h3 id="网易-hr面"><a href="#网易-hr面" class="headerlink" title="网易-hr面"></a>网易-hr面</h3><h3 id="阿里-hr面"><a href="#阿里-hr面" class="headerlink" title="阿里-hr面"></a>阿里-hr面</h3><p>介绍个项目，遇到的难点，如何解决<br>遇到过什么困难，如何化解</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/31/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/java%E3%81%AEleecode%E6%95%B0%E7%BB%84%E7%AF%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -823,522 +1288,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/project%E7%9B%B8%E5%85%B3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/project%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">项目相关</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-09-02 20:01:00" itemprop="dateCreated datePublished" datetime="2021-09-02T20:01:00+08:00">2021-09-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 21:54:06" itemprop="dateModified" datetime="2021-09-25T21:54:06+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="修改路由"><a href="#修改路由" class="headerlink" title="修改路由"></a>修改路由</h2><p>![image-20210901112055198](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210901112055198.png)</p>
-<p>路由字符串可随意修改，后面跟action下的文件里的函数名就好。</p>
-<p>注意后面跟的create和文件名没关系，文件名可以改成别的。</p>
-<p>文件里的函数名必须是是Create，需要大写。</p>
-<p>访问的接口的create可大写可小写。</p>
-<h2 id="修改端口"><a href="#修改端口" class="headerlink" title="修改端口"></a>修改端口</h2><p>首先查看端口占用，再更改配置</p>
-<p>![image-20210901112159550](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210901112159550.png)</p>
-<h2 id="post请求怎么通过url访问"><a href="#post请求怎么通过url访问" class="headerlink" title="post请求怎么通过url访问"></a>post请求怎么通过url访问</h2><p>post请求当然无法通过url访问，内容不在url里，而在body里。</p>
-<p>用curl</p>
-<h2 id="访问网址的脚本"><a href="#访问网址的脚本" class="headerlink" title="访问网址的脚本"></a>访问网址的脚本</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">echo &quot;访问时间是：`date &#x27;+%Y%m%d %H:%M:%S&#x27;`--$code---&gt;$url&quot; &gt;&gt; result.log</span><br><span class="line">n=0</span><br><span class="line">max=11</span><br><span class="line">while(($n&lt;max))</span><br><span class="line">do</span><br><span class="line">    curl &#x27;https://www.baidu.com/&#x27; //访问url</span><br><span class="line">    n=($n+1)</span><br><span class="line">    sleep 1s</span><br><span class="line">done</span><br><span class="line">#while循环访问url,直到状态码为200跳出循环</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">result.log</span><br><span class="line">n=0</span><br><span class="line">max=20</span><br><span class="line"><span class="meta">while(($</span><span class="bash">n&lt;max))</span></span><br><span class="line">do</span><br><span class="line">    echo -e &quot;times:$n, time:`date &#x27;+%Y%m%d %H:%M:%S&#x27;`&quot; &gt;&gt; new.log</span><br><span class="line">    curl &#x27;http://10.12.205.134:8182/pt/idproducer/v2/create?appid=10001&#x27;&gt;&gt;new.log</span><br><span class="line">    echo -e &quot;\n&quot;&gt;&gt;new.log</span><br><span class="line">    </span><br><span class="line">    echo -e &quot;times:$n, time:`date &#x27;+%Y%m%d %H:%M:%S&#x27;`&quot; &gt;&gt; old.log</span><br><span class="line">    curl &#x27;http://10.12.205.134:8182/pt/idproducer/create?appid=3&#x27;&gt;&gt;old.log</span><br><span class="line">    echo -e &quot;\n&quot;&gt;&gt;old.log</span><br><span class="line">    n=($n+1)</span><br><span class="line">    sleep 1s</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
-<p>不加次数时间：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">n=0</span><br><span class="line">max=3600</span><br><span class="line"><span class="meta">while(($</span><span class="bash">n&lt;max))</span></span><br><span class="line">do</span><br><span class="line">    curl &#x27;http://10.229.66.155:2010/pt/idproducer/v2/create?appid=10001&#x27;&gt;&gt;new.log</span><br><span class="line">    echo -e &quot;\n&quot; &gt;&gt; new.log</span><br><span class="line">    curl &#x27;http://10.229.66.155:2010/pt/idproducer/create?appid=13&#x27;&gt;&gt;old.log</span><br><span class="line">    echo -e &quot;\n&quot; &gt;&gt; old.log</span><br><span class="line">    n=$n+1</span><br><span class="line">    sleep 1s</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
-<h2 id="快速计算的脚本"><a href="#快速计算的脚本" class="headerlink" title="快速计算的脚本"></a>快速计算的脚本</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">echo -n &quot;please input your name and age:&quot;</span><br><span class="line">read name age</span><br><span class="line">echo &quot;welcome $name, your age is $age&quot;</span><br><span class="line"></span><br><span class="line">read -p &quot;please input your name and age:&quot; name age</span><br><span class="line">echo &quot;welcome $name, your age is $age&quot;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">echo -n &quot;please input your maxid and oldstep and newstep:&quot;</span><br><span class="line">read maxid oldstep newstep</span><br><span class="line">declare -i a=$maxid+$oldstep*5000000</span><br><span class="line">declare -i b=$a/$newstep</span><br><span class="line">echo &quot;after calcu is: $b&quot;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/mysql%E5%AE%9E%E6%88%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/mysql%E5%AE%9E%E6%88%98/" class="post-title-link" itemprop="url">Mysql实战</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-09-02 19:15:02" itemprop="dateCreated datePublished" datetime="2021-09-02T19:15:02+08:00">2021-09-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 21:51:52" itemprop="dateModified" datetime="2021-09-25T21:51:52+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="1-mysql增删改查"><a href="#1-mysql增删改查" class="headerlink" title="1.mysql增删改查"></a>1.mysql增删改查</h2><h3 id="a-登录"><a href="#a-登录" class="headerlink" title="a.登录"></a>a.登录</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">登录：</span><br><span class="line">mysql <span class="operator">-</span>u root <span class="operator">-</span>p密码  <span class="operator">/</span><span class="operator">/</span>连本机的</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">User</span>, Host, Password <span class="keyword">FROM</span> mysql.user;  <span class="operator">/</span><span class="operator">/</span>查看用户</span><br><span class="line"></span><br><span class="line">添加新用户：</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">&#x27;liuxuan14&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line">修改密码：</span><br><span class="line"><span class="keyword">set</span> password <span class="keyword">for</span> <span class="string">&#x27;liuxuan14&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span><span class="operator">=</span>password(<span class="string">&#x27;1998&#x27;</span>);</span><br><span class="line">为用户授权：</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>允许访问所有数据库下的所有表</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;指定ip&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;新用户密码&#x27;</span> ;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>指定数据库下的指定表</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> test.test <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;指定ip&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;新用户密码&#x27;</span> ;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>只拥有查询权限</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;指定ip&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;新用户密码&#x27;</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> OPTION;</span><br><span class="line">FLUSH PRIVILEGES;  <span class="operator">/</span><span class="operator">/</span>刷新权限</span><br><span class="line"></span><br><span class="line">删除用户：</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">user</span> liuxuan<span class="variable">@localhost</span>；</span><br><span class="line"></span><br><span class="line">连接远程数据库：</span><br><span class="line">MySQL 连接远程数据库（<span class="number">192.168</span><span class="number">.5</span><span class="number">.116</span>），端口“<span class="number">3306</span>”，用户名为“root”，密码“<span class="number">123456</span>”</span><br><span class="line">mysql <span class="operator">-</span>h <span class="number">192.168</span><span class="number">.5</span><span class="number">.116</span> <span class="operator">-</span>P <span class="number">3306</span> <span class="operator">-</span>u root <span class="operator">-</span>p123456</span><br><span class="line">mysql <span class="operator">-</span>h ip <span class="operator">-</span>P 端口 <span class="operator">-</span>A <span class="operator">-</span>u name  <span class="operator">-</span>p 密码</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> database name</span><br></pre></td></tr></table></figure>
-
-<h3 id="b-建表"><a href="#b-建表" class="headerlink" title="b.建表"></a>b.建表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS `mytable`(</span><br><span class="line">   `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT &#x27;自增&#x27;,</span><br><span class="line">   `app_id` bigint NOT NULL DEFAULT &#x27;0&#x27; COMMENT &#x27;应用id&#x27;,</span><br><span class="line">   `time` int NOT NULL DEFAULT &#x27;0&#x27; COMMENT &#x27;时间&#x27;,</span><br><span class="line">   `date` DATE,</span><br><span class="line">   PRIMARY KEY ( `id` )</span><br><span class="line">   UNIQUE KEY `idx_app` (`app_id`) USING BTREE</span><br><span class="line">   KEY `idx_ip` (`machine_ip`) USING BTREE,</span><br><span class="line">   KEY `idx_app_machineid` (`app_id`,`machine_id`) USING BTREE</span><br><span class="line">)ENGINE=InnoDB DEFAULT COMMENT=&#x27;表名&#x27;;</span><br><span class="line"></span><br><span class="line">AUTO_INCREMENT定义列为自增的属性，一般用于主键，数值会自动加1。</span><br><span class="line">PRIMARY KEY关键字用于定义列为主键。 您可以使用多列来定义主键，列间以逗号分隔。</span><br><span class="line">ENGINE 设置存储引擎，CHARSET 设置编码。</span><br><span class="line"></span><br><span class="line">表结构：desc name；</span><br><span class="line">建表语句：show create tablename；</span><br></pre></td></tr></table></figure>
-
-<p>注释</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">注释：comment</span><br><span class="line">create table test1 ( </span><br><span class="line">    field_name int comment &#x27;字段的注释&#x27; </span><br><span class="line">)comment=&#x27;表的注释&#x27;;</span><br><span class="line">修改表的注释：</span><br><span class="line">alter table test1 comment &#x27;修改后的表的注释&#x27;;</span><br><span class="line">修改字段的注释：</span><br><span class="line">alter table test1 modify column field_name int comment &#x27;修改后的字段注释&#x27;; </span><br><span class="line">查看表注释：</span><br><span class="line">show  create  table  test1; </span><br><span class="line">查看字段注释：</span><br><span class="line">show  full  columns  from  test1; </span><br></pre></td></tr></table></figure>
-
-<p>索引</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">唯一索引：</span><br><span class="line">UNIQUE KEY</span><br><span class="line">1  主键是一种约束，唯一索引是一种索引，两者在本质上是不同的。</span><br><span class="line">2  主键创建后一定包含一个唯一性索引，唯一性索引不一定就是主键。</span><br><span class="line">3   唯一性索引列允许空值， 而主键列不允许为空值。</span><br><span class="line">4   主键可以被其他表引用为外键，而唯一索引不能。</span><br><span class="line">5   一个表最多只能创建一个主键，但是可以创建多个唯一索引。</span><br><span class="line">6   主键更适合那些不容易改变的唯一标识，如自动递增列，身份证号等。</span><br><span class="line">7   在RBO 模式下，主键的执行计划优先级高于唯一索引。两者可以提高查询的速度。</span><br></pre></td></tr></table></figure>
-
-<h3 id="c-添加一个字段"><a href="#c-添加一个字段" class="headerlink" title="c.添加一个字段"></a>c.添加一个字段</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table tablename add `app_name` varchar(16) NOT NULL DEFAULT &#x27;&#x27;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="d-修改数据"><a href="#d-修改数据" class="headerlink" title="d.修改数据"></a>d.修改数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update tablename set 字段=&#x27;修改的值&#x27; where 条件；</span><br><span class="line">多个字段中间加,</span><br></pre></td></tr></table></figure>
-
-<h3 id="e-删除"><a href="#e-删除" class="headerlink" title="e.删除"></a>e.删除</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">删库：drop database name;</span><br><span class="line">删表：drop table name；</span><br><span class="line"></span><br><span class="line">mysql删除一行：</span><br><span class="line">delete from 表 where 条件；</span><br></pre></td></tr></table></figure>
-
-<h3 id="f-添加一行"><a href="#f-添加一行" class="headerlink" title="f.添加一行"></a>f.添加一行</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert into tablename (app_id,machine_id,machine_ip,ctime,use_perc) values(?,?,?,?,?);   //对应字段加</span><br><span class="line"></span><br><span class="line">insert into 表名 values(int,&#x27;string&#x27;)(..);  //可一次性加多行，一行全部数都有</span><br><span class="line"></span><br><span class="line">insert into 表名 set 列名=&#x27;&#x27;, ...;</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-渤海"><a href="#2-渤海" class="headerlink" title="2.渤海"></a>2.渤海</h2><p>两张表，一张Customer，有ID、NAME、CITY（用户城市）。一张Card，有ID、CID（卡编号）、BAL（卡内余额）。</p>
-<p>同一个用户可能有多张卡片，现在需要连接两张表，查找并打印出北京地区个人持有账户总额最高的客户，若存在多个，则按照用户姓名的字母顺序进行排序。</p>
-<p>顺序：select from where group by having order by</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select re.`Customer Name`,re.sum_val from</span><br><span class="line">( SELECT c2.NAME as &quot;Customer Name&quot;,sum(c.bal) as sum_val FROM Card as c left join Customer as c2 on c.ID = c2.ID where c2.CITY = &quot;beijing&quot; GROUP BY c.ID ) as re </span><br><span class="line">where re.sum_val = ( SELECT max(sum_value) from</span><br><span class="line">( SELECT sum(c3.bal) as sum_value FROM Card as c3 left join Customer as c4 on c3.ID = c4.ID where c4.CITY = &quot;beijing&quot; GROUP BY c3.ID ) as t1 )</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select Customer.name as &#x27;Customer Name&#x27; from Customer join Card on Customer.id = Card.id where Customer.city = &#x27;beijing&#x27; group by Customer.id having sum(Card.bal) = (select max(sum_bal) from (     select sum(bal) as sum_bal from Customer join Card     on Customer.id = Card.id  where Customer.city = &#x27;beijing&#x27;  group by Customer.id) as t);</span><br><span class="line"></span><br><span class="line">(as 后面的别名的&#x27;&#x27;不是必须的,as也不是必须的)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">验证：</span><br><span class="line">drop table if exists Customer;</span><br><span class="line">CREATE TABLE `Customer` (</span><br><span class="line">`id` int NOT NULL,</span><br><span class="line">`name` varchar(14) NOT NULL,</span><br><span class="line">`city` varchar(32) NOT NULL);</span><br><span class="line"></span><br><span class="line">INSERT INTO Customer VALUES(1,&#x27;刘一&#x27;,&#x27;beijing&#x27;);</span><br><span class="line">INSERT INTO Customer VALUES(2,&#x27;刘二&#x27;,&#x27;beijing&#x27;);</span><br><span class="line">INSERT INTO Customer VALUES(3,&#x27;刘三&#x27;,&#x27;tianjin&#x27;);</span><br><span class="line"></span><br><span class="line">drop table if exists Card;</span><br><span class="line">CREATE TABLE `Card` (</span><br><span class="line">`id` int NOT NULL,</span><br><span class="line">`cid` int NOT NULL,</span><br><span class="line">`bal` int NOT NULL);</span><br><span class="line"></span><br><span class="line">INSERT INTO Card VALUES(1,11,100);</span><br><span class="line">INSERT INTO Card VALUES(1,12,100);</span><br><span class="line">INSERT INTO Card VALUES(2,13,200);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在用进行嵌套查询的时候，子查询执行出来的的结果是需要作为一个派生表来给上一级进行查询使用的，所以子查询的结果必须要有一个别名，这里“别名”的使用可以理解为是用作临时变量记录子查询的结果</span><br></pre></td></tr></table></figure>
-
-<h2 id="顺序"><a href="#顺序" class="headerlink" title="顺序"></a>顺序</h2><p>select from where group by having order by</p>
-<p>from后可以是单表，也可以是几张表join连接后的表</p>
-<p>where是单表，group by having根据字段进行分组。两个可以一起用。先where 再group by。<br>having可选，限制显示行</p>
-<p>注意having 和where的区别，</p>
-<p>order by 是最后对显示的行根据某一字段进行排序，因此在最后。</p>
-<h2 id="去重查询"><a href="#去重查询" class="headerlink" title="去重查询"></a>去重查询</h2><p><code>select distinct 字段 from table</code></p>
-<p><code>distinct</code>是加在<code>select</code>后面的，后面如果有多个字段，意思就是只有多个字段不是完全一样就ok</p>
-<h2 id="limit限制个数"><a href="#limit限制个数" class="headerlink" title="limit限制个数"></a>limit限制个数</h2><p>不一定非得搭配order by</p>
-<p><code>select 字段 from table limit n;</code>    //表示输出前n个</p>
-<p><code>select 字段 from table limit start,n;</code>  // 表示输出从start开始n个，0是第一个，limit0,1 表示第一个</p>
-<h2 id="范围查询"><a href="#范围查询" class="headerlink" title="范围查询"></a>范围查询</h2><p><code>where id&gt;3;</code>        <code>where id between 2 and 3</code></p>
-<p><code>where id!=3</code></p>
-<p><code>where age!=&#39;&#39;;     //不为空</code></p>
-<p><code>and 且 or 或</code></p>
-<p><code>where university in (&#39;北京大学&#39;,&#39;复旦大学&#39;,&#39;山东大学&#39;);</code></p>
-<h2 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h2><p><code>where university like &#39;%北京%&#39;;    //里面包含北京</code></p>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p><code>select count(gender),round(avg(gpa),1) from user_profile where gender=&#39;male&#39;;</code></p>
-<p>round函数，round(a,b)返回a值保留到小数点b位</p>
-<p><code>(count(q.question_id)/count(distinct(q.device_id)))</code><br>平均每个device_id有多少question行，注意去重。关于行的平均。</p>
-<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><p><code>from table group by a,b   //两个字段</code></p>
-<p>如果对显示字段有条件 <code>group by a having 条件 </code></p>
-<p>分组应用场景一般求分组后对多行的个数、平均之类的。</p>
-<p>用<code>group by having</code> 出现<code>Unknown column xxx in having clause</code>错误，原因：<code>having</code>之后的筛选字段不是<code>select</code>后面的了，因此找不到。</p>
-<p><code>having</code>筛选和<code>where</code>筛选不一样，<code>having</code>只能用select后的字段，where可以用表里的所有字段。</p>
-<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p>在group by having 之后，<code>order by a asc/desc</code></p>
-<h2 id="两表连接（连接查询）"><a href="#两表连接（连接查询）" class="headerlink" title="两表连接（连接查询）"></a>两表连接（连接查询）</h2><p>连接的前提：两张表中有一个字段一样，也就是on后面要加的</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">inner join：理解为“有效连接”，两张表中都有的数据才会显示</span><br><span class="line">left join：理解为“有左显示”，比如on a.field=b.field，则显示a表中存在的全部数据及a、b中都有的数据，a中有、b中没有的数据以null显示</span><br><span class="line">right join：理解为“有右显示”，比如on a.field=b.field，则显示b表中存在的全部数据及a、b中都有的数据，b中有、a中没有的数据以null显示</span><br><span class="line">full join：理解为“全连接”，两张表中所有数据都显示，实际就是inner +(left-inner)+(right-inner)</span><br></pre></td></tr></table></figure>
-
-<p>注意：连接后，还可以用where限制显示的的行<br><code>SELECT    * FROM A a, B b WHERE a.id = b.pid</code>  相当于是<br><code>SELECT    * FROM A a INNER JOIN B b ON a.id = b.pid</code><br>where隐性连接， join显性连接<br>join = inner join</p>
-<p>注意：对于两张表中同一字段，select后要表明用谁的。</p>
-<p>join谁前谁后无所谓，</p>
-<p>连接就是要进行的查询需要根据另一张表分组也好显示也好，连接之后就可以相当于一张表操作，再where，或者group by having 分组之类的。</p>
-<p>注意：可以多张表连接，inner join.. on.. 之后，相当于一张表，再inner join.. on.. 就是再连接一张表</p>
-<p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/practice/5400df085a034f88b2e17941ab338ee8?tpId=199&tags=&title=&difficulty=0&judgeStatus=0&rp=0">一个三表连接例子</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">select universit, difficult_level, </span><br><span class="line">(count(qp.question_id)/count(distinct(qp.device_id)))</span><br><span class="line">//求用户做题数的平均</span><br><span class="line">as avg_answer_cnt</span><br><span class="line">from user_profile as u inner join </span><br><span class="line">question_practice_detail as qp</span><br><span class="line">on u.device_id=qp.device_id</span><br><span class="line">inner join question_detail as qd</span><br><span class="line">on qp.question_id=qd.question_id</span><br><span class="line">//连接完，三张表相当于一张表，可进行操作</span><br><span class="line">group by university, difficult_level</span><br><span class="line">having 可加条件</span><br><span class="line">order by university asc;</span><br></pre></td></tr></table></figure>
-
-<h2 id="union-和-union-all和or（组合查询）"><a href="#union-和-union-all和or（组合查询）" class="headerlink" title="union 和 union all和or（组合查询）"></a>union 和 union all和or（组合查询）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UNION和UNION ALL关键字都是将两个结果集合并为一个，但这两者从使用和效率上来说都有所不同。</span><br><span class="line">1、对重复结果的处理：UNION在进行表链接后会筛选掉重复的记录，Union All不会去除重复记录。</span><br><span class="line">2、对排序的处理：Union将会按照字段的顺序进行排序；UNION ALL只是简单的将两个结果合并后就返回。</span><br></pre></td></tr></table></figure>
-
-<p>union是连接两个select where语句，去重，union all不去重</p>
-<p>or是where里，结果和union一样，也是去重的。</p>
-<h2 id="计算20岁以下和25岁以上的用户数量（条件函数）"><a href="#计算20岁以下和25岁以上的用户数量（条件函数）" class="headerlink" title="计算20岁以下和25岁以上的用户数量（条件函数）"></a>计算20岁以下和25岁以上的用户数量（条件函数）</h2><p>自制可分组字段</p>
-<p>想成一个分组问题，就像根据gender男女分组，只不过这个需要自己来构建一个字段来进行分组</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select</span><br><span class="line">case when age&gt;=25 then &#x27;25岁以及上&#x27;</span><br><span class="line">else &#x27;25岁以下&#x27; end      //构建一个用于分组的字段</span><br><span class="line">as age_cut,</span><br><span class="line">count(device_id) as number</span><br><span class="line">from user_profile</span><br><span class="line">group by age_cut;</span><br></pre></td></tr></table></figure>
-
-<p>case when then else end 语句</p>
-<p>用来将一个字段按范围变成另一个字段，可用来分组。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select device_id, gender,</span><br><span class="line">case when age&gt;=20 and age&lt;=24 then &#x27;20-24岁&#x27;</span><br><span class="line">when age&gt;=25 then &#x27;25岁以上&#x27;</span><br><span class="line">when age&lt;20 then &#x27;20岁以下&#x27;</span><br><span class="line">else &#x27;其他&#x27; end</span><br><span class="line">from user_profile;</span><br></pre></td></tr></table></figure>
-
-<h2 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h2><p>day(2021-09-01)  month(  )   year(  )</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#date是2021-08-01 格式</span><br><span class="line">Select day(date) as day, count(question_id) as question_cnt</span><br><span class="line">From question_practice_detail</span><br><span class="line">where year(date)=2021 and month(date)=08</span><br><span class="line">#相当于：where substr(date,1,7)=&#x27;2021-08&#x27;</span><br><span class="line">#相当于：where date like&#x27;2021-08%&#x27;</span><br><span class="line">Group by day</span><br></pre></td></tr></table></figure>
-
-<h2 id="用户的平均次日留存率"><a href="#用户的平均次日留存率" class="headerlink" title="用户的平均次日留存率"></a>用户的平均次日留存率</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">select </span><br><span class="line">    count(id) / </span><br><span class="line">    (select count(distinct device_id, date) from question_practice_detail)</span><br><span class="line">    as avg_ret</span><br><span class="line">from</span><br><span class="line">    (select</span><br><span class="line">        a.device_id as id</span><br><span class="line">        ,a.date as date1 </span><br><span class="line">        ,lead(a.date,1) over(partition by device_id order by a.date) as date2</span><br><span class="line">    from </span><br><span class="line">        (select distinct device_id, date from question_practice_detail) a</span><br><span class="line">    ) b </span><br><span class="line">    #嵌套查询，一定要取别名</span><br><span class="line">where DATEDIFF(date2,date1) =1</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/git%E5%BA%94%E7%94%A8%E4%B8%8Egithub/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/git%E5%BA%94%E7%94%A8%E4%B8%8Egithub/" class="post-title-link" itemprop="url">git与github应用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-09-02 14:43:27" itemprop="dateCreated datePublished" datetime="2021-09-02T14:43:27+08:00">2021-09-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-09 18:13:04" itemprop="dateModified" datetime="2022-04-09T18:13:04+08:00">2022-04-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="git"><a href="#git" class="headerlink" title="git"></a>git</h3><p>Git 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。</p>
-<p>是一个开源的分布式版本控制系统，可以有效、高速地处理从很小到非常大的项目版本管理。也是[Linus Torvalds]为了帮助管理Linux内核开发而开发的一个开放源码的版本控制软件。</p>
-<h3 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h3><p>SSH 为 [Secure Shell](<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Secure">https://baike.baidu.com/item/Secure</a> Shell) 的缩写，是建立在应用层基础上的安全协议。SSH 是较可靠，专为远程登录会话和其他网络服务提供安全性的协议。利用 SSH 协议可以有效防止远程管理过程中的信息泄露问题。SSH最初是UNIX系统上的一个程序，后来又迅速扩展到其他操作平台。SSH在正确使用时可弥补网络中的漏洞。</p>
-<p>传统的网络服务程序，如：ftp、pop和telnet在本质上都是不安全的，因为它们在网络上用明文传送口令和数据，别有用心的人非常容易就可以截获这些口令和数据。而且，这些服务程序的安全验证方式也是有其弱点的， 就是很容易受到“中间人”（man-in-the-middle）这种方式的攻击。所谓“中间人”的攻击方式， 就是“中间人”冒充真正的服务器接收你传给服务器的数据，然后再冒充你把数据传给真正的服务器。服务器和你之间的数据传送被“中间人”一转手做了手脚之后，就会出现很严重的问题。<strong>通过使用SSH，你可以把所有传输的数据进行加密，这样”中间人”这种攻击方式就不可能实现了，而且也能够防止DNS欺骗和IP欺骗</strong>。使用SSH，还有一个额外的好处就是传输的数据是经过压缩的，所以<strong>可以加快传输的速度</strong>。SSH有很多功能，它既可以代替Telnet，又可以为FTP、PoP、甚至为PPP提供一个安全的”通道”   。</p>
-<p>git 使用 rsa，rsa 要解决的一个核心问题是，如何使用一对特定的数字，使其中一个数字可以用来加密，而另外一个数字可以用来解密。这两个数字就是你在使用 git 和 github 的时候所遇到的 public key 也就是公钥以及 private key 私钥。本地用私钥，上传公钥。</p>
-<h4 id="本地创建ssh-key"><a href="#本地创建ssh-key" class="headerlink" title="本地创建ssh key"></a>本地创建ssh key</h4><p><code>$ ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot;</code></p>
-<p><code>~/下生成.ssh文件夹，进去，打开id_rsa.pub，复制里面的key。标题建议和仓库名一致, 便于区分. </code></p>
-<p>验证：<code>$ ssh -T git@github.com</code></p>
-<p>本地设置git：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;jadeliuliu&quot;</span><br><span class="line">git config --global user.email &quot;xxxxx@163.com&quot;</span><br><span class="line">git config --list</span><br></pre></td></tr></table></figure>
-
-<h3 id="与github建立连接"><a href="#与github建立连接" class="headerlink" title="与github建立连接"></a>与github建立连接</h3><p>1.github上建立仓库</p>
-<p>2.本地建立仓库 <code>git init // 把这个目录变成Git可以管理的仓库，本地多一个.git文件夹，用来跟踪管理版本库</code></p>
-<p><code>mac第一次建仓库出现问题：xcode-select --install</code></p>
-<p><code>git clone git@github.com:jadeliuliu/HelloWorld.git（复制自项目的链接）    相当于创建一个远程仓库的克隆版本</code></p>
-<p>3.关联github仓库 <code>git remote add origin git@github.com:Hexagon-Man/HelloWorld.git</code></p>
-<p>4.提交代码</p>
-<p><code>git add 添加文件</code></p>
-<p><code>git add . // 将当前目录下修改的所有代码从工作区添加到暂存区 . 代表当前目录</code></p>
-<p><code>git remote add origin git@github.com:xxx/xxx.git // 关联远程仓库</code></p>
-<p><code>git commit -m &quot;&quot;  // 提交到了 HEAD，但是还没到你的远端仓库 </code></p>
-<p><code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;  &lt;远程分支名&gt; ，例如 git push origin HEAD：refs/for/master  // refs/for 的意义在于我们提交代码到服务器之后是需要经过code review 之后才能进行merge的 </code> </p>
-<p><code>git push -u origin master // 把本地库的所有内容推送到远程库上</code></p>
-<h3 id="git仓库结构"><a href="#git仓库结构" class="headerlink" title="git仓库结构"></a>git仓库结构</h3><p>本地仓库由 git 维护的三部分组成。第一个是 <code>工作目录</code>，它持有实际文件；第二个是 <code>暂存区（Index）</code>，它像个缓存区域，临时保存改动；最后是 <code>HEAD</code>，它指向你最后一次提交的结果。</p>
-<h3 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h3><p><code>git checkout -b f  //创建并切换分支</code></p>
-<p><code>git branch -d f    //删除分支</code></p>
-<p><code>git branch -a     # 查看本地和远程的所有分支</code></p>
-<p><code>git push origin &lt;branch&gt;    //分支推送到远端</code></p>
-<p><code>git pull   //获取fetch并合并到本地</code></p>
-<p><code>git rm 文件  //将文件从暂存区和工作区中删除，加-f强制删除</code></p>
-<p><code>git rm --cached 文件  //将文件从暂存区中删除</code></p>
-<p><code>删除缓存区所有文件命令:  git rm -r --cached .   #主要这个点一定要写</code></p>
-<p><code>git log --oneline</code></p>
-<h3 id="git空间与命令"><a href="#git空间与命令" class="headerlink" title="git空间与命令"></a>git空间与命令</h3><p>Working Directory：即工作区。操作系统层面的目录树结构，也可以理解为一个tree目录对象</p>
-<p>Stage(Index)：即暂存区，为等待Commit的文件列表。是以扁平的文件清单实现的，不过从理解层面上也可以理解为tree目录对象</p>
-<p>Local Repository(History)：本地版本库。有向无环图，其每一个节点都是一个tree目录对象</p>
-<p>Remote Repository：远程版本库。有向无环图，其每一个节点都是一个tree目录对象<br><img src="https://img-blog.csdnimg.cn/e1d1bb1fa97743cfb9074e383841a1eb.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="image"><br>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/kekec/p/9248487.html">https://www.cnblogs.com/kekec/p/9248487.html</a></p>
-<p>git status 是看暂存区的改动，如果commit了，暂存区就空了。</p>
-<h3 id="应用：在本地进行了add-commit还未push，想要撤销本地的本次commit"><a href="#应用：在本地进行了add-commit还未push，想要撤销本地的本次commit" class="headerlink" title="应用：在本地进行了add-commit还未push，想要撤销本地的本次commit"></a>应用：在本地进行了add-commit还未push，想要撤销本地的本次commit</h3><p>git log 查看commit id，拿上一个commit id，而不是最新的commit id（这是要回退的id）<br>git reset ：回退到某个版本，不清空暂存区，工作区也不变，需要再提交的话需要add后commit<br>git reset –soft：回退到某个版本，不清空暂存区，工作区也不变，需要再提交的话直接commit<br>git reset –hard：彻底回退到某个版本，撤销的commit中的所有更改都被冲掉，暂存区为空了，工作区也恢复为版本库版本。</p>
-<h3 id="应用：本地修改了，没有add，想撤销修改变为版本库里的"><a href="#应用：本地修改了，没有add，想撤销修改变为版本库里的" class="headerlink" title="应用：本地修改了，没有add，想撤销修改变为版本库里的"></a>应用：本地修改了，没有add，想撤销修改变为版本库里的</h3><p>用git reset –hard 解决  //恢复为本地库里的内容</p>
-<p>用  git checkout – hello.go  比较好，相当于清空了暂存区内容，工作区内容也变为修改前的。</p>
-<p>用  git rm –cached hello.go  不行，从暂存区中删除文件，会显示delete，修改的也会记录，只不过还需要add，不改变工作区。<br>不懂了，不管是有没有add，都会加一条delete，而不是把原本的删掉。</p>
-<h3 id="应用：git-commit之后，想再在这个commit里加add"><a href="#应用：git-commit之后，想再在这个commit里加add" class="headerlink" title="应用：git commit之后，想再在这个commit里加add"></a>应用：git commit之后，想再在这个commit里加add</h3><p>$ git commit -m ‘initial commit’<br>$ git add forgotten_file<br>$ git commit –amend<br>最终你只会有一个提交——第二次提交将代替第一次提交的结果。</p>
-<h3 id="应用：本地版本恢复为远程版本"><a href="#应用：本地版本恢复为远程版本" class="headerlink" title="应用：本地版本恢复为远程版本"></a>应用：本地版本恢复为远程版本</h3><p>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;  </p>
-<p>git pull origin master</p>
-<h3 id="应用：本地只有master分支，本地拉取线上其他分支"><a href="#应用：本地只有master分支，本地拉取线上其他分支" class="headerlink" title="应用：本地只有master分支，本地拉取线上其他分支"></a>应用：本地只有master分支，本地拉取线上其他分支</h3><p>git branch -a  //查看要拉取线上的什么分支</p>
-<p>git pull origin 分支名：本地分支名  //直接git pull origin 分支名，本地新建该分支</p>
-<p>git checkout 分支名  //切换</p>
-<h3 id="应用：想新开发一版，但又不想保留目前"><a href="#应用：想新开发一版，但又不想保留目前" class="headerlink" title="应用：想新开发一版，但又不想保留目前"></a>应用：想新开发一版，但又不想保留目前</h3><p>想的再建一个仓库来的，没必要。</p>
-<p>在不同分支上开发就行？</p>
-<p>1.远程创建分支</p>
-<p>2.创建完成后<code>git branch -a </code>并没有看到新分支</p>
-<p>3.本地创建并切换新分支<code>git checkout -b mbox-7354 </code>，代码之前分支一样，并不是master代码。</p>
-<p>4.切换分支并不会更改代码。是因为没有<code>git add + git commit</code>，修改的代码在本地工作区，执行commit操作后代码修改到了本地版本库，这时再切换分支，代码没有提现另一个分支的修改了。</p>
-<p>5.切换到mbox-7354分支，pull 代码</p>
-<p><code>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;  </code></p>
-<p><code>git pull origin mbox-7354 : mbox-7354</code> 被拒绝</p>
-<p>出现<code>non-fast-forward</code>的错误，证明本地库跟远程库的提交记录不一致，即本地库版本需要更新</p>
-<p>6.pull不行，换从远程拉取分支</p>
-<p>删除分支，先切换到别的分支，再<code>git brqanch -d name</code> -D强制删除</p>
-<p><code>git checkout -b mbox-7354 origin/master</code> 创建</p>
-<p><code>git pull origin master</code>  把远程分支上的内容都拉取到本地</p>
-<p>7.拉取了和线上master一样的代码，接下来可以修改代码</p>
-<h3 id="应用：commit之后想改commit的名字"><a href="#应用：commit之后想改commit的名字" class="headerlink" title="应用：commit之后想改commit的名字"></a>应用：commit之后想改commit的名字</h3><p><code>git commit -m &quot;v2&quot;</code></p>
-<p><code>git commit --amend -m &quot;v2 add two interfaces&quot;</code></p>
-<h3 id="应用：本地创建多个分支互不干扰"><a href="#应用：本地创建多个分支互不干扰" class="headerlink" title="应用：本地创建多个分支互不干扰"></a>应用：本地创建多个分支互不干扰</h3><p>（1）本地已有分支dev，写了需求a，但是不要提交。</p>
-<p>（2）执行git stash命令，将工作区的内容“储存起来”</p>
-<p>（3）接着在dev分支上修改bug，并提交，push</p>
-<p>（4）执行git stash pop，恢复工作区原来的内容。</p>
-<h3 id="应用：本地代码提交到另一分支上"><a href="#应用：本地代码提交到另一分支上" class="headerlink" title="应用：本地代码提交到另一分支上"></a>应用：本地代码提交到另一分支上</h3><p>开发过程中难免切换分支，不管是开发另一个需求，还是提交到另一个分支。git checkout 切换分支之后，本地工作区的代码会不会变？ 之前切换到新建的分支，本地的代码还在，可以提交到新分支；可是再切回去，出现问题。因此有必要用stash解决。</p>
-<p><code>git stash save &quot;save message&quot;</code>：执行存储时，添加备注，方便查找，只有 git stash 也是可以的</p>
-<p><code>git stash list</code>：查看stash了哪些存储</p>
-<p><code>git stash show</code>：显示做了哪些改动，默认show第一个存储,如果要显示其他存贮，后面加 stash@{$num}，比如第二个 git stash show stash@{1}</p>
-<p><code>git stash apply</code>：应用某个存储，但不会把存储从存储列表中删除，默认使用第一个存储,即 stash@{0}，如果要使用其他的，git stash apply stash@{$num}， 比如第二个：git stash apply stash@{1}</p>
-<p><code>git stash pop</code>：恢复之前缓存的工作目录，将缓存堆栈中的对应stash删除，并将对应修改应用到当前的工作目录下，默认为第一个 stash，即 stash@{0}，如果要应用并删除其他stash，命令：git stash pop stash@{$num}，比如应用并删除第二个：git stash pop stash@{1}</p>
-<p><code>git stash drop stash@&#123;$num&#125;</code>：丢弃 stash@{$num} 存储，从列表中删除这个存储</p>
-<p><code>git stash clear</code>：删除所有缓存的stash</p>
-<p>但是对于新增的文件，<code>git stash</code> 是不会存进去的，因为新增的文件没有被git托管，需要先执行下 <code>git add</code> 加到git版本控制中，然后再 <code>git stash</code> 就可以了</p>
-<p>只备份部分文件怎么办？</p>
-<ol>
-<li>add 那些你不想备份的文件（例如： git add file1.js, file2.js）</li>
-<li>调用 <code>git stash –keep-index</code>。只会备份那些没有被add的文件。</li>
-<li>调用 <code>git reset</code> 取消已经 add 的文件的备份，继续自己的工作。</li>
-</ol>
-<p>###git merge<br><code>git merge A</code>  是将A代码合并到当前分支，不会改变A分支的</p>
-<p>当master代码改动了，需要更新开发分支（dev）上的代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git checkout master </span><br><span class="line">git pull </span><br><span class="line">git checkout dev</span><br><span class="line">git merge master </span><br><span class="line">git push -u origin dev</span><br></pre></td></tr></table></figure>
-
-<p>开发分支开发完了，需要在迭代分支上上线，合并到迭代分支</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout 迭代</span><br><span class="line">git merge 开发</span><br><span class="line">git push -u origin 迭代</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/27/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/MAC%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/27/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/MAC%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">Mac日常使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-27 16:02:49" itemprop="dateCreated datePublished" datetime="2021-08-27T16:02:49+08:00">2021-08-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-11 14:12:39" itemprop="dateModified" datetime="2022-04-11T14:12:39+08:00">2022-04-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="查看ssd寿命"><a href="#查看ssd寿命" class="headerlink" title="查看ssd寿命"></a>查看ssd寿命</h3><p>brew安装查询工具：<code>brew install smartmontools</code></p>
-<p>参看磁盘：<code>diskutil list</code></p>
-<p>参看使用情况：<code>smartctl -a disk0</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">SMART/Health Information (NVMe Log 0x02)</span><br><span class="line">Critical Warning:                   0x00</span><br><span class="line">Temperature:                        47 Celsius</span><br><span class="line">Available Spare:                    83%</span><br><span class="line">Available Spare Threshold:          2%</span><br><span class="line">Percentage Used:                    5%</span><br><span class="line">Data Units Read:                    97,383,945 [49.8 TB]</span><br><span class="line">Data Units Written:                 85,617,562 [43.8 TB]</span><br><span class="line">Host Read Commands:                 1,110,595,079</span><br><span class="line">Host Write Commands:                574,485,961</span><br><span class="line">Controller Busy Time:               0</span><br><span class="line">Power Cycles:                       11,730</span><br><span class="line">Power On Hours:                     389</span><br><span class="line">Unsafe Shutdowns:                   34</span><br><span class="line">Media and Data Integrity Errors:    0</span><br><span class="line">Error Information Log Entries:      0</span><br></pre></td></tr></table></figure>
-
-<p>参考：<a target="_blank" rel="noopener" href="https://www.xiaoyuanjiu.com/18812.html">https://www.xiaoyuanjiu.com/18812.html</a></p>
-<h3 id="打开终端"><a href="#打开终端" class="headerlink" title="打开终端"></a>打开终端</h3><p>command + 空格，搜索终端，即出来了。</p>
-<h3 id="打开后台"><a href="#打开后台" class="headerlink" title="打开后台"></a>打开后台</h3><p>command+option+esc：打开后台</p>
-<h3 id="文件夹添加为收藏"><a href="#文件夹添加为收藏" class="headerlink" title="文件夹添加为收藏"></a>文件夹添加为收藏</h3><p>文件夹往过拖就行</p>
-<h3 id="安装brew"><a href="#安装brew" class="headerlink" title="安装brew"></a>安装brew</h3><p><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;</code></p>
-<p>brew help检查</p>
-<h3 id="iterm2终端"><a href="#iterm2终端" class="headerlink" title="iterm2终端"></a>iterm2终端</h3><p>1.iTerm2 是默认终端的替代品，也是目前 macOS 下最好用的终端工具，集颜值和效率于一身。</p>
-<p>官网安装即可，配置颜色，窗口，光标等。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">参考：https://cloud.tencent.com/developer/article/1772592</span><br><span class="line">https://www.jianshu.com/p/5ba0a559416e</span><br></pre></td></tr></table></figure>
-
-<p>2.安装on my zsh </p>
-<p><code>$ sh -c &quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;&quot;</code></p>
-<p>如果不行，就自建脚本复制粘贴，然后允许，一样的意思。</p>
-<p>3.安装<strong>powerlevel10k</strong></p>
-<p>powerlevel10k是一款 zsh 主题，是 powerlevel9k的升级版，强调快速、高效和开箱即用。powerlevel10k 免去了之前 powerlevel9k 比较繁琐的安装方式，如安装字体，配置样式、修改主题等一系列繁琐的操作，开箱即用，非常简单。</p>
-<p><code>brew install romkatv/powerlevel10k/powerlevel10k</code>，并根据brew提示，在.zshrc中添加<code>source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme</code></p>
-<p><code>source ~/.zshrc</code></p>
-<p><code>p10k configure</code> //开始配置</p>
-<p>4.安装插件</p>
-<p>安装zsh命令行高亮插件<code>brew install zsh-syntax-highlighting</code>，并根据brew提示在.zshrc中添加<code>source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh</code></p>
-<p>安装zsh自动提示插件<code>brew install zsh-autosuggestions</code>，并根据brew提示在.zshrc中添加<code>source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh</code></p>
-<p><code>source ~/.zshrc</code></p>
-<h3 id="切换输入法"><a href="#切换输入法" class="headerlink" title="切换输入法"></a>切换输入法</h3><p>control+空格</p>
-<h3 id="文件夹整理"><a href="#文件夹整理" class="headerlink" title="文件夹整理"></a>文件夹整理</h3><p>command+control+1</p>
-<h3 id="mvn、mysql开机须自启问题"><a href="#mvn、mysql开机须自启问题" class="headerlink" title="mvn、mysql开机须自启问题"></a>mvn、mysql开机须自启问题</h3><p>jdk配置在 /etc/profile中，开机时运行<br>mvn配置在 ~/.zprofile中，启动终端时运行<br>export PATH=”$Maven/bin:$PATH”<br>~/.zshrc 中增加 source /etc/profile 使得jdk配置生效<br>一些p10k的配置也在 ～/.zshrc中配置了</p>
-<p>关于mysql重启之后就没了<br>在 /etc/profile 中增加：<br>sudo ./support-files/mysql.server start<br>也不行。</p>
-<p>发现brew没了，不知道为什么。<br>重开一下终端就好了。</p>
-<p>目前是：<br>/etc/profile 中加了个开启mysql的语句<br>.zshrc中没有加 source /etc/profile的语句。<br>重启之后，mysql就不行啦，source /etc/profile 一下得了</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1409,7 +1358,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
