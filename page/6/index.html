@@ -307,7 +307,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-30 19:19:24" itemprop="dateModified" datetime="2022-04-30T19:19:24+08:00">2022-04-30</time>
+                <time title="Modified: 2022-05-06 22:14:58" itemprop="dateModified" datetime="2022-05-06T22:14:58+08:00">2022-05-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -414,7 +414,7 @@
 
 <h2 id="varchar-能存多少"><a href="#varchar-能存多少" class="headerlink" title="varchar 能存多少"></a>varchar 能存多少</h2><p>要确定mysql版本，一般一个汉字2个字节，50即可存25个汉字。<br>4.0版本以下，varchar(50)，指的是50字节，如果存放UTF8汉字时，只能存16个（每个汉字3字节）<br>5.0版本以上，varchar(50)，指的是50字符，无论存放的是数字、字母还是UTF8汉字（每个汉字3字节），都可以存放50个.</p>
 <p>mysql版本查询命令有：1、输入“select version();”命令，按回车键，即可查看当前mysql版本；2、输入“status”命令，按回车键，即可查看当前mysql版本。</p>
-<h3 id="Mysql中key-、primary-key-、unique-key-与index区别"><a href="#Mysql中key-、primary-key-、unique-key-与index区别" class="headerlink" title="Mysql中key 、primary key 、unique key 与index区别"></a>Mysql中key 、primary key 、unique key 与index区别</h3><p>一、key：索引被用来快速找出在一个列上用一特定值的行。增加数据库的查询速度，InnoDB采用B+树和哈希两种数据结构的方式为表添加索引。</p>
+<h2 id="Mysql中key-、primary-key-、unique-key-与index区别"><a href="#Mysql中key-、primary-key-、unique-key-与index区别" class="headerlink" title="Mysql中key 、primary key 、unique key 与index区别"></a>Mysql中key 、primary key 、unique key 与index区别</h2><p>一、key：索引被用来快速找出在一个列上用一特定值的行。增加数据库的查询速度，InnoDB采用B+树和哈希两种数据结构的方式为表添加索引。</p>
 <p>没有索引，MySQL不得不首先以第一条记录开始然后读完整个表直到它找出相关的行。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">KEY `idx_type` (`type`)  </span><br></pre></td></tr></table></figure>
 
@@ -432,13 +432,22 @@
 <p>因此，索引只是索引，它不会去约束索引的字段的行为（那是key要做的事情）。如，create table t(id int,index inx_tx_id (id));</p>
 <p>摘自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chenxiaomeng/p/15582771.html">https://www.cnblogs.com/chenxiaomeng/p/15582771.html</a></p>
 <p>一文搞懂mysql索引：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/500248981">https://zhuanlan.zhihu.com/p/500248981</a></p>
-<h3 id="AUTO-INCREMENT"><a href="#AUTO-INCREMENT" class="headerlink" title="AUTO_INCREMENT"></a>AUTO_INCREMENT</h3><p>在mysql中，可通过关键字auto_increment为列设置自增属性，只有整型列才能设置此属性，每个表只能定义一个auto_increment列，并且必须在该列上定义主键约束（primary key）或候选键（unique）。</p>
+<h2 id="AUTO-INCREMENT"><a href="#AUTO-INCREMENT" class="headerlink" title="AUTO_INCREMENT"></a>AUTO_INCREMENT</h2><p>在mysql中，可通过关键字auto_increment为列设置自增属性，只有整型列才能设置此属性，每个表只能定义一个auto_increment列，并且必须在该列上定义主键约束（primary key）或候选键（unique）。</p>
 <p>ENGINE=MyISAM 是选择存储引擎<br>DEFAULT CHARSET=gbk 默认字符集<br>AUTO_INCREMENT=2 是设定该字段为自增字段，每次增加2。</p>
-<h3 id="NOT-NULL-DEFAULT-‘’-COMENT"><a href="#NOT-NULL-DEFAULT-‘’-COMENT" class="headerlink" title="NOT NULL DEFAULT ‘’ COMENT"></a>NOT NULL DEFAULT ‘’ COMENT</h3><p>insert时，对象中的某属性如果为null，表设置的not null，那时会报错的，因此需要考虑如果允许传入null，就别not null，default ‘’ 或者default null 得了。</p>
-<h3 id="mybatis-useGeneratedKeys-keyProperty"><a href="#mybatis-useGeneratedKeys-keyProperty" class="headerlink" title="mybatis useGeneratedKeys keyProperty"></a>mybatis useGeneratedKeys keyProperty</h3><p>useGeneratedKeys （仅适用于 insert 和 update）这会令 MyBatis 使用 JDBC 的 getGeneratedKeys 方法来取出由数据库内部生成的主键（比如：像 MySQL 和 SQL Server 这样的关系型数据库管理系统的自动递增字段），默认值：false。</p>
+<h2 id="NOT-NULL-DEFAULT-‘’-COMENT"><a href="#NOT-NULL-DEFAULT-‘’-COMENT" class="headerlink" title="NOT NULL DEFAULT ‘’ COMENT"></a>NOT NULL DEFAULT ‘’ COMENT</h2><p>insert时，对象中的某属性如果为null，表设置的not null，那时会报错的，因此需要考虑如果允许传入null，就别not null，default ‘’ 或者default null 得了。</p>
+<h2 id="mybatis-useGeneratedKeys-keyProperty"><a href="#mybatis-useGeneratedKeys-keyProperty" class="headerlink" title="mybatis useGeneratedKeys keyProperty"></a>mybatis useGeneratedKeys keyProperty</h2><p>useGeneratedKeys （仅适用于 insert 和 update）这会令 MyBatis 使用 JDBC 的 getGeneratedKeys 方法来取出由数据库内部生成的主键（比如：像 MySQL 和 SQL Server 这样的关系型数据库管理系统的自动递增字段），默认值：false。</p>
 <p>首先，如果你的数据库支持自动生成主键的字段（比如 MySQL 和 SQL Server），那么你可以设置 useGeneratedKeys=”true”，然后再把 keyProperty 设置为目标属性就 OK 了。</p>
 <p>作用：在inset时，可以不用管主键插入多少，而且插入后，还能直接用对象里的主，因为自动返回了。建表时必须设置主键自增。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertAuthor&quot; useGeneratedKeys=&quot;true&quot;</span><br><span class="line">    keyProperty=&quot;id&quot;&gt;</span><br><span class="line">  insert into Author (username,password,email,bio)</span><br><span class="line">  values (#&#123;username&#125;,#&#123;password&#125;,#&#123;email&#125;,#&#123;bio&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="分库分表实践"><a href="#分库分表实践" class="headerlink" title="分库分表实践"></a>分库分表实践</h2><p>数据库性能瓶颈：<br>① 数据库连接 数据库连接是非常稀少的资源,MySQL数据库默认100个连接，单机最大1500连接。如果一个库里既有用户相关的数据又有商品、订单相关的数据，当海量用户同时操作时,数据库连接就很可能成为瓶颈。</p>
+<p>② 数据量 MySQL单库数据量在5000万以内性能比较好，超过阈值后性能会随着数据量的增大而变弱。MySQL单表的数据量是500w-1000w之间性能比较好，超过1000w性能也会下降。</p>
+<p>③ 硬件问题 因为单个服务的磁盘空间是有限制的，如果并发压力下所有的请求都访问同一个节点，肯定会对磁盘IO造成非常大的影响。</p>
+<p>分库分表方案是对关系型数据库数据存储和访问机制的一种补充。<br>分库：将一个库的数据拆分到多个相同的库中，访问的时候访问一个库<br>分表：把一个表的数据放到多个表中，操作对应的某个表就行</p>
+<p>拆分方式：<br>① 垂直拆分，专库专用按业务拆分。按照业务模块进行切分，将不同模块的表切分到不同的数据库中。按照字段将大表拆分成小表。<br>优点：<br>1.拆分后业务清晰（专库专用按业务拆分）<br>2.数据维护简单，按业务不同，业务放到不同机器上<br>缺点:<br>1.如果单表的数据量，写读压力大<br>2.受某种业务决定，或者被限制，也就是说一个业务往往会影响到数据库的瓶颈（性能问题，如双十一抢购）<br>3.部分业务无法关联join，只能通过java程序接口去调用，提高了开发复杂度</p>
+<p>② 水平拆分，将一张大表按照一定的切分规则，按照行切分成不同的表或者切分到不同的库中<br>优点：<br>1.单库/单表的数据保持在一定量（减少），有助于性能提高<br>2.提高了系统的稳定性和负载能力<br>3.拆分表的结构相同，程序改造较少。<br>缺点:<br>1.数据的扩容很有难度维护量大<br>2.拆分规则很难抽象出来<br>3.分片事务的一致性问题部分业务无法关联join，只能通过java程序接口去调用</p>
+<p>阿里TDDL<br>水平分库分表后，总的逻辑库代表总表，几个物理库，需要配置路由算法（根据字段路由，一般是对某几位取模）</p>
+<p>链接：<a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1708707864255381575&amp;wfr=spider&amp;for=pc">https://baijiahao.baidu.com/s?id=1708707864255381575&amp;wfr=spider&amp;for=pc</a></p>
 
       
     </div>
@@ -489,7 +498,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-01 18:22:54" itemprop="dateModified" datetime="2022-05-01T18:22:54+08:00">2022-05-01</time>
+                <time title="Modified: 2022-05-05 22:32:18" itemprop="dateModified" datetime="2022-05-05T22:32:18+08:00">2022-05-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -603,7 +612,40 @@
 <p>开发分支开发完了，需要在迭代分支上上线，合并到迭代分支</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout 迭代</span><br><span class="line">git merge 开发</span><br><span class="line">git push -u origin 迭代</span><br></pre></td></tr></table></figure>
 
+
 <h3 id="查看git配置"><a href="#查看git配置" class="headerlink" title="查看git配置"></a>查看git配置</h3><p>git config –list</p>
+<h3 id="commit之后，追加提交"><a href="#commit之后，追加提交" class="headerlink" title="commit之后，追加提交"></a>commit之后，追加提交</h3><p>1.如果还没有push到远程<br>先git add提交修改的文件<br>再git commit –amend<br>也叫追加提交，它可以在不增加一个新的commit的情况下，将新修改的代码追加到前一次的commit中。<br>使用该命令的好处，是避免许多无用的提交。</p>
+<p>常用参数：</p>
+<p>–no-edit：使用选定的提交消息而无需启动编辑器。（追加提交，且不修改message信息。）</p>
+<p>–reset-author：加载提交用户的信息。</p>
+<p>比如你从新配置本地用户的信息，然后使用该参数可以重新加载新用户的信息，并且更新在追加提交中。</p>
+<p>–author=：可修改Git 的 author 和 email 信息。<br>示例：git commit –amend –author=’xxx <a href="mailto:&#120;&#120;&#120;&#x78;&#x40;&#120;&#x78;&#x78;&#x2e;&#120;&#x78;&#120;">&#120;&#120;&#120;&#x78;&#x40;&#120;&#x78;&#x78;&#x2e;&#120;&#x78;&#120;</a>‘</p>
+<p>摘自：<a target="_blank" rel="noopener" href="http://events.jianshu.io/p/f015b97bda53">http://events.jianshu.io/p/f015b97bda53</a></p>
+<p>-m: 执行git commit –amend -m “这里填写提交的注释”命令进行提交。</p>
+<p>使用git commit –amend命令，表面上没有生成新的提交，只是进行了内容的追加。但实际上通过git reflog命令查看历史提交记录，我们还是看到了，其实是新生成了一个commit。</p>
+<p><em><strong>git commit –amend 命令原理:</strong></em><br>git commit –amend这个命令给人的感觉，是用新提交的数据，追加到了前一个commit上。</p>
+<p>其实git commit –amend命令底层原理如下：</p>
+<p>前提：你把遗漏提交的文件，或者修改的文件先提交到暂存区。</p>
+<ol>
+<li><p>git reset –soft HEAD^：回退一个版本，且工作区和暂存区中的内容不会退。</p>
+</li>
+<li><p>git commit -c ORIG_HEAD：提交操作。在根据此时的暂存区生成一个新的提交对象，代替原来提交的位置。</p>
+</li>
+</ol>
+<p>说明：<br>-C <commit>，全称–reuse-message=<commit>：获取现有的提交对象，并在创建提交时重用现有提交对象的日志消息和作者信息（包括时间戳）。<br>-c <commit>，全称–reedit-message=<commit>：与-C类似，但是-c会调用编辑器，以便用户可以进一步编辑提交消息。</commit></commit></commit></commit></p>
+<h3 id="git如何撤销已提交的commit重新提交"><a href="#git如何撤销已提交的commit重新提交" class="headerlink" title="git如何撤销已提交的commit重新提交"></a>git如何撤销已提交的commit重新提交</h3><p>1、首先，使用git log -n 3 –stat命令，可以查看最近3次提交的详细信息，并且会显示每次commit的哈希值。</p>
+<blockquote>
+<p>git log 会显示：commit 哈希id、提交的Author信息、提交的日期和时间、commit info信息<br>–oneline： 只显示提交的 SHA1 值和提交信息，SHA1 还是缩短显示前几位，一般为前七位（commit id的前七位？）<br>–graph：绘制一个 ASCII 图像来展示提交历史的分支结构，类似于一个树形结构，很方便很好看<br>–stat参数: 主要可以在git log 的基础上输出文件增删改的统计数据<br>-p参数与–stat类似，不过-p参数更为详细，可以看到每个文件更为详细的修改内容<br>–author用来过滤commit,限定输出给定的用户:git log –author=”Stephen Curry”<br>–after和–before:  限定指定日期范围的log : git log –after ‘08-12-2020’</p>
+</blockquote>
+<p>一个命令：<code>git log --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit --date=relative --all</code></p>
+<p>2、接着使用如下命令来回到某次提交：git reset –soft 某次commit哈希值的任意前缀</p>
+<blockquote>
+<p>最近一次commit了，但是不想要了，git log 获得这次提交的上一次的commit id，然后git reset，本地代码改动就回到本地工作空间了。可以重新改了再提交。<br>reset之后，最近一次的commit就在log里消失了。</p>
+</blockquote>
+<p>3、回到那次commit之后，接着使用如下命令强制提交到master分支：git push origin master –force执行结束后，可以看到远程git仓库的希望撤回的commit已经不见了。</p>
+<p>4、强制提交之后，那次commit之后所有的修改都处于没有提交的状态，可以再修改文件，然后将他们都再添加提交即可。</p>
+<p>5、使用git commit -m命令再提交新的commit。</p>
+<p>6、最终是希望撤回的commit已经消失，换成了新提交的commit。</p>
 
       
     </div>
@@ -729,7 +771,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/25/myblog/JAVA/Spring%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/25/myblog/spring/Spring%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.gif">
@@ -743,7 +785,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/08/25/myblog/JAVA/Spring%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/" class="post-title-link" itemprop="url">spring入门案例</a>
+            <a href="/2021/08/25/myblog/spring/Spring%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/" class="post-title-link" itemprop="url">spring入门案例</a>
         </h2>
 
         <div class="post-meta">
@@ -760,7 +802,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-29 22:52:39" itemprop="dateModified" datetime="2022-04-29T22:52:39+08:00">2022-04-29</time>
+                <time title="Modified: 2022-05-10 21:40:51" itemprop="dateModified" datetime="2022-05-10T21:40:51+08:00">2022-05-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">

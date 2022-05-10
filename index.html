@@ -214,7 +214,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-01 18:20:47" itemprop="dateModified" datetime="2022-05-01T18:20:47+08:00">2022-05-01</time>
+                <time title="Modified: 2022-05-10 21:39:40" itemprop="dateModified" datetime="2022-05-10T21:39:40+08:00">2022-05-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -272,6 +272,15 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int i=2；</span><br><span class="line">String s=i+&quot;&quot;;</span><br></pre></td></tr></table></figure>
 
 <h3 id="java位运算"><a href="#java位运算" class="headerlink" title="java位运算"></a>java位运算</h3><p>1、左移( &lt;&lt; )  向左移动，低位补0<br>2、右移( &gt;&gt; )  向右移动，高位补0<br>3、无符号右移( &gt;&gt;&gt; )   正数右移，高位补0，负数右移，高位补1，当负数使用无符号右移时，用0进行补位(自然而然的，就由负数变成了正数了)<br>4、与( &amp; )  都为1，结果为1，否则为0<br>5、或( | )  一个是1，结果为1，否则为0<br>6、异或( ^ )  两个相反，结果为1，否则为0<br>7、非( ~ ) 一元操作符   取相反。</p>
+<h3 id="Autowired接口还是现实类？"><a href="#Autowired接口还是现实类？" class="headerlink" title="Autowired接口还是现实类？"></a>Autowired接口还是现实类？</h3><p>答案：接口好</p>
+<p>当实现类唯一时，表面上注入接口，其实注入实现类<br>当实现类多个时，通过@Service(“menuService1”)指定实现类</p>
+<p>解析：<br>这个其实是创建了实现类的对象但引用了接口类型，<br>即 “InjectionDao injectionDao = new InjectionDaoImpl ()”, 是 Java 多态性（向上转型）的一种应用。<br>在实现类处加 @Repository 注解，意思就是 new InjectionDaoImpl (),</p>
+<p>而在 InjectionServiceImpl 中定义属性 InjectionDAO injectionDAO 就是将 new 出来的这个 InjectionDaoImpl 对象向上转型为 InjectionDao 类型。</p>
+<p>注意：<br>若一个接口被多个实现类，实现的时候，@Autowired，Spring 会按 byType 的方式寻找接口的实现类，将其注入。存在多个实现类，应该指定名字，可以通过 byName 注入的方式。可以使用 @Resource 或 @Qualifier 注解。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//实现类1</span><br><span class="line">@Service(&quot;menuService1&quot;)</span><br><span class="line">public class MenuServiceImpl implements IMenuService</span><br><span class="line"> </span><br><span class="line">//实现类2</span><br><span class="line">@Service(&quot;menuService2&quot;)</span><br><span class="line">public class MenuServiceImpl implements IMenuService</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">//注入接口，相当于new一个实现类，指定名称menuService1实现类</span><br><span class="line">@Autowired</span><br><span class="line">@Qualifier(&quot;menuService1&quot;)</span><br><span class="line">private IMenuService menuService;</span><br><span class="line"></span><br><span class="line">//注入接口，相当于new一个实现类，指定名称menuService2实现类  </span><br><span class="line">@Autowired</span><br><span class="line">@Qualifier(&quot;menuService2&quot;)</span><br><span class="line">private IMenuService menuService;</span><br></pre></td></tr></table></figure>
+
+<p>链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/huangkechen/article/details/122475824">https://blog.csdn.net/huangkechen/article/details/122475824</a></p>
+<p>总结：就是Java 多态性（向上转型）的一种应用，但是这样做的好处并没有说啊。</p>
 
       
     </div>
@@ -314,10 +323,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-04-30 09:59:37 / Modified: 13:19:23" itemprop="dateCreated datePublished" datetime="2022-04-30T09:59:37+08:00">2022-04-30</time>
+              <time title="Created: 2022-04-30 09:59:37" itemprop="dateCreated datePublished" datetime="2022-04-30T09:59:37+08:00">2022-04-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-10 21:41:34" itemprop="dateModified" datetime="2022-05-10T21:41:34+08:00">2022-05-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -483,7 +498,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-30 13:16:02" itemprop="dateModified" datetime="2022-04-30T13:16:02+08:00">2022-04-30</time>
+                <time title="Modified: 2022-05-10 21:41:49" itemprop="dateModified" datetime="2022-05-10T21:41:49+08:00">2022-05-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -597,7 +612,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-29 22:51:24" itemprop="dateModified" datetime="2022-04-29T22:51:24+08:00">2022-04-29</time>
+                <time title="Modified: 2022-05-10 21:41:28" itemprop="dateModified" datetime="2022-05-10T21:41:28+08:00">2022-05-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -806,7 +821,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-29 22:53:12" itemprop="dateModified" datetime="2022-04-29T22:53:12+08:00">2022-04-29</time>
+                <time title="Modified: 2022-05-10 21:41:40" itemprop="dateModified" datetime="2022-05-10T21:41:40+08:00">2022-05-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -943,7 +958,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-29 22:00:29" itemprop="dateModified" datetime="2022-04-29T22:00:29+08:00">2022-04-29</time>
+                <time title="Modified: 2022-05-05 23:18:39" itemprop="dateModified" datetime="2022-05-05T23:18:39+08:00">2022-05-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1033,9 +1048,11 @@
 <h2 id="PowerMockRunner-和-MockitoJUnitRunner"><a href="#PowerMockRunner-和-MockitoJUnitRunner" class="headerlink" title="PowerMockRunner 和 MockitoJUnitRunner"></a>PowerMockRunner 和 MockitoJUnitRunner</h2><p>关于打桩：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/moshowgame/article/details/100983711">https://blog.csdn.net/moshowgame/article/details/100983711</a></p>
 <h2 id="when-thenReturn-和-doReturn-when-区别"><a href="#when-thenReturn-和-doReturn-when-区别" class="headerlink" title="when().thenReturn() 和 doReturn().when() 区别"></a>when().thenReturn() 和 doReturn().when() 区别</h2><p>使用@Mock时可以相互替换，但是@Spy时，它们的调用结果不同。<br>1.when().thenReturn() 会调用真实的方法，容易抛出异常<br>2.doReturn().when() 不会调用真实方法</p>
 <h2 id="PowerMockito"><a href="#PowerMockito" class="headerlink" title="PowerMockito"></a>PowerMockito</h2><p>PowerMock扩展了EasyMock和Mockito框架，增加了对static和final方法mock支持等功能.<br>PowerMock有两个重要的注解：<br> @RunWith(PowerMockRunner.class)<br> @prepareForTest({MyObject.class})<br> @PrepareForTest注解和@RunWith注解是结合使用的，不要单独使用@PrepareForTest，否则不起作用。当使用PowerMock去mock静态，final或者私有方法时，需要加上这两个注解。<br>————————————————<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/KeeYang108/article/details/79891588">https://blog.csdn.net/KeeYang108/article/details/79891588</a></p>
-<h2 id="Mock测试踩坑"><a href="#Mock测试踩坑" class="headerlink" title="Mock测试踩坑"></a>Mock测试踩坑</h2><p>今天写了一个control层的mock单元测试，因为要调service层的方法，就把service接口做了一个mock，测试时候一直包空指针异常。<br>mock service实现类之后，正常。</p>
+<h2 id="Mock测试踩坑"><a href="#Mock测试踩坑" class="headerlink" title="Mock测试踩坑"></a>Mock测试踩坑</h2><p>今天写了一个control层的mock单元测试，因为要调service层（实现类）的方法，就把service接口做了一个mock，测试时候一直包空指针异常。<br>mock service实现类之后，正常。</p>
+<p>更新：今天@Mock的接口也是可以的，奇怪了：<br>mock接口出现空指针异常的case：是service（.之前的）是实现类，@Autowired的也是实现类，所以mock接口没用？<br>而今天mock接口，被测试类中.之前的是接口，@Autowired的也是接口，所以没毛病。</p>
 <p>加@RunWith(PowerMockRunner.class)<br>要测试的类加@InjectMocks</p>
 <p>1.service实现类不加mock，到指定方法会报空指针异常，service对象为空<br>2.如果service方法无返回，可以不打桩，如果有返回，最好打个桩。<br>3.有返回的打了桩，可以根据不同的输入，返回不同的结果。有返回如果不打桩，相当于返回的是null，返回如果被后面用到，容易报空指针异常。</p>
+<h2 id="Mock测试踩坑空指针异常"><a href="#Mock测试踩坑空指针异常" class="headerlink" title="Mock测试踩坑空指针异常"></a>Mock测试踩坑空指针异常</h2><p>mock测试的被测试类（@InjectMock）中的属性一般为null，所以什么都不加就在被测试类中调用属性对象的方法时，报空指针异常，因为属性对象是null。<br>将属性对象在Test中添加@Mock为mock对象，直接忽略属性对象方法，不进入执行。<br>将属性对象在Test中添加@Spy为spy对象，会进入该方法中，但是只限于一层，再进入就不行了，还是会报空指针异常。</p>
 
       
     </div>
@@ -1156,7 +1173,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/09/myblog/JAVA/spring-aop/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/09/myblog/spring/spring-aop/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.gif">
@@ -1170,7 +1187,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/04/09/myblog/JAVA/spring-aop/" class="post-title-link" itemprop="url">spring aop总结</a>
+            <a href="/2022/04/09/myblog/spring/spring-aop/" class="post-title-link" itemprop="url">spring aop总结</a>
         </h2>
 
         <div class="post-meta">
@@ -1187,7 +1204,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-29 22:52:34" itemprop="dateModified" datetime="2022-04-29T22:52:34+08:00">2022-04-29</time>
+                <time title="Modified: 2022-05-10 21:40:46" itemprop="dateModified" datetime="2022-05-10T21:40:46+08:00">2022-05-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
