@@ -20,17 +20,17 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="@Pattern用来限定string格式，用正则表达式来限定。需要导入validation-api包。 1234567@Getter    @Setter    public static class StudentVO&amp;#123;        @Pattern(regexp &#x3D; &quot;^[A-Za-z]+$&quot;, message &#x3D; &quot;只能字母&quot;)">
+  <meta name="description" content="从JDK5开始,Java增加对元数据的支持，也就是注解，注解与注释是有一定区别的，可以把注解理解为代码里的特殊标记，这些标记可以在编译，类加载，运行时被读取，并执行相应的处理。通过注解开发人员可以在不改变原有代码和逻辑的情况下在源代码中嵌入补充信息。 所有的注解本质上都是继承自 Annotation 接口。但是，手动定义一个接口继承 Annotation 接口无效的，需要通过 @interface">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spring常规注解">
+<meta property="og:title" content="java常规注解">
 <meta property="og:url" content="http://example.com/2022/04/29/myblog/spring/spring%E6%B3%A8%E8%A7%A3/index.html">
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
-<meta property="og:description" content="@Pattern用来限定string格式，用正则表达式来限定。需要导入validation-api包。 1234567@Getter    @Setter    public static class StudentVO&amp;#123;        @Pattern(regexp &#x3D; &quot;^[A-Za-z]+$&quot;, message &#x3D; &quot;只能字母&quot;)">
+<meta property="og:description" content="从JDK5开始,Java增加对元数据的支持，也就是注解，注解与注释是有一定区别的，可以把注解理解为代码里的特殊标记，这些标记可以在编译，类加载，运行时被读取，并执行相应的处理。通过注解开发人员可以在不改变原有代码和逻辑的情况下在源代码中嵌入补充信息。 所有的注解本质上都是继承自 Annotation 接口。但是，手动定义一个接口继承 Annotation 接口无效的，需要通过 @interface">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-29T14:56:27.797Z">
-<meta property="article:modified_time" content="2022-05-10T13:41:49.045Z">
+<meta property="article:modified_time" content="2022-05-12T11:11:23.291Z">
 <meta property="article:author" content="Jade liu">
-<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://example.com/2022/04/29/myblog/spring/spring%E6%B3%A8%E8%A7%A3/">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>spring常规注解 | Jadeliu's blog</title>
+  <title>java常规注解 | Jadeliu's blog</title>
   
 
 
@@ -202,7 +202,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          spring常规注解
+          java常规注解
         </h1>
 
         <div class="post-meta">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 21:41:49" itemprop="dateModified" datetime="2022-05-10T21:41:49+08:00">2022-05-10</time>
+                <time title="Modified: 2022-05-12 19:11:23" itemprop="dateModified" datetime="2022-05-12T19:11:23+08:00">2022-05-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -227,7 +227,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/spring%E7%90%86%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">spring理解</span></a>
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
                 </span>
             </span>
 
@@ -249,7 +249,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="Pattern"><a href="#Pattern" class="headerlink" title="@Pattern"></a>@Pattern</h3><p>用来限定string格式，用正则表达式来限定。<br>需要导入validation-api包。</p>
+        <p>从JDK5开始,Java增加对元数据的支持，也就是注解，注解与注释是有一定区别的，可以把注解理解为代码里的特殊标记，这些标记可以在编译，类加载，运行时被读取，并执行相应的处理。通过注解开发人员可以在不改变原有代码和逻辑的情况下在源代码中嵌入补充信息。</p>
+<p>所有的注解本质上都是继承自 Annotation 接口。但是，手动定义一个接口继承 Annotation 接口无效的，需要通过 @interface 声明注解，Annotation 接口本身也不定义注解类型，只是一个普通的接口。</p>
+<h3 id="Pattern"><a href="#Pattern" class="headerlink" title="@Pattern"></a>@Pattern</h3><p>用来限定string格式，用正则表达式来限定。<br>需要导入validation-api包。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Getter</span><br><span class="line">    @Setter</span><br><span class="line">    public static class StudentVO&#123;</span><br><span class="line">        @Pattern(regexp = &quot;^[A-Za-z]+$&quot;, message = &quot;只能字母&quot;)</span><br><span class="line">        private String name;</span><br><span class="line">        private Long age;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <p>常用的正则表达式：</p>
@@ -260,7 +262,7 @@
 <p>二、control类用@Validated注解，方法内String参数用@Pattern</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@Validated</span><br><span class="line">class Controller &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping</span><br><span class="line">public ResponseEntity&lt;List&lt;Permission&gt;&gt; query(@RequestHeader(&quot;iv-user&quot;) String userId,</span><br><span class="line">                                                  @Pattern(regexp = &quot;^accessor$&quot;, message = &quot;请求参数不合法&quot;)</span><br><span class="line">                                                  @RequestParam(&quot;findBy&quot;) String accessor,</span><br><span class="line">                                                  @RequestParam(&quot;accessorId&quot;) long accessorId)&#123;</span><br><span class="line">        //...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping</span><br><span class="line">public ResponseEntity&lt;List&lt;Permission&gt;&gt; query(</span><br><span class="line">    @RequestHeader(&quot;iv-user&quot;) String userId,</span><br><span class="line">        @Pattern(regexp = &quot;^accessor$&quot;, message = &quot;请求参数不合法&quot;)</span><br><span class="line">        @RequestParam(&quot;findBy&quot;) String accessor,</span><br><span class="line">        @RequestParam(&quot;accessorId&quot;) long accessorId)&#123;</span><br><span class="line">        //...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 <h3 id="JSONField"><a href="#JSONField" class="headerlink" title="@JSONField"></a>@JSONField</h3><p>来自fastjson，fastjson是阿里巴巴出品的快速解析json的一个工具,</p>
@@ -288,8 +290,33 @@
 <h3 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h3><p>@RequestParam：将请求参数绑定到你控制器的方法参数上（是springmvc中接收普通参数的注解）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">语法：@RequestParam(value=”参数名”,required=”true/false”,defaultValue=””)</span><br><span class="line"> </span><br><span class="line">value：参数名</span><br><span class="line"> </span><br><span class="line">required：是否包含该参数，默认为true，表示该请求路径中必须包含该参数，如果不包含就报错。</span><br><span class="line"> </span><br><span class="line">defaultValue：默认参数值，如果设置了该值，required=true将失效，自动为false,如果没有传该参数，就使用默认值</span><br></pre></td></tr></table></figure>
 
+<h3 id="Builder"><a href="#Builder" class="headerlink" title="@Builder"></a>@Builder</h3><p>lombok中的注解。<br>Builder 使用创建者模式又叫建造者模式。简单来说，就是一步步创建一个对象，它对用户屏蔽了里面构建的细节，但却可以精细地控制对象的构造过程。</p>
+<p>@Builder注解的作用主要是用来生成对象，并且可以为对象链式赋值。放在实体类上。<br>​@Builder​​注释为你的类生成相对略微复杂的构建器API。</p>
+<p>使用方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Student student = Student.builder()</span><br><span class="line">        .name( &quot;admin&quot; )</span><br><span class="line">        .age( 18 )</span><br><span class="line">        .build();</span><br></pre></td></tr></table></figure>
 
+<p>与@Singular结合使用<br>使用@Singular注释注释一个集合字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Singular</span><br><span class="line">private List&lt;String&gt; hobbies;</span><br><span class="line"></span><br><span class="line">.hobbies( &quot;110&quot; ).hobbies( &quot;112&quot; )</span><br></pre></td></tr></table></figure>
 
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/g56467467464/article/details/105407741">https://blog.csdn.net/g56467467464/article/details/105407741</a></p>
+<h3 id="TableName"><a href="#TableName" class="headerlink" title="@TableName"></a>@TableName</h3><p>baomidou.mybatisplus的注解<br>@TableName是mybatis-plus中的注解，主要是实现实体类型和数据库中的表实现映射。<br>放在实体类DO上。</p>
+<p>虽然功能相同，但是，@TableName是mybatis-plus中的注解，@Table是Hibernate中的注解。</p>
+<h3 id="Param"><a href="#Param" class="headerlink" title="@Param"></a>@Param</h3><p>1 、@Param注解的作用是给参数命名,参数命名后就能根据名字得到参数值,正确的将参数传入sql语句中（一般通过#{}的方式，${}会有sql注入的问题）。<br>2、一般写在mappe接口（DAO接口）的入参，对应xml中#{}中的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">使用方法：</span><br><span class="line">Mapper接口方法：</span><br><span class="line">public int findById(@Param(&quot;userId&quot;) int userId);</span><br><span class="line">对应的xml文件：</span><br><span class="line"> &lt;select id=&quot;findById&quot; resultMap=&quot;baseMap&quot;&gt;</span><br><span class="line">    select &lt;include redif=&quot;all_column_list&quot;&gt; from table_name</span><br><span class="line">    where user_id = #&#123;userId&#125;</span><br><span class="line"> &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p>不使用@Param注解时，参数只能有一个，并且是Javabean。</p>
+<p>使用了@Param后，可以不用parameterType？ 存疑</p>
+<h3 id="Mapper"><a href="#Mapper" class="headerlink" title="@Mapper"></a>@Mapper</h3><p>在使用Mybatis持久层框架来操作数据库时，我们可以使用@Mapper注解和@MapperScan注解来将Mapper接口类交给Sprinig进行管理。</p>
+<p>目的就是为了不再写mapper映射文件（xml文件）。</p>
+<p>Spring Boot的核心理念是：不建议使用xml文件配置。但是，这对MyBatis来说进退两难，因为MyBatis离不开xml，需要xml来配置sql语句。为了迎合Spring Boot的发展理念，MyBatis官方开发了mybatis-spring-boot-starter，我们要想更少的依赖xml，需要深入的研究mybatis-spring-boot-starter中的用法，尤其是@MapperScan和@Mapper的用法。</p>
+<p>一、注解@Mapper，这种方式要求每一个Mapper类都需要添加此注解<br>在接口类上添加了@Mapper，在编译之后会生成相应的接口实现类</p>
+<p>二、@MapperScan注解，可以让我们不用为每个Mapper类都添加@Mapper注解。指定要变成实现类的接口所在的包<br>添加位置：是在Springboot启动类上面添加，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication  </span><br><span class="line">@MapperScan(&#123;&quot;cn.mybatis.mappers.class&quot;,&quot;cn.mybatis.mappers.student&quot;&#125;)  </span><br><span class="line">public class SpringbootMybatisDemoApplication&#123;  </span><br><span class="line">    public static void main(String[] args) &#123;  </span><br><span class="line">       SpringApplication.run(SpringbootMybatisDemoApplication.class, args);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>最终实现：直接在Mapper类中采用注解的形式操作数据库，通过@MapperScan扫描制定的映射器存放路径，最终不需要加任何注解，也不需要对应的xml文件来配置sql语句。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//不需要加任何注解，也不需要对应的xml文件</span><br><span class="line">public interface UserMapper&#123;</span><br><span class="line">     @Select(&quot;select * from user&quot;)</span><br><span class="line">     List&lt;User&gt; getUserList(String userId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="http://www.mybatis.cn/archives/862.html">http://www.mybatis.cn/archives/862.html</a></p>
 
     </div>
 
@@ -299,7 +326,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Spring/" rel="tag"># Spring</a>
+              <a href="/tags/java/" rel="tag"># java</a>
           </div>
 
         
@@ -373,7 +400,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pattern"><span class="nav-number">1.</span> <span class="nav-text">@Pattern</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSONField"><span class="nav-number">2.</span> <span class="nav-text">@JSONField</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ToString"><span class="nav-number">3.</span> <span class="nav-text">@ToString</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RestController"><span class="nav-number">4.</span> <span class="nav-text">@RestController</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RequestMapping"><span class="nav-number">5.</span> <span class="nav-text">@RequestMapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RequestParam"><span class="nav-number">6.</span> <span class="nav-text">@RequestParam</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pattern"><span class="nav-number">1.</span> <span class="nav-text">@Pattern</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSONField"><span class="nav-number">2.</span> <span class="nav-text">@JSONField</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ToString"><span class="nav-number">3.</span> <span class="nav-text">@ToString</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RestController"><span class="nav-number">4.</span> <span class="nav-text">@RestController</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RequestMapping"><span class="nav-number">5.</span> <span class="nav-text">@RequestMapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RequestParam"><span class="nav-number">6.</span> <span class="nav-text">@RequestParam</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Builder"><span class="nav-number">7.</span> <span class="nav-text">@Builder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TableName"><span class="nav-number">8.</span> <span class="nav-text">@TableName</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Param"><span class="nav-number">9.</span> <span class="nav-text">@Param</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mapper"><span class="nav-number">10.</span> <span class="nav-text">@Mapper</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
