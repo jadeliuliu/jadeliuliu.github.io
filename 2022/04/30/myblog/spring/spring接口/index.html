@@ -28,7 +28,7 @@
 <meta property="og:description" content="Serializable接口位于java.io.Serializable包中，一般在创建实体类的时候会去实现这个接口，目的是为了序列化。 序列化指的是把对象转化成字节序列的过程，就是把内存中的对象转换成一连串的字节bytes描述的过程。反序列化就是将字节bytes数据恢复为对象的过程。 需要将内存中对象状态数据保存到文件或数据库中时，需要进行序列化。这个比较直观的就是通过ObjectOutputS">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-30T01:59:37.290Z">
-<meta property="article:modified_time" content="2022-05-10T13:41:34.388Z">
+<meta property="article:modified_time" content="2022-05-19T14:23:13.964Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 21:41:34" itemprop="dateModified" datetime="2022-05-10T21:41:34+08:00">2022-05-10</time>
+                <time title="Modified: 2022-05-19 22:23:13" itemprop="dateModified" datetime="2022-05-19T22:23:13+08:00">2022-05-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,10 +258,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String getName():得到的是@RequesParam(value = &quot;file&quot;)中的value值，不会为空。</span><br><span class="line">String getOriginalFilename():获取的是文件的完整名称，包括文件名称+文件拓展名。</span><br><span class="line">String getContentType()：返回文件内容类型，不是文件扩展名（例如：jpeg图片：image/jpeg）</span><br><span class="line">boolean isEmpty()：返回上传的文件是否为空，即multipart形式中没有选择任何文件或者选择的文件没有内容</span><br><span class="line">long getSize()：以字节为单位返回文件大小</span><br><span class="line">byte[] getBytes()：以字节数组的形式返回文件内容</span><br><span class="line">InputStream getInputStream()：返回一个字节流</span><br><span class="line">void transferTo()：用来将接收文件传输到给定目标路径，会抛出IOException、IllegalStateException异常。该方法在实际项目开发中使用较少。</span><br></pre></td></tr></table></figure>
 
 
-
-
-
-
+<h3 id="InitializingBean"><a href="#InitializingBean" class="headerlink" title="InitializingBean"></a>InitializingBean</h3>
     </div>
 
     
@@ -344,7 +341,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Serializable%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">Serializable接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MultipartFile%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.</span> <span class="nav-text">MultipartFile接口</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Serializable%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">Serializable接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MultipartFile%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.</span> <span class="nav-text">MultipartFile接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InitializingBean"><span class="nav-number">3.</span> <span class="nav-text">InitializingBean</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -359,7 +356,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">77</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

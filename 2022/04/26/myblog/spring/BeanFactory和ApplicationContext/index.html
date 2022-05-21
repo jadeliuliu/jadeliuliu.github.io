@@ -28,7 +28,7 @@
 <meta property="og:description" content="BeanFactory与ApplicationContextBeanFactory使管理不同类型的java对象成为可能，应用上下文ApplacationContext建立在BeanFactor基础之上，提供了更多面向应用的功能，它提供了国际化支持和框架事件体系，更易于创建实际应用。我们一般称BeanFactory为IOC容器，而称ApplicationContext为应用上下文。但有时为了行文方便">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-26T14:12:06.104Z">
-<meta property="article:modified_time" content="2022-05-10T13:41:28.472Z">
+<meta property="article:modified_time" content="2022-05-20T11:10:40.838Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 21:41:28" itemprop="dateModified" datetime="2022-05-10T21:41:28+08:00">2022-05-10</time>
+                <time title="Modified: 2022-05-20 19:10:40" itemprop="dateModified" datetime="2022-05-20T19:10:40+08:00">2022-05-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -273,6 +273,20 @@
 <p>这里主要是配置了 spring 的监听器 ContextLoaderListener ，它检查 contextConfigLocation 这个参数。如果它不存在的话，它将用 /WEB-INF/applicationContext.xml 作为默认的配置文件。如果 contextConfigLocation 存在的话，它将根据该参数的值查找配置文件的位置，来一一读取 spring 参数。</p>
 <p>contextConfigLocation 是被 spring 固定的，专门用来查  找配置文件位置的.</p>
 <p>参考：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/sole_ghost/article/details/1389664">https://blog.csdn.net/sole_ghost/article/details/1389664</a></p>
+<h3 id="ApplicationContext-getBean"><a href="#ApplicationContext-getBean" class="headerlink" title="ApplicationContext.getBean"></a>ApplicationContext.getBean</h3><p>目的：获取Spring容器中已初始化的bean</p>
+<p>第一种：getBean(String name)<br>参数name表示IOC容器中已经实例化的bean的id或者name,<br>在IOC容器中是唯一的不能重名。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span><br><span class="line">Person p = (Person) ctx.getBean(&quot;p&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>第二种：getBean(Class<T> type)<br>type表示要加载的Bean的类型。<br>如果该类型没有继承任何父类(Object类除外)和实现接口的话，那么要求该类型的bean在IOC容器中也必须是唯一的.(比如定义同一类的两个bean，但是property注入的属性不一样)<br>不需要类型转换。</T></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span><br><span class="line">Person p = ctx.getBean(Person.class);</span><br></pre></td></tr></table></figure>
+
+<p>第三种：getBean(String name,Class<T> type)<br>这种方式比较适合接口/抽象类，有不同实现类或子类时，type写接口或父类，name写bean name。</T></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person p = ctx.getBean(&quot;person&quot;,BasePerson.class);</span><br></pre></td></tr></table></figure>
+
+<p>第四种： getBean(String name,Object[] args)<br>第二个参数Object[] args可以给bean的属性赋值，赋值的方式有两种：构造方法和工厂方法。但是通过这种方式获取的bean必须把scope属性设置为prototype，也就是非单例模式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">1.构造方法方式：</span><br><span class="line">&lt;bean name=&quot;p3&quot; class=&quot;com.bean.Person&quot; scope=&quot;prototype&quot;/&gt;</span><br><span class="line"></span><br><span class="line">Person p = (Person) ctx.getBean(&quot;p3&quot;,new Object[]&#123;&quot;王五&quot;,35&#125;);</span><br><span class="line"></span><br><span class="line">2.工厂注入方式：</span><br><span class="line">工厂类：</span><br><span class="line">public class PersonFactory &#123;</span><br><span class="line">//静态工厂注入</span><br><span class="line">public static Person getPersonInstance(String name,int age)throws Exception</span><br><span class="line">&#123;</span><br><span class="line">  Person p = (Person)Class.forName(&quot;com.bean.Person&quot;).newInstance();</span><br><span class="line">   Method m = p.getClass().getMethod(&quot;setName&quot;, java.lang.String.class);</span><br><span class="line">   m.invoke(p, name);</span><br><span class="line">   m = p.getClass().getMethod(&quot;setAge&quot;, int.class);</span><br><span class="line">   m.invoke(p, age);</span><br><span class="line">   return p;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">配置bean：</span><br><span class="line">&lt;bean name=&quot;p3&quot; class=&quot;com.factory.PersonFactory&quot; factory-method=&quot;getPersonInstance&quot; scope=&quot;prototype&quot;&gt;</span><br><span class="line">&lt;constructor-arg name=&quot;name&quot;&gt;</span><br><span class="line">&lt;null/&gt;</span><br><span class="line">&lt;/constructor-arg&gt;</span><br><span class="line">&lt;constructor-arg name=&quot;age&quot; value=&quot;0&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">Person p = (Person) ctx.getBean(&quot;p3&quot;,new Object[]&#123;&quot;王五&quot;,35&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_23927391/article/details/80625578">https://blog.csdn.net/qq_23927391/article/details/80625578</a></p>
 
     </div>
 
@@ -356,7 +370,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#BeanFactory%E4%B8%8EApplicationContext"><span class="nav-number">1.</span> <span class="nav-text">BeanFactory与ApplicationContext</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApplicationContext%E7%9A%84%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">ApplicationContext的创建方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%A0%81%E6%96%B9%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">使用代码方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%85%8D%E7%BD%AE-%E5%A3%B0%E6%98%8E"><span class="nav-number">2.2.</span> <span class="nav-text">使用配置(声明)</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#BeanFactory%E4%B8%8EApplicationContext"><span class="nav-number">1.</span> <span class="nav-text">BeanFactory与ApplicationContext</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApplicationContext%E7%9A%84%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">ApplicationContext的创建方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%A0%81%E6%96%B9%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">使用代码方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%85%8D%E7%BD%AE-%E5%A3%B0%E6%98%8E"><span class="nav-number">2.2.</span> <span class="nav-text">使用配置(声明)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApplicationContext-getBean"><span class="nav-number">3.</span> <span class="nav-text">ApplicationContext.getBean</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -371,7 +385,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">77</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -183,6 +183,159 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/21/myblog/JAVA/Geometry%E5%92%8CCoordinate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/21/myblog/JAVA/Geometry%E5%92%8CCoordinate/" class="post-title-link" itemprop="url">Geometry和Coordinate</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-05-21 13:25:10 / Modified: 13:27:50" itemprop="dateCreated datePublished" datetime="2022-05-21T13:25:10+08:00">2022-05-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="LineString与Coordinate"><a href="#LineString与Coordinate" class="headerlink" title="LineString与Coordinate"></a>LineString与Coordinate</h3><p>Geometry对象转换为LineString对象，前面加(LineString)强转。</p>
+<p>Coordinate coor = new Coordinate(lng, lat);<br>//lng、lat是Double类型经度纬度</p>
+<h3 id="Geometry"><a href="#Geometry" class="headerlink" title="Geometry"></a>Geometry</h3><p>Geometry可以是一系列的点组成的线。<br>数据库中查看需要加：select st_astext(geo) from table;</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/21/myblog/JAVA/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/21/myblog/JAVA/java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">java多线程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-05-21 10:52:08 / Modified: 13:15:15" itemprop="dateCreated datePublished" datetime="2022-05-21T10:52:08+08:00">2022-05-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="线程池Executor、ExecutorService、Executors三者关系"><a href="#线程池Executor、ExecutorService、Executors三者关系" class="headerlink" title="线程池Executor、ExecutorService、Executors三者关系"></a>线程池Executor、ExecutorService、Executors三者关系</h3><p><img src="https://img-blog.csdnimg.cn/img_convert/6f13f22d0f1e6bc6930273b38666f8cc.png"></p>
+<p>层次关系：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public interface ExecutorService extends Executor &#123;&#125;</span><br><span class="line">public abstract class AbstractExecutorService implements ExecutorService &#123;&#125;</span><br><span class="line">public interface ScheduledExecutorService extends ExecutorService &#123;&#125;</span><br><span class="line"></span><br><span class="line">public class ThreadPoolExecutor extends AbstractExecutorService &#123;&#125;</span><br><span class="line">public class ScheduledThreadPoolExecutor extends ThreadPoolExecutor implements ScheduledExecutorService &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>区别：<br>1.ExecutorService 接口继承了Executor 接口，是Executor 的子接口。</p>
+<p>2.Executor接口中定义了execute()方法，用来接收一个Runnable接口的对象，而ExecutorService接口中定义的submit()方法可以接收Runnable和Callable接口对象。</p>
+<p>3.Executor接口中execute()方法不返回任何结果，而ExecutorService接口中submit()方法可以通过一个 Future 对象返回运算结果。</p>
+<p>4.Executor和ExecutorService除了允许客户端提交一个任务，ExecutorService 还提供用来控制线程池的方法。<br>比如：调用 shutDown() 方法终止线程池。</p>
+<p>5.Executors 是一个工具类，类似于 Collections。Executors 类提供工厂方法用来创建不同类型的线程池。比如:<br>　　 Executors.newSingleThreadExecutor() 创建一个只有一个线程的线程池，<br>　　 Executors.newFixedThreadPool(int numOfThreads)来创建固定线程数的线程池，<br>　　 Executors.newCachedThreadPool()创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。<br>　　 Executors.newScheduledThreadPool(int corePoolSize) 创建一个线程池，它可安排在给定延迟后运行命令或者定期地执行。</p>
+<p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/whx20100101/p/9862392.html">https://www.cnblogs.com/whx20100101/p/9862392.html</a></p>
+<p>使用Executor还是ExecutorService？<br>当线程池中的线程均处于工作状态，并且线程数已达线程池允许的最大线程数时，就会采取指定的饱和策略来处理新提交的任务。总共有四种策略：<br>AbortPolicy: 直接抛异常<br>CallerRunsPolicy: 用调用者的线程来运行任务<br>DiscardOldestPolicy: 丢弃线程队列里最近的一个任务，执行新提交的任务<br>DiscardPolicy 直接将新任务丢弃</p>
+<p>如果使用 Executors 的工厂方法创建的线程池，那么饱和策略都是采用默认的 AbortPolicy，所以如果我们想当线程池已满的情况，使用调用者的线程来运行任务，就要自己创建线程池，指定想要的饱和策略，而不是使用 Executors 了。</p>
+<p>所以我们可以根据需要创建 ThreadPoolExecutor(ExecutorService接口的实现类) 对象，自定义一些参数，而不是调用 Executors 的工厂方法创建。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43921491/article/details/115717604">https://blog.csdn.net/weixin_43921491/article/details/115717604</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ExecutorService executor = new ThreadPoolExecutor(...);</span><br><span class="line">executor.submit(()-&gt;单条语句);</span><br><span class="line"></span><br><span class="line">executor.submit(new Runnable()&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        dosomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="线程相关"><a href="#线程相关" class="headerlink" title="线程相关"></a>线程相关</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Thread.sleep(1000);  //休息1s，以毫秒为单位。</span><br><span class="line"></span><br><span class="line">新建Thread线程：</span><br><span class="line">Thread thread = new Thread(new Runnable()&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        dosomething();</span><br><span class="line">    &#125;, &quot;name&quot;);</span><br><span class="line">thread.start();</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/30/myblog/JAVA/java/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -214,7 +367,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-14 16:10:42" itemprop="dateModified" datetime="2022-05-14T16:10:42+08:00">2022-05-14</time>
+                <time title="Modified: 2022-05-21 13:24:52" itemprop="dateModified" datetime="2022-05-21T13:24:52+08:00">2022-05-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -306,20 +459,41 @@
 <p>一些已经实现了Comparable接口的常用类：<br>Character：按照字符的UNICODE值进行比较<br>String：按照字符的UNICODE值进行比较<br>Date\Time：外面比里面新，返回1<br>Long：a.compareTo(b)，a比b大返回1</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//以特定格式返回日期格式化程序</span><br><span class="line">DateFormat dateFormat = DateFormat.getDateInstance();</span><br><span class="line">Date oldTime = dateFormat.parse(&quot;2019-04-07 19:50:11&quot;);</span><br><span class="line">Date newTime = new Date();</span><br><span class="line">int result = oldTime.compareTo(newTime);</span><br><span class="line">System.out.println(result);</span><br><span class="line"></span><br><span class="line">// 日期变为字符串</span><br><span class="line">String str = dateFormat.format(new Date());</span><br></pre></td></tr></table></figure>
 
-<h3 id="stream流-parallelStream"><a href="#stream流-parallelStream" class="headerlink" title="stream流 parallelStream"></a>stream流 parallelStream</h3><p>stream(): 是串行执行，按照顺序执行</p>
+<h3 id="stream流-parallelStream流"><a href="#stream流-parallelStream流" class="headerlink" title="stream流 parallelStream流"></a>stream流 parallelStream流</h3><p>stream(): 是串行执行，按照顺序执行</p>
 <p>parallelStream()：是并行执行，异步执行，多线程，并且使用的线程池是ForkJoinPool.common，可能存在共享资源、线程安全等问题</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">过滤：</span><br><span class="line">List&lt;Integer&gt; integerList = Arrays.asList(1, 2, 3, 4, 5, 6);</span><br><span class="line">Stream&lt;Integer&gt; stream = integerList.stream().filter(i -&gt; i &gt; 3);</span><br><span class="line">integerList = stream.collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">排序：</span><br><span class="line">.stream().sorted((e1,e2)-&gt;e1.compareTo(e2)).</span><br><span class="line"></span><br><span class="line">去重：</span><br><span class="line">.stream().distinct().</span><br><span class="line"></span><br><span class="line">按照对象中某一元素去重：</span><br><span class="line">.stream().filter(LambdaUtils.distinctByKey(类::get属性))</span><br><span class="line"></span><br><span class="line">返回指定流个数：</span><br><span class="line">.limit(5)</span><br><span class="line"></span><br><span class="line">跳过流中元素：</span><br><span class="line">.skip(2)</span><br><span class="line"></span><br><span class="line">map流映射：将接收的元素映射成另外一个元素：</span><br><span class="line">.map(类::get属性).</span><br><span class="line"></span><br><span class="line">对象list根据某一个元素变为map：</span><br><span class="line">list.stream().collect(Collectors.groupingBy(类::get属性))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">过滤：</span><br><span class="line">List&lt;Integer&gt; integerList = Arrays.asList(1, 2, 3, 4, 5, 6);</span><br><span class="line">Stream&lt;Integer&gt; stream = integerList.stream().filter(i -&gt; i &gt; 3);</span><br><span class="line">integerList = stream.collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">排序：</span><br><span class="line">.stream().sorted((e1,e2)-&gt;e1.compareTo(e2)).</span><br><span class="line"></span><br><span class="line">去重：</span><br><span class="line">.stream().distinct().</span><br><span class="line"></span><br><span class="line">按照对象中某一元素去重：</span><br><span class="line">.stream().filter(LambdaUtils.distinctByKey(类::get属性))</span><br><span class="line"></span><br><span class="line">返回指定流个数：</span><br><span class="line">.limit(5)</span><br><span class="line"></span><br><span class="line">跳过流中元素：</span><br><span class="line">.skip(2)</span><br><span class="line"></span><br><span class="line">map流映射：将接收的元素映射成另外一个元素：</span><br><span class="line">.map(类::get属性).collect...</span><br><span class="line">.map(对象-&gt;&#123;</span><br><span class="line">  构造另一种对象;</span><br><span class="line">  return 另一对象;</span><br><span class="line">&#125;).</span><br><span class="line">.map(string-&gt;Long.valueOf(string)).  //String变为Long</span><br><span class="line"></span><br><span class="line">对象list根据某一个元素变为map：</span><br><span class="line">list.stream().collect(Collectors.groupingBy(类::get属性))</span><br></pre></td></tr></table></figure>
 
 <h3 id="Date相关"><a href="#Date相关" class="headerlink" title="Date相关"></a>Date相关</h3><p>一、now.after()</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DateFormat dateformat = DateFormat.getDateInstance();</span><br><span class="line">Date old = dateformat.parse(&quot;2022-04-07 19:50:11&quot;);</span><br><span class="line">Date now = new Date();</span><br><span class="line">if(now.after(oldTime))&#123;</span><br><span class="line">    System.out.println(&quot;now比after新&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="Map-Entry遍历"><a href="#Map-Entry遍历" class="headerlink" title="Map.Entry遍历"></a>Map.Entry遍历</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for (Map.Entry&lt;String, String&gt; entry : map.entrySet()) &#123;  </span><br><span class="line">  System.out.println(&quot;key= &quot; + entry.getKey());</span><br><span class="line">  System.out.println(&quot;value= &quot; + entry.getValue());</span><br><span class="line"> &#125;  </span><br></pre></td></tr></table></figure>
+<p>二、DateFormat类<br>DateFormat 是日期/时间格式化子类的抽象类，它以与语言无关的方式格式化并解析日期或时间。日期/时间格式化子类（如 SimpleDateFormat）允许进行格式化（也就是日期→文本）、解析（文本→日期）和标准化日期。</p>
+<p>在创建 DateFormat 对象时不能使用 new 关键字，而应该使用 DateFormat 类中的静态方法 getDateInstance()：<br><code>DateFormat df = DateFormat.getDatelnstance();</code><br>在创建了一个 DateFormat 对象后，可以调用该对象中的方法来对日期/时间进行格式化。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//定义对象，日期、时间，也有getDateTimeInstance</span><br><span class="line">SHORT：18-10-15 上午9:30</span><br><span class="line">FULL：2018年10月15日 星期一 上午09时30分43秒 CST</span><br><span class="line">MEDIUM：2018-10-15 9:30:43</span><br><span class="line">LONG：2018年10月15日 上午09时30分43秒</span><br><span class="line"></span><br><span class="line">DateFormat df1 = DateFormat.getDateInstance(DateFormat.SHORT, Locale.CHINA);</span><br><span class="line">DateFormat df5 = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.CHINA);</span><br><span class="line"></span><br><span class="line">//字符串到Date</span><br><span class="line">Date old = dateformat.parse(&quot;2022-04-07 19:50:11&quot;);</span><br><span class="line"></span><br><span class="line">//Date到字符串</span><br><span class="line">String str = dateFormat.format(new Date());</span><br></pre></td></tr></table></figure>
+
+<p>三、SimpleDateFormat<br>SimpleDateFormat 使得可以选择任何用户定义的日期/时间格式的模式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Date now = new Date(); // 创建一个Date对象，获取当前时间</span><br><span class="line">// 指定格式化格式</span><br><span class="line">SimpleDateFormat f = new SimpleDateFormat(&quot;今天是 &quot; + &quot;yyyy 年 MM 月 dd 日 E HH 点 mm 分 ss 秒&quot;);</span><br><span class="line">System.out.println(f.format(now)); // 将当前时间袼式化为指定的格式</span><br></pre></td></tr></table></figure>
+<p>参考：<a target="_blank" rel="noopener" href="http://c.biancheng.net/view/878.html">http://c.biancheng.net/view/878.html</a></p>
+<p>当前时间的后几秒：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Data data = new Date(System.currentTiomMillis() + expiremilliSeconds);</span><br><span class="line">加的是毫秒</span><br></pre></td></tr></table></figure>
+
+<p>获取当前时间的月份：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int mon = LocalDate.now().getMonthValue();</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="map几种遍历方式"><a href="#map几种遍历方式" class="headerlink" title="map几种遍历方式"></a>map几种遍历方式</h3><p>一、Map.Entry遍历</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for (Map.Entry&lt;String, String&gt; entry : map.entrySet()) &#123;  </span><br><span class="line">  System.out.println(&quot;key= &quot; + entry.getKey());</span><br><span class="line">  System.out.println(&quot;value= &quot; + entry.getValue());</span><br><span class="line"> &#125;  </span><br></pre></td></tr></table></figure>
+<p>二、通过Iterator迭代器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/**通过entrySet()方法将key和value存放到Set集合中，Set集合中有迭代器**/</span><br><span class="line">Set&lt;Entry&lt;String,String&gt;&gt; entry = map.entrySet();</span><br><span class="line">Iterator&lt;Entry&lt;String,String&gt;&gt; iterators = entry.iterator();</span><br><span class="line">while(iterators.hasNext())&#123;</span><br><span class="line">  Entry&lt;String,String&gt; entrys  = iterators.next();</span><br><span class="line">  System.out.println(&quot;key=&quot;+entrys.getKey()+&quot;&amp;&amp;value=&quot;+entrys.getValue());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>三、通过keySet()遍历<br>keySet()：将Map中所有的key存放到Set集合中。因为Set集合有迭代器，可以通过迭代器循环key，再通过get()方法，得到每个key所对应的value；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/**通过keySet()方法将所有的key值存放到Set集合中,Set集合中有迭代器**/</span><br><span class="line">Iterator&lt;String&gt; iterator = map.keySet().iterator();</span><br><span class="line">while(iterator.hasNext())&#123;</span><br><span class="line">  String key = iterator.next();</span><br><span class="line">  System.out.println(&quot;key=&quot;+key+&quot;  &quot;+map.get(key));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">可以不用迭代器，直接for循环</span><br><span class="line">for (String key: map.keySet()) &#123;</span><br><span class="line">  System.out.println(&quot;key:&quot; + map.get(key));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>四、values()遍历<br>values()获取集合中的所有的value值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Collection&lt;String&gt; collection = map.values();</span><br><span class="line">再for遍历得到value，同样也可以用迭代器</span><br><span class="line">Iterator var3 = values.iterator();</span><br><span class="line">while(var3.hasNext()) &#123;</span><br><span class="line">  String value = (String)var3.next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>五、直接foreach map</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">map.forEach((key, value) -&gt; &#123;</span><br><span class="line">  System.out.println(&quot;第五种:&quot; + key + &quot; ：&quot; + value);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <h3 id="Strings-nullToEmpty"><a href="#Strings-nullToEmpty" class="headerlink" title="Strings.nullToEmpty"></a>Strings.nullToEmpty</h3><p>Strings、Lists、Maps 都是google提供的工具类。<br>使用之前导入包guava。</p>
 <p>vo.setS(String.nullToEmpty(s));  一般用于给对象属性赋值，如果为null，就设空。</p>
 <p>其他guava工具类使用：<a target="_blank" rel="noopener" href="https://www.w3cschool.cn/article/17770773.html">https://www.w3cschool.cn/article/17770773.html</a></p>
-<h3 id="LineString与Coordinate"><a href="#LineString与Coordinate" class="headerlink" title="LineString与Coordinate"></a>LineString与Coordinate</h3><p>Geometry对象转换为LineString对象，前面加(LineString)强转。</p>
-<p>Coordinate coor = new Coordinate(lng, lat);<br>//lng、lat是Double类型经度纬度</p>
 <h3 id="enum"><a href="#enum" class="headerlink" title="enum"></a>enum</h3><p>定义枚举类，定义在一个包中，和impl、service、vo包平级。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public enum SexEnum:int &#123;</span><br><span class="line">    male,female;</span><br><span class="line">&#125;</span><br><span class="line">多个枚举成员之间使用逗号分隔，</span><br><span class="line">如果没有显式地声明基础类型的枚举，那么意味着它所对应的基础类型是 int。</span><br></pre></td></tr></table></figure>
 
@@ -332,16 +506,62 @@
 
 <h3 id="StringUtils工具类"><a href="#StringUtils工具类" class="headerlink" title="StringUtils工具类"></a>StringUtils工具类</h3><p>StringUtils工具类是org.apache.commons.lang3包下的工具类，对String类型的操作作了封装，是对Java自带的API的有效补充，可以帮助我们更高效快速地处理字符串。</p>
 <p>导入commons-lang3包。</p>
-<p>String substringAfter(String str,String separator)：在第一次出现分隔符后获取子字符串。</p>
-<p>String substringAfterLast(String str,String separator)：在最后一次出现分隔符之后获取子字符串。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String substringAfter(String str,String separator)：</span><br><span class="line">在第一次出现分隔符后获取子字符串。</span><br><span class="line"></span><br><span class="line">String substringAfterLast(String str,String separator)：</span><br><span class="line">在最后一次出现分隔符之后获取子字符串。</span><br></pre></td></tr></table></figure>
+
+<p>工具类：一般是直接用它的静态方法，直接用类来调用，例如：Collections、Arrays等jaa自带的工具类；Lists、Maps等google工具类；CollectionUtils、StringUtils等apache工具类。</p>
 <p>更多：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1662921">https://cloud.tencent.com/developer/article/1662921</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">StringUtils.EMPTY = &quot;&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">StringUtils.EMPTY = &quot;&quot;</span><br><span class="line"></span><br><span class="line">// 只替换一次--&gt;结果是：phhhss</span><br><span class="line">StringUtils.replaceOnce(&quot;sshhhss&quot;, &quot;ss&quot;, &quot;p&quot;);</span><br><span class="line">// 全部替换</span><br><span class="line">StringUtils.replace(&quot;sshhhs&quot;, &quot;ss&quot;, &quot;p&quot;);</span><br><span class="line">// 定义替换次数</span><br><span class="line">StringUtils.replace(&quot;sshhhsshss&quot;, &quot;ss&quot;, &quot;7777&quot;,2);</span><br></pre></td></tr></table></figure>
 
 <h3 id="MapUtils工具类"><a href="#MapUtils工具类" class="headerlink" title="MapUtils工具类"></a>MapUtils工具类</h3><p>MapUtils是 org.apache.commons.collections 工具包中常用的工具类<br>需要导入包：commons-collections4</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int value = MapUtils.getInteger(map, key, 0)</span><br><span class="line">//将结果转换为Integer，如果转换失败则使用默认值</span><br></pre></td></tr></table></figure>
 
 <p>更多用法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u012894692/article/details/82557843">https://blog.csdn.net/u012894692/article/details/82557843</a></p>
+<h3 id="Collections、Collections、CollectionUtils"><a href="#Collections、Collections、CollectionUtils" class="headerlink" title="Collections、Collections、CollectionUtils"></a>Collections、Collections、CollectionUtils</h3><p>Collection 是一个集合接口。它提供了对集合对象进行基本操作的通用接口方法。Collection接口在Java 类库中有很多具体的实现。Collection接口的意义是为各种具体的集合提供了最大化的统一操作方式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Collection（单例集合  ） </span><br><span class="line">├-List（有序，可重复 ）  </span><br><span class="line">│  ├-LinkedList（查询速度慢，增删快）   </span><br><span class="line">│  ├-ArrayList（查询速度快，增删慢）  </span><br><span class="line">│  └-Vector（线程安全的，操作效率低 ）  </span><br><span class="line">│　    └-Stack   </span><br><span class="line">└-Set（无序，不可重复） </span><br><span class="line">      ├-HashSet（使用了哈希表存取）</span><br><span class="line">      │    └-LinkedHashSet</span><br><span class="line">      └-SortedSet</span><br><span class="line">               └-TreeSet（有序）</span><br><span class="line">Map（键值对）  </span><br><span class="line">├-Hashtable   </span><br><span class="line">├-HashMap   </span><br><span class="line">└-WeakHashMap</span><br></pre></td></tr></table></figure>
+<p>set是在HashMap的基础上实现的，HashSet的存储方式是把HashMap中的Key作为Set的对应存储项。HashMap是非同步的，线程不安全的，Hashtable虽然是同步线程安全的，但是已经过期了。 现在使用ConcurrentHashMap，这个是线程安全同步的</p>
+<p>Collections 是一个包装类。它包含有各种有关集合操作的静态多态方法。此类不能实例化，就像一个工具类，服务于Java的Collection框架。</p>
+<p>例如：排序(Sort)、倒序(reverse)、最大(max)、最小(min)、替换(fill)</p>
+<p>使用sort方法可以根据元素的自然顺序对指定列表按升序进行排列。列表中所有元素都必须实现Comparable接口。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Collections.sort(list);//排序</span><br><span class="line">System.out.println(list);</span><br><span class="line">Collections.reverse(list);//倒序</span><br><span class="line">System.out.println(list);</span><br><span class="line">int max = Collections.max(list);//最大</span><br><span class="line">System.out.println(max);</span><br><span class="line">int min = Collections.min(list);//最小</span><br></pre></td></tr></table></figure>
 
+<p>CollectionUtils是对Collection集合操作的类方法，这个类不是java自带的类方法，需要另外导入一个commons-collections.jar包才可以使用这个类中方法。</p>
+<p>例如：CollectionUtils.isEmpty(list)</p>
+<p>更多用法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/chaoge321/article/details/83788667">https://blog.csdn.net/chaoge321/article/details/83788667</a></p>
+<h3 id="Comparable、Comparator"><a href="#Comparable、Comparator" class="headerlink" title="Comparable、Comparator"></a>Comparable、Comparator</h3><p>要讲这个，就要讲list的排序，看上面，有几种办法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1.list.sort(Comparator.comparing(A::getB))</span><br><span class="line">2.list.stream.sorted(Comparator.comparing(A::getB)).collect(Collectors.toList())</span><br><span class="line">3.list.stream.sorted((a1,a2)-&gt;a1.compareTo(a2))</span><br><span class="line">4.直接Collections.sort(list)  </span><br><span class="line">//这个需要list的元素实现Comparable接口，比如String就实现了</span><br><span class="line">5.Collections.sort(list, new Comparator&lt;A&gt;()&#123;</span><br><span class="line">  @Oerride</span><br><span class="line">  public int compare(A a1, A a2)&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>他们都是java的一个接口, 并且是用来对自定义的实体类比较大小的.</p>
+<p>Comparable接口需要进行比较的实体类在定义时实现它，重写compareTo方法。<br>Comparator接口是在集合外部实现的排序，重写compare接口。Comparator接口比Comparable接口要灵活。</p>
+<h3 id="File相关"><a href="#File相关" class="headerlink" title="File相关"></a>File相关</h3><p>Java文件类以抽象的方式代表文件名和目录路径名。该类主要用于文件和目录的创建、文件的查找和文件的删除等。<br>File对象代表磁盘中实际存在的文件和目录。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">新建文件：</span><br><span class="line">String dirname = &quot;/java&quot;;</span><br><span class="line">File f1 = new File(dirname);</span><br><span class="line"></span><br><span class="line">// 判断该文件是否是一个目录</span><br><span class="line">if (f1.isDirectory()) &#123; &#125;</span><br><span class="line">f1.isFile() 是否是文件</span><br><span class="line"></span><br><span class="line">// 返回由此抽象路径名所表示的目录中的文件和目录的名称所组成字符串数组。</span><br><span class="line">String s[] = f1.list();</span><br><span class="line">for (int i = 0; i &lt; s.length; i++) &#123;</span><br><span class="line">  File f = new File(dirname + &quot;/&quot; + s[i]);</span><br><span class="line">  if (f.isDirectory()) &#123;</span><br><span class="line">    System.out.println(s[i] + &quot; is a directory&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">    System.out.println(s[i] + &quot; is a file&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public String getName()  返回此抽象路径名表示的文件或目录的名称。（文件名）</span><br><span class="line"></span><br><span class="line">public String getPath()  将此抽象路径名转换为一个路径名字符串。（路径名）</span><br><span class="line"></span><br><span class="line">public String getParent()  返回此抽象路径名的父路径名的路径名字符串（路径名）</span><br><span class="line"></span><br><span class="line">public File getParentFile()  返回父文件</span><br><span class="line"></span><br><span class="line">public boolean exists()  测试此抽象路径名表示的文件或目录是否存在。</span><br><span class="line"></span><br><span class="line">// 创建文件所在目录：</span><br><span class="line">File file = new File(&quot;E:\\java\\file04\\abc雪.jpg&quot;);</span><br><span class="line">File dirFile = file.getParentFile();</span><br><span class="line">if(dirFile != null &amp;&amp; !dirFile.exists())&#123;</span><br><span class="line">  dirFile.mkdirs();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>更多方法：<a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-file.html">https://www.runoob.com/java/java-file.html</a></p>
+<h3 id="FileUtils-工具类"><a href="#FileUtils-工具类" class="headerlink" title="FileUtils 工具类"></a>FileUtils 工具类</h3><p>apache 的commons-io包下的FileUtils，导包：commons-io</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">File file = new File(&quot;E:\\java\\file04\\abc雪.jpg&quot;);</span><br><span class="line">//删除指定文件，从不引发异常。</span><br><span class="line">FileUtils.deleteQuietly(file);</span><br><span class="line"></span><br><span class="line">//将byte数组写为File</span><br><span class="line">byte[] bytes = IOUtils.toByteArray(inputStream);</span><br><span class="line">FileUtils.writeByteArrayToFile(new File(path), bytes)</span><br><span class="line"></span><br><span class="line">//删除掉指定目录的文件</span><br><span class="line">FileUtils.deleteExistFile(new File(localpath));</span><br></pre></td></tr></table></figure>
+<p>更多方法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42402854/article/details/83374559">https://blog.csdn.net/qq_42402854/article/details/83374559</a></p>
+<h3 id="File流"><a href="#File流" class="headerlink" title="File流"></a>File流</h3><p>JAVA中针对文件的读写操作设置了一系列的流，其中主要有FileInputStream,FileOutputStream,FileReader,FileWriter四种最为常用的流</p>
+<p>一、FileInputStream流</p>
+<p>被称为文件字节输入流，意思指对文件数据以字节的形式进行读取操作如读取图片视频等</p>
+<p>若File类对象的所代表的文件不存在;不是文件是目录;或者其他原因不能打开的话，则会抛出FileNotFoundException。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public static void main(String[] args)&#123;</span><br><span class="line">  File file=new File(&quot;xxxxxxxx&quot;); //根据路径创建File类对象--这里路径即使错误也不会报错，因为只是产生File对象，还并未与计算机文件读写有关联</span><br><span class="line">        </span><br><span class="line">  try&#123;</span><br><span class="line">    FileInputStream fileInputStream=new FileInputStream(file);//与根据File类对象的所代表的实际文件建立链接创建fileInputStream对象</span><br><span class="line">      &#125;catch (FileNotFoundException e)&#123;</span><br><span class="line">          System.out.println(&quot;文件不存在或者文件不可读或者文件是目录&quot;);</span><br><span class="line">      &#125; </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">// 也可以根据文件路径名字符串进行建立</span><br><span class="line">FileInputStream fileInputStream=new FileInputStream(filepath);</span><br></pre></td></tr></table></figure>
+
+<p>更多：<a target="_blank" rel="noopener" href="https://blog.csdn.net/ai_bao_zi/article/details/81097898">https://blog.csdn.net/ai_bao_zi/article/details/81097898</a></p>
+<h3 id="IOUtils工具类"><a href="#IOUtils工具类" class="headerlink" title="IOUtils工具类"></a>IOUtils工具类</h3><p>它是 Apache Commons IO 的一部分 。该类的所有成员函数都被用来处理输入 - 输出流。这些方法基于InputStream,  OutputStream,  Reader 和 Writer工作。</p>
+<p>所有成员字段和方法都是静态的，不需要创建对象，直接用类名调用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">将输入流转换成字符数组:</span><br><span class="line">byte[] bytes = IOUtils.toByteArray(inputStream);</span><br></pre></td></tr></table></figure>
+
+<p>关闭流：<br>之前关闭流，往往在finally中，因为会抛出IOException，所以finally中需要try catch，并且close之前需要判断是否为null。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">finally &#123;</span><br><span class="line">  if (in != null) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      in.close();</span><br><span class="line">      &#125; catch (IOException e) &#123;</span><br><span class="line">          LOGGER.warn(&quot;Fail to close stream : &quot;, e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这时候就可以使用 IOUtils.closeQuietly 来精简代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">byte[] data = new byte[1024];</span><br><span class="line">InputStream in = null;</span><br><span class="line">OutputStream out = null;</span><br><span class="line"></span><br><span class="line">try &#123;</span><br><span class="line">      in = new FileInputStream(&quot;foo.txt&quot;);</span><br><span class="line">      in.read(data);</span><br><span class="line"></span><br><span class="line">      out = new FileOutputStream(&quot;foo.txt&quot;);</span><br><span class="line">      data = &quot;Hello, World&quot;.getBytes();</span><br><span class="line">      out.write(data);</span><br><span class="line"></span><br><span class="line">      IOUtils.copy(in, out);</span><br><span class="line"></span><br><span class="line">      in.close(); //close errors are handled</span><br><span class="line">      out.close();</span><br><span class="line">&#125; catch (IOException e) &#123; </span><br><span class="line">      // error handling</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">      IOUtils.closeQuietly(in);</span><br><span class="line">      IOUtils.closeQuietly(out);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更多方法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sulia1234567890/article/details/120569718">https://blog.csdn.net/sulia1234567890/article/details/120569718</a></p>
+<h3 id="Joiner"><a href="#Joiner" class="headerlink" title="Joiner"></a>Joiner</h3><p>google guava提供的用来连接字符串的类。需要导包：guava。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 连接字符串list</span><br><span class="line">List&lt;String&gt; list = Arrays.asList(&quot;AA&quot;, &quot;BB&quot;, &quot;CC&quot;);</span><br><span class="line">String str = Joiner.on(&quot;:&quot;).join(list);</span><br><span class="line">System.out.println(str);</span><br><span class="line">// 输出：AA:BB:CC</span><br><span class="line"></span><br><span class="line">//过滤其中的null</span><br><span class="line">List&lt;String&gt; list = Arrays.asList(&quot;AA&quot;, &quot;BB&quot;, null);</span><br><span class="line">String str = Joiner.on(&quot;:&quot;).skipNulls().join(list);</span><br><span class="line">System.out.println(str);</span><br><span class="line">// 输出：AA:BB</span><br><span class="line"></span><br><span class="line">// 可以先定义一个Join对象</span><br><span class="line">private static Joiner MY_JOINER = Joiner.on(&quot;/&quot;).skipNulls();</span><br><span class="line">String s = MY_JOINER.join(..);  里面的参数是Object类型，可以多个。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>更多用法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44143796/article/details/122998799">https://blog.csdn.net/qq_44143796/article/details/122998799</a></p>
+<h3 id="string自己的方法"><a href="#string自己的方法" class="headerlink" title="string自己的方法"></a>string自己的方法</h3><p>str.trim()  用于删除字符串的头尾空白符。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str = new String(&quot;   hello   &quot;);</span><br><span class="line">System.out.println( str.trim() );</span><br></pre></td></tr></table></figure>
+
+<p>str.replaceAll(正则表达式, 替换字符串)<br>使用给定的参数 replacement 替换字符串所有匹配给定的正则表达式的子字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String Str = new String(&quot;www.hello.com&quot;);</span><br><span class="line">System.out.println(Str.replaceAll(&quot;(.*)hello(.*)&quot;, &quot;hi&quot; ));</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -391,7 +611,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 21:41:34" itemprop="dateModified" datetime="2022-05-10T21:41:34+08:00">2022-05-10</time>
+                <time title="Modified: 2022-05-19 22:23:13" itemprop="dateModified" datetime="2022-05-19T22:23:13+08:00">2022-05-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -423,10 +643,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String getName():得到的是@RequesParam(value = &quot;file&quot;)中的value值，不会为空。</span><br><span class="line">String getOriginalFilename():获取的是文件的完整名称，包括文件名称+文件拓展名。</span><br><span class="line">String getContentType()：返回文件内容类型，不是文件扩展名（例如：jpeg图片：image/jpeg）</span><br><span class="line">boolean isEmpty()：返回上传的文件是否为空，即multipart形式中没有选择任何文件或者选择的文件没有内容</span><br><span class="line">long getSize()：以字节为单位返回文件大小</span><br><span class="line">byte[] getBytes()：以字节数组的形式返回文件内容</span><br><span class="line">InputStream getInputStream()：返回一个字节流</span><br><span class="line">void transferTo()：用来将接收文件传输到给定目标路径，会抛出IOException、IllegalStateException异常。该方法在实际项目开发中使用较少。</span><br></pre></td></tr></table></figure>
 
 
-
-
-
-
+<h3 id="InitializingBean"><a href="#InitializingBean" class="headerlink" title="InitializingBean"></a>InitializingBean</h3>
       
     </div>
 
@@ -468,10 +685,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-04-30 09:44:44 / Modified: 13:54:30" itemprop="dateCreated datePublished" datetime="2022-04-30T09:44:44+08:00">2022-04-30</time>
+              <time title="Created: 2022-04-30 09:44:44" itemprop="dateCreated datePublished" datetime="2022-04-30T09:44:44+08:00">2022-04-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-21 11:43:31" itemprop="dateModified" datetime="2022-05-21T11:43:31+08:00">2022-05-21</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -508,6 +731,9 @@
 <h3 id="json文件中获取"><a href="#json文件中获取" class="headerlink" title="json文件中获取"></a>json文件中获取</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class JsonTest &#123;</span><br><span class="line">    @Test</span><br><span class="line">    public void TestJ()&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            File jsonFile = ResourceUtils.getFile(&quot;classpath:hello.json&quot;);</span><br><span class="line">            String s = FileUtils.readFileToString(jsonFile);</span><br><span class="line">            System.out.println(&quot;s:&quot;+s);</span><br><span class="line">        &#125; catch(Exception e) &#123;</span><br><span class="line">            System.out.println(&quot;error:&quot;+e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>FileUtils 需要导包：commons-io。<br>classpath表示项目中的resource文件夹。</p>
+<h3 id="JSONObject"><a href="#JSONObject" class="headerlink" title="JSONObject"></a>JSONObject</h3><p>也是fastjson下的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JSONObject json = new JSONObject();</span><br><span class="line">json.put(&quot;key&quot;,&quot;value&quot;);</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -558,7 +784,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-12 19:11:23" itemprop="dateModified" datetime="2022-05-12T19:11:23+08:00">2022-05-12</time>
+                <time title="Modified: 2022-05-21 00:09:33" itemprop="dateModified" datetime="2022-05-21T00:09:33+08:00">2022-05-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -620,8 +846,12 @@
 
 <p>参考：<br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6f5aec232c97">https://www.jianshu.com/p/6f5aec232c97</a></p>
 <h3 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h3><p>@RequestParam：将请求参数绑定到你控制器的方法参数上（是springmvc中接收普通参数的注解）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">语法：@RequestParam(value=”参数名”,required=”true/false”,defaultValue=””)</span><br><span class="line"> </span><br><span class="line">value：参数名</span><br><span class="line"> </span><br><span class="line">required：是否包含该参数，默认为true，表示该请求路径中必须包含该参数，如果不包含就报错。</span><br><span class="line"> </span><br><span class="line">defaultValue：默认参数值，如果设置了该值，required=true将失效，自动为false,如果没有传该参数，就使用默认值</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">语法：f(@RequestParam(value=”参数名”,required=”true/false”,defaultValue=””) String s</span><br><span class="line">       , 其他入参）</span><br><span class="line"> </span><br><span class="line">value：参数名</span><br><span class="line"> </span><br><span class="line">required：是否包含该参数，默认为true，表示该请求路径中必须包含该参数，如果不包含就报错。</span><br><span class="line"> </span><br><span class="line">defaultValue：默认参数值，如果设置了该值，required=true将失效，自动为false,如果没有传该参数，就使用默认值</span><br></pre></td></tr></table></figure>
 
+<h3 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h3><p>@RequestBody主要用来接收前端传递给后端的json字符串中的数据的(请求体中的数据的)，因此@RequestBody只能用于接收POST请求的参数<br>@RequestParam接收的是key-value里面的参数(URL中的参数)，通常用于接收GET请求的参数（POST也能接收只接收URL里的，请求体的接收不到）</p>
+<p>即：<br>如果参数是放在请求体VO中，传入后台的话，那么后台要用@RequestBody才能接收到；<br>如果不是放在请求体中的话，那么后台接收前台传过来的参数时，要用@RequestParam来接收。</p>
+<p>总结：<br>@RequestParam和@RequestBody都能接收Post方式请求传来的数据，但是@RequestParam不能接收json字符串，而@RequestBody能，@RequestBody不能接收form-data类型的内容，@RequestParam能。<br>一个请求，只有一个RequestBody；一个请求，可以有多个RequestParam。<br>@ReuestBody接受单个参数的时候只能先使用Map&lt;String,Object&gt; params接收,然后再使用params.get(“name”)获取参数的值。</p>
+<p>更多：<a target="_blank" rel="noopener" href="https://blog.csdn.net/justry_deng/article/details/80972817">https://blog.csdn.net/justry_deng/article/details/80972817</a></p>
 <h3 id="Builder"><a href="#Builder" class="headerlink" title="@Builder"></a>@Builder</h3><p>lombok中的注解。<br>Builder 使用创建者模式又叫建造者模式。简单来说，就是一步步创建一个对象，它对用户屏蔽了里面构建的细节，但却可以精细地控制对象的构造过程。</p>
 <p>@Builder注解的作用主要是用来生成对象，并且可以为对象链式赋值。放在实体类上。<br>​@Builder​​注释为你的类生成相对略微复杂的构建器API。</p>
 <p>使用方式：</p>
@@ -649,6 +879,31 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//不需要加任何注解，也不需要对应的xml文件</span><br><span class="line">public interface UserMapper&#123;</span><br><span class="line">     @Select(&quot;select * from user&quot;)</span><br><span class="line">     List&lt;User&gt; getUserList(String userId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>参考：<a target="_blank" rel="noopener" href="http://www.mybatis.cn/archives/862.html">http://www.mybatis.cn/archives/862.html</a></p>
+<h3 id="PostConstruct"><a href="#PostConstruct" class="headerlink" title="@PostConstruct"></a>@PostConstruct</h3><p>@PostContruct是Java自带的注解，在方法上加该注解会在项目启动的时候执行该方法，也可以理解为在spring容器初始化的时候执行该方法。可作为一些数据的常规化加载，比如数据字典之类的。</p>
+<p>从Java EE5规范开始，Servlet中增加了两个影响Servlet生命周期的注解，@PostConstruct和@PreDestroy，这两个注解被用来修饰一个非静态的void（）方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@PostConstruct</span><br><span class="line">public void someMethod()&#123;&#125;</span><br><span class="line"></span><br><span class="line">public @PostConstruct void someMethod()&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行时机：在依赖注入完成后被自动调用。在服务器加载Servlet的时候运行，并且只会被服务器执行一次。PostConstruct在构造函数之后执行，init（）方法之前执行。<br>Constructor &gt;&gt; @Autowired &gt;&gt; @PostConstruct &gt;&gt; init &gt;&gt; service &gt;&gt; destroy &gt;&gt; PreDestroy</p>
+<p>该注解与BeanPostProcessor接口有关，它有个实现类CommonAnnotationBeanPostProcessor，就是专门处理@PostConstruct  @PreDestroy注解。</p>
+<hr>
+<p>InitialzingBean接口的afterPropertiesSet和配置bean时的init-method，也有类似功能。</p>
+<p>initMethod和InitializingBean是spring提供的两种对类的属性进行装配的方式。initMethod和InitializingBean指定方法的执行顺序在普通属性装配之后，initMethod指定的方法又在InitializingBean指定的方法之后执行。</p>
+<p>三者执行顺序：Construction &gt; 对象属性set() 方法-&gt; @PostConstruct -&gt; InitializingBean -&gt; initMethod</p>
+<p>总结：可不可以理解为@PostConstruct在初始化自己bean时，依赖注入其他属性bean后执行，而InitialzingBean接口又是在它后面。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/chinawangfei/article/details/122825129">https://blog.csdn.net/chinawangfei/article/details/122825129</a></p>
+<h3 id="Deprecated"><a href="#Deprecated" class="headerlink" title="@Deprecated"></a>@Deprecated</h3><p>@Deprecated是java内置注解，此注解可以用在方法，属性，类上，表示已废弃，不维护，可能会删除。<br>表示不推荐程序员使用，但是还可以使用。</p>
+<h3 id="Valid"><a href="#Valid" class="headerlink" title="@Valid"></a>@Valid</h3><p>用于对象属性字段的规则检测，为了避免使用冗余的代码进行if判断，使用@Valid注解实现。</p>
+<p>是Spring中的注解，需要引入依赖，如果是 springboot 项目，那么可以不用引入了，已经引入了，就存在于最核心的 web 开发包 spring-boot-starter-web 里面。</p>
+<p>如果不是，需要引入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;javax.validation&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;validation-api&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.1.0.Final&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"> </span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.hibernate&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;hibernate-validator&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;5.4.1.Final&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用方法：在被检验的实体类中，使用注解加一些限制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@NotBlank(message = &quot;请输入名称&quot;)</span><br><span class="line">@Length(message = &quot;名称不能超过个 &#123;max&#125; 字符&quot;, max = 10)</span><br><span class="line">public String name;</span><br><span class="line"> </span><br><span class="line">@NotNull(message = &quot;请输入年龄&quot;)</span><br><span class="line">@Range(message = &quot;年龄范围为 &#123;min&#125; 到 &#123;max&#125; 之间&quot;, min = 1, max = 100)</span><br><span class="line">public Integer age;</span><br><span class="line"></span><br><span class="line">@Email(message = &quot;邮箱不正确&quot;)</span><br><span class="line">@Min(value = 1000000)</span><br><span class="line"></span><br><span class="line">@NotEmpty(message=&quot;不能为空&quot;)</span><br><span class="line">@Size(message=&quot;最多5个&quot;, max=5)</span><br><span class="line">private List&lt;Intefer&gt; list;</span><br></pre></td></tr></table></figure>
+
+<p>在Controller的对应方法中，对传入参数加@Valid注解：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@PostMapping(&quot;/action/register&quot;)</span><br><span class="line">public Result registerByForm(@Valid @RequestBody RegisterUser registerUser)&#123;</span><br><span class="line">    return userService.register(registerUser);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43587472/article/details/110388778">https://blog.csdn.net/weixin_43587472/article/details/110388778</a></p>
 
       
     </div>
@@ -699,7 +954,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 21:41:28" itemprop="dateModified" datetime="2022-05-10T21:41:28+08:00">2022-05-10</time>
+                <time title="Modified: 2022-05-20 19:10:40" itemprop="dateModified" datetime="2022-05-20T19:10:40+08:00">2022-05-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -746,6 +1001,20 @@
 <p>这里主要是配置了 spring 的监听器 ContextLoaderListener ，它检查 contextConfigLocation 这个参数。如果它不存在的话，它将用 /WEB-INF/applicationContext.xml 作为默认的配置文件。如果 contextConfigLocation 存在的话，它将根据该参数的值查找配置文件的位置，来一一读取 spring 参数。</p>
 <p>contextConfigLocation 是被 spring 固定的，专门用来查  找配置文件位置的.</p>
 <p>参考：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/sole_ghost/article/details/1389664">https://blog.csdn.net/sole_ghost/article/details/1389664</a></p>
+<h3 id="ApplicationContext-getBean"><a href="#ApplicationContext-getBean" class="headerlink" title="ApplicationContext.getBean"></a>ApplicationContext.getBean</h3><p>目的：获取Spring容器中已初始化的bean</p>
+<p>第一种：getBean(String name)<br>参数name表示IOC容器中已经实例化的bean的id或者name,<br>在IOC容器中是唯一的不能重名。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span><br><span class="line">Person p = (Person) ctx.getBean(&quot;p&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>第二种：getBean(Class<T> type)<br>type表示要加载的Bean的类型。<br>如果该类型没有继承任何父类(Object类除外)和实现接口的话，那么要求该类型的bean在IOC容器中也必须是唯一的.(比如定义同一类的两个bean，但是property注入的属性不一样)<br>不需要类型转换。</T></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span><br><span class="line">Person p = ctx.getBean(Person.class);</span><br></pre></td></tr></table></figure>
+
+<p>第三种：getBean(String name,Class<T> type)<br>这种方式比较适合接口/抽象类，有不同实现类或子类时，type写接口或父类，name写bean name。</T></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person p = ctx.getBean(&quot;person&quot;,BasePerson.class);</span><br></pre></td></tr></table></figure>
+
+<p>第四种： getBean(String name,Object[] args)<br>第二个参数Object[] args可以给bean的属性赋值，赋值的方式有两种：构造方法和工厂方法。但是通过这种方式获取的bean必须把scope属性设置为prototype，也就是非单例模式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">1.构造方法方式：</span><br><span class="line">&lt;bean name=&quot;p3&quot; class=&quot;com.bean.Person&quot; scope=&quot;prototype&quot;/&gt;</span><br><span class="line"></span><br><span class="line">Person p = (Person) ctx.getBean(&quot;p3&quot;,new Object[]&#123;&quot;王五&quot;,35&#125;);</span><br><span class="line"></span><br><span class="line">2.工厂注入方式：</span><br><span class="line">工厂类：</span><br><span class="line">public class PersonFactory &#123;</span><br><span class="line">//静态工厂注入</span><br><span class="line">public static Person getPersonInstance(String name,int age)throws Exception</span><br><span class="line">&#123;</span><br><span class="line">  Person p = (Person)Class.forName(&quot;com.bean.Person&quot;).newInstance();</span><br><span class="line">   Method m = p.getClass().getMethod(&quot;setName&quot;, java.lang.String.class);</span><br><span class="line">   m.invoke(p, name);</span><br><span class="line">   m = p.getClass().getMethod(&quot;setAge&quot;, int.class);</span><br><span class="line">   m.invoke(p, age);</span><br><span class="line">   return p;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">配置bean：</span><br><span class="line">&lt;bean name=&quot;p3&quot; class=&quot;com.factory.PersonFactory&quot; factory-method=&quot;getPersonInstance&quot; scope=&quot;prototype&quot;&gt;</span><br><span class="line">&lt;constructor-arg name=&quot;name&quot;&gt;</span><br><span class="line">&lt;null/&gt;</span><br><span class="line">&lt;/constructor-arg&gt;</span><br><span class="line">&lt;constructor-arg name=&quot;age&quot; value=&quot;0&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">Person p = (Person) ctx.getBean(&quot;p3&quot;,new Object[]&#123;&quot;王五&quot;,35&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_23927391/article/details/80625578">https://blog.csdn.net/qq_23927391/article/details/80625578</a></p>
 
       
     </div>
@@ -908,7 +1177,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 21:41:40" itemprop="dateModified" datetime="2022-05-10T21:41:40+08:00">2022-05-10</time>
+                <time title="Modified: 2022-05-20 23:23:55" itemprop="dateModified" datetime="2022-05-20T23:23:55+08:00">2022-05-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -966,7 +1235,9 @@
 <p>当一个类实现了这个接口之后，这个类就可以方便的获得ApplicationContext对象（spring上下文），Spring发现某个Bean实现了ApplicationContextAware接口，Spring容器会在创建该Bean之后，自动调用该Bean的setApplicationContext（参数）方法，调用该方法时，会将容器本身ApplicationContext对象作为参数传递给该方法。</p>
 <p>❤️之前获取ApplicationContext需要加载配置文件从而创建应用上下文，但是实现了ApplicationContextAware接口，spring自动将容器本身ApplicationContext对象传递给其中的方法setApplicationContext。实现它的类，可以在类中创建私有的ApplicationContext变量，在setApplicationContext中this. = 进行传递。</p>
 <h3 id="InitialzingBean接口"><a href="#InitialzingBean接口" class="headerlink" title="InitialzingBean接口"></a>InitialzingBean接口</h3><p>当一个类实现这个接口之后，Spring启动后，初始化Bean时，若该Bean实现InitialzingBean接口，会自动调用afterPropertiesSet()方法，完成一些用户自定义的初始化操作。</p>
-<p>同样配置Bean的时候使用init-method也可以实现类似的操作。</p>
+<p>同样配置Bean的时候使用init-method也可以实现类似的操作。（不需要实现InitialzingBean接口）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void afterPropertiesSet() throws Exception &#123;&#125;</span><br><span class="line"></span><br><span class="line">&lt;bean id = &quot;springBeanInit02&quot; class = &quot;com.lyj.studySpringBoot.init.SpringBeanInit&quot; init-method=&quot;testInit&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;id&quot; value=&quot;#&#123;1111111&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;name&quot; value=&quot;$&#123;test.springEL&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;age&quot; value=&quot;#&#123;10+8&#125;&quot; /&gt; // SpringEL表达式</span><br><span class="line">	&lt;property name=&quot;sex&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">系统是先调用afterPropertiesSet方法，然后在调用init-method中指定的方法。</span><br></pre></td></tr></table></figure>
+
 <p>Spring是通过反射来调用init-method指定方法，而实现InitializingBean接口是直接调用afterPropertiesSet方法，所以后者效率高，但使用init-method方式减少了对Spring的依赖。</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40093255/article/details/117318760">https://blog.csdn.net/qq_40093255/article/details/117318760</a></p>
 <h3 id="MethodInterceptor接口-拦截器"><a href="#MethodInterceptor接口-拦截器" class="headerlink" title="MethodInterceptor接口-拦截器"></a>MethodInterceptor接口-拦截器</h3><p>org.aopalliance.intercept中<br>MethodInterceptor接口继承了Interceptor接口，Intercepto接口又继承了Advice接口，因此我个将这拦截器称为一个通知。</p>
@@ -1155,240 +1426,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/13/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/redis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/13/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/redis/" class="post-title-link" itemprop="url">redis</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-04-13 21:58:17" itemprop="dateCreated datePublished" datetime="2022-04-13T21:58:17+08:00">2022-04-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-14 15:47:52" itemprop="dateModified" datetime="2022-05-14T15:47:52+08:00">2022-05-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h4><p>redis：内存存储（速度快）、远程操作（可以与多个客户端连接）、持久化（服务器重启可保持重启前的数据）、可扩展（主从复制、分片）</p>
-<h4 id="mac安装redis"><a href="#mac安装redis" class="headerlink" title="mac安装redis"></a>mac安装redis</h4><p>✅brew install redis 安装<br>✅brew info redis 查看安装路径<br>✅启动redis：<br>方式一：使用brew启动 brew services start redis<br>方式二：进入redis的bin目录，输入redis-server<br>✅关闭redis服务<br>方式一：redis-cli SHUTDOWN<br>方式二：redis-cli进入再输入SHUTDOWN<br>✅查看redis是否在运行：ps axu|grep redis<br>✅客户端连接redis：redis-cli -h 127.0.0.1 -p 6379<br>连接后执行ping命令，检测redis服务是否启动<br>✅redis.conf配置文件说明：<br>redis默认是前台启动，如果相以守护进程（后台方式）运行，可以在配置文件中将daemonize no修改为yes。</p>
-<blockquote>
-<p>守护进程（后台进程）与前台进程：<br>前台进程是在终端中运行的，终端关闭进程也就消失。<br>守护进程是运行在后台的一种特殊进程，不受终端控制，也不需要终端的交互。<br>Linux中大多数服务器是用守护进程实现的，比如web服务器http等。</p>
-</blockquote>
-<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><p>keys * 查看所有key的内容<br>exits key  查看key是否存在<br>set key value  设置key的内容<br>get key  获取key的内容<br>flushdb  删除当前数据库中所有key<br>flushall  删除所有数据库中key</p>
-<p>服务器相关命令：<br>ping  测试连接是否存活，返回pong代表有响应<br>echo  输出信息<br>select num  选择数据库，0-15<br>quit  退出连接<br>dbsize  返回当前数据库中key的数量<br>info  获取服务的相关信息</p>
-<h4 id="redis数据结构"><a href="#redis数据结构" class="headerlink" title="redis数据结构"></a>redis数据结构</h4><p>string：可存储字符串、整数、浮点数<br>list：一个链表，每个节点包含一个字符串<br>set：包含字符串的无序收集容器<br>hash：包含键值的无序散列表<br>zset：有序集合，元素排列顺序由分值大小决定</p>
-<h4 id="redis-hset"><a href="#redis-hset" class="headerlink" title="redis hset"></a>redis hset</h4><p>Redis Hset 命令用于为哈希表中的字段赋值 。<br>如果哈希表不存在，一个新的哈希表被创建并进行 HSET 操作。<br>如果字段已经存在于哈希表中，旧值将被覆盖。<br>hset myhashset key value</p>
-<h4 id="redis-list相关"><a href="#redis-list相关" class="headerlink" title="redis list相关"></a>redis list相关</h4><p>往list的右边加一个值<br>rpush mylist value<br>如果列表不存在则新建，如果key不是列表类型，返回错误。<br>lrange mylist  从左边一个一个遍历展示<br>llen mylist 返回长度</p>
-<h4 id="noauth-authentication-required"><a href="#noauth-authentication-required" class="headerlink" title="noauth authentication required"></a>noauth authentication required</h4><p>认证问题，需要输入密码<br>auth “password“</p>
-<h4 id="keys命令模糊查询"><a href="#keys命令模糊查询" class="headerlink" title="keys命令模糊查询"></a>keys命令模糊查询</h4><p><code>*通配符：keys *hh*</code><br><code>?单个通配符：keys hel？？</code>  忘了最后两个字母<br><code>[]通配符：keys hell[opt]</code>  最后一个字母可能是o p t中的一个</p>
-<h4 id="redis-setex命令"><a href="#redis-setex命令" class="headerlink" title="redis setex命令"></a>redis setex命令</h4><p>为指定的key设置值及其过期时间，如果已存在，则替换<br>setex key 10 value   //10s后过期<br>ttl key  //还有多少时间过期</p>
-<h4 id="misconf-redis-is-configured-to-save-RDB"><a href="#misconf-redis-is-configured-to-save-RDB" class="headerlink" title="misconf redis is configured to save RDB"></a>misconf redis is configured to save RDB</h4><p>error原因：强制关闭redis快照导致不能持久化<br>解决：config set stop-writes-on-bgsave-error no</p>
-<h4 id="Jedis和redisTemplate"><a href="#Jedis和redisTemplate" class="headerlink" title="Jedis和redisTemplate"></a>Jedis和redisTemplate</h4><p>Jedis是Redis官方推荐的面向Java的操作Redis的客户端，而RedisTemplate是SpringDataRedis中对JedisApi的高度封装。</p>
-<p>SpringDataRedis相对于Jedis来说可以方便地更换Redis的Java客户端，比Jedis多了自动管理连接池的特性，方便与其他Spring框架进行搭配使用如：SpringCache</p>
-<p>jedis连接：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        //连接本地的 Redis 服务</span><br><span class="line">        Jedis jedis = new Jedis(&quot;localhost&quot;);</span><br><span class="line">        System.out.println(&quot;连接成功&quot;);</span><br><span class="line">        //查看服务是否运行</span><br><span class="line">        System.out.println(&quot;服务正在运行: &quot;+jedis.ping());</span><br><span class="line">        long time=0;</span><br><span class="line">        long TestNum=100;</span><br><span class="line">        for(int i=0;i&lt;TestNum;i++)&#123;</span><br><span class="line">            long timeS=System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">            jedis.set(&quot;jedis-s&quot;+i,&quot;jedis&quot;+i);</span><br><span class="line">            long timeE=System.currentTimeMillis();</span><br><span class="line">            time+=timeE-timeS;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.print(&quot;总时间：&quot;+time);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>redisTemplate连接：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="line">@SpringBootTest(classes = ServiceApplication.class)</span><br><span class="line">public class RedisTemplateTest &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    private RedisUtils redisUtils;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void T()&#123;</span><br><span class="line">        long time=0;</span><br><span class="line">        long TestNum=100;</span><br><span class="line">        for(int i=0;i&lt;TestNum;i++)&#123;</span><br><span class="line">            long timeS=System.currentTimeMillis();</span><br><span class="line">            redisUtils.set(&quot;RedisTemplateTest&quot;,&quot;redi&quot;+i);</span><br><span class="line">            long timeE=System.currentTimeMillis();</span><br><span class="line">            time+=timeE-timeS;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;总时间：&quot;+time);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37208934/article/details/95201211">https://blog.csdn.net/qq_37208934/article/details/95201211</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/09/myblog/spring/spring-aop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/09/myblog/spring/spring-aop/" class="post-title-link" itemprop="url">spring aop总结</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-04-09 11:56:23" itemprop="dateCreated datePublished" datetime="2022-04-09T11:56:23+08:00">2022-04-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 21:40:46" itemprop="dateModified" datetime="2022-05-10T21:40:46+08:00">2022-05-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>工作中遇到个aop的问题，jdk代理换cglib代理还不过来，以及jdk代理存在的一个问题。总结并实战一下。</p>
-<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h4 id="aop相关术语"><a href="#aop相关术语" class="headerlink" title="aop相关术语"></a>aop相关术语</h4><ul>
-<li>Target：代理的目标对象</li>
-<li>Proxy：代理对象</li>
-<li>Joinpoint：连接点，指那些被拦截到的点。在Spring中，这些点指方法，因为Spring只支持方法类型的连接点（可以被增强的方法）</li>
-<li>Pointcut：切入点是指我们要对哪些Joinpoint进行拦截的定义</li>
-<li>Advice：（通知/增强）是指拦截到Joinpoint之后要做的事情就是通知</li>
-<li>Aspect：切面是切入点和通知（增强）的结合</li>
-<li>Weaving：织入实质把将切点和增强结合的过程是织入过程，Spring是动态代理织入，AspectJ是采用编译期织入和类装载期织入</li>
-</ul>
-<p>*连接点是可以被增强的方法，切点是实际上被增强过的方法，连接点范围更大</p>
-<h4 id="aop开发过程"><a href="#aop开发过程" class="headerlink" title="aop开发过程"></a>aop开发过程</h4><ol>
-<li><p>编写核心业务代码（Target的目标方法-切点）</p>
-</li>
-<li><p>编写切面类，切面类中有通知（增强功能方法）</p>
-</li>
-<li><p>在配置文件/注解当中，配置织入关系，即将那些通知与哪些连接点进行结合</p>
-</li>
-</ol>
-<p>AOP技术实现的内容：<br>Spring框架会监控切入点方法的执行–通过配置文件决定哪些方法是切点；一旦监控到切入点方法被运行，即使用代理机制，动态创建目标对象（切点）的代理对象。然后根据配置文件配置的增强类型（通知），在代理对象（切点）对应的位置，将通知对应的功能织入，完成完整的代码逻辑运行。<br>配置文件-执行切点方法-监控到并动态创建代理对象，调用代理对象同名方法-内部调用目标方法，进行增强方法的介入。</p>
-<p>AOP底层使用哪种代理方式：<br>Spring会根据目标类是否实现了接口来决定采用哪种动态代理。</p>
-<h3 id="实践-配置文件"><a href="#实践-配置文件" class="headerlink" title="实践-配置文件"></a>实践-配置文件</h3><p>新建个spring项目</p>
-<ol>
-<li><p>导入相关依赖：spring-context、spring-core、spring-beans，还有切面的包 Aspectjweaver</p>
-</li>
-<li><p>新建service接口，新建实现类Impl</p>
-</li>
-<li><p>新建切面类，定义切面方法</p>
-</li>
-<li><p>编写配置文件</p>
-</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 开启注解扫描  --&gt;</span><br><span class="line">&lt;context:component-scan base-package=&quot;com.aop.demo&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;aop:config proxy-target-class=&quot;false&quot;&gt;</span><br><span class="line">    &lt;aop:pointcut id=&quot;userServiceImplPointcut&quot; expression=&quot;execution(* com.aop.demo.UserServiceImpl.addUser(..))&quot; /&gt;</span><br><span class="line">    &lt;aop:aspect id=&quot;aopClass&quot; ref=&quot;aopMethods&quot;&gt;</span><br><span class="line">        &lt;aop:before method=&quot;before&quot; pointcut-ref=&quot;userServiceImplPointcut&quot; /&gt;</span><br><span class="line">        &lt;aop:after method=&quot;after&quot; pointcut-ref=&quot;userServiceImplPointcut&quot; /&gt;</span><br><span class="line">    &lt;/aop:aspect&gt;</span><br><span class="line">&lt;/aop:config&gt;</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>测试方法<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class AopTest &#123;</span><br><span class="line">    @Test</span><br><span class="line">    public void testUserServiceAop()&#123;</span><br><span class="line">        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;spring-aop.xml&quot;);</span><br><span class="line">        // proxy-target-class=&quot;false&quot; 时，使用jdk代理</span><br><span class="line">        // 强制转换必须用父类接口来定义</span><br><span class="line">        UserService userService = (UserService)context.getBean(&quot;userServiceImpl&quot;);</span><br><span class="line">        userService.addUser();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>⚠️ proxy-target-class=”false” 或默认表示使用jdk代理，获取对象需要用父类接口，用实现类会报<code>java.lang.ClassCastException: com.sun.proxy.$Proxy* cannot be cast to***</code> 的错误。</p>
-<p>⚠️ proxy-target-class=”true”时，使用cglib代理，使用父类接口也可以，使用实现类定义对象也可以。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//UserService userService = (UserService)context.getBean(&quot;userServiceImpl&quot;);</span><br><span class="line">UserServiceImpl userService = (UserServiceImpl)context.getBean(&quot;userServiceImpl&quot;);</span><br><span class="line">userService.addUser();</span><br></pre></td></tr></table></figure>
-
-<p>⚠️ 另外，还有个现象是在jdk代理时存在的bug：<br>原本的： <code>UserService userService = (UserService)context.getBean(&quot;userServiceImpl&quot;);</code> 可以获得bean，没问题。<br>但是： <code>UserService userService = (UserService)context.getBean(UserServiceImpl.class);</code>  通过类的全路径获得bean就会出现<code>No qualifying bean of type</code> 的问题。<br>总结：jdk代理方式不用实现类，所以也不会用实现类的bean，即使配了实现类的bean，也不行。</p>
-<p>原因：spring aop默认是使用jdk动态代理的，也就是我通过getBean(ServiceImpl.class)，表达出的意思是希望程序通过jdk动态代理给我一个ServiceImpl类。而jdk的动态代理是基于接口实现的，因为它本身要继承一个Proxy类，而java是单继承（接口可以多继承），所以它通过实现接口进行代理。它通过实现我们给它的接口和继承Proxy类实现jdk动态代理。而我们给它的是一个ServiceImpl类，这个时候jdk动态代理就没有办法了。<br>jdk动态代理产生的对象属于Proxy类型，属于给定的接口（Service）类型，但不属于我们要代理的那个对象的类型，也就是本代码中ServiceImpl类型<br>因此，使用接口的类路径：<code>UserService userService = (UserService)context.getBean(UserService.class);</code> 也是可以的。这也解释了工作中遇到的问题。<br>但是，换成cglib，实现类/父类接口，获取bean的方式：id/类路径，都可以，没解释工作中为什么不能直接换成cglib的问题。</p>
-<p>总结：<br>jdk代理：必须父类接口获得bean，括号内可以是实现类的bean id，也可以是父类接口的全路径。<br>cglib代理：怎么都行。</p>
-<h3 id="实践-注解"><a href="#实践-注解" class="headerlink" title="实践-注解"></a>实践-注解</h3><ol>
-<li><p>使用@Aspect注解，出了aspectweaver包之外，还需要aspectjrt包</p>
-</li>
-<li><p>新建service接口，新建实现类Impl</p>
-</li>
-<li><p>新建切面类，定义切面方法</p>
-</li>
-<li><p>编写配置类</p>
-</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@ComponentScan(basePackages = &#123;&quot;com.aop.demo.zhujie&quot;&#125;)</span><br><span class="line">@EnableAspectJAutoProxy(proxyTargetClass = false)</span><br><span class="line">public class SpringCfg &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>测试</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext context = new AnnotationConfigApplicationContext(SpringCfg.class);  //加载配置类</span><br></pre></td></tr></table></figure>
-
-<p>效果和配置文件一样。</p>
-<p>参考：<br>知识点：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Zhang-DevelopingPlatform/p/14723490.html">https://www.cnblogs.com/Zhang-DevelopingPlatform/p/14723490.html</a></p>
-<p>jdk代理找不到bean：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32080243/article/details/90261768">https://blog.csdn.net/qq_32080243/article/details/90261768</a></p>
-<p>cglib实现：<a target="_blank" rel="noopener" href="https://blog.csdn.net/shaoweijava/article/details/76474652">https://blog.csdn.net/shaoweijava/article/details/76474652</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1459,7 +1496,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">77</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

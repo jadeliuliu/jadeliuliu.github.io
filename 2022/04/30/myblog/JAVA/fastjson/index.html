@@ -28,7 +28,7 @@
 <meta property="og:description" content="fastjson是阿里出品的处理JSON字符串的Java类库，可以对JSON字符串、JSON对象、Java对象进行互相转换。需要导入fastjson包。 String、JSONObject、Object转换一、字符串转成JSON对象&#x2F;数组字符串转成JSON对象JSON.parseObject(String text)JSON.parse(String text) 字符串转成JSON数组JSON.p">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-30T01:44:44.290Z">
-<meta property="article:modified_time" content="2022-04-30T05:54:30.633Z">
+<meta property="article:modified_time" content="2022-05-21T03:43:31.171Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -211,10 +211,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-04-30 09:44:44 / Modified: 13:54:30" itemprop="dateCreated datePublished" datetime="2022-04-30T09:44:44+08:00">2022-04-30</time>
+              <time title="Created: 2022-04-30 09:44:44" itemprop="dateCreated datePublished" datetime="2022-04-30T09:44:44+08:00">2022-04-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-21 11:43:31" itemprop="dateModified" datetime="2022-05-21T11:43:31+08:00">2022-05-21</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -258,6 +264,9 @@
 <h3 id="json文件中获取"><a href="#json文件中获取" class="headerlink" title="json文件中获取"></a>json文件中获取</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class JsonTest &#123;</span><br><span class="line">    @Test</span><br><span class="line">    public void TestJ()&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            File jsonFile = ResourceUtils.getFile(&quot;classpath:hello.json&quot;);</span><br><span class="line">            String s = FileUtils.readFileToString(jsonFile);</span><br><span class="line">            System.out.println(&quot;s:&quot;+s);</span><br><span class="line">        &#125; catch(Exception e) &#123;</span><br><span class="line">            System.out.println(&quot;error:&quot;+e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>FileUtils 需要导包：commons-io。<br>classpath表示项目中的resource文件夹。</p>
+<h3 id="JSONObject"><a href="#JSONObject" class="headerlink" title="JSONObject"></a>JSONObject</h3><p>也是fastjson下的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JSONObject json = new JSONObject();</span><br><span class="line">json.put(&quot;key&quot;,&quot;value&quot;);</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -341,7 +350,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E3%80%81JSONObject%E3%80%81Object%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">String、JSONObject、Object转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json%E6%96%87%E4%BB%B6%E4%B8%AD%E8%8E%B7%E5%8F%96"><span class="nav-number">2.</span> <span class="nav-text">json文件中获取</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E3%80%81JSONObject%E3%80%81Object%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">String、JSONObject、Object转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json%E6%96%87%E4%BB%B6%E4%B8%AD%E8%8E%B7%E5%8F%96"><span class="nav-number">2.</span> <span class="nav-text">json文件中获取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSONObject"><span class="nav-number">3.</span> <span class="nav-text">JSONObject</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -356,7 +365,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">77</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

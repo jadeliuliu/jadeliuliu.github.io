@@ -183,6 +183,250 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/13/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/13/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/redis/" class="post-title-link" itemprop="url">redis</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-13 21:58:17" itemprop="dateCreated datePublished" datetime="2022-04-13T21:58:17+08:00">2022-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-21 17:05:59" itemprop="dateModified" datetime="2022-05-21T17:05:59+08:00">2022-05-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h4><p>redis：内存存储（速度快）、远程操作（可以与多个客户端连接）、持久化（服务器重启可保持重启前的数据）、可扩展（主从复制、分片）</p>
+<h4 id="mac安装redis"><a href="#mac安装redis" class="headerlink" title="mac安装redis"></a>mac安装redis</h4><p>✅brew install redis 安装<br>✅brew info redis 查看安装路径<br>✅启动redis：<br>方式一：使用brew启动 brew services start redis<br>方式二：进入redis的bin目录，输入redis-server<br>✅关闭redis服务<br>方式一：redis-cli SHUTDOWN<br>方式二：redis-cli进入再输入SHUTDOWN<br>✅查看redis是否在运行：ps axu|grep redis<br>✅客户端连接redis：redis-cli -h 127.0.0.1 -p 6379<br>连接后执行ping命令，检测redis服务是否启动<br>✅redis.conf配置文件说明：<br>redis默认是前台启动，如果相以守护进程（后台方式）运行，可以在配置文件中将daemonize no修改为yes。</p>
+<blockquote>
+<p>守护进程（后台进程）与前台进程：<br>前台进程是在终端中运行的，终端关闭进程也就消失。<br>守护进程是运行在后台的一种特殊进程，不受终端控制，也不需要终端的交互。<br>Linux中大多数服务器是用守护进程实现的，比如web服务器http等。</p>
+</blockquote>
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><p>keys * 查看所有key的内容<br>exits key  查看key是否存在<br>set key value  设置key的内容<br>get key  获取key的内容<br>flushdb  删除当前数据库中所有key<br>flushall  删除所有数据库中key</p>
+<p>服务器相关命令：<br>ping  测试连接是否存活，返回pong代表有响应<br>echo  输出信息<br>select num  选择数据库，0-15<br>quit  退出连接<br>dbsize  返回当前数据库中key的数量<br>info  获取服务的相关信息</p>
+<h4 id="redis数据结构"><a href="#redis数据结构" class="headerlink" title="redis数据结构"></a>redis数据结构</h4><p>string：可存储字符串、整数、浮点数<br>list：一个链表，每个节点包含一个字符串<br>set：包含字符串的无序收集容器<br>hash：包含键值的无序散列表<br>zset：有序集合，元素排列顺序由分值大小决定</p>
+<h4 id="redis-hset"><a href="#redis-hset" class="headerlink" title="redis hset"></a>redis hset</h4><p>Redis Hset 命令用于为哈希表中的字段赋值 。<br>如果哈希表不存在，一个新的哈希表被创建并进行 HSET 操作。<br>如果字段已经存在于哈希表中，旧值将被覆盖。<br>hset myhashset key value</p>
+<h4 id="redis-list相关"><a href="#redis-list相关" class="headerlink" title="redis list相关"></a>redis list相关</h4><p>往list的右边加一个值<br>rpush mylist value<br>如果列表不存在则新建，如果key不是列表类型，返回错误。<br>lrange mylist  从左边一个一个遍历展示<br>llen mylist 返回长度</p>
+<h4 id="noauth-authentication-required"><a href="#noauth-authentication-required" class="headerlink" title="noauth authentication required"></a>noauth authentication required</h4><p>认证问题，需要输入密码<br>auth “password“</p>
+<h4 id="keys命令模糊查询"><a href="#keys命令模糊查询" class="headerlink" title="keys命令模糊查询"></a>keys命令模糊查询</h4><p><code>*通配符：keys *hh*</code><br><code>?单个通配符：keys hel？？</code>  忘了最后两个字母<br><code>[]通配符：keys hell[opt]</code>  最后一个字母可能是o p t中的一个</p>
+<h4 id="redis-setex命令"><a href="#redis-setex命令" class="headerlink" title="redis setex命令"></a>redis setex命令</h4><p>为指定的key设置值及其过期时间，如果已存在，则替换<br>setex key 10 value   //10s后过期<br>ttl key  //还有多少时间过期</p>
+<h4 id="misconf-redis-is-configured-to-save-RDB"><a href="#misconf-redis-is-configured-to-save-RDB" class="headerlink" title="misconf redis is configured to save RDB"></a>misconf redis is configured to save RDB</h4><p>error原因：强制关闭redis快照导致不能持久化<br>解决：config set stop-writes-on-bgsave-error no</p>
+<h4 id="Jedis和redisTemplate"><a href="#Jedis和redisTemplate" class="headerlink" title="Jedis和redisTemplate"></a>Jedis和redisTemplate</h4><p>Jedis是Redis官方推荐的面向Java的操作Redis的客户端，而RedisTemplate是SpringDataRedis中对JedisApi的高度封装。</p>
+<p>SpringDataRedis相对于Jedis来说可以方便地更换Redis的Java客户端，比Jedis多了自动管理连接池的特性，方便与其他Spring框架进行搭配使用如：SpringCache</p>
+<p>jedis连接：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        //连接本地的 Redis 服务</span><br><span class="line">        Jedis jedis = new Jedis(&quot;localhost&quot;);</span><br><span class="line">        System.out.println(&quot;连接成功&quot;);</span><br><span class="line">        //查看服务是否运行</span><br><span class="line">        System.out.println(&quot;服务正在运行: &quot;+jedis.ping());</span><br><span class="line">        long time=0;</span><br><span class="line">        long TestNum=100;</span><br><span class="line">        for(int i=0;i&lt;TestNum;i++)&#123;</span><br><span class="line">            long timeS=System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">            jedis.set(&quot;jedis-s&quot;+i,&quot;jedis&quot;+i);</span><br><span class="line">            long timeE=System.currentTimeMillis();</span><br><span class="line">            time+=timeE-timeS;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.print(&quot;总时间：&quot;+time);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>redisTemplate连接：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="line">@SpringBootTest(classes = ServiceApplication.class)</span><br><span class="line">public class RedisTemplateTest &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    private RedisUtils redisUtils;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void T()&#123;</span><br><span class="line">        long time=0;</span><br><span class="line">        long TestNum=100;</span><br><span class="line">        for(int i=0;i&lt;TestNum;i++)&#123;</span><br><span class="line">            long timeS=System.currentTimeMillis();</span><br><span class="line">            redisUtils.set(&quot;RedisTemplateTest&quot;,&quot;redi&quot;+i);</span><br><span class="line">            long timeE=System.currentTimeMillis();</span><br><span class="line">            time+=timeE-timeS;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;总时间：&quot;+time);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37208934/article/details/95201211">https://blog.csdn.net/qq_37208934/article/details/95201211</a></p>
+<h4 id="redisTemplate-opsForHash"><a href="#redisTemplate-opsForHash" class="headerlink" title="redisTemplate.opsForHash()"></a>redisTemplate.opsForHash()</h4><p>Redis hash 是一个string类型的field和value的映射表，hash特别适合用于存储对象。<br>Redis 中每个 hash 可以存储 2^32 - 1 键值对（40多亿）。</p>
+<p>存入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Map以map集合的形式添加键值对</span><br><span class="line">&lt;String, String&gt; maps = new HashMap();</span><br><span class="line">maps.put(&quot;1&quot;,&quot;星期一&quot;);</span><br><span class="line">maps.put(&quot;2&quot;,&quot;星期二&quot;);</span><br><span class="line">maps.put(&quot;3&quot;,&quot;星期三&quot;);</span><br><span class="line">maps.put(&quot;4&quot;,&quot;星期四&quot;);</span><br><span class="line">redisTemplate.opsForHash().putAll(&quot;day:week&quot;, maps);</span><br><span class="line"></span><br><span class="line">也可以单个存入：</span><br><span class="line">.put(H key, HK hashKey, HV value)</span><br></pre></td></tr></table></figure>
+
+<p>获取：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Object, Object&gt; entries = redisTemplate.opsForHash().entries(&quot;day:week&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>更多方法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43167662/article/details/123232840">https://blog.csdn.net/weixin_43167662/article/details/123232840</a></p>
+<h4 id="redisTemplate-opsForGeo"><a href="#redisTemplate-opsForGeo" class="headerlink" title="redisTemplate.opsForGeo()"></a>redisTemplate.opsForGeo()</h4><p>redis关于geo位置计算的api。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">private RedisTemplate&lt;String, Object&gt; redisTemplate;</span><br><span class="line">redisTemplate.opsForGeo().add(key, new Point(x,y), msg);</span><br><span class="line">// key和msg为字符串，Point是springframework.data.geo下的</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/09/myblog/spring/spring-aop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/09/myblog/spring/spring-aop/" class="post-title-link" itemprop="url">spring aop总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-09 11:56:23" itemprop="dateCreated datePublished" datetime="2022-04-09T11:56:23+08:00">2022-04-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-10 21:40:46" itemprop="dateModified" datetime="2022-05-10T21:40:46+08:00">2022-05-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>工作中遇到个aop的问题，jdk代理换cglib代理还不过来，以及jdk代理存在的一个问题。总结并实战一下。</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h4 id="aop相关术语"><a href="#aop相关术语" class="headerlink" title="aop相关术语"></a>aop相关术语</h4><ul>
+<li>Target：代理的目标对象</li>
+<li>Proxy：代理对象</li>
+<li>Joinpoint：连接点，指那些被拦截到的点。在Spring中，这些点指方法，因为Spring只支持方法类型的连接点（可以被增强的方法）</li>
+<li>Pointcut：切入点是指我们要对哪些Joinpoint进行拦截的定义</li>
+<li>Advice：（通知/增强）是指拦截到Joinpoint之后要做的事情就是通知</li>
+<li>Aspect：切面是切入点和通知（增强）的结合</li>
+<li>Weaving：织入实质把将切点和增强结合的过程是织入过程，Spring是动态代理织入，AspectJ是采用编译期织入和类装载期织入</li>
+</ul>
+<p>*连接点是可以被增强的方法，切点是实际上被增强过的方法，连接点范围更大</p>
+<h4 id="aop开发过程"><a href="#aop开发过程" class="headerlink" title="aop开发过程"></a>aop开发过程</h4><ol>
+<li><p>编写核心业务代码（Target的目标方法-切点）</p>
+</li>
+<li><p>编写切面类，切面类中有通知（增强功能方法）</p>
+</li>
+<li><p>在配置文件/注解当中，配置织入关系，即将那些通知与哪些连接点进行结合</p>
+</li>
+</ol>
+<p>AOP技术实现的内容：<br>Spring框架会监控切入点方法的执行–通过配置文件决定哪些方法是切点；一旦监控到切入点方法被运行，即使用代理机制，动态创建目标对象（切点）的代理对象。然后根据配置文件配置的增强类型（通知），在代理对象（切点）对应的位置，将通知对应的功能织入，完成完整的代码逻辑运行。<br>配置文件-执行切点方法-监控到并动态创建代理对象，调用代理对象同名方法-内部调用目标方法，进行增强方法的介入。</p>
+<p>AOP底层使用哪种代理方式：<br>Spring会根据目标类是否实现了接口来决定采用哪种动态代理。</p>
+<h3 id="实践-配置文件"><a href="#实践-配置文件" class="headerlink" title="实践-配置文件"></a>实践-配置文件</h3><p>新建个spring项目</p>
+<ol>
+<li><p>导入相关依赖：spring-context、spring-core、spring-beans，还有切面的包 Aspectjweaver</p>
+</li>
+<li><p>新建service接口，新建实现类Impl</p>
+</li>
+<li><p>新建切面类，定义切面方法</p>
+</li>
+<li><p>编写配置文件</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 开启注解扫描  --&gt;</span><br><span class="line">&lt;context:component-scan base-package=&quot;com.aop.demo&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;aop:config proxy-target-class=&quot;false&quot;&gt;</span><br><span class="line">    &lt;aop:pointcut id=&quot;userServiceImplPointcut&quot; expression=&quot;execution(* com.aop.demo.UserServiceImpl.addUser(..))&quot; /&gt;</span><br><span class="line">    &lt;aop:aspect id=&quot;aopClass&quot; ref=&quot;aopMethods&quot;&gt;</span><br><span class="line">        &lt;aop:before method=&quot;before&quot; pointcut-ref=&quot;userServiceImplPointcut&quot; /&gt;</span><br><span class="line">        &lt;aop:after method=&quot;after&quot; pointcut-ref=&quot;userServiceImplPointcut&quot; /&gt;</span><br><span class="line">    &lt;/aop:aspect&gt;</span><br><span class="line">&lt;/aop:config&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>测试方法<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class AopTest &#123;</span><br><span class="line">    @Test</span><br><span class="line">    public void testUserServiceAop()&#123;</span><br><span class="line">        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;spring-aop.xml&quot;);</span><br><span class="line">        // proxy-target-class=&quot;false&quot; 时，使用jdk代理</span><br><span class="line">        // 强制转换必须用父类接口来定义</span><br><span class="line">        UserService userService = (UserService)context.getBean(&quot;userServiceImpl&quot;);</span><br><span class="line">        userService.addUser();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>⚠️ proxy-target-class=”false” 或默认表示使用jdk代理，获取对象需要用父类接口，用实现类会报<code>java.lang.ClassCastException: com.sun.proxy.$Proxy* cannot be cast to***</code> 的错误。</p>
+<p>⚠️ proxy-target-class=”true”时，使用cglib代理，使用父类接口也可以，使用实现类定义对象也可以。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//UserService userService = (UserService)context.getBean(&quot;userServiceImpl&quot;);</span><br><span class="line">UserServiceImpl userService = (UserServiceImpl)context.getBean(&quot;userServiceImpl&quot;);</span><br><span class="line">userService.addUser();</span><br></pre></td></tr></table></figure>
+
+<p>⚠️ 另外，还有个现象是在jdk代理时存在的bug：<br>原本的： <code>UserService userService = (UserService)context.getBean(&quot;userServiceImpl&quot;);</code> 可以获得bean，没问题。<br>但是： <code>UserService userService = (UserService)context.getBean(UserServiceImpl.class);</code>  通过类的全路径获得bean就会出现<code>No qualifying bean of type</code> 的问题。<br>总结：jdk代理方式不用实现类，所以也不会用实现类的bean，即使配了实现类的bean，也不行。</p>
+<p>原因：spring aop默认是使用jdk动态代理的，也就是我通过getBean(ServiceImpl.class)，表达出的意思是希望程序通过jdk动态代理给我一个ServiceImpl类。而jdk的动态代理是基于接口实现的，因为它本身要继承一个Proxy类，而java是单继承（接口可以多继承），所以它通过实现接口进行代理。它通过实现我们给它的接口和继承Proxy类实现jdk动态代理。而我们给它的是一个ServiceImpl类，这个时候jdk动态代理就没有办法了。<br>jdk动态代理产生的对象属于Proxy类型，属于给定的接口（Service）类型，但不属于我们要代理的那个对象的类型，也就是本代码中ServiceImpl类型<br>因此，使用接口的类路径：<code>UserService userService = (UserService)context.getBean(UserService.class);</code> 也是可以的。这也解释了工作中遇到的问题。<br>但是，换成cglib，实现类/父类接口，获取bean的方式：id/类路径，都可以，没解释工作中为什么不能直接换成cglib的问题。</p>
+<p>总结：<br>jdk代理：必须父类接口获得bean，括号内可以是实现类的bean id，也可以是父类接口的全路径。<br>cglib代理：怎么都行。</p>
+<h3 id="实践-注解"><a href="#实践-注解" class="headerlink" title="实践-注解"></a>实践-注解</h3><ol>
+<li><p>使用@Aspect注解，出了aspectweaver包之外，还需要aspectjrt包</p>
+</li>
+<li><p>新建service接口，新建实现类Impl</p>
+</li>
+<li><p>新建切面类，定义切面方法</p>
+</li>
+<li><p>编写配置类</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@ComponentScan(basePackages = &#123;&quot;com.aop.demo.zhujie&quot;&#125;)</span><br><span class="line">@EnableAspectJAutoProxy(proxyTargetClass = false)</span><br><span class="line">public class SpringCfg &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>测试</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext context = new AnnotationConfigApplicationContext(SpringCfg.class);  //加载配置类</span><br></pre></td></tr></table></figure>
+
+<p>效果和配置文件一样。</p>
+<p>参考：<br>知识点：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Zhang-DevelopingPlatform/p/14723490.html">https://www.cnblogs.com/Zhang-DevelopingPlatform/p/14723490.html</a></p>
+<p>jdk代理找不到bean：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32080243/article/details/90261768">https://blog.csdn.net/qq_32080243/article/details/90261768</a></p>
+<p>cglib实现：<a target="_blank" rel="noopener" href="https://blog.csdn.net/shaoweijava/article/details/76474652">https://blog.csdn.net/shaoweijava/article/details/76474652</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/05/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%BC%A0%E5%88%B0github/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2100,169 +2344,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/15/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/shell%E5%88%B7%E9%A2%981/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/15/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/shell%E5%88%B7%E9%A2%981/" class="post-title-link" itemprop="url">shellのleecode193.有效的电话号码</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-02-15 22:51:56 / Modified: 22:54:42" itemprop="dateCreated datePublished" datetime="2022-02-15T22:51:56+08:00">2022-02-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">给定一个包含电话号码列表（一行一个电话号码）的文本文件 file.txt，写一个单行 bash 脚本输出所有有效的电话号码。</span><br><span class="line"></span><br><span class="line">你可以假设一个有效的电话号码必须满足以下两种格式： (xxx) xxx-xxxx 或 xxx-xxx-xxxx。（x 表示一个数字）</span><br><span class="line"></span><br><span class="line">你也可以假设每行前后没有多余的空格字符。</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">假设 file.txt 内容如下：</span><br><span class="line">987-123-4567</span><br><span class="line">123 456 7890</span><br><span class="line">(123) 456-7890</span><br><span class="line">你的脚本应当输出下列有效的电话号码：</span><br><span class="line">987-123-4567</span><br><span class="line">(123) 456-7890</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/14/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2022.2.14.%E9%94%AE%E7%9B%98%E8%A1%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/14/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2022.2.14.%E9%94%AE%E7%9B%98%E8%A1%8C/" class="post-title-link" itemprop="url">javaのleecode 500.键盘行</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-02-14 16:03:34 / Modified: 19:04:31" itemprop="dateCreated datePublished" datetime="2022-02-14T16:03:34+08:00">2022-02-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>一道关于哈希表的题目，温习一下哈希表的java操作。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">给你一个字符串数组 words ，只返回可以使用在 美式键盘 同一行的字母打印出来的单词。键盘如下图所示。</span><br><span class="line"></span><br><span class="line">美式键盘 中：</span><br><span class="line"></span><br><span class="line">第一行由字符 &quot;qwertyuiop&quot; 组成。</span><br><span class="line">第二行由字符 &quot;asdfghjkl&quot; 组成。</span><br><span class="line">第三行由字符 &quot;zxcvbnm&quot; 组成。</span><br><span class="line"></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">链接：https://leetcode-cn.com/problems/keyboard-row</span><br><span class="line">著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</span><br><span class="line"></span><br><span class="line">输入：words = [&quot;Hello&quot;,&quot;Alaska&quot;,&quot;Dad&quot;,&quot;Peace&quot;]</span><br><span class="line">输出：[&quot;Alaska&quot;,&quot;Dad&quot;]</span><br></pre></td></tr></table></figure>
-
-<p>温习：关于hashmap、hashset原理及使用。</p>
-<p>思路一：知道各个字母键盘上的位置，编写一串26个字母的字符串，进行比较判别。当然，首先应该设置一个<code>ArrayList&lt;String&gt;()</code>，用来存放结果。</p>
-<p>我们为每一个英文字母标记其对应键盘上的行号，然后检测字符串中所有字符对应的行号是否相同。</p>
-<p>我们可以预处理计算出每个字符对应的行号。<br>遍历字符串时，统一将大写字母转化为小写字母方便计算。</p>
-<blockquote>
-<p>疑问：<code>ArrayList&lt;String&gt; list = new ArrayList&lt;String&gt;();</code>和<code>List&lt;String&gt; list = new ArrayList&lt;String&gt;();</code>的区别？</p>
-<p>第一种形式用当前类作为引用类型，那么可以访问到ArrayList这个类中的所有公用方法。</p>
-<p>第二种形式，用ArrayList实现的接口List作为引用类型，那么通过list引用可以访问到接口中定义的方法。</p>
-<p>也就是说ArrayList这个类实现了List接口，除了要必须实现接口List中声明的方法外，还可以实现额外的一些方法。</p>
-<p>但是，第二种形式就无法调用的List接口以外的方法。</p>
-<p>使用上，设计模式中有：“代码尽量依赖于抽象，不依赖于具体”。第一种形式就是依赖具体，第二种形式就是依赖于抽象。因为List是接口。代码依赖于抽象的好处是，代码可以方便替换。<br>————————————————<br>例如:代码List list = new ArrayList();下面通过list来操作集合。代码编写后发现集合使用的不准确，应该使用LinkedList，那么只要修改一行代码List list = new LinkedList();就可以，这行以后的代码不需要修改，因为List接口保证了调用的都是接口中的方法，而ArrayList与LinkedList都实现了List接口。而如果当时用ArrayList list = new ArrayList()这种形式的话，那么list访问到的就可能是ArrayList里独有的方法而非List接口中的方法。这样替换成LinkedList的时候就有可能需要修改很多的代码。<br>————————————————<br>前一个可以使用ArrayList独有的方法。后面的只能调用List接口声明的方法<br>List是一个接口，而ListArray是一个类。<br>ListArray继承并实现了List。<br>所以List不能被构造，但可以向上面那样为List创建一个引用，而ListArray就可以被构造。<br>List list; //正确 list=null;<br>List list=new List(); // 是错误的用法<br>List list = new ArrayList();这句创建了一个ArrayList的对象后把上溯到了List。此时它是一个List对象了，有些ArrayList有但是List没有的属性和方法，它就不能再用了。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> leecode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@program</span>: leeco</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: liuxuan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2022-02-14 17:47</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JianPanHang500</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//输入字符串数组</span></span><br><span class="line">        System.out.print(<span class="string">&quot;请输入：&quot;</span>);</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str = sc.nextLine();</span><br><span class="line">        String[] arr = str.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        JianPanHang500Solution s = <span class="keyword">new</span> JianPanHang500Solution();</span><br><span class="line">        <span class="comment">//数组直接返回是地址，必须要用Arrays.toString</span></span><br><span class="line">        System.out.println(Arrays.toString(s.findWords(arr)));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JianPanHang500Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String[] findWords(String[] words) &#123;</span><br><span class="line">        List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        String rowIdx = <span class="string">&quot;12210111011122000010020202&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (String word : words) &#123;</span><br><span class="line">            <span class="keyword">boolean</span> isValid = <span class="keyword">true</span>;</span><br><span class="line">            <span class="comment">//首先看第一个字母是第几行的</span></span><br><span class="line">            <span class="keyword">char</span> idx = rowIdx.charAt(Character.toLowerCase(word.charAt(<span class="number">0</span>)) - <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; word.length(); ++i) &#123;</span><br><span class="line">                <span class="comment">//遍历字符串中的字符，注意需要变小写，遇到不是同一行的就break，同时需要标志位</span></span><br><span class="line">                <span class="keyword">if</span> (rowIdx.charAt(Character.toLowerCase(word.charAt(i)) - <span class="string">&#x27;a&#x27;</span>) != idx) &#123;</span><br><span class="line">                    isValid = <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (isValid) &#123;</span><br><span class="line">                list.add(word);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//list类型的字符串数组变为字符串数组，有简单方法：return ans.toArray(new String[ans.size()]);</span></span><br><span class="line">        String[] ans = <span class="keyword">new</span> String[list.size()];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); ++i) &#123;</span><br><span class="line">            ans[i] = list.get(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这个方法本质上并没有用到哈希表，用到了集合ArrayList，为什么不直接用String[]呢，因为数组长度不可变，得用容器。</p>
-<hr>
-<p>思路二：其实一样，思路一那个字符串被当作是哈希表里，它是直接就创建了。下面可以自定义函数创建，创建的是数组，因为字母个数有限，所以不论是字符串还是数组，都是下标对应哪个字母，值对应值，也算是key（字母）–  value（哪一行）。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] chars = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</span><br><span class="line"><span class="keyword">static</span> &#123;   <span class="comment">//静态代码块</span></span><br><span class="line">    <span class="comment">// 整理26个字母分别每一行对应1、2、3</span></span><br><span class="line">    set(<span class="string">&quot;qwertyuiop&quot;</span>, <span class="number">1</span>);</span><br><span class="line">    set(<span class="string">&quot;asdfghjkl&quot;</span>, <span class="number">2</span>);</span><br><span class="line">    set(<span class="string">&quot;zxcvbnm&quot;</span>, <span class="number">3</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(String s, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++) &#123;</span><br><span class="line">        chars[index(s.charAt(i))] = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>static{}(静态代码块)与{}(非静态代码块)的异同点?</p>
-<p>相同点：都是在JVM加载类时且在构造方法执行之前执行，在类中都可以定义多个。　一般在代码块中对一些static变量进行赋值。</p>
-<p>不同点：静态代码块在非静态代码块之前执行(静态代码块—&gt;非静态代码块—&gt;构造方法)。静态代码块只在第一次new执行一次，之后不再执行，而非静态代码块在每new一次就执行一次。非静态代码块可在普通方法中定义(不过作用不大)；而静态代码块不行。</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2333,7 +2414,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">77</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
