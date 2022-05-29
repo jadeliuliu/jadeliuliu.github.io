@@ -206,10 +206,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-05-21 13:25:10 / Modified: 13:27:50" itemprop="dateCreated datePublished" datetime="2022-05-21T13:25:10+08:00">2022-05-21</time>
+              <time title="Created: 2022-05-21 13:25:10" itemprop="dateCreated datePublished" datetime="2022-05-21T13:25:10+08:00">2022-05-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-28 17:46:03" itemprop="dateModified" datetime="2022-05-28T17:46:03+08:00">2022-05-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -233,7 +239,11 @@
       
           <h3 id="LineString与Coordinate"><a href="#LineString与Coordinate" class="headerlink" title="LineString与Coordinate"></a>LineString与Coordinate</h3><p>Geometry对象转换为LineString对象，前面加(LineString)强转。</p>
 <p>Coordinate coor = new Coordinate(lng, lat);<br>//lng、lat是Double类型经度纬度</p>
-<h3 id="Geometry"><a href="#Geometry" class="headerlink" title="Geometry"></a>Geometry</h3><p>Geometry可以是一系列的点组成的线。<br>数据库中查看需要加：select st_astext(geo) from table;</p>
+<h3 id="Geometry"><a href="#Geometry" class="headerlink" title="Geometry"></a>Geometry</h3><p>com.vividsolutions.jts.geom下<br>Geometry可以是一系列的点组成的线。<br>数据库中查看需要加：select st_astext(geo) from table;</p>
+<p>Geometry里的点：<br>Coordinate[] coordinates = geo.getCoordinates();</p>
+<h3 id="GeometryUtils工具类"><a href="#GeometryUtils工具类" class="headerlink" title="GeometryUtils工具类"></a>GeometryUtils工具类</h3><p>GeometryUtils类属于mil.nga.giat.geowave.core.geotime包。</p>
+<p><a target="_blank" rel="noopener" href="https://vimsky.com/examples/detail/java-class-mil.nga.giat.geowave.core.geotime.GeometryUtils.html">https://vimsky.com/examples/detail/java-class-mil.nga.giat.geowave.core.geotime.GeometryUtils.html</a></p>
+<h3 id="redisTemplate的GEO-API："><a href="#redisTemplate的GEO-API：" class="headerlink" title="redisTemplate的GEO API："></a>redisTemplate的GEO API：</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39274753/article/details/107783674">https://blog.csdn.net/weixin_39274753/article/details/107783674</a></p>
 
       
     </div>
@@ -367,7 +377,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-21 13:24:52" itemprop="dateModified" datetime="2022-05-21T13:24:52+08:00">2022-05-21</time>
+                <time title="Modified: 2022-05-28 21:19:47" itemprop="dateModified" datetime="2022-05-28T21:19:47+08:00">2022-05-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -424,6 +434,9 @@
 <p>第三种方式，直接在int后面加一个空的字符串，因为在java里面，默认任务int类型和字符串类型相加，为字符串类型。（性能最差）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int i=2；</span><br><span class="line">String s=i+&quot;&quot;;</span><br></pre></td></tr></table></figure>
 
+<p>string变int：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer.parseInt(s)</span><br></pre></td></tr></table></figure>
+
 <h3 id="java位运算"><a href="#java位运算" class="headerlink" title="java位运算"></a>java位运算</h3><p>1、左移( &lt;&lt; )  向左移动，低位补0<br>2、右移( &gt;&gt; )  向右移动，高位补0<br>3、无符号右移( &gt;&gt;&gt; )   正数右移，高位补0，负数右移，高位补1，当负数使用无符号右移时，用0进行补位(自然而然的，就由负数变成了正数了)<br>4、与( &amp; )  都为1，结果为1，否则为0<br>5、或( | )  一个是1，结果为1，否则为0<br>6、异或( ^ )  两个相反，结果为1，否则为0<br>7、非( ~ ) 一元操作符   取相反。</p>
 <h3 id="Autowired接口还是现实类？"><a href="#Autowired接口还是现实类？" class="headerlink" title="Autowired接口还是现实类？"></a>Autowired接口还是现实类？</h3><p>答案：接口好</p>
 <p>当实现类唯一时，表面上注入接口，其实注入实现类<br>当实现类多个时，通过@Service(“menuService1”)指定实现类</p>
@@ -455,25 +468,37 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">removeIf() 方法用于删除所有满足特定条件的数组元素。</span><br><span class="line">ArrayList&lt;String&gt; sites = new ArrayList&lt;&gt;();</span><br><span class="line">sites.add(&quot;Taobao&quot;);</span><br><span class="line">sites.removeIf(e -&gt; e.contains(&quot;Tao&quot;));</span><br><span class="line">用了String的contains方法</span><br></pre></td></tr></table></figure>
 <p>list元素可以先设置，再更改。</p>
 <p>四、判断list为空<br>if(CollectionUtils.isEmpty(list)){}</p>
+<p>五、indexOf方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">indexOf() 方法返回动态数组中元素的索引值。</span><br><span class="line">int i = arraylist.indexOf(Object obj)</span><br></pre></td></tr></table></figure>
+
+<p>六、list、set转换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//list直接变set：</span><br><span class="line">Set&lt;Long&gt; set2 = new HashSet&lt;&gt;(list);</span><br><span class="line">Set&lt;Long&gt; set1 = Sets.newHashSet(list);</span><br><span class="line">//set变list：</span><br><span class="line">List&lt;Long&gt; list2 = new ArrayList&lt;&gt;(set1);</span><br><span class="line">List&lt;Long&gt; list3 = Lists.newArrayList(set1);</span><br></pre></td></tr></table></figure>
+
 <h3 id="compareTo-方法"><a href="#compareTo-方法" class="headerlink" title="compareTo()方法"></a>compareTo()方法</h3><p>Java提供了一个Comparable接口，该接口里定义了一个compareTo(Object obj)方法，该方法返回一个整数值，实现该接口的类必须实现该方法，实现了该接口的类的对象就可以比较大小。当一个对象调用该方法与另一个对象进行比较时，例如obj1.compareTo(obj2)，如果该方法返回0，则表示两个对象相等，如果该方法返回一个正整数，则表明obj1大于obj2；如果该方法返回一个负整数，则表明obj1小于obj2。</p>
 <p>一些已经实现了Comparable接口的常用类：<br>Character：按照字符的UNICODE值进行比较<br>String：按照字符的UNICODE值进行比较<br>Date\Time：外面比里面新，返回1<br>Long：a.compareTo(b)，a比b大返回1</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//以特定格式返回日期格式化程序</span><br><span class="line">DateFormat dateFormat = DateFormat.getDateInstance();</span><br><span class="line">Date oldTime = dateFormat.parse(&quot;2019-04-07 19:50:11&quot;);</span><br><span class="line">Date newTime = new Date();</span><br><span class="line">int result = oldTime.compareTo(newTime);</span><br><span class="line">System.out.println(result);</span><br><span class="line"></span><br><span class="line">// 日期变为字符串</span><br><span class="line">String str = dateFormat.format(new Date());</span><br></pre></td></tr></table></figure>
 
 <h3 id="stream流-parallelStream流"><a href="#stream流-parallelStream流" class="headerlink" title="stream流 parallelStream流"></a>stream流 parallelStream流</h3><p>stream(): 是串行执行，按照顺序执行</p>
 <p>parallelStream()：是并行执行，异步执行，多线程，并且使用的线程池是ForkJoinPool.common，可能存在共享资源、线程安全等问题</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">过滤：</span><br><span class="line">List&lt;Integer&gt; integerList = Arrays.asList(1, 2, 3, 4, 5, 6);</span><br><span class="line">Stream&lt;Integer&gt; stream = integerList.stream().filter(i -&gt; i &gt; 3);</span><br><span class="line">integerList = stream.collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">排序：</span><br><span class="line">.stream().sorted((e1,e2)-&gt;e1.compareTo(e2)).</span><br><span class="line"></span><br><span class="line">去重：</span><br><span class="line">.stream().distinct().</span><br><span class="line"></span><br><span class="line">按照对象中某一元素去重：</span><br><span class="line">.stream().filter(LambdaUtils.distinctByKey(类::get属性))</span><br><span class="line"></span><br><span class="line">返回指定流个数：</span><br><span class="line">.limit(5)</span><br><span class="line"></span><br><span class="line">跳过流中元素：</span><br><span class="line">.skip(2)</span><br><span class="line"></span><br><span class="line">map流映射：将接收的元素映射成另外一个元素：</span><br><span class="line">.map(类::get属性).collect...</span><br><span class="line">.map(对象-&gt;&#123;</span><br><span class="line">  构造另一种对象;</span><br><span class="line">  return 另一对象;</span><br><span class="line">&#125;).</span><br><span class="line">.map(string-&gt;Long.valueOf(string)).  //String变为Long</span><br><span class="line"></span><br><span class="line">对象list根据某一个元素变为map：</span><br><span class="line">list.stream().collect(Collectors.groupingBy(类::get属性))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">过滤：</span><br><span class="line">List&lt;Integer&gt; integerList = Arrays.asList(1, 2, 3, 4, 5, 6);</span><br><span class="line">Stream&lt;Integer&gt; stream = integerList.stream().filter(i -&gt; i &gt; 3);</span><br><span class="line">integerList = stream.collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">排序：</span><br><span class="line">.stream().sorted((e1,e2)-&gt;e1.compareTo(e2)).</span><br><span class="line"></span><br><span class="line">去重：</span><br><span class="line">.stream().distinct().</span><br><span class="line"></span><br><span class="line">按照对象中某一元素去重：</span><br><span class="line">.stream().filter(LambdaUtils.distinctByKey(类::get属性))</span><br><span class="line"></span><br><span class="line">返回指定流个数：</span><br><span class="line">.limit(5)</span><br><span class="line"></span><br><span class="line">跳过流中元素：</span><br><span class="line">.skip(2)</span><br><span class="line"></span><br><span class="line">map流映射：将接收的元素映射成另外一个元素：</span><br><span class="line">.map(类::get属性).collect...</span><br><span class="line">.map(对象-&gt;&#123;</span><br><span class="line">  构造另一种对象;</span><br><span class="line">  return 另一对象;</span><br><span class="line">&#125;).</span><br><span class="line">.map(string-&gt;Long.valueOf(string)).  //String变为Long</span><br><span class="line"></span><br><span class="line">对象list根据某一个元素变为map：</span><br><span class="line">list.stream().collect(Collectors.groupingBy(类::get属性))</span><br><span class="line"></span><br><span class="line">//流的过程中对元素进行操作</span><br><span class="line">List&lt;Long&gt; list = Lists.newArrayList();</span><br><span class="line">list2.stream().forEach(s -&gt; list.add(Long.valueOf(s)));</span><br></pre></td></tr></table></figure>
 
-<h3 id="Date相关"><a href="#Date相关" class="headerlink" title="Date相关"></a>Date相关</h3><p>一、now.after()</p>
+<h3 id="Date相关"><a href="#Date相关" class="headerlink" title="Date相关"></a>Date相关</h3><p>✅now.after()</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DateFormat dateformat = DateFormat.getDateInstance();</span><br><span class="line">Date old = dateformat.parse(&quot;2022-04-07 19:50:11&quot;);</span><br><span class="line">Date now = new Date();</span><br><span class="line">if(now.after(oldTime))&#123;</span><br><span class="line">    System.out.println(&quot;now比after新&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>二、DateFormat类<br>DateFormat 是日期/时间格式化子类的抽象类，它以与语言无关的方式格式化并解析日期或时间。日期/时间格式化子类（如 SimpleDateFormat）允许进行格式化（也就是日期→文本）、解析（文本→日期）和标准化日期。</p>
+<p>✅DateFormat类<br>DateFormat 是日期/时间格式化子类的抽象类，它以与语言无关的方式格式化并解析日期或时间。日期/时间格式化子类（如 SimpleDateFormat）允许进行格式化（也就是日期→文本）、解析（文本→日期）和标准化日期。</p>
 <p>在创建 DateFormat 对象时不能使用 new 关键字，而应该使用 DateFormat 类中的静态方法 getDateInstance()：<br><code>DateFormat df = DateFormat.getDatelnstance();</code><br>在创建了一个 DateFormat 对象后，可以调用该对象中的方法来对日期/时间进行格式化。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//定义对象，日期、时间，也有getDateTimeInstance</span><br><span class="line">SHORT：18-10-15 上午9:30</span><br><span class="line">FULL：2018年10月15日 星期一 上午09时30分43秒 CST</span><br><span class="line">MEDIUM：2018-10-15 9:30:43</span><br><span class="line">LONG：2018年10月15日 上午09时30分43秒</span><br><span class="line"></span><br><span class="line">DateFormat df1 = DateFormat.getDateInstance(DateFormat.SHORT, Locale.CHINA);</span><br><span class="line">DateFormat df5 = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.CHINA);</span><br><span class="line"></span><br><span class="line">//字符串到Date</span><br><span class="line">Date old = dateformat.parse(&quot;2022-04-07 19:50:11&quot;);</span><br><span class="line"></span><br><span class="line">//Date到字符串</span><br><span class="line">String str = dateFormat.format(new Date());</span><br></pre></td></tr></table></figure>
 
-<p>三、SimpleDateFormat<br>SimpleDateFormat 使得可以选择任何用户定义的日期/时间格式的模式。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Date now = new Date(); // 创建一个Date对象，获取当前时间</span><br><span class="line">// 指定格式化格式</span><br><span class="line">SimpleDateFormat f = new SimpleDateFormat(&quot;今天是 &quot; + &quot;yyyy 年 MM 月 dd 日 E HH 点 mm 分 ss 秒&quot;);</span><br><span class="line">System.out.println(f.format(now)); // 将当前时间袼式化为指定的格式</span><br></pre></td></tr></table></figure>
+<p>✅SimpleDateFormat<br>SimpleDateFormat 使得可以选择任何用户定义的日期/时间格式的模式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Date now = new Date(); // 创建一个Date对象，获取当前时间</span><br><span class="line">// 指定格式化格式</span><br><span class="line">SimpleDateFormat f = new SimpleDateFormat(&quot;今天是 &quot; + &quot;yyyy 年 MM 月 dd 日 E HH 点 mm 分 ss 秒&quot;);</span><br><span class="line">System.out.println(f.format(now)); // 将当前时间袼式化为指定的格式</span><br><span class="line">// format方法输出的是string类型</span><br></pre></td></tr></table></figure>
+
 <p>参考：<a target="_blank" rel="noopener" href="http://c.biancheng.net/view/878.html">http://c.biancheng.net/view/878.html</a></p>
-<p>当前时间的后几秒：</p>
+<p>✅FastDataFormat<br>Apache commons-lang中的FastDateFormat。也可以做时间的格式化。<br>FastDateFormat是线程安全的，可以直接使用，不必考虑多线程的情况<br>JDK里自带的SimpleDateFormat存在线程不安全问题。<br>SimpleDateFormat在对时间进行格式化的方法format中，会先对calendar对象进行setTime的赋值，若是有多个线程同时操作一个SimpleDateFormat实例的话，就会对calendar的赋值进行覆盖，进而产生问题。</p>
+<p>FastDateFormat用法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FastDateFormat f = FastDateFormat.getInstance(&quot;yyyy-MM-dd HH:mm:ss&quot;);  </span><br><span class="line">String s = f.format(new Date());</span><br><span class="line">System.out.println(s);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>✅<br>当前时间的后几秒：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Data data = new Date(System.currentTiomMillis() + expiremilliSeconds);</span><br><span class="line">加的是毫秒</span><br></pre></td></tr></table></figure>
 
 <p>获取当前时间的月份：</p>
@@ -557,11 +582,38 @@
 <h3 id="Joiner"><a href="#Joiner" class="headerlink" title="Joiner"></a>Joiner</h3><p>google guava提供的用来连接字符串的类。需要导包：guava。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 连接字符串list</span><br><span class="line">List&lt;String&gt; list = Arrays.asList(&quot;AA&quot;, &quot;BB&quot;, &quot;CC&quot;);</span><br><span class="line">String str = Joiner.on(&quot;:&quot;).join(list);</span><br><span class="line">System.out.println(str);</span><br><span class="line">// 输出：AA:BB:CC</span><br><span class="line"></span><br><span class="line">//过滤其中的null</span><br><span class="line">List&lt;String&gt; list = Arrays.asList(&quot;AA&quot;, &quot;BB&quot;, null);</span><br><span class="line">String str = Joiner.on(&quot;:&quot;).skipNulls().join(list);</span><br><span class="line">System.out.println(str);</span><br><span class="line">// 输出：AA:BB</span><br><span class="line"></span><br><span class="line">// 可以先定义一个Join对象</span><br><span class="line">private static Joiner MY_JOINER = Joiner.on(&quot;/&quot;).skipNulls();</span><br><span class="line">String s = MY_JOINER.join(..);  里面的参数是Object类型，可以多个。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>更多用法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44143796/article/details/122998799">https://blog.csdn.net/qq_44143796/article/details/122998799</a></p>
-<h3 id="string自己的方法"><a href="#string自己的方法" class="headerlink" title="string自己的方法"></a>string自己的方法</h3><p>str.trim()  用于删除字符串的头尾空白符。</p>
+<h3 id="string自己的方法"><a href="#string自己的方法" class="headerlink" title="string自己的方法"></a>string自己的方法</h3><p>✅str.trim()  用于删除字符串的头尾空白符。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str = new String(&quot;   hello   &quot;);</span><br><span class="line">System.out.println( str.trim() );</span><br></pre></td></tr></table></figure>
 
-<p>str.replaceAll(正则表达式, 替换字符串)<br>使用给定的参数 replacement 替换字符串所有匹配给定的正则表达式的子字符串</p>
+<p>✅str.replaceAll(正则表达式, 替换字符串)<br>使用给定的参数 replacement 替换字符串所有匹配给定的正则表达式的子字符串</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String Str = new String(&quot;www.hello.com&quot;);</span><br><span class="line">System.out.println(Str.replaceAll(&quot;(.*)hello(.*)&quot;, &quot;hi&quot; ));</span><br></pre></td></tr></table></figure>
+
+<p>✅str.replace(原字符/字符串, 替换成的新字符/字符串)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">String replace(char oldChar, char newChar)</span><br><span class="line">用新字符newChar 替换所有的 旧字符oldChar 。</span><br><span class="line"></span><br><span class="line">String replace(CharSequence target, CharSequence replacement)</span><br><span class="line">用新字符串replacement替换所有的 旧字符串target。</span><br><span class="line"></span><br><span class="line">String replaceAll(String regex, String replacement)</span><br><span class="line">用新字符串replacement 替换所有的 正则模式匹配的串。——（替换的是模糊字串）</span><br><span class="line"></span><br><span class="line">String replaceFirst(String regex, String replacement)</span><br><span class="line">用新字符串replacement 替换第一个 正则模式匹配的串。——（替换的是模糊字串）</span><br><span class="line">————————————————</span><br><span class="line">另外，StringBuilder中也有该方法：</span><br><span class="line">replace(int start，int end，String str)</span><br><span class="line">用str 替换 start–end的子串。//不包括end</span><br></pre></td></tr></table></figure>
+
+<p>✅str.indexof() 用于返回字符串中某部分的索引<br>1、 indexOf(String str): 返回指定字符str在字符串中（方法调用者）第一次出现处的起始索引，如果此字符串中没有这样的字符，则返回 -1。<br>2、indexOf(String str, int index): 返回从 index 位置开始查找指定字符str在字符串中第一次出现处的起始索引，如果此字符串中没有这样的字符，则返回 -1。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String str = &quot;01234567890123456789&quot;;</span><br><span class="line">System.out.println(str.indexOf(&quot;123&quot;));  //return 1</span><br><span class="line">System.out.println(str.indexOf(&quot;123&quot;,5));  //return 11</span><br></pre></td></tr></table></figure>
+
+<p>✅String.join()静态方法<br>用于将list/set变为String</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Long&gt; list = Lists.newArrayList(1L, 2L, 2L);</span><br><span class="line">// 元素中类型变换</span><br><span class="line">List&lt;String&gt; ls = list.stream().distinct().map(String::valueOf).collect(Collectors.toList());</span><br><span class="line">// 里面的ls不能为空，必须是String元素类型</span><br><span class="line">String s = String.join(&quot;,&quot;, ls);</span><br><span class="line">System.out.println(s);</span><br><span class="line"></span><br><span class="line">//用set也可以</span><br><span class="line">Set&lt;Long&gt; set = Sets.newHashSet(1L, 2L);</span><br><span class="line">Set&lt;String&gt; ss = set.stream().map(i-&gt;String.valueOf(i)).collect(Collectors.toSet());</span><br><span class="line">s = String.join(&quot;,&quot;, ss);</span><br><span class="line">System.out.println(s);</span><br></pre></td></tr></table></figure>
+
+<h3 id="map的一些操作"><a href="#map的一些操作" class="headerlink" title="map的一些操作"></a>map的一些操作</h3><p>✅map的put和putIfAbsent<br>1.使用 put 方法添加键值对，如果 map 集合中没有该 key 对应的值，则直接添加，并返回 value；如果已经存在对应的值，则会<strong>覆盖旧值</strong>，value 为新的值，返回值为 value。<br><code>map.put(key, value)</code></p>
+<p>2.使用 putIfAbsent 方法添加键值对，如果 map 集合中没有该 key 对应的值，则直接添加，并返回 null，如果已经存在对应的值，则依旧为原来的值，返回值为 value（旧的值）。<br><code>map.putIfAbsent(key, value)</code></p>
+<h3 id="Splitter工具类（String拆分成list）"><a href="#Splitter工具类（String拆分成list）" class="headerlink" title="Splitter工具类（String拆分成list）"></a>Splitter工具类（String拆分成list）</h3><p>是google出品的，guava包下的工具类，用于对字符串分割处理。</p>
+<p>首先，已有的对字符串进行分割的方法：</p>
+<p>1.String自带的split()方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String s = &quot;1,2,3&quot;;</span><br><span class="line">String[] split = s.split(&quot;,&quot;);</span><br></pre></td></tr></table></figure>
+<p>不足之处：如果,后有空格的话，还需要做进一步处理，<br>并且分割后以数组接收，如果数据过多，还需要再转为集合。</p>
+<p>2.使用Patter类的split静态方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String input = &quot;This!!unusual use!!hh!!points&quot;;</span><br><span class="line">System.out.println(Arrays.toString(Pattern.compile(&quot;!!&quot;).split(input)));</span><br></pre></td></tr></table></figure>
+
+<p>其次，Splitter来分割字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class SplitterTest &#123;</span><br><span class="line"></span><br><span class="line">    //定义一个拆分器，“,”分隔，去空格</span><br><span class="line">    private static final Splitter splitter = Splitter.on(&quot;,&quot;).trimResults().omitEmptyStrings();</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void test()&#123;</span><br><span class="line">        String s = &quot;1,2, 3&quot;;</span><br><span class="line">        List&lt;String&gt; list = splitter.splitToList(s);</span><br><span class="line">        System.out.println(list);</span><br><span class="line">        List&lt;Long&gt; list1 = list.stream().map(Long::valueOf).collect(Collectors.toList());</span><br><span class="line">        System.out.println(list1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h3><p>看《java基础》<br>针对有一个抽象方法的接口实现，以简洁的表达式形式实现接口功能来作为方法参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">set.stream().map(i-&gt;String.valueOf(i)).</span><br><span class="line">括号内的i，表示流处理中的元素，也是lambda表达式的输入</span><br><span class="line">只有一句语句，省去了&#123;&#125;，省去了return</span><br><span class="line"></span><br><span class="line">使用现有的方法，比如上面的，可以变成lambda表达式的引用形式::</span><br><span class="line">.map(String::valueOf).</span><br><span class="line"></span><br><span class="line">上面的方法例如map()，内部的传参是只有一个函数式接口，</span><br><span class="line">有的方法穿参，除了一个函数式接口还有其他，所以会有其他参数。</span><br><span class="line">例如：</span><br><span class="line">方法：showSum(int x, int y, Calculate cu)</span><br><span class="line">使用：showSum(10, 20, (x,y)-&gt;x+y);</span><br></pre></td></tr></table></figure>
+
+
       
     </div>
 
@@ -580,7 +632,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/30/myblog/spring/spring%E6%8E%A5%E5%8F%A3/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/30/myblog/spring/java%E6%8E%A5%E5%8F%A3&%E7%B1%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.gif">
@@ -594,7 +646,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/04/30/myblog/spring/spring%E6%8E%A5%E5%8F%A3/" class="post-title-link" itemprop="url">spring常规接口</a>
+            <a href="/2022/04/30/myblog/spring/java%E6%8E%A5%E5%8F%A3&%E7%B1%BB/" class="post-title-link" itemprop="url">java常规接口、类</a>
         </h2>
 
         <div class="post-meta">
@@ -611,7 +663,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-19 22:23:13" itemprop="dateModified" datetime="2022-05-19T22:23:13+08:00">2022-05-19</time>
+                <time title="Modified: 2022-05-28 21:04:53" itemprop="dateModified" datetime="2022-05-28T21:04:53+08:00">2022-05-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -619,7 +671,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/spring%E7%90%86%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">spring理解</span></a>
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
                 </span>
             </span>
 
@@ -643,7 +695,28 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String getName():得到的是@RequesParam(value = &quot;file&quot;)中的value值，不会为空。</span><br><span class="line">String getOriginalFilename():获取的是文件的完整名称，包括文件名称+文件拓展名。</span><br><span class="line">String getContentType()：返回文件内容类型，不是文件扩展名（例如：jpeg图片：image/jpeg）</span><br><span class="line">boolean isEmpty()：返回上传的文件是否为空，即multipart形式中没有选择任何文件或者选择的文件没有内容</span><br><span class="line">long getSize()：以字节为单位返回文件大小</span><br><span class="line">byte[] getBytes()：以字节数组的形式返回文件内容</span><br><span class="line">InputStream getInputStream()：返回一个字节流</span><br><span class="line">void transferTo()：用来将接收文件传输到给定目标路径，会抛出IOException、IllegalStateException异常。该方法在实际项目开发中使用较少。</span><br></pre></td></tr></table></figure>
 
 
-<h3 id="InitializingBean"><a href="#InitializingBean" class="headerlink" title="InitializingBean"></a>InitializingBean</h3>
+<h3 id="Pattern类-amp-Matcher类"><a href="#Pattern类-amp-Matcher类" class="headerlink" title="Pattern类&amp;Matcher类"></a>Pattern类&amp;Matcher类</h3><p>Pattern类是java.util.regex包中的final类。是正则表达式的编译表示形式，此类的实例是不可变的，可供多个并发线程安全使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//定义</span><br><span class="line">public final class Pattern extends Object implements Serializable</span><br><span class="line"></span><br><span class="line">//Pattern调用静态方法compile返回Pattern实例。</span><br><span class="line">// 将给定的正则表达式编译并赋予给Pattern类</span><br><span class="line">Pattern pattern = Pattern.compile(paternStr);</span><br><span class="line"></span><br><span class="line">// 增加flag参数的指定，可选的flag参数包括：CASE INSENSITIVE,MULTILINE,DOTALL,UNICODE CASE， CANON EQ </span><br><span class="line">static Pattern compile(String regex, int flags) </span><br><span class="line">//先不明白</span><br><span class="line"></span><br><span class="line">//Pattern.split()（静态方法）和string.split()用途一样，</span><br><span class="line">//是将字符串从正则表达式匹配的地方分开</span><br><span class="line">String input = &quot;This!!unusual use!!hh!!points&quot;;</span><br><span class="line">System.out.println(Arrays.toString(Pattern.compile(&quot;!!&quot;).split(input)));</span><br><span class="line">System.out.println(Arrays.toString(Pattern.compile(&quot;!!&quot;).split(input, 3)));</span><br><span class="line">// 第二种，第二个参数用来限制将输入分割成字符串的数量</span><br></pre></td></tr></table></figure>
+
+<p>正则表达式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\\d 表示数字，前面多了第一个\，是转义的意思。</span><br><span class="line">+表示重复前面的</span><br><span class="line">\\d+ 表示多个数字</span><br></pre></td></tr></table></figure>
+
+<p>Matcher对象是一个状态机器，它依据Pattern对象做为匹配模式对字符串展开匹配检查，此类的实例用于多个并发线程是不安全的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Pattern.matcher 静态方法：</span><br><span class="line">Pattern.matcher(String regex,CharSequence input)</span><br><span class="line">静态方法,用于快速匹配字符串,匹配全部字符串</span><br><span class="line"></span><br><span class="line">pattern.matcher(CharSequence input):</span><br><span class="line">返回一个Matcher对象。</span><br><span class="line">Matcher类的构造方法也是私有的,不能随意创建,</span><br><span class="line">只能通过pattern.matcher(CharSequence input)方法得到该类的实例</span><br><span class="line"></span><br><span class="line">Pattern p=Pattern.compile(&quot;\\d+&quot;); </span><br><span class="line">Matcher m=p.matcher(&quot;22bb23&quot;); </span><br><span class="line">m.pattern();//返回p 也就是返回该Matcher对象是由哪个Pattern对象的创建的</span><br></pre></td></tr></table></figure>
+
+<p>用Pattern以及Matcher匹配例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String str = &quot;aa11bb&quot;;</span><br><span class="line">String paternStr = &quot;\\d+&quot;;</span><br><span class="line">Pattern pattern = Pattern.compile(paternStr);</span><br><span class="line">Matcher matcher = pattern.matcher(str);</span><br><span class="line">if (matcher.find()) &#123;   //有匹配就行</span><br><span class="line">    System.out.println(matcher.group(0));  //输出11</span><br><span class="line">&#125;</span><br><span class="line">if (matcher.matches()) &#123;  //需要完全匹配</span><br><span class="line">    System.out.println(matcher.group(0));</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>更多方法：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/woniu317/article/details/52186694">https://blog.csdn.net/woniu317/article/details/52186694</a><br><a target="_blank" rel="noopener" href="http://www.51gjie.com/java/759.html">http://www.51gjie.com/java/759.html</a></p>
+<h3 id="Function接口"><a href="#Function接口" class="headerlink" title="Function接口"></a>Function接口</h3><p>JDK提供了大量常用的函数式接口以丰富Lambda的典型使用场景，它们主要在 java.util.function 包中被提供。 </p>
+<p>java.util.function.Function&lt;T,R&gt; 接口用来根据一个类型的数据得到另一个类型的数据，前者称为前置条件，后者称为后置条件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@FunctionalInterface</span><br><span class="line">public interface Function&lt;T, R&gt; &#123;</span><br><span class="line">    R apply(T t);</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例子：起到了转换类型的作用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class FunctionTest &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        method(s -&gt; Integer.parseInt(s));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static void method(Function&lt;String, Integer&gt; function) &#123;</span><br><span class="line">        int num = function.apply(&quot;10&quot;);</span><br><span class="line">        System.out.println(num + 20);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其他方法：如andThen方法<br><a target="_blank" rel="noopener" href="http://t.zoukankan.com/liyihua-p-12286100.html">http://t.zoukankan.com/liyihua-p-12286100.html</a></p>
+<p>和@FunctionalInterface作用一样？</p>
+
       
     </div>
 
@@ -753,7 +826,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/29/myblog/spring/spring%E6%B3%A8%E8%A7%A3/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/29/myblog/JAVA/java%E6%B3%A8%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.gif">
@@ -767,7 +840,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/04/29/myblog/spring/spring%E6%B3%A8%E8%A7%A3/" class="post-title-link" itemprop="url">java常规注解</a>
+            <a href="/2022/04/29/myblog/JAVA/java%E6%B3%A8%E8%A7%A3/" class="post-title-link" itemprop="url">java常规注解</a>
         </h2>
 
         <div class="post-meta">
@@ -784,7 +857,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-21 00:09:33" itemprop="dateModified" datetime="2022-05-21T00:09:33+08:00">2022-05-21</time>
+                <time title="Modified: 2022-05-28 17:43:37" itemprop="dateModified" datetime="2022-05-28T17:43:37+08:00">2022-05-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -904,6 +977,19 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@PostMapping(&quot;/action/register&quot;)</span><br><span class="line">public Result registerByForm(@Valid @RequestBody RegisterUser registerUser)&#123;</span><br><span class="line">    return userService.register(registerUser);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43587472/article/details/110388778">https://blog.csdn.net/weixin_43587472/article/details/110388778</a></p>
+<h3 id="Transactional注解"><a href="#Transactional注解" class="headerlink" title="@Transactional注解"></a>@Transactional注解</h3><p>声明式事务管理，是建立在AOP之上，本质上是对方法前后进行拦截，然后再目标方法开始之前创建或加入一个一个事务，在执行完目标方法之后，根据执行情况提交或者回滚事务。</p>
+<p>简而言之：@Transactional注解在代码执行出错时进行事务的回滚。</p>
+<p>java异常模型：<br>Throwable是最顶层的父类，有Error和Exception两个子类。<br>Error表示严重的错误（如OOM等）；<br>Exception可以分为运行时异常（RuntimeException及其子类）和非运行时异常（Exception的子类中，除了RuntimeException及其子类之外的类）。</p>
+<p>非运行时异常是检查异常（checked exceptions），一定要try catch，因为这类异常是可预料的，编译阶段就检查的出来；<br>Error和运行时异常是非检查异常（unchecked exceptions），不需要try catch，因为这类异常是不可预料的，编辑阶段不会检查，没必要检查，也检查不出来。</p>
+<p>spring的@Transactional注解可以很方便的开启事务，但是默认只在遇到运行时异常和Error时才会回滚，非运行时异常不回滚，即Exception的子类中，除了RuntimeException及其子类，其他的类默认不回滚。</p>
+<p>而rollbackFor属性可以解决这个问题，rollbackFor = Exception.class表示Exception及其子类的异常都会触发回滚，同时不影响Error的回滚。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 运行时异常，正常回滚</span><br><span class="line">@Transactional</span><br><span class="line">public void save()&#123;</span><br><span class="line">    StudentDO studentDO = new StudentDO();</span><br><span class="line">    studentDO.setName(&quot;ltm&quot;);</span><br><span class="line">    studentDO.setAge(22);</span><br><span class="line">    studentMapper.insert(studentDO);</span><br><span class="line">    throw new RuntimeException(&quot;我是异常&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 非运行时异常，加rollbackFor属性，抛出异常，并回滚</span><br><span class="line">@Transactional(rollbackFor = Exception.class)</span><br><span class="line">public void save() throws IOException&#123;</span><br><span class="line">    StudentDO studentDO = new StudentDO();</span><br><span class="line">    studentDO.setName(&quot;ltm&quot;);</span><br><span class="line">    studentDO.setAge(22);</span><br><span class="line">    studentMapper.insert(studentDO);</span><br><span class="line">    throw new IOException();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c5988db897fc">https://www.jianshu.com/p/c5988db897fc</a></p>
+<p>使用方法：<br>1.需要在启动类上添加@EnableTransactionManagement注解。<br>2.当作用在类上，该类所以public方法都具有该类型的事务属性。也可以加在public方法上。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_9177933/2978291">https://blog.51cto.com/u_9177933/2978291</a></p>
 
       
     </div>

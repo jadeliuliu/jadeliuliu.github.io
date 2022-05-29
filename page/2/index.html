@@ -214,7 +214,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-21 17:05:59" itemprop="dateModified" datetime="2022-05-21T17:05:59+08:00">2022-05-21</time>
+                <time title="Modified: 2022-05-23 09:14:20" itemprop="dateModified" datetime="2022-05-23T09:14:20+08:00">2022-05-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -270,6 +270,8 @@
 <p>更多方法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43167662/article/details/123232840">https://blog.csdn.net/weixin_43167662/article/details/123232840</a></p>
 <h4 id="redisTemplate-opsForGeo"><a href="#redisTemplate-opsForGeo" class="headerlink" title="redisTemplate.opsForGeo()"></a>redisTemplate.opsForGeo()</h4><p>redis关于geo位置计算的api。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">private RedisTemplate&lt;String, Object&gt; redisTemplate;</span><br><span class="line">redisTemplate.opsForGeo().add(key, new Point(x,y), msg);</span><br><span class="line">// key和msg为字符串，Point是springframework.data.geo下的</span><br></pre></td></tr></table></figure>
+
+<p>redis的geo实战：<a target="_blank" rel="noopener" href="http://itpcb.com/a/536152">http://itpcb.com/a/536152</a></p>
 
       
     </div>
