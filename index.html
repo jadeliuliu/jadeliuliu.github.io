@@ -183,6 +183,339 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/04/myblog/JAVA/war%E5%8C%85jar%E5%8C%85%E6%89%93%E5%8C%85tomcat%E9%83%A8%E7%BD%B2servlet%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/04/myblog/JAVA/war%E5%8C%85jar%E5%8C%85%E6%89%93%E5%8C%85tomcat%E9%83%A8%E7%BD%B2servlet%E5%BA%94%E7%94%A8/" class="post-title-link" itemprop="url">jar、war、tomcat、servlet</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-06-04 14:47:55 / Modified: 23:26:40" itemprop="dateCreated datePublished" datetime="2022-06-04T14:47:55+08:00">2022-06-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="tomcat与servlet"><a href="#tomcat与servlet" class="headerlink" title="tomcat与servlet"></a>tomcat与servlet</h3><p>1.tomcat就是一个web应用服务器，相当于市存放java程序的容器。以便服务被访问。<br>2.servlet实际上是java类，java语言编写的服务器端程序，它用来处理http协议相关的所有内容，没有main方法，需要在servlet容器中进行管理，可以是tomact。如何使用：继承HttpServlet（tomcat里的jar包支持），它帮助我们完成通信的规则。<br>3.tomcat与servlet关系：tomcat是servlet/jsp容器，servlet时web应用开发的组件，tomcat负责处理客户请求，把请求传送给servlet，再将servlet的响应传送回给客户。<br>4.新建web工程时，如果不用maven，java enterprise - web application，再引入jdk、tomcat（tomcat的lib下有servlet包）。如果用maven，就选archetype-webapp。</p>
+<h3 id="war包与jar包"><a href="#war包与jar包" class="headerlink" title="war包与jar包"></a>war包与jar包</h3><p>1.Jar文件（扩展名为. Jar，Java Application Archive）包含Java类的普通库、资源（resources）、辅助文件（auxiliary files）等。<br>2.jar包是java打的包，一般只是包括一些编译后class文件和一些部署文件，在声明了Main_class之后是可以用java命令运行的。<br>3.jar包通常是开发时要引用通用类，打成包便于存放管理。<br>————————————————<br>1.War文件（扩展名为.War,Web Application Archive）包含全部Web应用程序。在这种情形下，一个Web应用程序被定义为单独的一组文件、类和资源，用户可以对war文件进行封装，并把它作为小型服务程序（servlet）来访问。<br>2.war包可以理解为javaweb打的包，是一个web模块，包括写的代码编译成的class文件，依赖的包，配置文件，所有的网站页面，包括html，jsp等等。一个war包可以理解为是一个web项目，里面是项目的所有东西。<br>3.war包需要发布到一个容器里面，拿Tomcat来说,将war文件包放置它的\webapps\目录下，启动Tomcat,这个包可以自动进行解压，也就是你的web目录，相当于发布了。<br>4.WAR是Sun提出的一种Web应用程序格式，与JAR类似，也是许多文件的一个压缩包。这个包中的文件按一定目录结构来组织：通常其根目录下包含有Html和Jsp文件或者包含这两种文件的目录，另外还会有一个WEB-INF目录，这个目录很重要。通常在WEB-INF目录下有一个web.xml文件和一个classes目录，web.xml是这个应用的配置文件，而classes目录下则包含编译好的Servlet类和Jsp或Servlet所依赖的其它类（JavaBean）。<br>————————————————</p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Sunny5319/article/details/90933532">https://blog.csdn.net/Sunny5319/article/details/90933532</a></p>
+<p>jar包和war包都是为了项目的部署和发布，通常在打包部署的时候，会在里面加上部署的相关信息。这个打包实际上就是把代码和依赖的东西压缩在一起，变成后缀名为.jar和.war的文件</p>
+<hr>
+<p>什么时候用jar、war?<br>当你的项目在没有完全完成的时候，不适合使用war文件，因为你的类会由于调试之类的经常改，这样来回删除、创建war文件很不方便，来回修改，来回打包，最好是你的项目已经完成了，不做修改的时候，那就打个war包，这个时候一个war文件就相当于一个web应用程序；而jar文件就是把类和一些相关的资源封装到一个包中，便于程序中引用。</p>
+<h3 id="jar包打包"><a href="#jar包打包" class="headerlink" title="jar包打包"></a>jar包打包</h3><p>安装好JDK之后,jar.exe就已经安装好了。在命令行中键入jar命令之后，会有详细的用法介绍。</p>
+<h4 id="✅单个文件打包"><a href="#✅单个文件打包" class="headerlink" title="✅单个文件打包"></a>✅单个文件打包</h4><p>将一个单独的java文件打包：<br><code>jar cvf /Users/liuxuan/MyProject/java/test.jar /Users/liuxuan/MyProject/java/jartest/hello.java</code><br>使用<code>java -jar test.jar</code> 提示没有主清单属性。</p>
+<p>所以增加清单配置文件：MANIFEST.MF</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Manifest-Version: 1.0</span><br><span class="line">Main-Class: hello</span><br><span class="line"></span><br><span class="line">//注意：1. 冒号后面加一个空格，2. 最后必须回车到新的空行</span><br></pre></td></tr></table></figure>
+<p>再打包：<code>jar cvfm test.jar ./*</code><br>java -jar运行，找不到或无法加载主类 hello。</p>
+<p>所以在打包前先编译：<code>javac hello.java</code>，生成class文件，然后再打包，运行，可以执行。</p>
+<blockquote>
+<p>META-INF文件夹相当于一个信息包，目录中的文件和目录获得Java 2平台的认可与解释，用来配置应用程序、扩展程序、类加载器和服务。这个文件夹和其中的 MANIFEST.MF文件，在用jar打包时自动生成。<br>执行jar文件的时候，这个jar里是需要具备 META-INF/MANIFEST.MF的，否则java -jar就找不到main class。</p>
+</blockquote>
+<p>多个文件也可以如此打包，首先应该javac编译，然后增加主清单配置文件，其中可以指示默认入口函数（其中有main方法）。如果打的包中有其他类，java -jar jar包 是运行默认类，运行其他类方法：<code>java -cp test.jar com.test.sum 3 9</code>。<br>main函数可以有输入参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package com.test;</span><br><span class="line"></span><br><span class="line">public class sum&#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        if(args.length &lt; 2)&#123;</span><br><span class="line">            System.out.println(&quot;Paras: num1 num2&quot;);</span><br><span class="line">            System.exit(-1);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        final int num1 = Integer.valueOf(args[0]);</span><br><span class="line">        System.out.println(&quot;Num1: &quot; + num1);</span><br><span class="line">        final int num2 = Integer.valueOf(args[1]);</span><br><span class="line">        System.out.println(&quot;Num2: &quot; + num2);</span><br><span class="line"></span><br><span class="line">        final int sum = num1 + num2;</span><br><span class="line">        System.out.println(num1 + &quot; + &quot; + num2 + &quot; = &quot; + sum);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Xminyang/article/details/108059776">https://blog.csdn.net/Xminyang/article/details/108059776</a></p>
+<h4 id="✅使用idea打包"><a href="#✅使用idea打包" class="headerlink" title="✅使用idea打包"></a>✅使用idea打包</h4><p>🤔不可以java -jar的打包：<br>1.点击intellij idea左上角的“File”菜单 -&gt; Project Structure<br>2.点击”Artifacts” -&gt; 绿色的”+” -&gt; “JAR” -&gt; Empty<br>3. Name栏填入自定义的名字，Output ditectory选择jar包目标目录，Available Elements里双击需要添加到jar包的文件（添加java工程编译文件）<br>4. OK之后，点击菜单中“Build” -&gt; “Build Artifacts”<br>5. 点击弹出框中待生成jar包下面的build即可</p>
+<p>生成了jar包，直接java -jar执行，报<code>Error: Invalid or corrupt jarfile testjar.jar</code>.<br>需要用 -cp 指定类来执行，例如：<code>java -cp testjar.jar leecode.JianPanHang500</code></p>
+<p>🤔可以直接java -jar的打包：<br>如果需要直接java -jar 执行的jar包：<br>1.点击”Artifacts” -&gt; 绿色的”+” -&gt; “JAR” -&gt; from modules…<br>2.选择主类，选择META-INF位置<br>3.OK之后，点击菜单中“Build” -&gt; “Build Artifacts”<br>4.点击弹出框中待生成jar包下面的build即可</p>
+<p>注意：在选择主类时需要全路径，rebuild之后可以重新编译，<code>java -jar lee.jar</code>直接运行主类。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42239765/article/details/123236019">https://blog.csdn.net/qq_42239765/article/details/123236019</a></p>
+<h4 id="✅使用maven打包"><a href="#✅使用maven打包" class="headerlink" title="✅使用maven打包"></a>✅使用maven打包</h4><p>🤔不包含依赖包，也不指定入口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">    &lt;!-- 项目最终打包成的名字 --&gt;</span><br><span class="line">    &lt;finalName&gt;mylogmavenpackage&lt;/finalName&gt;</span><br><span class="line">  &lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;!-- 指定项目编译时的java版本和编码方式 --&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.7.0&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">        &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">        &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">  &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+
+<p>🤔指定入口，将依赖的jar包输出到指定目录<br>指定了入口类，可以直接使用java -jar project.jar执行，但是第三方依赖存在一个指定的外部目录下，迁移时需将jar和依赖目录一起迁移。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">  &lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;!-- 指定项目编译时的java版本和编码方式 --&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.7.0&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">        &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">        &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.1.0&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;archive&gt;</span><br><span class="line">          &lt;manifest&gt;</span><br><span class="line">            &lt;mainClass&gt;com.netty.client.SignalClient&lt;/mainClass&gt; &lt;!-- 指定入口类 --&gt;</span><br><span class="line">            &lt;addClasspath&gt;true&lt;/addClasspath&gt; &lt;!-- 在jar的MF文件中生成classpath属性 --&gt;</span><br><span class="line">            &lt;classpathPrefix&gt;lib/&lt;/classpathPrefix&gt; &lt;!-- classpath前缀,即依赖jar包的路径 --&gt;</span><br><span class="line">          &lt;/manifest&gt;</span><br><span class="line">        &lt;/archive&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.1.1&lt;/version&gt;</span><br><span class="line">      &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">          &lt;id&gt;copy&lt;/id&gt;</span><br><span class="line">          &lt;phase&gt;install&lt;/phase&gt;</span><br><span class="line">          &lt;goals&gt;</span><br><span class="line">            &lt;goal&gt;copy-dependencies&lt;/goal&gt;</span><br><span class="line">          &lt;/goals&gt;</span><br><span class="line">          &lt;configuration&gt;</span><br><span class="line">            &lt;!-- 指定依赖包的输出路径，需与上方的classpathPrefix保持一致 --&gt;</span><br><span class="line">            &lt;outputDirectory&gt;$&#123;project.build.directory&#125;/lib&lt;/outputDirectory&gt;</span><br><span class="line">          &lt;/configuration&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">      &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">  &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+
+<p>🤔将项目依赖和项目打成一个jar包（胖包）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">  &lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;!-- 指定项目编译时的java版本和编码方式 --&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.7.0&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">        &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">        &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.1.0&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;archive&gt;</span><br><span class="line">          &lt;manifest&gt;</span><br><span class="line">            &lt;mainClass&gt;com.netty.client.SignalClient&lt;/mainClass&gt; &lt;!-- 指定入口类路径 --&gt;</span><br><span class="line">          &lt;/manifest&gt;</span><br><span class="line">        &lt;/archive&gt;</span><br><span class="line">        &lt;descriptorRefs&gt;</span><br><span class="line">          &lt;descriptorRef&gt;jar-with-dependencies&lt;/descriptorRef&gt; &lt;!-- jar包后缀，生成的jar包形式为：project-1.0-SNAPSHOT-jar-with-dependencies.jar --&gt;</span><br><span class="line">        &lt;/descriptorRefs&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">      &lt;!-- 添加此项后，可直接使用mvn package | mvn install --&gt;</span><br><span class="line">      &lt;!-- 不添加此项，需直接使用mvn package assembly:single --&gt;</span><br><span class="line">      &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">          &lt;id&gt;make-assembly&lt;/id&gt;</span><br><span class="line">          &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">          &lt;goals&gt;</span><br><span class="line">            &lt;goal&gt;single&lt;/goal&gt;</span><br><span class="line">          &lt;/goals&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">      &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">  &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="打war包"><a href="#打war包" class="headerlink" title="打war包"></a>打war包</h3><p>上面打jar包，其实都有对应的打war包的方法：</p>
+<p>✅手动打war包<br><code>jar cvf test.war ./*</code></p>
+<p>✅idea打war包<br>artifact中选择web application，explode对于war explode，archive对应war。</p>
+<p>✅maven打war包<br>pom.xml中指示<br><code>&lt;packaging&gt;war&lt;/packaging&gt;</code><br>maven有多种打包方式。</p>
+<h3 id="war包和war-explode包"><a href="#war包和war-explode包" class="headerlink" title="war包和war explode包"></a>war包和war explode包</h3><p>1.war模式<br>这种可以称之为是发布模式，就是先将WEB工程打成war包，然后再将其上传到服务器进行发布 。</p>
+<p>2.war exploded模式<br>是将WEB工程以当前文件夹的位置关系上传到服务器，即直接把文件夹、jsp页面 、classes等等移到Tomcat 部署文件夹里面，进行加载部署。因此这种方式支持热部署，一般在开发的时候也是用这种方式。<br>在平时开发的时候，使用热部署的话，应该对Tomcat进行相应的设置，这样的话修改的jsp界面什么的东西才可以及时的显示出来。<br>（热部署，对于Java应用程序来说，热部署就是在运行时更新Java类文件。）</p>
+<p>问题：<br>idea进行部署，会将war包移到tomcat webapp文件夹下吗？</p>
+<h3 id="java-web工程目录结构"><a href="#java-web工程目录结构" class="headerlink" title="java web工程目录结构"></a>java web工程目录结构</h3><p>1.src文件夹：这是用来存放Java源文件。下面有main文件夹和test文件夹。<br>1.1.src/main/java：存放相应的Java代码，并根据对应的Java项目继续分层<br>1.2.src/main/resource：存放一些配置文件，例如application.properties、logback.xml<br>1.3.src/main/webapp：Web应用的网页，用来放静态资源比如HTML、CSS、图片等文件。WEB-INF目录所在。WEB-INF中存放网站配置文件目录，web.xml等配置信息。</p>
+<p>2..idea文件夹：是存储IntelliJ IDEA项目的配置信息，主要内容有IntelliJ IDEA项目本身的一些编译配置、文件编码信息、jar包的数据源和相关的插件配置信息。一般用git做版本控制的时候会把.idea文件夹排除，因为这个文件下保存的都是个人本地Idea编译器的配置。</p>
+<p>3.target文件夹：是用来存放项目构建后的文件和目录、jar包、war包、编译的class文件，都是maven构建时生成的。存放的是单个module的编译结果。</p>
+<p>4.out文件夹：存放该项目下所有module的编译结果。</p>
+<p>5.pom.xml：项目对象模型</p>
+<h3 id="新建个web工程并部署"><a href="#新建个web工程并部署" class="headerlink" title="新建个web工程并部署"></a>新建个web工程并部署</h3><p>1.new project，选maven，选archetype maven<br>2.选择maven setting，新建工程<br>3.简单写个index.jsp，在webapp目录下（主页）<br>4.通过idea部署，生成war_explode包，热部署<br>5.lsof -i:8080 查看端口占用<br>6.target文件夹下有war包了，但是在tomcat-webapp文件夹下并没有该项目。<br>7.关闭idea，web也无法访问了，所以要想一直运行，得打jar包放在webapp目录下？<br>8.并且发现，没用servlet，不用导入servlet包。</p>
+<h3 id="pom-xml结构"><a href="#pom-xml结构" class="headerlink" title="pom.xml结构"></a>pom.xml结构</h3><p>pom.xml 就是 maven 的配置文件，用以描述项目的各种信息。</p>
+<p><code>&lt;project </code>  是 pom.xml 中描述符的根。</p>
+<p><code>&lt;modelVersion&gt;</code> 指定 pom.xml 符合哪个版本的描述符。maven 2 和 3 只能为 4.0.0。</p>
+<p>在 maven 中，根据 groupId、artifactId、version 组合来唯一识别一个 jar 包。<br><code>&lt;groupId&gt;</code> - 团体、组织的标识符。团体标识的约定是，它以创建这个项目的组织名称的逆向域名(reverse domain name)开头。一般对应着 java 的包结构。<br><code>&lt;artifactId&gt;</code> - 单独项目的唯一标识符。例如junit。不要在 artifactId 中包含点号(.)。<br><code>&lt;version&gt;</code> - 一个项目的特定版本。</p>
+<blockquote>
+<p>maven 在版本管理时候可以使用几个特殊的字符串 SNAPSHOT、LATEST、RELEASE。比如 1.0-SNAPSHOT。各个部分的含义和处理逻辑如下说明：<br>SNAPSHOT - 这个版本一般用于开发过程中，表示不稳定的版本。<br>LATEST - 指某个特定构件的最新发布，这个发布可能是一个发布版，也可能是一个 snapshot 版，具体看哪个时间最后。<br>RELEASE ：指最后一个发布版。</p>
+</blockquote>
+<p><code>&lt;packaging&gt;</code> - 项目的类型，描述了项目打包后的输出，默认是 jar。常见的输出类型为：pom, jar, maven-plugin, ejb, war, ear, rar, par。</p>
+<p><code>&lt;name&gt;</code> - 项目名字</p>
+<p><code>&lt;url&gt;</code> - 项目网站</p>
+<p><code>&lt;description&gt;</code> - 项目描述</p>
+<p><code>&lt;parent&gt;</code> - maven 支持继承功能。子 POM 可以使用 parent 指定父 POM ，然后继承其配置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  &lt;parent&gt;</span><br><span class="line">    &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;my-parent&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.0&lt;/version&gt;</span><br><span class="line">    &lt;relativePath&gt;../my-parent&lt;/relativePath&gt;</span><br><span class="line">  &lt;/parent&gt;</span><br><span class="line"></span><br><span class="line">relativePath ： 在搜索本地和远程存储库之前，它不是必需的，但可以用作 maven 的指示符，以首先搜索给定该项目父级的路径。</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;modules&gt;</code> - 子模块列表。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;modules&gt;</span><br><span class="line">    &lt;module&gt;my-project-api&lt;/module&gt;</span><br><span class="line">    &lt;module&gt;my-project-repository&lt;/module&gt;</span><br><span class="line">&lt;/modules&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;properties&gt;</code> - 属性列表。定义的属性可以在 pom.xml 文件中任意处使用。使用方式为 ${propertie} 。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">例子：</span><br><span class="line">	&lt;properties&gt;</span><br><span class="line">		&lt;!-- Test --&gt;</span><br><span class="line">		&lt;junit.version&gt;1.16.1&lt;/junit.version&gt;</span><br><span class="line">	&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">	&lt;dependency&gt;</span><br><span class="line">		&lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">		&lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">		&lt;version&gt;$&#123;junit.version&#125;&lt;/version&gt;</span><br><span class="line">		&lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">	&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;dependencies&gt;</code> - 依赖配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">groupId, artifactId, version - 和基本配置中的 groupId、artifactId、version 意义相同。</span><br><span class="line"></span><br><span class="line">type - 对应 packaging 的类型，如果不使用 type 标签，maven 默认为 jar。</span><br><span class="line"></span><br><span class="line">scope - 此元素指的是任务的类路径（编译和运行时，测试等）以及如何限制依赖关系的传递性。有 5 种可用的限定范围：</span><br><span class="line">compile : 如果没有指定 scope 标签，maven 默认为这个范围。编译依赖关系在所有 classpath 中都可用。此外，这些依赖关系被传播到依赖项目。</span><br><span class="line">provided : 与 compile 类似，但是表示您希望 jdk 或容器在运行时提供它。它只适用于编译和测试 classpath，不可传递。</span><br><span class="line">runtime : 此范围表示编译不需要依赖关系，而是用于执行。它是在运行时和测试 classpath，但不是编译 classpath。</span><br><span class="line">test : 此范围表示正常使用应用程序不需要依赖关系，仅适用于测试编译和执行阶段。它不是传递的。</span><br><span class="line">system : 此范围与 provided 类似，除了您必须提供明确包含它的 jar。该 artifact 始终可用，并且不是在仓库中查找。</span><br><span class="line"></span><br><span class="line">systemPath - 仅当依赖范围是系统时才使用。否则，如果设置此元素，构建将失败。该路径必须是绝对路径，因此建议使用 propertie 来指定特定的路径，如\$ &#123;java.home&#125; / lib。由于假定先前安装了系统范围依赖关系，maven 将不会检查项目的仓库，而是检查库文件是否存在。如果没有，maven 将会失败，并建议您手动下载安装。</span><br><span class="line"></span><br><span class="line">optional - optional 让其他项目知道，当您使用此项目时，您不需要这种依赖性才能正常工作。</span><br><span class="line"></span><br><span class="line">exclusions - 包含一个或多个排除元素，每个排除元素都包含一个表示要排除的依赖关系的 groupId 和 artifactId。与可选项不同，可能或可能不会安装和使用，排除主动从依赖关系树中删除自己。</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;dependencyManagement&gt;</code> - 是在<code>&lt;dependencies&gt;</code>外用的。表示依赖 jar 包的声明。即你在项目中的 dependencyManagement 下声明了依赖，maven 不会加载该依赖，dependencyManagement 声明可以被子 POM 继承。<br>它的一个使用案例是当有父子项目的时候，父项目中可以利用 <code>&lt;dependencyManagement&gt;</code> 声明子项目中需要用到的依赖 jar 包，之后，当某个或者某几个子项目需要加载该依赖的时候，就可以在子项目中 dependencies 节点只配置 groupId 和 artifactId 就可以完成依赖的引用。<br><code>&lt;dependencyManagement&gt;</code> 主要是为了统一管理依赖包的版本，确保所有子项目使用的版本一致，类似的还有plugins和pluginManagement。</p>
+<p><code>&lt;build&gt;</code> - 构建配置。<br><code>&lt;plugins&gt;</code> - 配置插件，在<code>&lt;build&gt;</code>下。<br><code>pluginManagement</code> - 与 dependencyManagement 很相似，在当前 POM 中仅声明插件，而不是实际引入插件。子 POM 中只配置 groupId 和 artifactId 就可以完成插件的引用，且子 POM 有权重写 pluginManagement 定义。<br>它的目的在于统一所有子 POM 的插件版本。<br><code>&lt;extensions&gt;</code> - 扩展配置，扩展是在构建期间激活的 artifacts。扩展不需要实际执行任何操作，也不包含 Mojo。因此，扩展对于指定普通插件接口的多个实现中的一个是非常好的。</p>
+<p>pom.xml解析：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/76874769">https://zhuanlan.zhihu.com/p/76874769</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/02/myblog/JAVA/mybatis%E5%AE%9E%E6%88%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/02/myblog/JAVA/mybatis%E5%AE%9E%E6%88%98/" class="post-title-link" itemprop="url">mybatis实战</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-06-02 21:45:44" itemprop="dateCreated datePublished" datetime="2022-06-02T21:45:44+08:00">2022-06-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-05 21:43:37" itemprop="dateModified" datetime="2022-06-05T21:43:37+08:00">2022-06-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="resultMap和resultType"><a href="#resultMap和resultType" class="headerlink" title="resultMap和resultType"></a>resultMap和resultType</h3><p>ResultType和ResultMap都是执行查询语句时返回的结果集。<br>ResultType相对与ResultMap而言更简单一点。只有满足ORM（Object Relational Mapping，对象关系映射）时，即数据库表中的字段名和实体类中的属性完全一致时，才能使用，否则会出现数据不显示的情况。<br>ResultMap和ResultType的功能类似，但是ResultMap更强大一点，ResultMap可以实现将查询结果映射为复杂类型的pojo。</p>
+<h4 id="resultType"><a href="#resultType" class="headerlink" title="resultType"></a>resultType</h4><p>1.java的基础类型及其包装类int,double和java.lang.Integer,java.lang.Double等</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">返回值为int，resultType为int ,java.lang.Integer也可以--&gt;</span><br><span class="line">&lt;select id=&quot;countUser&quot; resultType=&quot;int&quot;&gt;</span><br><span class="line">    select count(*) from user</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2.自己定义的实体类,实体类和数据库字段需要一致，如果不一致需要使用resulMap自定义map，也可以直接使用map。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">返回值为实体类，resultType为User--&gt;</span><br><span class="line">&lt;select id=&quot;getUser&quot; resultType=&quot;com.entity.User&quot;&gt;</span><br><span class="line">   select * from User where id=#&#123;id&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p>3.map类型，Dao层的返回类型为<code>Map&lt;String, Object&gt;</code>，key是对应的column值，value是数据中的数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 返回值为Map&lt;String,Object&gt;，resultType为map--&gt;</span><br><span class="line">&lt;select id=&quot;getUserSelective&quot; resultType=&quot;map&quot;&gt;</span><br><span class="line">    select name,address,salary from User where id=#&#123;id&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p>4.List集合，其中该集合的类型可以为1,2,3中提到的类型。Dao层的返回类型为<code>List&lt;User&gt;</code>，这里只展示了实体类集合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">返回值为List&lt;User&gt;，resultType为User--&gt;</span><br><span class="line">&lt;select id=&quot;getUserList&quot; resultType=&quot;User&quot;&gt;</span><br><span class="line">    select * from user</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="resultMap"><a href="#resultMap" class="headerlink" title="resultMap"></a>resultMap</h4><p>结果集的映射是 MyBatis 最强大的特性,通过使用resultMap或resultType可以解决复杂映射问题。基础简单的使用resultType就可以了，但是如果出现table中列和实体类中的属性不一致或者多表级联。那么这时resultMap就可以发挥作用了。</p>
+<p>TestDao.xml:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;mapper namespace=&quot;com.repository.TestDao&quot;&gt;</span><br><span class="line">    //定义映射</span><br><span class="line">    &lt;resultMap id=&quot;TestResultMap&quot; type=&quot;com.entity.TestDO&quot;&gt;</span><br><span class="line">        &lt;result column=&quot;id&quot; property=&quot;id&quot; jdbcType=&quot;INTEGER&quot; /&gt;</span><br><span class="line">        &lt;result column=&quot;name&quot; property=&quot;name&quot; jdbcType=&quot;VARCHAR&quot; /&gt;</span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">    //定义返回栏目</span><br><span class="line">    &lt;sql id=&quot;all_colum_without_id&quot;&gt;</span><br><span class="line">        name</span><br><span class="line">    &lt;/sql&gt;</span><br><span class="line"></span><br><span class="line">    &lt;sql id=&quot;all_colum&quot;&gt;</span><br><span class="line">        name,&lt;include refid=&quot;all_colum_without_id&quot;/&gt;</span><br><span class="line">    &lt;/sql&gt;</span><br><span class="line"></span><br><span class="line">    //插入语句</span><br><span class="line">    &lt;insert id=&quot;insertOne&quot; parameterType=&quot;com.entity.TestDO&quot; useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&gt;</span><br><span class="line">        insert into table (&lt;include refid=&quot;all_colum_without_id&quot;/&gt;)</span><br><span class="line">        values (#&#123;name&#125;)</span><br><span class="line">    &lt;/insert&gt;</span><br><span class="line"></span><br><span class="line">    //查询</span><br><span class="line">    &lt;select id=&quot;findById&quot; resultMap=&quot;TestResultMap&quot;&gt;</span><br><span class="line">        select &lt;include refid=&quot;all_colum&quot;/&gt; from table where id=#&#123;id&#125;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+
+<p>TestDao.java接口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Mapper</span><br><span class="line">public interface TestDao &#123;</span><br><span class="line">    //插入</span><br><span class="line">    Integer insertOne(TestDO testDO);</span><br><span class="line">    //查询</span><br><span class="line">    TestDO findById(Long id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>jdbcType告诉框架如何解析这个属性（对应数据库中的类型），column是数据库中table的列名，property是实体类中对应的属性名字，type是对应的实体类，id=”TestResultMap”是这个resultMap的一个引用标志。</p>
+<p>这样使用resultMap就像用resultType对应实体类，在select出来的语句中直接对字段就行as，as为实体类属性名，或驼峰形式就行。</p>
+<p>resultMap更复杂的用法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wobuaizhi/article/details/83104464">https://blog.csdn.net/wobuaizhi/article/details/83104464</a></p>
+<h3 id="返回映射下划线转驼峰"><a href="#返回映射下划线转驼峰" class="headerlink" title="返回映射下划线转驼峰"></a>返回映射下划线转驼峰</h3><p>意思是返回值对应到对象，mysql返回的字段名（app_id），直接映射到对象属性名（appId）。</p>
+<p>第一种 Spring Boot</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mybatis.configuration.map-underscore-to-camel-case=true</span><br></pre></td></tr></table></figure>
+
+<p>第二种 mybatis-config.xml配置中加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;!-- 全局配置 --&gt;</span><br><span class="line">    &lt;settings&gt;</span><br><span class="line">    </span><br><span class="line">       &lt;!-- 是否开启自动驼峰命名规则映射</span><br><span class="line">        &lt;setting name=&quot;mapUnderscoreToCamelCase&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">    &lt;/settings&gt;</span><br><span class="line">&lt;/configuration&gt; </span><br></pre></td></tr></table></figure>
+
+<h3 id="mybatis-useGeneratedKeys-keyProperty"><a href="#mybatis-useGeneratedKeys-keyProperty" class="headerlink" title="mybatis useGeneratedKeys keyProperty"></a>mybatis useGeneratedKeys keyProperty</h3><p>useGeneratedKeys （仅适用于 insert 和 update）这会令 MyBatis 使用 JDBC 的 getGeneratedKeys 方法来取出由数据库内部生成的主键（比如：像 MySQL 和 SQL Server 这样的关系型数据库管理系统的自动递增字段），默认值：false。</p>
+<p>首先，如果你的数据库支持自动生成主键的字段（比如 MySQL 和 SQL Server），那么你可以设置 useGeneratedKeys=”true”，然后再把 keyProperty 设置为目标属性就 OK 了。</p>
+<p>作用：在inset时，可以不用管主键插入多少，而且插入后，还能直接用对象里的主，因为自动返回了。建表时必须设置主键自增。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertAuthor&quot; useGeneratedKeys=&quot;true&quot;</span><br><span class="line">    keyProperty=&quot;id&quot;&gt;</span><br><span class="line">  insert into Author (username,password,email,bio)</span><br><span class="line">  values (#&#123;username&#125;,#&#123;password&#125;,#&#123;email&#125;,#&#123;bio&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/01/myblog/JAVA/maven%E5%92%8Cnuxus/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/01/myblog/JAVA/maven%E5%92%8Cnuxus/" class="post-title-link" itemprop="url">maven与nexus</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-06-01 22:34:23 / Modified: 23:10:09" itemprop="dateCreated datePublished" datetime="2022-06-01T22:34:23+08:00">2022-06-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="maven"><a href="#maven" class="headerlink" title="maven"></a>maven</h3><ol>
+<li><p>优秀的构建工具<br>通过简单的命令，能够完成清理、编译、测试、打包、部署等一系列过程。同时，不得不提的是，Maven是跨平台的，无论是在Windows、还是在Linux或Mac上，都可以使用同样的命令。</p>
+</li>
+<li><p>依赖管理工具<br>项目依赖的第三方的开源类库，都可以通过依赖的方式引入到项目中来。代替了原来需要首先下载第三方jar，再加入到项目中的方式。从而更好的解决了合作开发中依赖增多、版本不一致、版本冲突、依赖臃肿等问题。<br>具体是怎么实现的呢？Maven通过坐标系统准确的定位每一个构件，即通过坐标找到对应的java类库。</p>
+</li>
+<li><p>项目信息管理工具<br>能够管理项目描述、开发者列表、版本控制系统地址、许可证等一些比较零散的项目信息。除了直接的项目信息，通过Maven自动生成的站点，以及一些已有的插件，还能够轻松获得项目文档、测试报告、静态分析报告、源码版本、日志报告等非常具有价值的项目信息。</p>
+</li>
+</ol>
+<h3 id="maven仓库"><a href="#maven仓库" class="headerlink" title="maven仓库"></a>maven仓库</h3><p>maven的依赖管理功能，通过在Pom中指定坐标的形式将jar引入到项目中。jar包就存放在仓库中。</p>
+<p>Maven的仓库分为本地仓库和远程仓库。远程仓库分为：中央仓库、私服、其他远程仓库。</p>
+<p>当Maven根据坐标寻找构件时，它首先会查看本地仓库，如果本地仓库存在此构件，则直接使用；如果本地仓库不存在此构件，或者需要查看是否有更新的构件版本，Maven会去远程仓库查找，发现需要的构件之后，下载到本地仓库再使用。</p>
+<p>为什么需要私服？</p>
+<p>1.一些无法从外部仓库下载的构件，例如内部的项目，可以部署到私服上，以便供其他依赖项目使用。</p>
+<p>2.为了节省带宽和时间，在局域网内架设一个私有的仓库服务器，用其代理所有外部的远程仓库。当本地Maven项目需要下载构件时，先去私服请求，如果私服没有，则再去远程仓库请求，从远程仓库下载构件后，把构件缓存在私服上。这样，即使暂时没有Internet链接，由于私服已经缓存了大量构件，整个项目还是可以正常使用的。同时，也降低了中央仓库的负荷。</p>
+<p>如果没有私服，我们所需的所有构件都需要通过maven的中央仓库和第三方的Maven仓库下载到本地，而一个团队中的所有人都重复的从maven仓库下载构件无疑加大了仓库的负载和浪费了外网带宽，如果网速慢的话，还会影响项目的进程。很多情况下项目的开发都是在内网进行的，连接不到maven仓库怎么办呢？开发的公共构件怎么让其它项目使用？这个时候我们不得不为自己的团队搭建属于自己的maven私服，这样既节省了网络带宽也会加速项目搭建的进程，当然前提条件就是你的私服中拥有项目所需的所有构件。<br>————————————————</p>
+<p>总而言之：私服在用户局域网内的特殊远程仓库，私服起到了maven用户与中央仓库的中间作用，私服从中央仓库缓存构件，maven用户从私服下载构件。</p>
+<h3 id="nexus"><a href="#nexus" class="headerlink" title="nexus"></a>nexus</h3><p>nexus就是私服的一种。</p>
+<p>nexus是一个强大的maven仓库管理器,它极大的简化了本地内部仓库的维护和外部仓库的访问.</p>
+<p>nexus提供了强大的仓库管理功能,构件搜索功能,它基于REST,友好的UI是一个extjs的REST客户端,占用较少的内存,基于简单文件系统而非数据库.</p>
+<p>节省外网带宽；加速Maven构建；部署第三方构件；提高稳定性，增强控制；降低中央仓库的负荷；控制和审计；建立本地内部公用仓库。</p>
+<p>转载自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/youngdeng/p/15098442.html">https://www.cnblogs.com/youngdeng/p/15098442.html</a></p>
+<p>如何配置：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5b06b2541336">https://www.jianshu.com/p/5b06b2541336</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/21/myblog/JAVA/Geometry%E5%92%8CCoordinate/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -377,7 +710,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-28 21:19:47" itemprop="dateModified" datetime="2022-05-28T21:19:47+08:00">2022-05-28</time>
+                <time title="Modified: 2022-05-31 22:29:25" itemprop="dateModified" datetime="2022-05-31T22:29:25+08:00">2022-05-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -613,6 +946,14 @@
 <h3 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h3><p>看《java基础》<br>针对有一个抽象方法的接口实现，以简洁的表达式形式实现接口功能来作为方法参数</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">set.stream().map(i-&gt;String.valueOf(i)).</span><br><span class="line">括号内的i，表示流处理中的元素，也是lambda表达式的输入</span><br><span class="line">只有一句语句，省去了&#123;&#125;，省去了return</span><br><span class="line"></span><br><span class="line">使用现有的方法，比如上面的，可以变成lambda表达式的引用形式::</span><br><span class="line">.map(String::valueOf).</span><br><span class="line"></span><br><span class="line">上面的方法例如map()，内部的传参是只有一个函数式接口，</span><br><span class="line">有的方法穿参，除了一个函数式接口还有其他，所以会有其他参数。</span><br><span class="line">例如：</span><br><span class="line">方法：showSum(int x, int y, Calculate cu)</span><br><span class="line">使用：showSum(10, 20, (x,y)-&gt;x+y);</span><br></pre></td></tr></table></figure>
 
+<h3 id="Calender类"><a href="#Calender类" class="headerlink" title="Calender类"></a>Calender类</h3><p>Calendar 是一个抽象类, 无法通过直接实例化得到对象. 因此, Calendar 提供了一个方法 getInstance（工厂方法）,来获得一个Calendar的子类对象, 得到的 Calendar 由当前时间初始化.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class CalenderTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Calendar cal = Calendar.getInstance();</span><br><span class="line">        cal.set (2013, 5, 4, 13, 44, 51);//年月日时分秒 (月份0代表1月)</span><br><span class="line">        cal.set (Calendar.YEAR, 2014); //年</span><br><span class="line">        cal.set (Calendar.MONTH, 7); //月 (月份0代表1月)</span><br><span class="line">        cal.set (Calendar.DATE, 11); //日</span><br><span class="line">        cal.set (Calendar.HOUR_OF_DAY, 15); //时</span><br><span class="line">        cal.set (Calendar.MINUTE, 33); //分</span><br><span class="line">        cal.set (Calendar.SECOND, 32); //秒</span><br><span class="line"></span><br><span class="line">        //同时还有get、add方法，使用类似</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Calendar是父类，GregorianCalendar是子类。<br>GregorianCalendar（公历）是Calendar的一个具体子类，提供了世界上大多数国家/地区使用的标准日历系统。可以使用new关键字创建实例。</p>
+<p>例子：返回当前时间加10分钟后的日期时间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Calendar calendar = new GregorianCalendar();</span><br><span class="line">Date date = new Date();</span><br><span class="line">calendar.setTime(date);</span><br><span class="line">calendar.add(GregorianCalendar.MINUTE, 10);</span><br><span class="line">Date after = calendar.getTime();</span><br><span class="line">System.out.println(after);</span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/a1439775520/article/details/98442556">https://blog.csdn.net/a1439775520/article/details/98442556</a></p>
 
       
     </div>
@@ -632,7 +973,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/30/myblog/spring/java%E6%8E%A5%E5%8F%A3&%E7%B1%BB/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/30/myblog/JAVA/java%E6%8E%A5%E5%8F%A3&%E7%B1%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.gif">
@@ -646,7 +987,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/04/30/myblog/spring/java%E6%8E%A5%E5%8F%A3&%E7%B1%BB/" class="post-title-link" itemprop="url">java常规接口、类</a>
+            <a href="/2022/04/30/myblog/JAVA/java%E6%8E%A5%E5%8F%A3&%E7%B1%BB/" class="post-title-link" itemprop="url">java常规接口、类</a>
         </h2>
 
         <div class="post-meta">
@@ -1116,402 +1457,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/23/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/yarn%E5%92%8Cmapreduce/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/23/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/yarn%E5%92%8Cmapreduce/" class="post-title-link" itemprop="url">yarn和mapreduce模型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-04-23 12:45:14 / Modified: 18:55:54" itemprop="dateCreated datePublished" datetime="2022-04-23T12:45:14+08:00">2022-04-23</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="mapreduce"><a href="#mapreduce" class="headerlink" title="mapreduce"></a>mapreduce</h3><p>谷歌三剑客：GFS（高富帅）、bigtable、mapreduce（名人）</p>
-<p>层次：GFS最底层文件系统、在往上是BigTable文件模型、再往上是算法MapReduce</p>
-<p>map：拆解<br>reduce：组合</p>
-<p>mapreduce类似于赛百味：得到数据（input）、切分（split）、把数据归类（map）、组装（shuffle）、交付（reduce）</p>
-<p>例子：mapreduce做单词出现数的统计，每个步骤都是并行的过程。</p>
-<p><img src="https://img-blog.csdnimg.cn/f7410910fe5e4976b6496ee312260cf4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="tu"></p>
-<p>例子：mapreduce实现倒排索引，记录每个单词出现的位置<br><img src="https://img-blog.csdnimg.cn/55a12ac4d4a949d18ebc39338fdb0a39.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>mapreduce架构：<br>首先是用户进程（user program）协调和定义程序怎么运行，负责拆解worker，其中一个master worker（作为用户的代理来协调整个过程）。</p>
-<p><img src="https://img-blog.csdnimg.cn/6e02cd00a6b543d9bed5d582a23af7f3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>mapreduce本质就是分支法。</p>
-<h3 id="yarn"><a href="#yarn" class="headerlink" title="yarn"></a>yarn</h3><p>另一种资源协调者，hadoop1.x中负责资源管理的是一JobTracker。</p>
-<p>yarn负责大数据计算中的：资源管理、程序调度。</p>
-<p>主要由两个核心部分构成：ResourceManager（统揽全局）、NodeManager（管理每个计算机节点上的资源调度）<br>ResourceManager中有两个部分：ApplicationManager、ResourceScheduler</p>
-<p>1.作业提交阶段：client向整个集群提交job，申请job_id，ResourceManager返回job资源提交路径和job_id，client收到后发送jar包到指定路径HDFS。client提交后向ResourceManager提交执行请求，ResourceManager创建一个ApplicationManager来管理这个job。</p>
-<p>2.作业初始化阶段：ApplicationManager将job提交到ResourceScheduler中，ResourceScheduler维护一个job队列，等待执行。可以执行时，ResourceScheduler通知ApplicationManager有一个NodeManager可以执行job。ApplicationManager在NodeManager中开辟容器Container，Container中启动ApplicationMaster，ApplicationMaster获取HDFS上的文件，生成Task（可以是mapTask，也可以是reduceTask）。</p>
-<p>3.任务分配阶段：ApplicationMaster向ResourceManager申请运行Task的任务资源，ResourceManager将Task任务分配给空闲的NodeManager，NodeManager创建用于执行Task的容器Container。</p>
-<p>4.任务运行阶段：ApplicationMaster通知所有接收到Task计算任务的NodeManager启动计算，NodeManager进行计算。执行完成后，向ResourceManager申请Container运行新的Task。所有的Task执行完毕后，ApplicationMaster向ResourceManager申请注销自己。</p>
-<p>5.作业完成阶段：框架更新任务的进度和状态。</p>
-<p><img src="https://img-blog.csdnimg.cn/9d376a8d36394947951162090fcd08a2.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
-<p>视频地址：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Pa4y1t7nf?spm_id_from=333.1007.top_right_bar_window_history.content.click">https://www.bilibili.com/video/BV1Pa4y1t7nf?spm_id_from=333.1007.top_right_bar_window_history.content.click</a></p>
-<h3 id="mapreduce与yarn"><a href="#mapreduce与yarn" class="headerlink" title="mapreduce与yarn"></a>mapreduce与yarn</h3><p>mapreduce的流程：</p>
-<p>1.首先用户程序 (JobClient) 提交了一个 job，job 的信息会发送到 Job Tracker 中，Job Tracker 是 Map-reduce 框架的中心，他需要与集群中的机器定时通信 (heartbeat), 需要管理哪些程序应该跑在哪些机器上，需要管理所有 job 失败、重启等操作，需要分配在每个 TaskTracker 上运行的 map 和 reduce 任务。</p>
-<p>2.TaskTracker 是 Map-reduce 集群中每台机器都有的一个部分，他做的事情主要是监视自己所在机器的资源情况。 </p>
-<p>3.TaskTracker 同时监视当前机器的 tasks 运行状况。TaskTracker 需要把这些信息通过 heartbeat 发送给 JobTracker，JobTracker 会搜集这些信息以给新提交的 job 分配运行在哪些机器上。上图虚线箭头就是表示消息的发送 - 接收的过程。</p>
-<hr>
-<p>MapReduce存在的问题：</p>
-<p>1.JobTracker 是 Map-reduce 的集中处理点，存在单点故障。</p>
-<p>2.JobTracker 完成了太多的任务，造成了过多的资源消耗，当 map-reduce job 非常多的时候，会造成很大的内存开销，潜在来说，也增加了 JobTracker fail 的风险，这也是业界普遍总结出老 Hadoop 的 Map-Reduce 只能支持 4000 节点主机的上限。</p>
-<p>3.在 TaskTracker 端，以 map/reduce task 的数目作为资源的表示过于简单，没有考虑到 cpu/ 内存的占用情况，如果两个大内存消耗的 task 被调度到了一块，很容易出现 OOM (内存溢出：需要的内存空间大于系统分配的内存空间)。</p>
-<p>4.在 TaskTracker 端，把资源强制划分为 map task slot 和 reduce task slot, 如果当系统中只有 map task 或者只有 reduce task 的时候，会造成资源的浪费，也就是前面提过的集群资源利用的问题。</p>
-<p>5.源代码层面分析的时候，会发现代码非常的难读，常常因为一个 class 做了太多的事情，代码量达 3000 多行，，造成 class 的任务不清晰，增加 bug 修复和版本维护的难度。</p>
-<p>6.从操作的角度来看，现在的 Hadoop MapReduce 框架在有任何重要的或者不重要的变化 ( 例如 bug 修复，性能提升和特性化 ) 时，都会强制进行系统级别的升级更新。更糟的是，它不管用户的喜好，强制让分布式集群系统的每一个用户端同时更新。这些更新会让用户为了验证他们之前的应用程序是不是适用新的 Hadoop 版本而浪费大量时间。</p>
-<p>总结：从业界使用分布式系统的变化趋势和 hadoop 框架的长远发展来看，MapReduce 的 JobTracker/TaskTracker 机制需要大规模的调整来修复它在可扩展性，内存消耗，线程模型，可靠性和性能上的缺陷。</p>
-<hr>
-<p>yarn：</p>
-<p>从 0.23.0 版本开始，Hadoop 的 MapReduce 框架完全重构，发生了根本的变化。新的 Hadoop MapReduce 框架命名为 MapReduceV2 或者叫 Yarn。</p>
-<p>重构根本的思想是将 JobTracker 两个主要的功能分离成单独的组件，这两个功能是资源管理和任务调度 / 监控。新的ResourceManager 资源管理器全局管理所有应用程序计算资源的分配，每一个应用的 ApplicationMaster 负责相应的调度和协调。一个应用程序无非是一个单独的传统的 MapReduce 任务或者是一个 DAG( 有向无环图 ) 任务。ResourceManager 和每一台机器的节点管理服务器能够管理用户在那台机器上的进程并能对计算进行组织。</p>
-<p>老的MapReduce主要包括Job Tracker和Task Tracker，YARN中主要是三个组件：Resource Manager、Node Manager和Application Master。Resource Manager负责全局资源分配，Application Master每个节点（job？）一个，负责当前节点的调度和协调。Node Manager是每台机器的代理，监控应用程序的资源使用情况，并汇报给Resource Manager。因此与老的MapReduce相比，YARN把资源管理与任务调度的工作分离开来，减少了MapReduce中Job Tracker的压力。</p>
-<p>ResourceManager：是一个中心的服务，它做的事情是调度、启动每一个 Job 所属的 ApplicationMaster、另外监控 ApplicationMaster 的存在情况。ResourceManager 负责作业与资源的调度。接收 JobSubmitter 提交的作业，按照作业的上下文 (Context) 信息，以及从 NodeManager 收集来的状态信息，启动调度过程，分配一个 Container 作为 App Mstr.</p>
-<p>NodeManager：功能比较专一，就是负责 Container 状态的维护，并向 RM 保持心跳。</p>
-<p>ApplicationMaster：负责一个 Job 生命周期内的所有工作，类似老的框架中 JobTracker。但注意每一个 Job（不是每一种）都有一个 ApplicationMaster，它可以运行在 ResourceManager 以外的机器上。</p>
-<hr>
-<p>yarn的优势：</p>
-<p>1 YARN大大减少了Job Tracker的资源消耗，并且让监测每个Job子任务状态的程序分布式化了。<br>2 YARN中Application Master是一个可变更部分，用户可以对不同编程模型编写自己的AppMst，让更多类型的编程模型能跑在Hadoop集群中。<br>3 老的框架中，Job Tracker一个很大的负担就是监控Job下任务的运行状况，现在由Application Master去做，而Resource Manager是监测Application Master的运行状况，如果出问题，会将其在其他机器上重启。</p>
-<p>出处：<br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9523999e13cf">https://www.jianshu.com/p/9523999e13cf</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/hahachenchen789/article/details/80527706">https://blog.csdn.net/hahachenchen789/article/details/80527706</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/22/myblog/spring/spring%E6%A1%86%E6%9E%B6%E4%B9%8Bbean%E6%B3%A8%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/22/myblog/spring/spring%E6%A1%86%E6%9E%B6%E4%B9%8Bbean%E6%B3%A8%E8%A7%A3/" class="post-title-link" itemprop="url">spring框架@Bean注解、拦截器、监听器</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-04-22 22:14:57" itemprop="dateCreated datePublished" datetime="2022-04-22T22:14:57+08:00">2022-04-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-20 23:23:55" itemprop="dateModified" datetime="2022-05-20T23:23:55+08:00">2022-05-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/spring%E7%90%86%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">spring理解</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Bean注解"><a href="#Bean注解" class="headerlink" title="@Bean注解"></a>@Bean注解</h3><p>作用在方法上的注解，Spring的@Bean注解用于告诉方法，产生一个Bean对象，然后这个Bean对象交给Spring管理。产生这个Bean对象的方法Spring只会调用一次，随后这个Spring将会将这个Bean对象放在自己的IOC容器中。(和xml配置中的bean标签的作用是一样的)</p>
-<p>@Bean主要用在@Configuration注解的类中，也可以用在@Component注解的类中。</p>
-<p>例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class AppConfig &#123;</span><br><span class="line"> </span><br><span class="line">    // 使用@Bean 注解表明myBean需要交给Spring进行管理</span><br><span class="line">    // 未指定bean 的名称，默认采用的是方法名的配置方式</span><br><span class="line">    @Bean</span><br><span class="line">    public MyBean buildMyBean()&#123;</span><br><span class="line">        return new MyBean();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">public class MyBean &#123;</span><br><span class="line"> </span><br><span class="line">    public MyBean()&#123;</span><br><span class="line">        System.out.println(&quot;MyBean Initializing&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>创建一个测试类SpringBeanApplicationTests，测试上述代码的正确性</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class SpringBeanApplicationTests &#123;</span><br><span class="line"> </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);</span><br><span class="line">        context.getBean(&quot;buildMyBean&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>@Bean的属性：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">value：bean别名和name是相互依赖关联的，value,name如果都使用的话值必须要一致；</span><br><span class="line"></span><br><span class="line">name：bean名称，如果不写会默认为注解的方法名称；</span><br><span class="line"></span><br><span class="line">autowire：自定装配默认是不开启的，建议尽量不要开启，因为自动装配不能装配基本数据类型、字符串、数组等，这是自动装配设计的局限性，并且自动装配不如依赖注入精确；</span><br><span class="line"></span><br><span class="line">initMethod：bean的初始化之前的执行方法，该参数一般不怎么用，因为完全可以在代码中实现；</span><br><span class="line"></span><br><span class="line">destroyMethod：默认使用javaConfig配置的bean，如果存在close或者shutdown方法，则在bean销毁时会自动执行该方法，如果你不想执行该方法，则添加@Bean(destroyMethod=&quot;&quot;)来防止出发销毁方法；</span><br></pre></td></tr></table></figure>
-
-<p>Spring中的@Bean注解：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_36380516/article/details/119194065">https://blog.csdn.net/weixin_36380516/article/details/119194065</a></p>
-<h3 id="Bean和-Component"><a href="#Bean和-Component" class="headerlink" title="@Bean和@Component"></a>@Bean和@Component</h3><ul>
-<li>@Component注解表明一个类会作为组件类，并告知Spring要为这个类创建bean。</li>
-<li>@Bean注解告诉Spring这个方法将会返回一个对象，这个对象要注册为Spring应用上下文中的bean。通常方法体中包含了最终产生bean实例的逻辑。</li>
-</ul>
-<p>相同点：两者的结果都是为spring容器注册Bean.<br>不同点：@Component 通常是通过类路径扫描来自动侦测以及自动装配到Spring容器中。<br>　　　　@Bean 注解通常是我们在标有该注解的方法中定义产生这个bean的逻辑。</p>
-<blockquote>
-<p>@Component （@Controller @Service @Respository）作用于类上，只有在我们的SpringBoot应用程序启用了组件扫描并且包含了被注解的类时才有效。通过组件扫描，Spring将扫描整个类路径，并将所有@Component注释类添加到Spring Context，这里有的不足就是会把整个类当成bean注册到spring 容器上，如果这个类中并不是所有方法都需要注册为bean的话，会出现不需要的方法都注册成为bean，这时候必须确保这些不需要的方法也能注册为bean或者在扫描中加filter 过滤这些不需要的bean,否者spring将无法成功启动。</p>
-</blockquote>
-<blockquote>
-<p>@Bean相对来说就更加灵活了，它可以独立加在方法上，按需注册到spring容器，而且如果你要用到第三方类库里面某个方法的时候（或者类？），你就只能用@Bean把这个方法注册到spring容器，因为用@Component你需要配置组件扫描到这个第三方类路径而且还要在别人源代码加上这个注解，很明显是不现实的。</p>
-</blockquote>
-<p>❤️当我们引用第三方库中的类需要装配到Spring容器时，则只能通过@Bean来实现<br>总结：@Component和@Bean都是用来注册Bean并装配到Spring容器中，但是Bean比Component的自定义性更强。可以实现一些Component实现不了的自定义加载类。特别是二方库或三方库的类装配为bean，只能用@Bean。</p>
-<h3 id="实现FactoryBean接口"><a href="#实现FactoryBean接口" class="headerlink" title="实现FactoryBean接口"></a>实现FactoryBean接口</h3><p>org.springframework.beans.factory中</p>
-<p>FactoryBean是一个工厂Bean，可以生成某一个类型Bean实例，它最大的一个作用是：可以让我们自定义Bean的创建过程。BeanFactory是Spring容器中的一个基本类也是很重要的一个类，在BeanFactory中可以创建和管理Spring容器中的Bean，它对于Bean的创建有一个统一的流程。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public interface FactoryBean&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">    //返回的对象实例</span><br><span class="line">    T getObject() throws Exception;</span><br><span class="line">    //Bean的类型</span><br><span class="line">    Class&lt;?&gt; getObjectType();</span><br><span class="line">    //true是单例，false是非单例  在Spring5.0中此方法利用了JDK1.8的新特性变成了default方法，返回true</span><br><span class="line">    boolean isSingleton();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>FactoryBean中定义了一个Spring Bean的很重要的三个特性：是否单例、Bean类型、Bean实例。</p>
-<p>例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">//FactoryBean接口的实现类</span><br><span class="line">@Component</span><br><span class="line">public class FactoryBeanLearn implements FactoryBean &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object getObject() throws Exception &#123;</span><br><span class="line">        //这个Bean是我们自己new的，这里我们就可以控制Bean的创建过程了</span><br><span class="line">        return new FactoryBeanServiceImpl();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Class&lt;?&gt; getObjectType() &#123;</span><br><span class="line">        return FactoryBeanService.class;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean isSingleton() &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//接口</span><br><span class="line">public interface FactoryBeanService &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 测试FactoryBean</span><br><span class="line">     */</span><br><span class="line">    void testFactoryBean();</span><br><span class="line">&#125;</span><br><span class="line">//实现类</span><br><span class="line">public class FactoryBeanServiceImpl implements FactoryBeanService &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 测试FactoryBean</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void testFactoryBean() &#123;</span><br><span class="line">        System.out.println(&quot;我是FactoryBean的一个测试类。。。。&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//单测</span><br><span class="line">@Test</span><br><span class="line">public void test() &#123;</span><br><span class="line">        ClassPathXmlApplicationContext cac = new ClassPathXmlApplicationContext(&quot;classpath:com/zkn/spring/learn/base/applicationContext.xml&quot;);</span><br><span class="line">        FactoryBeanService beanService = cac.getBean(FactoryBeanService.class);</span><br><span class="line">        beanService.testFactoryBean();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>❤️FactoryBean是自定义了一种注入Bean的方法，在类中没有加注解，也没有xml中配置，但是实现FactoryBean接口，重写getObject方法来返回对象，表示注入了bean，重写getObjectType表示获取bean时bean的类型。然后就可以通过getBean(类型.class)获取bean实例了。<br>至于，如何通过ApplicationContext.getBean()，见：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zknxx/article/details/79572387">https://blog.csdn.net/zknxx/article/details/79572387</a></p>
-<h3 id="ApplicationContextAware接口"><a href="#ApplicationContextAware接口" class="headerlink" title="ApplicationContextAware接口"></a>ApplicationContextAware接口</h3><p>org.springframework.context中</p>
-<p>当一个类实现了这个接口之后，这个类就可以方便的获得ApplicationContext对象（spring上下文），Spring发现某个Bean实现了ApplicationContextAware接口，Spring容器会在创建该Bean之后，自动调用该Bean的setApplicationContext（参数）方法，调用该方法时，会将容器本身ApplicationContext对象作为参数传递给该方法。</p>
-<p>❤️之前获取ApplicationContext需要加载配置文件从而创建应用上下文，但是实现了ApplicationContextAware接口，spring自动将容器本身ApplicationContext对象传递给其中的方法setApplicationContext。实现它的类，可以在类中创建私有的ApplicationContext变量，在setApplicationContext中this. = 进行传递。</p>
-<h3 id="InitialzingBean接口"><a href="#InitialzingBean接口" class="headerlink" title="InitialzingBean接口"></a>InitialzingBean接口</h3><p>当一个类实现这个接口之后，Spring启动后，初始化Bean时，若该Bean实现InitialzingBean接口，会自动调用afterPropertiesSet()方法，完成一些用户自定义的初始化操作。</p>
-<p>同样配置Bean的时候使用init-method也可以实现类似的操作。（不需要实现InitialzingBean接口）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void afterPropertiesSet() throws Exception &#123;&#125;</span><br><span class="line"></span><br><span class="line">&lt;bean id = &quot;springBeanInit02&quot; class = &quot;com.lyj.studySpringBoot.init.SpringBeanInit&quot; init-method=&quot;testInit&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;id&quot; value=&quot;#&#123;1111111&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;name&quot; value=&quot;$&#123;test.springEL&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;age&quot; value=&quot;#&#123;10+8&#125;&quot; /&gt; // SpringEL表达式</span><br><span class="line">	&lt;property name=&quot;sex&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">系统是先调用afterPropertiesSet方法，然后在调用init-method中指定的方法。</span><br></pre></td></tr></table></figure>
-
-<p>Spring是通过反射来调用init-method指定方法，而实现InitializingBean接口是直接调用afterPropertiesSet方法，所以后者效率高，但使用init-method方式减少了对Spring的依赖。</p>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40093255/article/details/117318760">https://blog.csdn.net/qq_40093255/article/details/117318760</a></p>
-<h3 id="MethodInterceptor接口-拦截器"><a href="#MethodInterceptor接口-拦截器" class="headerlink" title="MethodInterceptor接口-拦截器"></a>MethodInterceptor接口-拦截器</h3><p>org.aopalliance.intercept中<br>MethodInterceptor接口继承了Interceptor接口，Intercepto接口又继承了Advice接口，因此我个将这拦截器称为一个通知。</p>
-<p>实现MethodInterceptor 接口，在调用目标对象的方法时，就可以实现在调用方法之前、调用方法过程中、调用方法之后对其进行控制。</p>
-<p>拦截器就像是建立了一个通知。用切面做增强一样。</p>
-<p>简单的例子：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u012834750/article/details/71773887">https://blog.csdn.net/u012834750/article/details/71773887</a><br>1.实现接口重写invoke方法，做增强<br>2.写一个简单方法<br>3.测试中，用代理工厂设置代理对象</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">public class TestMethodInterceptor  &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // 初始化一个代理工厂</span><br><span class="line">        ProxyFactory proxyFactory=new ProxyFactory();</span><br><span class="line"></span><br><span class="line">        // 设置目标类，以便于Cglib工具包动态生成目标类的子类，即我们所需的代理类</span><br><span class="line">        // 最好把实现类单独写，这里设置的是实现类（业务）</span><br><span class="line">        proxyFactory.setTarget(new TestMethodInterceptor());</span><br><span class="line"></span><br><span class="line">        // 设置拦截器，而拦截器的&quot;public Object invoke(MethodInvocation mi)&quot;定义了代理类（实际是UserDaoImpl的子类）的方法生成策略。</span><br><span class="line">        proxyFactory.addAdvice(new adviseMethodInterceptor());</span><br><span class="line"></span><br><span class="line">        // 获取代理类</span><br><span class="line">        Object proxy = proxyFactory.getProxy();</span><br><span class="line">         // 向上转型，转型为父类类型</span><br><span class="line">        TestMethodInterceptor methodInterceptor = (TestMethodInterceptor) proxy;</span><br><span class="line"></span><br><span class="line">        methodInterceptor.doSomeThing(&quot;通过代理工厂设置代理对象，拦截代理方法&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static class adviseMethodInterceptor implements MethodInterceptor&#123;</span><br><span class="line">        @Override</span><br><span class="line">        public Object invoke(MethodInvocation methodInvocation) throws Throwable &#123;</span><br><span class="line"></span><br><span class="line">            Object result=null;</span><br><span class="line">            try&#123;</span><br><span class="line">                System.out.println(&quot;方法执行之前：&quot;+methodInvocation.getMethod().toString());</span><br><span class="line"></span><br><span class="line">                result= methodInvocation.proceed();</span><br><span class="line"></span><br><span class="line">                System.out.println(&quot;方法执行之后：&quot;+methodInvocation.getMethod().toString());</span><br><span class="line">                System.out.println(&quot;方法正常运行结果：&quot;+result);</span><br><span class="line"></span><br><span class="line">                return result;</span><br><span class="line"></span><br><span class="line">            &#125;catch (Exception e)&#123;</span><br><span class="line">                System.out.println(&quot;方法出现异常:&quot;+e.toString());</span><br><span class="line">                System.out.println(&quot;方法运行Exception结果：&quot;+result);</span><br><span class="line">                return result;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String doSomeThing(String someThing)&#123;</span><br><span class="line"></span><br><span class="line">        //int i=5/0;</span><br><span class="line">        return &quot;执行被拦截的方法：&quot;+someThing;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>AOP都是基于（Cglib）代理模式实现的，其中的关键点在于实现MethodInterceptor接口，在其“public Object invoke(MethodInvocation mi)”方法中制定代理方法的生成策略，而从此方法的MethodInvocation类型参数mi中可以获得目标对象、目标方法、方法的参数等信息，根据这些信息可以精确地控制增强效果。</p>
-<p>invoke方法的传参是MethodInvocation，表示方法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 获取方法名</span><br><span class="line">String methodName = mi.getMethod().getName();</span><br><span class="line">if (methodName.startsWith(&quot;add&quot;))</span><br><span class="line"></span><br><span class="line">// 执行目标方法</span><br><span class="line">result= methodInvocation.proceed();</span><br><span class="line"></span><br><span class="line">// 获取方法参数</span><br><span class="line">Object[] args = methodInvocation.getArguments();</span><br></pre></td></tr></table></figure>
-
-<p>另一个比较复杂的例子：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gocode/p/aop-in-spring.html">https://www.cnblogs.com/gocode/p/aop-in-spring.html</a></p>
-<p>❤️总结：拦截器，可以以动态代理的方式执行方法，另一个作用是创建一个切面，具体的通知在invoke中加，传入参数可以获取目标对象、方法、方法参数，从而选择对不同切入点进行不同的通知/增强。也可以不加通知，只是proceed执行本方法。</p>
-<h3 id="ApplicationListener接口-监听器"><a href="#ApplicationListener接口-监听器" class="headerlink" title="ApplicationListener接口-监听器"></a>ApplicationListener接口-监听器</h3><p>ApplicationContext事件机制是观察者设计模式的实现，通过ApplicationEvent类和ApplicationListener接口，可以实现ApplicationContext事件处理。</p>
-<p>如果容器中有一个ApplicationListener Bean，每当ApplicationContext发布ApplicationEvent时，ApplicationListener Bean将自动被触发。这种事件机制都必须需要程序显示publish的触发。</p>
-<p>事件可以自定义、监听也可以自定义，完全根据自己的业务逻辑来处理。</p>
-<p>1.定义事件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class EmailEvent extends ApplicationEvent&#123;</span><br><span class="line">　　 private String address;</span><br><span class="line">　　 private String text;</span><br><span class="line">　　 public EmailEvent(Object source, String address, String text)&#123;</span><br><span class="line">　　 super(source);</span><br><span class="line">　　　　　 this.address = address;</span><br><span class="line">　　　　　 this.text = text;</span><br><span class="line">　　 &#125;</span><br><span class="line">　　 public EmailEvent(Object source) &#123;</span><br><span class="line">　　　　　super(source);</span><br><span class="line">　　 &#125;</span><br><span class="line">　　 //......address和text的setter、getter</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>2.监听事件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class EmailNotifier implements ApplicationListener&#123;</span><br><span class="line">    // 监听后事件处理的方法，可以对事件做一些判断</span><br><span class="line">　　 public void onApplicationEvent(ApplicationEvent event) &#123;</span><br><span class="line">　　　　　if (event instanceof EmailEvent) &#123;</span><br><span class="line">　　　　　　　 EmailEvent emailEvent = (EmailEvent)event;</span><br><span class="line">　　　　　　　 System.out.println(&quot;邮件地址：&quot; + emailEvent.getAddress());</span><br><span class="line">　　　　　　　 System.our.println(&quot;邮件内容：&quot; + emailEvent.getText());</span><br><span class="line">　　　　　&#125; else &#123;</span><br><span class="line">　　　　　　　 System.our.println(&quot;容器本身事件：&quot; + event);</span><br><span class="line">　　　　　&#125;</span><br><span class="line">　　 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>3.触发事件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class SpringTest &#123;</span><br><span class="line">　　 public static void main(String args[])&#123;</span><br><span class="line">　　　　　ApplicationContext context = new ClassPathXmlApplicationContext(&quot;bean.xml&quot;);</span><br><span class="line">　　　　　//创建一个ApplicationEvent对象</span><br><span class="line">　　　　　EmailEvent event = new EmailEvent(&quot;hello&quot;,&quot;abc@163.com&quot;,&quot;This is a test&quot;);</span><br><span class="line">　　　　　//主动触发该事件</span><br><span class="line">　　　　　context.publishEvent(event);</span><br><span class="line">　　 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以在拦截器中做增强触发。</p>
-<p>不管是内置监听还是外部自定义监听一定要把实现ApplicationListener的类定义成一个bean才行，可以是通过注解@Component等也可以通过xml的方式去执行。</p>
-<p>监听器实现类实现的ApplicationListener接口中，可以加范型，事件类型。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/14/myblog/JAVA/java%20junit%E4%B8%8Emock%E6%B5%8B%E8%AF%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/14/myblog/JAVA/java%20junit%E4%B8%8Emock%E6%B5%8B%E8%AF%95/" class="post-title-link" itemprop="url">java的junit与mock测试</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-04-14 22:22:37" itemprop="dateCreated datePublished" datetime="2022-04-14T22:22:37+08:00">2022-04-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-05 23:18:39" itemprop="dateModified" datetime="2022-05-05T23:18:39+08:00">2022-05-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>单元测试(Unit test)：<br>单元测试关注单一的类. 它们存在的目的是检查这个类中的代码是否按照期望正确运行.</p>
-<p>集成测试(Integration test)<br>顾名思义, 集成测试是检查开发的模块和其他模块整合时是否正常工作.<br>虽然集成测试的代码影响范围比单元测试要广, 但是集成测试和单元测试一样, 也是针对于开发者而言的.</p>
-<p>端到端测试(End-to-End test)<br>端到端测试是将整个系统作为一个整体, 然后从用户的角度进行测试的.<br>端到端测试的目的是测试系统在实际使用的是否正常的, 因此通常来说是不需要测试替身的(Test Double)</p>
-<h2 id="1-Junit单元测试"><a href="#1-Junit单元测试" class="headerlink" title="1.Junit单元测试"></a>1.Junit单元测试</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>单元测试的目的: 测试当前所写的代码是否是正确的, 例如输入一组数据, 会输出期望的数据; 输入错误数据, 会产生错误异常等.</p>
-<p>在单元测试中, 我们需要保证被测系统是独立的(SUT 没有任何的 DOC), 即当被测系统通过测试时, 那么它在任何环境下都是能够正常工作的. 编写单元测试时, 仅仅需要关注单个类就可以了. 而不需要关注例如数据库服务, Web 服务等组件.</p>
-<p>【SUT】被测系统(System under test, SUT) 被测系统。根据测试类型的不同, SUT 指代的内容也不同, 例如 SUT 可以是一个类甚至是一整个系统.</p>
-<p>【DOC】被测系统所依赖的组件, 例如进程 UserService 的单元测试时, UserService 会依赖 UserDao, 因此 UserDao 就是 DOC</p>
-<p>【Test Double】测试替身<br>一个实际的系统会依赖多个外部对象, 但是在进行单元测试时, 我们会用一些功能较为简单的并且其行为和实际对象类似的假对象来作为 SUT 的依赖对象, 以此来降低单元测试的复杂性和可实现性. 在这里, 这些假对象就被称为 测试替身(Test Double).</p>
-<p>测试替身有以下五种：</p>
-<p>1.Test stub, 为 SUT 提供数据的假对象。stub 类有时候还会记录调用的一些信息。</p>
-<p>2.Fake object，实现了简单功能的一个假对象. Fake object 和 Test stub 的主要区别就是 Test stub 侧重于用于提供数据的假对象, 而 Fake object 没有这层含义，使用 Fake object 的最主要的原因就是在测试时某些组件不可用或运行速度太慢, 因而使用 Fake object 来代替它们.<br>譬如说，它存在内存中而不是真正的数据库中。</p>
-<p>3.Mock object<br>是指类或者接口的模拟实现，你可以自定义这个对象中某个方法的输出结果。<br>实际上, Mock object 是 Test stub 或 Fake object 一种, 但是 Mock object 有 Test stub/Fake object 没有的特性, Mock object 可以很灵活地配置所调用的方法所产生的行为, 并且它可以追踪方法调用, 例如一个 Mock Object 方法调用时传递了哪些参数, 方法调用了几次等.</p>
-<p>4.Dummy object: 在测试中并不使用的, 但是为了测试代码能够正常编译/运行而添加的对象. 例如我们调用一个 Test Double 对象的一个方法, 这个方法需要传递几个参数, 但是其中某个参数无论是什么值都不会影响测试的结果, 那么这个参数就是一个 Dummy object.<br>Dummy object 可以是一个空引用, 一个空对象或者是一个常量等.<br>简单的说, Dummy object 就是那些没有使用到的, 仅仅是为了填充参数列表的对象.</p>
-<p>5.Test Spy<br>可以包装一个真实的 Java 对象, 并返回一个包装后的新对象. 若没有特别配置的话, 对这个新对象的所有方法调用, 都会委派给实际的 Java 对象.</p>
-<p>mock 和 spy 的区别是: mock 是无中生有地生出一个<strong>完全虚拟的对象</strong>, 它的所有方法都是虚拟的; 而 spy 是在现有类的基础上包装了一个对象, 即如果我们没有重写 spy 的方法, 那么这些方法的实现其实都是调用的被包装的对象的方法.</p>
-<p>【test fixture】测试的先决条件，<br>@Before 在每个测试方法运行前都会被调用, @After 在每个测试方法运行后都会被调用.<br>因为 @Before 和 @After 会在每个测试方法前后都会被调用, 而有时我们仅仅需要在测试前进行一次初始化, 这样的情况下, 可以使用@BeforeClass 和@AfterClass 注解.</p>
-<p>【test case】测试用例<br>在 JUnit 3中, 测试方法都必须以 test 为前缀, 且必须是 public void 的, JUnit 4之后, 就没有这个限制了, 只要在每个测试方法标注 @Test 注解, 方法签名可以是任意的.</p>
-<p>【测试套件】通过 TestSuit 对象将多个测试用例组装成一个测试套件, 测试套件批量运行.<br>通过@RunWith 和@SuteClass 两个注解, 我们可以创建一个测试套件. 通过@RunWith 指定一个特殊的运行器, 并通过@SuiteClasses 注解, 将需要进行测试的类列表作为参数传入.</p>
-<h3 id="Junit4注解"><a href="#Junit4注解" class="headerlink" title="Junit4注解"></a>Junit4注解</h3><p>@Test (expected = Exception.class) 表示预期会抛出Exception.class 的异常</p>
-<p>@Ignore 含义是“某些方法尚未完成，暂不参与此次测试”。这样的话测试结果就会提示你有几个测试被忽略，而不是失败。一旦你完成了相应函数，只需要把@Ignore注解删去，就可以进行正常的测试。</p>
-<p>@Test(timeout=100) 表示预期方法执行不会超过 100 毫秒，控制死循环</p>
-<p>@Before 表示该方法在每一个测试方法之前运行，可以使用该方法进行初始化之类的操作</p>
-<p>@After 表示该方法在每一个测试方法之后运行，可以使用该方法进行释放资源，回收内存之类的操</p>
-<p>@BeforeClass 表示该方法只执行一次，并且在所有方法之前执行。一般可以使用该方法进行数据库连接操作，注意该注解运用在静态方法。</p>
-<p>@AfterClass 表示该方法只执行一次，并且在所有方法之后执行。一般可以使用该方法进行数据库连接关闭操作，注意该注解运用在静态方法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import org.junit.runner.RunWith;  </span><br><span class="line">import org.junit.runners.Suite;  </span><br><span class="line">import org.junit.runners.Suite.SuiteClasses;  </span><br><span class="line">  </span><br><span class="line">@RunWith( Suite.class )  </span><br><span class="line">@SuiteClasses( &#123; JUnitTest1.class, JUnitTest2.class &#125; )  </span><br><span class="line">public class AllTests &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果有多个测试类, 可以合并成一个测试套件进行测试, 运行一个 Test Suite, 那么就会运行在这个 Test Suite 中的所用的测试.<br>在这个例子中, 我们定义了一个 Test Suite, 这个 Test Suite 包含了两个测试类: JUnitTest1 和 JUnitTest2, 因此运行 这个 Test Suite 时, 就会自动运行这两个测试类了.</p>
-<p>*在类名上按下command+shift+t，就可以生成对应测试类。</p>
-<p>来源：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000006731125">https://segmentfault.com/a/1190000006731125</a></p>
-<h2 id="2-Mockito中-Mock与-InjectMock"><a href="#2-Mockito中-Mock与-InjectMock" class="headerlink" title="2.Mockito中@Mock与@InjectMock"></a>2.Mockito中@Mock与@InjectMock</h2><p>Mockito 是一个流行 mock 框架，可以和JUnit结合起来使用。Mockito 允许你创建和配置 mock 对象。<br>Mockito是java单元测试中，最常用的mck工具之一，提供了诸多打桩方法和注解。其中有两个比较常用的注解，@Mock和@InjectMock，名字和在代码中使用 的位置都很像。但是是在功能上无任何可类比性的完全不同的东西。<br>程序员通常创造模拟对象来测试其他对象的行为，很类似汽车设计者使用碰撞测试假人来模拟车辆碰撞中人的动态行为。</p>
-<p>为什么使用mock？<br>在单元测试中，模拟对象可以模拟复杂的、真实的（非模拟）对象的行为， 如果真实的对象无法放入单元测试中，使用模拟对象就很有帮助。</p>
-<p>单元测试的思路是在不涉及依赖关系的情况下测试代码（隔离性），所以测试代码与其他类或者系统的关系应该尽量被消除。一个可行的消除方法是替换掉依赖类（测试替换），也就是说我们可以使用替身来替换掉真正的依赖对象。</p>
-<h3 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h3><p>@Mock：<br>在Mockito中用于创建mock对象，使用方法如下：<br><code>@Mock</code><br><code>private ClassName mockedObject；</code></p>
-<p>上面代码创建了一个名为mockedObject，类型为ClassName的mock对象，该对象所有的方法被置空，根据测试代码逻辑的需要使用.</p>
-<hr>
-<p>@InjectMock：<br>创建一个实例，简单的说是这个Mock可以调用真实代码的方法，其余用@Mock（或@Spy）注解创建的mock将被注入到用该实例中。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(MockitoJUnitRunner.class)  </span><br><span class="line">public class Test &#123;  </span><br><span class="line">  </span><br><span class="line">    @InjectMocks  </span><br><span class="line">    private SomeHandler someHandler;  </span><br><span class="line">  </span><br><span class="line">    @Mock  </span><br><span class="line">    private OneDependency oneDependency; // 此mock将被注入到someHandler  </span><br><span class="line"></span><br><span class="line">    // ...   </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
-
-<p>这段代码中，@InjectMock下面声明了一个待测试的对象，@Mock定义的mock对象将会被注入到这个待测试的对象中。</p>
-<hr>
-<p>🤔 @Mock创建创建mock对象之后，在对具体的方法打桩之前，mock对象的所有属性和方法全被置空（0或者null），所以，对应的方法是不运行的。<br>*mock对象创建之后，被测试类中的该对象的方法就都不执行了。</p>
-<p>🤔 @Spy可以创建的对象的所有成员方法都会按照原方法的逻辑执行，直到被打桩返回某个具体的值。</p>
-<p>来源：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/langren1992/p/9681600.html">https://www.cnblogs.com/langren1992/p/9681600.html</a></p>
-<h3 id="mock使用"><a href="#mock使用" class="headerlink" title="mock使用"></a>mock使用</h3><p>maven注入依赖。</p>
-<p>如果你使用注解，那么必须要实例化 mock 对象。Mockito 在遇到使用注解的字段的时候必须使用@RunWith(MockitoJUnitRunner.class) 或 MockitoAnnotations.initMocks(this)进行mocks的初始化和注入。<br>(可以写一个init函数，加@Before注解)</p>
-<h4 id="配置mock"><a href="#配置mock" class="headerlink" title="配置mock"></a>配置mock</h4><p>when(…​.).thenReturn(…​.)可以被用来定义当条件满足时函数的返回值，当多次调用函数的时候，Mockito 会根据你定义的先后顺序来返回返回值（多次调用）。Mocks 还可以根据传入参数的不同来定义不同的返回值。譬如说你的函数可以将anyString 或者 anyInt作为输入参数，然后定义其特定的放回值。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">import static org.mockito.Mockito.*;</span><br><span class="line">import static org.junit.Assert.*;</span><br><span class="line"></span><br><span class="line">@Test</span><br><span class="line">public void test1()  &#123;</span><br><span class="line">        //  创建 mock</span><br><span class="line">        MyClass test = Mockito.mock(MyClass.class);</span><br><span class="line"></span><br><span class="line">        // 自定义 getUniqueId() 的返回值</span><br><span class="line">        when(test.getUniqueId()).thenReturn(43);</span><br><span class="line"></span><br><span class="line">        // 在测试中使用mock对象</span><br><span class="line">        assertEquals(test.getUniqueId(), 43);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 返回多个值</span><br><span class="line">@Test</span><br><span class="line">public void testMoreThanOneReturnValue()  &#123;</span><br><span class="line">        Iterator i= mock(Iterator.class);</span><br><span class="line">        when(i.next()).thenReturn(&quot;Mockito&quot;).thenReturn(&quot;rocks&quot;);</span><br><span class="line">        String result=i.next()+&quot; &quot;+i.next();</span><br><span class="line">        // 断言</span><br><span class="line">        assertEquals(&quot;Mockito rocks&quot;, result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 如何根据输入来返回值</span><br><span class="line">@Test</span><br><span class="line">public void testReturnValueDependentOnMethodParameter()  &#123;</span><br><span class="line">        Comparable c= mock(Comparable.class);</span><br><span class="line">        when(c.compareTo(&quot;Mockito&quot;)).thenReturn(1);</span><br><span class="line">        when(c.compareTo(&quot;Eclipse&quot;)).thenReturn(2);</span><br><span class="line">        // 断言</span><br><span class="line">        assertEquals(1,c.compareTo(&quot;Mockito&quot;));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 如何让返回值不依赖于输入</span><br><span class="line">@Test</span><br><span class="line">public void testReturnValueInDependentOnMethodParameter()  &#123;</span><br><span class="line">        Comparable c= mock(Comparable.class);</span><br><span class="line">        when(c.compareTo(anyInt())).thenReturn(-1);</span><br><span class="line">        // 断言</span><br><span class="line">        assertEquals(-1 ,c.compareTo(9));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 根据参数类型来返回值</span><br><span class="line">@Test</span><br><span class="line">public void testReturnValueInDependentOnMethodParameter()  &#123;</span><br><span class="line">        Comparable c= mock(Comparable.class);</span><br><span class="line">        when(c.compareTo(isA(Todo.class))).thenReturn(0);</span><br><span class="line">        // 断言</span><br><span class="line">        Todo todo = new Todo(5);</span><br><span class="line">        assertEquals(todo ,c.compareTo(new Todo(1)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h4 id="无返回值的方法"><a href="#无返回值的方法" class="headerlink" title="无返回值的方法"></a>无返回值的方法</h4><p>mokito中，对无返回的函数什么都不做<br>Mokito.doNothing().when(对象).函数();</p>
-<p>对于无返回值的函数，我们可以使用doReturn(…​).when(…​).methodCall来获得类似的效果。例如我们想在调用某些无返回值函数的时候抛出异常，那么可以使用doThrow 方法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import static org.mockito.Mockito.*;</span><br><span class="line">import static org.junit.Assert.*;</span><br><span class="line"></span><br><span class="line">// 下面测试用例描述了如何使用doThrow()方法</span><br><span class="line"></span><br><span class="line">@Test(expected=IOException.class)</span><br><span class="line">public void testForIOException() &#123;</span><br><span class="line">        // 创建并配置 mock 对象</span><br><span class="line">        OutputStream mockStream = mock(OutputStream.class);</span><br><span class="line">        doThrow(new IOException()).when(mockStream).close();</span><br><span class="line"></span><br><span class="line">        // 使用 mock</span><br><span class="line">        OutputStreamWriter streamWriter= new OutputStreamWriter(mockStream);</span><br><span class="line">        streamWriter.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="验证是否调用"><a href="#验证是否调用" class="headerlink" title="验证是否调用"></a>验证是否调用</h4><p>验证 query 方法是否被 MyDatabase 的 mock 对象调用</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import static org.mockito.Mockito.*;</span><br><span class="line"></span><br><span class="line">public class MockitoTest  &#123;</span><br><span class="line"></span><br><span class="line">        @Mock</span><br><span class="line">        MyDatabase databaseMock; (1)</span><br><span class="line"></span><br><span class="line">        @Rule public MockitoRule mockitoRule = MockitoJUnit.rule(); (2)</span><br><span class="line"></span><br><span class="line">        @Test</span><br><span class="line">        public void testQuery()  &#123;</span><br><span class="line">                ClassToTest t  = new ClassToTest(databaseMock); (3)</span><br><span class="line">                boolean check = t.query(&quot;* from t&quot;); (4)</span><br><span class="line">                assertTrue(check); (5)</span><br><span class="line">                verify(databaseMock).query(&quot;* from t&quot;); (6)</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Mockito 会跟踪 mock 对象里面所有的方法和变量。所以我们可以用来验证函数在传入特定参数的时候是否被调用。这种方式的测试称行为测试，行为测试并不会检查函数的返回值，而是检查在传入正确参数时候函数是否被调用。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import static org.mockito.Mockito.*;</span><br><span class="line"></span><br><span class="line">@Test</span><br><span class="line">public void testVerify()  &#123;</span><br><span class="line">        // 创建并配置 mock 对象</span><br><span class="line">        MyClass test = Mockito.mock(MyClass.class);</span><br><span class="line">        when(test.getUniqueId()).thenReturn(43);</span><br><span class="line"></span><br><span class="line">        // 调用mock对象里面的方法并传入参数为12</span><br><span class="line">        test.testing(12);</span><br><span class="line">        test.getUniqueId();</span><br><span class="line">        test.getUniqueId();</span><br><span class="line"></span><br><span class="line">        // 查看在传入参数为12的时候方法是否被调用</span><br><span class="line">        verify(test).testing(Matchers.eq(12));</span><br><span class="line"></span><br><span class="line">        // 方法是否被调用两次</span><br><span class="line">        verify(test, times(2)).getUniqueId();</span><br><span class="line"></span><br><span class="line">        // 其他用来验证函数是否被调用的方法</span><br><span class="line">        verify(mock, never()).someMethod(&quot;never called&quot;);</span><br><span class="line">        verify(mock, atLeastOnce()).someMethod(&quot;called at least once&quot;);</span><br><span class="line">        verify(mock, atLeast(2)).someMethod(&quot;called at least twice&quot;);</span><br><span class="line">        verify(mock, times(5)).someMethod(&quot;called five times&quot;);</span><br><span class="line">        verify(mock, atMost(3)).someMethod(&quot;called at most 3 times&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="spy使用"><a href="#spy使用" class="headerlink" title="spy使用"></a>spy使用</h3><p>@Spy或者spy()方法可以被用来封装 java 对象。被封装后，除非特殊声明（打桩 stub），否则都会真正的调用对象里面的每一个方法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import static org.mockito.Mockito.*;</span><br><span class="line"></span><br><span class="line">// Lets mock a LinkedList</span><br><span class="line">List list = new LinkedList();</span><br><span class="line">List spy = spy(list);</span><br><span class="line"></span><br><span class="line">// 可用 doReturn() 来打桩</span><br><span class="line">doReturn(&quot;foo&quot;).when(spy).get(0);</span><br><span class="line"></span><br><span class="line">// 下面代码不生效</span><br><span class="line">// 真正的方法会被调用</span><br><span class="line">// 将会抛出 IndexOutOfBoundsException 的异常，因为 List 为空</span><br><span class="line">when(spy.get(0)).thenReturn(&quot;foo&quot;);</span><br></pre></td></tr></table></figure>
-
-<p>参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f6e3ab9719b9">https://www.jianshu.com/p/f6e3ab9719b9</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7b67806b74f6">https://www.jianshu.com/p/7b67806b74f6</a></p>
-<h2 id="PowerMockRunner-和-MockitoJUnitRunner"><a href="#PowerMockRunner-和-MockitoJUnitRunner" class="headerlink" title="PowerMockRunner 和 MockitoJUnitRunner"></a>PowerMockRunner 和 MockitoJUnitRunner</h2><p>关于打桩：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/moshowgame/article/details/100983711">https://blog.csdn.net/moshowgame/article/details/100983711</a></p>
-<h2 id="when-thenReturn-和-doReturn-when-区别"><a href="#when-thenReturn-和-doReturn-when-区别" class="headerlink" title="when().thenReturn() 和 doReturn().when() 区别"></a>when().thenReturn() 和 doReturn().when() 区别</h2><p>使用@Mock时可以相互替换，但是@Spy时，它们的调用结果不同。<br>1.when().thenReturn() 会调用真实的方法，容易抛出异常<br>2.doReturn().when() 不会调用真实方法</p>
-<h2 id="PowerMockito"><a href="#PowerMockito" class="headerlink" title="PowerMockito"></a>PowerMockito</h2><p>PowerMock扩展了EasyMock和Mockito框架，增加了对static和final方法mock支持等功能.<br>PowerMock有两个重要的注解：<br> @RunWith(PowerMockRunner.class)<br> @prepareForTest({MyObject.class})<br> @PrepareForTest注解和@RunWith注解是结合使用的，不要单独使用@PrepareForTest，否则不起作用。当使用PowerMock去mock静态，final或者私有方法时，需要加上这两个注解。<br>————————————————<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/KeeYang108/article/details/79891588">https://blog.csdn.net/KeeYang108/article/details/79891588</a></p>
-<h2 id="Mock测试踩坑"><a href="#Mock测试踩坑" class="headerlink" title="Mock测试踩坑"></a>Mock测试踩坑</h2><p>今天写了一个control层的mock单元测试，因为要调service层（实现类）的方法，就把service接口做了一个mock，测试时候一直包空指针异常。<br>mock service实现类之后，正常。</p>
-<p>更新：今天@Mock的接口也是可以的，奇怪了：<br>mock接口出现空指针异常的case：是service（.之前的）是实现类，@Autowired的也是实现类，所以mock接口没用？<br>而今天mock接口，被测试类中.之前的是接口，@Autowired的也是接口，所以没毛病。</p>
-<p>加@RunWith(PowerMockRunner.class)<br>要测试的类加@InjectMocks</p>
-<p>1.service实现类不加mock，到指定方法会报空指针异常，service对象为空<br>2.如果service方法无返回，可以不打桩，如果有返回，最好打个桩。<br>3.有返回的打了桩，可以根据不同的输入，返回不同的结果。有返回如果不打桩，相当于返回的是null，返回如果被后面用到，容易报空指针异常。</p>
-<h2 id="Mock测试踩坑空指针异常"><a href="#Mock测试踩坑空指针异常" class="headerlink" title="Mock测试踩坑空指针异常"></a>Mock测试踩坑空指针异常</h2><p>mock测试的被测试类（@InjectMock）中的属性一般为null，所以什么都不加就在被测试类中调用属性对象的方法时，报空指针异常，因为属性对象是null。<br>将属性对象在Test中添加@Mock为mock对象，直接忽略属性对象方法，不进入执行。<br>将属性对象在Test中添加@Spy为spy对象，会进入该方法中，但是只限于一层，再进入就不行了，还是会报空指针异常。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1582,7 +1527,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-count">80</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

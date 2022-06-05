@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="tomcat与servlet1.tomcat就是一个web应用服务器，相当于市存放java程序的容器。以便服务被访问。2.servlet实际上是java类，java语言编写的服务器端程序，它用来处理http协议相关的所有内容，没有main方法，需要在servlet容器中进行管理，可以是tomact。如何使用：继承HttpServlet（tomcat里的jar包支持），它帮助我们完成通信的规则。3.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jar、war、tomcat、servlet">
+<meta property="og:url" content="http://example.com/2022/06/04/myblog/JAVA/war%E5%8C%85jar%E5%8C%85%E6%89%93%E5%8C%85tomcat%E9%83%A8%E7%BD%B2servlet%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="Jadeliu&#39;s blog">
+<meta property="og:description" content="tomcat与servlet1.tomcat就是一个web应用服务器，相当于市存放java程序的容器。以便服务被访问。2.servlet实际上是java类，java语言编写的服务器端程序，它用来处理http协议相关的所有内容，没有main方法，需要在servlet容器中进行管理，可以是tomact。如何使用：继承HttpServlet（tomcat里的jar包支持），它帮助我们完成通信的规则。3.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-06-04T06:47:55.036Z">
+<meta property="article:modified_time" content="2022-06-04T15:26:40.788Z">
+<meta property="article:author" content="Jade liu">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="tomcat">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/06/04/myblog/JAVA/war%E5%8C%85jar%E5%8C%85%E6%89%93%E5%8C%85tomcat%E9%83%A8%E7%BD%B2servlet%E5%BA%94%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>jar、war、tomcat、servlet | Jadeliu's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jadeliu's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/04/myblog/JAVA/war%E5%8C%85jar%E5%8C%85%E6%89%93%E5%8C%85tomcat%E9%83%A8%E7%BD%B2servlet%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          jar、war、tomcat、servlet
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-06-04 14:47:55 / Modified: 23:26:40" itemprop="dateCreated datePublished" datetime="2022-06-04T14:47:55+08:00">2022-06-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="tomcat与servlet"><a href="#tomcat与servlet" class="headerlink" title="tomcat与servlet"></a>tomcat与servlet</h3><p>1.tomcat就是一个web应用服务器，相当于市存放java程序的容器。以便服务被访问。<br>2.servlet实际上是java类，java语言编写的服务器端程序，它用来处理http协议相关的所有内容，没有main方法，需要在servlet容器中进行管理，可以是tomact。如何使用：继承HttpServlet（tomcat里的jar包支持），它帮助我们完成通信的规则。<br>3.tomcat与servlet关系：tomcat是servlet/jsp容器，servlet时web应用开发的组件，tomcat负责处理客户请求，把请求传送给servlet，再将servlet的响应传送回给客户。<br>4.新建web工程时，如果不用maven，java enterprise - web application，再引入jdk、tomcat（tomcat的lib下有servlet包）。如果用maven，就选archetype-webapp。</p>
+<h3 id="war包与jar包"><a href="#war包与jar包" class="headerlink" title="war包与jar包"></a>war包与jar包</h3><p>1.Jar文件（扩展名为. Jar，Java Application Archive）包含Java类的普通库、资源（resources）、辅助文件（auxiliary files）等。<br>2.jar包是java打的包，一般只是包括一些编译后class文件和一些部署文件，在声明了Main_class之后是可以用java命令运行的。<br>3.jar包通常是开发时要引用通用类，打成包便于存放管理。<br>————————————————<br>1.War文件（扩展名为.War,Web Application Archive）包含全部Web应用程序。在这种情形下，一个Web应用程序被定义为单独的一组文件、类和资源，用户可以对war文件进行封装，并把它作为小型服务程序（servlet）来访问。<br>2.war包可以理解为javaweb打的包，是一个web模块，包括写的代码编译成的class文件，依赖的包，配置文件，所有的网站页面，包括html，jsp等等。一个war包可以理解为是一个web项目，里面是项目的所有东西。<br>3.war包需要发布到一个容器里面，拿Tomcat来说,将war文件包放置它的\webapps\目录下，启动Tomcat,这个包可以自动进行解压，也就是你的web目录，相当于发布了。<br>4.WAR是Sun提出的一种Web应用程序格式，与JAR类似，也是许多文件的一个压缩包。这个包中的文件按一定目录结构来组织：通常其根目录下包含有Html和Jsp文件或者包含这两种文件的目录，另外还会有一个WEB-INF目录，这个目录很重要。通常在WEB-INF目录下有一个web.xml文件和一个classes目录，web.xml是这个应用的配置文件，而classes目录下则包含编译好的Servlet类和Jsp或Servlet所依赖的其它类（JavaBean）。<br>————————————————</p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Sunny5319/article/details/90933532">https://blog.csdn.net/Sunny5319/article/details/90933532</a></p>
+<p>jar包和war包都是为了项目的部署和发布，通常在打包部署的时候，会在里面加上部署的相关信息。这个打包实际上就是把代码和依赖的东西压缩在一起，变成后缀名为.jar和.war的文件</p>
+<hr>
+<p>什么时候用jar、war?<br>当你的项目在没有完全完成的时候，不适合使用war文件，因为你的类会由于调试之类的经常改，这样来回删除、创建war文件很不方便，来回修改，来回打包，最好是你的项目已经完成了，不做修改的时候，那就打个war包，这个时候一个war文件就相当于一个web应用程序；而jar文件就是把类和一些相关的资源封装到一个包中，便于程序中引用。</p>
+<h3 id="jar包打包"><a href="#jar包打包" class="headerlink" title="jar包打包"></a>jar包打包</h3><p>安装好JDK之后,jar.exe就已经安装好了。在命令行中键入jar命令之后，会有详细的用法介绍。</p>
+<h4 id="✅单个文件打包"><a href="#✅单个文件打包" class="headerlink" title="✅单个文件打包"></a>✅单个文件打包</h4><p>将一个单独的java文件打包：<br><code>jar cvf /Users/liuxuan/MyProject/java/test.jar /Users/liuxuan/MyProject/java/jartest/hello.java</code><br>使用<code>java -jar test.jar</code> 提示没有主清单属性。</p>
+<p>所以增加清单配置文件：MANIFEST.MF</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Manifest-Version: 1.0</span><br><span class="line">Main-Class: hello</span><br><span class="line"></span><br><span class="line">//注意：1. 冒号后面加一个空格，2. 最后必须回车到新的空行</span><br></pre></td></tr></table></figure>
+<p>再打包：<code>jar cvfm test.jar ./*</code><br>java -jar运行，找不到或无法加载主类 hello。</p>
+<p>所以在打包前先编译：<code>javac hello.java</code>，生成class文件，然后再打包，运行，可以执行。</p>
+<blockquote>
+<p>META-INF文件夹相当于一个信息包，目录中的文件和目录获得Java 2平台的认可与解释，用来配置应用程序、扩展程序、类加载器和服务。这个文件夹和其中的 MANIFEST.MF文件，在用jar打包时自动生成。<br>执行jar文件的时候，这个jar里是需要具备 META-INF/MANIFEST.MF的，否则java -jar就找不到main class。</p>
+</blockquote>
+<p>多个文件也可以如此打包，首先应该javac编译，然后增加主清单配置文件，其中可以指示默认入口函数（其中有main方法）。如果打的包中有其他类，java -jar jar包 是运行默认类，运行其他类方法：<code>java -cp test.jar com.test.sum 3 9</code>。<br>main函数可以有输入参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package com.test;</span><br><span class="line"></span><br><span class="line">public class sum&#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        if(args.length &lt; 2)&#123;</span><br><span class="line">            System.out.println(&quot;Paras: num1 num2&quot;);</span><br><span class="line">            System.exit(-1);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        final int num1 = Integer.valueOf(args[0]);</span><br><span class="line">        System.out.println(&quot;Num1: &quot; + num1);</span><br><span class="line">        final int num2 = Integer.valueOf(args[1]);</span><br><span class="line">        System.out.println(&quot;Num2: &quot; + num2);</span><br><span class="line"></span><br><span class="line">        final int sum = num1 + num2;</span><br><span class="line">        System.out.println(num1 + &quot; + &quot; + num2 + &quot; = &quot; + sum);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Xminyang/article/details/108059776">https://blog.csdn.net/Xminyang/article/details/108059776</a></p>
+<h4 id="✅使用idea打包"><a href="#✅使用idea打包" class="headerlink" title="✅使用idea打包"></a>✅使用idea打包</h4><p>🤔不可以java -jar的打包：<br>1.点击intellij idea左上角的“File”菜单 -&gt; Project Structure<br>2.点击”Artifacts” -&gt; 绿色的”+” -&gt; “JAR” -&gt; Empty<br>3. Name栏填入自定义的名字，Output ditectory选择jar包目标目录，Available Elements里双击需要添加到jar包的文件（添加java工程编译文件）<br>4. OK之后，点击菜单中“Build” -&gt; “Build Artifacts”<br>5. 点击弹出框中待生成jar包下面的build即可</p>
+<p>生成了jar包，直接java -jar执行，报<code>Error: Invalid or corrupt jarfile testjar.jar</code>.<br>需要用 -cp 指定类来执行，例如：<code>java -cp testjar.jar leecode.JianPanHang500</code></p>
+<p>🤔可以直接java -jar的打包：<br>如果需要直接java -jar 执行的jar包：<br>1.点击”Artifacts” -&gt; 绿色的”+” -&gt; “JAR” -&gt; from modules…<br>2.选择主类，选择META-INF位置<br>3.OK之后，点击菜单中“Build” -&gt; “Build Artifacts”<br>4.点击弹出框中待生成jar包下面的build即可</p>
+<p>注意：在选择主类时需要全路径，rebuild之后可以重新编译，<code>java -jar lee.jar</code>直接运行主类。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42239765/article/details/123236019">https://blog.csdn.net/qq_42239765/article/details/123236019</a></p>
+<h4 id="✅使用maven打包"><a href="#✅使用maven打包" class="headerlink" title="✅使用maven打包"></a>✅使用maven打包</h4><p>🤔不包含依赖包，也不指定入口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">    &lt;!-- 项目最终打包成的名字 --&gt;</span><br><span class="line">    &lt;finalName&gt;mylogmavenpackage&lt;/finalName&gt;</span><br><span class="line">  &lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;!-- 指定项目编译时的java版本和编码方式 --&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.7.0&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">        &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">        &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">  &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+
+<p>🤔指定入口，将依赖的jar包输出到指定目录<br>指定了入口类，可以直接使用java -jar project.jar执行，但是第三方依赖存在一个指定的外部目录下，迁移时需将jar和依赖目录一起迁移。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">  &lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;!-- 指定项目编译时的java版本和编码方式 --&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.7.0&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">        &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">        &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.1.0&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;archive&gt;</span><br><span class="line">          &lt;manifest&gt;</span><br><span class="line">            &lt;mainClass&gt;com.netty.client.SignalClient&lt;/mainClass&gt; &lt;!-- 指定入口类 --&gt;</span><br><span class="line">            &lt;addClasspath&gt;true&lt;/addClasspath&gt; &lt;!-- 在jar的MF文件中生成classpath属性 --&gt;</span><br><span class="line">            &lt;classpathPrefix&gt;lib/&lt;/classpathPrefix&gt; &lt;!-- classpath前缀,即依赖jar包的路径 --&gt;</span><br><span class="line">          &lt;/manifest&gt;</span><br><span class="line">        &lt;/archive&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.1.1&lt;/version&gt;</span><br><span class="line">      &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">          &lt;id&gt;copy&lt;/id&gt;</span><br><span class="line">          &lt;phase&gt;install&lt;/phase&gt;</span><br><span class="line">          &lt;goals&gt;</span><br><span class="line">            &lt;goal&gt;copy-dependencies&lt;/goal&gt;</span><br><span class="line">          &lt;/goals&gt;</span><br><span class="line">          &lt;configuration&gt;</span><br><span class="line">            &lt;!-- 指定依赖包的输出路径，需与上方的classpathPrefix保持一致 --&gt;</span><br><span class="line">            &lt;outputDirectory&gt;$&#123;project.build.directory&#125;/lib&lt;/outputDirectory&gt;</span><br><span class="line">          &lt;/configuration&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">      &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">  &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+
+<p>🤔将项目依赖和项目打成一个jar包（胖包）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">  &lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;!-- 指定项目编译时的java版本和编码方式 --&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.7.0&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">        &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">        &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.1.0&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;archive&gt;</span><br><span class="line">          &lt;manifest&gt;</span><br><span class="line">            &lt;mainClass&gt;com.netty.client.SignalClient&lt;/mainClass&gt; &lt;!-- 指定入口类路径 --&gt;</span><br><span class="line">          &lt;/manifest&gt;</span><br><span class="line">        &lt;/archive&gt;</span><br><span class="line">        &lt;descriptorRefs&gt;</span><br><span class="line">          &lt;descriptorRef&gt;jar-with-dependencies&lt;/descriptorRef&gt; &lt;!-- jar包后缀，生成的jar包形式为：project-1.0-SNAPSHOT-jar-with-dependencies.jar --&gt;</span><br><span class="line">        &lt;/descriptorRefs&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">      &lt;!-- 添加此项后，可直接使用mvn package | mvn install --&gt;</span><br><span class="line">      &lt;!-- 不添加此项，需直接使用mvn package assembly:single --&gt;</span><br><span class="line">      &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">          &lt;id&gt;make-assembly&lt;/id&gt;</span><br><span class="line">          &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">          &lt;goals&gt;</span><br><span class="line">            &lt;goal&gt;single&lt;/goal&gt;</span><br><span class="line">          &lt;/goals&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">      &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">  &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="打war包"><a href="#打war包" class="headerlink" title="打war包"></a>打war包</h3><p>上面打jar包，其实都有对应的打war包的方法：</p>
+<p>✅手动打war包<br><code>jar cvf test.war ./*</code></p>
+<p>✅idea打war包<br>artifact中选择web application，explode对于war explode，archive对应war。</p>
+<p>✅maven打war包<br>pom.xml中指示<br><code>&lt;packaging&gt;war&lt;/packaging&gt;</code><br>maven有多种打包方式。</p>
+<h3 id="war包和war-explode包"><a href="#war包和war-explode包" class="headerlink" title="war包和war explode包"></a>war包和war explode包</h3><p>1.war模式<br>这种可以称之为是发布模式，就是先将WEB工程打成war包，然后再将其上传到服务器进行发布 。</p>
+<p>2.war exploded模式<br>是将WEB工程以当前文件夹的位置关系上传到服务器，即直接把文件夹、jsp页面 、classes等等移到Tomcat 部署文件夹里面，进行加载部署。因此这种方式支持热部署，一般在开发的时候也是用这种方式。<br>在平时开发的时候，使用热部署的话，应该对Tomcat进行相应的设置，这样的话修改的jsp界面什么的东西才可以及时的显示出来。<br>（热部署，对于Java应用程序来说，热部署就是在运行时更新Java类文件。）</p>
+<p>问题：<br>idea进行部署，会将war包移到tomcat webapp文件夹下吗？</p>
+<h3 id="java-web工程目录结构"><a href="#java-web工程目录结构" class="headerlink" title="java web工程目录结构"></a>java web工程目录结构</h3><p>1.src文件夹：这是用来存放Java源文件。下面有main文件夹和test文件夹。<br>1.1.src/main/java：存放相应的Java代码，并根据对应的Java项目继续分层<br>1.2.src/main/resource：存放一些配置文件，例如application.properties、logback.xml<br>1.3.src/main/webapp：Web应用的网页，用来放静态资源比如HTML、CSS、图片等文件。WEB-INF目录所在。WEB-INF中存放网站配置文件目录，web.xml等配置信息。</p>
+<p>2..idea文件夹：是存储IntelliJ IDEA项目的配置信息，主要内容有IntelliJ IDEA项目本身的一些编译配置、文件编码信息、jar包的数据源和相关的插件配置信息。一般用git做版本控制的时候会把.idea文件夹排除，因为这个文件下保存的都是个人本地Idea编译器的配置。</p>
+<p>3.target文件夹：是用来存放项目构建后的文件和目录、jar包、war包、编译的class文件，都是maven构建时生成的。存放的是单个module的编译结果。</p>
+<p>4.out文件夹：存放该项目下所有module的编译结果。</p>
+<p>5.pom.xml：项目对象模型</p>
+<h3 id="新建个web工程并部署"><a href="#新建个web工程并部署" class="headerlink" title="新建个web工程并部署"></a>新建个web工程并部署</h3><p>1.new project，选maven，选archetype maven<br>2.选择maven setting，新建工程<br>3.简单写个index.jsp，在webapp目录下（主页）<br>4.通过idea部署，生成war_explode包，热部署<br>5.lsof -i:8080 查看端口占用<br>6.target文件夹下有war包了，但是在tomcat-webapp文件夹下并没有该项目。<br>7.关闭idea，web也无法访问了，所以要想一直运行，得打jar包放在webapp目录下？<br>8.并且发现，没用servlet，不用导入servlet包。</p>
+<h3 id="pom-xml结构"><a href="#pom-xml结构" class="headerlink" title="pom.xml结构"></a>pom.xml结构</h3><p>pom.xml 就是 maven 的配置文件，用以描述项目的各种信息。</p>
+<p><code>&lt;project </code>  是 pom.xml 中描述符的根。</p>
+<p><code>&lt;modelVersion&gt;</code> 指定 pom.xml 符合哪个版本的描述符。maven 2 和 3 只能为 4.0.0。</p>
+<p>在 maven 中，根据 groupId、artifactId、version 组合来唯一识别一个 jar 包。<br><code>&lt;groupId&gt;</code> - 团体、组织的标识符。团体标识的约定是，它以创建这个项目的组织名称的逆向域名(reverse domain name)开头。一般对应着 java 的包结构。<br><code>&lt;artifactId&gt;</code> - 单独项目的唯一标识符。例如junit。不要在 artifactId 中包含点号(.)。<br><code>&lt;version&gt;</code> - 一个项目的特定版本。</p>
+<blockquote>
+<p>maven 在版本管理时候可以使用几个特殊的字符串 SNAPSHOT、LATEST、RELEASE。比如 1.0-SNAPSHOT。各个部分的含义和处理逻辑如下说明：<br>SNAPSHOT - 这个版本一般用于开发过程中，表示不稳定的版本。<br>LATEST - 指某个特定构件的最新发布，这个发布可能是一个发布版，也可能是一个 snapshot 版，具体看哪个时间最后。<br>RELEASE ：指最后一个发布版。</p>
+</blockquote>
+<p><code>&lt;packaging&gt;</code> - 项目的类型，描述了项目打包后的输出，默认是 jar。常见的输出类型为：pom, jar, maven-plugin, ejb, war, ear, rar, par。</p>
+<p><code>&lt;name&gt;</code> - 项目名字</p>
+<p><code>&lt;url&gt;</code> - 项目网站</p>
+<p><code>&lt;description&gt;</code> - 项目描述</p>
+<p><code>&lt;parent&gt;</code> - maven 支持继承功能。子 POM 可以使用 parent 指定父 POM ，然后继承其配置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  &lt;parent&gt;</span><br><span class="line">    &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;my-parent&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.0&lt;/version&gt;</span><br><span class="line">    &lt;relativePath&gt;../my-parent&lt;/relativePath&gt;</span><br><span class="line">  &lt;/parent&gt;</span><br><span class="line"></span><br><span class="line">relativePath ： 在搜索本地和远程存储库之前，它不是必需的，但可以用作 maven 的指示符，以首先搜索给定该项目父级的路径。</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;modules&gt;</code> - 子模块列表。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;modules&gt;</span><br><span class="line">    &lt;module&gt;my-project-api&lt;/module&gt;</span><br><span class="line">    &lt;module&gt;my-project-repository&lt;/module&gt;</span><br><span class="line">&lt;/modules&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;properties&gt;</code> - 属性列表。定义的属性可以在 pom.xml 文件中任意处使用。使用方式为 ${propertie} 。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">例子：</span><br><span class="line">	&lt;properties&gt;</span><br><span class="line">		&lt;!-- Test --&gt;</span><br><span class="line">		&lt;junit.version&gt;1.16.1&lt;/junit.version&gt;</span><br><span class="line">	&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">	&lt;dependency&gt;</span><br><span class="line">		&lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">		&lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">		&lt;version&gt;$&#123;junit.version&#125;&lt;/version&gt;</span><br><span class="line">		&lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">	&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;dependencies&gt;</code> - 依赖配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">groupId, artifactId, version - 和基本配置中的 groupId、artifactId、version 意义相同。</span><br><span class="line"></span><br><span class="line">type - 对应 packaging 的类型，如果不使用 type 标签，maven 默认为 jar。</span><br><span class="line"></span><br><span class="line">scope - 此元素指的是任务的类路径（编译和运行时，测试等）以及如何限制依赖关系的传递性。有 5 种可用的限定范围：</span><br><span class="line">compile : 如果没有指定 scope 标签，maven 默认为这个范围。编译依赖关系在所有 classpath 中都可用。此外，这些依赖关系被传播到依赖项目。</span><br><span class="line">provided : 与 compile 类似，但是表示您希望 jdk 或容器在运行时提供它。它只适用于编译和测试 classpath，不可传递。</span><br><span class="line">runtime : 此范围表示编译不需要依赖关系，而是用于执行。它是在运行时和测试 classpath，但不是编译 classpath。</span><br><span class="line">test : 此范围表示正常使用应用程序不需要依赖关系，仅适用于测试编译和执行阶段。它不是传递的。</span><br><span class="line">system : 此范围与 provided 类似，除了您必须提供明确包含它的 jar。该 artifact 始终可用，并且不是在仓库中查找。</span><br><span class="line"></span><br><span class="line">systemPath - 仅当依赖范围是系统时才使用。否则，如果设置此元素，构建将失败。该路径必须是绝对路径，因此建议使用 propertie 来指定特定的路径，如\$ &#123;java.home&#125; / lib。由于假定先前安装了系统范围依赖关系，maven 将不会检查项目的仓库，而是检查库文件是否存在。如果没有，maven 将会失败，并建议您手动下载安装。</span><br><span class="line"></span><br><span class="line">optional - optional 让其他项目知道，当您使用此项目时，您不需要这种依赖性才能正常工作。</span><br><span class="line"></span><br><span class="line">exclusions - 包含一个或多个排除元素，每个排除元素都包含一个表示要排除的依赖关系的 groupId 和 artifactId。与可选项不同，可能或可能不会安装和使用，排除主动从依赖关系树中删除自己。</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;dependencyManagement&gt;</code> - 是在<code>&lt;dependencies&gt;</code>外用的。表示依赖 jar 包的声明。即你在项目中的 dependencyManagement 下声明了依赖，maven 不会加载该依赖，dependencyManagement 声明可以被子 POM 继承。<br>它的一个使用案例是当有父子项目的时候，父项目中可以利用 <code>&lt;dependencyManagement&gt;</code> 声明子项目中需要用到的依赖 jar 包，之后，当某个或者某几个子项目需要加载该依赖的时候，就可以在子项目中 dependencies 节点只配置 groupId 和 artifactId 就可以完成依赖的引用。<br><code>&lt;dependencyManagement&gt;</code> 主要是为了统一管理依赖包的版本，确保所有子项目使用的版本一致，类似的还有plugins和pluginManagement。</p>
+<p><code>&lt;build&gt;</code> - 构建配置。<br><code>&lt;plugins&gt;</code> - 配置插件，在<code>&lt;build&gt;</code>下。<br><code>pluginManagement</code> - 与 dependencyManagement 很相似，在当前 POM 中仅声明插件，而不是实际引入插件。子 POM 中只配置 groupId 和 artifactId 就可以完成插件的引用，且子 POM 有权重写 pluginManagement 定义。<br>它的目的在于统一所有子 POM 的插件版本。<br><code>&lt;extensions&gt;</code> - 扩展配置，扩展是在构建期间激活的 artifacts。扩展不需要实际执行任何操作，也不包含 Mojo。因此，扩展对于指定普通插件接口的多个实现中的一个是非常好的。</p>
+<p>pom.xml解析：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/76874769">https://zhuanlan.zhihu.com/p/76874769</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/tomcat/" rel="tag"># tomcat</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/02/myblog/JAVA/mybatis%E5%AE%9E%E6%88%98/" rel="prev" title="mybatis实战">
+      <i class="fa fa-chevron-left"></i> mybatis实战
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#tomcat%E4%B8%8Eservlet"><span class="nav-number">1.</span> <span class="nav-text">tomcat与servlet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#war%E5%8C%85%E4%B8%8Ejar%E5%8C%85"><span class="nav-number">2.</span> <span class="nav-text">war包与jar包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jar%E5%8C%85%E6%89%93%E5%8C%85"><span class="nav-number">3.</span> <span class="nav-text">jar包打包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6%E6%89%93%E5%8C%85"><span class="nav-number">3.1.</span> <span class="nav-text">✅单个文件打包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85%E4%BD%BF%E7%94%A8idea%E6%89%93%E5%8C%85"><span class="nav-number">3.2.</span> <span class="nav-text">✅使用idea打包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85%E4%BD%BF%E7%94%A8maven%E6%89%93%E5%8C%85"><span class="nav-number">3.3.</span> <span class="nav-text">✅使用maven打包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93war%E5%8C%85"><span class="nav-number">4.</span> <span class="nav-text">打war包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#war%E5%8C%85%E5%92%8Cwar-explode%E5%8C%85"><span class="nav-number">5.</span> <span class="nav-text">war包和war explode包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java-web%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">6.</span> <span class="nav-text">java web工程目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E4%B8%AAweb%E5%B7%A5%E7%A8%8B%E5%B9%B6%E9%83%A8%E7%BD%B2"><span class="nav-number">7.</span> <span class="nav-text">新建个web工程并部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pom-xml%E7%BB%93%E6%9E%84"><span class="nav-number">8.</span> <span class="nav-text">pom.xml结构</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jade liu"
+      src="/images/head.gif">
+  <p class="site-author-name" itemprop="name">Jade liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jadeliuliu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jadeliuliu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jadeliu1998@163.com" title="E-Mail → mailto:jadeliu1998@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/jadeliu1998" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;jadeliu1998" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5823044646" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5823044646" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jade liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

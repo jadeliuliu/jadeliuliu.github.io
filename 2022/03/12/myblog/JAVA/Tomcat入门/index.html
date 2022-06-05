@@ -28,7 +28,7 @@
 <meta property="og:description" content="tomcat为什么有tomcat？ 一个项目：客户端+后端+数据库。 如何访问到服务？需要在web应用服务器里进行部署。 tomcat就是一个web应用服务器，就是一个服务，里面放java程序。 web应用服务器：tomcat、Jboos、Weblogic、Jetty。 有了tomcat可以实现两个电脑之间的互相访问，前提是在一个局域网里。 1⃣️安装tomcat。apache出的，进入官网，选择">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-03-12T13:19:51.716Z">
-<meta property="article:modified_time" content="2022-03-12T13:21:59.741Z">
+<meta property="article:modified_time" content="2022-06-04T06:32:50.633Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="tomcat">
@@ -212,10 +212,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-03-12 21:19:51 / Modified: 21:21:59" itemprop="dateCreated datePublished" datetime="2022-03-12T21:19:51+08:00">2022-03-12</time>
+              <time title="Created: 2022-03-12 21:19:51" itemprop="dateCreated datePublished" datetime="2022-03-12T21:19:51+08:00">2022-03-12</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-04 14:32:50" itemprop="dateModified" datetime="2022-06-04T14:32:50+08:00">2022-06-04</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -267,6 +273,14 @@
 <p>url由三部分组成：ip:port/application name</p>
 <p>可以改应用的名字，在右上角edit application，选deployment，下面context改名字。重启就可以了。</p>
 <p>也可以没有名字，只是一个/。</p>
+<h3 id="3⃣️打包在tomcat运行"><a href="#3⃣️打包在tomcat运行" class="headerlink" title="3⃣️打包在tomcat运行"></a>3⃣️打包在tomcat运行</h3><p>1.首先基于maven进行打包，将war包复制到某个路径（不改配置的话放在webapps文件夹下）<br>2.对于放在其他文件夹的war包，在tomcat包下的conf文件夹下的server.xml文件增加配置（war包路径启动）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Host&gt; 标签下</span><br><span class="line">&lt;Context docBase=&quot;/Users/liuxuan/MyProject/java/log-maven-package.war&quot; </span><br><span class="line">        path=&quot;/log&quot; </span><br><span class="line">        reloadable=&quot;true&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>path:指定访问该Web应用的URL入口<br>docBase:指定Web应用的文件路径，可以给定绝对路径，也可以给定相对于<code>&lt;Host&gt;</code>的appBase属性的相对路径，如果Web应用采用开放目录结构，则指定Web应用的 根目录，如果Web应用是个war文件，则指定war文件的路径。<br>reloadable:如果这个属性设为true，tomcat服务器在运行状态下会监视在WEB-INF/classes和WEB-INF/lib目录下class文件的改动，如果监测到有class文件被更新的，服务器会自动重新加载Web应用。<br>Tomcat本身设置了Reloadable的属性，故Tomcat在检测到class文件发生变化之后，对WebApp的应用进行了重新加载：先卸载，再重新加载。<br>在开发阶段将reloadable属性设为true，有助于调试servlet和其它的class文件，但这样用加重服务器运行负荷，建议在Web应用的发存阶段将reloadable设为false。</p>
+</blockquote>
+<p>3.启动tomcat，之前配置过环境变量，所以不用区tomcat的bin目录下启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">启动：startup.sh</span><br><span class="line">关闭：shutdown.sh</span><br><span class="line">查看运行状态：ps -ef|grep tomcat</span><br><span class="line">查看启动日志：</span><br><span class="line">cd /usr/local/tomcat/apache-tomcat-8.5.51/logs/</span><br><span class="line">tail -200f catalina.out</span><br></pre></td></tr></table></figure>
+<p>4.访问：<a target="_blank" rel="noopener" href="http://localhost:8080/log/">http://localhost:8080/log/</a><br>5.外网如何访问：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_30596023/article/details/98539676">https://blog.csdn.net/weixin_30596023/article/details/98539676</a><br>6.如何在服务器上部署：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_53324833/article/details/123802881">https://blog.csdn.net/qq_53324833/article/details/123802881</a></p>
 
     </div>
 
@@ -351,7 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#tomcat"><span class="nav-number">1.</span> <span class="nav-text">tomcat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E2%83%A3%EF%B8%8F%E5%AE%89%E8%A3%85tomcat%E3%80%82"><span class="nav-number">2.</span> <span class="nav-text">1⃣️安装tomcat。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E2%83%A3%EF%B8%8Fidea%E9%9B%86%E6%88%90tomcat"><span class="nav-number">3.</span> <span class="nav-text">2⃣️idea集成tomcat</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#tomcat"><span class="nav-number">1.</span> <span class="nav-text">tomcat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E2%83%A3%EF%B8%8F%E5%AE%89%E8%A3%85tomcat%E3%80%82"><span class="nav-number">2.</span> <span class="nav-text">1⃣️安装tomcat。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E2%83%A3%EF%B8%8Fidea%E9%9B%86%E6%88%90tomcat"><span class="nav-number">3.</span> <span class="nav-text">2⃣️idea集成tomcat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E2%83%A3%EF%B8%8F%E6%89%93%E5%8C%85%E5%9C%A8tomcat%E8%BF%90%E8%A1%8C"><span class="nav-number">4.</span> <span class="nav-text">3⃣️打包在tomcat运行</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -366,7 +380,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-count">80</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
