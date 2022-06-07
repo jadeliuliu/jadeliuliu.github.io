@@ -1075,7 +1075,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-05 22:32:18" itemprop="dateModified" datetime="2022-05-05T22:32:18+08:00">2022-05-05</time>
+                <time title="Modified: 2022-06-07 09:03:49" itemprop="dateModified" datetime="2022-06-07T09:03:49+08:00">2022-06-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1140,9 +1140,9 @@
 <h3 id="应用：本地修改了，没有add，想撤销修改变为版本库里的"><a href="#应用：本地修改了，没有add，想撤销修改变为版本库里的" class="headerlink" title="应用：本地修改了，没有add，想撤销修改变为版本库里的"></a>应用：本地修改了，没有add，想撤销修改变为版本库里的</h3><p>用git reset –hard 解决  //恢复为本地库里的内容</p>
 <p>用  git checkout – hello.go  比较好，相当于清空了暂存区内容，工作区内容也变为修改前的。</p>
 <p>用  git rm –cached hello.go  不行，从暂存区中删除文件，会显示delete，修改的也会记录，只不过还需要add，不改变工作区。<br>不懂了，不管是有没有add，都会加一条delete，而不是把原本的删掉。</p>
-<h3 id="应用：git-commit之后，想再在这个commit里加add"><a href="#应用：git-commit之后，想再在这个commit里加add" class="headerlink" title="应用：git commit之后，想再在这个commit里加add"></a>应用：git commit之后，想再在这个commit里加add</h3><p>$ git commit -m ‘initial commit’<br>$ git add forgotten_file<br>$ git commit –amend<br>最终你只会有一个提交——第二次提交将代替第一次提交的结果。</p>
 <h3 id="应用：本地版本恢复为远程版本"><a href="#应用：本地版本恢复为远程版本" class="headerlink" title="应用：本地版本恢复为远程版本"></a>应用：本地版本恢复为远程版本</h3><p>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;  </p>
 <p>git pull origin master</p>
+<p>git pull 默认拉去远程当前分支到本地当前分支</p>
 <h3 id="应用：本地只有master分支，本地拉取线上其他分支"><a href="#应用：本地只有master分支，本地拉取线上其他分支" class="headerlink" title="应用：本地只有master分支，本地拉取线上其他分支"></a>应用：本地只有master分支，本地拉取线上其他分支</h3><p>git branch -a  //查看要拉取线上的什么分支</p>
 <p>git pull origin 分支名：本地分支名  //直接git pull origin 分支名，本地新建该分支</p>
 <p>git checkout 分支名  //切换</p>
@@ -1191,30 +1191,22 @@
 
 
 <h3 id="查看git配置"><a href="#查看git配置" class="headerlink" title="查看git配置"></a>查看git配置</h3><p>git config –list</p>
-<h3 id="commit之后，追加提交"><a href="#commit之后，追加提交" class="headerlink" title="commit之后，追加提交"></a>commit之后，追加提交</h3><p>1.如果还没有push到远程<br>先git add提交修改的文件<br>再git commit –amend<br>也叫追加提交，它可以在不增加一个新的commit的情况下，将新修改的代码追加到前一次的commit中。<br>使用该命令的好处，是避免许多无用的提交。</p>
-<p>常用参数：</p>
-<p>–no-edit：使用选定的提交消息而无需启动编辑器。（追加提交，且不修改message信息。）</p>
-<p>–reset-author：加载提交用户的信息。</p>
-<p>比如你从新配置本地用户的信息，然后使用该参数可以重新加载新用户的信息，并且更新在追加提交中。</p>
-<p>–author=：可修改Git 的 author 和 email 信息。<br>示例：git commit –amend –author=’xxx <a href="mailto:&#x78;&#120;&#x78;&#x78;&#x40;&#120;&#120;&#120;&#x2e;&#x78;&#120;&#x78;">&#x78;&#120;&#x78;&#x78;&#x40;&#120;&#120;&#120;&#x2e;&#x78;&#120;&#x78;</a>‘</p>
-<p>摘自：<a target="_blank" rel="noopener" href="http://events.jianshu.io/p/f015b97bda53">http://events.jianshu.io/p/f015b97bda53</a></p>
-<p>-m: 执行git commit –amend -m “这里填写提交的注释”命令进行提交。</p>
-<p>使用git commit –amend命令，表面上没有生成新的提交，只是进行了内容的追加。但实际上通过git reflog命令查看历史提交记录，我们还是看到了，其实是新生成了一个commit。</p>
-<p><em><strong>git commit –amend 命令原理:</strong></em><br>git commit –amend这个命令给人的感觉，是用新提交的数据，追加到了前一个commit上。</p>
-<p>其实git commit –amend命令底层原理如下：</p>
-<p>前提：你把遗漏提交的文件，或者修改的文件先提交到暂存区。</p>
-<ol>
-<li><p>git reset –soft HEAD^：回退一个版本，且工作区和暂存区中的内容不会退。</p>
-</li>
-<li><p>git commit -c ORIG_HEAD：提交操作。在根据此时的暂存区生成一个新的提交对象，代替原来提交的位置。</p>
-</li>
-</ol>
-<p>说明：<br>-C <commit>，全称–reuse-message=<commit>：获取现有的提交对象，并在创建提交时重用现有提交对象的日志消息和作者信息（包括时间戳）。<br>-c <commit>，全称–reedit-message=<commit>：与-C类似，但是-c会调用编辑器，以便用户可以进一步编辑提交消息。</commit></commit></commit></commit></p>
+<h3 id="commit之后，追加提交"><a href="#commit之后，追加提交" class="headerlink" title="commit之后，追加提交"></a>commit之后，追加提交</h3><p>1.如果还没有push到远程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &#x27;initial commit&#x27;</span><br><span class="line">$ git add forgotten_file</span><br><span class="line">$ git commit --amend   //wq保存</span><br></pre></td></tr></table></figure>
+<p>最终你只会有一个提交——第二次提交将代替第一次提交的结果。<br>先git add提交修改的文件<br>再git commit –amend<br>也叫追加提交，它可以在不增加一个新的commit的情况下，将新修改的代码追加到前一次的commit中。<br>使用该命令的好处，是避免许多无用的提交。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">常用参数：</span><br><span class="line"></span><br><span class="line">--no-edit：使用选定的提交消息而无需启动编辑器。（追加提交，且不修改message信息。）</span><br><span class="line"></span><br><span class="line">--reset-author：加载提交用户的信息。</span><br><span class="line"></span><br><span class="line">比如你从新配置本地用户的信息，然后使用该参数可以重新加载新用户的信息，并且更新在追加提交中。</span><br><span class="line"></span><br><span class="line">--author=：可修改Git 的 author 和 email 信息。</span><br><span class="line">示例：git commit --amend --author=&#x27;xxx &lt;xxxx@xxx.xxx&gt;&#x27;</span><br><span class="line"></span><br><span class="line">摘自：http://events.jianshu.io/p/f015b97bda53</span><br><span class="line"></span><br><span class="line">-m: 执行git commit --amend -m &quot;这里填写提交的注释&quot;命令进行提交。</span><br><span class="line"></span><br><span class="line">使用git commit --amend命令，表面上没有生成新的提交，只是进行了内容的追加。但实际上通过git reflog命令查看历史提交记录，我们还是看到了，其实是新生成了一个commit。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2.已经push到远程了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git commit --amend     // 修改上一次的提交</span><br><span class="line"></span><br><span class="line">// 进入提交信息编辑界面</span><br><span class="line">// 修改保存退出</span><br><span class="line"></span><br><span class="line">// 强制推送 (本地分支:远程分支)</span><br><span class="line">git push -f origin master:master</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">***git commit --amend 命令原理:***</span><br><span class="line">git commit --amend这个命令给人的感觉，是用新提交的数据，追加到了前一个commit上。</span><br><span class="line"></span><br><span class="line">其实git commit --amend命令底层原理如下：</span><br><span class="line"></span><br><span class="line">前提：你把遗漏提交的文件，或者修改的文件先提交到暂存区。</span><br><span class="line"></span><br><span class="line">1. git reset --soft HEAD^：回退一个版本，且工作区和暂存区中的内容不会退。</span><br><span class="line"></span><br><span class="line">2. git commit -c ORIG_HEAD：提交操作。在根据此时的暂存区生成一个新的提交对象，代替原来提交的位置。</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">-C &lt;commit&gt;，全称--reuse-message=&lt;commit&gt;：获取现有的提交对象，并在创建提交时重用现有提交对象的日志消息和作者信息（包括时间戳）。</span><br><span class="line">-c &lt;commit&gt;，全称--reedit-message=&lt;commit&gt;：与-C类似，但是-c会调用编辑器，以便用户可以进一步编辑提交消息。</span><br></pre></td></tr></table></figure>
+
+
 <h3 id="git如何撤销已提交的commit重新提交"><a href="#git如何撤销已提交的commit重新提交" class="headerlink" title="git如何撤销已提交的commit重新提交"></a>git如何撤销已提交的commit重新提交</h3><p>1、首先，使用git log -n 3 –stat命令，可以查看最近3次提交的详细信息，并且会显示每次commit的哈希值。</p>
 <blockquote>
 <p>git log 会显示：commit 哈希id、提交的Author信息、提交的日期和时间、commit info信息<br>–oneline： 只显示提交的 SHA1 值和提交信息，SHA1 还是缩短显示前几位，一般为前七位（commit id的前七位？）<br>–graph：绘制一个 ASCII 图像来展示提交历史的分支结构，类似于一个树形结构，很方便很好看<br>–stat参数: 主要可以在git log 的基础上输出文件增删改的统计数据<br>-p参数与–stat类似，不过-p参数更为详细，可以看到每个文件更为详细的修改内容<br>–author用来过滤commit,限定输出给定的用户:git log –author=”Stephen Curry”<br>–after和–before:  限定指定日期范围的log : git log –after ‘08-12-2020’</p>
 </blockquote>
-<p>一个命令：<code>git log --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit --date=relative --all</code></p>
+<p>漂亮log命令：<code>git log --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit --date=relative --all</code></p>
 <p>2、接着使用如下命令来回到某次提交：git reset –soft 某次commit哈希值的任意前缀</p>
 <blockquote>
 <p>最近一次commit了，但是不想要了，git log 获得这次提交的上一次的commit id，然后git reset，本地代码改动就回到本地工作空间了。可以重新改了再提交。<br>reset之后，最近一次的commit就在log里消失了。</p>
@@ -1223,6 +1215,49 @@
 <p>4、强制提交之后，那次commit之后所有的修改都处于没有提交的状态，可以再修改文件，然后将他们都再添加提交即可。</p>
 <p>5、使用git commit -m命令再提交新的commit。</p>
 <p>6、最终是希望撤回的commit已经消失，换成了新提交的commit。</p>
+<h3 id="feature分支和release分支"><a href="#feature分支和release分支" class="headerlink" title="feature分支和release分支"></a>feature分支和release分支</h3><p>1⃣️ master 分支：<br>master 为主分支，也是用于部署生产环境的分支，确保master分支稳定性，master 分支一般由develop以及hotfix分支合并，任何时间都不能直接修改代码。</p>
+<p>2⃣️ develop 分支：<br>develop 为开发分支，始终保持最新完成以及bug修复后的代码<br>一般开发的新功能时，feature分支都是基于develop分支下创建的</p>
+<p>3⃣️ feature 分支：<br>开发新功能时，以develop为基础创建feature分支<br>分支命名: feature/ 开头的为特性分支， 命名规则: feature/user_module、 feature/cart_module</p>
+<p>4⃣️ release分支：<br>release 为预上线分支，发布提测阶段，会release分支代码为基准提测</p>
+<blockquote>
+<p>当有一组feature开发完成，首先会合并到develop分支，进入提测时，会创建release分支。<br>如果测试过程中若存在bug需要修复，则直接由开发者在release分支修复并提交。<br>当测试完成之后，合并release分支到master和develop分支，此时master为最新代码，用作上线。</p>
+</blockquote>
+<p>5⃣️ hotfix 分支：<br>分支命名: hotfix/ 开头的为修复分支，它的命名规则与 feature 分支类似<br>线上出现紧急问题时，需要及时修复，以master分支为基线，创建hotfix分支，修复完成后，需要合并到master分支和develop分支</p>
+<h3 id="git冲突"><a href="#git冲突" class="headerlink" title="git冲突"></a>git冲突</h3><p>1⃣️ 产生冲突的原因：</p>
+<p>简单来说就是本地修改的文件和目标远程库的同一个文件都有修改。这时无论是pull/push/merge时都会产生冲突。</p>
+<p>场景1：多个分支代码合并到一个分支时：<br>开发a分支对某文件进行了修改，并提交到了master分支，这时开发b分支也对该文件进行了修改，然后合并到master分支，这时可能会发生冲入。（同一文件不同部分的修改，git会自动合并，同一文件同一行或是连续的一部分，git无法自动合并，需要手动解决冲突后合并）</p>
+<p>场景2：同一分支下本地和远程的冲突：<br>比如a和b开发同一分支，a改了某文件，并且merge上去了，b也改了这个文件，此时b要pull或push，都会发生冲突，代表本地和远程分支的代码是不同步的。</p>
+<p>其实类似，第一种基准是master分支，往里合并的是两个远程分支；第二种基准是远程分支，往里合并的是两个人的本地分支。</p>
+<hr>
+<p>2⃣️ 如何解决冲突：</p>
+<p>场景1:<br>修改谁：修改要合并的那个分支</p>
+<p>1、merge 远程master分支到本地当前分支，修改冲突，然后add commit push</p>
+<p>场景2:<br>首先尽量避免第二种的发生：开发之前先git pull一下最新的代码。</p>
+<p>冲突了修改谁：修改本地的文件</p>
+<p>1、git pull更新代码，发现CONFLICT：Merge conflict in 文件<br>Automatic merge failed：fix conficts…<br>这说明你的该文件与远程有冲突，此时暂停merge，远程改动都到了本地暂存区（add前），需要先提交本地的修改然后更新。</p>
+<p>2、git add pom.xml<br>git commit -m ‘冲突解决’<br>提交本地的pom.xml文件，不进行推送远程</p>
+<p>3、再 git pull ？<br>更新代码 Auto-merging pom.xml CONFLICT (content): Merge conflict in pom.xmlAutomatic merge failed; fix conflicts and then commit the result.<br>更新后你的本地分支上会出现 (develop|MERGING)类似这种标志。</p>
+<p>4、找到你本地的pom.xml文件，并打开你会在文件中发现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD ，======= ，&gt;&gt;&gt;&gt;&gt;&gt;&gt; ae9a0f6b7e42fda2ce9b14a21a7a03cfc5344d61这种标记。</span><br><span class="line"></span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD和=======中间的是你自己的代码，</span><br><span class="line">======= 和&gt;&gt;&gt;&gt;&gt;&gt;&gt;中间的是其他人修改的代码，</span><br><span class="line">最后删除&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD ，======= ，&gt;&gt;&gt;&gt;&gt;&gt;&gt;这种标志。</span><br></pre></td></tr></table></figure>
+
+<p>5、git add pom.xml<br>git commit -m ‘冲突解决结束’</p>
+<p>6、git push 将解决冲突后的文件推送到远程。</p>
+<p>问题：git pull 有冲突，改动到了本地暂存区，冲突解决之后，commit了冲突文件之后，再git pull就会把本地暂存区的文件合并到本地 ？</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/mrwangisgoodboy/article/details/123245194">https://blog.csdn.net/mrwangisgoodboy/article/details/123245194</a></p>
+<p><a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1711887140444140945&amp;wfr=spider&amp;for=pc">https://baijiahao.baidu.com/s?id=1711887140444140945&amp;wfr=spider&amp;for=pc</a></p>
+<hr>
+<p>用idea处理冲突：</p>
+<p>1、点右上角蓝箭头：<br>（一）Merge the incoming changes into the current branch</p>
+<pre><code>将传入的更改合并到当前分支中（常用） 相当于git pull
+</code></pre>
+<p>（二）Rebase the current branch on top of the incoming changes</p>
+<pre><code>把你当前分支的 commit 放到公共分支的最后面,所以叫变基
+</code></pre>
+<p>master与rebase：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41231928/article/details/107040880">https://blog.csdn.net/weixin_41231928/article/details/107040880</a></p>
+<p>2、选择merge the incoming…（等同于git pull）</p>
+<p>3、点master，点merge into current</p>
+<p>4、处理冲突：左边是自己的，这件是merge的，右边是别人的，绿色可以自动处理，红色需要手动处理。</p>
+<p>5、git add commit push</p>
 
       
     </div>

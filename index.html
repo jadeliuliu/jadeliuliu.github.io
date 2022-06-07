@@ -206,10 +206,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-06-04 14:47:55 / Modified: 23:26:40" itemprop="dateCreated datePublished" datetime="2022-06-04T14:47:55+08:00">2022-06-04</time>
+              <time title="Created: 2022-06-04 14:47:55" itemprop="dateCreated datePublished" datetime="2022-06-04T14:47:55+08:00">2022-06-04</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-05 23:59:59" itemprop="dateModified" datetime="2022-06-05T23:59:59+08:00">2022-06-05</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -232,7 +238,7 @@
 
       
           <h3 id="tomcat与servlet"><a href="#tomcat与servlet" class="headerlink" title="tomcat与servlet"></a>tomcat与servlet</h3><p>1.tomcat就是一个web应用服务器，相当于市存放java程序的容器。以便服务被访问。<br>2.servlet实际上是java类，java语言编写的服务器端程序，它用来处理http协议相关的所有内容，没有main方法，需要在servlet容器中进行管理，可以是tomact。如何使用：继承HttpServlet（tomcat里的jar包支持），它帮助我们完成通信的规则。<br>3.tomcat与servlet关系：tomcat是servlet/jsp容器，servlet时web应用开发的组件，tomcat负责处理客户请求，把请求传送给servlet，再将servlet的响应传送回给客户。<br>4.新建web工程时，如果不用maven，java enterprise - web application，再引入jdk、tomcat（tomcat的lib下有servlet包）。如果用maven，就选archetype-webapp。</p>
-<h3 id="war包与jar包"><a href="#war包与jar包" class="headerlink" title="war包与jar包"></a>war包与jar包</h3><p>1.Jar文件（扩展名为. Jar，Java Application Archive）包含Java类的普通库、资源（resources）、辅助文件（auxiliary files）等。<br>2.jar包是java打的包，一般只是包括一些编译后class文件和一些部署文件，在声明了Main_class之后是可以用java命令运行的。<br>3.jar包通常是开发时要引用通用类，打成包便于存放管理。<br>————————————————<br>1.War文件（扩展名为.War,Web Application Archive）包含全部Web应用程序。在这种情形下，一个Web应用程序被定义为单独的一组文件、类和资源，用户可以对war文件进行封装，并把它作为小型服务程序（servlet）来访问。<br>2.war包可以理解为javaweb打的包，是一个web模块，包括写的代码编译成的class文件，依赖的包，配置文件，所有的网站页面，包括html，jsp等等。一个war包可以理解为是一个web项目，里面是项目的所有东西。<br>3.war包需要发布到一个容器里面，拿Tomcat来说,将war文件包放置它的\webapps\目录下，启动Tomcat,这个包可以自动进行解压，也就是你的web目录，相当于发布了。<br>4.WAR是Sun提出的一种Web应用程序格式，与JAR类似，也是许多文件的一个压缩包。这个包中的文件按一定目录结构来组织：通常其根目录下包含有Html和Jsp文件或者包含这两种文件的目录，另外还会有一个WEB-INF目录，这个目录很重要。通常在WEB-INF目录下有一个web.xml文件和一个classes目录，web.xml是这个应用的配置文件，而classes目录下则包含编译好的Servlet类和Jsp或Servlet所依赖的其它类（JavaBean）。<br>————————————————</p>
+<h3 id="war包与jar包"><a href="#war包与jar包" class="headerlink" title="war包与jar包"></a>war包与jar包</h3><p>1.Jar文件（扩展名为. Jar，Java Application Archive）包含Java类的普通库、资源（resources）、辅助文件（auxiliary files）等。<br>2.jar包是java打的包，一般只是包括一些编译后class文件和一些部署文件，在声明了Main_class之后是可以用java命令运行的。<br>3.jar包通常是开发时要引用通用类，打成包便于存放管理。<br>————————————————<br>1.War文件（扩展名为.War,Web Application Archive）包含全部Web应用程序。在这种情形下，一个Web应用程序被定义为单独的一组文件、类和资源，用户可以对war文件进行封装，并把它作为小型服务程序（servlet）来访问。<br>2.war包可以理解为javaweb打的包，是一个web模块，包括写的代码编译成的class文件，依赖的包，配置文件，所有的网站页面，包括html，jsp等等。一个war包可以理解为是一个web项目，里面是项目的所有东西。<br>3.war包需要发布到一个容器里面，拿Tomcat来说,将war文件包放置它的\webapps\目录下，启动Tomcat,这个包可以自动进行解压，也就是你的web目录，相当于发布了。<br>4.WAR是Sun提出的一种Web应用程序格式，与JAR类似，也是许多文件的一个压缩包。这个包中的文件按一定目录结构来组织：通常其根目录下包含有Html和Jsp文件或者包含这两种文件的目录，另外还会有一个WEB-INF目录，这个目录很重要。通常在WEB-INF目录下有一个web.xml文件和一个classes目录，web.xml是这个应用的配置文件，而classes目录下则包含编译好的Servlet类和Jsp或Servlet所依赖的其它类（JavaBean）。另外还有META-INF目录，里面有MANIFEST.MF文件。存储了项目的元信息。其中文件manifest.mf仅此一份，描述了程序的基本信息、Main-Class的入口、jar依赖路径Class-Path。<br>————————————————</p>
 <p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Sunny5319/article/details/90933532">https://blog.csdn.net/Sunny5319/article/details/90933532</a></p>
 <p>jar包和war包都是为了项目的部署和发布，通常在打包部署的时候，会在里面加上部署的相关信息。这个打包实际上就是把代码和依赖的东西压缩在一起，变成后缀名为.jar和.war的文件</p>
 <hr>
