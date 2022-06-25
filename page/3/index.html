@@ -183,6 +183,150 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/19/myblog/JAVA/java%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/19/myblog/JAVA/java%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3/" class="post-title-link" itemprop="url">java实现自定义注解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-19 10:22:13" itemprop="dateCreated datePublished" datetime="2022-03-19T10:22:13+08:00">2022-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-09 22:43:27" itemprop="dateModified" datetime="2022-04-09T22:43:27+08:00">2022-04-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="关于注解"><a href="#关于注解" class="headerlink" title="关于注解"></a>关于注解</h3><p>Annotation，注解是Java SE 5.0版本开始引入的概念，它是对java源代码的说明，是一种元数据（描述数据的数据）。</p>
+<ul>
+<li>注释<br>   注释是对代码的说明，给代码的读者看，便于帮读者梳理业务逻辑；</li>
+<li>注解<br>  注解也是对代码的说明，需要配合工具（解析它的代码）使用，参与代码的编译，给应用程序看的。</li>
+</ul>
+<p>注解的渊源：</p>
+<p>在频繁使用注解之前，是用xml 来作为元数据使用，在最开始使用ssm(Spring,SpringMVC,Mybatis)框架时，bean与bean之间的依赖关系是通过xml文件来配置，这个xml文件和源代码分散，当微服务、分布式注解流行，系统越来越大，需要越来越多的xml文件来配置管理，文件配置冗长，而且类型不安全（运行期才会发现错误）,此时就需要一种比较简单直观而且类型安全的配置方式，注解就应运而生了，按照Springboot“约定大于配置”的方式，通过注解来约定其含义，更是减少了xml配置文件的数量。<br>     对于一些经常变动或者配置复杂的配置，使用xml文件来说是比较合适的，所以现在经常是注解和xml方式共存。<br>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zt15732625878/article/details/99671586">https://blog.csdn.net/zt15732625878/article/details/99671586</a></p>
+<p>————————————————</p>
+<h3 id="注解分类"><a href="#注解分类" class="headerlink" title="注解分类"></a>注解分类</h3><p>按照来源划分，可以分为 JDK的注解，第三方的注解，自定义注解。</p>
+<p>JDK注解</p>
+<p>Java 内置三大注解<br>@Override （标记重写方法）<br>@Deprecated （标记过时）<br>@SuppressWarnings （忽略警告）</p>
+<p>元注解 (注解的注解)<br>@Target （注解的作用目标）<br>@Retention （注解的生命周期）<br>@Document （注解是否被包含在JavaDoc中）<br>@Inherited （是否允许子类集成该注解）</p>
+<p>第三方注解（主要来源于各种框架）<br>Spring注解<br>@RequestMapping,@RestController,@Configuration,@Value,@Controller,@Service,@Repository,@Component等<br>SpringBoot注解<br>@SpringBootApplication,@EnableAutoConfiguration等<br>JPA注解<br>@Table,@Entity,@Column,@Id等<br>……</p>
+<p>自定义注解<br>使用元注解自己定义的注解</p>
+<h3 id="注解的定义"><a href="#注解的定义" class="headerlink" title="注解的定义"></a>注解的定义</h3><p>1&gt;.每一个方法实际上是声明了一个配置参数,<br>2&gt;.方法的名称就是参数的名称,<br>3&gt;.返回值类型就是参数的类型,(返回值类型只能是基本类型、Class、String、enum)<br>4&gt;.可以通过default来声明参数的默认值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">修饰符 <span class="meta">@interface</span> 注解名 &#123;</span><br><span class="line">    注解元素的声明<span class="number">1</span> </span><br><span class="line">    注解元素的声明<span class="number">2</span></span><br><span class="line">    <span class="function">type <span class="title">elementName</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">type <span class="title">elementName</span><span class="params">()</span> <span class="keyword">default</span> value</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@Service的定义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ElementType.TYPE 代表在类上使用</span></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="comment">// RetentionPolicy.RUNTIME 代表运行时使用，可以通过反射获取到</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="comment">//包含在JavaDoc中</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="comment">//允许通过包扫描的方式自动检测</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Service &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * The value may indicate a suggestion for a logical component name,</span></span><br><span class="line"><span class="comment">	 * to be turned into a Spring bean in case of an autodetected component.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the suggested component name, if any (or empty String otherwise)</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@AliasFor(annotation = Component.class)</span></span><br><span class="line">	<span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Annotation：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Annotation</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>所有注解</strong>，<strong>默认是一个实现了Annotation接口的接口。</strong></p>
+<h3 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a>自定义注解</h3><p>注解是一种能被添加到java源代码中的元数据，可以看作是一种特殊的标记，可以用在方法、类、参数和包上，程序在编译或者运行时可以检测到这些标记而进行一些特殊的处理。</p>
+<p>注解的基本元素：</p>
+<ul>
+<li>修饰符<br> 访问修饰符必须为public,不写默认为pubic；</li>
+<li>关键字<br> 关键字为@interface；</li>
+<li>注解名称<br> 注解名称为自定义注解的名称，使用时还会用到；</li>
+<li>注解类型元素<br> 注解类型元素是注解中内容，可以理解成自定义接口的实现部分；</li>
+</ul>
+<p>使用元注解修饰注解：</p>
+<p>@Target，@Retention,@Document,@Inherited用来修饰注解。</p>
+<p><strong>@Target</strong><br> 表明该注解可以应用的java元素类型。<br>ElementType.TYPE    应用于类、接口（包括注解类型）、枚举<br>ElementType.FIELD    应用于属性（包括枚举中的常量）<br>ElementType.METHOD    应用于方法<br>ElementType.PARAMETER    应用于方法的形参<br>ElementType.CONSTRUCTOR    应用于构造函数<br>ElementType.LOCAL_VARIABLE    应用于局部变量<br>ElementType.ANNOTATION_TYPE    应用于注解类型<br>ElementType.PACKAGE    应用于包<br>ElementType.TYPE_PARAMETER    1.8版本新增，应用于类型变量<br>ElementType.TYPE_USE    1.8版本新增，应用于任何使用类型的语句中（例如声明语句、泛型和强制转换语句中的类型）</p>
+<p>@Retention<br>  表明该注解的生命周期<br>RetentionPolicy.SOURCE    编译时被丢弃，不包含在类文件中<br>RetentionPolicy.CLASS    JVM加载时被丢弃，包含在类文件中，默认值<br>RetentionPolicy.RUNTIME    由JVM 加载，包含在类文件中，在运行时可以被获取到</p>
+<p>@Document<br>  表明该注解标记的元素可以被Javadoc 或类似的工具文档化</p>
+<p>@Inherited<br>  表明使用了@Inherited注解的注解，所标记的类的子类也会拥有这个注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.FIELD, ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Info &#123;</span><br><span class="line">      <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;tracy&quot;</span>;</span><br><span class="line">      <span class="function"><span class="keyword">boolean</span> <span class="title">isDelete</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用自定义注解"><a href="#使用自定义注解" class="headerlink" title="使用自定义注解"></a>使用自定义注解</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Builder</span></span><br><span class="line"><span class="comment">// 为Person类配置了刚刚定义的注解@Info</span></span><br><span class="line"><span class="meta">@Info(isDelete = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用反射解析注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnnotationTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//获取Person的Class对象(类)</span></span><br><span class="line">            Person person = Person.builder().build();</span><br><span class="line">            Class clazz = person.getClass();</span><br><span class="line">            <span class="comment">//判断类上是否有Info注解</span></span><br><span class="line">            <span class="keyword">if</span> (clazz.isAnnotationPresent(Info.class)) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;Person类上配置了Info注解！&quot;</span>);</span><br><span class="line">                <span class="comment">//获取该对象上Info类型的注解</span></span><br><span class="line">                Info infoAnno = (Info) clazz.getAnnotation(Info.class);</span><br><span class="line">                System.out.println(<span class="string">&quot;infoAnno.value :&quot;</span> + infoAnno.value() + <span class="string">&quot;,infoAnno.isDelete:&quot;</span> + infoAnno.isDelete());</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;Person类上没有配置Info注解！&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于一个类或者接口来说，Class类(java.lang包下)中提供了一些方法用于反射注解，当然对于字段、方法来说反射注解的方式很类似。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回指定的注解</span></span><br><span class="line">getAnnotation</span><br><span class="line"><span class="comment">//判断当前元素是否被指定注解修饰</span></span><br><span class="line">isAnnotationPresent</span><br><span class="line"><span class="comment">//返回所有的注解</span></span><br><span class="line">getAnnotations</span><br></pre></td></tr></table></figure>
+
+<p>————————————————</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zt15732625878/article/details/100061528">https://blog.csdn.net/zt15732625878/article/details/100061528</a></p>
+<p>————————————————</p>
+<h3 id="使用自定义注解例子2"><a href="#使用自定义注解例子2" class="headerlink" title="使用自定义注解例子2"></a>使用自定义注解例子2</h3><p>&lt;1&gt;.作用在属性上注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.FIELD)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> FiledAnnotation &#123;</span><br><span class="line">	 <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;GetFiledAnnotation&quot;</span>;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&lt;2&gt;.作用在方法上注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.METHOD)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MethodAnnotation &#123;</span><br><span class="line">	<span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> &quot;MethodAnnotation&quot;</span>;   </span><br><span class="line">    <span class="function">String <span class="title">url</span><span class="params">()</span> <span class="keyword">default</span> &quot;https:<span class="comment">//www.cnblogs.com&quot;;</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>&lt;3&gt;.作用在类上注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> TypeAnnotation &#123;</span><br><span class="line">	<span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;Is-TypeAnnotation&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&lt;4&gt;.使用自定义注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@TypeAnnotation(value = &quot;doWork&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Worker</span> </span>&#123;</span><br><span class="line"><span class="meta">@FiledAnnotation(value = &quot;CSDN博客&quot;)</span></span><br><span class="line"><span class="keyword">private</span> String myfield = <span class="string">&quot;&quot;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@MethodAnnotation()</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getDefaultInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;do the getDefaultInfo method&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@MethodAnnotation(name = &quot;百度&quot;, url = &quot;www.baidu.com&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getDefineInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;do the getDefineInfo method&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&lt;5&gt;.测试自定义注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestMain</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	</span><br><span class="line">    Class cls = Class.forName(<span class="string">&quot;com.zbz.annotation.pattern3.Worker&quot;</span>);</span><br><span class="line">    Method[] method = cls.getMethods();</span><br><span class="line">    <span class="comment">/**判断Worker类上是否有TypeAnnotation注解*/</span></span><br><span class="line">    <span class="keyword">boolean</span> flag = cls.isAnnotationPresent(TypeAnnotation.class);</span><br><span class="line">    <span class="comment">/**获取Worker类上是TypeAnnotation注解值*/</span></span><br><span class="line">    <span class="keyword">if</span> (flag) &#123;</span><br><span class="line">    	TypeAnnotation typeAnno = (TypeAnnotation) cls.getAnnotation(TypeAnnotation.class);</span><br><span class="line">    	System.out.println(<span class="string">&quot;@TypeAnnotation值:&quot;</span> + typeAnno.value());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**方法上注解*/</span></span><br><span class="line">    List&lt;Method&gt; list = <span class="keyword">new</span> ArrayList&lt;Method&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; method.length; i++) &#123;</span><br><span class="line">        list.add(method[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (Method m : list) &#123;</span><br><span class="line">    	MethodAnnotation methodAnno = m.getAnnotation(MethodAnnotation.class);</span><br><span class="line">        <span class="keyword">if</span> (methodAnno == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        System.out.println( <span class="string">&quot;方法名称:&quot;</span> + m.getName());</span><br><span class="line">        System.out.println(<span class="string">&quot;方法上注解name = &quot;</span> + methodAnno.name());</span><br><span class="line">        System.out.println(<span class="string">&quot;方法上注解url = &quot;</span> + methodAnno.url());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**属性上注解*/</span></span><br><span class="line">    List&lt;Field&gt; fieldList = <span class="keyword">new</span> ArrayList&lt;Field&gt;();  <span class="comment">//Field表示属性</span></span><br><span class="line">    <span class="keyword">for</span> (Field f : cls.getDeclaredFields()) &#123;<span class="comment">// 访问所有字段</span></span><br><span class="line">    	FiledAnnotation filedAno = f.getAnnotation(FiledAnnotation.class);</span><br><span class="line">    	System.out.println( <span class="string">&quot;属性名称:&quot;</span> + f.getName());</span><br><span class="line">    	System.out.println(<span class="string">&quot;属性注解值FiledAnnotation = &quot;</span> + filedAno.value());</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangbeizhen18/article/details/87885441/">https://blog.csdn.net/zhangbeizhen18/article/details/87885441/</a></p>
+<p>————————————————</p>
+<h3 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h3><p>自定义注解像是为类或者什么的新增加了属性，可以有默认值，通过类可以获得类上的自定义注解，然后通过注解获得注解中的值。注解不是属于对象的。定义在属性上的，可以用属性注解来区别这些属性，相当于属性名的别名。</p>
+<h3 id="其他参考"><a href="#其他参考" class="headerlink" title="其他参考"></a>其他参考</h3><p>自定义注解+AOP：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/283936459">https://zhuanlan.zhihu.com/p/283936459</a></p>
+<p>使用方法上的注解，实现通过注解来唤醒一个类里方法的效果：</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b5b79434d3b5">https://www.jianshu.com/p/b5b79434d3b5</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/12/myblog/JAVA/Mybatis%E5%85%A5%E9%97%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1043,100 +1187,6 @@
 <p>相同点：都是在JVM加载类时且在构造方法执行之前执行，在类中都可以定义多个。　一般在代码块中对一些static变量进行赋值。</p>
 <p>不同点：静态代码块在非静态代码块之前执行(静态代码块—&gt;非静态代码块—&gt;构造方法)。静态代码块只在第一次new执行一次，之后不再执行，而非静态代码块在每new一次就执行一次。非静态代码块可在普通方法中定义(不过作用不大)；而静态代码块不行。</p>
 </blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/06/myblog/JAVA/SSMb%E7%AB%99%E9%BB%91%E9%A9%AC%E7%A8%8B%E5%BA%8F%E5%91%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/06/myblog/JAVA/SSMb%E7%AB%99%E9%BB%91%E9%A9%AC%E7%A8%8B%E5%BA%8F%E5%91%98/" class="post-title-link" itemprop="url">SSM了解一下</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-02-06 16:03:30" itemprop="dateCreated datePublished" datetime="2022-02-06T16:03:30+08:00">2022-02-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-25 16:26:13" itemprop="dateModified" datetime="2022-06-25T16:26:13+08:00">2022-06-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>SSM框架：Spring + SpringMVC + MyBatis</p>
-<p>Spring和SpringMVC是当前企业开发必用框架之一，MyBatis则是与数据库交互的持久层框架之一，由于易用性和轻便性，则被大多互联网公司所选用。SSM基础框架的掌握是当前企业开发最基本的要求，也是其他技术学习和进阶的必要基础。</p>
-<p>b站视频地址：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1WZ4y1P7Bp?p=42">https://www.bilibili.com/video/BV1WZ4y1P7Bp?p=42</a></p>
-<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><h3 id="SpringMVC简介"><a href="#SpringMVC简介" class="headerlink" title="SpringMVC简介"></a>SpringMVC简介</h3><p>MVC模式是什么？</p>
-<p>MVC 模式代表 Model-View-Controller（模型-视图-控制器） 模式。这种模式用于应用程序的分层开发。</p>
-<ul>
-<li><strong>Model（模型）</strong> - 模型代表一个存取数据的对象或 JAVA POJO。它也可以带有逻辑，在数据变化时更新控制器。</li>
-<li><strong>View（视图）</strong> - 视图代表模型包含的数据的可视化。</li>
-<li><strong>Controller（控制器）</strong> - 控制器作用于模型和视图上。它控制数据流向模型对象，并在数据变化时更新视图。它使视图与模型分离开。</li>
-</ul>
-<p>SpringMVC概述？</p>
-<p>SpringMVC是一种基于Java实现的MVC设计模型的请求驱动类型的轻量级Web框架，属于SpringFrameWork的后续产品，已经融合在Spring Web Flow中。</p>
-<p>SpringMVC已经成为目前最主流的MVC框架之一，并且随着Spring3.0的发布，全面超越Structs2，成为最优秀的MVC框架。它通过一套注解，让一个简单的Java类成为处理请求的控制器，而无须实现任何接口。同时它还支持RESTful编程风格的请求。web文件夹内servelet？</p>
-<h3 id="MyBatis简介"><a href="#MyBatis简介" class="headerlink" title="MyBatis简介"></a>MyBatis简介</h3><p>持久层框架，方便数据库操作的。</p>
-<p>原始比较繁琐的jdbc操作：注册驱动–获得连接–获得statement–执行查询–遍历结果集（封装实体，传递）–释放资源。</p>
-<p>缺点：代码重复（比如获得连接资源），资源频繁连接关闭，消耗资源，sql语句比较死，得解耦合，用配置文件。</p>
-<p>jdbc缺点：（1）数据库创建、释放资源造成系统资源浪费从而影响系统性能。（2）sql语句在代码中硬编码，造成代码不易维护，实际应用sql变化的可能较大，sql变动需要改变java代码，耦合性高。（3）查询操作时，需要手动将结果集中的数据手动封装到实体中，插入操作时，需要手动将实体的数据设置到sql语句的占位符位置。</p>
-<p>应对上述问题给出的解决方案：（1）使用数据库连接池初始化连接资源。（2）将sql语句抽到xml配置文件中。（3）使用反射、内省等底层技术，自动将实体与表进行属性与字段的自动映射。</p>
-<p>MyBatis是一个优秀的基于java的持久层框架，它内部封装了jdbc，使开发者只需要关注sql语句本身，而不需要花费精力去处理加载驱动、创建连接、创建statement等繁杂的过程，</p>
-<p>MyBatis通过xml或注解的方式将要执行的各种statement配置起来，并通过java对象和statement中的sql的动态参数进行映射生成最终执行的sql语句。</p>
-<p>MyBatis框架执行sql并将结果集映射为java对象并返回，采用ORM（对象关系映射）思想解决了实体和数据库映射的问题，对jdbc进行封装，屏蔽jdbc api底层访问细节，不与jdbc打交道就可以完成对数据库的持久化操作。</p>
 
       
     </div>
