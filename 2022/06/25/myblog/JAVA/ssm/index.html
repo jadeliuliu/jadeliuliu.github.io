@@ -28,7 +28,7 @@
 <meta property="og:description" content="SSM框架：Spring + SpringMVC + MyBatis Spring和SpringMVC是当前企业开发必用框架之一，MyBatis则是与数据库交互的持久层框架之一，由于易用性和轻便性，则被大多互联网公司所选用。SSM基础框架的掌握是当前企业开发最基本的要求，也是其他技术学习和进阶的必要基础。 b站视频地址：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1WZ4y1">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-06-25T08:32:52.780Z">
-<meta property="article:modified_time" content="2022-06-25T08:33:36.506Z">
+<meta property="article:modified_time" content="2022-06-25T09:38:44.155Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="ssm">
 <meta name="twitter:card" content="summary">
@@ -213,7 +213,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-06-25 16:32:52 / Modified: 16:33:36" itemprop="dateCreated datePublished" datetime="2022-06-25T16:32:52+08:00">2022-06-25</time>
+              <time title="Created: 2022-06-25 16:32:52 / Modified: 17:38:44" itemprop="dateCreated datePublished" datetime="2022-06-25T16:32:52+08:00">2022-06-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -264,6 +264,11 @@
 <p>MyBatis是一个优秀的基于java的持久层框架，它内部封装了jdbc，使开发者只需要关注sql语句本身，而不需要花费精力去处理加载驱动、创建连接、创建statement等繁杂的过程，</p>
 <p>MyBatis通过xml或注解的方式将要执行的各种statement配置起来，并通过java对象和statement中的sql的动态参数进行映射生成最终执行的sql语句。</p>
 <p>MyBatis框架执行sql并将结果集映射为java对象并返回，采用ORM（对象关系映射）思想解决了实体和数据库映射的问题，对jdbc进行封装，屏蔽jdbc api底层访问细节，不与jdbc打交道就可以完成对数据库的持久化操作。</p>
+<h3 id="mvc和servlet的关系"><a href="#mvc和servlet的关系" class="headerlink" title="mvc和servlet的关系"></a>mvc和servlet的关系</h3><p>1、Servlet与JSP一起为Web应用开发带来了巨大的贡献，后来出现的众多Java Web应用开发框架都是基于这两种技术的，更确切的说，都是基于Servlet技术的。</p>
+<p>2、Springmvc的核心是一个DispatcherServlet，并且DispatcherServlet继承自 FrameworkServlet继承自HttpServletBean 继承自HttpServlet（也就是你说的servelt） 本质上是一样的东西。其实就是基于tomcat等这些web容器对我们的CS请求能做更多的事情，如校验，拦截（AOP思想），后期渲染等等，好让我们专注于业务的开发。</p>
+<p>总结</p>
+<p>1、servlet就是一个Java接口，是JavaEE规范的一种<br>2、Servlet容器也叫做Servlet引擎：全称server applet，意为服务程序。主要作用是给上级容器(Tomcat)提供doGet()和doPost()等方法。其生命周期实例化、初始化、调用、销毁受控于 Tomcat容器。<br>3、而Tcomcat、webLogic等web容器包含servlet容器。<br>4、Tomcat容器属于web容器的一种，web容器还包括weblogic容器、JBoss容器等。<br>5、web容器：可以部署多个WEB应用程序的环境。<br>6、Spring MVC （SpringBoot）其实就是基于tomcat等这些web容器对我们的CS请求能做更多的事情</p>
+<p>转自：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/295173834">https://zhuanlan.zhihu.com/p/295173834</a></p>
 
     </div>
 
@@ -344,7 +349,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SpringMVC%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">SpringMVC简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MyBatis%E7%AE%80%E4%BB%8B"><span class="nav-number">1.2.</span> <span class="nav-text">MyBatis简介</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SpringMVC%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">SpringMVC简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MyBatis%E7%AE%80%E4%BB%8B"><span class="nav-number">1.2.</span> <span class="nav-text">MyBatis简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mvc%E5%92%8Cservlet%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.3.</span> <span class="nav-text">mvc和servlet的关系</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
