@@ -183,6 +183,121 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/25/myblog/spring/Spring%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/25/myblog/spring/Spring%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/" class="post-title-link" itemprop="url">spring入门案例</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-25 18:43:01" itemprop="dateCreated datePublished" datetime="2021-08-25T18:43:01+08:00">2021-08-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-10 21:40:51" itemprop="dateModified" datetime="2022-05-10T21:40:51+08:00">2022-05-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Spring入门案例"><a href="#Spring入门案例" class="headerlink" title="Spring入门案例"></a>Spring入门案例</h1><h2 id="0-java基础"><a href="#0-java基础" class="headerlink" title="0.java基础"></a>0.java基础</h2><h3 id="a-java版本"><a href="#a-java版本" class="headerlink" title="a.java版本"></a>a.java版本</h3><p>Java是一种广泛使用的计算机编程语言，拥有跨平台、面向对象、泛型编程的特性，广泛应用于企业级Web应用开发和移动应用开发。</p>
+<p>Java编程语言的风格十分接近C++语言。继承了C++语言面向对象技术的核心，舍弃了容易引起错误的指针，以引用取代；移除了C++中的运算符重载和多重继承特性，用接口取代；增加垃圾回收器功能。在Java SE 1.5版本中引入了泛型编程、类型安全的枚举、不定长参数和自动装/拆箱特性。</p>
+<blockquote>
+<p>Java的三个版本 : JAVASE(标准版),JAVAEE(企业版),JAVAME(微型版).</p>
+<p>java是一个平台。他包括了，java语言，java开发环境(jdk)。java有三个版本<br>j2se(标准版),j2ee(企业版),j2me(微型版)<br>不管哪个版本，都是java语言实现的一个框架。之所以要分版本，是因为3个版本是针对不同问题，设计的解决方案。<br>j2EE是java的企业级开发版本，其实换句话说就是用来做web开发的java框架。javaEE通过设定统一的标准来解决web开发的问题，javaEE的接口，抽象类，规定了web开发所需要实现的流程。整个web的开发，有2层，第1层是服务器容器，比如tomcat，weblogic。他们在javaEE的规范下，实现套接字的连接，封装消息等等，第2层是业务，而这一层是你要做的，通过tomcat封装的消息，进行相应的业务处理。服务器容器的开发由大型的产商开发，而我们通常做的开发是在服务器容器上的业务开发，正是sun的javaEE统一了规范(比如用servlet)我们的业务代码，能和comcat进行很好的通讯。</p>
+</blockquote>
+<p>J2SE是标准版本，J2ME是手机方向的，J2EE是网站开发方向的。</p>
+<blockquote>
+<p>从JDK 5.0开始 J2EE 改名为 java EE，J2SE 改名为 java SE，J2ME 改名成 java ME.java EE 是java的企业版，主要面向web应用，尤其是企业级开发</p>
+</blockquote>
+<h3 id="b-jdk版本"><a href="#b-jdk版本" class="headerlink" title="b.jdk版本"></a>b.jdk版本</h3><p>Java Development Kit（JDK）是太阳微系统针对Java开发人员发布的免费软件开发工具包（SDK，Software development kit）。自从Java推出以来，JDK已经成为使用最广泛的Java SDK。</p>
+<p>作为Java语言的SDK，普通用户并不需要安装JDK来运行Java程序，而只需要安装JRE（Java Runtime Environment）。而程序开发者必须安装JDK来编译、调试程序。</p>
+<p>JDK是个Java开发的工具包，Java是门编程语言。</p>
+<p>JDK8或者JDK1.8是由于自从JDK1.5/JDK5命名方式改变后遗留的新旧命令方式问题。所以JDK8或者JDK1.8也是同一个东西。</p>
+<blockquote>
+<p>JDK1.4 正则表达式，异常链，NIO，日志类，XML解析器，XLST转换器<br>JDK1.5 自动装箱、泛型、动态注解、枚举、可变长参数、遍历循环<br>JDK1.6 提供动态语言支持、提供编译API和卫星HTTP服务器API，改进JVM的锁，同步垃圾回收，类加载<br>JDK1.7 提供GI收集器、加强对非Java语言的调用支持（JSR-292,升级类加载架构<br>JDK8 Lambda 表达式、方法引用、默认方法、新工具、Stream API、Date Time API 、Optional 类、Nashorn, JavaScript 引擎<br>JDK9 1、集合加强；2、私有接口方法；3、垃圾收集机制；4、I/O流加强；5、JShell工具<br>JDK10 1、局部变量类型推断；2、线程本地握手；3、GC改进和内存管理；<br>JDK11 1、字符串加强；2、HttClient Api；3、用于 Lambda 参数的局部变量语法；4、ZGC<br>JDK12 1、Switch Expressions；2、Shenandoah GC；<br>JDK13 1、switch优化更新；2、文本块升级；3、重新实现旧版套接字API；4、核心库/java.util中：I18N；5、取消使用未使用的内存<br>JDK14 1、switch优化变更为最终版；2、垃圾回收相关；3、instanceof的模式匹配（预览版）；4、删除了安全库java.security.acl API；5、货币格式（优化）<br>JDK15</p>
+</blockquote>
+<h2 id="1-Spring简介"><a href="#1-Spring简介" class="headerlink" title="1.Spring简介"></a>1.Spring简介</h2><p>Spring是一个开源框架，Spring是2003年兴起的轻量级java开发框架，它是为了解决企业级开发的复杂性而创建的。Spring的用途不仅限于服务器端的开发，从简单性、可测试性、低耦合的角度而言任何java应用都可以在spring中受益。</p>
+<p>简单的来说Spring就是轻量级的控制反转（IOC）和面向切面（AOP）的容器框架。</p>
+<blockquote>
+<p>javaBean：<br>符合一定规范编写的Java类，不是一种技术，而是一种规范。针对这种规范，总结了很多开发技巧、工具函数。符合这种规范的类，可以被其他的程序员或者框架使用。这些约定包括：getXXX，setXXX，isXXX，addXXX。</p>
+</blockquote>
+<h3 id="Spring解决什么："><a href="#Spring解决什么：" class="headerlink" title="Spring解决什么："></a>Spring解决什么：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">当客户端向服务器发出请求时，服务器把得到的请求发送给控制器Servlet，而在Servlet中需要创建Service对象来调用业务层相关功能(故说控制器层Servlet依赖于业务层Service),而在Service中又需要创建数据库层DAO对象来对数据库进行操作(故说业务层Service依赖于数据库层DAO)。</span><br><span class="line"></span><br><span class="line">针对上述问题，需要考虑：1.Servlet、Service以及Dao对象的创建时间、创建数量。2.Servlet、Service以及Dao之间的依赖关系。</span><br><span class="line"></span><br><span class="line">spring：</span><br><span class="line">用来处理对象的创建、以及对象之间依赖关系的一个开发框架。它打破了我们传统开发的观念，我们不再需要像以前那样在具体的类中创建具体的对象，而是将对象的创建交给它去完成。</span><br></pre></td></tr></table></figure>
+
+<p>非侵入式设计：引入了框架，对现有的类结构没有影响。</p>
+<h3 id="IOC控制反转"><a href="#IOC控制反转" class="headerlink" title="IOC控制反转"></a>IOC控制反转</h3><p>Inversion On Control，简称IOC。对象的创建交给外部容器自动完成，这个就叫做控制反转。(有控制反转就有控制正转，控制正转:对象的创建由我们自己创建)</p>
+<p>依赖注入dependency injection,简称DI，用于处理对象间的依赖关系。</p>
+<p><strong>二者区别:</strong><br>控制反转(IOC):解决对象创建的问题，(对象的创建交给别人)。<br>依赖注入(DI):在创建完对象后，对象关系的处理就是依赖注入，(通过set方法依赖注入。)</p>
+<h3 id="AOP面向切面"><a href="#AOP面向切面" class="headerlink" title="AOP面向切面"></a>AOP面向切面</h3><p>面向切面编程。切面，简单来说可以理解为一个类，由很多重复代码形成的类。切面举例:事务、日志、权限。</p>
+<h2 id="2-Mac下spring配置"><a href="#2-Mac下spring配置" class="headerlink" title="2.Mac下spring配置"></a>2.Mac下spring配置</h2><p>配置Spring不管在哪个环境下都是大同小异，下载Spring-framework，解压缩，然后导入使用的项目即可。</p>
+<p>spring3.x与jdk1.7兼容，spring4.x与jdk1.8才兼容，IDEA默认下的JDK使用1.8版本。</p>
+<blockquote>
+<p>直接通过IDEA创建项目选择spring模版<br>发现：没有spring模板，打开设置-&gt;plugins-&gt;搜索spring assistant-&gt;安装后重启</p>
+<p>依然没有，没法了</p>
+</blockquote>
+<p>![image-20210825183129555](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210825183129555.png)</p>
+<h2 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h2><p>Spring Boot 是 Pivotal 团队在 Spring 的基础上提供的一套全新的开源框架，其目的是为了简化 Spring 应用的搭建和开发过程。Spring Boot 去除了大量的 XML 配置文件，简化了复杂的依赖管理。</p>
+<p>Spring Boot 具有 Spring 一切优秀特性，Spring 能做的事，Spring Boot 都可以做，而且使用更加简单，功能更加丰富，性能更加稳定而健壮。随着近些年来微服务技术的流行，Spring Boot 也成了时下炙手可热的技术。</p>
+<h2 id="新建spring工程"><a href="#新建spring工程" class="headerlink" title="新建spring工程"></a>新建spring工程</h2><p>idea新建maven工程，选择模版maven-archetype-quikstart，依赖：spring-core、spring-beans、spring-context。</p>
+<p>archetype的意思就是模板原型的意思，原型是一个Maven项目模板工具包。</p>
+<p>maven-archetype-quickstart：在这个项目里，除了pom.xml外，没有其他的xml了，但是有main、test两个包，包里放了一个App、AppTest类。</p>
+<p>maven-archetype-webapp：在这个项目里，有WEB-INF目录，并且有web.xml和一个index.jsp。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/25/myblog/JAVA/MAC%E4%B8%8B%E5%AE%89%E8%A3%85java%E7%8E%AF%E5%A2%83/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1227,107 +1342,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-CSS%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-CSS%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8/" class="post-title-link" itemprop="url">前端寄出-CSS层叠样式表</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-19 19:53:06" itemprop="dateCreated datePublished" datetime="2021-08-19T19:53:06+08:00">2021-08-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 21:55:28" itemprop="dateModified" datetime="2021-09-25T21:55:28+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><p>CSS被用来同时控制多重网页的样式和布局。</p>
-<p>通过使用 CSS，所有的格式化均可从 HTML 中剥离出来，并存储于一个独立的文件中。</p>
-<p>CSS 指层叠样式表 (Cascading Style Sheets)<br>样式定义如何显示 HTML 元素</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;标题&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">body</span><br><span class="line">&#123;</span><br><span class="line">	background-color:#d0e4fe;</span><br><span class="line">&#125;</span><br><span class="line">h1    //h1是选择器</span><br><span class="line">&#123;          //大括号里是一条或多条声明</span><br><span class="line">	color:orange;     //每一条声明由属性和值组成 ：分开</span><br><span class="line">	text-align:center;</span><br><span class="line">&#125;</span><br><span class="line">p</span><br><span class="line">&#123;</span><br><span class="line">	font-family:&quot;Times New Roman&quot;;</span><br><span class="line">	font-size:20px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;     //style元素在head元素里</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;h1&gt;CSS 实例!&lt;/h1&gt;</span><br><span class="line">&lt;p&gt;这是一个段落。&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="1-语法"><a href="#1-语法" class="headerlink" title="1.语法"></a>1.语法</h2><p>CSS 规则由两个主要的部分构成：选择器，以及一条或多条声明:<br>选择器通常是您需要改变样式的 HTML 元素。<br>每条声明由一个属性和一个值组成。<br>属性（property）是您希望设置的样式属性（style attribute）。每个属性有一个值。属性和值被冒号分开。<br>css中，也就是<code>&lt;style&gt;</code>中，注释是 /*   */</p>
-<h2 id="2-id选择器"><a href="#2-id选择器" class="headerlink" title="2.id选择器"></a>2.id选择器</h2><p>id 选择器可以为标有特定 id 的 HTML 元素指定特定的样式。</p>
-<p>HTML元素以id属性来设置id选择器,CSS 中 id 选择器以 “#” 来定义。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt; </span><br><span class="line">&lt;title&gt;标题&lt;/title&gt; </span><br><span class="line">&lt;style&gt;</span><br><span class="line">#para1</span><br><span class="line">&#123;</span><br><span class="line">	text-align:center;</span><br><span class="line">	color:red;</span><br><span class="line">&#125; </span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p id=&quot;para1&quot;&gt;Hello World!&lt;/p&gt;</span><br><span class="line">&lt;p&gt;这个段落不受该样式的影响。&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>不要以数字开头</p>
-<h2 id="3-class选择器"><a href="#3-class选择器" class="headerlink" title="3.class选择器"></a>3.class选择器</h2><p>class 选择器用于描述一组元素的样式，class 选择器有别于id选择器，class可以在多个元素中使用。</p>
-<p>class 选择器在HTML中以class属性表示, 在 CSS 中，类选择器以一个点”.”号显示：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt; </span><br><span class="line">&lt;title&gt;标题&lt;/title&gt; </span><br><span class="line">&lt;style&gt;</span><br><span class="line">.center</span><br><span class="line">&#123;</span><br><span class="line">	text-align:center;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1 class=&quot;center&quot;&gt;标题居中&lt;/h1&gt;</span><br><span class="line">&lt;p class=&quot;center&quot;&gt;段落居中。&lt;/p&gt; </span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>你也可以指定特定的HTML元素使用class。比如<code>p.center</code> 就只有标了类属性的段落起作用</p>
-<h2 id="4-如何创建"><a href="#4-如何创建" class="headerlink" title="4.如何创建"></a>4.如何创建</h2><h3 id="（1）内联模式"><a href="#（1）内联模式" class="headerlink" title="（1）内联模式"></a>（1）内联模式</h3><p><code>&lt;p style=&quot;color:sienna;margin-left:20px&quot;&gt;这是一个段落。&lt;/p&gt;</code></p>
-<h3 id="2-内部样式表"><a href="#2-内部样式表" class="headerlink" title="(2) 内部样式表"></a>(2) 内部样式表</h3><p>上面的示例都是，<code>&lt;head&gt;</code>里的<code>&lt;style&gt;</code></p>
-<h3 id="（3）外部样式表"><a href="#（3）外部样式表" class="headerlink" title="（3）外部样式表"></a>（3）外部样式表</h3><p>当样式需要应用于很多页面时，外部样式表将是理想的选择。可以通过改变一个文件来改变整个站点的外观。</p>
-<p>使用 <code>&lt;link&gt; </code>标签链接到样式表。</p>
-<p>html中：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;mystyle.css&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br></pre></td></tr></table></figure>
-
-<p>css：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hr &#123;color:sienna;&#125;</span><br><span class="line">p &#123;margin-left:20px;&#125;</span><br><span class="line">body &#123;background-image:url(&quot;/images/back40.gif&quot;);&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1394,7 +1412,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1407,7 +1425,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

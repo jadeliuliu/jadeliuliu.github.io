@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/ca388386e5024a2d9bdcc74eafa835bc.jpg?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
 <meta property="article:published_time" content="2021-11-30T04:15:15.744Z">
-<meta property="article:modified_time" content="2021-12-01T05:31:10.318Z">
+<meta property="article:modified_time" content="2022-06-27T14:54:54.791Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -221,7 +221,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-01 13:31:10" itemprop="dateModified" datetime="2021-12-01T13:31:10+08:00">2021-12-01</time>
+                <time title="Modified: 2022-06-27 22:54:54" itemprop="dateModified" datetime="2022-06-27T22:54:54+08:00">2022-06-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -318,7 +318,7 @@
 <h3 id="线程的优先级"><a href="#线程的优先级" class="headerlink" title="线程的优先级"></a>线程的优先级</h3><p>线程的优先级用1-10之间的整数来表示，数字越大优先级越高。除了直接用数字外，还可用Thread类中提供的三个静态常量表示线程的优先级。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		<span class="comment">//用lambda表达式创建线程？</span></span><br><span class="line">		Thread th1 = <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">				System.out.println(Thread.currentThread().getName()</span><br><span class="line">						+<span class="string">&quot;正在输出i+&quot;</span>+i);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,<span class="string">&quot;优先级较低的线程&quot;</span>);</span><br><span class="line">		Thread th2 = <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;<span class="number">10</span>; j++)&#123;</span><br><span class="line">				System.out.println(Thread.currentThread().getName()</span><br><span class="line">						+<span class="string">&quot;正在输出j+&quot;</span>+j);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,<span class="string">&quot;优先级较高的线程&quot;</span>);</span><br><span class="line">		<span class="comment">//设置线程的优先级</span></span><br><span class="line">		th1.setPriority(Thread.MIN_PRIORITY);  <span class="comment">//MIN=1 NORM=5  MAX=10</span></span><br><span class="line">		th2.setPriority(<span class="number">10</span>);</span><br><span class="line">		th1.start();</span><br><span class="line">		th2.start();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="线程休眠"><a href="#线程休眠" class="headerlink" title="线程休眠"></a>线程休眠</h3><p>将正在执行的线程暂停，将CPU使用权让给其他线程，这是可以使用静态方法sleep(long millis)，该方法使得线程进入休眠等待状态（阻塞），这样其他线程就可以得到执行的机会。sleep(long millis)方法会声明抛出InterruptedException异常，因此在调动该方法时应该捕获异常，或者声明抛出异常。休眠时间结束后，线程才会转换到就绪状态。</p>
+<h3 id="线程休眠"><a href="#线程休眠" class="headerlink" title="线程休眠"></a>线程休眠</h3><p>将正在执行的线程暂停，将CPU使用权让给其他线程，这是可以使用静态方法sleep(long millis)，该方法使得线程进入休眠等待状态，这样其他线程就可以得到执行的机会。sleep(long millis)方法会声明抛出InterruptedException异常，因此在调动该方法时应该捕获异常，或者声明抛出异常。休眠时间结束后，线程才会转换到就绪状态。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		Thread th1 = <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">				System.out.println(Thread.currentThread().getName()</span><br><span class="line">						+<span class="string">&quot;正在输出i+&quot;</span>+i);</span><br><span class="line">				<span class="keyword">if</span>(i==<span class="number">2</span>)&#123;</span><br><span class="line">					<span class="keyword">try</span>&#123;</span><br><span class="line">						<span class="comment">//在该线程执行过程中进入睡眠状态，让其他线程先执行</span></span><br><span class="line">						Thread.sleep(<span class="number">500</span>);</span><br><span class="line">					&#125;<span class="keyword">catch</span>(InterruptedException e)&#123;</span><br><span class="line">						e.printStackTrace();</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,<span class="string">&quot;线程1&quot;</span>);</span><br><span class="line">		Thread th2 = <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;<span class="number">10</span>; j++)&#123;</span><br><span class="line">				System.out.println(Thread.currentThread().getName()</span><br><span class="line">						+<span class="string">&quot;正在输出j+&quot;</span>+j);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,<span class="string">&quot;线程2&quot;</span>);</span><br><span class="line">		th1.start();</span><br><span class="line">		th2.start();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="线程让步"><a href="#线程让步" class="headerlink" title="线程让步"></a>线程让步</h3><p><code>Thread.yield();</code> 使当前正在运行的线程暂停，但不会阻塞该线程，只是将线程转换成就绪状态，让线程的调度器重新调度一次。Thread的yield方法，在线程类实现内使用。</p>
@@ -477,7 +477,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -490,7 +490,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

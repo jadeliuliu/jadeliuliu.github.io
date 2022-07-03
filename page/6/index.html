@@ -183,6 +183,105 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/31/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/java%E3%81%AEleecode%E6%95%B0%E7%BB%84%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/31/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/java%E3%81%AEleecode%E6%95%B0%E7%BB%84%E7%AF%87/" class="post-title-link" itemprop="url">javaのleecode刷题数组篇</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-31 16:16:09" itemprop="dateCreated datePublished" datetime="2021-10-31T16:16:09+08:00">2021-10-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-07 17:12:12" itemprop="dateModified" datetime="2021-11-07T17:12:12+08:00">2021-11-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="27题の移除元素"><a href="#27题の移除元素" class="headerlink" title="27题の移除元素"></a>27题の移除元素</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。</span><br><span class="line"></span><br><span class="line">不要使用额外的数组空间，你必须仅使用 O(1) 额外空间并原地修改输入数组。</span><br><span class="line"></span><br><span class="line">元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</span><br><span class="line"></span><br><span class="line">示例 1: 给定 nums = [3,2,2,3], val = 3, 函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。 你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure>
+
+<p>思路：暴力解法：两个for循环，每找到一个，都将它后面的元素一个个往前移。时间复杂度是O(n^2)。</p>
+<p>简单解法：快慢指针法，对哪个指针进行判断是关键，如果对慢指针进行判断，则有一个就会后面一直相邻交换。应该对快指针进行判断，快指针判断到不是目标值，将该值赋给慢指针所在位置，慢指针移动1，如果是目标值，直接跳过，慢指针不移动。因此一层循环可以解决，<strong>循环内是快指针</strong>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">removeElement</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> slow=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> fast=<span class="number">0</span>; fast&lt;nums.length; fast++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[fast]!=val)&#123;</span><br><span class="line">                nums[slow]=nums[fast];</span><br><span class="line">                slow++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="977题の有序数组的平方"><a href="#977题の有序数组的平方" class="headerlink" title="977题の有序数组的平方"></a>977题の有序数组的平方</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。</span><br><span class="line"></span><br><span class="line">示例 1： 输入：nums = [-4,-1,0,3,10] 输出：[0,1,9,16,100] 解释：平方后，数组变为 [16,1,0,9,100]，排序后，数组变为 [0,1,9,16,100]</span><br><span class="line"></span><br><span class="line">示例 2： 输入：nums = [-7,-3,2,3,11] 输出：[4,9,9,49,121]</span><br></pre></td></tr></table></figure>
+
+<p>思路：双指针，因为原始数组是有序的，但是左边可能是负数，所以，数组的左右各一个指针，都往中间移动，判断两头的大小，挨个按照逆序塞到结果数组中。</p>
+<p>知识：创建数组 int[] nums=new int[size];<br>Math.pow(n,m)幂次运算结果为double类型<br>强制类型转换(int)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] sortedSquares(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">int</span> left=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right=nums.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span>[] res=<span class="keyword">new</span> <span class="keyword">int</span>[nums.length];  <span class="comment">//创建数组</span></span><br><span class="line">        <span class="keyword">int</span> index=nums.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;=right)&#123;</span><br><span class="line">            <span class="keyword">if</span>(Math.pow(nums[left],<span class="number">2</span>)&gt;=Math.pow(nums[right],<span class="number">2</span>))&#123;</span><br><span class="line">                res[index--]=(<span class="keyword">int</span>)Math.pow(nums[left],<span class="number">2</span>);</span><br><span class="line">                <span class="comment">//pow幂次运算结果是double类型，(int)来强制类型转换</span></span><br><span class="line">                left++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                res[index--]=(<span class="keyword">int</span>)Math.pow(nums[right],<span class="number">2</span>);</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="209题の长度最小的子数组"><a href="#209题の长度最小的子数组" class="headerlink" title="209题の长度最小的子数组"></a>209题の长度最小的子数组</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的 连续 子数组，并返回其长度。如果不存在符合条件的子数组，返回 0。</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">输入：s = 7, nums = [2,3,1,2,4,3] 输出：2 解释：子数组 [4,3] 是该条件下的长度最小的子数组。</span><br></pre></td></tr></table></figure>
+
+<p>思路：滑动窗口，想象一下：右边加一个数，左边可以少几个数<br>窗口：连续的数组<br>起始位置：终止位置移动后，根据窗口内的和来判断是否移动起始指针<br>终止位置：<strong>循环内</strong>一个一个移动</p>
+<p>知识：int的最大值：Integer.MAX_VALUE<br>最小运算：Math.min(a,b)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minSubArrayLen</span><span class="params">(<span class="keyword">int</span> target, <span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> res=Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> right=<span class="number">0</span>; right&lt;nums.length; right++)&#123;</span><br><span class="line">            sum+=nums[right];</span><br><span class="line">            <span class="keyword">while</span>(sum&gt;=target)&#123;</span><br><span class="line">                <span class="comment">//这里得是&gt;=，并且min运算得在前面，因为开始窗口移动后可能不足target</span></span><br><span class="line">                res=Math.min(right-left+<span class="number">1</span>, res); <span class="comment">//注意判断的位置，一定得是while里</span></span><br><span class="line">                sum-=nums[left];</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res==Integer.MAX_VALUE? <span class="number">0</span>:res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="59题の螺旋矩阵Ⅱ"><a href="#59题の螺旋矩阵Ⅱ" class="headerlink" title="59题の螺旋矩阵Ⅱ"></a>59题の螺旋矩阵Ⅱ</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定一个正整数 n，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的正方形矩阵。</span><br><span class="line">示例:</span><br><span class="line">输入: 3 输出: [ [ 1, 2, 3 ], [ 8, 9, 4 ], [ 7, 6, 5 ] ]</span><br></pre></td></tr></table></figure>
+
+<p>思路：判断是否进入四个角，需要拐弯</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[][] generateMatrix(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        <span class="keyword">int</span>[][] res=<span class="keyword">new</span> <span class="keyword">int</span>[n][n];</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">1</span>; k&lt;=n*n; k++)&#123;</span><br><span class="line">            res[i][j]=k;</span><br><span class="line">            <span class="keyword">if</span>((i==<span class="number">0</span>||res[i-<span class="number">1</span>][j]!=<span class="number">0</span>)&amp;&amp;j&lt;n-<span class="number">1</span>&amp;&amp;res[i][j+<span class="number">1</span>]==<span class="number">0</span>)  j++;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>((j==n-<span class="number">1</span>||res[i][j+<span class="number">1</span>]!=<span class="number">0</span>)&amp;&amp;i&lt;n-<span class="number">1</span>&amp;&amp;res[i+<span class="number">1</span>][j]==<span class="number">0</span>) i++;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>((i==n-<span class="number">1</span>||res[i+<span class="number">1</span>][j]!=<span class="number">0</span>)&amp;&amp;j&gt;=<span class="number">1</span>&amp;&amp;res[i][j-<span class="number">1</span>]==<span class="number">0</span>) j--;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>((j==<span class="number">0</span>||res[i][j-<span class="number">1</span>]!=<span class="number">0</span>)&amp;&amp;i&gt;=<span class="number">1</span>&amp;&amp;res[i-<span class="number">1</span>][j]==<span class="number">0</span>) i--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>关于数组，思考一些双指针法、快慢指针法、滑动窗口法。</p>
+<h2 id="动态数组ArrayList"><a href="#动态数组ArrayList" class="headerlink" title="动态数组ArrayList"></a>动态数组ArrayList</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList; <span class="comment">// 引入 ArrayList 类</span></span><br><span class="line">ArrayList&lt;E&gt; objectName =<span class="keyword">new</span> ArrayList&lt;&gt;();　 <span class="comment">// 初始化</span></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RunoobTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;String&gt; sites = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        sites.add(<span class="string">&quot;Google&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Runoob&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Taobao&quot;</span>);</span><br><span class="line">        sites.add(<span class="string">&quot;Weibo&quot;</span>);</span><br><span class="line">        System.out.println(sites);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">访问 ArrayList 中的元素可以使用 get() 方法：</span><br><span class="line">System.out.println(sites.get(<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">如果要修改 ArrayList 中的元素可以使用 set() 方法：</span><br><span class="line">sites.set(<span class="number">2</span>, <span class="string">&quot;Wiki&quot;</span>); <span class="comment">// 第一个参数为索引位置，第二个为要修改的值</span></span><br><span class="line"></span><br><span class="line">如果要删除 ArrayList 中的元素可以使用 remove() 方法：</span><br><span class="line">sites.remove(<span class="number">3</span>); <span class="comment">// 删除第四个元素</span></span><br><span class="line"></span><br><span class="line">如果要计算 ArrayList 中的元素数量可以使用 size() 方法：</span><br><span class="line">System.out.println(sites.size());</span><br><span class="line"></span><br><span class="line">Collections.sort(sites);  <span class="comment">// 字母排序</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/13/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/1.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -852,7 +951,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-25 09:57:13" itemprop="dateModified" datetime="2022-06-25T09:57:13+08:00">2022-06-25</time>
+                <time title="Modified: 2022-07-02 17:59:17" itemprop="dateModified" datetime="2022-07-02T17:59:17+08:00">2022-07-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1066,6 +1165,8 @@ select course, max(grade) from grade group by course;  正确
 <p>6、NULLIF(expr1,expr2)<br>如果expr1 = expr2 成立，那么返回值为NULL，否则返回值为expr1。这和CASE  WHEN expr1 = expr2 THEN NULL ELSE   expr1 END相同。  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT NULLIF(1,1);    -- Null</span><br><span class="line">SELECT   NULLIF(1,2);  -- 1</span><br></pre></td></tr></table></figure>
 
+<p>6、substr函数<br>从一个内容中，按照指定条件，「截取」一个字符串。这个内容可以是数值或字符串。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">substr(obj，start，length)</span><br><span class="line"></span><br><span class="line">obj：从哪个内容中截取，可以是数值或字符串。</span><br><span class="line">start：从哪个字符开始截取（1开始，而不是0开始）</span><br><span class="line">length：截取几个字符。</span><br><span class="line"></span><br><span class="line">select substr(&quot;12345&quot;, 2, 3);  //得到234</span><br></pre></td></tr></table></figure>
 
 <h2 id="is-null-和-null"><a href="#is-null-和-null" class="headerlink" title="is null 和 = null"></a>is null 和 = null</h2><p>首先，where之后id=1 不需要用==。</p>
 <p>其次，筛选是否为null的行，不能用=和!=，因为null 表示什么也不是， 不能=、&gt;、&lt; … 所有的判断，结果都是false。无论=null，还是！=null，筛选出来的都是0行empty。</p>
@@ -1079,6 +1180,11 @@ select course, max(grade) from grade group by course;  正确
 <p>2、语法：ifNull(值1，值2)<br>当值1不为null时，返回值1，否则返回值2</p>
 <p>3、语法：case 表达式 when 条件1 then 值1 when 条件2 then 值2 …  else 值n end。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select course, </span><br><span class="line">case grade </span><br><span class="line">when 100 then &quot;一百&quot; </span><br><span class="line">when 200 then &quot;二百&quot;</span><br><span class="line">else &quot;不知道&quot; end as &quot;分数&quot;</span><br><span class="line">from grade;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三种找出某字段包含某字符串的记录的方法"><a href="#三种找出某字段包含某字符串的记录的方法" class="headerlink" title="三种找出某字段包含某字符串的记录的方法"></a>三种找出某字段包含某字符串的记录的方法</h2><p>1、instr函数<br>instr(字段， 字符串) 返回字符串str的位置，没找到则返回0.<br><code>select * from student where instr(name, &quot;liu&quot;)&gt;0;</code><br>//后面不加&gt;0也可以</p>
+<p>2、用like<br><code>select * from student where name like &quot;%liu%&quot;;</code>  //liu前面没有也算</p>
+<p>3、find_in_set<br>find_in_set(str,strlist)<br>str 要查询的字符串<br>strlist 字段名 参数以”,”分隔 如 “1,2,6,8,10,22”<br>返回strlist中str所在的位置索引（索引值从1开始），strlist必须以”,”分割开。like是广泛的模糊匹配，字符串中没有分隔符，Find_IN_SET 是精确匹配，字段值以英文”,”分隔。<br><code>select find_in_set(&quot;a&quot;, &quot;b,a,aa&quot;);</code> //返回2<br>//不适合用于查询某字段包含某字符串，适合用于字段中是,隔开的字符串list，查询该字符串list中有没有包含这个字符串的（也可以不加&gt;0），还会返回字符串在list中的位置。</p>
+
       
     </div>
 
@@ -1434,125 +1540,10 @@ select course, max(grade) from grade group by course;  正确
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/25/myblog/spring/Spring%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/25/myblog/spring/Spring%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/" class="post-title-link" itemprop="url">spring入门案例</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-25 18:43:01" itemprop="dateCreated datePublished" datetime="2021-08-25T18:43:01+08:00">2021-08-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 21:40:51" itemprop="dateModified" datetime="2022-05-10T21:40:51+08:00">2022-05-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Spring入门案例"><a href="#Spring入门案例" class="headerlink" title="Spring入门案例"></a>Spring入门案例</h1><h2 id="0-java基础"><a href="#0-java基础" class="headerlink" title="0.java基础"></a>0.java基础</h2><h3 id="a-java版本"><a href="#a-java版本" class="headerlink" title="a.java版本"></a>a.java版本</h3><p>Java是一种广泛使用的计算机编程语言，拥有跨平台、面向对象、泛型编程的特性，广泛应用于企业级Web应用开发和移动应用开发。</p>
-<p>Java编程语言的风格十分接近C++语言。继承了C++语言面向对象技术的核心，舍弃了容易引起错误的指针，以引用取代；移除了C++中的运算符重载和多重继承特性，用接口取代；增加垃圾回收器功能。在Java SE 1.5版本中引入了泛型编程、类型安全的枚举、不定长参数和自动装/拆箱特性。</p>
-<blockquote>
-<p>Java的三个版本 : JAVASE(标准版),JAVAEE(企业版),JAVAME(微型版).</p>
-<p>java是一个平台。他包括了，java语言，java开发环境(jdk)。java有三个版本<br>j2se(标准版),j2ee(企业版),j2me(微型版)<br>不管哪个版本，都是java语言实现的一个框架。之所以要分版本，是因为3个版本是针对不同问题，设计的解决方案。<br>j2EE是java的企业级开发版本，其实换句话说就是用来做web开发的java框架。javaEE通过设定统一的标准来解决web开发的问题，javaEE的接口，抽象类，规定了web开发所需要实现的流程。整个web的开发，有2层，第1层是服务器容器，比如tomcat，weblogic。他们在javaEE的规范下，实现套接字的连接，封装消息等等，第2层是业务，而这一层是你要做的，通过tomcat封装的消息，进行相应的业务处理。服务器容器的开发由大型的产商开发，而我们通常做的开发是在服务器容器上的业务开发，正是sun的javaEE统一了规范(比如用servlet)我们的业务代码，能和comcat进行很好的通讯。</p>
-</blockquote>
-<p>J2SE是标准版本，J2ME是手机方向的，J2EE是网站开发方向的。</p>
-<blockquote>
-<p>从JDK 5.0开始 J2EE 改名为 java EE，J2SE 改名为 java SE，J2ME 改名成 java ME.java EE 是java的企业版，主要面向web应用，尤其是企业级开发</p>
-</blockquote>
-<h3 id="b-jdk版本"><a href="#b-jdk版本" class="headerlink" title="b.jdk版本"></a>b.jdk版本</h3><p>Java Development Kit（JDK）是太阳微系统针对Java开发人员发布的免费软件开发工具包（SDK，Software development kit）。自从Java推出以来，JDK已经成为使用最广泛的Java SDK。</p>
-<p>作为Java语言的SDK，普通用户并不需要安装JDK来运行Java程序，而只需要安装JRE（Java Runtime Environment）。而程序开发者必须安装JDK来编译、调试程序。</p>
-<p>JDK是个Java开发的工具包，Java是门编程语言。</p>
-<p>JDK8或者JDK1.8是由于自从JDK1.5/JDK5命名方式改变后遗留的新旧命令方式问题。所以JDK8或者JDK1.8也是同一个东西。</p>
-<blockquote>
-<p>JDK1.4 正则表达式，异常链，NIO，日志类，XML解析器，XLST转换器<br>JDK1.5 自动装箱、泛型、动态注解、枚举、可变长参数、遍历循环<br>JDK1.6 提供动态语言支持、提供编译API和卫星HTTP服务器API，改进JVM的锁，同步垃圾回收，类加载<br>JDK1.7 提供GI收集器、加强对非Java语言的调用支持（JSR-292,升级类加载架构<br>JDK8 Lambda 表达式、方法引用、默认方法、新工具、Stream API、Date Time API 、Optional 类、Nashorn, JavaScript 引擎<br>JDK9 1、集合加强；2、私有接口方法；3、垃圾收集机制；4、I/O流加强；5、JShell工具<br>JDK10 1、局部变量类型推断；2、线程本地握手；3、GC改进和内存管理；<br>JDK11 1、字符串加强；2、HttClient Api；3、用于 Lambda 参数的局部变量语法；4、ZGC<br>JDK12 1、Switch Expressions；2、Shenandoah GC；<br>JDK13 1、switch优化更新；2、文本块升级；3、重新实现旧版套接字API；4、核心库/java.util中：I18N；5、取消使用未使用的内存<br>JDK14 1、switch优化变更为最终版；2、垃圾回收相关；3、instanceof的模式匹配（预览版）；4、删除了安全库java.security.acl API；5、货币格式（优化）<br>JDK15</p>
-</blockquote>
-<h2 id="1-Spring简介"><a href="#1-Spring简介" class="headerlink" title="1.Spring简介"></a>1.Spring简介</h2><p>Spring是一个开源框架，Spring是2003年兴起的轻量级java开发框架，它是为了解决企业级开发的复杂性而创建的。Spring的用途不仅限于服务器端的开发，从简单性、可测试性、低耦合的角度而言任何java应用都可以在spring中受益。</p>
-<p>简单的来说Spring就是轻量级的控制反转（IOC）和面向切面（AOP）的容器框架。</p>
-<blockquote>
-<p>javaBean：<br>符合一定规范编写的Java类，不是一种技术，而是一种规范。针对这种规范，总结了很多开发技巧、工具函数。符合这种规范的类，可以被其他的程序员或者框架使用。这些约定包括：getXXX，setXXX，isXXX，addXXX。</p>
-</blockquote>
-<h3 id="Spring解决什么："><a href="#Spring解决什么：" class="headerlink" title="Spring解决什么："></a>Spring解决什么：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">当客户端向服务器发出请求时，服务器把得到的请求发送给控制器Servlet，而在Servlet中需要创建Service对象来调用业务层相关功能(故说控制器层Servlet依赖于业务层Service),而在Service中又需要创建数据库层DAO对象来对数据库进行操作(故说业务层Service依赖于数据库层DAO)。</span><br><span class="line"></span><br><span class="line">针对上述问题，需要考虑：1.Servlet、Service以及Dao对象的创建时间、创建数量。2.Servlet、Service以及Dao之间的依赖关系。</span><br><span class="line"></span><br><span class="line">spring：</span><br><span class="line">用来处理对象的创建、以及对象之间依赖关系的一个开发框架。它打破了我们传统开发的观念，我们不再需要像以前那样在具体的类中创建具体的对象，而是将对象的创建交给它去完成。</span><br></pre></td></tr></table></figure>
-
-<p>非侵入式设计：引入了框架，对现有的类结构没有影响。</p>
-<h3 id="IOC控制反转"><a href="#IOC控制反转" class="headerlink" title="IOC控制反转"></a>IOC控制反转</h3><p>Inversion On Control，简称IOC。对象的创建交给外部容器自动完成，这个就叫做控制反转。(有控制反转就有控制正转，控制正转:对象的创建由我们自己创建)</p>
-<p>依赖注入dependency injection,简称DI，用于处理对象间的依赖关系。</p>
-<p><strong>二者区别:</strong><br>控制反转(IOC):解决对象创建的问题，(对象的创建交给别人)。<br>依赖注入(DI):在创建完对象后，对象关系的处理就是依赖注入，(通过set方法依赖注入。)</p>
-<h3 id="AOP面向切面"><a href="#AOP面向切面" class="headerlink" title="AOP面向切面"></a>AOP面向切面</h3><p>面向切面编程。切面，简单来说可以理解为一个类，由很多重复代码形成的类。切面举例:事务、日志、权限。</p>
-<h2 id="2-Mac下spring配置"><a href="#2-Mac下spring配置" class="headerlink" title="2.Mac下spring配置"></a>2.Mac下spring配置</h2><p>配置Spring不管在哪个环境下都是大同小异，下载Spring-framework，解压缩，然后导入使用的项目即可。</p>
-<p>spring3.x与jdk1.7兼容，spring4.x与jdk1.8才兼容，IDEA默认下的JDK使用1.8版本。</p>
-<blockquote>
-<p>直接通过IDEA创建项目选择spring模版<br>发现：没有spring模板，打开设置-&gt;plugins-&gt;搜索spring assistant-&gt;安装后重启</p>
-<p>依然没有，没法了</p>
-</blockquote>
-<p>![image-20210825183129555](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210825183129555.png)</p>
-<h2 id="Spring-Boot"><a href="#Spring-Boot" class="headerlink" title="Spring Boot"></a>Spring Boot</h2><p>Spring Boot 是 Pivotal 团队在 Spring 的基础上提供的一套全新的开源框架，其目的是为了简化 Spring 应用的搭建和开发过程。Spring Boot 去除了大量的 XML 配置文件，简化了复杂的依赖管理。</p>
-<p>Spring Boot 具有 Spring 一切优秀特性，Spring 能做的事，Spring Boot 都可以做，而且使用更加简单，功能更加丰富，性能更加稳定而健壮。随着近些年来微服务技术的流行，Spring Boot 也成了时下炙手可热的技术。</p>
-<h2 id="新建spring工程"><a href="#新建spring工程" class="headerlink" title="新建spring工程"></a>新建spring工程</h2><p>idea新建maven工程，选择模版maven-archetype-quikstart，依赖：spring-core、spring-beans、spring-context。</p>
-<p>archetype的意思就是模板原型的意思，原型是一个Maven项目模板工具包。</p>
-<p>maven-archetype-quickstart：在这个项目里，除了pom.xml外，没有其他的xml了，但是有main、test两个包，包里放了一个App、AppTest类。</p>
-<p>maven-archetype-webapp：在这个项目里，有WEB-INF目录，并且有web.xml和一个index.jsp。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1619,7 +1610,7 @@ select course, max(grade) from grade group by course;  正确
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1632,7 +1623,7 @@ select course, max(grade) from grade group by course;  正确
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
