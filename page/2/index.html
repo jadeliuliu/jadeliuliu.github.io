@@ -214,7 +214,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-28 17:43:37" itemprop="dateModified" datetime="2022-05-28T17:43:37+08:00">2022-05-28</time>
+                <time title="Modified: 2022-07-09 17:24:36" itemprop="dateModified" datetime="2022-07-09T17:24:36+08:00">2022-07-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -347,6 +347,23 @@
 <p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c5988db897fc">https://www.jianshu.com/p/c5988db897fc</a></p>
 <p>使用方法：<br>1.需要在启动类上添加@EnableTransactionManagement注解。<br>2.当作用在类上，该类所以public方法都具有该类型的事务属性。也可以加在public方法上。</p>
 <p><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_9177933/2978291">https://blog.51cto.com/u_9177933/2978291</a></p>
+<h3 id="SneakyThrows"><a href="#SneakyThrows" class="headerlink" title="@SneakyThrows"></a>@SneakyThrows</h3><p>✅java的异常体系</p>
+<p><img src="https://img-blog.csdnimg.cn/2019101117003396.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5MjI5NTY3,size_16,color_FFFFFF,t_70"></p>
+<p>Error是编译时错误和系统错误，系统错误在除特殊情况下，都不需要你来关心，基本不会出现。而编译时错误，如果你使用了编译器，那么编译器会提示。</p>
+<p>Exception则是可以被抛出的基本类型，我们需要主要关心的也是这个类。<br>Exception又分为RunTimeException和其他Exception。</p>
+<p>RunTimeException：运行时异常，又称不受检查异常，不受检查，因为不受检查，所以在代码中可能会有RunTimeException时Java编译检查时不会告诉你有这个异常，但是在实际运行代码时则会暴露出来，比如经典的1/0，空指针等。如果不处理也会被Java自己处理。</p>
+<p>其他Exception，受检查异常。可以理解为错误，必须要开发者解决以后才能编译通过，解决的方法有两种，<br>1：throw到上层，<br>2，try-catch处理。</p>
+<p>✅@SneakyThrows的作用：<br>普通Exception类,也就是我们常说的受检异常或者Checked Exception会强制要求抛出它的方法声明throws，调用者必须显示的去处理这个异常。设计的目的是为了提醒开发者处理一些场景中必然可能存在的异常情况。比如网络异常造成IOException。</p>
+<p>但是现实大部分情况下的异常，我们都是一路往外抛了事。所以渐渐的java程序员处理Exception的常见手段就是外面包一层RuntimeException，接着往上丢.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">&#125;catch(Exception e)&#123;</span><br><span class="line">throw new RuntimeException(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而Lombok的@SneakyThrows就是为了消除这样的模板代码。<br>使用注解后不需要担心Exception的处理.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> import lombok.SneakyThrows;</span><br><span class="line"></span><br><span class="line">public class SneakyThrowsExample implements Runnable &#123;</span><br><span class="line">  @SneakyThrows(UnsupportedEncodingException.class)</span><br><span class="line">  public String utf8ToString(byte[] bytes) &#123;</span><br><span class="line">    return new String(bytes, &quot;UTF-8&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  @SneakyThrows</span><br><span class="line">  public void run() &#123;</span><br><span class="line">    throw new Throwable();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原理：最重要的是throw (T)t, 使用泛型,将传入的Throwable强转为RuntimeException异常.<br>虽然, 我们抛出的异常不是RuntimeException,但是可以骗过javac编译器,泛型最后存储为字节码文件时并没有泛型信息.</p>
+<p>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_22162093/article/details/115486647">https://blog.csdn.net/qq_22162093/article/details/115486647</a></p>
+<h3 id="Data"><a href="#Data" class="headerlink" title="@Data"></a>@Data</h3><p>@Data注解是lombok.jar包下的注解，该注解通常用在实体bean上，不需要写出set和get方法，但是具备实体bean所具备的方法，简化编程提高变成速度。</p>
+<p>@Data相当于@Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode这5个注解的合集。</p>
 
       
     </div>
@@ -904,7 +921,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-23 09:14:20" itemprop="dateModified" datetime="2022-05-23T09:14:20+08:00">2022-05-23</time>
+                <time title="Modified: 2022-07-09 22:32:51" itemprop="dateModified" datetime="2022-07-09T22:32:51+08:00">2022-07-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -934,6 +951,7 @@
 </blockquote>
 <h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><p>keys * 查看所有key的内容<br>exits key  查看key是否存在<br>set key value  设置key的内容<br>get key  获取key的内容<br>flushdb  删除当前数据库中所有key<br>flushall  删除所有数据库中key</p>
 <p>服务器相关命令：<br>ping  测试连接是否存活，返回pong代表有响应<br>echo  输出信息<br>select num  选择数据库，0-15<br>quit  退出连接<br>dbsize  返回当前数据库中key的数量<br>info  获取服务的相关信息</p>
+<p>设置键命令：<br>setex key seconds value 设置值并设置有效期，已存在会覆盖<br>pexpire key millisecond 设置有效时间，毫秒为单位，必须是已经存在的key<br>setnx key value 不存在时放入<br>exists key 是否存在该key<br>ttl key 以秒为单位显示过期时间<br>pttl key 以毫秒为单位显示过期时间</p>
 <h4 id="redis数据结构"><a href="#redis数据结构" class="headerlink" title="redis数据结构"></a>redis数据结构</h4><p>string：可存储字符串、整数、浮点数<br>list：一个链表，每个节点包含一个字符串<br>set：包含字符串的无序收集容器<br>hash：包含键值的无序散列表<br>zset：有序集合，元素排列顺序由分值大小决定</p>
 <h4 id="redis-hset"><a href="#redis-hset" class="headerlink" title="redis hset"></a>redis hset</h4><p>Redis Hset 命令用于为哈希表中的字段赋值 。<br>如果哈希表不存在，一个新的哈希表被创建并进行 HSET 操作。<br>如果字段已经存在于哈希表中，旧值将被覆盖。<br>hset myhashset key value</p>
 <h4 id="redis-list相关"><a href="#redis-list相关" class="headerlink" title="redis list相关"></a>redis list相关</h4><p>往list的右边加一个值<br>rpush mylist value<br>如果列表不存在则新建，如果key不是列表类型，返回错误。<br>lrange mylist  从左边一个一个遍历展示<br>llen mylist 返回长度</p>
@@ -962,6 +980,11 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">private RedisTemplate&lt;String, Object&gt; redisTemplate;</span><br><span class="line">redisTemplate.opsForGeo().add(key, new Point(x,y), msg);</span><br><span class="line">// key和msg为字符串，Point是springframework.data.geo下的</span><br></pre></td></tr></table></figure>
 
 <p>redis的geo实战：<a target="_blank" rel="noopener" href="http://itpcb.com/a/536152">http://itpcb.com/a/536152</a></p>
+<h4 id="可视化工具another-redis"><a href="#可视化工具another-redis" class="headerlink" title="可视化工具another redis"></a>可视化工具another redis</h4><p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/qishibo/AnotherRedisDesktopManager/releases">https://github.com/qishibo/AnotherRedisDesktopManager/releases</a></p>
+<p>连接：输入 地址host , 端口，密钥</p>
+<p>可视化：key，服务器版本，使用内存，运行状态，使用到的库等信息</p>
+<p>支持三种文本格式，分别是 text,json , unserialize</p>
+<p>用法参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/220209936">https://zhuanlan.zhihu.com/p/220209936</a></p>
 
       
     </div>

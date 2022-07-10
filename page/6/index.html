@@ -1234,7 +1234,7 @@ select course, max(grade) from grade group by course;  正确
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-07 22:02:45" itemprop="dateModified" datetime="2022-06-07T22:02:45+08:00">2022-06-07</time>
+                <time title="Modified: 2022-07-09 23:24:49" itemprop="dateModified" datetime="2022-07-09T23:24:49+08:00">2022-07-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1392,15 +1392,13 @@ select course, max(grade) from grade group by course;  正确
 <p>场景1:<br>修改谁：修改要合并的那个分支</p>
 <p>1、merge/pull 远程master分支到本地当前分支，修改冲突，然后add commit push</p>
 <p>场景2:<br>首先尽量避免第二种的发生：开发之前先git pull一下最新的代码。</p>
-<p>冲突了修改谁：修改本地的文件</p>
+<p>冲突了修改谁：修改本地的文件。案例：提交代码，cv之后，显示冲突，需要本地解决再push。</p>
 <p>1、git pull更新代码，发现CONFLICT：Merge conflict in 文件<br>Automatic merge failed：fix conficts…<br>这说明你的该文件与远程有冲突，此时暂停merge，远程改动都到了本地暂存区（add前），需要先提交本地的修改然后更新。</p>
-<p>2、git add pom.xml<br>git commit -m ‘冲突解决’<br>提交本地的pom.xml文件，不进行推送远程</p>
-<p>3、再 git pull ？<br>更新代码 Auto-merging pom.xml CONFLICT (content): Merge conflict in pom.xmlAutomatic merge failed; fix conflicts and then commit the result.<br>更新后你的本地分支上会出现 (develop|MERGING)类似这种标志。</p>
-<p>4、找到你本地的pom.xml文件，并打开你会在文件中发现</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD ，======= ，&gt;&gt;&gt;&gt;&gt;&gt;&gt; ae9a0f6b7e42fda2ce9b14a21a7a03cfc5344d61这种标记。</span><br><span class="line"></span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD和=======中间的是你自己的代码，</span><br><span class="line">======= 和&gt;&gt;&gt;&gt;&gt;&gt;&gt;中间的是其他人修改的代码，</span><br><span class="line">最后删除&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD ，======= ，&gt;&gt;&gt;&gt;&gt;&gt;&gt;这种标志。</span><br></pre></td></tr></table></figure>
-
-<p>5、git add pom.xml<br>git commit -m ‘冲突解决结束’</p>
-<p>6、git push 将解决冲突后的文件推送到远程。</p>
+<p>2、找到冲突文件，并打开你会在文件中发现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD </span><br><span class="line">我的代码</span><br><span class="line">======= </span><br><span class="line">别人的代码</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; ae9a0f6b7e42fda2ce9b14a21a7a03cfc5344d61这种标记。</span><br><span class="line"></span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD和=======中间的是你自己的代码，</span><br><span class="line">======= 和&gt;&gt;&gt;&gt;&gt;&gt;&gt;中间的是其他人修改的代码，</span><br><span class="line">改好之后，最后删除&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD ，======= ，&gt;&gt;&gt;&gt;&gt;&gt;&gt;这种标志。</span><br></pre></td></tr></table></figure>
+<p>改好了，git status -s看到冲突文件前面有个UU</p>
+<p>3、git add 冲突文件<br>git commit -m ‘冲突解决’<br>提交本地的pom.xml文件，不进行推送远程</p>
+<p>4、然后都不用git pull，自动就pull了，然后再push就好了，push之前也不用再commit。</p>
 <p>总结：解决冲突的原则是修改要提交/正在开发的那个分支，将基准分支的代码pull过来，解决冲突后进行提交。</p>
 <p>问题：git pull 有冲突，改动到了本地暂存区，冲突解决之后，commit了冲突文件之后，再git pull就会把本地暂存区的文件合并到本地 ？</p>
 <p>答：解决冲突，提交了冲突文件之后，暂存区的文件不见了，之前自己加的文件也不见了…应该是提交冲突之后，自动git pull了。</p>

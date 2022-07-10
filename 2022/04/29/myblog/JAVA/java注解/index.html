@@ -27,11 +27,13 @@
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
 <meta property="og:description" content="从JDK5开始,Java增加对元数据的支持，也就是注解，注解与注释是有一定区别的，可以把注解理解为代码里的特殊标记，这些标记可以在编译，类加载，运行时被读取，并执行相应的处理。通过注解开发人员可以在不改变原有代码和逻辑的情况下在源代码中嵌入补充信息。 所有的注解本质上都是继承自 Annotation 接口。但是，手动定义一个接口继承 Annotation 接口无效的，需要通过 @interface">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2019101117003396.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5MjI5NTY3,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2022-04-29T14:56:27.797Z">
-<meta property="article:modified_time" content="2022-05-28T09:43:37.350Z">
+<meta property="article:modified_time" content="2022-07-09T09:24:36.946Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2019101117003396.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5MjI5NTY3,size_16,color_FFFFFF,t_70">
 
 <link rel="canonical" href="http://example.com/2022/04/29/myblog/JAVA/java%E6%B3%A8%E8%A7%A3/">
 
@@ -219,7 +221,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-28 17:43:37" itemprop="dateModified" datetime="2022-05-28T17:43:37+08:00">2022-05-28</time>
+                <time title="Modified: 2022-07-09 17:24:36" itemprop="dateModified" datetime="2022-07-09T17:24:36+08:00">2022-07-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -359,6 +361,23 @@
 <p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c5988db897fc">https://www.jianshu.com/p/c5988db897fc</a></p>
 <p>使用方法：<br>1.需要在启动类上添加@EnableTransactionManagement注解。<br>2.当作用在类上，该类所以public方法都具有该类型的事务属性。也可以加在public方法上。</p>
 <p><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_9177933/2978291">https://blog.51cto.com/u_9177933/2978291</a></p>
+<h3 id="SneakyThrows"><a href="#SneakyThrows" class="headerlink" title="@SneakyThrows"></a>@SneakyThrows</h3><p>✅java的异常体系</p>
+<p><img src="https://img-blog.csdnimg.cn/2019101117003396.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5MjI5NTY3,size_16,color_FFFFFF,t_70"></p>
+<p>Error是编译时错误和系统错误，系统错误在除特殊情况下，都不需要你来关心，基本不会出现。而编译时错误，如果你使用了编译器，那么编译器会提示。</p>
+<p>Exception则是可以被抛出的基本类型，我们需要主要关心的也是这个类。<br>Exception又分为RunTimeException和其他Exception。</p>
+<p>RunTimeException：运行时异常，又称不受检查异常，不受检查，因为不受检查，所以在代码中可能会有RunTimeException时Java编译检查时不会告诉你有这个异常，但是在实际运行代码时则会暴露出来，比如经典的1/0，空指针等。如果不处理也会被Java自己处理。</p>
+<p>其他Exception，受检查异常。可以理解为错误，必须要开发者解决以后才能编译通过，解决的方法有两种，<br>1：throw到上层，<br>2，try-catch处理。</p>
+<p>✅@SneakyThrows的作用：<br>普通Exception类,也就是我们常说的受检异常或者Checked Exception会强制要求抛出它的方法声明throws，调用者必须显示的去处理这个异常。设计的目的是为了提醒开发者处理一些场景中必然可能存在的异常情况。比如网络异常造成IOException。</p>
+<p>但是现实大部分情况下的异常，我们都是一路往外抛了事。所以渐渐的java程序员处理Exception的常见手段就是外面包一层RuntimeException，接着往上丢.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">&#125;catch(Exception e)&#123;</span><br><span class="line">throw new RuntimeException(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而Lombok的@SneakyThrows就是为了消除这样的模板代码。<br>使用注解后不需要担心Exception的处理.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> import lombok.SneakyThrows;</span><br><span class="line"></span><br><span class="line">public class SneakyThrowsExample implements Runnable &#123;</span><br><span class="line">  @SneakyThrows(UnsupportedEncodingException.class)</span><br><span class="line">  public String utf8ToString(byte[] bytes) &#123;</span><br><span class="line">    return new String(bytes, &quot;UTF-8&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  @SneakyThrows</span><br><span class="line">  public void run() &#123;</span><br><span class="line">    throw new Throwable();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原理：最重要的是throw (T)t, 使用泛型,将传入的Throwable强转为RuntimeException异常.<br>虽然, 我们抛出的异常不是RuntimeException,但是可以骗过javac编译器,泛型最后存储为字节码文件时并没有泛型信息.</p>
+<p>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_22162093/article/details/115486647">https://blog.csdn.net/qq_22162093/article/details/115486647</a></p>
+<h3 id="Data"><a href="#Data" class="headerlink" title="@Data"></a>@Data</h3><p>@Data注解是lombok.jar包下的注解，该注解通常用在实体bean上，不需要写出set和get方法，但是具备实体bean所具备的方法，简化编程提高变成速度。</p>
+<p>@Data相当于@Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode这5个注解的合集。</p>
 
     </div>
 
@@ -442,7 +461,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pattern"><span class="nav-number">1.</span> <span class="nav-text">@Pattern</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSONField"><span class="nav-number">2.</span> <span class="nav-text">@JSONField</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ToString"><span class="nav-number">3.</span> <span class="nav-text">@ToString</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RestController"><span class="nav-number">4.</span> <span class="nav-text">@RestController</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RequestMapping"><span class="nav-number">5.</span> <span class="nav-text">@RequestMapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RequestParam"><span class="nav-number">6.</span> <span class="nav-text">@RequestParam</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RequestBody"><span class="nav-number">7.</span> <span class="nav-text">@RequestBody</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Builder"><span class="nav-number">8.</span> <span class="nav-text">@Builder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TableName"><span class="nav-number">9.</span> <span class="nav-text">@TableName</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Param"><span class="nav-number">10.</span> <span class="nav-text">@Param</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mapper"><span class="nav-number">11.</span> <span class="nav-text">@Mapper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PostConstruct"><span class="nav-number">12.</span> <span class="nav-text">@PostConstruct</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deprecated"><span class="nav-number">13.</span> <span class="nav-text">@Deprecated</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Valid"><span class="nav-number">14.</span> <span class="nav-text">@Valid</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transactional%E6%B3%A8%E8%A7%A3"><span class="nav-number">15.</span> <span class="nav-text">@Transactional注解</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pattern"><span class="nav-number">1.</span> <span class="nav-text">@Pattern</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSONField"><span class="nav-number">2.</span> <span class="nav-text">@JSONField</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ToString"><span class="nav-number">3.</span> <span class="nav-text">@ToString</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RestController"><span class="nav-number">4.</span> <span class="nav-text">@RestController</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RequestMapping"><span class="nav-number">5.</span> <span class="nav-text">@RequestMapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RequestParam"><span class="nav-number">6.</span> <span class="nav-text">@RequestParam</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RequestBody"><span class="nav-number">7.</span> <span class="nav-text">@RequestBody</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Builder"><span class="nav-number">8.</span> <span class="nav-text">@Builder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TableName"><span class="nav-number">9.</span> <span class="nav-text">@TableName</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Param"><span class="nav-number">10.</span> <span class="nav-text">@Param</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mapper"><span class="nav-number">11.</span> <span class="nav-text">@Mapper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PostConstruct"><span class="nav-number">12.</span> <span class="nav-text">@PostConstruct</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deprecated"><span class="nav-number">13.</span> <span class="nav-text">@Deprecated</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Valid"><span class="nav-number">14.</span> <span class="nav-text">@Valid</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transactional%E6%B3%A8%E8%A7%A3"><span class="nav-number">15.</span> <span class="nav-text">@Transactional注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SneakyThrows"><span class="nav-number">16.</span> <span class="nav-text">@SneakyThrows</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data"><span class="nav-number">17.</span> <span class="nav-text">@Data</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
