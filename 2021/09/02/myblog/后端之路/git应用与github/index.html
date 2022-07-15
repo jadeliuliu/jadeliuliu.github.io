@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/e1d1bb1fa97743cfb9074e383841a1eb.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
 <meta property="article:published_time" content="2021-09-02T06:43:27.000Z">
-<meta property="article:modified_time" content="2022-07-09T15:24:49.483Z">
+<meta property="article:modified_time" content="2022-07-13T14:53:56.944Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
@@ -221,7 +221,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-09 23:24:49" itemprop="dateModified" datetime="2022-07-09T23:24:49+08:00">2022-07-09</time>
+                <time title="Modified: 2022-07-13 22:53:56" itemprop="dateModified" datetime="2022-07-13T22:53:56+08:00">2022-07-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -284,6 +284,19 @@
 <p><code>git rm --cached 文件  //将文件从暂存区中删除</code></p>
 <p><code>删除缓存区所有文件命令:  git rm -r --cached .   #主要这个点一定要写</code></p>
 <p><code>git log --oneline</code></p>
+<p>✅三个git add<br>git add -u &lt;==&gt; git add –update<br>提交所有被删除和修改的文件到数据暂存区</p>
+<p>git add .<br>提交所有修改的和新建的数据暂存区</p>
+<p>git add -A &lt;==&gt;git add –all   （用它就wans）<br>提交所有被删除、被替换、被修改和新增的文件到数据暂存区</p>
+<p>✅git restore<br>git restore命令是撤销的意思。<br>有git restore <file>和git restore –staged <file>两种常用的用法。</file></file></p>
+<p>新建文件，没add，git status后，前面显示？？，这种文件未被跟踪，在add之前git啥都干不了。<br>对新建文件进行git add，就到了暂存区，使用git restore –staged 文件，它就又回到了本地工作区。</p>
+<p>对于已有的文件进行修改，修改的文件从暂存区跑到了本地工作区，此时可以对这个修改的文件git add到暂存区，然后才能git commit到本地版本库，也可以使用git restore，修改的文件就恢复了，没修改了，叫撤销修改。</p>
+<p>git pull，有冲突，这时冲突文件里有===head之类的，这时候不想解决冲突了，想恢复，用：git restore –staged</p>
+<p>❗️几种工作区：<br>1、新建的，也就是未跟踪的（Untracked files）：本地工作区<br>2、更改的(modified)和删除的(deleted) 还没add的（Changes not staged for commit）：本地工作区，可以使用git restore取消更改。<br>3、更改/新增之后add的（Changes to be committed）：暂存区，可以使用git restore –stage使得文件回到本地工作区。<br>4、git commit 后到本地版本库。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">On branch main</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git restore --staged &lt;file&gt;...&quot; to unstage)</span><br><span class="line">	modified:   2022.md</span><br><span class="line"></span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add/rm &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line">	modified:   aaa.md</span><br><span class="line">	deleted:    hello.go</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line">	1.md</span><br></pre></td></tr></table></figure>
+
+<p>总结：<br>1、git restore –staged的作用是将暂存区的文件从暂存区撤出，回到本地工作区，但不会更改文件的内容。就是已经git add的文件，新建的使用该命令后，回到untracked，更改的回到changes not staged for commit。</p>
+<p>2、git restore指令使得在工作空间但是不在暂存区的文件撤销更改(内容恢复到没修改之前的状态). 对新加的文件不能使用。对更改的文件使用</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38158479/article/details/106972138">https://blog.csdn.net/qq_38158479/article/details/106972138</a></p>
 <h3 id="git空间与命令"><a href="#git空间与命令" class="headerlink" title="git空间与命令"></a>git空间与命令</h3><p>Working Directory：即工作区。操作系统层面的目录树结构，也可以理解为一个tree目录对象</p>
 <p>Stage(Index)：即暂存区，为等待Commit的文件列表。是以扁平的文件清单实现的，不过从理解层面上也可以理解为tree目录对象</p>
 <p>Local Repository(History)：本地版本库。有向无环图，其每一个节点都是一个tree目录对象</p>

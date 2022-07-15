@@ -28,7 +28,7 @@
 <meta property="og:description" content="规范1、sql（dao层）返回的，尽量不要用VO，而使用DO。除非联表查询？dao层查出来的do需要加其他表的一两个字段，可以在原表do的基础上继承封装一下，如果要传入，可以直接输入子类，dao层处理时会自动解析为父类。 2、service里面不要调不想干的dao层方法，而是调dao所在service的方法。 3、mybatis &lt;if&gt; 标签得在&lt;where&gt;标签下。 4">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-30T04:00:26.926Z">
-<meta property="article:modified_time" content="2022-07-09T15:08:02.555Z">
+<meta property="article:modified_time" content="2022-07-13T14:40:28.377Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-09 23:08:02" itemprop="dateModified" datetime="2022-07-09T23:08:02+08:00">2022-07-09</time>
+                <time title="Modified: 2022-07-13 22:40:28" itemprop="dateModified" datetime="2022-07-13T22:40:28+08:00">2022-07-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -281,6 +281,9 @@
 <p>基本类型的包装类<br>Integer 、Long、Short、Byte、Character、Double、Float、Boolean、BigInteger、BigDecimal<br>其中BigInteger、BigDecimal没有相对应的基本类型，主要应用于高精度的运算，BigInteger 支持任意精度的整数，<br>BigDecimal支持任意精度带小数点的运算。</p>
 <p>基本类型与包装类型的异同：<br>1、在Java中，一切皆对象，但八大基本类型却不是对象。<br>2、声明方式的不同，基本类型无需通过new关键字来创建，而封装类型则需new关键字。<br>3、存储方式及位置的不同，基本类型是直接存储变量的值，保存在堆栈中能高效的存取；封装类型需要通过引用指向实例，具体的实例保存在堆中；<br>4、初始值的不同，封装类型的初始值为null，基本类型的的初始值视具体的类型而定，比如int类型的初始值为0，boolean类型为false；<br>5、使用方式的不同，比如与集合类合作使用时只能使用包装类型。<br>6、什么时候该用包装类，什么时候该用基本类型，看基本的业务来定：这个字段允不允许null值，如果允许，则必然要用封装类；否则，基本类型就可以了。如果用到比如泛型和反射调用函数，就需要用包装类！ </p>
 <p>转自 <a target="_blank" rel="noopener" href="http://t.zoukankan.com/east7-p-9887722.html">http://t.zoukankan.com/east7-p-9887722.html</a></p>
+<p>✅Double类parseDouble()和valueOf()方法的区别</p>
+<p>1、Double.parseDouble(java.lang.String)的参数只能是String。Double.valueOf()的参数类型可以是浮点型或者是字符串均可。</p>
+<p>2、Double.parseDouble(java.lang.String)把数字类型的字符串转换成double类型<br>Double.valueOf()方把数字类型的字符串转换成Double类型 </p>
 <h3 id="BigDecimal"><a href="#BigDecimal" class="headerlink" title="BigDecimal"></a>BigDecimal</h3><p>首先，浮点数为什么不准确？<br>码农在程序里写的10进制小数，计算机内部无法用二进制的小数来精确的表达。<br>对于二进制小数，小数点右边能表达的值是 1/2, 1/4, 1/8, 1/16, 1/32, 1/64, 1/128 … 1/(2^n）</p>
 <p>试一试如何表达十进制的 0.2 吧。</p>
 <p>0.01 = 1/4 = 0.25 ,太大</p>
@@ -504,7 +507,7 @@ ROUND_UP    //向远离0的方向舍入
 
 <p>工具类：一般是直接用它的静态方法，直接用类来调用，例如：Collections、Arrays等jaa自带的工具类；Lists、Maps等google工具类；CollectionUtils、StringUtils等apache工具类。</p>
 <p>更多：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1662921">https://cloud.tencent.com/developer/article/1662921</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">StringUtils.EMPTY = &quot;&quot;</span><br><span class="line"></span><br><span class="line">// 只替换一次--&gt;结果是：phhhss</span><br><span class="line">StringUtils.replaceOnce(&quot;sshhhss&quot;, &quot;ss&quot;, &quot;p&quot;);</span><br><span class="line">// 全部替换</span><br><span class="line">StringUtils.replace(&quot;sshhhs&quot;, &quot;ss&quot;, &quot;p&quot;);</span><br><span class="line">// 定义替换次数</span><br><span class="line">StringUtils.replace(&quot;sshhhsshss&quot;, &quot;ss&quot;, &quot;7777&quot;,2);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">StringUtils.EMPTY = &quot;&quot;</span><br><span class="line"></span><br><span class="line">// 只替换一次--&gt;结果是：phhhss</span><br><span class="line">StringUtils.replaceOnce(&quot;sshhhss&quot;, &quot;ss&quot;, &quot;p&quot;);</span><br><span class="line">// 全部替换</span><br><span class="line">StringUtils.replace(&quot;sshhhs&quot;, &quot;ss&quot;, &quot;p&quot;);</span><br><span class="line">// 定义替换次数</span><br><span class="line">StringUtils.replace(&quot;sshhhsshss&quot;, &quot;ss&quot;, &quot;7777&quot;,2);</span><br><span class="line">// 检验字符串是否不为null且不为“”</span><br><span class="line">if(!StringUtils.isEmpty(s))</span><br></pre></td></tr></table></figure>
 
 <h4 id="string自己的方法"><a href="#string自己的方法" class="headerlink" title="string自己的方法"></a>string自己的方法</h4><p>✅str.trim()  用于删除字符串的头尾空白符。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str = new String(&quot;   hello   &quot;);</span><br><span class="line">System.out.println( str.trim() );</span><br></pre></td></tr></table></figure>
@@ -530,7 +533,7 @@ ROUND_UP    //向远离0的方向舍入
 <p>2.使用Patter类的split静态方法</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String input = &quot;This!!unusual use!!hh!!points&quot;;</span><br><span class="line">System.out.println(Arrays.toString(Pattern.compile(&quot;!!&quot;).split(input)));</span><br></pre></td></tr></table></figure>
 
-<p>其次，Splitter来分割字符串</p>
+<p>3.Splitter来分割字符串</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class SplitterTest &#123;</span><br><span class="line"></span><br><span class="line">    //定义一个拆分器，“,”分隔，去空格</span><br><span class="line">    private static final Splitter splitter = Splitter.on(&quot;,&quot;).trimResults().omitEmptyStrings();</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void test()&#123;</span><br><span class="line">        String s = &quot;1,2, 3&quot;;</span><br><span class="line">        List&lt;String&gt; list = splitter.splitToList(s);</span><br><span class="line">        System.out.println(list);</span><br><span class="line">        List&lt;Long&gt; list1 = list.stream().map(Long::valueOf).collect(Collectors.toList());</span><br><span class="line">        System.out.println(list1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="Joiner连接字符串"><a href="#Joiner连接字符串" class="headerlink" title="Joiner连接字符串"></a>Joiner连接字符串</h4><p>google guava提供的用来连接字符串的类。需要导包：guava。</p>
@@ -601,13 +604,19 @@ ROUND_UP    //向远离0的方向舍入
 <p>更多方法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42402854/article/details/83374559">https://blog.csdn.net/qq_42402854/article/details/83374559</a></p>
 <h4 id="IOUtils工具类"><a href="#IOUtils工具类" class="headerlink" title="IOUtils工具类"></a>IOUtils工具类</h4><p>它是 Apache Commons IO 的一部分 。该类的所有成员函数都被用来处理输入 - 输出流。这些方法基于 InputStream,  OutputStream,  Reader 和 Writer工作。</p>
 <p>所有成员字段和方法都是静态的，不需要创建对象，直接用类名调用。</p>
+<p>✅输入流转为字节数组</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">将输入流转换成字符数组:</span><br><span class="line">byte[] bytes = IOUtils.toByteArray(inputStream);</span><br></pre></td></tr></table></figure>
 
-<p>关闭流：<br>之前关闭流，往往在finally中，因为会抛出IOException，所以finally中需要try catch，并且close之前需要判断是否为null。</p>
+<p>✅关闭流<br>之前关闭流，往往在finally中，因为会抛出IOException，所以finally中需要try catch，并且close之前需要判断是否为null。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">finally &#123;</span><br><span class="line">  if (in != null) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      in.close();</span><br><span class="line">      &#125; catch (IOException e) &#123;</span><br><span class="line">          LOGGER.warn(&quot;Fail to close stream : &quot;, e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这时候就可以使用 IOUtils.closeQuietly 来精简代码：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">byte[] data = new byte[1024];</span><br><span class="line">InputStream in = null;</span><br><span class="line">OutputStream out = null;</span><br><span class="line"></span><br><span class="line">try &#123;</span><br><span class="line">      in = new FileInputStream(&quot;foo.txt&quot;);</span><br><span class="line">      in.read(data);</span><br><span class="line"></span><br><span class="line">      out = new FileOutputStream(&quot;foo.txt&quot;);</span><br><span class="line">      data = &quot;Hello, World&quot;.getBytes();</span><br><span class="line">      out.write(data);</span><br><span class="line"></span><br><span class="line">      IOUtils.copy(in, out);</span><br><span class="line"></span><br><span class="line">      in.close(); //close errors are handled</span><br><span class="line">      out.close();</span><br><span class="line">&#125; catch (IOException e) &#123; </span><br><span class="line">      // error handling</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">      IOUtils.closeQuietly(in);</span><br><span class="line">      IOUtils.closeQuietly(out);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>更多方法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sulia1234567890/article/details/120569718">https://blog.csdn.net/sulia1234567890/article/details/120569718</a></p>
+<p>✅写文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test4() throws IOException &#123;</span><br><span class="line">    String filePath = &quot;/Users/liuxuan/MyProject/JavaProject/SingleFile/hello.java&quot;;</span><br><span class="line">    File file = new File(filePath);</span><br><span class="line">    OutputStream out = new FileOutputStream(file, true);</span><br><span class="line">    IOUtils.write(&quot;hello&quot;, out);</span><br><span class="line">    IOUtils.write(&quot;\n&quot;, out);</span><br><span class="line">    IOUtils.write(&quot;hi&quot;, out);</span><br><span class="line">    //也可以传字节数组、字符数组</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>⚠️new FileOutputStream(“b.txt”,true);</p>
+<p>默认第二个参数是false，表示不追加，每次new对象都会清空之前的内容创建新的内容，ture表示在之前的基础上追加内容</p>
 <h4 id="MultipartFile"><a href="#MultipartFile" class="headerlink" title="MultipartFile"></a>MultipartFile</h4><p>需要依赖：spring-web</p>
 <p>首先，“流”是一个抽象的概念，它是对输入输出设备的一种抽象理解，在java中，对数据的输入输出操作都是以“流”的方式进行的。“流”具有方向性，输入流、输出流是相对的。当程序需要从数据源中读入数据的时候就会开启一个输入流，相反，写出数据到某个数据源目的地的时候也会开启一个输出流。</p>
 <p>MultipartFile是SpringMVC提供简化上传操作的工具类。实现文件的快速上传，不需要先将File转换成output流 再传输过去 接收端接收流再生成文件。</p>

@@ -951,7 +951,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-02 17:59:17" itemprop="dateModified" datetime="2022-07-02T17:59:17+08:00">2022-07-02</time>
+                <time title="Modified: 2022-07-14 23:43:34" itemprop="dateModified" datetime="2022-07-14T23:43:34+08:00">2022-07-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1086,6 +1086,21 @@
 <p>因此，索引只是索引，它不会去约束索引的字段的行为（那是key要做的事情）。如，create table t(id int,index inx_tx_id (id));</p>
 <p>摘自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chenxiaomeng/p/15582771.html">https://www.cnblogs.com/chenxiaomeng/p/15582771.html</a></p>
 <p>一文搞懂mysql索引：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/500248981">https://zhuanlan.zhihu.com/p/500248981</a></p>
+<p>添加索引sql语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1.PRIMARY  KEY(主键索引)</span><br><span class="line">mysql&gt;ALTER  TABLE  `table_name`  ADD  PRIMARY  KEY (  `column`  )</span><br><span class="line"></span><br><span class="line">2.UNIQUE(唯一索引)</span><br><span class="line">mysql&gt;ALTER  TABLE  `table_name`  ADD  UNIQUE (`column` )</span><br><span class="line"></span><br><span class="line">3.INDEX(普通索引)</span><br><span class="line">mysql&gt;ALTER  TABLE  `table_name`  ADD  INDEX index_name (  `column`  )</span><br><span class="line"></span><br><span class="line">4.FULLTEXT(全文索引)</span><br><span class="line">mysql&gt;ALTER  TABLE  `table_name`  ADD  FULLTEXT ( `column` )</span><br><span class="line"></span><br><span class="line">5.多列索引</span><br><span class="line">mysql&gt;ALTER  TABLE  `table_name`  ADD  INDEX index_name (  `column1`,  `column2`,  `column3`  )</span><br></pre></td></tr></table></figure>
+
+<h2 id="多列索引"><a href="#多列索引" class="headerlink" title="多列索引"></a>多列索引</h2><p>什么时候需要加单列索引？<br>查询比较频繁，并且不是那种枚举型的字段查询的时候，比如说id，gmt_create这些字段查询比较频繁，加索引，相当于是做了个排序，更好查找。</p>
+<p>什么时候需要多列索引（联合索引）？<br>比如根据开始时间+结束时间查询比较多，就加这两个的联合索引。</p>
+<p>sql语句添加索引：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table myTable</span><br><span class="line">add key `idx_gmt_create_gmt_modify` (`gmt_create`,`gmt_modify`);</span><br></pre></td></tr></table></figure>
+
+<p>多列索引的列顺序至关重要，一般是将选择性最高的列放到索引最前列，比如根据a查询比较多，还有根据a、b查询比较多，还有根据a、b、c查询比较多。那么索引的顺序就是a b c。</p>
+<p>索引可以理解成排好序的数据结构。组合索引可以这样理解，比如（a,b,c），abc都是排好序的，在任意一段a的下面b都是排好序的，任何一段b下面c都是排好序的。</p>
+<p>最左前缀原则：从前往后依次使用生效，如果中间某个索引没有使用，那么断点前面的索引部分起作用，断点后面的索引没有起作用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">where a=3 and b=45 and c=5 .... 这种三个索引顺序使用中间没有断点，全部发挥作用；</span><br><span class="line">where a=3 and c=5... 这种情况下b就是断点，a发挥了效果，c没有效果</span><br><span class="line">where b=3 and c=4... 这种情况下a就是断点，在a后面的索引都没有发挥作用，这种写法联合索引没有发挥任何效果；</span><br><span class="line">where b=45 and a=3 and c=5 .... 这个跟第一个一样，全部发挥作用，abc只要用上了就行，跟写的顺序无关（a,b,c）多列索引使用的示例，说明：（a,b,c）组合索引和(a,c,b）是不一样的</span><br><span class="line"></span><br><span class="line">原文链接：https://blog.csdn.net/cstp321/article/details/124631534</span><br></pre></td></tr></table></figure>
+
+<p>🤔总结：联合索引，建立索引里面字段的顺序重要，(a,b,c)和(a,c,b)是不一样的，sql里where谁先where谁后无关紧要，只要用上就行。<br>像枚举的字段就没必要加了。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/cstp321/article/details/124631534">https://blog.csdn.net/cstp321/article/details/124631534</a></p>
 <h2 id="AUTO-INCREMENT"><a href="#AUTO-INCREMENT" class="headerlink" title="AUTO_INCREMENT"></a>AUTO_INCREMENT</h2><p>在mysql中，可通过关键字auto_increment为列设置自增属性，只有整型列才能设置此属性，每个表只能定义一个auto_increment列，并且必须在该列上定义主键约束（primary key）或候选键（unique）。</p>
 <p>ENGINE=MyISAM 是选择存储引擎<br>DEFAULT CHARSET=gbk 默认字符集<br>AUTO_INCREMENT=2 是设定该字段为自增字段，每次增加2。</p>
 <h2 id="NOT-NULL-DEFAULT-‘’-COMENT"><a href="#NOT-NULL-DEFAULT-‘’-COMENT" class="headerlink" title="NOT NULL DEFAULT ‘’ COMENT"></a>NOT NULL DEFAULT ‘’ COMENT</h2><p>insert时，对象中的某属性如果为null，表设置的not null，那时会报错的，因此需要考虑如果允许传入null，就别not null，default ‘’ 或者default null 得了。</p>
@@ -1168,6 +1183,13 @@ select course, max(grade) from grade group by course;  正确
 <p>6、substr函数<br>从一个内容中，按照指定条件，「截取」一个字符串。这个内容可以是数值或字符串。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">substr(obj，start，length)</span><br><span class="line"></span><br><span class="line">obj：从哪个内容中截取，可以是数值或字符串。</span><br><span class="line">start：从哪个字符开始截取（1开始，而不是0开始）</span><br><span class="line">length：截取几个字符。</span><br><span class="line"></span><br><span class="line">select substr(&quot;12345&quot;, 2, 3);  //得到234</span><br></pre></td></tr></table></figure>
 
+<p>7、多行合并显示</p>
+<p>场景：select某个字段，然后想把找出来的这个字段拼成数组 a,b,c 形式。</p>
+<p><code>select group_concat(name) from student;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+--------------------+</span><br><span class="line">| group_concat(name) |</span><br><span class="line">+--------------------+</span><br><span class="line">| liu,oo,li          |</span><br><span class="line">+--------------------+</span><br></pre></td></tr></table></figure>
+
+<p>事实证明：group_concat函数并不是必须搭配group by。</p>
+<p>多种用法：<br>换分隔符：<br><code>select group_concat(name separator &#39;;&#39;) from student;</code><br>去重：<br><code>select group_concat(distinct name separator &#39;;&#39;) from student;</code><br>排序（根据本字段/其他字段都可以）：<br><code>select group_concat(distinct name order by id  desc separator &#39;;&#39;) from student;</code></p>
 <h2 id="is-null-和-null"><a href="#is-null-和-null" class="headerlink" title="is null 和 = null"></a>is null 和 = null</h2><p>首先，where之后id=1 不需要用==。</p>
 <p>其次，筛选是否为null的行，不能用=和!=，因为null 表示什么也不是， 不能=、&gt;、&lt; … 所有的判断，结果都是false。无论=null，还是！=null，筛选出来的都是0行empty。</p>
 <p>！！！所以：筛选null，得用is null和is not null。</p>
@@ -1234,7 +1256,7 @@ select course, max(grade) from grade group by course;  正确
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-09 23:24:49" itemprop="dateModified" datetime="2022-07-09T23:24:49+08:00">2022-07-09</time>
+                <time title="Modified: 2022-07-13 22:53:56" itemprop="dateModified" datetime="2022-07-13T22:53:56+08:00">2022-07-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1290,6 +1312,19 @@ select course, max(grade) from grade group by course;  正确
 <p><code>git rm --cached 文件  //将文件从暂存区中删除</code></p>
 <p><code>删除缓存区所有文件命令:  git rm -r --cached .   #主要这个点一定要写</code></p>
 <p><code>git log --oneline</code></p>
+<p>✅三个git add<br>git add -u &lt;==&gt; git add –update<br>提交所有被删除和修改的文件到数据暂存区</p>
+<p>git add .<br>提交所有修改的和新建的数据暂存区</p>
+<p>git add -A &lt;==&gt;git add –all   （用它就wans）<br>提交所有被删除、被替换、被修改和新增的文件到数据暂存区</p>
+<p>✅git restore<br>git restore命令是撤销的意思。<br>有git restore <file>和git restore –staged <file>两种常用的用法。</file></file></p>
+<p>新建文件，没add，git status后，前面显示？？，这种文件未被跟踪，在add之前git啥都干不了。<br>对新建文件进行git add，就到了暂存区，使用git restore –staged 文件，它就又回到了本地工作区。</p>
+<p>对于已有的文件进行修改，修改的文件从暂存区跑到了本地工作区，此时可以对这个修改的文件git add到暂存区，然后才能git commit到本地版本库，也可以使用git restore，修改的文件就恢复了，没修改了，叫撤销修改。</p>
+<p>git pull，有冲突，这时冲突文件里有===head之类的，这时候不想解决冲突了，想恢复，用：git restore –staged</p>
+<p>❗️几种工作区：<br>1、新建的，也就是未跟踪的（Untracked files）：本地工作区<br>2、更改的(modified)和删除的(deleted) 还没add的（Changes not staged for commit）：本地工作区，可以使用git restore取消更改。<br>3、更改/新增之后add的（Changes to be committed）：暂存区，可以使用git restore –stage使得文件回到本地工作区。<br>4、git commit 后到本地版本库。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">On branch main</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git restore --staged &lt;file&gt;...&quot; to unstage)</span><br><span class="line">	modified:   2022.md</span><br><span class="line"></span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add/rm &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line">	modified:   aaa.md</span><br><span class="line">	deleted:    hello.go</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line">	1.md</span><br></pre></td></tr></table></figure>
+
+<p>总结：<br>1、git restore –staged的作用是将暂存区的文件从暂存区撤出，回到本地工作区，但不会更改文件的内容。就是已经git add的文件，新建的使用该命令后，回到untracked，更改的回到changes not staged for commit。</p>
+<p>2、git restore指令使得在工作空间但是不在暂存区的文件撤销更改(内容恢复到没修改之前的状态). 对新加的文件不能使用。对更改的文件使用</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38158479/article/details/106972138">https://blog.csdn.net/qq_38158479/article/details/106972138</a></p>
 <h3 id="git空间与命令"><a href="#git空间与命令" class="headerlink" title="git空间与命令"></a>git空间与命令</h3><p>Working Directory：即工作区。操作系统层面的目录树结构，也可以理解为一个tree目录对象</p>
 <p>Stage(Index)：即暂存区，为等待Commit的文件列表。是以扁平的文件清单实现的，不过从理解层面上也可以理解为tree目录对象</p>
 <p>Local Repository(History)：本地版本库。有向无环图，其每一个节点都是一个tree目录对象</p>
