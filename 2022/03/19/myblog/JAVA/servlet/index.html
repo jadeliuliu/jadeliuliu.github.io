@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/95e97377049b47058831a2b7cbfe442d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/60cc937f78be4bff8e93f84aebea79f2.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
 <meta property="article:published_time" content="2022-03-19T07:54:44.553Z">
-<meta property="article:modified_time" content="2022-05-31T13:48:34.259Z">
+<meta property="article:modified_time" content="2022-07-24T14:39:43.012Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="servlet">
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-31 21:48:34" itemprop="dateModified" datetime="2022-05-31T21:48:34+08:00">2022-05-31</time>
+                <time title="Modified: 2022-07-24 22:39:43" itemprop="dateModified" datetime="2022-07-24T22:39:43+08:00">2022-07-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -314,6 +314,9 @@
 <p><strong>通过注解设置路径</strong></p>
 <p>在完成好了一切代码的编写后，还需要向服务器说明，特定请求对应特定资源。</p>
 <p>开发servlet项目，使用@WebServlet将一个继承于javax.servlet.http.HttpServlet 的类定义为Servlet组件。在Servlet3.0 中 ， 可以使用@WebServlet注解将一个继承javax.servlet.http.HttpServlet的类标注为可以处理用户请求的Servlet。</p>
+<blockquote>
+<p>javax.servlet下面有两个servlet-api，一个是servlet-api，这个定义了servlet规范，一个是javax.servlet-api，这个是serlvet提供的api。<br>@WebServlet这个注解是在javax.servlet-api依赖包里</p>
+</blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">name可写可不写，value过滤器会拦截，urlPatterns过滤器不会拦截</span><br><span class="line"><span class="meta">@WebServlet(name=&quot;Servlet01&quot;,value=&quot;/ser01&quot;)</span> </span><br><span class="line"><span class="meta">@WebServlet(name=&quot;Servlet01&quot;,urlPatterns = &quot;/ser01&quot;)</span></span><br><span class="line">也可以配置多个路径：</span><br><span class="line"><span class="meta">@WebServlet(name=&quot;Servlet01&quot;,value=&#123;&quot;/ser01&quot;,&#x27;/ser001&#x27;&#125;)</span> </span><br><span class="line"><span class="meta">@WebServlet(name=&quot;Servlet01&quot;,urlPatterns=&#123;&quot;/ser01&quot;,&#x27;/ser001&#x27;&#125;)</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.liuxuan.servlet.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: liuxuan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2022-03-19 17:00</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="meta">@WebServlet(&quot;/ser01&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Servlet1</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello Servlet!&quot;</span>);</span><br><span class="line">        resp.getWriter().write(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -686,7 +689,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-count">82</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

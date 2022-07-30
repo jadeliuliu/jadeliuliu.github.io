@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/6f13f22d0f1e6bc6930273b38666f8cc.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/f207168124eedfd3438e9f714a53fa30.png">
 <meta property="article:published_time" content="2022-05-21T02:52:08.484Z">
-<meta property="article:modified_time" content="2022-07-14T15:08:37.247Z">
+<meta property="article:modified_time" content="2022-07-30T06:05:41.448Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-14 23:08:37" itemprop="dateModified" datetime="2022-07-14T23:08:37+08:00">2022-07-14</time>
+                <time title="Modified: 2022-07-30 14:05:41" itemprop="dateModified" datetime="2022-07-30T14:05:41+08:00">2022-07-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -338,6 +338,7 @@
 
 <p>分三步：</p>
 <p>1、线程池外定义初始计数：<br>CountDownLatch countDownLatch=new CountDownLatch(10);<br>2、线程池内executorService.submit()的线程new Runnable(){@Overide public void run() {}} run方法内，线程执行完毕后：<br>countDownLatch.countDown();<br>3、最后要进行操作前：<br>countDownLatch.await();</p>
+<p>✅countDownLatch超时终止：<br><code>latch.await(10, TimeUnit.SECONDS);  //等待10秒后，如果线程没有执行完，则不再等待，进入后续</code></p>
 <h3 id="ScheduledExecutorService"><a href="#ScheduledExecutorService" class="headerlink" title="ScheduledExecutorService"></a>ScheduledExecutorService</h3><p>1、public interface ScheduledExecutorService extends ExecutorService 延迟或定期执行任务。 </p>
 <p>2、schedule 方法使用各种延迟创建任务，并返回一个可用于取消或检查执行的任务对象</p>
 <p>3、scheduleAtFixedRate 和 scheduleWithFixedDelay 方法创建并执行某些在取消前一直定期运行的任务</p>
@@ -384,7 +385,7 @@
 <p>✅线程休眠等</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test2() throws InterruptedException &#123;</span><br><span class="line">    // 线程类还必须放前面</span><br><span class="line">    class CreateThread1 implements Runnable &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                Thread.sleep(1000);</span><br><span class="line">            &#125; catch (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(&quot;线程执行&quot;);</span><br><span class="line">            Thread.yield(); //线程让步</span><br><span class="line">            System.out.println(&quot;继续执行&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Thread thread1 = new Thread(new CreateThread1(), &quot;thread1&quot;);</span><br><span class="line">    thread1.start();</span><br><span class="line">    thread1.join();  //插队执行</span><br><span class="line">    System.out.println(&quot;main线程&quot;);</span><br><span class="line">    Thread.sleep(1000 * 10);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h3><p>单测方法有一个问题，当单测方法结束的时候，里面的线程也要结束，不管是不是执行完成。单测方法结束的时候会把里面的资源释放掉，导致里面的线程提前结束。<br>结论：尽量不要在test中开启线程。</p>
+<h3 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h3><p>单测方法有一个问题，当单测方法结束的时候，里面的线程也要结束，不管是不是执行完成。单测方法结束的时候会把里面的资源释放掉，导致里面的线程提前结束。<br>结论：尽量不要在test中开启线程，开启的话，sleep一下，等线程执行完。</p>
 <p>但是在main方法中，main方法执行完以后子线程并不会退出，因为子线程是非守护线程。</p>
 <p>首先，JVM程序在什么情况下能够正常退出<br>The Java Virtual Machine exits when the only threads running are all daemon threads.<br>当JVM中不存在任何一个正在运行的非守护线程时，则JVM进程即会退出。<br>main线程是一个非守护线程。只剩下守护线程，就会退出。</p>
 <p>什么是守护线程？<br>在Java中有两类线程：</p>
@@ -504,7 +505,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-count">82</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
