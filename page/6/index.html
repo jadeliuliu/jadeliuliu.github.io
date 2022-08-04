@@ -1057,7 +1057,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 17:45:04" itemprop="dateModified" datetime="2022-07-30T17:45:04+08:00">2022-07-30</time>
+                <time title="Modified: 2022-08-04 22:51:42" itemprop="dateModified" datetime="2022-08-04T22:51:42+08:00">2022-08-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1368,6 +1368,19 @@ select course, max(grade) from grade group by course;  正确
 <p>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/fsdfkjai/article/details/121770629">https://blog.csdn.net/fsdfkjai/article/details/121770629</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/asd051377305/article/details/113979657">https://blog.csdn.net/asd051377305/article/details/113979657</a></p>
 <h2 id="show-warnings-和-show-errors"><a href="#show-warnings-和-show-errors" class="headerlink" title="show warnings 和 show errors"></a>show warnings 和 show errors</h2><p>SHOW WARNINGS 是一个诊断语句，它显示有关在当前会话中执行语句所导致的状况（错误、警告和注释）的信息。警告是为 DML 语句（如 INSERT、UPDATE 和 LOAD DATA）以及 DDL 语句（如 CREATE TABLE 和 ALTER TABLE）生成的。</p>
 <p>show warnings：显示上一条命令的警告信息。<br>show errors：显示上一条命令的错误信息。</p>
+<h3 id="实践中的一个错误记录"><a href="#实践中的一个错误记录" class="headerlink" title="实践中的一个错误记录"></a>实践中的一个错误记录</h3><p>错误详情：<br>Communications link failure<br>The last packet successfully received from the server was 1750000 milliseconds ago. The last packet sent successfully to the server was … milli seconds ago.</p>
+<p>背景：<br>高并发并且连续地访问数据库。<br>疑问：<br>这个问题跟高并发连续访问有关吗？<br>这个时间表示什么？上一次连接时间？<br>什么情况下新建一个连接。</p>
+<p>错误原因：<br>具体解释是这样的：Mysql服务器默认的“wait_timeout”是8小时【也就是默认的值默认是28800秒】，也就是说一个connection空闲超过8个小时，Mysql将自动断开该connection，通俗的讲就是一个连接在8小时内没有活动，就会自动断开该连接。而应用连接池却认为该连接还是有效的(因为并未校验连接的有效性)，当应用申请使用该连接时，就会导致上面的报错。</p>
+<p>这不就是获取到的数据库连接超时了嘛，没错，问题的本质也的确如此，常见的解决办法也很简单，比如说从数据库连接池中获取连接的时候判断下连接状态是否正常，这样就可以避免此类问题的发生</p>
+<p>如果连接池中的连接时长超过数据库的配置，那么就会出现数据库已经关闭了该连接，但连接池中依然有效，业务获取到该连接后进行数据库操作，必然会出错。</p>
+<p>数据库连接是昂贵的资源，长时间占有会严重影响服务性能，而且还会引起其他线程获取连接超时的问题<br>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/yuxiao97/article/details/119742632">https://blog.csdn.net/yuxiao97/article/details/119742632</a></p>
+<p>一个解决，也是盖配置：<a target="_blank" rel="noopener" href="http://t.zoukankan.com/xbq8080-p-11718513.html">http://t.zoukankan.com/xbq8080-p-11718513.html</a></p>
+<p>数据库连接池：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhanglongfei_test/article/details/123983770">https://blog.csdn.net/zhanglongfei_test/article/details/123983770</a></p>
+<p>问题：是连接池里的连接空闲太久被数据库关了，还是外面的线程等的时间太久超时了？</p>
+<p>🤔看完了总结一下：<br>这种错误的原因在于：数据库连接池还认为连接有效，但是数据库方面已经断开，再访问就会报这个错误，那么那个时间是什么时间呢？<br>是数据库那边上一个收到数据的时间，是多久之前了。<br>是数据库方面报的还会服务器方面报的？</p>
+<p>所以，看样子是长时间不访问导致的，跟高并发连续访问负荷大仿佛没什么关系。<br>看看是不是报这个错误的机器很久（大概半小时）没有访问数据库了。</p>
+<p>另外，这个问题根源就是配置不一导致的？只能改配置？</p>
+<p>还有，上面说了一句，长时间占有会严重影响服务性能，而且还会引起其他线程获取连接超时的问题，其他线程获取连接超时，跟这个不一样吧，这个是连接数据库超时。探讨的是数据库连接超时。</p>
 
       
     </div>
