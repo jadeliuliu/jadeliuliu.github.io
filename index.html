@@ -183,6 +183,216 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/12/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/web%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/12/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/web%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">web相关</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-08-12 21:18:41" itemprop="dateCreated datePublished" datetime="2022-08-12T21:18:41+08:00">2022-08-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-08-13 16:04:36" itemprop="dateModified" datetime="2022-08-13T16:04:36+08:00">2022-08-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="网页502"><a href="#网页502" class="headerlink" title="网页502"></a>网页502</h2><p>502 Bad Gateway是指错误网关，无效网关；在互联网中表示一种网络错误。表现在WEB浏览器中给出的页面反馈。</p>
+<p>服务端代码下掉，重新部署的间隙，访问接口会502.</p>
+<h2 id="504错误"><a href="#504错误" class="headerlink" title="504错误"></a>504错误</h2><p>504错误代表网关超时 （Gateway timeout），是指服务器作为网关或代理，但是没有及时从上游服务器收到请求。</p>
+<p>接口504超时，是服务端这边超时断开请求了，需要看一下nginx配置。如果是tomcat，看一下conf中配置的请求超时时间。</p>
+<h2 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h2><h3 id="✅nginx是什么？"><a href="#✅nginx是什么？" class="headerlink" title="✅nginx是什么？"></a>✅nginx是什么？</h3><blockquote>
+<p>Nginx是十分轻量级的HTTP服务器。Nginx，它的发音为“engine X”，是一个高性能的HTTP和反向代理服务器，同时也是一个IMAP/POP3/SMTP 代理服务器。</p>
+<p>Ngnix 是互联网企业使用最为广泛的代理服务器。它可以为后端分布式服务提供负载均衡的功能，它可以将后端多个服务地址聚合为单个地址来对外提供服务。</p>
+<p>Nginx是lgor Sysoev为俄罗斯访问量第二的rambler.ru站点设计开发的。从2004年发布至今，凭借开源的力量，已经接近成熟与完善。<br>Nginx功能丰富，可作为HTTP服务器，也可作为反向代理服务器，邮件服务器。支持FastCGI、SSL、Virtual Host、URL Rewrite、Gzip等功能。并且支持很多第三方的模块扩展。<br>Nginx的稳定性、功能集、示例配置文件和低系统资源的消耗让他后来居上，在全球活跃的网站中有12.18%的使用比率，大约为2220万个网站。</p>
+</blockquote>
+<p>nginx是服务器，代理服务器，负载均衡，反向代理，服务器架构。</p>
+<p>Nginx凭借其稳定性、低资源消耗、简单配置和丰富的功能，从十多年前名不见经传的Web服务器软件，发展到如今能够跟Apache匹敌的地位。</p>
+<p>1、作为Web服务器，Nginx处理静态文件、索引文件，自动索引的效率非常高</p>
+<p>2、作为代理服务器，Nginx可以实现无缓存的反向代理加速，提高网站运行速度</p>
+<p>3、作为负载均衡服务器，Nginx既可以在内部直接支持Rails和PHP，也可以支持HTTP代理服务器对外进行服务，同时还支持简单的容错和利用算法进行负载均衡</p>
+<p>4、在性能方面，Nginx是专门为性能优化而开发的，实现上非常注重效率。它采用内核Poll模型，可以支持更多的并发连接，最大可以支持对5万个并发连接数的响应，而且只占用很低的内存资源</p>
+<p>5、在稳定性方面，Nginx采取了分阶段资源分配技术，使得CPU与内存的占用率非常低。Nginx官方表示，Nginx保持1万个没有活动的连接，而这些连接只占用2.5MB内存，因此，类似DOS这样的攻击对Nginx来说基本上是没有任何作用的</p>
+<p>6、在高可用性方面，Nginx支持热部署，启动速度特别迅速，因此可以在不间断服务的情况下，对软件版本或者配置进行升级，即使运行数月也无需重新启动，几乎可以做到7x24小时不间断地运行<br>————————————————<br>解读nginx：<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_60274825/article/details/122101640">https://blog.csdn.net/weixin_60274825/article/details/122101640</a></p>
+<h3 id="✅什么是代理服务器？"><a href="#✅什么是代理服务器？" class="headerlink" title="✅什么是代理服务器？"></a>✅什么是代理服务器？</h3><p>代理服务器是介于客户端和Web服务器之间的另一台服务器，有了它之后，浏览器不是直接到Web服务器去取回网页，而是通过向代理服务器发送请求，信号会先送到代理服务器，由代理服务器来取回浏览器所需要的信息并传送给你的浏览器。</p>
+<p><img src="https://img-blog.csdnimg.cn/865dde1f883d4cd6a0ec00a61bc960c9.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA5oiR5bCx5Z2Q6L-Z55yL55yL,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>代理位于Web客户端和Web服务器之间，扮演“中间人”的角色。<br>HTTP的代理服务器既是Web服务器又是Web客户端。</p>
+<h3 id="✅什么是正反向代理"><a href="#✅什么是正反向代理" class="headerlink" title="✅什么是正反向代理"></a>✅什么是正反向代理</h3><p>正向代理是一个位于客户端和原始服务器之间的服务器，为了从原始服务器取的内容，客户端向代理发送一个请求并指定目标（原始服务器），然后代理向原始服务器转交请求并将获得的内容返回给客户端，客户端必须要进行一些特别的设置才能使用正向代理。</p>
+<p>正向代理代理的对象是客户端，正向代理中，proxy和client同属一个LAN，对server透明 （客户端服务端多对一？）</p>
+<p>反向代理服务器：在服务器端接收客户端的请求，然后把请求分发给具体的服务器进行处理，然后再将服务器的响应结果反馈给客户端。Nginx就是其中的一种反向代理服务器软件。</p>
+<p>反向代理代理的对象是服务端，反向代理中，proxy和server同属一个LAN，对client透明  （客户端服务端多对多）</p>
+<p>正向代理客户端必须设置正向代理服务器，当然前提是要知道正向代理服务器的IP地址，还有代理程序的端口。<br>反向代理正好与正向代理相反，对于客户端而言代理服务器就像是原始服务器，并且客户端不需要进行任何特别的设置。客户端向反向代理的命名空间中的内容发送普通请求，接着反向代理将判断向哪个原始服务器转交请求，并将获得的内容返回给客户端。<br>————————————————<br>解读nginx：<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_60274825/article/details/122101640">https://blog.csdn.net/weixin_60274825/article/details/122101640</a></p>
+<h3 id="✅nginx与tomcat什么关系"><a href="#✅nginx与tomcat什么关系" class="headerlink" title="✅nginx与tomcat什么关系"></a>✅nginx与tomcat什么关系</h3><p>nginx是上面做web代理服务器的，而tomcat是上面做真正web服务器的。</p>
+<p>nginx常用做静态内容服务和代理服务器，直面外来请求转发给后面的应用服务（tomcat，django什么的），tomcat更多用来做做一个应用容器，让java web app跑在里面的东西，对应同级别的有jboss,jetty等东西。</p>
+<p>但是事无绝对，nginx也可以通过模块开发来提供应用功能，tomcat也可以直接提供http服务，通常用在内网和不需要流控等小型服务的场景。</p>
+<p>严格的来说，Apache/Nginx 应该叫做「HTTP Server」；而 Tomcat 则是一个「Application Server」，或者更准确的来说，是一个「Servlet/JSP」应用的容器（Ruby/Python 等其他语言开发的应用也无法直接运行在 Tomcat 上）。</p>
+<p>一个 HTTP Server 关心的是 HTTP 协议层面的传输和访问控制，所以在 Apache/Nginx 上你可以看到代理、负载均衡等功能。客户端通过 HTTP Server 访问服务器上存储的资源（HTML 文件、图片文件等等）。通过 CGI 技术，也可以将处理过的内容通过 HTTP Server 分发，但是一个 HTTP Server 始终只是把服务器上的文件如实的通过 HTTP 协议传输给客户端。</p>
+<p>而应用服务器，则是一个应用执行的容器。它首先需要支持开发语言的 Runtime（对于 Tomcat 来说，就是 Java），保证应用能够在应用服务器上正常运行。其次，需要支持应用相关的规范，例如类库、安全方面的特性。对于 Tomcat 来说，就是需要提供 JSP/Sevlet 运行需要的标准类库、Interface 等。为了方便，应用服务器往往也会集成 HTTP Server 的功能，但是不如专业的 HTTP Server 那么强大，所以应用服务器往往是运行在 HTTP Server 的背后，执行应用，将动态的内容转化为静态的内容之后，通过 HTTP Server 分发到客户端。<br>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44517990/article/details/100712182">https://blog.csdn.net/weixin_44517990/article/details/100712182</a></p>
+<h3 id="✅-springboot内置tomcat-和-tomcat"><a href="#✅-springboot内置tomcat-和-tomcat" class="headerlink" title="✅ springboot内置tomcat 和 tomcat"></a>✅ springboot内置tomcat 和 tomcat</h3><p>1.内置的tomcat没有tomcat的主页页面<a target="_blank" rel="noopener" href="http://localhost:9999/%EF%BC%8C%E8%80%8C%E6%88%91%E4%BB%AC%E5%B9%B3%E6%97%B6%E7%94%A8%E7%9A%84%E5%A4%96%E7%BD%AE%E7%9A%84tomcat%E6%98%AF%E6%9C%89%E7%9A%84">http://localhost:9999/，而我们平时用的外置的tomcat是有的</a></p>
+<p>2.内置的tomcat可以用main跑项目，而如果要用外置的tomcat就需要把项目打成war包，然后拷贝到webapp下进行运行</p>
+<p>Tomcat：<br>Tomcat是一个Web应用服务器，也是Servlet容器。它的作用是，解析客户端client发起的request，并组装出HttpRequest、创建HttpResponse，将二者交于内部的HttpServlet处理和填充</p>
+<p>Tomcat映射处理请求的Servlet是通过web.xml做的。</p>
+<p>SpringMVC使用一个DispatcherServlet来接收所有的请求，并把它们分发到不同的controller中来做进一步处理。</p>
+<p>SpringMVC = Spring + Web框架，Spring这部分主要是AOP/IOC容器。</p>
+<p>SpringBoot是Spring的扩展，简化了Spring的配置，通过starter的方式简化了常用组件依赖的引入，使其更加易用。</p>
+<p>SpringBoot内置了tomcat。</p>
+<h3 id="✅tomcat和spring-mvc"><a href="#✅tomcat和spring-mvc" class="headerlink" title="✅tomcat和spring mvc"></a>✅tomcat和spring mvc</h3><p>tomcat既是Http服务器（不用代理的话，其实是应用服务器），Http服务器与Servlet容器的功能界限是：可以把HTTP服务器想象成前台的接待，负责网络通信和解析请求，Servlet容器是业务部门，负责处理业务请求。</p>
+<p>Tomcat和Servlet作为Web服务器和Servlet容器的结合，可以接受网络http请求解析为Servlet规范的请求对象和响应对象。比如，HttpServletRequest对象是Tomcat提供的，Servlet是规范，Tomcat是实现规范的Servlet容器。tomcat监听了端口，请求过来后，根据url等信息，确定要将请求交给哪个servlet去处理;然后调用那个servlet的service方法，service方法返回一个response对象;<br>tomcat再把这个response返回给客户端。</p>
+<p>SpringMVC是处理Servlet请求的应用，其中DispatcherServlet实现了Servlet接口，Tomcat负责加载和调用DispatcherServlet。同时，DispatcherServlet有自己的容器（SpringMVC）容器，这个容器负责管理SpringMVC相关的bean，比如Controler和ViewResolver等。同时，Spring中还有其他的Bean比如Service和DAO等，这些由全局的Spring IOC容器管理，因此，Spring有两个IOC容器。</p>
+<p>如果只是使用spring(不包含springmvc)，那么是tomcat容器解析xml文件，通过反射实例化对应的类，根据这些servlet规范实现类，触发对应的代码处理逻辑，这个时候tomcat负责http报文的解析和servlet调度的工作。</p>
+<p>如果使用spring mvc，那么tomcat只是解析http报文，然后将其转发给dispatchsetvlet，然后由springmvc根据其配置，实例对应的类，执行对应的逻辑，然后返回结果给dispatchservlet，最后由它转发给tomcat,由tomcat负责构建http报文数据。</p>
+<p>DispatcherServlet：是Spring MVC中的一个类，实现了Servlet接口。所以部署在Tomcat中的Spring项目，对Tomcat来说，都是一个servlet。</p>
+<p>————————————————<br>spring mvc还需要tomcat吗？<br>版权声明：本文为CSDN博主「黄泥川水猴子」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40277163/article/details/124730530">https://blog.csdn.net/qq_40277163/article/details/124730530</a></p>
+<h3 id="✅nginx与域名解析DNS什么关系"><a href="#✅nginx与域名解析DNS什么关系" class="headerlink" title="✅nginx与域名解析DNS什么关系"></a>✅nginx与域名解析DNS什么关系</h3><p>首先，nginx是web服务器和反向代理服务器。 dns是域名解析服务器。nginx不带dns。</p>
+<p>作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。访问域名，dns帮忙解析到ip，然后访问这个地址的资源呈现给你。hosts和nginx在后面用到。</p>
+<p>hosts文件：<br>hosts文件是个本地域名解析文件，不管你是windwos还是linux，那都是有的，他里面的有效内容，就是一个个的ip和域名映射关系。<br>windows一般在：C:/Windows/System32/drivers/etc/hosts<br>Linux的hosts文件路径一般：/etc/hosts<br>比如：127.0.0.1 localhost<br>这个文件其实也是配置了ip和域名之间的映射关系的数据库，本地要是有这个文件，就优先用这个文件中的配置去解析，如果没有，那就通过dns解析。<br>注意：hosts文件只能配置ip和域名的映射关系，但是不能配置端口号，默认访问80端口</p>
+<p>因为要解决端口问题，这里就得使用反向代理软件nginx，nginx中的每个server就是一个反向代理配置，可以有多个server。</p>
+<p>理解：<em><strong>客户端请求 - dns解析域名 - 解析到nginx服务器的ip - nginx代理到tomcat服务器+端口 - tomcat将请求给servlet - servlet的service处理请求。</strong></em></p>
+<h3 id="✅nginx与CDN内容分发网络什么关系"><a href="#✅nginx与CDN内容分发网络什么关系" class="headerlink" title="✅nginx与CDN内容分发网络什么关系"></a>✅nginx与CDN内容分发网络什么关系</h3><p>cdn是网络，nginx是服务器也是负载均衡。</p>
+<p>cdn：<br>1、CDN的全称是Content Delivery Network，即内容分发网络。<br>2、其基本思路是尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，使内容传输的更快、更稳定。<br>3、通过在网络各处放置节点服务器所构成的在现有的互联网基础之上的一层智能虚拟网络，CDN系统能够实时地根据网络流量和各节点的连接、负载状况以及到用户的距离和响应时间等综合信息将用户的请求重新导向离用户最近的服务节点上。<br>4、其目的是使用户可就近取得所需内容，解决 Internet网络拥挤的状况，提高用户访问网站的响应速度**。<br>5、内容分发网络是建立并覆盖在承载网之上，由分布在不同区域的边缘节点服务器群组成的分布式网络。</p>
+<p>cdn的工作原理：<br>CDN这个技术其实说起来并不复杂，最初的核心理念，就是将内容缓存在终端用户附近。</p>
+<p>内容源不是远么？那么，我们就在靠近用户的地方，建一个缓存服务器，把远端的内容，复制一份，放在这里，不就OK了？</p>
+<p>具体来说，CDN就是采用更多的缓存服务器（CDN边缘节点），布放在用户访问相对集中的地区或网络中。当用户访问网站时，利用全局负载技术，将用户的访问指向距离最近的缓存服务器上，由缓存服务器响应用户请求。（有点像电商的本地仓吧？）</p>
+<p>大家可能觉得，这个不就是“镜像服务器”嘛？其实不一样。镜像服务器是源内容服务器的完整复制。而CDN，是部分内容的缓存，智能程度更高。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210629132506469.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNDA5MTQz,size_16,color_FFFFFF,t_70"></p>
+<p>借用阿里云官网的例子，来简单介绍CDN的工作原理。</p>
+<p>假设通过CDN加速的域名为 <a href="http://www.a.com，接入CDN网络，开始使用加速服务后，当终端用户（北京）发起HTTP请求时，处理流程如下：">www.a.com，接入CDN网络，开始使用加速服务后，当终端用户（北京）发起HTTP请求时，处理流程如下：</a></p>
+<p>1、当终端用户（北京）向<a target="_blank" rel="noopener" href="http://www.a.com下的指定资源发起请求时,首先向ldns(本地dns)发起域名解析请求./">www.a.com下的指定资源发起请求时，首先向LDNS（本地DNS）发起域名解析请求。</a></p>
+<p>2、LDNS检查缓存中是否有<a target="_blank" rel="noopener" href="http://www.a.com的ip地址记录.如果有,则直接返回给终端用户;如果没有,则向授权dns查询./">www.a.com的IP地址记录。如果有，则直接返回给终端用户；如果没有，则向授权DNS查询。</a></p>
+<p>3、当授权DNS解析<a target="_blank" rel="noopener" href="http://www.a.com时,返回域名cname/">www.a.com时，返回域名CNAME</a> <a target="_blank" rel="noopener" href="http://www.a.tbcdn.com对应ip地址./">www.a.tbcdn.com对应IP地址。</a></p>
+<p>4、域名解析请求发送至阿里云DNS调度系统，并为请求分配最佳节点IP地址。</p>
+<p>5、LDNS获取DNS返回的解析IP地址。</p>
+<p>6、用户获取解析IP地址。</p>
+<p>7、用户向获取的IP地址发起对该资源的访问请求。</p>
+<p>8、如果该IP地址对应的节点已缓存该资源，则会将数据直接返回给用户，例如，图中步骤7和8，请求结束。</p>
+<p>9、如果该IP地址对应的节点未缓存该资源，则节点向源站发起对该资源的请求。获取资源后，结合用户自定义配置的缓存策略，将资源缓存至节点，例如，图中的北京节点，并返回给用户，请求结束。</p>
+<p>所以：<br>（1）CDN的加速资源是跟域名绑定的。<br>（2）通过域名访问资源，首先是通过DNS分查找离用户最近的CDN节点（边缘服务器）的IP<br>（3）通过IP访问实际资源时，如果CDN上并没有缓存资源，则会到源站请求资源，并缓存到CDN节点上，这样，用户下一次访问时，该CDN节点就会有对应资源的缓存了。</p>
+<hr>
+<p>nginx负载均衡：负载均衡实际上就是将大量请求进行分布式处理的策略</p>
+<p>Nginx 作为一个基于 C 实现的高性能 Web 服务器，可以通过系列算法解决上述的负载均衡问题。并且由于它具有高并发、高可靠性、高扩展性、开源等特点，成为开发人员常用的反向代理工具</p>
+<p>1、正向代理</p>
+<p>正向代理（Forward Proxy）最大的特点是，客户端非常明确要访问的服务器地址，它代理客户端，替客户端发出请求。比如：科学上网。</p>
+<p>假设客户端想要访问 Google，它明确知道待访问的服务器地址是 <a target="_blank" rel="noopener" href="https://www.google.com/%EF%BC%8C%E4%BD%86%E7%94%B1%E4%BA%8E%E6%9D%A1%E4%BB%B6%E9%99%90%E5%88%B6%EF%BC%8C%E5%AE%83%E6%89%BE%E6%9D%A5%E4%BA%86%E4%B8%80%E4%B8%AA%E8%83%BD%E5%A4%9F%E8%AE%BF%E9%97%AE%E5%88%B0">https://www.google.com/，但由于条件限制，它找来了一个能够访问到</a> Google 的”朋友”：代理服务器。客户端把请求发给代理服务器，由代理服务器代替它请求 Google，最终再将响应返回给客户端。这便是一次正向代理的过程，该过程中服务器并不知道真正发出请求的是谁。<br>（客户端 - 正向代理 - 服务器）</p>
+<p>2、反向代理</p>
+<p>随着请求量的爆发式增长，服务器觉得自己一个人始终是应付不过来，需要兄弟服务器们帮忙，于是它喊来了自己的兄弟以及代理服务器朋友。此时，来自不同客户端的所有请求实际上都发到了代理服务器处，再由代理服务器按照一定的规则将请求分发给各个服务器。这就是反向代理（Reverse Proxy），反向代理隐藏了服务器的信息，它代理的是服务器端，代其接收请求。换句话说，反向代理的过程中，客户端并不知道具体是哪台服务器处理了自己的请求。如此一来，既提高了访问速度，又为安全性提供了保证<br>（一堆客户端 - 反向代理 - 一堆服务器）</p>
+<p>在这之中，反向代理需要考虑的问题是，如何进行均衡分工，控制流量，避免出现局部节点负载过大的问题。通俗的讲，就是如何为每台服务器合理的分配请求，使其整体具有更高的工作效率和资源利用率。</p>
+<p>3、负载均衡常用算法</p>
+<p>轮询 （round-robin）<br>轮询为负载均衡中较为基础也较为简单的算法，它不需要配置额外参数。假设配置文件中共有 台服务器，该算法遍历服务器节点列表，并按节点次序每轮选择一台服务器处理请求。当所有节点均被调用过一次后，该算法将从第一个节点开始重新一轮遍历。特点：由于该算法中每个请求按时间顺序逐一分配到不同的服务器处理，因此适用于服务器性能相近的集群情况，其中每个服务器承载相同的负载。但对于服务器性能不同的集群而言，该算法容易引发资源分配不合理等问题。</p>
+<p>加权轮询<br>为了避免普通轮询带来的弊端，加权轮询应运而生。在加权轮询中，每个服务器会有各自的 weight。一般情况下，weight 的值越大意味着该服务器的性能越好，可以承载更多的请求。该算法中，客户端的请求按权值比例分配，当一个请求到达时，优先为其分配权值最大的服务器。特点：加权轮询可以应用于服务器性能不等的集群中，使资源分配更加合理化。</p>
+<p>IP 哈希（IP hash）<br>ip_hash 依据发出请求的客户端 IP 的 hash 值来分配服务器，该算法可以保证同 IP 发出的请求映射到同一服务器，或者具有相同 hash 值的不同 IP 映射到同一服务器。特点：该算法在一定程度上解决了集群部署环境下 Session 不共享的问题。</p>
+<p>所以：<br>Nginx 作为一款优秀的反向代理服务器，可以通过不同的负载均衡算法来解决请求量过大情况下的服务器资源分配问题。较为常见的负载均衡算法有轮询、加权轮询、IP 哈希等等，可分别应对不同的请求场景。</p>
+<p>————————————————<br>好文章：从对CDN的理解到Nginx负载均衡<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40409143/article/details/118330238">https://blog.csdn.net/qq_40409143/article/details/118330238</a></p>
+<h3 id="✅nginx与RPC远程过程调用什么关系？"><a href="#✅nginx与RPC远程过程调用什么关系？" class="headerlink" title="✅nginx与RPC远程过程调用什么关系？"></a>✅nginx与RPC远程过程调用什么关系？</h3><p>RPC是远程过程调用，是一种计算机通信协议。<br>nginx是代理服务器。<br>Nginx 和后端服务之间的交互在本质上也可以理解为 RPC 数据交互。也许你会争辩说 Nginx 和后端服务之间使用的是 HTTP 协议，走的是短连接，严格上不能算是 RPC 调用。</p>
+<p>讲RPC、RPC与nginx、RPC与HTTP间的关系的好文章：<br><a target="_blank" rel="noopener" href="https://www.kancloud.cn/machh03/server/2096716">https://www.kancloud.cn/machh03/server/2096716</a></p>
+<h3 id="✅与gateway有什么关系？"><a href="#✅与gateway有什么关系？" class="headerlink" title="✅与gateway有什么关系？"></a>✅与gateway有什么关系？</h3><p>网关(Gateway)就是一个网络连接到另一个网络的“关口”。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy53YW5kb3VpcC5jb20vY3Jhd2xlci9hcnRpY2xlLzIwMTk4MS9hYTVmNTVkNjVkMTUxYjUxYzJiOGRhZTAyNTNmN2NmMQ?x-oss-process=image/format,png"></p>
+<p>1、nginx也可以做网关，是用户访问的总入口，也就是前端页面的容器，流量网关。</p>
+<p>流量网关是定义全局性的、跟具体的后端业务应用和服务完全无关的策略网关。<br>流量网关通常只专注于全局的Api管理策略，比如全局流量监控、日志记录、全局限流、黑白名单控制、接入请求到业务系统的负载均衡等，有点类似防火墙。</p>
+<p>2、gateway的定义是针对每一个业务微服务来得，属于业务网关。是介于nignx以及业务应用之间的中间层，主要负责将请求路由到不同的微服务中以及对请求的合法性进行校验。</p>
+<p>业务网关针对具体的业务需要提供特定的流控策略、缓存策略、鉴权认证策略等等。<br>业务网关一般部署在流量网关之后、业务系统之前，比流量网关更靠近业务系统。通常API网指的是业务网关。 有时候我们也会模糊流量网关和业务网关，让一个网关承担所有的工作,所以这两者之间并没有严格的界线。</p>
+<hr>
+<p>网关可以看做系统与外界联通的入口，我们可以在网关进行处理一些非业务逻辑的逻辑，比如权限验证，监控，缓存，请求路由等等。</p>
+<p>1、nginx是用户到 前端工程 的网关，对外网关<br>nginx是用C语言写的<br>nginx做网关，更多的是做总流量入口，反向代理，负载均衡等，还可以用来做web服务器。<br>Nginx在其中扮演的角色是什么？<br>反向代理<br>负载均衡</p>
+<p>2、gateway 是前端工程 到 后台服务器之间的一个 对内网关<br>gateway是java语言的一个框架，可以在框架上进行代码的扩展与控制，例如：安全控制，统一异常处理，XXS,SQL注入等；权限控制，黑白名单，性能监控，日志打印等<br>gateway的主要功能有，路由，断言，过滤器，利用它的这些特性，可以做流控。<br>SpringGateway在其中扮演的角色是什么？<br>统一鉴权</p>
+<p>nginx与gateway：<a target="_blank" rel="noopener" href="https://blog.csdn.net/yangbindxj/article/details/125040773">https://blog.csdn.net/yangbindxj/article/details/125040773</a></p>
+<hr>
+<p>网关服务的端口号默认是80或者443.<br>相同点：都是可以实现对api接口的拦截，负载均衡、反向代理、请求过滤等，可以实现和网关一样的效果。<br>Nginx实现负载均衡的原理属于服务器端负载均衡器。<br>Gateway实现负载均衡原理采用本地负载均衡器的形式。</p>
+<h3 id="✅nginx与统一接入有什么关系？"><a href="#✅nginx与统一接入有什么关系？" class="headerlink" title="✅nginx与统一接入有什么关系？"></a>✅nginx与统一接入有什么关系？</h3><p>统一接入层是：指的是设置专属一层，统一接入所有流量，包括 PC 流量、无线流量、IoT 流量。在应用层之上的一层。</p>
+<p>如果没有统一接入层，之前的业务方，例如购物车、商品等都要自己维护一个网关，这就涉及到维护成本和机器成本。例如卸载 HTTPS，如果所有业务方都要申请证书，那造成的应用成本是非常高的。可如果将所有功能全放在这一层进行，好处非常明显：一方面是机器集中管理节省成本；另外一方面，如果遇到新的瓶颈可以在统一接入层集中优化，如请求响应 Body 统一在这一层进行压缩减少带宽消耗，压缩会消耗 CPU，可以在这一层通过硬件加速的方式集中优化等。</p>
+<p>阿里统一接入层：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/96510277?hmsr=toutiao.io">https://zhuanlan.zhihu.com/p/96510277?hmsr=toutiao.io</a></p>
+<p>统一接入层方案：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Leo_wl/archive/2012/10/17/2728541.html">https://www.cnblogs.com/Leo_wl/archive/2012/10/17/2728541.html</a></p>
+<p>统一接入层是网关中最前端的服务，统一接入到集群中。<br>所以，统一接入层应该是在web代理服务器nginx前的。</p>
+<h2 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h2><h3 id="nginx配置文件结构"><a href="#nginx配置文件结构" class="headerlink" title="nginx配置文件结构"></a>nginx配置文件结构</h3><p>Main 位于 nginx.conf 配置文件的最高层；<br>Main 层下可以有 Event、HTTP 层；<br>Http 层下面允许有多个 Server 层，用于对不同的网站做不同的配置；<br>Server 层下面允许有多个 Location，用于对不同的路径进行不同模块的配置。</p>
+<p>1、main（最上面）<br>全局配置部分用来配置对整个 server 都有效的参数。主要会设置一些影响 nginx 服务器整体运行的配置指令，主要包括配置运行 Nginx 服务器的用户（组）、允许生成的 worker process 数，进程 PID 存放路径、日志存放路径和类型以 及配置文件的引入等<br>全局Main配置<br>user nginx;<br>worker_processes 1; #设置值和CPU核心数一致</p>
+<p>error_log /var/log/nginx/error.log warn; #日志位置和日志级别<br>pid       /var/run/nginx.pid;</p>
+<p>2.event<br>events 块涉及的指令主要影响 Nginx 服务器与用户的网络连接，常用的设置包括是否开启对多 worker process 下的网络连接进行序列化，是否允许同时接收多个网络连接，选取哪种事件驱动模型来处理连接请求，每个 worker process 可以同时支持的最大连接数等。<br>Event配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">events &#123;</span><br><span class="line">    worker_connections 1024;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3、http<br>http 全局块配置的指令包括文件引入、MIME-TYPE 定义、日志自定义、连接超时时间、单链接请求数上限等。<br>http配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">  include       /etc/nginx/mime.types;</span><br><span class="line">  default_type application/octet-stream;</span><br><span class="line">  log_format main &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span><br><span class="line">                    &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span><br><span class="line">                    &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;</span><br><span class="line">  access_log /var/log/nginx/access.log main;</span><br><span class="line">  sendfile       on;</span><br><span class="line">  #tcp_nopush     on;</span><br><span class="line">  keepalive_timeout 65;</span><br><span class="line">  #gzip on;</span><br><span class="line">  include /etc/nginx/conf.d/*.conf;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4、server<br>Server 块也被叫做“虚拟主机”部分，它描述的是一组根据不同 server_name 指令逻辑分割的资源，这些虚拟服务器响应 HTTP 请求，因此都包含在 http 部分。最常见的配置是本虚拟机主机的监听配置和本虚拟主机的名称或 IP 配置。一个 server 块可以配置多个 location 块。<br>server配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  listen       80;</span><br><span class="line">  server_name localhost;</span><br><span class="line">  location / &#123;</span><br><span class="line">      root   /usr/share/nginx/html;</span><br><span class="line">      index index.html index.htm;</span><br><span class="line">  &#125;</span><br><span class="line">  error_page   500 502 503 504 /50x.html;</span><br><span class="line">  location = /50x.html &#123;</span><br><span class="line">      root   /usr/share/nginx/html;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>nginx配置结构：<a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1729793004418584302&amp;wfr=spider&amp;for=pc">https://baijiahao.baidu.com/s?id=1729793004418584302&amp;wfr=spider&amp;for=pc</a></p>
+<p>菜鸟nginx配置：<a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/nginx-setup-intro.html">https://www.runoob.com/w3cnote/nginx-setup-intro.html</a></p>
+<p>nginx配置详细介绍：<a target="_blank" rel="noopener" href="https://blog.51cto.com/u_12218973/2457715">https://blog.51cto.com/u_12218973/2457715</a></p>
+<h3 id="nginx超时配置"><a href="#nginx超时配置" class="headerlink" title="nginx超时配置"></a>nginx超时配置</h3><p>Nginx主要有四类超时设置：客户端超时设置、DNS解析超时设置、代理超时设置，如果使用ngx_lua，则还有lua相关的超时设置。</p>
+<p>1、客户端超时</p>
+<p>客户端超时主要设置有读取请求头超时时间、读取请求体超时时间、发送响应超时时间、长连接超时时间。通过客户端超时设置避免客户端恶意或者网络状况不佳造成连接长期占用，影响服务端的可处理的能力。</p>
+<p><strong>client_header_timeout time</strong>：设置读取客户端请求头超时时间，默认为60s，如果在此超时时间内客户端没有发送完请求头，则响应408（RequestTime-out）状态码给客户端。</p>
+<p><strong>client_body_timeout time</strong>：设置读取客户端内容体超时时间，默认为60s，此超时时间指的是两次成功读操作间隔时间，而不是发送整个请求体的超时时间，如果在此超时时间内客户端没有发送任何请求体，则响应408（RequestTime-out）状态码给客户端。</p>
+<p><strong>send_timeout time</strong>：设置发送响应到客户端的超时时间，默认为60s，此超时时间指的也是两次成功写操作间隔时间，而不是发送整个响应的超时时间。如果在此超时时间内客户端没有接收任何响应，则Nginx关闭此连接。</p>
+<p>**keepalive_timeout timeout [header_timeout]**：设置HTTP长连接超时时间，其中，第一个参数timeout是告诉Nginx长连接超时时间是多少，默认为75s。第二个参数header_timeout是用于设置响应头“Keep-Alive: timeout=time”，即告知客户端长连接超时时间。如果timeout设置为0，则表示禁用长连接。</p>
+<p>2、DNS解析超时</p>
+<p><strong>resolver_timeout 30s</strong>：设置DNS解析超时时间，默认为30s</p>
+<p>3、代理超时</p>
+<p>主要有三组配置：网络连接/读/写超时设置、失败重试机制设置、upstream存活超时设置</p>
+<p><strong>proxy_connect_timeout time</strong>：与后端/上游服务器建立连接的超时时间，默认为60s，此时间不超过75s。</p>
+<p><strong>proxy_read_timeout time</strong>：设置从后端/上游服务器读取响应的超时时间，默认为60s，此超时时间指的是两次成功读操作间隔时间，而不是读取整个响应体的超时时间，如果在此超时时间内上游服务器没有发送任何响应，则Nginx关闭此连接。</p>
+<p><strong>proxy_send_timeout time</strong>：设置往后端/上游服务器发送请求的超时时间，默认为60s，此超时时间指的是两次成功写操作间隔时间，而不是发送整个请求的超时时间，如果在此超时时间内上游服务器没有接收任何响应，则Nginx关闭此连接。</p>
+<p><strong>proxy_next_upstream_tries number</strong>：设置重试次数，默认0表示不限制，注意此重试次数指的是所有请求次数（包括第一次和之后的重试次数之和）。</p>
+<p><strong>proxy_next_upstream_timeout time</strong>：设置重试最大超时时间，默认0表示不限制。</p>
+<p>Nginx超时配置：<a target="_blank" rel="noopener" href="https://blog.csdn.net/xiao__jia__jia/article/details/124075274">https://blog.csdn.net/xiao__jia__jia/article/details/124075274</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/22/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/idea%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -206,10 +416,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-07-22 21:43:06 / Modified: 21:47:16" itemprop="dateCreated datePublished" datetime="2022-07-22T21:43:06+08:00">2022-07-22</time>
+              <time title="Created: 2022-07-22 21:43:06" itemprop="dateCreated datePublished" datetime="2022-07-22T21:43:06+08:00">2022-07-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-08-12 20:44:57" itemprop="dateModified" datetime="2022-08-12T20:44:57+08:00">2022-08-12</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -232,6 +448,7 @@
 
       
           <h2 id="替换文字"><a href="#替换文字" class="headerlink" title="替换文字"></a>替换文字</h2><p>command + R ：当前文件替换<br>command + shift + R ：全局文件替换</p>
+<h2 id="字符编码问题"><a href="#字符编码问题" class="headerlink" title="字符编码问题"></a>字符编码问题</h2><p>换行符：LF<br>编码：UTF-8<br>提交代码之后中文乱码：设置里 File Encodings 里的都选UTF-8，Transparent native-to-ascii conversion（透明转换为ascii）不勾选。</p>
 
       
     </div>
@@ -897,7 +1114,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 14:05:41" itemprop="dateModified" datetime="2022-07-30T14:05:41+08:00">2022-07-30</time>
+                <time title="Modified: 2022-08-12 20:33:22" itemprop="dateModified" datetime="2022-08-12T20:33:22+08:00">2022-08-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -986,17 +1203,21 @@
 <p>get(long var1, TimeUnit var3)这个方法就是设置等待时间的。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Future future1 = executor.submit(myCallable);</span><br><span class="line">System.out.println(&quot;开始拿结果 &quot;+getStringDate());</span><br><span class="line">try &#123;</span><br><span class="line">    System.out.println(&quot;返回的结果是： &quot;+future1.get(3, TimeUnit.SECONDS)+ &quot; &quot;+getStringDate());</span><br><span class="line">&#125; catch (TimeoutException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">    System.out.println(&quot;超时了 &quot;+getStringDate());</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(&quot;结束拿结果 &quot;+getStringDate());</span><br><span class="line"></span><br><span class="line">过了三秒就抛出超时异常了，主线程继续运行，不会再继续阻塞。</span><br></pre></td></tr></table></figure>
 
-<p>✅executor与submit的异常处理</p>
+
+<p>✅execute与submit的异常处理</p>
 <p>使用submit方法还有一个特点就是，他的异常可以在主线程中catch到。<br>而使用execute方法执行任务是捕捉不到异常的。<br>用下面这个Runnable来说,这个 里面一定会抛出一个异常。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Runnable myRunnable = new Runnable() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        executor.execute(null);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>使用executor：</p>
+<p>使用execute：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">            executor.execute(myRunnable);</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            System.out.println(&quot;抓到异常 &quot;+e.getMessage());</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
 <p>不会输出抓到异常那行日志，输出是在线程pool-1-thread-1中，并不是在主线程中。说明主线程的catch不能捕捉到这个异常。异常在线程中直接抛出。</p>
 <p>使用submit：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">           Future future1= executor.submit(myCallable);</span><br><span class="line">            future1.get();</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            System.out.println(&quot;抓到异常 &quot;+e.getMessage());</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
 <p>可以抓到异常。得有get方法。</p>
 <p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zdx1515888659/article/details/109537577">https://blog.csdn.net/zdx1515888659/article/details/109537577</a></p>
+<p>✅项目中的线程池中异常捕获<br>项目中想将线程池中线程的异常在外面捕获到，传递给前端。<br>所以用submit方法，返回Future&lt;?&gt;，在submit方法后直接get，future.get()，有两个异常需要处理：ExecutionException、InterruptException，直接方法上throws出去。调用这个方法的方法要不也throws（给前端透出异常），要不就try..catch..打log（这样无法给前端透出异常）。<br>⚠️注意：用get方法相当于是阻塞了，本来起线程，把要执行的动作交给线程池里的线程(submit)，然后不需要管线程执行完就直接退出干别的了，加了get的话，就要等线程执行完了。如果是大量任务一次交给线程池(线程池里的队列)，需要考虑get带来的阻塞性是否能接受。本来想异步，加了get捕获异常之后，变成同步的了。</p>
+<p>🤔线程池中的线程出现异常，get方法这里会报异常，如果是throws，异常抛出到外面，线程池里的其他线程不受影响。外面的方法如果没有catch会中断。</p>
+<p>🤔那么问题来了，get超时了的话，线程池中的线程还在继续做吗？<br>首先，countDownLatch超时了是继续做的。<br>future.get(2,TimeUnit.SECOND);<br>如果超时了，线程中断，会报异常TimeOutExcepTion，看是不是要捕获了。<br>即使捕获了，线程也不会继续执行了。</p>
 <h3 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h3><p>场景：做多线程并行优化，多线程写入一个文件，首先输入流是可以共享的，只是需要重新定义一个做传递（不管是普通变量还是引用变量），但是for循环里面线程submit完，直接走到主线程上传文件的部分，这时线程池内线程还没往文件里写东西，上传了一个空文件。</p>
 <p>想要：做一个同步，知道线程都执行完了，才进行下一步，起到阻塞的作用。</p>
 <p>CountDownLatch可以做到，当做一个计数器，计算多少个线程执行完了：</p>
@@ -1007,6 +1228,7 @@
 <p>分三步：</p>
 <p>1、线程池外定义初始计数：<br>CountDownLatch countDownLatch=new CountDownLatch(10);<br>2、线程池内executorService.submit()的线程new Runnable(){@Overide public void run() {}} run方法内，线程执行完毕后：<br>countDownLatch.countDown();<br>3、最后要进行操作前：<br>countDownLatch.await();</p>
 <p>✅countDownLatch超时终止：<br><code>latch.await(10, TimeUnit.SECONDS);  //等待10秒后，如果线程没有执行完，则不再等待，进入后续</code></p>
+<p>超时后，线程依然会执行，不会中断。</p>
 <h3 id="ScheduledExecutorService"><a href="#ScheduledExecutorService" class="headerlink" title="ScheduledExecutorService"></a>ScheduledExecutorService</h3><p>1、public interface ScheduledExecutorService extends ExecutorService 延迟或定期执行任务。 </p>
 <p>2、schedule 方法使用各种延迟创建任务，并返回一个可用于取消或检查执行的任务对象</p>
 <p>3、scheduleAtFixedRate 和 scheduleWithFixedDelay 方法创建并执行某些在取消前一直定期运行的任务</p>
@@ -1125,7 +1347,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-31 10:53:16" itemprop="dateModified" datetime="2022-07-31T10:53:16+08:00">2022-07-31</time>
+                <time title="Modified: 2022-08-14 16:34:03" itemprop="dateModified" datetime="2022-08-14T16:34:03+08:00">2022-08-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1201,6 +1423,10 @@
 
 <p>✅强制类型转换<br>首先，每个包装类型都有一个valueOf方法，用来把其他类型转换为自己类型。例如：Double d = Double.valueOf(“1”);</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test1() &#123;</span><br><span class="line">    System.out.println((double) 1 / 1000); //输出0.001</span><br><span class="line">    System.out.println((double) (1 / 1000)); //输出0.0</span><br><span class="line">    Integer integer = 1;</span><br><span class="line">    System.out.println((double) integer / 1000); //输出0.001</span><br><span class="line"></span><br><span class="line">    //向上取整</span><br><span class="line">    double d = Math.ceil(2.3);</span><br><span class="line">    Integer i = (int) d;</span><br><span class="line">    System.out.println(i); //输出3</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断小数精确度"><a href="#判断小数精确度" class="headerlink" title="判断小数精确度"></a>判断小数精确度</h4><p>实现思路：用String的split方法，得到小数点后的String，再看大小。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (&quot;1231312.12&quot;.split(&quot;\\.&quot;)[1].length()==2) &#123;</span><br><span class="line">    System.out.println(&quot;是两位小数&quot;);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
 <h3 id="BigDecimal"><a href="#BigDecimal" class="headerlink" title="BigDecimal"></a>BigDecimal</h3><p>使用场景：比较精确的数字的加减法、小数的四舍五入</p>
 <p>首先，浮点数为什么不准确？<br>码农在程序里写的10进制小数，计算机内部无法用二进制的小数来精确的表达。<br>对于二进制小数，小数点右边能表达的值是 1/2, 1/4, 1/8, 1/16, 1/32, 1/64, 1/128 … 1/(2^n）</p>
@@ -1690,7 +1916,8 @@ ROUND_UP    //向远离0的方向舍入
 <p>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44364444/article/details/120054230">https://blog.csdn.net/weixin_44364444/article/details/120054230</a></p>
 <h3 id="java异常"><a href="#java异常" class="headerlink" title="java异常"></a>java异常</h3><p>背景：代码中需要捕获到专门的异常进行特殊处理，主要是为了不影响主流程，该用try…catch，是在调用的时候catch，还是在调用方法里catch？<br>🤔如果是只想在这次调用时补货异常就在调用处使用，如果是想把方法包装好随意调用不发生异常就在方法里捕获。作用是：发生异常了不中断流程，只是打个error log之类的。如果不加，就是自动抛出throws异常了。</p>
 <p>背景：里面方法的异常，外面方法能不能catch到？里面方法也catch了，外面方法还能不能catch到？<br>🤔里面方法没有catch异常的话，外面方法是能捕获到的，并且运行时异常不用在里面的方法上加throws，外面方法就能捕获到。编译时异常必须做：catch住处理或者throw + throws，或者直接throws出去，这样才能在外面方法捕获到。如果里面方法捕获了异常，但是没throw出去（运行时异常throw了不需要throws，编译时异常throw了还需要throws），外面方法就捕获不到这个异常。</p>
-<p>背景：什么时候需要在方法上throws，throw异常，一定要throws吗？<br>🤔throws运行时异常，运行时异常可以不加？虚拟机会自动捕获抛出去？throws编译时异常通常在编译时就要求throws出去异常，或者用try…catch进行异常处理。throw运行时异常，可以不加throws。throw编译时异常，需要加throws。</p>
+<p>背景：什么时候需要在方法上throws异常，一定要throws吗？<br>🤔运行时异常，可以不在方法上throws，虚拟机会自动捕获抛出去。编译时异常通常在编译时就要求throws出去异常，或者用try…catch进行异常处理（打log之类）。</p>
+<p>背景：什么时候需要try..catch..throw..throws<br>🤔首先运行时异常可以不throws，如果没有try..catch，会自动throws出去，所以如果不是try..catch..对特殊异常捕获，没必要try..catch..throws。编译型异常如果是try..catch..打log了，就不用throws了。如果想抛出去，就直接throws就行。所以不需要try..catch..throw..throws。如果即想用try..catch..finally..还想throws出去，就用。</p>
 <p>✅java的异常体系</p>
 <p>首先Exception和Error都是继承于Throwable 类，在 Java 中只有 Throwable 类型的实例才可以被抛出（throw）或者捕获（catch），它是异常处理机制的基本组成类型。</p>
 <p><img src="https://img-blog.csdnimg.cn/2019101117003396.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5MjI5NTY3,size_16,color_FFFFFF,t_70"></p>
@@ -1709,6 +1936,11 @@ ROUND_UP    //向远离0的方向舍入
 <p>ClassNotFoundException：找不到指定 class 的异常<br>IOException：IO 操作异常<br>FileNotFoundException：文件不存在异常<br>SQLException：SQL语句异常<br>InterruptedException： (中断异常-调用线程睡眠时候)</p>
 <p>3）错误（Error）：</p>
 <p>NoClassDefFoundError：找不到 class 定义异常<br>StackOverflowError：深递归导致栈被耗尽而抛出的异常<br>OutOfMemoryError：内存溢出异常</p>
+<p>✅遇到的异常记录</p>
+<p>1、ExecutionException<br>future.get()抛出的，ExecutionException包装正在执行的线程抛出的任何异常。没明白，应该是个检查型异常。是必须要程序员处理的。</p>
+<p><a target="_blank" rel="noopener" href="https://www.orcode.com/question/618888_kb0916.html">https://www.orcode.com/question/618888_kb0916.html</a><br><a target="_blank" rel="noopener" href="https://www.mianshigee.com/question/91669mas/">https://www.mianshigee.com/question/91669mas/</a></p>
+<p>2、InterruptException<br>future.get()会抛出，Thread.sleep也会抛出。<br>当线程正在等待、休眠或以其他方式被占用，并且线程在活动之前或活动期间被中断时抛出。 有时，方法可能希望测试当前线程是否被中断，如果是，则立即抛出此异常。<br>活动线程的执行中断行为，可以抛出这样的异常。<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/kevinmeanscool/article/details/123566970">https://blog.csdn.net/kevinmeanscool/article/details/123566970</a></p>
+<p>3、</p>
 <hr>
 <p>✅NoClassDefFoundError 和 ClassNotFoundException 的区别：</p>
 <p>区别一：<br>NoClassDefFoundError它是Error，<br>ClassNotFoundException是Exception。</p>
@@ -1719,8 +1951,8 @@ ROUND_UP    //向远离0的方向舍入
 <p>✅运行时异常（Runtime exception)与检查型异常（checked exception）的区别：</p>
 <p>1:checked （检查型异常）也就是我们经常遇到的IO异常，以及SQL异常都是这种异常。编译器要检查这类异常，检查的目的一方面是因为该类异常的发生难以避免，<br>另一方面就是让开发者去解决掉这类异常，所以称为必须处理（try …catch）的异常。如果不处理这类异常，集成开发环境中的编译器一般会给出错误提示。</p>
 <p>如果一个方法没有捕获一个检查性异常，那么该方法必须使用 throws 关键字来声明。throws 关键字放在方法名的后边，eg:  方法名（） throws  IOExecption。</p>
-<p>理解：检查型异常，要么：try… catch.. 打log，要么：try..catch..throw..throws，要么只是throws。</p>
-<p>2:runtime exception（运行时异常），编译器不会检查这类异常，不检查的则开发者在代码的编辑编译阶段就不是必须处理，这类异常一般可以避免，因此无需处理（try …catch）,<br>如果不处理这类异常，集成开发环境中的编译器也不会给出错误提示。    当出现这样的异常时，总是由虚拟机接管。</p>
+<p>理解：检查型异常，要么：try… catch.. 打log，要么：try..catch..throw..throws（多此一举，没必要），要么只是throws。</p>
+<p>2:runtime exception（运行时异常），编译器不会检查这类异常，不检查的则开发者在代码的编辑编译阶段就不是必须处理，这类异常一般可以避免，因此无需处理（try …catch）,会直接throws出去，如果不想throws出去，就try catch 打log。<br>如果不处理这类异常，集成开发环境中的编译器也不会给出错误提示。  当出现这样的异常时，总是由虚拟机接管。</p>
 <p>原文：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/liangbaolong/p/12884224.html">https://www.cnblogs.com/liangbaolong/p/12884224.html</a></p>
 <hr>
 <p>✅多异常捕获：</p>
@@ -1741,109 +1973,29 @@ ROUND_UP    //向远离0的方向舍入
 <p>3、使用 CopyOnWriteArrayList<br><code>List&lt;String&gt; list = new CopyOnWriteArrayList&lt;&gt;();</code><br>使用了lock</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public boolean add(E e) &#123;</span><br><span class="line">    final ReentrantLock lock = this.lock;</span><br><span class="line">    lock.lock();</span><br><span class="line">    try &#123;</span><br><span class="line">        Object[] elements = getArray();</span><br><span class="line">        int len = elements.length;</span><br><span class="line">        Object[] newElements = Arrays.copyOf(elements, len + 1);</span><br><span class="line">        newElements[len] = e;</span><br><span class="line">        setArray(newElements);</span><br><span class="line">        return true;</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>原文：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/fhblikesky/p/13692641.html">https://www.cnblogs.com/fhblikesky/p/13692641.html</a></p>
+<h3 id="java泛型"><a href="#java泛型" class="headerlink" title="java泛型"></a>java泛型</h3><p>1、泛型与Object的区别</p>
+<p>方法的声明：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public Object doSomething(Object obj) &#123;....&#125;</span><br><span class="line">​</span><br><span class="line">public &lt;T&gt; T doSomething(T t) &#123;....&#125;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
+<p>无论是T还是 obj，你都只能调用Object类型的参数和返回值。</p>
+<p>但是，如果是使用了泛型的类，和普通的调用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MyClass&lt;Foo&gt; my = new MyClass&lt;Foo&gt;();</span><br><span class="line">Foo foo = new Foo();</span><br><span class="line"></span><br><span class="line">泛型：</span><br><span class="line">Foo newFoo = my.doSomething(foo);</span><br><span class="line"></span><br><span class="line">Object:</span><br><span class="line">Foo newFoo = (Foo) my.doSomething(foo);</span><br></pre></td></tr></table></figure>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/30/myblog/JAVA/java%E6%8E%A5%E5%8F%A3&%E7%B1%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/30/myblog/JAVA/java%E6%8E%A5%E5%8F%A3&%E7%B1%BB/" class="post-title-link" itemprop="url">java常规接口、类</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-04-30 09:59:37" itemprop="dateCreated datePublished" datetime="2022-04-30T09:59:37+08:00">2022-04-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-28 21:04:53" itemprop="dateModified" datetime="2022-05-28T21:04:53+08:00">2022-05-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Serializable接口"><a href="#Serializable接口" class="headerlink" title="Serializable接口"></a>Serializable接口</h3><p>位于java.io.Serializable包中，一般在创建实体类的时候会去实现这个接口，目的是为了序列化。</p>
-<p>序列化指的是把对象转化成字节序列的过程，就是把内存中的对象转换成一连串的字节bytes描述的过程。<br>反序列化就是将字节bytes数据恢复为对象的过程。</p>
-<p>需要将内存中对象状态数据保存到文件或数据库中时，需要进行序列化。这个比较直观的就是通过ObjectOutputStream和FileOutputStream向文件中保存对象时，实现了Serializable接口的对象会以二进制数据的形式保存到文件中，而未实现Serializable接口的对象则会直接报错，无法保存。</p>
-<p>serialVersionUID：<br>如果在进行反序列化前，将某个实体类原有的serialVersionUID改变，在进行反序列化时就会报InvalidClassException异常。<br>如果没有指定serialVersionUID，在进行序列化时，JVM会通过计算给该类一个默认的serialVersionUID值。<br>但是不建议不指定serialVersionUID，高度依赖于JVM默认生成serialVersionUID，可能会导致其与编译器的实现细节耦合，这样可能会导致在反序列化的过程中发生意外的InvalidClassException异常。个人认为应该是指不同编译器编译的不同类可能产生一个相同的默认serialVersionUID。<br>另外尽量用private来修饰serialVersionUID。</p>
-<h3 id="MultipartFile接口"><a href="#MultipartFile接口" class="headerlink" title="MultipartFile接口"></a>MultipartFile接口</h3><p>用于http中获取前台传来的文件</p>
-<p>位于：package org.springframework.web.multipart;包下<br>中文名：多组件文档<br>继承自：InputStreamSource,并封装了getInputStream()方法<br>此方法用法：<code>@RequesParam(&quot;file&quot;)MultipartFile file</code><br><code>InputStream is  = file.getInputStream();</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String getName():得到的是@RequesParam(value = &quot;file&quot;)中的value值，不会为空。</span><br><span class="line">String getOriginalFilename():获取的是文件的完整名称，包括文件名称+文件拓展名。</span><br><span class="line">String getContentType()：返回文件内容类型，不是文件扩展名（例如：jpeg图片：image/jpeg）</span><br><span class="line">boolean isEmpty()：返回上传的文件是否为空，即multipart形式中没有选择任何文件或者选择的文件没有内容</span><br><span class="line">long getSize()：以字节为单位返回文件大小</span><br><span class="line">byte[] getBytes()：以字节数组的形式返回文件内容</span><br><span class="line">InputStream getInputStream()：返回一个字节流</span><br><span class="line">void transferTo()：用来将接收文件传输到给定目标路径，会抛出IOException、IllegalStateException异常。该方法在实际项目开发中使用较少。</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="Pattern类-amp-Matcher类"><a href="#Pattern类-amp-Matcher类" class="headerlink" title="Pattern类&amp;Matcher类"></a>Pattern类&amp;Matcher类</h3><p>Pattern类是java.util.regex包中的final类。是正则表达式的编译表示形式，此类的实例是不可变的，可供多个并发线程安全使用。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//定义</span><br><span class="line">public final class Pattern extends Object implements Serializable</span><br><span class="line"></span><br><span class="line">//Pattern调用静态方法compile返回Pattern实例。</span><br><span class="line">// 将给定的正则表达式编译并赋予给Pattern类</span><br><span class="line">Pattern pattern = Pattern.compile(paternStr);</span><br><span class="line"></span><br><span class="line">// 增加flag参数的指定，可选的flag参数包括：CASE INSENSITIVE,MULTILINE,DOTALL,UNICODE CASE， CANON EQ </span><br><span class="line">static Pattern compile(String regex, int flags) </span><br><span class="line">//先不明白</span><br><span class="line"></span><br><span class="line">//Pattern.split()（静态方法）和string.split()用途一样，</span><br><span class="line">//是将字符串从正则表达式匹配的地方分开</span><br><span class="line">String input = &quot;This!!unusual use!!hh!!points&quot;;</span><br><span class="line">System.out.println(Arrays.toString(Pattern.compile(&quot;!!&quot;).split(input)));</span><br><span class="line">System.out.println(Arrays.toString(Pattern.compile(&quot;!!&quot;).split(input, 3)));</span><br><span class="line">// 第二种，第二个参数用来限制将输入分割成字符串的数量</span><br></pre></td></tr></table></figure>
-
-<p>正则表达式：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\\d 表示数字，前面多了第一个\，是转义的意思。</span><br><span class="line">+表示重复前面的</span><br><span class="line">\\d+ 表示多个数字</span><br></pre></td></tr></table></figure>
-
-<p>Matcher对象是一个状态机器，它依据Pattern对象做为匹配模式对字符串展开匹配检查，此类的实例用于多个并发线程是不安全的。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Pattern.matcher 静态方法：</span><br><span class="line">Pattern.matcher(String regex,CharSequence input)</span><br><span class="line">静态方法,用于快速匹配字符串,匹配全部字符串</span><br><span class="line"></span><br><span class="line">pattern.matcher(CharSequence input):</span><br><span class="line">返回一个Matcher对象。</span><br><span class="line">Matcher类的构造方法也是私有的,不能随意创建,</span><br><span class="line">只能通过pattern.matcher(CharSequence input)方法得到该类的实例</span><br><span class="line"></span><br><span class="line">Pattern p=Pattern.compile(&quot;\\d+&quot;); </span><br><span class="line">Matcher m=p.matcher(&quot;22bb23&quot;); </span><br><span class="line">m.pattern();//返回p 也就是返回该Matcher对象是由哪个Pattern对象的创建的</span><br></pre></td></tr></table></figure>
-
-<p>用Pattern以及Matcher匹配例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String str = &quot;aa11bb&quot;;</span><br><span class="line">String paternStr = &quot;\\d+&quot;;</span><br><span class="line">Pattern pattern = Pattern.compile(paternStr);</span><br><span class="line">Matcher matcher = pattern.matcher(str);</span><br><span class="line">if (matcher.find()) &#123;   //有匹配就行</span><br><span class="line">    System.out.println(matcher.group(0));  //输出11</span><br><span class="line">&#125;</span><br><span class="line">if (matcher.matches()) &#123;  //需要完全匹配</span><br><span class="line">    System.out.println(matcher.group(0));</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p>更多方法：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/woniu317/article/details/52186694">https://blog.csdn.net/woniu317/article/details/52186694</a><br><a target="_blank" rel="noopener" href="http://www.51gjie.com/java/759.html">http://www.51gjie.com/java/759.html</a></p>
-<h3 id="Function接口"><a href="#Function接口" class="headerlink" title="Function接口"></a>Function接口</h3><p>JDK提供了大量常用的函数式接口以丰富Lambda的典型使用场景，它们主要在 java.util.function 包中被提供。 </p>
-<p>java.util.function.Function&lt;T,R&gt; 接口用来根据一个类型的数据得到另一个类型的数据，前者称为前置条件，后者称为后置条件。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@FunctionalInterface</span><br><span class="line">public interface Function&lt;T, R&gt; &#123;</span><br><span class="line">    R apply(T t);</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>例子：起到了转换类型的作用</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class FunctionTest &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        method(s -&gt; Integer.parseInt(s));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static void method(Function&lt;String, Integer&gt; function) &#123;</span><br><span class="line">        int num = function.apply(&quot;10&quot;);</span><br><span class="line">        System.out.println(num + 20);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其他方法：如andThen方法<br><a target="_blank" rel="noopener" href="http://t.zoukankan.com/liyihua-p-12286100.html">http://t.zoukankan.com/liyihua-p-12286100.html</a></p>
-<p>和@FunctionalInterface作用一样？</p>
+<p>因此，使用泛型的好处：</p>
+<p>1.不需要做强制类型转换</p>
+<p>2.编译时更安全。如果使用Object类的话，你没法保证返回的类型一定是Foo，也许是其它类型。这时你就会在运行时得到一个类型转换异常（ClassCastException）</p>
+<p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/SDDDDDSA/article/details/120733398">https://blog.csdn.net/SDDDDDSA/article/details/120733398</a></p>
+<p>2、泛型<code>&lt;T&gt; T</code> 与 T 的区别</p>
+<p>方法返回前的<code>&lt;T&gt; </code>是告诉编译器，当前方法的值传入类型可以和类初始化的泛型类型不同，也是就是该方法的泛型类可以自定义，不需要跟类初始化的泛型类相同.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">package com.jt.test;</span><br><span class="line"> </span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line"> </span><br><span class="line">/**</span><br><span class="line"> * @Description</span><br><span class="line"> * 有的方法返回值为 &lt;T&gt; T ，有的方法返回值为 T ,区别在那里 ？</span><br><span class="line"> **/</span><br><span class="line">public class Request&lt;E&gt; &#123;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">    public &lt;T&gt; T getObject(Class&lt;T&gt; tClass) throws IllegalAccessException, InstantiationException &#123;</span><br><span class="line">        T t = tClass.newInstance();</span><br><span class="line">        return t;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 方法返回前的 &lt;T&gt; 是告诉编译器，当前方法的值传入类型可以和类初始化的泛型类型不同，</span><br><span class="line">     * 也是就是该方法的泛型类可以自定义，不需要跟类初始化的泛型类相同</span><br><span class="line">     *</span><br><span class="line">     * 参数 T</span><br><span class="line">     *  第一个 表示是泛型</span><br><span class="line">     *  第二个 表示是返回是T类型的数据</span><br><span class="line">     *  第三个 表示限制参数类型为T</span><br><span class="line">     * @param data</span><br><span class="line">     * @param &lt;T&gt;</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private &lt;T&gt; T getListFirst(List&lt;T&gt; data) &#123;</span><br><span class="line">        if (data == null || data.size() == 0) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        return data.get(0);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * 这个只能传T类型的数据</span><br><span class="line">     * @param data</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private E getListFirst2(List&lt;E&gt; data) &#123;</span><br><span class="line">        if (data == null || data.size() == 0) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        return data.get(0);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;Integer&gt; data = new ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;String&gt; data2 = new ArrayList&lt;&gt;();</span><br><span class="line">        // 入参由List&lt;T&gt;的T 决定，因为返回值为&lt;T&gt; T ,所以入参不受 Request&lt;T&gt; 影响</span><br><span class="line">        Integer a = new Request&lt;String&gt;().getListFirst(data);</span><br><span class="line"> </span><br><span class="line">        // 编译出错，入参由Request&lt;T&gt; T的决定，受Request&lt;T&gt;影响</span><br><span class="line">        //new Request&lt;String&gt;().getListFirst2(data);</span><br><span class="line"> </span><br><span class="line">        // 没什么区别</span><br><span class="line">        String aa = new Request&lt;String&gt;().getListFirst(data2);</span><br><span class="line">        String bb = new Request&lt;String&gt;().getListFirst2(data2);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qianzhitu/article/details/107962657">https://blog.csdn.net/qianzhitu/article/details/107962657</a></p>
+<p>3、泛型通配符</p>
+<p>泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数。</p>
+<p>常用的 T，E，K，V，？</p>
+<p>本质上这些个都是通配符，没啥区别，只不过是编码时的一种约定俗成的东西。比如上述代码中的 T ，我们可以换成 A-Z 之间的任何一个 字母都可以，并不会影响程序的正常运行，但是如果换成其他的字母代替 T ，在可读性上可能会弱一些。通常情况下，T，E，K，V，？是这样约定的：</p>
+<p>？表示不确定的 java 类型<br>T (type) 表示具体的一个java类型<br>K V (key value) 分别代表java键值中的Key Value<br>E (element) 代表Element</p>
+<p>更多：<a target="_blank" rel="noopener" href="https://blog.csdn.net/minkeyto/article/details/116205607">https://blog.csdn.net/minkeyto/article/details/116205607</a></p>
+<p>学长教学妹java泛型：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_67401499/article/details/125401501">https://blog.csdn.net/m0_67401499/article/details/125401501</a></p>
 
       
     </div>
@@ -1929,7 +2081,7 @@ ROUND_UP    //向远离0的方向舍入
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

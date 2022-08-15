@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/95e97377049b47058831a2b7cbfe442d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/60cc937f78be4bff8e93f84aebea79f2.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
 <meta property="article:published_time" content="2022-03-19T07:54:44.553Z">
-<meta property="article:modified_time" content="2022-08-02T14:34:34.695Z">
+<meta property="article:modified_time" content="2022-08-14T02:53:44.349Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="servlet">
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-02 22:34:34" itemprop="dateModified" datetime="2022-08-02T22:34:34+08:00">2022-08-02</time>
+                <time title="Modified: 2022-08-14 10:53:44" itemprop="dateModified" datetime="2022-08-14T10:53:44+08:00">2022-08-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -595,13 +595,17 @@
 <p>service()是请求处理的核心方法，无论是get或者是post都会被service()方法处理。<br>当采用无差别请求时，可以用service()方法。<br>request.getMethod()查看请求方式<br>doGet()方法处理get请求<br>doPost()方法处理post请求<br>response.setContentType(“text/html;charset=UTF-8”);解决中文乱码</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6869979139164602382">https://juejin.cn/post/6869979139164602382</a></p>
 <h3 id="WebServlet和-RequestMapping"><a href="#WebServlet和-RequestMapping" class="headerlink" title="@WebServlet和@RequestMapping"></a>@WebServlet和@RequestMapping</h3><p>都是用在Controller类里，用于拦截特定请求的。</p>
-<p>@WebServlet注解用于标注在一个继承了HttpServlet类之上，属于类级别的注解，一般用于需要有HttpServletRequest请求中带了参数，或者需要filter等场景，这个是Servlet实现的路径映射逻辑。</p>
-<p>@RequestMapping  注解可以在控制器类的级别和/或其中的方法的级别上使用 处理普通的URI请求，或者http请求，这个是spring实现的DispatcherServlet的路径映射逻辑。</p>
+<p>@WebServlet注解作用在类上，用于标注在一个继承了HttpServlet类之上，属于类级别的注解，一般用于需要有HttpServletRequest请求中带了参数，或者需要filter等场景，这个是Servlet实现的路径映射逻辑。</p>
+<p>@RequestMapping 在controller类上加，具体的方法上再加， 可以在控制器类的级别和/或其中的方法的级别上使用 处理普通的URI请求，或者http请求，这个是spring实现的DispatcherServlet的路径映射逻辑。</p>
 <p>✅ 两种构造Controller的区别：</p>
 <p>Controller是spring 的一个bean，由spring的IOC来管理的一个bean</p>
 <p>Servlet是一个接口或者接口的实现（常见的是GenericServlet 和 HttpServlet）</p>
 <p>Servlet实现方式：<br>有一个映射关系servlet-mapping，url的endpoint 对应的具体的servlet， 比如规定’/demo’ 映射到ServletDemo（继承自HttpServlet，重写doGet，doPost等方法）.<br>在浏览器地址栏输入localhost:8088/demo   , 这个请求就会执行到ServletDemo的doGet方法，经过一系列逻辑，最终将要返回给浏览器的数据写入HttpServletResponse，这样浏览器就能收到结果。</p>
-<p>Controller实现方式：<br>只是一个bean，方法上可以加上注解GetMapping，PostMapping等，标注映射的url的endpoint</p>
+<p>Controller实现方式：<br>只是一个bean，方法上可以加上注解GetMapping，PostMapping等，标注映射的url的endpoint。<br>Servlet容器（Tomcat等）接收到请求以后，将请求交给DispatcherServlet的service方法来处理，servlet会在doDispatch里面先找到mappedHandler ，然后找到HandlerAdapter。调用HandlerAdapter 的handle方法，其实应该是AbstractHandlerMethodAdapter，<br>然后调用到RequestMappingHandlerAdapter的handleInternal，最终调用到invokeAndHandle，反射调用controller的方法。找到endpoint对应的bean的方法，并调用。</p>
+<p>总结：<br><em><strong>容器==》DispatcherServlet (service方法) ==》 doDispatcher ==》HandlerAdapter （handle）=》AbstractHandlerMethodAdapter==》RequestMappingHandlerAdapter ==》invokeAndHandle==》反射具体的controller方法</strong></em></p>
+<p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/huainanyin/p/15936212.html">https://www.cnblogs.com/huainanyin/p/15936212.html</a></p>
+<p>Spring提供的DispatcherServlet是怎么调用我们的Controller里的业务接口的：<a target="_blank" rel="noopener" href="https://blog.csdn.net/caoyuanyenang/article/details/114401414">https://blog.csdn.net/caoyuanyenang/article/details/114401414</a></p>
+<p>✅@RequestMaping参数<br>见java注解</p>
 
     </div>
 
@@ -701,7 +705,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

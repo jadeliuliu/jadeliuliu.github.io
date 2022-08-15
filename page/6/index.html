@@ -183,6 +183,131 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/02/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/%E9%93%BE%E8%A1%A8%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/11/02/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/%E9%93%BE%E8%A1%A8%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" class="post-title-link" itemprop="url">javaのleecode刷题链表篇</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-11-02 14:47:32" itemprop="dateCreated datePublished" datetime="2021-11-02T14:47:32+08:00">2021-11-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-03 21:33:34" itemprop="dateModified" datetime="2021-11-03T21:33:34+08:00">2021-11-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="链表的定义输入输出"><a href="#链表的定义输入输出" class="headerlink" title="链表的定义输入输出"></a>链表的定义输入输出</h2><p>首先使用结构体定义，与c++不同，java中没有指针，隐藏指针，让指向某对象的指针看起来更像那个对象本身。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">为什么java中的main函数不能是非static？</span><br><span class="line"></span><br><span class="line">不能在main方法中打印this关键字的信息，因为不能在静态方法中调用this。理由很简单，this表示“这个对象”，也就是声明一个类的对象，然而静态方法是不属于某一个特定对象而是属于这个类的。那么问题来了，为什么main函数必须设置成静态的呢？</span><br><span class="line"></span><br><span class="line">首先，main函数作为java程序的入口，也可以理解为一个接口，这个接口不是提供给程序员使用的，这时提供给用户等使用的，用户等不需要知道程序内部的实现，只需要知道接口就可以了，如果是非静态的，那么当用户开始使用时，就必须先去创建对象，那么创建对象的代码又写在哪里呢？呵呵，所以这个很难讲清。</span><br><span class="line"></span><br><span class="line">Main方法是我们学习Java编程语言时知道的第一个方法，你是否曾经想过为什么main方法是public、static、void的。当然，很多人首先学的是C和C++，但是在Java中main方法与前者有些细微的不同，它不会返回任何值，为什么main方式是public、static、void，这篇文章尝试去找到一些答案。</span><br><span class="line"></span><br><span class="line">Main方法是Java程序的入口，记住，我们这里不会讨论Servlet、MIDlet和其他任何容器管理的java程序，在java核心编程中，JVM会查找类中的public static void main(String[] args)，如果找不到该方法就抛出错误NoSuchMethodError:main 程序终止。</span><br><span class="line">Main方法必须严格遵循它的语法规则，方法签名必须是public static void，参数是字符串数组类型，如果是Java1.5及以后的版本还可以使用可变参数：</span><br><span class="line">public  static void main(String... args)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">为什么main方法是静态的（static）</span><br><span class="line"></span><br><span class="line">正因为main方法是静态的，JVM调用这个方法就不需要创建任何包含这个main方法的实例。</span><br><span class="line">因为C和C++同样有类似的main方法作为程序执行的入口。</span><br><span class="line">如果main方法不声明为静态的，JVM就必须创建main类的实例，因为构造器可以被重载，JVM就没法确定调用哪个main方法。</span><br><span class="line">静态方法和静态数据加载到内存就可以直接调用而不需要像实例方法一样创建实例后才能调用，如果main方法是静态的，那么它就会被加载到JVM上下文中成为可执行的方法。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">为什么main方法是公有的（public）</span><br><span class="line">Java指定了一些可访问的修饰符如：private、protected、public，任何方法或变量都可以声明为public，Java可以从该类之外的地方访问。因为main方法是公共的，JVM就可以轻松的访问执行它。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">为什么main方法没有返回值（Void） </span><br><span class="line"></span><br><span class="line">因为main返回任何值对程序都没任何意义，所以设计成void，意味着main不会有任何值返回</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">总结</span><br><span class="line"></span><br><span class="line">main方法必须声明为public、static、void，否则JVM没法运行程序</span><br><span class="line">如果JVM找不到main方法就抛出NoSuchMethodError:main异常，例如：如果你运行命令：java HelloWrold，JVM就会在HelloWorld.class文件中搜索public static void main (String[] args) 放法</span><br><span class="line">main方式是程序的入口，程序执行的开始处。</span><br><span class="line">main方法被一个特定的线程”main”运行，程序会一直运行直到main线程结束或者non-daemon线程终止。</span><br><span class="line">当你看到“Exception in Thread main”如：Excpetion in Thread main:Java.lang.NullPointedException ,意味着异常来自于main线程</span><br><span class="line">你可以声明main方法使用java1.5的可变参数的方式如：</span><br><span class="line">public  static void main(String... args)</span><br><span class="line">除了static、void、和public，你可以使用final，synchronized、和strictfp修饰符在main方法的签名中，如：</span><br><span class="line">public  strictfp final  synchronized static  void main(String[] args)</span><br><span class="line">main方法在Java可以像其他方法一样被重载，但是JVM只会调用上面这种签名规范的main方法。</span><br><span class="line">你可以使用throws子句在方法签名中，可以抛出任何checked和unchecked异常</span><br><span class="line">静态初始化块在JVM调用main方法前被执行，它们在类被JVM加载到内存的时候就被执行了。</span><br></pre></td></tr></table></figure>
+
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/peikunye/article/details/100513579">https://blog.csdn.net/peikunye/article/details/100513579</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/maxiao1204/article/details/75142811?yyue=a21bo.50862.201879">https://blog.csdn.net/maxiao1204/article/details/75142811?yyue=a21bo.50862.201879</a></p>
+<p>对于java的构造函数有点懵逼，有参构造和无参构造可以同时存在吗？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">链表节点定义：</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> val;  <span class="comment">//必须要加public吗？</span></span><br><span class="line">    <span class="keyword">public</span> ListNode next = <span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ListNode</span><span class="params">(<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.val=val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">反转链表：</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">reverseListNode</span> </span>&#123;</span><br><span class="line">    <span class="comment">//输入输出+测试代码</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//输入不定长的数组</span></span><br><span class="line">        System.out.print(<span class="string">&quot;请输入链表：&quot;</span>);</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str = sc.nextLine();</span><br><span class="line">        String[] arr = str.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        <span class="keyword">int</span>[] b = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length];</span><br><span class="line">        ListNode head = <span class="keyword">null</span>; <span class="comment">//代表是个空节点</span></span><br><span class="line">        ListNode pre = <span class="keyword">null</span>; <span class="comment">//pre在这里定义</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; b.length; j++) &#123;</span><br><span class="line">            b[j] = Integer.parseInt(arr[j]);</span><br><span class="line">            ListNode node = <span class="keyword">new</span> ListNode(b[j]); <span class="comment">//真正的构造节点</span></span><br><span class="line">            <span class="keyword">if</span>(head==<span class="keyword">null</span>)&#123;  <span class="comment">//首先判断是不是头节点</span></span><br><span class="line">                head = node;</span><br><span class="line">                pre = head; <span class="comment">//pre在这里等于head，不能在上面等于</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            pre.next=node;</span><br><span class="line">            pre = pre.next;</span><br><span class="line">        &#125;</span><br><span class="line">        printList(head);</span><br><span class="line">        ListNode res = reversal(head);</span><br><span class="line">        printList(res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//输出链表</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(head != <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.print(head.val + <span class="string">&quot;,&quot;</span>);</span><br><span class="line">            head = head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//反转函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">reversal</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode front = <span class="keyword">null</span>;</span><br><span class="line">        ListNode cur = head;</span><br><span class="line">        ListNode next;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</span><br><span class="line">            next = cur.next;</span><br><span class="line">            cur.next = front;</span><br><span class="line">            front = cur;</span><br><span class="line">            cur = next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> front;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="203题-移除链表元素"><a href="#203题-移除链表元素" class="headerlink" title="203题.移除链表元素"></a>203题.移除链表元素</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">题意：删除链表中等于给定值 val 的所有节点。</span><br><span class="line">示例 1：</span><br><span class="line">输入：head = [1,2,6,3,4,5,6], val = 6</span><br><span class="line">输出：[1,2,3,4,5]</span><br></pre></td></tr></table></figure>
+
+<p>思路：有可能头节点是要删除的，所以用prehead节点。c/c++需要清理节点内存。java/python则不需要。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">链表节点定义：</span><br><span class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">     <span class="keyword">int</span> val;</span><br><span class="line">     ListNode next;</span><br><span class="line">     ListNode() &#123;&#125;</span><br><span class="line">     ListNode(<span class="keyword">int</span> val) &#123; <span class="keyword">this</span>.val = val; &#125;</span><br><span class="line">     ListNode(<span class="keyword">int</span> val, ListNode next) &#123; <span class="keyword">this</span>.val = val; <span class="keyword">this</span>.next = next; &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">removeElements</span><span class="params">(ListNode head, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        ListNode prehead = <span class="keyword">new</span> ListNode();</span><br><span class="line">        prehead.next = head;</span><br><span class="line">        <span class="comment">//ListNode prehead = new ListNode(-1, head);</span></span><br><span class="line">        ListNode pre = prehead;</span><br><span class="line">        <span class="keyword">while</span>(pre.next != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">//括号内不可以只是pre.next</span></span><br><span class="line">            <span class="keyword">if</span>(pre.next.val == val)&#123;</span><br><span class="line">                pre.next=pre.next.next;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                pre = pre.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> prehead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="24题-两两交换链表中得节点"><a href="#24题-两两交换链表中得节点" class="headerlink" title="24题.两两交换链表中得节点"></a>24题.两两交换链表中得节点</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。</span><br><span class="line">输入：head = [1,2,3,4]</span><br><span class="line">输出：[2,1,4,3]</span><br></pre></td></tr></table></figure>
+
+<p>思路：相当于是swap节点，不能只改变值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">swapPairs</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode prehead = <span class="keyword">new</span> ListNode();</span><br><span class="line">        prehead.next = head;</span><br><span class="line">        ListNode pre = prehead;</span><br><span class="line">        <span class="keyword">while</span>(pre.next!=<span class="keyword">null</span> &amp;&amp; pre.next.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            ListNode node1 = pre.next;</span><br><span class="line">            pre.next = node1.next;</span><br><span class="line">            ListNode node2 = pre.next.next;</span><br><span class="line">            pre.next.next = node1;</span><br><span class="line">            node1.next = node2;</span><br><span class="line">            pre = pre.next.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> prehead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="19题-删除链表的倒数第N个节点"><a href="#19题-删除链表的倒数第N个节点" class="headerlink" title="19题.删除链表的倒数第N个节点"></a>19题.删除链表的倒数第N个节点</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。</span><br><span class="line">输入：head = [1,2,3,4,5], n = 2 输出：[1,2,3,5] </span><br></pre></td></tr></table></figure>
+
+<p>思路：明显的双指针法，为了降低时间复杂度，尽可能扫描一次链表来解决。一个指针先走n步，再一起走，当前面的走到头，那就是要删除的倒数第n个节点。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">removeNthFromEnd</span><span class="params">(ListNode head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode prehead = <span class="keyword">new</span> ListNode();</span><br><span class="line">        prehead.next=head;</span><br><span class="line">        ListNode left = prehead;</span><br><span class="line">        ListNode right = prehead;</span><br><span class="line">        <span class="keyword">while</span>(n--&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            right = right.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(right.next != <span class="keyword">null</span>)&#123;</span><br><span class="line">            left=left.next;</span><br><span class="line">            right=right.next;</span><br><span class="line">        &#125;</span><br><span class="line">        left.next=left.next.next;</span><br><span class="line">        <span class="keyword">return</span> prehead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="面试题02-07-链表相交"><a href="#面试题02-07-链表相交" class="headerlink" title="面试题02.07.链表相交"></a>面试题02.07.链表相交</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。</span><br></pre></td></tr></table></figure>
+
+<p>思路：一眼双指针，阿里二面题目，这道题里链表相交的话后面是重叠了，合并，而不是只交一个点，交一个点的话只能双层for循环了。两个指针走完了都走另一个，会同时到达合并的第一个节点。如果没有合并，同时遍历到空节点返回空节点。如果两个合并的长度一样，则走到第一个点就会返回。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        ListNode a = headA;</span><br><span class="line">        ListNode b = headB;</span><br><span class="line">        <span class="keyword">while</span>(a!=b)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a==<span class="keyword">null</span>)  a=headB;</span><br><span class="line">            <span class="keyword">else</span> a=a.next;</span><br><span class="line">            <span class="keyword">if</span>(b==<span class="keyword">null</span>)  b=headA;</span><br><span class="line">            <span class="keyword">else</span> b=b.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="142题-环形链表Ⅱ"><a href="#142题-环形链表Ⅱ" class="headerlink" title="142题.环形链表Ⅱ"></a>142题.环形链表Ⅱ</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">题意： 给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</span><br><span class="line">为了表示给定链表中的环，使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。</span><br><span class="line">输入：head = [3,2,0,-4], pos = 1</span><br><span class="line">输出：返回索引为 1 的链表节点</span><br><span class="line">解释：链表中有一个环，其尾部连接到第二个节点。</span><br></pre></td></tr></table></figure>
+
+<p>思路：经典的快慢指针。一个一次走一格，一个一次走两格。不需要虚拟头节点。这是判断链表是否有环的方法，如果有环，两个指针都会一直走，两个指针一定会相遇。但是相遇的点不一定是环的入口。</p>
+<p>这个环肯定是后面一个环就不再出来了。</p>
+<p>而要找到环的入口，画个图，最后得出来：x = (n - 1) (y + z) + z。再跑一遍就可以得到环的入口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">detectCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        ListNode fast = head;</span><br><span class="line">        <span class="keyword">while</span>(fast!=<span class="keyword">null</span> &amp;&amp; fast.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            slow=slow.next;</span><br><span class="line">            fast=fast.next.next;</span><br><span class="line">            <span class="keyword">if</span>(slow==fast)&#123;  <span class="comment">//有环了，下面再找入口</span></span><br><span class="line">                <span class="keyword">while</span>(head!=slow)&#123;</span><br><span class="line">                    head=head.next;</span><br><span class="line">                    slow=slow.next;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> slow;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>链表的种类主要为：单链表，双链表，循环链表</li>
+<li>链表的存储方式：链表的节点在内存中是分散存储的，通过指针连在一起。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/31/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/%E7%A7%8B%E6%8B%9B%E9%9D%A2%E7%BB%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -776,7 +901,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-14 22:22:19" itemprop="dateModified" datetime="2022-04-14T22:22:19+08:00">2022-04-14</time>
+                <time title="Modified: 2022-08-14 16:45:25" itemprop="dateModified" datetime="2022-08-14T16:45:25+08:00">2022-08-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -828,6 +953,7 @@
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n &#x27;2,4p&#x27; a.md    显示2-4行</span><br></pre></td></tr></table></figure>
 
+<p><code>tail -fn10 worker.log</code></p>
 <h2 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h2><p>场景：求日志中某一值的个数及平均值<br>AWK 是一种处理文本文件的语言，是一个强大的文本分析工具。<br>样式扫描和处理语言。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#x27;Cost time:&#x27; &#x27;&#123;print $2&#125;&#x27; platform-idproducer.log.wf|grep &#x27;ns&#x27;|awk -F &#x27;ns&#x27; &#x27;&#123;print $1&#125;&#x27;|awk &#x27;BEGIN&#123;sum=0&#125;&#123;sum=sum+$1&#125;END&#123;print sum/NR&#125;&#x27;</span><br><span class="line">//输出平均</span><br></pre></td></tr></table></figure>
 
@@ -914,6 +1040,15 @@
 <h2 id="rm-mv-cp"><a href="#rm-mv-cp" class="headerlink" title="rm mv cp"></a>rm mv cp</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">使用指令 cp 将当前目录 test/ 下的所有文件复制到新目录 newtest 下，输入如下命令：</span><br><span class="line">cp –r test/ newtest</span><br><span class="line"></span><br><span class="line">删除当前目录下的所有文件及目录，命令行为：</span><br><span class="line">rm  -r  *</span><br><span class="line">-f 即使原档案属性设为唯读，亦直接删除，无需逐一确认。</span><br><span class="line">-r 将目录及以下之档案亦逐一删除。</span><br><span class="line"></span><br><span class="line">将 /usr/runoob 下的所有文件和目录移到当前目录下</span><br><span class="line">mv /usr/runoob/*  . </span><br></pre></td></tr></table></figure>
 
 <h2 id="alias-设置指令的别名"><a href="#alias-设置指令的别名" class="headerlink" title="alias 设置指令的别名"></a>alias 设置指令的别名</h2><p>alis 别名 = 指令名称<br>输入alias可列出目前所有的别名设置。<br>alias只限于该次登录操作，若要永久，需要在～/.zshrc文件中设置<br>alias 简写 = 全写</p>
+<h2 id="tr-多行合成一行-、awk使用"><a href="#tr-多行合成一行-、awk使用" class="headerlink" title="tr(多行合成一行)、awk使用"></a>tr(多行合成一行)、awk使用</h2><p>✅想把文件里的换行变成逗号（多行变一行）：<br><code>cat doc.txt|tr &#39;\n&#39; &#39;,&#39;</code></p>
+<p>✅想把每行按照自己想要的方式组装：<br><code>awk -F &quot;,&quot; &#39;&#123;print &quot;想拼接的字符串&quot; $2&#125;&#39;</code><br><code>-F &quot;,&quot; 是指定每行几个列的分割元素，默认是空格。</code><br><code>&#39;&#123;print $0&#125;&#39; 是打印整行</code><br><code>&#39;&#123;print $1&#125;&#39; 是打印第一列</code><br><code>&#39;&#123;print $2 “\&quot;”&#125;&#39; 是打印第二列后面再拼接一个“ </code></p>
+<p>✅想把输出的文本保存到文件里<br><code>awk ... &gt; out.txt</code></p>
+<h2 id="看磁盘空间"><a href="#看磁盘空间" class="headerlink" title="看磁盘空间"></a>看磁盘空间</h2><p><code>df -h</code><br>看文件的大小：<br>直接ll，显示的是文件的字节大小，想用M、G单位来表示文件的大小：用<code>ll -h</code></p>
+<p>✅想清理日志<br>清理日志，rm worker.log 清不干净。</p>
+<p>1、通过重定向到空来清空文件内容<br>shell重定向null<br><code>&gt; access.log</code></p>
+<p>2、使用’true’命令重定向清空文<br>本质上等同于true命令，它可以用作无操作<br><code>true &gt; access.log</code></p>
+<p>3、使用echo命令清空文件<br>使用带有空字符串的echo命令，并将其重定向到文件<br><code>echo “” &gt; access.log </code> 或 <code>echo &gt; access.log</code></p>
+<p>更多：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1721287">https://cloud.tencent.com/developer/article/1721287</a></p>
 
       
     </div>
@@ -1057,7 +1192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-04 22:51:42" itemprop="dateModified" datetime="2022-08-04T22:51:42+08:00">2022-08-04</time>
+                <time title="Modified: 2022-08-14 16:05:49" itemprop="dateModified" datetime="2022-08-14T16:05:49+08:00">2022-08-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1087,6 +1222,9 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">select * from table</span><br><span class="line">&lt;where&gt;</span><br><span class="line">    &lt;if test=&quot;uis != null&quot;&gt;</span><br><span class="line">        uid = #&#123;uid&#125;</span><br><span class="line">    &lt;/if&gt;</span><br><span class="line">&lt;/where&gt;</span><br><span class="line"></span><br><span class="line">或者：</span><br><span class="line">where status = 0</span><br><span class="line">&lt;if test=&quot;uis != null&quot;&gt;</span><br><span class="line">    and uid = #&#123;uid&#125;</span><br><span class="line">&lt;/if&gt;</span><br><span class="line"></span><br><span class="line">或者：</span><br><span class="line">&lt;if test=&quot;uis != null&quot;&gt;</span><br><span class="line">    where uid = #&#123;uid&#125;</span><br><span class="line">&lt;/if&gt;</span><br></pre></td></tr></table></figure>
 
 <p>5、可以select * from table where (条件1 or 条件2) and 条件3;</p>
+<p>6、where嵌套表查询，必须给被嵌套的表取别名。</p>
+<p>7、order by里的必须在select里。</p>
+<p>8、update和insert的时候，注意not null的，注意唯一键。</p>
 <h2 id="1-mysql增删改查"><a href="#1-mysql增删改查" class="headerlink" title="1.mysql增删改查"></a>1.mysql增删改查</h2><h3 id="a-登录"><a href="#a-登录" class="headerlink" title="a.登录"></a>a.登录</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">登录：</span><br><span class="line">mysql <span class="operator">-</span>u root <span class="operator">-</span>p密码  <span class="operator">/</span><span class="operator">/</span>连本机的</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">User</span>, Host, Password <span class="keyword">FROM</span> mysql.user;  <span class="operator">/</span><span class="operator">/</span>查看用户</span><br><span class="line"></span><br><span class="line">添加新用户：</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">&#x27;liuxuan14&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line">修改密码：</span><br><span class="line"><span class="keyword">set</span> password <span class="keyword">for</span> <span class="string">&#x27;liuxuan14&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span><span class="operator">=</span>password(<span class="string">&#x27;1998&#x27;</span>);</span><br><span class="line">为用户授权：</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>允许访问所有数据库下的所有表</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;指定ip&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;新用户密码&#x27;</span> ;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>指定数据库下的指定表</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> test.test <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;指定ip&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;新用户密码&#x27;</span> ;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>只拥有查询权限</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;指定ip&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;新用户密码&#x27;</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> OPTION;</span><br><span class="line">FLUSH PRIVILEGES;  <span class="operator">/</span><span class="operator">/</span>刷新权限</span><br><span class="line"></span><br><span class="line">删除用户：</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">user</span> liuxuan<span class="variable">@localhost</span>；</span><br><span class="line"></span><br><span class="line">连接远程数据库：</span><br><span class="line">MySQL 连接远程数据库（<span class="number">192.168</span><span class="number">.5</span><span class="number">.116</span>），端口“<span class="number">3306</span>”，用户名为“root”，密码“<span class="number">123456</span>”</span><br><span class="line">mysql <span class="operator">-</span>h <span class="number">192.168</span><span class="number">.5</span><span class="number">.116</span> <span class="operator">-</span>P <span class="number">3306</span> <span class="operator">-</span>u root <span class="operator">-</span>p123456</span><br><span class="line">mysql <span class="operator">-</span>h ip <span class="operator">-</span>P 端口 <span class="operator">-</span>A <span class="operator">-</span>u name  <span class="operator">-</span>p 密码</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> database name</span><br></pre></td></tr></table></figure>
 
 <h3 id="b-建表"><a href="#b-建表" class="headerlink" title="b.建表"></a>b.建表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS `mytable`(</span><br><span class="line">   `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT &#x27;自增&#x27;,</span><br><span class="line">   `app_id` bigint NOT NULL DEFAULT &#x27;0&#x27; COMMENT &#x27;应用id&#x27;,</span><br><span class="line">   `time` int NOT NULL DEFAULT &#x27;0&#x27; COMMENT &#x27;时间&#x27;,</span><br><span class="line">   `date` DATE,</span><br><span class="line">   PRIMARY KEY ( `id` )</span><br><span class="line">   UNIQUE KEY `idx_app` (`app_id`) USING BTREE</span><br><span class="line">   KEY `idx_ip` (`machine_ip`) USING BTREE,</span><br><span class="line">   KEY `idx_app_machineid` (`app_id`,`machine_id`) USING BTREE</span><br><span class="line">)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#x27;表名&#x27;;</span><br><span class="line"></span><br><span class="line">AUTO_INCREMENT定义列为自增的属性，一般用于主键，数值会自动加1。</span><br><span class="line">PRIMARY KEY关键字用于定义列为主键。 您可以使用多列来定义主键，列间以逗号分隔。</span><br><span class="line">ENGINE 设置存储引擎，CHARSET 设置编码。</span><br><span class="line"></span><br><span class="line">表结构：desc name；</span><br><span class="line">建表语句：show create tablename；</span><br></pre></td></tr></table></figure>
@@ -1292,6 +1430,9 @@ select course, max(grade) from grade group by course;  正确
 <p>2、多列合并显示 concat() &amp; concat_ws()</p>
 <p>concat(str1, str2, str3) 将多个字段合并起来，没有分隔符。concat()函数中要连接的数据中含有null，最后返回的是null。<br><code> select course, concat(grade,m_id) from grade;</code></p>
 <p>concat_ws(‘,’, str1, str2, str3) 将多个字段按照分隔符连接，如果分隔符为null，则结果为null。函数会忽略null值，但是不会忽略空字符串。<br><code> select course, concat_ws(&#39;:&#39;,grade,m_id) from grade;</code></p>
+<hr>
+<p>还可以用来和普通字符串做连接。</p>
+<p>concat(“名字是”, name)  没有分隔符<br>concat_ws(“,”, “名字是”, name)  有分隔符，第一个参数必须是分隔符</p>
 <p>3、幂运算power/pow<br><code>select power(10, 2)</code></p>
 <p>4、ifnull(expr1,expr2)<br>假如expr1不为NULL，则 IFNULL() 的返回值为expr1; 否则其返回值为 expr2。IFNULL()的返回值是数字或是字符串，具体情况取决于其所使用的语境。<br>例如：算总数，可能因为左连接使得字段为null，这时候为null想展示0。使用：ifnull(num, 0)</p>
 <p>5、ISNULL(expr)<br>如expr 为null，那么isnull() 的返回值为 1，否则返回值为 0。</p>
@@ -1368,12 +1509,12 @@ select course, max(grade) from grade group by course;  正确
 <p>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/fsdfkjai/article/details/121770629">https://blog.csdn.net/fsdfkjai/article/details/121770629</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/asd051377305/article/details/113979657">https://blog.csdn.net/asd051377305/article/details/113979657</a></p>
 <h2 id="show-warnings-和-show-errors"><a href="#show-warnings-和-show-errors" class="headerlink" title="show warnings 和 show errors"></a>show warnings 和 show errors</h2><p>SHOW WARNINGS 是一个诊断语句，它显示有关在当前会话中执行语句所导致的状况（错误、警告和注释）的信息。警告是为 DML 语句（如 INSERT、UPDATE 和 LOAD DATA）以及 DDL 语句（如 CREATE TABLE 和 ALTER TABLE）生成的。</p>
 <p>show warnings：显示上一条命令的警告信息。<br>show errors：显示上一条命令的错误信息。</p>
-<h3 id="实践中的一个错误记录"><a href="#实践中的一个错误记录" class="headerlink" title="实践中的一个错误记录"></a>实践中的一个错误记录</h3><p>错误详情：<br>Communications link failure<br>The last packet successfully received from the server was 1750000 milliseconds ago. The last packet sent successfully to the server was … milli seconds ago.</p>
+<h2 id="项目中的一个错误记录"><a href="#项目中的一个错误记录" class="headerlink" title="项目中的一个错误记录"></a>项目中的一个错误记录</h2><p>错误详情：<br>Communications link failure<br>The last packet successfully received from the server was 1750000 milliseconds ago. The last packet sent successfully to the server was … milli seconds ago.</p>
 <p>背景：<br>高并发并且连续地访问数据库。<br>疑问：<br>这个问题跟高并发连续访问有关吗？<br>这个时间表示什么？上一次连接时间？<br>什么情况下新建一个连接。</p>
 <p>错误原因：<br>具体解释是这样的：Mysql服务器默认的“wait_timeout”是8小时【也就是默认的值默认是28800秒】，也就是说一个connection空闲超过8个小时，Mysql将自动断开该connection，通俗的讲就是一个连接在8小时内没有活动，就会自动断开该连接。而应用连接池却认为该连接还是有效的(因为并未校验连接的有效性)，当应用申请使用该连接时，就会导致上面的报错。</p>
 <p>这不就是获取到的数据库连接超时了嘛，没错，问题的本质也的确如此，常见的解决办法也很简单，比如说从数据库连接池中获取连接的时候判断下连接状态是否正常，这样就可以避免此类问题的发生</p>
 <p>如果连接池中的连接时长超过数据库的配置，那么就会出现数据库已经关闭了该连接，但连接池中依然有效，业务获取到该连接后进行数据库操作，必然会出错。</p>
-<p>数据库连接是昂贵的资源，长时间占有会严重影响服务性能，而且还会引起其他线程获取连接超时的问题<br>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/yuxiao97/article/details/119742632">https://blog.csdn.net/yuxiao97/article/details/119742632</a></p>
+<p>数据库连接是昂贵的资源，长时间占有会严重影响服务性能，而且还会引起其他线程获取连接超时的问题<br>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/yuxiao97/article/details/119742632">https://blog.csdn.net/yuxiao97/article/details/119742632</a><br><a target="_blank" rel="noopener" href="http://www.manongjc.com/article/64825.html">http://www.manongjc.com/article/64825.html</a></p>
 <p>一个解决，也是盖配置：<a target="_blank" rel="noopener" href="http://t.zoukankan.com/xbq8080-p-11718513.html">http://t.zoukankan.com/xbq8080-p-11718513.html</a></p>
 <p>数据库连接池：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhanglongfei_test/article/details/123983770">https://blog.csdn.net/zhanglongfei_test/article/details/123983770</a></p>
 <p>问题：是连接池里的连接空闲太久被数据库关了，还是外面的线程等的时间太久超时了？</p>
@@ -1381,256 +1522,18 @@ select course, max(grade) from grade group by course;  正确
 <p>所以，看样子是长时间不访问导致的，跟高并发连续访问负荷大仿佛没什么关系。<br>看看是不是报这个错误的机器很久（大概半小时）没有访问数据库了。</p>
 <p>另外，这个问题根源就是配置不一导致的？只能改配置？</p>
 <p>还有，上面说了一句，长时间占有会严重影响服务性能，而且还会引起其他线程获取连接超时的问题，其他线程获取连接超时，跟这个不一样吧，这个是连接数据库超时。探讨的是数据库连接超时。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/git%E5%BA%94%E7%94%A8%E4%B8%8Egithub/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/git%E5%BA%94%E7%94%A8%E4%B8%8Egithub/" class="post-title-link" itemprop="url">git与github应用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-09-02 14:43:27" itemprop="dateCreated datePublished" datetime="2021-09-02T14:43:27+08:00">2021-09-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 15:43:49" itemprop="dateModified" datetime="2022-07-30T15:43:49+08:00">2022-07-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="case"><a href="#case" class="headerlink" title="case"></a>case</h3><p>1、git pull只是将远程本分支上的更新pull下来，如果要pull远程master，需要：git pull origin master</p>
-<h3 id="git"><a href="#git" class="headerlink" title="git"></a>git</h3><p>Git 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。</p>
-<p>是一个开源的分布式版本控制系统，可以有效、高速地处理从很小到非常大的项目版本管理。也是[Linus Torvalds]为了帮助管理Linux内核开发而开发的一个开放源码的版本控制软件。</p>
-<h3 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h3><p>SSH 为 [Secure Shell](<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Secure">https://baike.baidu.com/item/Secure</a> Shell) 的缩写，是建立在应用层基础上的安全协议。SSH 是较可靠，专为远程登录会话和其他网络服务提供安全性的协议。利用 SSH 协议可以有效防止远程管理过程中的信息泄露问题。SSH最初是UNIX系统上的一个程序，后来又迅速扩展到其他操作平台。SSH在正确使用时可弥补网络中的漏洞。</p>
-<p>传统的网络服务程序，如：ftp、pop和telnet在本质上都是不安全的，因为它们在网络上用明文传送口令和数据，别有用心的人非常容易就可以截获这些口令和数据。而且，这些服务程序的安全验证方式也是有其弱点的， 就是很容易受到“中间人”（man-in-the-middle）这种方式的攻击。所谓“中间人”的攻击方式， 就是“中间人”冒充真正的服务器接收你传给服务器的数据，然后再冒充你把数据传给真正的服务器。服务器和你之间的数据传送被“中间人”一转手做了手脚之后，就会出现很严重的问题。<strong>通过使用SSH，你可以把所有传输的数据进行加密，这样”中间人”这种攻击方式就不可能实现了，而且也能够防止DNS欺骗和IP欺骗</strong>。使用SSH，还有一个额外的好处就是传输的数据是经过压缩的，所以<strong>可以加快传输的速度</strong>。SSH有很多功能，它既可以代替Telnet，又可以为FTP、PoP、甚至为PPP提供一个安全的”通道”   。</p>
-<p>git 使用 rsa，rsa 要解决的一个核心问题是，如何使用一对特定的数字，使其中一个数字可以用来加密，而另外一个数字可以用来解密。这两个数字就是你在使用 git 和 github 的时候所遇到的 public key 也就是公钥以及 private key 私钥。本地用私钥，上传公钥。</p>
-<h4 id="本地创建ssh-key"><a href="#本地创建ssh-key" class="headerlink" title="本地创建ssh key"></a>本地创建ssh key</h4><p><code>$ ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot;</code></p>
-<p><code>~/下生成.ssh文件夹，进去，打开id_rsa.pub，复制里面的key。标题建议和仓库名一致, 便于区分. </code></p>
-<p>验证：<code>$ ssh -T git@github.com</code></p>
-<p>本地设置git：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;jadeliuliu&quot;</span><br><span class="line">git config --global user.email &quot;xxxxx@163.com&quot;</span><br><span class="line">git config --list</span><br></pre></td></tr></table></figure>
-
-<h3 id="与github建立连接"><a href="#与github建立连接" class="headerlink" title="与github建立连接"></a>与github建立连接</h3><p>1.github上建立仓库</p>
-<p>2.本地建立仓库 <code>git init // 把这个目录变成Git可以管理的仓库，本地多一个.git文件夹，用来跟踪管理版本库</code></p>
-<p><code>mac第一次建仓库出现问题：xcode-select --install</code></p>
-<p><code>git clone git@github.com:jadeliuliu/HelloWorld.git（复制自项目的链接）    相当于创建一个远程仓库的克隆版本</code></p>
-<p>3.关联github仓库 <code>git remote add origin git@github.com:Hexagon-Man/HelloWorld.git</code></p>
-<p>4.提交代码</p>
-<p><code>git add 添加文件</code></p>
-<p><code>git add . // 将当前目录下修改的所有代码从工作区添加到暂存区 . 代表当前目录</code></p>
-<p><code>git remote add origin git@github.com:xxx/xxx.git // 关联远程仓库</code></p>
-<p><code>git commit -m &quot;&quot;  // 提交到了 HEAD，但是还没到你的远端仓库 </code></p>
-<p><code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;  &lt;远程分支名&gt; ，例如 git push origin HEAD：refs/for/master  // refs/for 的意义在于我们提交代码到服务器之后是需要经过code review 之后才能进行merge的 </code> </p>
-<p><code>git push -u origin master // 把本地库的所有内容推送到远程库上</code></p>
-<h3 id="git仓库结构"><a href="#git仓库结构" class="headerlink" title="git仓库结构"></a>git仓库结构</h3><p>本地仓库由 git 维护的三部分组成。第一个是 <code>工作目录</code>，它持有实际文件；第二个是 <code>暂存区（Index）</code>，它像个缓存区域，临时保存改动；最后是 <code>HEAD</code>，它指向你最后一次提交的结果。</p>
-<h3 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h3><p><code>git checkout -b f  //创建并切换分支</code></p>
-<p><code>git branch -d f    //删除分支</code></p>
-<p><code>git branch -a     # 查看本地和远程的所有分支</code></p>
-<p><code>git push origin &lt;branch&gt;    //分支推送到远端</code></p>
-<p><code>git pull   //获取fetch并合并到本地</code></p>
-<p><code>git rm 文件  //将文件从暂存区和工作区中删除，加-f强制删除</code></p>
-<p><code>git rm --cached 文件  //将文件从暂存区中删除</code></p>
-<p><code>删除缓存区所有文件命令:  git rm -r --cached .   #主要这个点一定要写</code></p>
-<p><code>git log --oneline</code></p>
-<p>✅三个git add<br>git add -u &lt;==&gt; git add –update<br>提交所有被删除和修改的文件到数据暂存区</p>
-<p>git add .<br>提交所有修改的和新建的数据暂存区</p>
-<p>git add -A &lt;==&gt;git add –all   （用它就wans）<br>提交所有被删除、被替换、被修改和新增的文件到数据暂存区</p>
-<p>✅git restore<br>git restore命令是撤销的意思。<br>有git restore <file>和git restore –staged <file>两种常用的用法。</file></file></p>
-<p>新建文件，没add，git status后，前面显示？？，这种文件未被跟踪，在add之前git啥都干不了。<br>对新建文件进行git add，就到了暂存区，使用git restore –staged 文件，它就又回到了本地工作区。</p>
-<p>对于已有的文件进行修改，修改的文件从暂存区跑到了本地工作区，此时可以对这个修改的文件git add到暂存区，然后才能git commit到本地版本库，也可以使用git restore，修改的文件就恢复了，没修改了，叫撤销修改。</p>
-<p>git pull，有冲突，这时冲突文件里有===head之类的，这时候不想解决冲突了，想恢复，用：git restore –staged</p>
-<p>❗️几种工作区：<br>1、新建的，也就是未跟踪的（Untracked files）：本地工作区<br>2、更改的(modified)和删除的(deleted) 还没add的（Changes not staged for commit）：本地工作区，可以使用git restore取消更改。<br>3、更改/新增之后add的（Changes to be committed）：暂存区，可以使用git restore –stage使得文件回到本地工作区。<br>4、git commit 后到本地版本库。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">On branch main</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git restore --staged &lt;file&gt;...&quot; to unstage)</span><br><span class="line">	modified:   2022.md</span><br><span class="line"></span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add/rm &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line">	modified:   aaa.md</span><br><span class="line">	deleted:    hello.go</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line">	1.md</span><br></pre></td></tr></table></figure>
-
-<p>总结：<br>1、git restore –staged的作用是将暂存区的文件从暂存区撤出，回到本地工作区，但不会更改文件的内容。就是已经git add的文件，新建的使用该命令后，回到untracked，更改的回到changes not staged for commit。</p>
-<p>2、git restore指令使得在工作空间但是不在暂存区的文件撤销更改(内容恢复到没修改之前的状态). 对新加的文件不能使用。对更改的文件使用</p>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38158479/article/details/106972138">https://blog.csdn.net/qq_38158479/article/details/106972138</a></p>
-<h3 id="git空间与命令"><a href="#git空间与命令" class="headerlink" title="git空间与命令"></a>git空间与命令</h3><p>Working Directory：即工作区。操作系统层面的目录树结构，也可以理解为一个tree目录对象</p>
-<p>Stage(Index)：即暂存区，为等待Commit的文件列表。是以扁平的文件清单实现的，不过从理解层面上也可以理解为tree目录对象</p>
-<p>Local Repository(History)：本地版本库。有向无环图，其每一个节点都是一个tree目录对象</p>
-<p>Remote Repository：远程版本库。有向无环图，其每一个节点都是一个tree目录对象<br><img src="https://img-blog.csdnimg.cn/e1d1bb1fa97743cfb9074e383841a1eb.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="image"><br>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/kekec/p/9248487.html">https://www.cnblogs.com/kekec/p/9248487.html</a></p>
-<p>git status 是看暂存区的改动，如果commit了，暂存区就空了。</p>
-<h3 id="应用：在本地进行了add-commit还未push，想要撤销本地的本次commit"><a href="#应用：在本地进行了add-commit还未push，想要撤销本地的本次commit" class="headerlink" title="应用：在本地进行了add-commit还未push，想要撤销本地的本次commit"></a>应用：在本地进行了add-commit还未push，想要撤销本地的本次commit</h3><p>git log 查看commit id，拿上一个commit id，而不是最新的commit id（这是要回退的id）<br>git reset ：回退到某个版本，不清空暂存区，工作区也不变，需要再提交的话需要add后commit<br>git reset –soft：回退到某个版本，不清空暂存区，工作区也不变，需要再提交的话直接commit<br>git reset –hard：彻底回退到某个版本，撤销的commit中的所有更改都被冲掉，暂存区为空了，工作区也恢复为版本库版本。</p>
-<h3 id="应用：本地修改了，没有add，想撤销修改变为版本库里的"><a href="#应用：本地修改了，没有add，想撤销修改变为版本库里的" class="headerlink" title="应用：本地修改了，没有add，想撤销修改变为版本库里的"></a>应用：本地修改了，没有add，想撤销修改变为版本库里的</h3><p>用git reset –hard 解决  //恢复为本地库里的内容</p>
-<p>用  git checkout – hello.go  比较好，相当于清空了暂存区内容，工作区内容也变为修改前的。</p>
-<p>用  git rm –cached hello.go  不行，从暂存区中删除文件，会显示delete，修改的也会记录，只不过还需要add，不改变工作区。<br>不懂了，不管是有没有add，都会加一条delete，而不是把原本的删掉。</p>
-<h3 id="应用：本地版本恢复为远程版本"><a href="#应用：本地版本恢复为远程版本" class="headerlink" title="应用：本地版本恢复为远程版本"></a>应用：本地版本恢复为远程版本</h3><p>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;  </p>
-<p>git pull origin master</p>
-<p>git pull 默认拉去远程当前分支到本地当前分支</p>
-<h3 id="应用：本地只有master分支，本地拉取线上其他分支"><a href="#应用：本地只有master分支，本地拉取线上其他分支" class="headerlink" title="应用：本地只有master分支，本地拉取线上其他分支"></a>应用：本地只有master分支，本地拉取线上其他分支</h3><p>git branch -a  //查看要拉取线上的什么分支</p>
-<p>git pull origin 分支名：本地分支名  //直接git pull origin 分支名，本地新建该分支</p>
-<p>git checkout 分支名  //切换</p>
-<h3 id="应用：想新开发一版，但又不想保留目前"><a href="#应用：想新开发一版，但又不想保留目前" class="headerlink" title="应用：想新开发一版，但又不想保留目前"></a>应用：想新开发一版，但又不想保留目前</h3><p>想的再建一个仓库来的，没必要。</p>
-<p>在不同分支上开发就行？</p>
-<p>1.远程创建分支</p>
-<p>2.创建完成后<code>git branch -a </code>并没有看到新分支</p>
-<p>3.本地创建并切换新分支<code>git checkout -b mbox-7354 </code>，代码之前分支一样，并不是master代码。</p>
-<p>4.切换分支并不会更改代码。是因为没有<code>git add + git commit</code>，修改的代码在本地工作区，执行commit操作后代码修改到了本地版本库，这时再切换分支，代码没有提现另一个分支的修改了。</p>
-<p>5.切换到mbox-7354分支，pull 代码</p>
-<p><code>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;  </code></p>
-<p><code>git pull origin mbox-7354 : mbox-7354</code> 被拒绝</p>
-<p>出现<code>non-fast-forward</code>的错误，证明本地库跟远程库的提交记录不一致，即本地库版本需要更新</p>
-<p>6.pull不行，换从远程拉取分支</p>
-<p>删除分支，先切换到别的分支，再<code>git brqanch -d name</code> -D强制删除</p>
-<p><code>git checkout -b mbox-7354 origin/master</code> 创建</p>
-<p><code>git pull origin master</code>  把远程分支上的内容都拉取到本地</p>
-<p>7.拉取了和线上master一样的代码，接下来可以修改代码</p>
-<h3 id="应用：commit之后想改commit的名字"><a href="#应用：commit之后想改commit的名字" class="headerlink" title="应用：commit之后想改commit的名字"></a>应用：commit之后想改commit的名字</h3><p><code>git commit -m &quot;v2&quot;</code></p>
-<p><code>git commit --amend -m &quot;v2 add two interfaces&quot;</code></p>
-<h3 id="应用：本地创建多个分支互不干扰"><a href="#应用：本地创建多个分支互不干扰" class="headerlink" title="应用：本地创建多个分支互不干扰"></a>应用：本地创建多个分支互不干扰</h3><p>（1）本地已有分支dev，写了需求a，但是不要提交。</p>
-<p>（2）执行git stash命令，将工作区的内容“储存起来”</p>
-<p>（3）接着在dev分支上修改bug，并提交，push</p>
-<p>（4）执行git stash pop，恢复工作区原来的内容。</p>
-<h3 id="应用：本地代码提交到另一分支上"><a href="#应用：本地代码提交到另一分支上" class="headerlink" title="应用：本地代码提交到另一分支上"></a>应用：本地代码提交到另一分支上</h3><p>开发过程中难免切换分支，不管是开发另一个需求，还是提交到另一个分支。git checkout 切换分支之后，本地工作区的代码会不会变？ 之前切换到新建的分支，本地的代码还在，可以提交到新分支；可是再切回去，出现问题。因此有必要用stash解决。</p>
-<p><code>git stash save &quot;save message&quot;</code>：执行存储时，添加备注，方便查找，只有 git stash 也是可以的</p>
-<p><code>git stash list</code>：查看stash了哪些存储</p>
-<p><code>git stash show</code>：显示做了哪些改动，默认show第一个存储,如果要显示其他存贮，后面加 stash@{$num}，比如第二个 git stash show stash@{1}</p>
-<p><code>git stash apply</code>：应用某个存储，但不会把存储从存储列表中删除，默认使用第一个存储,即 stash@{0}，如果要使用其他的，git stash apply stash@{$num}， 比如第二个：git stash apply stash@{1}</p>
-<p><code>git stash pop</code>：恢复之前缓存的工作目录，将缓存堆栈中的对应stash删除，并将对应修改应用到当前的工作目录下，默认为第一个 stash，即 stash@{0}，如果要应用并删除其他stash，命令：git stash pop stash@{$num}，比如应用并删除第二个：git stash pop stash@{1}</p>
-<p><code>git stash drop stash@&#123;$num&#125;</code>：丢弃 stash@{$num} 存储，从列表中删除这个存储</p>
-<p><code>git stash clear</code>：删除所有缓存的stash</p>
-<p>但是对于新增的文件，<code>git stash</code> 是不会存进去的，因为新增的文件没有被git托管，需要先执行下 <code>git add</code> 加到git版本控制中，然后再 <code>git stash</code> 就可以了</p>
-<p>只备份部分文件怎么办？</p>
-<ol>
-<li>add 那些你不想备份的文件（例如： git add file1.js, file2.js）</li>
-<li>调用 <code>git stash –keep-index</code>。只会备份那些没有被add的文件。</li>
-<li>调用 <code>git reset</code> 取消已经 add 的文件的备份，继续自己的工作。</li>
-</ol>
-<p>✅Git如何stash部分文件：<br>想要stash部分代码，其他的要push。<br>用git stash -p，它是一个交互式命令,我们可以一个文件一个文件的遍历,决定每个文件的操作方式.<br>到我们需要stash的文件,我们就y,不需要stash需要commit的文件,我们就n,如果接下来没有需要stash的文件,则直接q。<br>将文件保存好后,我们就可以commit和push剩下的代码了.</p>
-<p>###git merge<br><code>git merge A</code>  是将A代码合并到当前分支，不会改变A分支的</p>
-<p>当master代码改动了，需要更新开发分支（dev）上的代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git checkout master </span><br><span class="line">git pull </span><br><span class="line">git checkout dev</span><br><span class="line">git merge master </span><br><span class="line">git push -u origin dev</span><br></pre></td></tr></table></figure>
-
-<p>开发分支开发完了，需要在迭代分支上上线，合并到迭代分支</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout 迭代</span><br><span class="line">git merge 开发</span><br><span class="line">git push -u origin 迭代</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="查看git配置"><a href="#查看git配置" class="headerlink" title="查看git配置"></a>查看git配置</h3><p>git config –list</p>
-<h3 id="commit之后，追加提交"><a href="#commit之后，追加提交" class="headerlink" title="commit之后，追加提交"></a>commit之后，追加提交</h3><p>1.如果还没有push到远程</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &#x27;initial commit&#x27;</span><br><span class="line">$ git add forgotten_file</span><br><span class="line">$ git commit --amend   //wq保存</span><br></pre></td></tr></table></figure>
-<p>最终你只会有一个提交——第二次提交将代替第一次提交的结果。<br>先git add提交修改的文件<br>再git commit –amend<br>也叫追加提交，它可以在不增加一个新的commit的情况下，将新修改的代码追加到前一次的commit中。<br>使用该命令的好处，是避免许多无用的提交。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">常用参数：</span><br><span class="line"></span><br><span class="line">--no-edit：使用选定的提交消息而无需启动编辑器。（追加提交，且不修改message信息。）</span><br><span class="line"></span><br><span class="line">--reset-author：加载提交用户的信息。</span><br><span class="line"></span><br><span class="line">比如你从新配置本地用户的信息，然后使用该参数可以重新加载新用户的信息，并且更新在追加提交中。</span><br><span class="line"></span><br><span class="line">--author=：可修改Git 的 author 和 email 信息。</span><br><span class="line">示例：git commit --amend --author=&#x27;xxx &lt;xxxx@xxx.xxx&gt;&#x27;</span><br><span class="line"></span><br><span class="line">摘自：http://events.jianshu.io/p/f015b97bda53</span><br><span class="line"></span><br><span class="line">-m: 执行git commit --amend -m &quot;这里填写提交的注释&quot;命令进行提交。</span><br><span class="line"></span><br><span class="line">使用git commit --amend命令，表面上没有生成新的提交，只是进行了内容的追加。但实际上通过git reflog命令查看历史提交记录，我们还是看到了，其实是新生成了一个commit。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>2.已经push到远程了</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git commit --amend     // 修改上一次的提交</span><br><span class="line"></span><br><span class="line">// 进入提交信息编辑界面</span><br><span class="line">// 修改保存退出</span><br><span class="line"></span><br><span class="line">// 强制推送 (本地分支:远程分支)</span><br><span class="line">git push -f origin master:master</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">***git commit --amend 命令原理:***</span><br><span class="line">git commit --amend这个命令给人的感觉，是用新提交的数据，追加到了前一个commit上。</span><br><span class="line"></span><br><span class="line">其实git commit --amend命令底层原理如下：</span><br><span class="line"></span><br><span class="line">前提：你把遗漏提交的文件，或者修改的文件先提交到暂存区。</span><br><span class="line"></span><br><span class="line">1. git reset --soft HEAD^：回退一个版本，且工作区和暂存区中的内容不会退。</span><br><span class="line"></span><br><span class="line">2. git commit -c ORIG_HEAD：提交操作。在根据此时的暂存区生成一个新的提交对象，代替原来提交的位置。</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">-C &lt;commit&gt;，全称--reuse-message=&lt;commit&gt;：获取现有的提交对象，并在创建提交时重用现有提交对象的日志消息和作者信息（包括时间戳）。</span><br><span class="line">-c &lt;commit&gt;，全称--reedit-message=&lt;commit&gt;：与-C类似，但是-c会调用编辑器，以便用户可以进一步编辑提交消息。</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="git如何撤销已提交的commit重新提交"><a href="#git如何撤销已提交的commit重新提交" class="headerlink" title="git如何撤销已提交的commit重新提交"></a>git如何撤销已提交的commit重新提交</h3><p>1、首先，使用git log -n 3 –stat命令，可以查看最近3次提交的详细信息，并且会显示每次commit的哈希值。</p>
-<blockquote>
-<p>git log 会显示：commit 哈希id、提交的Author信息、提交的日期和时间、commit info信息<br>–oneline： 只显示提交的 SHA1 值和提交信息，SHA1 还是缩短显示前几位，一般为前七位（commit id的前七位？）<br>–graph：绘制一个 ASCII 图像来展示提交历史的分支结构，类似于一个树形结构，很方便很好看<br>–stat参数: 主要可以在git log 的基础上输出文件增删改的统计数据<br>-p参数与–stat类似，不过-p参数更为详细，可以看到每个文件更为详细的修改内容<br>–author用来过滤commit,限定输出给定的用户:git log –author=”Stephen Curry”<br>–after和–before:  限定指定日期范围的log : git log –after ‘08-12-2020’</p>
-</blockquote>
-<p>漂亮log命令：<code>git log --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit --date=relative --all</code></p>
-<p>2、接着使用如下命令来回到某次提交：git reset –soft 某次commit哈希值的任意前缀</p>
-<blockquote>
-<p>最近一次commit了，但是不想要了，git log 获得这次提交的上一次的commit id，然后git reset，本地代码改动就回到本地工作空间了。可以重新改了再提交。<br>reset之后，最近一次的commit就在log里消失了。</p>
-</blockquote>
-<p>3、回到那次commit之后，接着使用如下命令强制提交到master分支：git push origin master –force执行结束后，可以看到远程git仓库的希望撤回的commit已经不见了。</p>
-<p>4、强制提交之后，那次commit之后所有的修改都处于没有提交的状态，可以再修改文件，然后将他们都再添加提交即可。</p>
-<p>5、使用git commit -m命令再提交新的commit。</p>
-<p>6、最终是希望撤回的commit已经消失，换成了新提交的commit。</p>
-<h3 id="feature分支和release分支"><a href="#feature分支和release分支" class="headerlink" title="feature分支和release分支"></a>feature分支和release分支</h3><p>1⃣️ master 分支：<br>master 为主分支，也是用于部署生产环境的分支，确保master分支稳定性，master 分支一般由develop以及hotfix分支合并，任何时间都不能直接修改代码。</p>
-<p>2⃣️ develop 分支：<br>develop 为开发分支，始终保持最新完成以及bug修复后的代码<br>一般开发的新功能时，feature分支都是基于develop分支下创建的</p>
-<p>3⃣️ feature 分支：<br>开发新功能时，以develop为基础创建feature分支<br>分支命名: feature/ 开头的为特性分支， 命名规则: feature/user_module、 feature/cart_module</p>
-<p>4⃣️ release分支：<br>release 为预上线分支，发布提测阶段，会release分支代码为基准提测</p>
-<blockquote>
-<p>当有一组feature开发完成，首先会合并到develop分支，进入提测时，会创建release分支。<br>如果测试过程中若存在bug需要修复，则直接由开发者在release分支修复并提交。<br>当测试完成之后，合并release分支到master和develop分支，此时master为最新代码，用作上线。</p>
-</blockquote>
-<p>5⃣️ hotfix 分支：<br>分支命名: hotfix/ 开头的为修复分支，它的命名规则与 feature 分支类似<br>线上出现紧急问题时，需要及时修复，以master分支为基线，创建hotfix分支，修复完成后，需要合并到master分支和develop分支</p>
-<h3 id="git冲突"><a href="#git冲突" class="headerlink" title="git冲突"></a>git冲突</h3><p>1⃣️ 产生冲突的原因：</p>
-<p>简单来说就是本地修改的文件和目标远程库的同一个文件都有修改。这时无论是pull/push/merge时都会产生冲突。</p>
-<p>场景1：多个分支代码合并到一个分支时：<br>开发a分支对某文件进行了修改，并提交到了master分支，这时开发b分支也对该文件进行了修改，然后合并到master分支，这时可能会发生冲入。（同一文件不同部分的修改，git会自动合并，同一文件同一行或是连续的一部分，git无法自动合并，需要手动解决冲突后合并）</p>
-<p>场景2：同一分支下本地和远程的冲突：<br>比如a和b开发同一分支，a改了某文件，并且merge上去了，b也改了这个文件，此时b要pull或push，都会发生冲突，代表本地和远程分支的代码是不同步的。</p>
-<p>其实类似，第一种基准是master分支，往里合并的是两个远程分支；第二种基准是远程分支，往里合并的是两个人的本地分支。</p>
-<hr>
-<p>2⃣️ 如何解决冲突：</p>
-<p>场景1:<br>修改谁：修改要合并的那个分支</p>
-<p>1、merge/pull 远程master分支到本地当前分支，修改冲突，然后add commit push</p>
-<p>场景2:<br>首先尽量避免第二种的发生：开发之前先git pull一下最新的代码。</p>
-<p>冲突了修改谁：修改本地的文件。案例：提交代码，cv之后，显示冲突，需要本地解决再push。</p>
-<p>1、git pull更新代码，发现CONFLICT：Merge conflict in 文件<br>Automatic merge failed：fix conficts…<br>这说明你的该文件与远程有冲突，此时暂停merge，远程改动都到了本地暂存区（add前），需要先提交本地的修改然后更新。</p>
-<p>2、找到冲突文件，并打开你会在文件中发现</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD </span><br><span class="line">我的代码</span><br><span class="line">======= </span><br><span class="line">别人的代码</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; ae9a0f6b7e42fda2ce9b14a21a7a03cfc5344d61这种标记。</span><br><span class="line"></span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD和=======中间的是你自己的代码，</span><br><span class="line">======= 和&gt;&gt;&gt;&gt;&gt;&gt;&gt;中间的是其他人修改的代码，</span><br><span class="line">改好之后，最后删除&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD ，======= ，&gt;&gt;&gt;&gt;&gt;&gt;&gt;这种标志。</span><br></pre></td></tr></table></figure>
-<p>改好了，git status -s看到冲突文件前面有个UU</p>
-<p>3、git add 冲突文件<br>git commit -m ‘冲突解决’<br>提交本地的pom.xml文件，不进行推送远程</p>
-<p>4、然后都不用git pull，自动就pull了，然后再push就好了，push之前也不用再commit。</p>
-<p>总结：解决冲突的原则是修改要提交/正在开发的那个分支，将基准分支的代码pull过来，解决冲突后进行提交。</p>
-<p>问题：git pull 有冲突，改动到了本地暂存区，冲突解决之后，commit了冲突文件之后，再git pull就会把本地暂存区的文件合并到本地 ？</p>
-<p>答：解决冲突，提交了冲突文件之后，暂存区的文件不见了，之前自己加的文件也不见了…应该是提交冲突之后，自动git pull了。</p>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/mrwangisgoodboy/article/details/123245194">https://blog.csdn.net/mrwangisgoodboy/article/details/123245194</a></p>
-<p><a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1711887140444140945&amp;wfr=spider&amp;for=pc">https://baijiahao.baidu.com/s?id=1711887140444140945&amp;wfr=spider&amp;for=pc</a></p>
-<hr>
-<p>用idea处理冲突：</p>
-<p>1、点右上角蓝箭头：<br>（一）Merge the incoming changes into the current branch</p>
-<pre><code>将传入的更改合并到当前分支中（常用） 相当于git pull
-</code></pre>
-<p>（二）Rebase the current branch on top of the incoming changes</p>
-<pre><code>把你当前分支的 commit 放到公共分支的最后面,所以叫变基
-</code></pre>
-<p>master与rebase：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41231928/article/details/107040880">https://blog.csdn.net/weixin_41231928/article/details/107040880</a></p>
-<p>2、选择merge the incoming…（等同于git pull）</p>
-<p>3、点master，点merge into current</p>
-<p>4、处理冲突：左边是自己的，这件是merge的，右边是别人的，绿色可以自动处理，红色需要手动处理。</p>
-<p>5、git add commit push</p>
-<hr>
-<p>202207用idea解决冲突：<br>push之后，cr代码冲突了，本地git pull，然后代码区域右键git - git resolve merge。挨个文件点merge。先点左上角all，然后左右点箭头，都要的两边都点，不要的点x。</p>
+<h2 id="几个count"><a href="#几个count" class="headerlink" title="几个count"></a>几个count</h2><p>count是个聚合函数</p>
+<p>count*、count1、count主键，都表示返回满足条件的结果集的总行数。</p>
+<p>count字段，表示返回满足条件的结果集中参数字段不为null的总个数。</p>
+<p>count主键，涉及到从引擎返回id，涉及到解析数据行，以及拷贝字段值。</p>
+<p>如果表中只有一个字段，<code>count(*)</code>最优。</p>
+<p><code>count(*)</code>和<code>count(1)</code>两者比较，主要还要看count(1)所对应的数据字段，如果是聚集索引，比如主键id，肯定比count(1)快，但是差很小，因为sql会自动优化<code>count(*)</code>指定到那个字段。两者执行结果一样。</p>
+<p>count(1)就是计算一共有多少符合条件的行，1并不是表示第一个字段，而是表示一个固定值。可以想象成表中有一个字段，是固定值1，count(1)就是计算一共有多少个1.</p>
+<p>count(*)执行时，会把星号翻译成字段的具体名字，多一个翻译的过程，比固定值的方式效率稍微低一点。</p>
+<p>规范：</p>
+<p>1、不要使用count(列名)或count(常量)来代替<code>count(*)</code>，因为<code>count(*)</code>会统计为null的行，count(列名)不会统计null行。</p>
+<p>2、count(distinct 列) 计算该列除了null之外的不重复行。count(distinct 列1, 列2) 如果其中一列全为null，另一列即使有不同的值，也返回0.</p>
+<p>3、当某一列全为null时，count(列)的返回结果是0，但是sum(列)的返回结果是null，需要注意NPE。可以使用：<code>select if(isnull(sum(col), 0, sum(col))) from table;</code></p>
 
       
     </div>
@@ -1716,7 +1619,7 @@ select course, max(grade) from grade group by course;  正确
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
