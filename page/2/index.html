@@ -440,7 +440,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-14 12:30:38" itemprop="dateModified" datetime="2022-08-14T12:30:38+08:00">2022-08-14</time>
+                <time title="Modified: 2022-08-23 23:03:39" itemprop="dateModified" datetime="2022-08-23T23:03:39+08:00">2022-08-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -529,6 +529,7 @@
 <p>即：<br>如果参数是放在请求体VO中，传入后台的话，那么后台要用@RequestBody才能接收到；<br>如果不是放在请求体中的话，那么后台接收前台传过来的参数时，要用@RequestParam来接收。</p>
 <p>总结：<br>@RequestParam和@RequestBody都能接收Post方式请求传来的数据，但是@RequestParam不能接收json字符串，而@RequestBody能，@RequestBody不能接收form-data类型的内容，@RequestParam能。<br>一个请求，只有一个RequestBody；一个请求，可以有多个RequestParam。<br>@ReuestBody接受单个参数的时候只能先使用Map&lt;String,Object&gt; params接收,然后再使用params.get(“name”)获取参数的值。</p>
 <p>更多：<a target="_blank" rel="noopener" href="https://blog.csdn.net/justry_deng/article/details/80972817">https://blog.csdn.net/justry_deng/article/details/80972817</a></p>
+<p>✅post请求，传参是list的话，用@RequestParam的话只能放在url后面，长度是有限制的。用@RequestBody是放在body里。</p>
 <h3 id="ResponseBody"><a href="#ResponseBody" class="headerlink" title="@ResponseBody"></a>@ResponseBody</h3><p>@ResponseBody 注解的作用是将Controller的方法返回的对象，通过适当的转换器转换为指定的格式之后，写入到response对象的body区，通常用来返回JSON数据或者是XML数据。</p>
 <p>@ResponseBody的作用其实是将java对象转为json格式的数据，然后直接写入HTTP response 的body中；一般在异步获取数据时使用</p>
 <p>@ResponseBody 是作用在方法上的</p>

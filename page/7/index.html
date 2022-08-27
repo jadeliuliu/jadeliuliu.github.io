@@ -214,7 +214,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-30 15:43:49" itemprop="dateModified" datetime="2022-07-30T15:43:49+08:00">2022-07-30</time>
+                <time title="Modified: 2022-08-25 22:09:51" itemprop="dateModified" datetime="2022-08-25T22:09:51+08:00">2022-08-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -271,10 +271,10 @@
 <p><code>git rm --cached 文件  //将文件从暂存区中删除</code></p>
 <p><code>删除缓存区所有文件命令:  git rm -r --cached .   #主要这个点一定要写</code></p>
 <p><code>git log --oneline</code></p>
-<p>✅三个git add<br>git add -u &lt;==&gt; git add –update<br>提交所有被删除和修改的文件到数据暂存区</p>
+<h4 id="✅三个git-add"><a href="#✅三个git-add" class="headerlink" title="✅三个git add"></a>✅三个git add</h4><p>git add -u &lt;==&gt; git add –update<br>提交所有被删除和修改的文件到数据暂存区</p>
 <p>git add .<br>提交所有修改的和新建的数据暂存区</p>
 <p>git add -A &lt;==&gt;git add –all   （用它就wans）<br>提交所有被删除、被替换、被修改和新增的文件到数据暂存区</p>
-<p>✅git restore<br>git restore命令是撤销的意思。<br>有git restore <file>和git restore –staged <file>两种常用的用法。</file></file></p>
+<h4 id="✅git-restore"><a href="#✅git-restore" class="headerlink" title="✅git restore"></a>✅git restore</h4><p>git restore命令是撤销的意思。<br>有git restore <file>和git restore –staged <file>两种常用的用法。</file></file></p>
 <p>新建文件，没add，git status后，前面显示？？，这种文件未被跟踪，在add之前git啥都干不了。<br>对新建文件进行git add，就到了暂存区，使用git restore –staged 文件，它就又回到了本地工作区。</p>
 <p>对于已有的文件进行修改，修改的文件从暂存区跑到了本地工作区，此时可以对这个修改的文件git add到暂存区，然后才能git commit到本地版本库，也可以使用git restore，修改的文件就恢复了，没修改了，叫撤销修改。</p>
 <p>git pull，有冲突，这时冲突文件里有===head之类的，这时候不想解决冲突了，想恢复，用：git restore –staged</p>
@@ -414,6 +414,16 @@
 <p>5、git add commit push</p>
 <hr>
 <p>202207用idea解决冲突：<br>push之后，cr代码冲突了，本地git pull，然后代码区域右键git - git resolve merge。挨个文件点merge。先点左上角all，然后左右点箭头，都要的两边都点，不要的点x。</p>
+<h3 id="cherry-pick"><a href="#cherry-pick" class="headerlink" title="cherry-pick"></a>cherry-pick</h3><p>使用场景：对于多分支的代码库，将代码从一个分支转移到另一个分支，并且，只需要部分代码变动（某几个提交），这时可以采用 Cherry pick。</p>
+<p>用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">1.首先查出要用的提交的commit id（哈希值）</span><br><span class="line">git log --oneline</span><br><span class="line"></span><br><span class="line">2.切换到现在要写的分支</span><br><span class="line">git checkout feature1</span><br><span class="line"></span><br><span class="line">3.合并到当前分支</span><br><span class="line">git cherry-pick f</span><br><span class="line">//git cherry-pick命令的参数，不一定是提交的哈希值，分支名也是可以的，表示转移该分支的最新提交。</span><br><span class="line"></span><br><span class="line">4.如果合并时候冲突了，Cherry pick 会停下来，让用户决定如何继续操作。</span><br><span class="line">1）--continue</span><br><span class="line">用户解决代码冲突后，第一步将修改的文件重新加入暂存区（git add .），第二步使用下面的命令，让 Cherry pick 过程继续执行</span><br><span class="line">git cherry-pick --continue</span><br><span class="line"></span><br><span class="line">2）--abort</span><br><span class="line">发生代码冲突后，放弃合并，回到操作前的样子</span><br><span class="line">git cherry-pick --abort</span><br><span class="line"></span><br><span class="line">3）--quit</span><br><span class="line">发生代码冲突后，退出 Cherry pick，但是不回到操作前的样子。</span><br></pre></td></tr></table></figure>
+
+<p>更多：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35432904/article/details/107232691">https://blog.csdn.net/qq_35432904/article/details/107232691</a></p>
+<p>实操步骤：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、git log --oneline 查看要cherry-pick过来的commit id</span><br><span class="line">2、git cherry-pick commit id</span><br><span class="line">3、有冲突，解决冲突</span><br><span class="line">4、解决完，git cherry-pick --continue</span><br></pre></td></tr></table></figure>
+
+<h3 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/183131156">https://zhuanlan.zhihu.com/p/183131156</a></p>
+<h3 id="回退到某次提交"><a href="#回退到某次提交" class="headerlink" title="回退到某次提交"></a>回退到某次提交</h3><p>git reset –hard commit id</p>
 
       
     </div>
@@ -464,7 +474,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-11 14:12:39" itemprop="dateModified" datetime="2022-04-11T14:12:39+08:00">2022-04-11</time>
+                <time title="Modified: 2022-08-25 22:16:06" itemprop="dateModified" datetime="2022-08-25T22:16:06+08:00">2022-08-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -520,6 +530,9 @@
 <p>关于mysql重启之后就没了<br>在 /etc/profile 中增加：<br>sudo ./support-files/mysql.server start<br>也不行。</p>
 <p>发现brew没了，不知道为什么。<br>重开一下终端就好了。</p>
 <p>目前是：<br>/etc/profile 中加了个开启mysql的语句<br>.zshrc中没有加 source /etc/profile的语句。<br>重启之后，mysql就不行啦，source /etc/profile 一下得了</p>
+<h3 id="mac剪贴板历史"><a href="#mac剪贴板历史" class="headerlink" title="mac剪贴板历史"></a>mac剪贴板历史</h3><p>参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/05d7bd51a4bf">https://www.jianshu.com/p/05d7bd51a4bf</a></p>
+<p>clipy软件：官网地址：<a target="_blank" rel="noopener" href="https://clipy-app.com/">https://clipy-app.com/</a></p>
+<p>使用快捷键shift+command+v即可调用剪切板</p>
 
       
     </div>
