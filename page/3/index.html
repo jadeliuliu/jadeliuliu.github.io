@@ -183,6 +183,261 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/09/myblog/spring/spring-aop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/09/myblog/spring/spring-aop/" class="post-title-link" itemprop="url">spring aop总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-09 11:56:23" itemprop="dateCreated datePublished" datetime="2022-04-09T11:56:23+08:00">2022-04-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-31 21:49:35" itemprop="dateModified" datetime="2022-05-31T21:49:35+08:00">2022-05-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>工作中遇到个aop的问题，jdk代理换cglib代理还不过来，以及jdk代理存在的一个问题。总结并实战一下。</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h4 id="aop相关术语"><a href="#aop相关术语" class="headerlink" title="aop相关术语"></a>aop相关术语</h4><ul>
+<li>Target：代理的目标对象</li>
+<li>Proxy：代理对象</li>
+<li>Joinpoint：连接点，指那些被拦截到的点。在Spring中，这些点指方法，因为Spring只支持方法类型的连接点（可以被增强的方法）</li>
+<li>Pointcut：切入点是指我们要对哪些Joinpoint进行拦截的定义</li>
+<li>Advice：（通知/增强）是指拦截到Joinpoint之后要做的事情就是通知</li>
+<li>Aspect：切面是切入点和通知（增强）的结合</li>
+<li>Weaving：织入实质把将切点和增强结合的过程是织入过程，Spring是动态代理织入，AspectJ是采用编译期织入和类装载期织入</li>
+</ul>
+<p>*连接点是可以被增强的方法，切点是实际上被增强过的方法，连接点范围更大</p>
+<h4 id="aop开发过程"><a href="#aop开发过程" class="headerlink" title="aop开发过程"></a>aop开发过程</h4><ol>
+<li><p>编写核心业务代码（Target的目标方法-切点）</p>
+</li>
+<li><p>编写切面类，切面类中有通知（增强功能方法）</p>
+</li>
+<li><p>在配置文件/注解当中，配置织入关系，即将那些通知与哪些连接点进行结合</p>
+</li>
+</ol>
+<p>AOP技术实现的内容：<br>Spring框架会监控切入点方法的执行–通过配置文件决定哪些方法是切点；一旦监控到切入点方法被运行，即使用代理机制，动态创建目标对象（切点）的代理对象。然后根据配置文件配置的增强类型（通知），在代理对象（切点）对应的位置，将通知对应的功能织入，完成完整的代码逻辑运行。<br>配置文件-执行切点方法-监控到并动态创建代理对象，调用代理对象同名方法-内部调用目标方法，进行增强方法的介入。</p>
+<p>AOP底层使用哪种代理方式：<br>Spring会根据目标类是否实现了接口来决定采用哪种动态代理。</p>
+<h3 id="实践-配置文件"><a href="#实践-配置文件" class="headerlink" title="实践-配置文件"></a>实践-配置文件</h3><p>新建个spring项目</p>
+<ol>
+<li><p>导入相关依赖：spring-context、spring-core、spring-beans，还有切面的包 Aspectjweaver</p>
+</li>
+<li><p>新建service接口，新建实现类Impl</p>
+</li>
+<li><p>新建切面类，定义切面方法</p>
+</li>
+<li><p>编写配置文件</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 开启注解扫描  --&gt;</span><br><span class="line">&lt;context:component-scan base-package=&quot;com.aop.demo&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;aop:config proxy-target-class=&quot;false&quot;&gt;</span><br><span class="line">    &lt;aop:pointcut id=&quot;userServiceImplPointcut&quot; expression=&quot;execution(* com.aop.demo.UserServiceImpl.addUser(..))&quot; /&gt;</span><br><span class="line">    &lt;aop:aspect id=&quot;aopClass&quot; ref=&quot;aopMethods&quot;&gt;</span><br><span class="line">        &lt;aop:before method=&quot;before&quot; pointcut-ref=&quot;userServiceImplPointcut&quot; /&gt;</span><br><span class="line">        &lt;aop:after method=&quot;after&quot; pointcut-ref=&quot;userServiceImplPointcut&quot; /&gt;</span><br><span class="line">    &lt;/aop:aspect&gt;</span><br><span class="line">&lt;/aop:config&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>测试方法<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class AopTest &#123;</span><br><span class="line">    @Test</span><br><span class="line">    public void testUserServiceAop()&#123;</span><br><span class="line">        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;spring-aop.xml&quot;);</span><br><span class="line">        // proxy-target-class=&quot;false&quot; 时，使用jdk代理</span><br><span class="line">        // 强制转换必须用父类接口来定义</span><br><span class="line">        UserService userService = (UserService)context.getBean(&quot;userServiceImpl&quot;);</span><br><span class="line">        userService.addUser();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>⚠️ proxy-target-class=”false” 或默认表示使用jdk代理，获取对象需要用父类接口，用实现类会报<code>java.lang.ClassCastException: com.sun.proxy.$Proxy* cannot be cast to***</code> 的错误。</p>
+<p>⚠️ proxy-target-class=”true”时，使用cglib代理，使用父类接口也可以，使用实现类定义对象也可以。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//UserService userService = (UserService)context.getBean(&quot;userServiceImpl&quot;);</span><br><span class="line">UserServiceImpl userService = (UserServiceImpl)context.getBean(&quot;userServiceImpl&quot;);</span><br><span class="line">userService.addUser();</span><br></pre></td></tr></table></figure>
+
+<p>⚠️ 另外，还有个现象是在jdk代理时存在的bug：<br>原本的： <code>UserService userService = (UserService)context.getBean(&quot;userServiceImpl&quot;);</code> 可以获得bean，没问题。<br>但是： <code>UserService userService = (UserService)context.getBean(UserServiceImpl.class);</code>  通过类的全路径获得bean就会出现<code>No qualifying bean of type</code> 的问题。<br>总结：jdk代理方式不用实现类，所以也不会用实现类的bean，即使配了实现类的bean，也不行。</p>
+<p>原因：spring aop默认是使用jdk动态代理的，也就是我通过getBean(ServiceImpl.class)，表达出的意思是希望程序通过jdk动态代理给我一个ServiceImpl类。而jdk的动态代理是基于接口实现的，因为它本身要继承一个Proxy类，而java是单继承（接口可以多继承），所以它通过实现接口进行代理。它通过实现我们给它的接口和继承Proxy类实现jdk动态代理。而我们给它的是一个ServiceImpl类，这个时候jdk动态代理就没有办法了。<br>jdk动态代理产生的对象属于Proxy类型，属于给定的接口（Service）类型，但不属于我们要代理的那个对象的类型，也就是本代码中ServiceImpl类型<br>因此，使用接口的类路径：<code>UserService userService = (UserService)context.getBean(UserService.class);</code> 也是可以的。这也解释了工作中遇到的问题。<br>但是，换成cglib，实现类/父类接口，获取bean的方式：id/类路径，都可以，没解释工作中为什么不能直接换成cglib的问题。</p>
+<p>总结：<br>jdk代理：必须父类接口获得bean，括号内可以是实现类的bean id，也可以是父类接口的全路径。<br>cglib代理：怎么都行。</p>
+<h3 id="实践-注解"><a href="#实践-注解" class="headerlink" title="实践-注解"></a>实践-注解</h3><ol>
+<li><p>使用@Aspect注解，出了aspectweaver包之外，还需要aspectjrt包</p>
+</li>
+<li><p>新建service接口，新建实现类Impl</p>
+</li>
+<li><p>新建切面类，定义切面方法</p>
+</li>
+<li><p>编写配置类</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@ComponentScan(basePackages = &#123;&quot;com.aop.demo.zhujie&quot;&#125;)</span><br><span class="line">@EnableAspectJAutoProxy(proxyTargetClass = false)</span><br><span class="line">public class SpringCfg &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>测试</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext context = new AnnotationConfigApplicationContext(SpringCfg.class);  //加载配置类</span><br></pre></td></tr></table></figure>
+
+<p>效果和配置文件一样。</p>
+<h3 id="github地址"><a href="#github地址" class="headerlink" title="github地址"></a>github地址</h3><p><a target="_blank" rel="noopener" href="https://github.com/jadeliuliu/aop-demo">https://github.com/jadeliuliu/aop-demo</a></p>
+<p>参考：<br>知识点：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Zhang-DevelopingPlatform/p/14723490.html">https://www.cnblogs.com/Zhang-DevelopingPlatform/p/14723490.html</a></p>
+<p>jdk代理找不到bean：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32080243/article/details/90261768">https://blog.csdn.net/qq_32080243/article/details/90261768</a></p>
+<p>cglib实现：<a target="_blank" rel="noopener" href="https://blog.csdn.net/shaoweijava/article/details/76474652">https://blog.csdn.net/shaoweijava/article/details/76474652</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/05/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%BC%A0%E5%88%B0github/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/05/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%BC%A0%E5%88%B0github/" class="post-title-link" itemprop="url">demo上传到github</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-05 13:34:09" itemprop="dateCreated datePublished" datetime="2022-04-05T13:34:09+08:00">2022-04-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-09 18:12:54" itemprop="dateModified" datetime="2022-04-09T18:12:54+08:00">2022-04-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="1-看一下与github的连接"><a href="#1-看一下与github的连接" class="headerlink" title="1.看一下与github的连接"></a>1.看一下与github的连接</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">没安装git的话，brew install git 安装一下</span><br><span class="line"></span><br><span class="line">设置ssh：</span><br><span class="line">ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot;</span><br><span class="line">~/下生成.ssh文件夹，进去，打开id_rsa.pub，复制里面的key，添加到github</span><br><span class="line"></span><br><span class="line">验证连接：ssh -T git@github.com</span><br><span class="line"></span><br><span class="line">设置用户名和邮箱：</span><br><span class="line">git config --global user.name &quot;jadeliuliu&quot;</span><br><span class="line">git config --global user.email &quot;xxxxx@163.com&quot;</span><br><span class="line">git config --list</span><br><span class="line"></span><br><span class="line">You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-代码push到github"><a href="#2-代码push到github" class="headerlink" title="2.代码push到github"></a>2.代码push到github</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git init  初始化该文件夹</span><br><span class="line">git add</span><br><span class="line">git commit 这样已经将要更改的文件提交到版本库中，但是呢还没有真正提交到网站上去</span><br><span class="line">github新建仓库</span><br><span class="line">关联github仓库：</span><br><span class="line">git remote add origin git@github.com:用户名/仓库名.git</span><br><span class="line">git remote add origin https://github.com/用户名/仓库名.git</span><br><span class="line">上面的两个命令结果一样，只是协议不一样，第一个速度会比较快。只是第一次提交项目时需要</span><br><span class="line">git push -u origin master 提交到github</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-git中使用ssh和http协议的区别"><a href="#3-git中使用ssh和http协议的区别" class="headerlink" title="3.git中使用ssh和http协议的区别"></a>3.git中使用ssh和http协议的区别</h4><p>git可以使用四种主要的协议来传输资料: 本地协议（Local），HTTP 协议，SSH（Secure Shell）协议及 git 协议。其中，本地协议由于目前大都是进行远程开发和共享代码所以一般不常用，而git协议由于缺乏授权机制且较难架设所以也不常用。</p>
+<p>最常用的便是SSH和HTTP(S)协议。git关联远程仓库可以使用http协议或者ssh协议。</p>
+<p><strong>【优缺点】</strong></p>
+<p><strong>ssh：</strong></p>
+<ul>
+<li>一般使用22端口；</li>
+<li>通过先在本地生成SSH密钥对再把公钥上传到服务器；</li>
+<li>速度相较慢点</li>
+</ul>
+<p><strong>https：</strong></p>
+<ul>
+<li>一般使用443端口；</li>
+<li>通过用户名/密码授权，可用性比较高；</li>
+<li>速度相较快点</li>
+</ul>
+<p>一般企业防火墙会打开80和443这两个http/https协议的端口，因此在架设了企业防火墙的时候使用http就可以很好的绕开安全限制使用git了，很方便；而对于ssh来说，企业防火墙很可能没打开22端口。</p>
+<p><strong>【使用区别】</strong></p>
+<p><strong>clone项目：</strong></p>
+<p>　　**使用ssh方式时，需要配置ssh key，即要将生成的SSH密钥对的公钥上传至服务器；<br>**</p>
+<p>　　<strong>使用http方式时，没有要求，可以直接克隆下来。</strong></p>
+<p><strong>push项目：</strong></p>
+<p>　　<strong>使用ssh方式时，不需要验证用户名和密码，*<em>**之前配置过ssh key，(如果你没设置密码)**</em>*直接push即可；</strong></p>
+<p>　　<strong>使用http方式时，需要验证用户名和密码。</strong></p>
+<p> <strong>总结：</strong></p>
+<p>HTTPS利于匿名访问，适合开源项目，可以方便被别人克隆和读取(但没有push权限)；</p>
+<p>SSH不利于匿名访问，比较适合内部项目，只要配置了SSH公钥极可自由实现clone和push操作。</p>
+<h4 id="4-github中的repository和project"><a href="#4-github中的repository和project" class="headerlink" title="4.github中的repository和project"></a>4.github中的repository和project</h4><pre><code>Github上边的repositories翻译为代码仓库，可以保存多个代码工程和项目的代码，资源，文本、图片......等;
+
+而projects可以翻译为项目板，是project-boards的简写。简单说，可以理解为工作计划表之类的书签，制定一下工作计划，Bug，流程什么的。
+</code></pre>
+<h4 id="5-git-add-之后取消加入"><a href="#5-git-add-之后取消加入" class="headerlink" title="5.git add 之后取消加入"></a>5.git add 之后取消加入</h4><p>如果已经执行了git add dir_name</p>
+<p>此时需要撤销 add操作，则需执行如下命令</p>
+<p>git rm -r dir_name –cached</p>
+<p>由于目录已经添加到git 暂存（stage）中了，所以需要加–cached参数</p>
+<p>git reset .   撤销全部git add</p>
+<p>git rm 与 git reset的区别<br>git rm：用于从工作区和索引中删除文件<br>git reset：用于将当前HEAD复位到指定状态。一般用于撤消之前的一些操作(如：git add,git commit等)。</p>
+<p><em>git reset HEAD 如果后面什么都不跟的话 就是上一次add 里面的全部撤销了<br>git reset HEAD XXX/XXX/XXX.java 就是对某个文件进行撤销了</em></p>
+<h4 id="6-main和master？"><a href="#6-main和master？" class="headerlink" title="6.main和master？"></a>6.main和master？</h4><p>在2020年10月1日，你创建的任何新仓库都将使用main作为默认分支，而不是master。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wannananana/p/12059806.html">https://www.cnblogs.com/wannananana/p/12059806.html</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/03/myblog/JAVA/log%E6%97%A5%E5%BF%97%E4%B8%8Emaven%E6%89%93%E5%8C%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2102,179 +2357,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/14/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2022.2.14.%E9%94%AE%E7%9B%98%E8%A1%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/14/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2022.2.14.%E9%94%AE%E7%9B%98%E8%A1%8C/" class="post-title-link" itemprop="url">javaのleecode 500.键盘行</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-02-14 16:03:34 / Modified: 19:04:31" itemprop="dateCreated datePublished" datetime="2022-02-14T16:03:34+08:00">2022-02-14</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>一道关于哈希表的题目，温习一下哈希表的java操作。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">给你一个字符串数组 words ，只返回可以使用在 美式键盘 同一行的字母打印出来的单词。键盘如下图所示。</span><br><span class="line"></span><br><span class="line">美式键盘 中：</span><br><span class="line"></span><br><span class="line">第一行由字符 &quot;qwertyuiop&quot; 组成。</span><br><span class="line">第二行由字符 &quot;asdfghjkl&quot; 组成。</span><br><span class="line">第三行由字符 &quot;zxcvbnm&quot; 组成。</span><br><span class="line"></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">链接：https://leetcode-cn.com/problems/keyboard-row</span><br><span class="line">著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</span><br><span class="line"></span><br><span class="line">输入：words = [&quot;Hello&quot;,&quot;Alaska&quot;,&quot;Dad&quot;,&quot;Peace&quot;]</span><br><span class="line">输出：[&quot;Alaska&quot;,&quot;Dad&quot;]</span><br></pre></td></tr></table></figure>
-
-<p>温习：关于hashmap、hashset原理及使用。</p>
-<p>思路一：知道各个字母键盘上的位置，编写一串26个字母的字符串，进行比较判别。当然，首先应该设置一个<code>ArrayList&lt;String&gt;()</code>，用来存放结果。</p>
-<p>我们为每一个英文字母标记其对应键盘上的行号，然后检测字符串中所有字符对应的行号是否相同。</p>
-<p>我们可以预处理计算出每个字符对应的行号。<br>遍历字符串时，统一将大写字母转化为小写字母方便计算。</p>
-<blockquote>
-<p>疑问：<code>ArrayList&lt;String&gt; list = new ArrayList&lt;String&gt;();</code>和<code>List&lt;String&gt; list = new ArrayList&lt;String&gt;();</code>的区别？</p>
-<p>第一种形式用当前类作为引用类型，那么可以访问到ArrayList这个类中的所有公用方法。</p>
-<p>第二种形式，用ArrayList实现的接口List作为引用类型，那么通过list引用可以访问到接口中定义的方法。</p>
-<p>也就是说ArrayList这个类实现了List接口，除了要必须实现接口List中声明的方法外，还可以实现额外的一些方法。</p>
-<p>但是，第二种形式就无法调用的List接口以外的方法。</p>
-<p>使用上，设计模式中有：“代码尽量依赖于抽象，不依赖于具体”。第一种形式就是依赖具体，第二种形式就是依赖于抽象。因为List是接口。代码依赖于抽象的好处是，代码可以方便替换。<br>————————————————<br>例如:代码List list = new ArrayList();下面通过list来操作集合。代码编写后发现集合使用的不准确，应该使用LinkedList，那么只要修改一行代码List list = new LinkedList();就可以，这行以后的代码不需要修改，因为List接口保证了调用的都是接口中的方法，而ArrayList与LinkedList都实现了List接口。而如果当时用ArrayList list = new ArrayList()这种形式的话，那么list访问到的就可能是ArrayList里独有的方法而非List接口中的方法。这样替换成LinkedList的时候就有可能需要修改很多的代码。<br>————————————————<br>前一个可以使用ArrayList独有的方法。后面的只能调用List接口声明的方法<br>List是一个接口，而ListArray是一个类。<br>ListArray继承并实现了List。<br>所以List不能被构造，但可以向上面那样为List创建一个引用，而ListArray就可以被构造。<br>List list; //正确 list=null;<br>List list=new List(); // 是错误的用法<br>List list = new ArrayList();这句创建了一个ArrayList的对象后把上溯到了List。此时它是一个List对象了，有些ArrayList有但是List没有的属性和方法，它就不能再用了。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> leecode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@program</span>: leeco</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: liuxuan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2022-02-14 17:47</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JianPanHang500</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//输入字符串数组</span></span><br><span class="line">        System.out.print(<span class="string">&quot;请输入：&quot;</span>);</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str = sc.nextLine();</span><br><span class="line">        String[] arr = str.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        JianPanHang500Solution s = <span class="keyword">new</span> JianPanHang500Solution();</span><br><span class="line">        <span class="comment">//数组直接返回是地址，必须要用Arrays.toString</span></span><br><span class="line">        System.out.println(Arrays.toString(s.findWords(arr)));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JianPanHang500Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String[] findWords(String[] words) &#123;</span><br><span class="line">        List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        String rowIdx = <span class="string">&quot;12210111011122000010020202&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (String word : words) &#123;</span><br><span class="line">            <span class="keyword">boolean</span> isValid = <span class="keyword">true</span>;</span><br><span class="line">            <span class="comment">//首先看第一个字母是第几行的</span></span><br><span class="line">            <span class="keyword">char</span> idx = rowIdx.charAt(Character.toLowerCase(word.charAt(<span class="number">0</span>)) - <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; word.length(); ++i) &#123;</span><br><span class="line">                <span class="comment">//遍历字符串中的字符，注意需要变小写，遇到不是同一行的就break，同时需要标志位</span></span><br><span class="line">                <span class="keyword">if</span> (rowIdx.charAt(Character.toLowerCase(word.charAt(i)) - <span class="string">&#x27;a&#x27;</span>) != idx) &#123;</span><br><span class="line">                    isValid = <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (isValid) &#123;</span><br><span class="line">                list.add(word);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//list类型的字符串数组变为字符串数组，有简单方法：return ans.toArray(new String[ans.size()]);</span></span><br><span class="line">        String[] ans = <span class="keyword">new</span> String[list.size()];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); ++i) &#123;</span><br><span class="line">            ans[i] = list.get(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这个方法本质上并没有用到哈希表，用到了集合ArrayList，为什么不直接用String[]呢，因为数组长度不可变，得用容器。</p>
-<hr>
-<p>思路二：其实一样，思路一那个字符串被当作是哈希表里，它是直接就创建了。下面可以自定义函数创建，创建的是数组，因为字母个数有限，所以不论是字符串还是数组，都是下标对应哪个字母，值对应值，也算是key（字母）–  value（哪一行）。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] chars = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</span><br><span class="line"><span class="keyword">static</span> &#123;   <span class="comment">//静态代码块</span></span><br><span class="line">    <span class="comment">// 整理26个字母分别每一行对应1、2、3</span></span><br><span class="line">    set(<span class="string">&quot;qwertyuiop&quot;</span>, <span class="number">1</span>);</span><br><span class="line">    set(<span class="string">&quot;asdfghjkl&quot;</span>, <span class="number">2</span>);</span><br><span class="line">    set(<span class="string">&quot;zxcvbnm&quot;</span>, <span class="number">3</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(String s, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++) &#123;</span><br><span class="line">        chars[index(s.charAt(i))] = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>static{}(静态代码块)与{}(非静态代码块)的异同点?</p>
-<p>相同点：都是在JVM加载类时且在构造方法执行之前执行，在类中都可以定义多个。　一般在代码块中对一些static变量进行赋值。</p>
-<p>不同点：静态代码块在非静态代码块之前执行(静态代码块—&gt;非静态代码块—&gt;构造方法)。静态代码块只在第一次new执行一次，之后不再执行，而非静态代码块在每new一次就执行一次。非静态代码块可在普通方法中定义(不过作用不大)；而静态代码块不行。</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/06/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2022.2.6.%E6%A3%80%E6%B5%8B%E5%A4%A7%E5%86%99%E5%AD%97%E6%AF%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/06/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2022.2.6.%E6%A3%80%E6%B5%8B%E5%A4%A7%E5%86%99%E5%AD%97%E6%AF%8D/" class="post-title-link" itemprop="url">javaのleecode 检测大写字母</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-02-06 10:33:36 / Modified: 11:29:41" itemprop="dateCreated datePublished" datetime="2022-02-06T10:33:36+08:00">2022-02-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">520.给你一个字符串 word 。</span><br><span class="line">我们定义，在以下情况时，单词的大写用法是正确的：</span><br><span class="line">全部字母都是大写，比如 &quot;USA&quot; 。</span><br><span class="line">单词中所有字母都不是大写，比如 &quot;leetcode&quot; 。</span><br><span class="line">如果单词不只含有一个字母，只有首字母大写， 比如 &quot;Google&quot; 。</span><br><span class="line"></span><br><span class="line">如果大写用法正确，返回 true ；否则，返回 false 。</span><br><span class="line">输入：word = &quot;Usa&quot;</span><br><span class="line">输出：true</span><br></pre></td></tr></table></figure>
-
-<p>关于字符串，遍历字符串使用<code>charAt</code>，以及判断字母是大写还是小写。ASC码中，A是65，a是97。大写小写相差32，而不是26.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> leecode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@program</span>: leeco</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 检测是否全大写520</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: liuxuan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2022-02-06 10:50</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JianceDaxie</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;输入字符串：&quot;</span>);</span><br><span class="line">        Scanner sin=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String ss = sin.next();</span><br><span class="line"><span class="comment">//        StringBuilder s = new StringBuilder(ss);  //String变StringBuilder</span></span><br><span class="line"><span class="comment">//        System.out.println(s);</span></span><br><span class="line">        JianceDaxieSolution s = <span class="keyword">new</span> JianceDaxieSolution();</span><br><span class="line">        System.out.println(<span class="string">&quot;结果：&quot;</span>+s.detectCapitalUse(ss));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JianceDaxieSolution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">detectCapitalUse_1</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//字符串遍历</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;word.length(); i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> num = word.charAt(i);  <span class="comment">//直接变acs码？？</span></span><br><span class="line">            <span class="keyword">if</span>(num &gt;=<span class="number">97</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">detectCapitalUse</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> allUpperCase = <span class="keyword">true</span>;  <span class="comment">//是否全部大写</span></span><br><span class="line">        <span class="keyword">boolean</span> allLowerCaseFromSecond = <span class="keyword">true</span>;  <span class="comment">//是否从第二个开始全部小写</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; word.length(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (word.charAt(i) &lt; <span class="string">&#x27;A&#x27;</span> || word.charAt(i) &gt; <span class="string">&#x27;Z&#x27;</span>) &#123; <span class="comment">//可以直接判断的</span></span><br><span class="line">                allUpperCase = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; (word.charAt(i) &lt; <span class="string">&#x27;a&#x27;</span> || word.charAt(i) &gt; <span class="string">&#x27;z&#x27;</span>)) &#123;</span><br><span class="line">                allLowerCaseFromSecond = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> allUpperCase || allLowerCaseFromSecond;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其他解法：</p>
-<p><code>Character.isLowerCase(word.charAt(0))</code>判断字符是大写还是小写</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">detectCapitalUse</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 若第 1 个字母为小写，并且第二个字母是大写，则肯定false</span></span><br><span class="line">        <span class="keyword">if</span> (word.length() &gt;= <span class="number">2</span> &amp;&amp; Character.isLowerCase(word.charAt(<span class="number">0</span>)) &amp;&amp; Character.isUpperCase(word.charAt(<span class="number">1</span>))) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 无论第 1 个字母是否大写，其他字母必须与第 2 个字母的大小写相同，比较绕了属于是</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; word.length(); ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Character.isLowerCase(word.charAt(i)) ^ Character.isLowerCase(word.charAt(<span class="number">1</span>))) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">作者：LeetCode-Solution</span><br><span class="line">链接：https:<span class="comment">//leetcode-cn.com/problems/detect-capital/solution/jian-ce-da-xie-zi-mu-by-leetcode-solutio-449z/</span></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
-
-<p><code>word.toUpperCase()</code>字符串内所有字符大小写转换</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">detectCapitalUse</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (word.toUpperCase().equals(word)) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (word.toLowerCase().equals(word)) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">int</span> n = word.length(), idx = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (Character.isUpperCase(word.charAt(<span class="number">0</span>))) &#123;</span><br><span class="line">            <span class="keyword">while</span> (idx &lt; n &amp;&amp; Character.isLowerCase(word.charAt(idx))) idx++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> idx == n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">作者：AC_OIer</span><br><span class="line">链接：https:<span class="comment">//leetcode-cn.com/problems/detect-capital/solution/gong-shui-san-xie-jian-dan-zi-fu-chuan-m-rpor/</span></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2345,20 +2427,20 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">85</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

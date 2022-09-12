@@ -28,7 +28,7 @@
 <meta property="og:description" content="case1、注意直接from a and b 是相当于inner join，没有的不显示。 2、原来inset error的话，自增减也会消耗掉1个，update不会消耗，但是inset duplicate会消耗。 3、项目代码里，sql置select出一条，也就是只用一个对象接收时，必须得加limit 1，不然select出多条就会报错。 4、mybatis &lt;if&gt; 标签不是必须在">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-09-02T11:15:02.000Z">
-<meta property="article:modified_time" content="2022-08-25T14:06:32.346Z">
+<meta property="article:modified_time" content="2022-09-11T07:52:14.992Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="Mysql">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-25 22:06:32" itemprop="dateModified" datetime="2022-08-25T22:06:32+08:00">2022-08-25</time>
+                <time title="Modified: 2022-09-11 15:52:14" itemprop="dateModified" datetime="2022-09-11T15:52:14+08:00">2022-09-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -280,8 +280,9 @@
 
 <h3 id="e-删除"><a href="#e-删除" class="headerlink" title="e.删除"></a>e.删除</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">删库：drop database name;</span><br><span class="line">删表：drop table name；</span><br><span class="line"></span><br><span class="line">mysql删除一行：</span><br><span class="line">delete from 表 where 条件；</span><br><span class="line"></span><br><span class="line">delete from tableName [where ..] [order by ..] [limit ..]</span><br></pre></td></tr></table></figure>
 
-<h3 id="f-添加一行"><a href="#f-添加一行" class="headerlink" title="f.添加一行"></a>f.添加一行</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//个别字段</span><br><span class="line">insert into tablename (app_id,machine_id,machine_ip,ctime,use_perc) values(?,?,?,?,?);   //对应字段加</span><br><span class="line"></span><br><span class="line">//全部字段（主键也得有，不知道该是啥，就输入0，自己来自增）</span><br><span class="line">insert into student values(0, &quot;li&quot;, 23);</span><br><span class="line"></span><br><span class="line">insert into 表名 values(...)(..);  //可一次性加多行，一行全部数都有</span><br><span class="line"></span><br><span class="line">insert into 表名 set 列名=&#x27;&#x27;, ...;</span><br><span class="line">insert into user_info set user_id=123,user_name=“你好”,status=1,years=15；</span><br></pre></td></tr></table></figure>
+<h3 id="f-添加一行"><a href="#f-添加一行" class="headerlink" title="f.添加一行"></a>f.添加一行</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//个别字段</span><br><span class="line">insert into tablename (app_id,machine_id,machine_ip,ctime,use_perc) values(?,?,?,?,?),(...);   //对应字段加，可一次性加多行</span><br><span class="line"></span><br><span class="line">//全部字段（主键也得有，不知道该是啥，就输入0，自己来自增）</span><br><span class="line">insert into student values(0, &quot;li&quot;, 23);</span><br><span class="line"></span><br><span class="line">insert into 表名 values(...),(..);  //可一次性加多行，一行全部数都有</span><br><span class="line"></span><br><span class="line">insert into 表名 set 列名=&#x27;&#x27;, ...;</span><br><span class="line">insert into user_info set user_id=123,user_name=“你好”,status=1,years=15；</span><br></pre></td></tr></table></figure>
 
+<p><strong>⚠️insert时，表名后面的()里的列名，不能用双引号阔起来，可以用``</strong></p>
 <h2 id="2-渤海"><a href="#2-渤海" class="headerlink" title="2.渤海"></a>2.渤海</h2><p>两张表，一张Customer，有ID、NAME、CITY（用户城市）。一张Card，有ID、CID（卡编号）、BAL（卡内余额）。</p>
 <p>同一个用户可能有多张卡片，现在需要连接两张表，查找并打印出北京地区个人持有账户总额最高的客户，若存在多个，则按照用户姓名的字母顺序进行排序。</p>
 <p>顺序：select from where group by having order by</p>
@@ -688,20 +689,20 @@ select course, max(grade) from grade group by course;  正确
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">85</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/2019101117003396.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5MjI5NTY3,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2022-04-29T14:56:27.797Z">
-<meta property="article:modified_time" content="2022-08-23T15:03:39.607Z">
+<meta property="article:modified_time" content="2022-09-11T08:08:37.159Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -221,7 +221,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-23 23:03:39" itemprop="dateModified" datetime="2022-08-23T23:03:39+08:00">2022-08-23</time>
+                <time title="Modified: 2022-09-11 16:08:37" itemprop="dateModified" datetime="2022-09-11T16:08:37+08:00">2022-09-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -310,6 +310,9 @@
 <p>✅MediaType<br>consumes参数中可以用的。</p>
 <p>MediaType媒体类型：决定浏览器将以什么形式、什么编码对资源进行解析Content-Type：也属于MediaType媒体类型，主要用于在请求头中指定资源的MediaType</p>
 <p><a target="_blank" rel="noopener" href="https://javajgs.com/archives/75280">https://javajgs.com/archives/75280</a></p>
+<p>✅RequestMapping、GetMapping、PostMapping的区别</p>
+<p>@RequestMapping是一个无方法的注解。@GetMapping和@PostMapping是组合注解，分别是@RequestMapping(method = RequestMethod.GET)和@RequestMapping(method = RequestMethod.POST)的缩写。<br>GET、POST是方法的映射，表示为<br>@RequestMapping(method = RequestMethod.${方法})</p>
+<p>在一开始的映射是使用@RequestMapping(method = RequestMethod.${方法})来表示。后来Spring4.3中引进了@GetMapping、@PostMapping、@PutMapping、@DeleteMapping、@PatchMapping注解来帮助简化常用的HTTP方法的映射。</p>
 <h3 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h3><p>@RequestParam：将请求参数绑定到你控制器的方法参数上（是springmvc中接收普通参数的注解）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">语法：f(@RequestParam(value=”参数名”,required=”true/false”,defaultValue=””) String s</span><br><span class="line">       , 其他入参）</span><br><span class="line"> </span><br><span class="line">value：参数名</span><br><span class="line"> </span><br><span class="line">required：是否包含该参数，默认为true，表示该请求路径中必须包含该参数，如果不包含就报错。</span><br><span class="line"> </span><br><span class="line">defaultValue：默认参数值，如果设置了该值，required=true将失效，自动为false,如果没有传该参数，就使用默认值</span><br></pre></td></tr></table></figure>
 
@@ -502,20 +505,20 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">85</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
