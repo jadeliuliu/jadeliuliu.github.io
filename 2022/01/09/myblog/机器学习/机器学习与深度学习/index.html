@@ -20,17 +20,17 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="机器学习—拥有找一个函数的能力，根据输出的不同，分为regression回归、分类classification，以及很少提及的结构化学习structured learning（输出图像，文本）。 1.找一个带有未知参数的函数：y&#x3D;b+wx，b偏置，w权重，机器学习中，未知的参数是通过数据来学习的。带有未知参数的函数称为model模型。 2.从训练数据中定义Loss（损失），Loss是关于参数b、w">
+  <meta name="description" content="机器学习与深度学习的区别机器学习—拥有找一个函数的能力，根据输出的不同，分为regression回归、分类classification，以及很少提及的结构化学习structured learning（输出图像，文本）。 1.找一个带有未知参数的函数：y&#x3D;b+wx，b偏置，w权重，机器学习中，未知的参数是通过数据来学习的。带有未知参数的函数称为model模型。 2.从训练数据中定义Loss（损失），">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习与深度学习的区别">
+<meta property="og:title" content="机器学习与深度学习入门">
 <meta property="og:url" content="http://example.com/2022/01/09/myblog/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
-<meta property="og:description" content="机器学习—拥有找一个函数的能力，根据输出的不同，分为regression回归、分类classification，以及很少提及的结构化学习structured learning（输出图像，文本）。 1.找一个带有未知参数的函数：y&#x3D;b+wx，b偏置，w权重，机器学习中，未知的参数是通过数据来学习的。带有未知参数的函数称为model模型。 2.从训练数据中定义Loss（损失），Loss是关于参数b、w">
+<meta property="og:description" content="机器学习与深度学习的区别机器学习—拥有找一个函数的能力，根据输出的不同，分为regression回归、分类classification，以及很少提及的结构化学习structured learning（输出图像，文本）。 1.找一个带有未知参数的函数：y&#x3D;b+wx，b偏置，w权重，机器学习中，未知的参数是通过数据来学习的。带有未知参数的函数称为model模型。 2.从训练数据中定义Loss（损失），">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/db4301aa58234ae881c7774fb1472f4f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_18,color_FFFFFF,t_70,g_se,x_16">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/b57fe006fd424401b0976b630ed3331b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
 <meta property="article:published_time" content="2022-01-09T03:26:33.867Z">
-<meta property="article:modified_time" content="2022-01-09T03:32:57.478Z">
+<meta property="article:modified_time" content="2022-09-19T14:27:02.767Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="MachineLearning">
 <meta name="twitter:card" content="summary">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>机器学习与深度学习的区别 | Jadeliu's blog</title>
+  <title>机器学习与深度学习入门 | Jadeliu's blog</title>
   
 
 
@@ -205,7 +205,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          机器学习与深度学习的区别
+          机器学习与深度学习入门
         </h1>
 
         <div class="post-meta">
@@ -214,10 +214,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-01-09 11:26:33 / Modified: 11:32:57" itemprop="dateCreated datePublished" datetime="2022-01-09T11:26:33+08:00">2022-01-09</time>
+              <time title="Created: 2022-01-09 11:26:33" itemprop="dateCreated datePublished" datetime="2022-01-09T11:26:33+08:00">2022-01-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-09-19 22:27:02" itemprop="dateModified" datetime="2022-09-19T22:27:02+08:00">2022-09-19</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -246,7 +252,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>机器学习—拥有找一个函数的能力，根据输出的不同，分为regression回归、分类classification，以及很少提及的结构化学习structured learning（输出图像，文本）。</p>
+        <h2 id="机器学习与深度学习的区别"><a href="#机器学习与深度学习的区别" class="headerlink" title="机器学习与深度学习的区别"></a>机器学习与深度学习的区别</h2><p>机器学习—拥有找一个函数的能力，根据输出的不同，分为regression回归、分类classification，以及很少提及的结构化学习structured learning（输出图像，文本）。</p>
 <p>1.找一个带有未知参数的函数：y=b+wx，b偏置，w权重，机器学习中，未知的参数是通过数据来学习的。带有未知参数的函数称为model模型。</p>
 <p>2.从训练数据中定义Loss（损失），Loss是关于参数b、w的函数，用来判断一组参数值好还是不好。<br>用训练集计算误差，可以是绝对值误差MAE，也可以是均方误差MSE。<br>如果y值是基于概率分布的，一般采取cross-entropy交叉熵，可以绘制误差等高线图error surface。</p>
 <p>3.优化，找一组最好的参数w，b使得误差最小。<br>Gradient Descent 梯度下降。举例先只有一个参数w，绘制横坐标为w对应的损失函数曲线，初始时取一个点，随机取的，也可以用遗传算法给出一个较优的模型初始参数。选定一个随机初始值，求该点的偏导值，即该点曲线切线的斜率。然后进行移动点，跨度多少取决于斜率大小，斜率越大，跨度越大，此外，还有一个η，称为learning rate 学习率，自己设定，η越大跨度越大，训练越快。机器学习中需要自己设定的值称为超参数hyperparameters。以此类推，求下一个点下下个点。停止的时机：看预设的迭代次数，或者某一组参数计算出的微分值刚好是0，则停止训练，是个局部最优，不保证全部最优解。</p>
@@ -263,6 +269,43 @@
 <p>总结来讲：首先选择模型，线性模型或者复杂逼近曲线，最小化损失函数，用梯度下降法，选择初始值迭代计算进行逼近。</p>
 <p>Sigmold函数和ReLU在机器学习中，称为激活函数。可以将激活函数过程重复几次，来优化模型。激活函数的部分叫做神经元，很多神经元组成神经网络。每一列神经元称为隐藏层，很多层影藏层形成深度学习。</p>
 <p>AlexNet16层。VGG19层。GoogleNet22层。ResidualNet152层。并不是层数越多网络越深预测的效果就更好，会发生过拟合Overfitting。</p>
+<h2 id="机器学习入门"><a href="#机器学习入门" class="headerlink" title="机器学习入门"></a>机器学习入门</h2><h3 id="1、机器学习概述"><a href="#1、机器学习概述" class="headerlink" title="1、机器学习概述"></a>1、机器学习概述</h3><h4 id="1-1-人工智能概述"><a href="#1-1-人工智能概述" class="headerlink" title="1.1.人工智能概述"></a>1.1.人工智能概述</h4><p>1956年达特茅斯会议，人工智能元年。</p>
+<p>人工智能包括机器学习，机器学习包括深度学习。<br>机器学习是人工智能的实现途径（1980s开始）<br>深度学习（人工神经网络）是机器学习的方法（2020开始）</p>
+<h4 id="1-2-人工智能的几个方向："><a href="#1-2-人工智能的几个方向：" class="headerlink" title="1.2.人工智能的几个方向："></a>1.2.人工智能的几个方向：</h4><p>传统预测（量化投资、广告推荐等）<br>图像cv（人脸识别、图像检测）<br>自然语言处理nlp（翻译、智能客服）</p>
+<h4 id="1-3-机器学习概述"><a href="#1-3-机器学习概述" class="headerlink" title="1.3.机器学习概述"></a>1.3.机器学习概述</h4><p>机器学习是从数据中自动分析获得模型，并利用模型对未知数据进行预测。</p>
+<p>机器学习：数据 -（训练）- 模型 - 预测<br>人：经验 - （归纳）- 规律 - 预测</p>
+<h4 id="1-4-数据集构成"><a href="#1-4-数据集构成" class="headerlink" title="1.4.数据集构成"></a>1.4.数据集构成</h4><p>特征值（房子面积、位置、楼层） + 目标值（房价）</p>
+<p>每一行是一个样本。<br>数据集可以没有目标值。</p>
+<h4 id="1-5-机器学习算法分类"><a href="#1-5-机器学习算法分类" class="headerlink" title="1.5.机器学习算法分类"></a>1.5.机器学习算法分类</h4><p>目标值：类别 - 分类问题（人脸识别）<br>目标值：连续型数据 - 回归问题<br>目标值：无 - 无监督学习</p>
+<ul>
+<li>监督学习(supervised learning)（预测）<br>定义：输入数据是由输入特征值和目标值所组成。函数的输出可以是一个连续的值(称为回归），或是输出是有限个离散值（称作分类）。<br>分类： k-近邻算法、贝叶斯分类、决策树与随机森林、逻辑回归、神经网络<br>回归： 线性回归、岭回归</li>
+<li>无监督学习(unsupervised learning)<br>定义：输入数据是由输入特征值所组成。<br>聚类： k-means</li>
+</ul>
+<h4 id="1-6-机器学习开发流程"><a href="#1-6-机器学习开发流程" class="headerlink" title="1.6.机器学习开发流程"></a>1.6.机器学习开发流程</h4><p>获取数据 -&gt; 数据预处理 -&gt; 特征工程 -&gt; 机器学习算法与训练 -&gt; 模型评估 -&gt; 应用</p>
+<p>算法是核心，数据、计算是基础。</p>
+<p>从入门到实际，再到理论。</p>
+<p>库和框架：Scikit-learn、Tensflow（深度学习框架）</p>
+<h3 id="2、特征工程"><a href="#2、特征工程" class="headerlink" title="2、特征工程"></a>2、特征工程</h3><h4 id="2-1-数据集"><a href="#2-1-数据集" class="headerlink" title="2.1.数据集"></a>2.1.数据集</h4><p>✅可用数据集：<br>scikitlearn特点：1、数据量较小  2、方便学习<br>scikit-learn网址：<a target="_blank" rel="noopener" href="http://scikit-learn.org/stable/datasets/index.html#datasets">http://scikit-learn.org/stable/datasets/index.html#datasets</a></p>
+<p>Kaggle特点：1、大数据竞赛平合   2、80万科学家   3、真实数据     4、数据量巨大<br>Kaggle网址：<a target="_blank" rel="noopener" href="https://www.kaggle.com/datasets">https://www.kaggle.com/datasets</a></p>
+<p>Uc特点：1、收录了360个数据集    2、覆盖科学、生活、经济等领域   3、数据量几十万<br>UCI数据集网址： <a target="_blank" rel="noopener" href="http://archive.ics.uci.edu/ml/">http://archive.ics.uci.edu/ml/</a></p>
+<p>✅Scikit-learn：<br>Python语言的机器学习工具<br>Scikit-learn包括许多知名的机器学习算法的实现<br>Scikit-learn文档完善，容易上手，丰富的API</p>
+<p>✅安装：<br><code>pip3 install sklearn</code>  安装<br><code>pip3 list</code>   查看一下<br><code>python3</code>  进入python<br><code>import sklearn</code>  验证一下</p>
+<p>✅获取数据集api：<br>sklearn.datasets 加载获取流行数据集<br>1、datasets.load_*()<br>获取小规模数据集，数据包含在datasets里<br>2、datasets.fetch_*(data_home=None)<br>获取大规模数据集，需要从网络上下载，函数的第一个参数是data_home，表示数据集下载的目录,默认是 ~/scikit_learn_data/<br>datasets.fetch_20newsgroups(data_home=None,subset=‘train’)<br>subset：’train’或者’test’，’all’，可选，选择要加载的数据集。<br>训练集的“训练”，测试集的“测试”，两者的“全部”</p>
+<blockquote>
+<p>load和fetch返回的数据类型datasets.base.Bunch(字典格式)<br>data：特征数据数组，是 [n_samples * n_features] 的二维 numpy.ndarray 数组<br>target：标签数组，是 n_samples 的一维 numpy.ndarray 数组<br>DESCR：数据描述<br>feature_names：特征名,新闻数据，手写数字、回归数据集没有<br>target_names：标签名</p>
+</blockquote>
+<p>✅数据集的划分api：划分为训练数据和测试数据</p>
+<p>训练数据：用于训练，构建模型    70% 80% 75%<br>测试数据：在模型检验时使用，用于评估模型是否有效    30% 20% 30%</p>
+<p>sklearn.model_selection.train_test_split(arrays, *options)</p>
+<blockquote>
+<p>x 数据集的特征值<br>y 数据集的标签值<br>test_size 测试集的大小，一般为float<br>random_state 随机数种子,不同的种子会造成不同的随机采样结果。相同的种子采样结果相同。<br>return 测试集特征训练集特征值值，训练标签，测试标签(默认随机取)</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from sklearn .datasets import load_iris</span><br><span class="line">from sklearn.model_selection import train_test_split</span><br><span class="line"></span><br><span class="line">def datasets_demo():</span><br><span class="line">    # 获取数据集</span><br><span class="line">    iris = load_iris()</span><br><span class="line">    print(&quot;鸢尾花数据集：\n&quot;, iris)</span><br><span class="line">    print(&quot;查看数据集描述：\n&quot;, iris[&quot;DESCR&quot;])</span><br><span class="line">    print(&quot;查看特征值名字：\n&quot;, iris.feature_names)</span><br><span class="line">    print(&quot;查看样本数：\n&quot;, iris.data.shape)</span><br><span class="line"></span><br><span class="line">    # 数据集划分</span><br><span class="line">    # 训练集的特征值x_train 测试集的特征值x_test 训练集的目标值y_train 测试集的目标值y_test</span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=0.2, random_state=22)</span><br><span class="line">    print(&quot;x_train:\n&quot;, x_train.shape)</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    # sklearn数据集使用</span><br><span class="line">    datasets_demo()</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-特征工程"><a href="#2-2-特征工程" class="headerlink" title="2.2.特征工程"></a>2.2.特征工程</h4><p>什么是特征工程：<br>特征工程是使用专业背景知识和技巧处理数据，使得特征能在机器学习算法上发挥更好的作用的过程。<br>意义：会直接影响机器学习的效果</p>
+<p>重要性：<br>数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。</p>
+<p>pandas:一个数据读取非常方便以及基本的处理格式的工具（数据清洗、数据处理）<br>sklearn:对于特征的处理提供了强大的接口（特征抽取、特征预处理、特征降维）</p>
+<p>✅特征提取</p>
 
     </div>
 
@@ -346,6 +389,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">机器学习与深度学习的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8"><span class="nav-number">2.</span> <span class="nav-text">机器学习入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0"><span class="nav-number">2.1.</span> <span class="nav-text">1、机器学习概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%A6%82%E8%BF%B0"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1.人工智能概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%9A%84%E5%87%A0%E4%B8%AA%E6%96%B9%E5%90%91%EF%BC%9A"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.2.人工智能的几个方向：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0"><span class="nav-number">2.1.3.</span> <span class="nav-text">1.3.机器学习概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-%E6%95%B0%E6%8D%AE%E9%9B%86%E6%9E%84%E6%88%90"><span class="nav-number">2.1.4.</span> <span class="nav-text">1.4.数据集构成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E5%88%86%E7%B1%BB"><span class="nav-number">2.1.5.</span> <span class="nav-text">1.5.机器学习算法分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-6-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="nav-number">2.1.6.</span> <span class="nav-text">1.6.机器学习开发流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">2、特征工程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1.数据集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.特征工程</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
