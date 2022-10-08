@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="单元测试(Unit test)：单元测试关注单一的类. 它们存在的目的是检查这个类中的代码是否按照期望正确运行. 集成测试(Integration test)顾名思义, 集成测试是检查开发的模块和其他模块整合时是否正常工作.虽然集成测试的代码影响范围比单元测试要广, 但是集成测试和单元测试一样, 也是针对于开发者而言的. 端到端测试(End-to-End test)端到端测试是将整个系统作为一个整">
+  <meta name="description" content="单元测试(Unit test)：单元测试关注单一的类. 它们存在的目的是检查这个类中的代码是否按照期望正确运行.特征：快速、独立、可重复、自检查（不加main不打日志）核心价值：缩短反馈周期，降低缺陷修复成本，理解代码意图 集成测试(Integration test)顾名思义, 集成测试是检查开发的模块和其他模块整合时是否正常工作.虽然集成测试的代码影响范围比单元测试要广, 但是集成测试和单元测试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java的junit与mock测试">
 <meta property="og:url" content="http://example.com/2022/04/14/myblog/JAVA/java%20junit%E4%B8%8Emock%E6%B5%8B%E8%AF%95/index.html">
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
-<meta property="og:description" content="单元测试(Unit test)：单元测试关注单一的类. 它们存在的目的是检查这个类中的代码是否按照期望正确运行. 集成测试(Integration test)顾名思义, 集成测试是检查开发的模块和其他模块整合时是否正常工作.虽然集成测试的代码影响范围比单元测试要广, 但是集成测试和单元测试一样, 也是针对于开发者而言的. 端到端测试(End-to-End test)端到端测试是将整个系统作为一个整">
+<meta property="og:description" content="单元测试(Unit test)：单元测试关注单一的类. 它们存在的目的是检查这个类中的代码是否按照期望正确运行.特征：快速、独立、可重复、自检查（不加main不打日志）核心价值：缩短反馈周期，降低缺陷修复成本，理解代码意图 集成测试(Integration test)顾名思义, 集成测试是检查开发的模块和其他模块整合时是否正常工作.虽然集成测试的代码影响范围比单元测试要广, 但是集成测试和单元测试">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-14T14:22:37.710Z">
-<meta property="article:modified_time" content="2022-05-05T15:18:39.777Z">
+<meta property="article:modified_time" content="2022-10-07T04:27:40.207Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-05 23:18:39" itemprop="dateModified" datetime="2022-05-05T23:18:39+08:00">2022-05-05</time>
+                <time title="Modified: 2022-10-07 12:27:40" itemprop="dateModified" datetime="2022-10-07T12:27:40+08:00">2022-10-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -227,7 +227,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
                 </span>
             </span>
 
@@ -249,8 +249,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>单元测试(Unit test)：<br>单元测试关注单一的类. 它们存在的目的是检查这个类中的代码是否按照期望正确运行.</p>
-<p>集成测试(Integration test)<br>顾名思义, 集成测试是检查开发的模块和其他模块整合时是否正常工作.<br>虽然集成测试的代码影响范围比单元测试要广, 但是集成测试和单元测试一样, 也是针对于开发者而言的.</p>
+        <p>单元测试(Unit test)：<br>单元测试关注单一的类. 它们存在的目的是检查这个类中的代码是否按照期望正确运行.<br>特征：快速、独立、可重复、自检查（不加main不打日志）<br>核心价值：缩短反馈周期，降低缺陷修复成本，理解代码意图</p>
+<p>集成测试(Integration test)<br>顾名思义, 集成测试是检查开发的模块和其他模块整合时是否正常工作.<br>虽然集成测试的代码影响范围比单元测试要广, 但是集成测试和单元测试一样, 也是针对于开发者而言的.<br>集成测试是对外部系统（数据库、消息队列等）有依赖的测试。</p>
 <p>端到端测试(End-to-End test)<br>端到端测试是将整个系统作为一个整体, 然后从用户的角度进行测试的.<br>端到端测试的目的是测试系统在实际使用的是否正常的, 因此通常来说是不需要测试替身的(Test Double)</p>
 <h2 id="1-Junit单元测试"><a href="#1-Junit单元测试" class="headerlink" title="1.Junit单元测试"></a>1.Junit单元测试</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>单元测试的目的: 测试当前所写的代码是否是正确的, 例如输入一组数据, 会输出期望的数据; 输入错误数据, 会产生错误异常等.</p>
 <p>在单元测试中, 我们需要保证被测系统是独立的(SUT 没有任何的 DOC), 即当被测系统通过测试时, 那么它在任何环境下都是能够正常工作的. 编写单元测试时, 仅仅需要关注单个类就可以了. 而不需要关注例如数据库服务, Web 服务等组件.</p>
@@ -321,6 +321,17 @@
 <p>加@RunWith(PowerMockRunner.class)<br>要测试的类加@InjectMocks</p>
 <p>1.service实现类不加mock，到指定方法会报空指针异常，service对象为空<br>2.如果service方法无返回，可以不打桩，如果有返回，最好打个桩。<br>3.有返回的打了桩，可以根据不同的输入，返回不同的结果。有返回如果不打桩，相当于返回的是null，返回如果被后面用到，容易报空指针异常。</p>
 <h2 id="Mock测试踩坑空指针异常"><a href="#Mock测试踩坑空指针异常" class="headerlink" title="Mock测试踩坑空指针异常"></a>Mock测试踩坑空指针异常</h2><p>mock测试的被测试类（@InjectMock）中的属性一般为null，所以什么都不加就在被测试类中调用属性对象的方法时，报空指针异常，因为属性对象是null。<br>将属性对象在Test中添加@Mock为mock对象，直接忽略属性对象方法，不进入执行。<br>将属性对象在Test中添加@Spy为spy对象，会进入该方法中，但是只限于一层，再进入就不行了，还是会报空指针异常。</p>
+<hr>
+<h2 id="单元测试框架和步骤"><a href="#单元测试框架和步骤" class="headerlink" title="单元测试框架和步骤"></a>单元测试框架和步骤</h2><p>Jnit：一个java语言的单元测试框架，编写和运行可重复的自动化测试。</p>
+<p>Mockito：单元测试模拟框架，采用模拟技术，模拟应用中依赖的复杂对象，把测试对象和依赖对象隔离开。</p>
+<p>PowerMock：在Mockito的基础上作出扩展。</p>
+<p>单元测试步骤：定义对象 - 模拟方法 - 调用方法 - 验证方法 （第二步和第四步是有外部依赖时需要mock使用的）</p>
+<p>1、定义测试对象（new/Mockito.spy/@Spy/@InjectMocks）<br>2、模拟依赖对象（直接构建对象/Json反序列化对象/@Mock/@Spy）<br>3、注入依赖对象（set/Whitebox/@Mock）<br>4、模拟依赖方法<br>5、调用被测方法（分为构造方法、普通方法、静态方法）（都分为有权限和无权限）（有权限直接调用，无权限用：<code>Whitebox.invokeMethod(userService, &quot;isUser&quot;, uid)</code>）<br>6、验证依赖方法（Mockito.verify(…)）（用ArgumentCaptor/@Captor捕获参数）<br>7、验证数据对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//验证对象为空</span><br><span class="line">Assert.assertNull(&quot;必须为空！&quot;, uid);</span><br><span class="line">//验证对象非空</span><br><span class="line">Assert.assertNotNull(&quot;不能为空！&quot;, uid);</span><br><span class="line">//验证为真</span><br><span class="line">Assert.assertTrue(&quot;返回必须为真&quot;, isSuper);</span><br><span class="line">//验证为假</span><br><span class="line">Assert.assertFalse(&quot;返回必须为假&quot;, isSuper);</span><br><span class="line">//验证数据对象是否一致</span><br><span class="line">Assert.assertSame(&quot;用户必须一致&quot;, exceptId, uid);</span><br><span class="line">//验证数据对象是否一致</span><br><span class="line">Assert.assertNotSame(&quot;用户不能一致&quot;, exceptId, uid);</span><br><span class="line">//验证简单数据对象</span><br><span class="line">Assert.assertNotEquals(&quot;用户名称不一致&quot;, &quot;admin&quot;, user)</span><br><span class="line">//验证简单数组或集合对象</span><br><span class="line">Assert.assertArrayEquals</span><br><span class="line">//对于复杂数据，可以先序列化为json字符串，然后Assert.assertEquals</span><br></pre></td></tr></table></figure>
+<p>验证跑出异常：可以用@Test(expected=ExampleException.class)，但是一旦内部方法抛出异常，整个方法就返回，后面的验证没法执行。@Rule注解实现。推荐使用Assert</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ExampleException e = Assert.assertThrows(&quot;异常类型不一致&quot;, ExampleException.class, ()-&gt;userService.getUser(uid));</span><br><span class="line">Assert.assertEquals(&quot;异常消息不一致&quot;, exceptString, e.getMessage());</span><br></pre></td></tr></table></figure>
+<p>8、验证依赖对象（一般不用）<br><code>Mockito.verifyNotInteractions</code></p>
+<p>✅Mockito的any相关的参数匹配方法不支持可空参数和空参数，应该用nullable方法。<br>✅采用Mockito的参数匹配方法时，其他参数不能直接用常量或变量，应该用Mockito的eq方法。</p>
 
     </div>
 
@@ -404,7 +415,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Junit%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">1.Junit单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Junit4%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.2.</span> <span class="nav-text">Junit4注解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Mockito%E4%B8%AD-Mock%E4%B8%8E-InjectMock"><span class="nav-number">2.</span> <span class="nav-text">2.Mockito中@Mock与@InjectMock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.1.</span> <span class="nav-text">注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mock%E4%BD%BF%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">mock使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEmock"><span class="nav-number">2.2.1.</span> <span class="nav-text">配置mock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.2.</span> <span class="nav-text">无返回值的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E8%B0%83%E7%94%A8"><span class="nav-number">2.2.3.</span> <span class="nav-text">验证是否调用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spy%E4%BD%BF%E7%94%A8"><span class="nav-number">2.3.</span> <span class="nav-text">spy使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PowerMockRunner-%E5%92%8C-MockitoJUnitRunner"><span class="nav-number">3.</span> <span class="nav-text">PowerMockRunner 和 MockitoJUnitRunner</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#when-thenReturn-%E5%92%8C-doReturn-when-%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">when().thenReturn() 和 doReturn().when() 区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PowerMockito"><span class="nav-number">5.</span> <span class="nav-text">PowerMockito</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mock%E6%B5%8B%E8%AF%95%E8%B8%A9%E5%9D%91"><span class="nav-number">6.</span> <span class="nav-text">Mock测试踩坑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mock%E6%B5%8B%E8%AF%95%E8%B8%A9%E5%9D%91%E7%A9%BA%E6%8C%87%E9%92%88%E5%BC%82%E5%B8%B8"><span class="nav-number">7.</span> <span class="nav-text">Mock测试踩坑空指针异常</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Junit%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">1.Junit单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Junit4%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.2.</span> <span class="nav-text">Junit4注解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Mockito%E4%B8%AD-Mock%E4%B8%8E-InjectMock"><span class="nav-number">2.</span> <span class="nav-text">2.Mockito中@Mock与@InjectMock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.1.</span> <span class="nav-text">注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mock%E4%BD%BF%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">mock使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEmock"><span class="nav-number">2.2.1.</span> <span class="nav-text">配置mock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.2.</span> <span class="nav-text">无返回值的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E8%B0%83%E7%94%A8"><span class="nav-number">2.2.3.</span> <span class="nav-text">验证是否调用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spy%E4%BD%BF%E7%94%A8"><span class="nav-number">2.3.</span> <span class="nav-text">spy使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PowerMockRunner-%E5%92%8C-MockitoJUnitRunner"><span class="nav-number">3.</span> <span class="nav-text">PowerMockRunner 和 MockitoJUnitRunner</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#when-thenReturn-%E5%92%8C-doReturn-when-%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">when().thenReturn() 和 doReturn().when() 区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PowerMockito"><span class="nav-number">5.</span> <span class="nav-text">PowerMockito</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mock%E6%B5%8B%E8%AF%95%E8%B8%A9%E5%9D%91"><span class="nav-number">6.</span> <span class="nav-text">Mock测试踩坑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mock%E6%B5%8B%E8%AF%95%E8%B8%A9%E5%9D%91%E7%A9%BA%E6%8C%87%E9%92%88%E5%BC%82%E5%B8%B8"><span class="nav-number">7.</span> <span class="nav-text">Mock测试踩坑空指针异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E5%92%8C%E6%AD%A5%E9%AA%A4"><span class="nav-number">8.</span> <span class="nav-text">单元测试框架和步骤</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -419,7 +430,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

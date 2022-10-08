@@ -183,6 +183,120 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/13/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/13/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/redis/" class="post-title-link" itemprop="url">redis</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-13 21:58:17" itemprop="dateCreated datePublished" datetime="2022-04-13T21:58:17+08:00">2022-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-09 22:32:51" itemprop="dateModified" datetime="2022-07-09T22:32:51+08:00">2022-07-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h4><p>redis：内存存储（速度快）、远程操作（可以与多个客户端连接）、持久化（服务器重启可保持重启前的数据）、可扩展（主从复制、分片）</p>
+<h4 id="mac安装redis"><a href="#mac安装redis" class="headerlink" title="mac安装redis"></a>mac安装redis</h4><p>✅brew install redis 安装<br>✅brew info redis 查看安装路径<br>✅启动redis：<br>方式一：使用brew启动 brew services start redis<br>方式二：进入redis的bin目录，输入redis-server<br>✅关闭redis服务<br>方式一：redis-cli SHUTDOWN<br>方式二：redis-cli进入再输入SHUTDOWN<br>✅查看redis是否在运行：ps axu|grep redis<br>✅客户端连接redis：redis-cli -h 127.0.0.1 -p 6379<br>连接后执行ping命令，检测redis服务是否启动<br>✅redis.conf配置文件说明：<br>redis默认是前台启动，如果相以守护进程（后台方式）运行，可以在配置文件中将daemonize no修改为yes。</p>
+<blockquote>
+<p>守护进程（后台进程）与前台进程：<br>前台进程是在终端中运行的，终端关闭进程也就消失。<br>守护进程是运行在后台的一种特殊进程，不受终端控制，也不需要终端的交互。<br>Linux中大多数服务器是用守护进程实现的，比如web服务器http等。</p>
+</blockquote>
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><p>keys * 查看所有key的内容<br>exits key  查看key是否存在<br>set key value  设置key的内容<br>get key  获取key的内容<br>flushdb  删除当前数据库中所有key<br>flushall  删除所有数据库中key</p>
+<p>服务器相关命令：<br>ping  测试连接是否存活，返回pong代表有响应<br>echo  输出信息<br>select num  选择数据库，0-15<br>quit  退出连接<br>dbsize  返回当前数据库中key的数量<br>info  获取服务的相关信息</p>
+<p>设置键命令：<br>setex key seconds value 设置值并设置有效期，已存在会覆盖<br>pexpire key millisecond 设置有效时间，毫秒为单位，必须是已经存在的key<br>setnx key value 不存在时放入<br>exists key 是否存在该key<br>ttl key 以秒为单位显示过期时间<br>pttl key 以毫秒为单位显示过期时间</p>
+<h4 id="redis数据结构"><a href="#redis数据结构" class="headerlink" title="redis数据结构"></a>redis数据结构</h4><p>string：可存储字符串、整数、浮点数<br>list：一个链表，每个节点包含一个字符串<br>set：包含字符串的无序收集容器<br>hash：包含键值的无序散列表<br>zset：有序集合，元素排列顺序由分值大小决定</p>
+<h4 id="redis-hset"><a href="#redis-hset" class="headerlink" title="redis hset"></a>redis hset</h4><p>Redis Hset 命令用于为哈希表中的字段赋值 。<br>如果哈希表不存在，一个新的哈希表被创建并进行 HSET 操作。<br>如果字段已经存在于哈希表中，旧值将被覆盖。<br>hset myhashset key value</p>
+<h4 id="redis-list相关"><a href="#redis-list相关" class="headerlink" title="redis list相关"></a>redis list相关</h4><p>往list的右边加一个值<br>rpush mylist value<br>如果列表不存在则新建，如果key不是列表类型，返回错误。<br>lrange mylist  从左边一个一个遍历展示<br>llen mylist 返回长度</p>
+<h4 id="noauth-authentication-required"><a href="#noauth-authentication-required" class="headerlink" title="noauth authentication required"></a>noauth authentication required</h4><p>认证问题，需要输入密码<br>auth “password“</p>
+<h4 id="keys命令模糊查询"><a href="#keys命令模糊查询" class="headerlink" title="keys命令模糊查询"></a>keys命令模糊查询</h4><p><code>*通配符：keys *hh*</code><br><code>?单个通配符：keys hel？？</code>  忘了最后两个字母<br><code>[]通配符：keys hell[opt]</code>  最后一个字母可能是o p t中的一个</p>
+<h4 id="redis-setex命令"><a href="#redis-setex命令" class="headerlink" title="redis setex命令"></a>redis setex命令</h4><p>为指定的key设置值及其过期时间，如果已存在，则替换<br>setex key 10 value   //10s后过期<br>ttl key  //还有多少时间过期</p>
+<h4 id="misconf-redis-is-configured-to-save-RDB"><a href="#misconf-redis-is-configured-to-save-RDB" class="headerlink" title="misconf redis is configured to save RDB"></a>misconf redis is configured to save RDB</h4><p>error原因：强制关闭redis快照导致不能持久化<br>解决：config set stop-writes-on-bgsave-error no</p>
+<h4 id="Jedis和redisTemplate"><a href="#Jedis和redisTemplate" class="headerlink" title="Jedis和redisTemplate"></a>Jedis和redisTemplate</h4><p>Jedis是Redis官方推荐的面向Java的操作Redis的客户端，而RedisTemplate是SpringDataRedis中对JedisApi的高度封装。</p>
+<p>SpringDataRedis相对于Jedis来说可以方便地更换Redis的Java客户端，比Jedis多了自动管理连接池的特性，方便与其他Spring框架进行搭配使用如：SpringCache</p>
+<p>jedis连接：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        //连接本地的 Redis 服务</span><br><span class="line">        Jedis jedis = new Jedis(&quot;localhost&quot;);</span><br><span class="line">        System.out.println(&quot;连接成功&quot;);</span><br><span class="line">        //查看服务是否运行</span><br><span class="line">        System.out.println(&quot;服务正在运行: &quot;+jedis.ping());</span><br><span class="line">        long time=0;</span><br><span class="line">        long TestNum=100;</span><br><span class="line">        for(int i=0;i&lt;TestNum;i++)&#123;</span><br><span class="line">            long timeS=System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">            jedis.set(&quot;jedis-s&quot;+i,&quot;jedis&quot;+i);</span><br><span class="line">            long timeE=System.currentTimeMillis();</span><br><span class="line">            time+=timeE-timeS;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.print(&quot;总时间：&quot;+time);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>redisTemplate连接：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="line">@SpringBootTest(classes = ServiceApplication.class)</span><br><span class="line">public class RedisTemplateTest &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    private RedisUtils redisUtils;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void T()&#123;</span><br><span class="line">        long time=0;</span><br><span class="line">        long TestNum=100;</span><br><span class="line">        for(int i=0;i&lt;TestNum;i++)&#123;</span><br><span class="line">            long timeS=System.currentTimeMillis();</span><br><span class="line">            redisUtils.set(&quot;RedisTemplateTest&quot;,&quot;redi&quot;+i);</span><br><span class="line">            long timeE=System.currentTimeMillis();</span><br><span class="line">            time+=timeE-timeS;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;总时间：&quot;+time);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37208934/article/details/95201211">https://blog.csdn.net/qq_37208934/article/details/95201211</a></p>
+<h4 id="redisTemplate-opsForHash"><a href="#redisTemplate-opsForHash" class="headerlink" title="redisTemplate.opsForHash()"></a>redisTemplate.opsForHash()</h4><p>Redis hash 是一个string类型的field和value的映射表，hash特别适合用于存储对象。<br>Redis 中每个 hash 可以存储 2^32 - 1 键值对（40多亿）。</p>
+<p>存入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Map以map集合的形式添加键值对</span><br><span class="line">&lt;String, String&gt; maps = new HashMap();</span><br><span class="line">maps.put(&quot;1&quot;,&quot;星期一&quot;);</span><br><span class="line">maps.put(&quot;2&quot;,&quot;星期二&quot;);</span><br><span class="line">maps.put(&quot;3&quot;,&quot;星期三&quot;);</span><br><span class="line">maps.put(&quot;4&quot;,&quot;星期四&quot;);</span><br><span class="line">redisTemplate.opsForHash().putAll(&quot;day:week&quot;, maps);</span><br><span class="line"></span><br><span class="line">也可以单个存入：</span><br><span class="line">.put(H key, HK hashKey, HV value)</span><br></pre></td></tr></table></figure>
+
+<p>获取：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Object, Object&gt; entries = redisTemplate.opsForHash().entries(&quot;day:week&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>更多方法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43167662/article/details/123232840">https://blog.csdn.net/weixin_43167662/article/details/123232840</a></p>
+<h4 id="redisTemplate-opsForGeo"><a href="#redisTemplate-opsForGeo" class="headerlink" title="redisTemplate.opsForGeo()"></a>redisTemplate.opsForGeo()</h4><p>redis关于geo位置计算的api。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">private RedisTemplate&lt;String, Object&gt; redisTemplate;</span><br><span class="line">redisTemplate.opsForGeo().add(key, new Point(x,y), msg);</span><br><span class="line">// key和msg为字符串，Point是springframework.data.geo下的</span><br></pre></td></tr></table></figure>
+
+<p>redis的geo实战：<a target="_blank" rel="noopener" href="http://itpcb.com/a/536152">http://itpcb.com/a/536152</a></p>
+<h4 id="可视化工具another-redis"><a href="#可视化工具another-redis" class="headerlink" title="可视化工具another redis"></a>可视化工具another redis</h4><p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/qishibo/AnotherRedisDesktopManager/releases">https://github.com/qishibo/AnotherRedisDesktopManager/releases</a></p>
+<p>连接：输入 地址host , 端口，密钥</p>
+<p>可视化：key，服务器版本，使用内存，运行状态，使用到的库等信息</p>
+<p>支持三种文本格式，分别是 text,json , unserialize</p>
+<p>用法参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/220209936">https://zhuanlan.zhihu.com/p/220209936</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/09/myblog/spring/spring-aop/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -926,7 +1040,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-18 22:13:38" itemprop="dateModified" datetime="2022-08-18T22:13:38+08:00">2022-08-18</time>
+                <time title="Modified: 2022-10-06 13:41:03" itemprop="dateModified" datetime="2022-10-06T13:41:03+08:00">2022-10-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1272,7 +1386,7 @@
 <h4 id="文件下载"><a href="#文件下载" class="headerlink" title="文件下载"></a>文件下载</h4><p>即将服务器上的资源下载（拷贝）到本地，可以通过两种方式下载：通过超链接下载、通过代码下载。</p>
 <p>项目内的文本或图片资源文件夹需要通过 Tomcat -&gt; Deployment 进行上传才能通过项目发布，进行访问。</p>
 <h5 id="超链接下载"><a href="#超链接下载" class="headerlink" title="超链接下载"></a>超链接下载</h5><p>当我们在HTML或JSP页面中使用a标签时，原意是希望能够进行跳转，但当超链接遇到浏览器不识别的资源时会自动下载；当遇到浏览器能够直接显示的资源，浏览器就会默认显示出来，比如txt、png、jpg等。当然我们也可以通过download属性规定浏览器进行下载。但有些浏览器并不支持。</p>
-<p>在web文件夹下新建一个download文件夹，准备图片、文本放在这个文件夹下，文件存放地址需要配置一下，点右上角configuration，再点deployment，再点加号，选到download文件夹下，再改一下application context：/servlet_demo/download。这样文件夹下的资源才能被浏览器访问到。（这个download是文件夹名字）</p>
+<p>在web文件夹下新建一个download文件夹，准备图片、文本放在这个文件夹下，文件存放地址需要配置一下，点右上角configuration，再点deployment，再点加号external source，选到download文件夹下，再改一下application context：/servlet_demo/download。这样文件夹下的资源才能被浏览器访问到。（这个download是文件夹名字）</p>
 <p>访问：<a target="_blank" rel="noopener" href="http://localhost:8080/servlet_demo/download.html">http://localhost:8080/servlet_demo/download.html</a> （这个download是html名字）</p>
 <p>download.html：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>文件下载<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 浏览器能够识别的资源，点击展示 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;download/TacoCloud.jpeg&quot;</span>&gt;</span>图片文件<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;download/Taco.java&quot;</span>&gt;</span>文本文件<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 加download点击下载,可不写属性名，表示文件名 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;download/TacoCloud.jpeg&quot;</span> <span class="attr">download</span>=<span class="string">&quot;百度.jpeg&quot;</span>&gt;</span>图片文件<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;download/Taco.java&quot;</span> <span class="attr">download</span>=<span class="string">&quot;&quot;</span>&gt;</span>文本文件<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 浏览器不能够识别的资源,自动下载 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&quot;</span>&gt;</span>压缩文件<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -1285,7 +1399,7 @@
 <li>读取下载文件，调用response.getOutputStream方法向客户端写入附件内容。</li>
 </ol>
 <p>第一步：写html页面：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">&quot;en&quot;</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">    &lt;title&gt;文件下载&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- 浏览器能够识别的资源，点击展示 --&gt;</span><br><span class="line">    &lt;a href=<span class="string">&quot;download/TacoCloud.jpeg&quot;</span>&gt;图片文件&lt;/a&gt;</span><br><span class="line">    &lt;a href=<span class="string">&quot;download/Taco.java&quot;</span>&gt;文本文件&lt;/a&gt;</span><br><span class="line">    &lt;hr&gt;</span><br><span class="line">    &lt;!-- 加download点击下载,可不写属性名，表示文件名 --&gt;</span><br><span class="line">    &lt;a href=<span class="string">&quot;download/TacoCloud.jpeg&quot;</span> download=<span class="string">&quot;百度.jpeg&quot;</span>&gt;图片文件&lt;/a&gt;</span><br><span class="line">    &lt;a href=<span class="string">&quot;download/Taco.java&quot;</span> download=<span class="string">&quot;&quot;</span>&gt;文本文件&lt;/a&gt;</span><br><span class="line">    &lt;!-- 浏览器不能够识别的资源,自动下载 --&gt;</span><br><span class="line">    &lt;a href=<span class="string">&quot;&quot;</span>&gt;压缩文件&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">    &lt;hr&gt;</span><br><span class="line">    &lt;form action=<span class="string">&quot;downloadServlet&quot;</span>&gt;</span><br><span class="line">        文件名：&lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;fileName&quot;</span> placeholder=<span class="string">&quot;请输入要下载的文件名&quot;</span>&gt;</span><br><span class="line">        &lt;button&gt;下载&lt;/button&gt;</span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">&quot;en&quot;</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">    &lt;title&gt;文件下载&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;form action=<span class="string">&quot;downloadServlet&quot;</span>&gt;</span><br><span class="line">        文件名：&lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;fileName&quot;</span> placeholder=<span class="string">&quot;请输入要下载的文件名&quot;</span>&gt;</span><br><span class="line">        &lt;button&gt;下载&lt;/button&gt;</span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
 <p>第二步：写一个servlet页面：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.liuxuan.servlet.file;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletOutputStream;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: liuxuan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2022-03-31 21:59</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="meta">@WebServlet(&quot;/downloadServlet&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DownloadServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span> <span class="comment">//重写钥匙的</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;文件下载===&quot;</span>);</span><br><span class="line">        <span class="comment">// 设置请求的编码格式</span></span><br><span class="line">        req.setCharacterEncoding(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">        <span class="comment">// 乱码问题，设置编码格式</span></span><br><span class="line">        resp.setContentType(<span class="string">&quot;text/html;charset=UTF-8&quot;</span>);</span><br><span class="line">        <span class="comment">// 获取参数（得到要下载的文件名）</span></span><br><span class="line">        String fileName = req.getParameter(<span class="string">&quot;fileName&quot;</span>);</span><br><span class="line">        <span class="comment">// 参数的非空判断  trim()去除字符串前后空格，中间的不管</span></span><br><span class="line">        <span class="keyword">if</span>(fileName == <span class="keyword">null</span> || <span class="string">&quot;&quot;</span>.equals(fileName.trim()))&#123;</span><br><span class="line">            resp.getWriter().write(<span class="string">&quot;请输入要下载的文件名！&quot;</span>);</span><br><span class="line">            resp.getWriter().close();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 得到图片存放的路径,文件放在配置好的download目录下的。</span></span><br><span class="line">        String path = req.getServletContext().getRealPath(<span class="string">&quot;/download/&quot;</span>);</span><br><span class="line">        <span class="comment">// 通过路径得到file对象</span></span><br><span class="line">        File file = <span class="keyword">new</span> File(path + fileName);</span><br><span class="line">        System.out.println(<span class="string">&quot;文件：&quot;</span>+ file);</span><br><span class="line">        <span class="comment">// 判断文件对象是否存在，并且是个标准文件</span></span><br><span class="line">        <span class="keyword">if</span>(file.exists() &amp;&amp; file.isFile())&#123;</span><br><span class="line">            <span class="comment">// 1.设置响应类型，设置为浏览器无法使用某种方式或激活某个程序来处理的MIME类型</span></span><br><span class="line">            resp.setContentType(<span class="string">&quot;application/x-msdownload&quot;</span>);</span><br><span class="line">            <span class="comment">// 2.设置响应头</span></span><br><span class="line">            resp.setHeader(<span class="string">&quot;Content-Disposition&quot;</span>, <span class="string">&quot;attachment;filename=&quot;</span> + fileName);</span><br><span class="line">            <span class="comment">// 3.得到file文件的输入流</span></span><br><span class="line">            InputStream in = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">            <span class="comment">// 4.得到字节输出流，字符输出流文件是不行的</span></span><br><span class="line">            ServletOutputStream out = resp.getOutputStream();</span><br><span class="line">            <span class="comment">// 5.定义byte数组</span></span><br><span class="line">            <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="comment">// 6.定义长度</span></span><br><span class="line">            <span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">            <span class="comment">// 7.循环输出</span></span><br><span class="line">            <span class="keyword">while</span> ((len = in.read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                out.write(bytes, <span class="number">0</span>, len);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 8.关闭资源</span></span><br><span class="line">            out.close();</span><br><span class="line">            in.close();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            resp.getWriter().write(<span class="string">&quot;文件不存在，请重试！&quot;</span>);</span><br><span class="line">            resp.getWriter().close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -2288,75 +2402,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/15/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/shell%E5%88%B7%E9%A2%981/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/02/15/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/shell%E5%88%B7%E9%A2%981/" class="post-title-link" itemprop="url">shellのleecode193.有效的电话号码</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-02-15 22:51:56 / Modified: 22:54:42" itemprop="dateCreated datePublished" datetime="2022-02-15T22:51:56+08:00">2022-02-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">给定一个包含电话号码列表（一行一个电话号码）的文本文件 file.txt，写一个单行 bash 脚本输出所有有效的电话号码。</span><br><span class="line"></span><br><span class="line">你可以假设一个有效的电话号码必须满足以下两种格式： (xxx) xxx-xxxx 或 xxx-xxx-xxxx。（x 表示一个数字）</span><br><span class="line"></span><br><span class="line">你也可以假设每行前后没有多余的空格字符。</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">假设 file.txt 内容如下：</span><br><span class="line">987-123-4567</span><br><span class="line">123 456 7890</span><br><span class="line">(123) 456-7890</span><br><span class="line">你的脚本应当输出下列有效的电话号码：</span><br><span class="line">987-123-4567</span><br><span class="line">(123) 456-7890</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2427,7 +2472,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -20,19 +20,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="1.ab压测工具ab是apache自带的压力测试工具。ab进行的一切测试本质上是基于HTTP的。 linux下安装yum -y install httpd-tools 版本信息：ab -V ab -n1000 -c100 https:&#x2F;&#x2F;www.imooc.com&#x2F;   请求1000次,每次并发100; 输出信息说明12345678910111213141516171819202122232425">
+  <meta name="description" content="sql实用函数日期函数1、datepart() 获取日期中的年月日datepart(‘2022-11-11 12:12:12’, ‘yyyy’)得到：2022，也可以是mm、dd 2、datetrunc() 获取日期的指定起始日期，比如一天的开始datetrunc(‘2022-11-11 12:12:12’, ‘yyyy‘)得到：2022-01-01 00:00:00 3、quarter() 获取">
 <meta property="og:type" content="article">
-<meta property="og:title" content="高并发压测工具">
-<meta property="og:url" content="http://example.com/2021/08/19/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/index.html">
+<meta property="og:title" content="Mysql技巧">
+<meta property="og:url" content="http://example.com/2022/09/25/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/mysql%E6%8A%80%E5%B7%A7/index.html">
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
-<meta property="og:description" content="1.ab压测工具ab是apache自带的压力测试工具。ab进行的一切测试本质上是基于HTTP的。 linux下安装yum -y install httpd-tools 版本信息：ab -V ab -n1000 -c100 https:&#x2F;&#x2F;www.imooc.com&#x2F;   请求1000次,每次并发100; 输出信息说明12345678910111213141516171819202122232425">
+<meta property="og:description" content="sql实用函数日期函数1、datepart() 获取日期中的年月日datepart(‘2022-11-11 12:12:12’, ‘yyyy’)得到：2022，也可以是mm、dd 2、datetrunc() 获取日期的指定起始日期，比如一天的开始datetrunc(‘2022-11-11 12:12:12’, ‘yyyy‘)得到：2022-01-01 00:00:00 3、quarter() 获取">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-08-19T11:55:06.000Z">
-<meta property="article:modified_time" content="2021-09-25T13:39:41.550Z">
+<meta property="article:published_time" content="2022-09-25T08:25:11.412Z">
+<meta property="article:modified_time" content="2022-10-08T09:33:40.529Z">
 <meta property="article:author" content="Jade liu">
+<meta property="article:tag" content="Mysql">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2021/08/19/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/">
+<link rel="canonical" href="http://example.com/2022/09/25/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/mysql%E6%8A%80%E5%B7%A7/">
 
 
 <script id="page-configurations">
@@ -45,7 +46,7 @@
   };
 </script>
 
-  <title>高并发压测工具 | Jadeliu's blog</title>
+  <title>Mysql技巧 | Jadeliu's blog</title>
   
 
 
@@ -188,7 +189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/25/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/mysql%E6%8A%80%E5%B7%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.gif">
@@ -201,7 +202,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          高并发压测工具
+          Mysql技巧
         </h1>
 
         <div class="post-meta">
@@ -211,14 +212,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-08-19 19:55:06" itemprop="dateCreated datePublished" datetime="2021-08-19T19:55:06+08:00">2021-08-19</time>
+              <time title="Created: 2022-09-25 16:25:11" itemprop="dateCreated datePublished" datetime="2022-09-25T16:25:11+08:00">2022-09-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 21:39:41" itemprop="dateModified" datetime="2021-09-25T21:39:41+08:00">2021-09-25</time>
+                <time title="Modified: 2022-10-08 17:33:40" itemprop="dateModified" datetime="2022-10-08T17:33:40+08:00">2022-10-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,19 +249,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="1-ab压测工具"><a href="#1-ab压测工具" class="headerlink" title="1.ab压测工具"></a>1.ab压测工具</h2><p>ab是apache自带的压力测试工具。ab进行的一切测试本质上是基于HTTP的。</p>
-<h3 id="linux下安装"><a href="#linux下安装" class="headerlink" title="linux下安装"></a>linux下安装</h3><p>yum -y install httpd-tools</p>
-<p>版本信息：ab -V</p>
-<p>ab -n1000 -c100 <a target="_blank" rel="noopener" href="https://www.imooc.com/">https://www.imooc.com/</a>   请求1000次,每次并发100;</p>
-<h3 id="输出信息说明"><a href="#输出信息说明" class="headerlink" title="输出信息说明"></a>输出信息说明</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Server Software:        web服务器软件及版本</span><br><span class="line">Server Hostname:        表示请求的URL中的主机部分名称</span><br><span class="line">Server Port:            被测试的Web服务器的监听端口</span><br><span class="line"> </span><br><span class="line">Document Path:          请求的页面路径</span><br><span class="line">Document Length:        页面大小</span><br><span class="line"> </span><br><span class="line">Concurrency Level:      并发数</span><br><span class="line">Time taken for tests:   测试总共花费的时间</span><br><span class="line">Complete requests:      完成的请求数</span><br><span class="line">Failed requests:        失败的请求数，这里的失败是指请求的连接服务器、发送数据、接收数据等环节发生异常，以及无响应后超时的情况。对于超时时间的设置可以用ab的-t参数。如果接受到的http响应数据的头信息中含有2xx以外的状态码，则会在测试结果显示另一个名为“Non-2xx responses”的统计项，用于统计这部分请求数，这些请求并不算是失败的请求。</span><br><span class="line">Write errors:           写入错误</span><br><span class="line">Total transferred:      总共传输字节数，包含http的头信息等。使用ab的-v参数即可查看详细的http头信息。</span><br><span class="line">HTML transferred:       html字节数，实际的页面传递字节数。也就是减去了Total transferred中http响应数据中头信息的长度。</span><br><span class="line">Requests per second:    每秒处理的请求数，服务器的吞吐量，等于：Complete requests / Time taken for tests</span><br><span class="line">Time per request:       平均数，用户平均请求等待时间</span><br><span class="line">Time per request:       服务器平均处理时间</span><br><span class="line">Transfer rate:          平均传输速率（每秒收到的速率）。可以很好的说明服务器在处理能力达到限制时，其出口带宽的需求量。</span><br><span class="line"> </span><br><span class="line">Connection Times (ms)	压力测试时的连接处理时间。</span><br><span class="line">              min  mean[+/-sd] median   max</span><br><span class="line">Connect:        0   67 398.4      9    3009			</span><br><span class="line">Processing:    49 2904 2327.2   2755   12115</span><br><span class="line">Waiting:       48 2539 2075.1   2418   12110</span><br><span class="line">Total:         53 2972 2385.3   2789   12119</span><br></pre></td></tr></table></figure>
+        <h2 id="sql实用函数"><a href="#sql实用函数" class="headerlink" title="sql实用函数"></a>sql实用函数</h2><h3 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h3><p>1、datepart()</p>
+<p>获取日期中的年月日<br>datepart(‘2022-11-11 12:12:12’, ‘yyyy’)<br>得到：2022，也可以是mm、dd</p>
+<p>2、datetrunc()</p>
+<p>获取日期的指定起始日期，比如一天的开始<br>datetrunc(‘2022-11-11 12:12:12’, ‘yyyy‘)<br>得到：2022-01-01 00:00:00</p>
+<p>3、quarter()</p>
+<p>获取日期的季度<br>quarter(‘2022-11-11 00:00:00’)<br>得到：4</p>
+<h2 id="mySQL-with-as用法"><a href="#mySQL-with-as用法" class="headerlink" title="mySQL - with as用法"></a>mySQL - with as用法</h2><p>如果一整句查询中多个子查询都需要使用同一个子查询的结果，那么就可以用with as，将共用的子查询提取出来，加个别名。后面查询语句可以直接用，对于大量复杂的SQL语句起到了很好的优化作用。</p>
+<p>构造数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">-- 分类表</span><br><span class="line">CREATE TABLE category ( cid VARCHAR ( 32 ) PRIMARY KEY, cname VARCHAR ( 50 ) );</span><br><span class="line"></span><br><span class="line">-- 商品表</span><br><span class="line">CREATE TABLE products (</span><br><span class="line">	pid VARCHAR ( 32 ) PRIMARY KEY,</span><br><span class="line">	pname VARCHAR ( 50 ),</span><br><span class="line">	price INT,</span><br><span class="line">	flag VARCHAR ( 2 ),-- 是否上架标记为：1表示上架、0表示下架</span><br><span class="line">	category_id VARCHAR ( 32 ),</span><br><span class="line">	FOREIGN KEY ( category_id ) REFERENCES category ( cid ) </span><br><span class="line">);</span><br><span class="line">-- 分类数据</span><br><span class="line">INSERT INTO category(cid,cname) VALUES(&#x27;c001&#x27;,&#x27;家电&#x27;);</span><br><span class="line">INSERT INTO category(cid,cname) VALUES(&#x27;c002&#x27;,&#x27;鞋服&#x27;);</span><br><span class="line">INSERT INTO category(cid,cname) VALUES(&#x27;c003&#x27;,&#x27;化妆品&#x27;);</span><br><span class="line">INSERT INTO category(cid,cname) VALUES(&#x27;c004&#x27;,&#x27;汽车&#x27;);</span><br><span class="line"></span><br><span class="line">-- 商品数据</span><br><span class="line">INSERT INTO products(pid, pname,price,flag,category_id) VALUES(&#x27;p001&#x27;,&#x27;小米电视机&#x27;,5000,&#x27;1&#x27;,&#x27;c001&#x27;);</span><br><span class="line">INSERT INTO products(pid, pname,price,flag,category_id) VALUES(&#x27;p002&#x27;,&#x27;格力空调&#x27;,3000,&#x27;1&#x27;,&#x27;c001&#x27;);</span><br><span class="line">INSERT INTO products(pid, pname,price,flag,category_id) VALUES(&#x27;p003&#x27;,&#x27;美的冰箱&#x27;,4500,&#x27;1&#x27;,&#x27;c001&#x27;);</span><br></pre></td></tr></table></figure>
 
-<p>Connect 无法送出要求、目标主机连接失败、要求的过程中被中断。<br>Length 响应的内容长度不一致 ( 以 Content-Length 头值为判断依据 )。<br>Exception 发生无法预期的错误。 </p>
-<h3 id="发生错误"><a href="#发生错误" class="headerlink" title="发生错误"></a>发生错误</h3><p>并发大时：apr_socket_recv: Connection reset by peer (104)</p>
-<p>解决：ab -n 100000 -c20000 <strong>-r <a target="_blank" rel="noopener" href="http://xxxxurl/">http://xxxxurl/</a></strong></p>
-<h2 id="2-charles"><a href="#2-charles" class="headerlink" title="2.charles"></a>2.charles</h2><p>使用 Charles 的 Repeat 功能来简单地测试服务器的并发处理能力。<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/linjpg/article/details/77839281">https://blog.csdn.net/linjpg/article/details/77839281</a></p>
-<p>参考:</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/feiwutudou/article/details/80334099">https://blog.csdn.net/feiwutudou/article/details/80334099</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_34381666/article/details/91546268">https://blog.csdn.net/weixin_34381666/article/details/91546268</a></p>
+<p>查询两个商品的平均价格：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WITH xm_gl AS ( SELECT * FROM products WHERE pname IN ( &#x27;小米电视机&#x27;, &#x27;格力空调&#x27; ) ) </span><br><span class="line">SELECT avg( price ) FROM xm_gl;</span><br></pre></td></tr></table></figure>
+
+<p>使用with as还可以创建多个临时表，但是要注意同一个查询语句前写一个with就够了，另外子查询需要逗号隔开：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WITH a AS ( SELECT * FROM category WHERE cname = &#x27;家电&#x27; ),</span><br><span class="line">b AS ( SELECT * FROM products WHERE pname IN ( &#x27;小米电视机&#x27;, &#x27;格力空调&#x27; ) ) </span><br><span class="line">SELECT * FROM	a	LEFT JOIN b ON a.cid = b.category_id;</span><br></pre></td></tr></table></figure>
+
+<p>总结：<br>1、with as 相当于一个临时表，但是不同于视图（create table as），不会存储起来，要与select配合使用。<br>2、同一个select前可以有多个临时表，写一个with就可以，用逗号隔开，最后一个with语句不要用逗号。</p>
+<p>摘自：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/397195826">https://zhuanlan.zhihu.com/p/397195826</a></p>
+<h2 id="mysql-case-when-用法"><a href="#mysql-case-when-用法" class="headerlink" title="mysql case when 用法"></a>mysql case when 用法</h2><p>MySQL 的 case when 的语法有两种：</p>
+<p>简单函数<br><code>CASE [col_name] WHEN [value1] THEN [result1]…ELSE [default] END</code></p>
+<p>搜索函数<br><code>CASE WHEN [expr] THEN [result1]…ELSE [default] END</code></p>
+<p>简单函数用法：根据case字段when已知可能值，then列出已知装备（也可以是表的某个字段）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">    NAME &#x27;英雄&#x27;,</span><br><span class="line">    CASE NAME</span><br><span class="line">        WHEN &#x27;德莱文&#x27; THEN</span><br><span class="line">            &#x27;斧子&#x27;</span><br><span class="line">        WHEN &#x27;德玛西亚-盖伦&#x27; THEN</span><br><span class="line">            &#x27;大宝剑&#x27;</span><br><span class="line">        WHEN &#x27;暗夜猎手-VN&#x27; THEN</span><br><span class="line">            &#x27;弩&#x27;</span><br><span class="line">        ELSE</span><br><span class="line">            &#x27;无&#x27;</span><br><span class="line">    END &#x27;装备&#x27;</span><br><span class="line">FROM</span><br><span class="line">    user_info;</span><br></pre></td></tr></table></figure>
+
+<p>搜索函数用法：case when 某个字段的函数 then某值（也可以是表的字段）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># when 表达式中可以使用 and 连接条件</span><br><span class="line">SELECT</span><br><span class="line">    NAME &#x27;英雄&#x27;,</span><br><span class="line">    age &#x27;年龄&#x27;,</span><br><span class="line">    CASE</span><br><span class="line">        WHEN age &lt; 18 THEN</span><br><span class="line">            &#x27;少年&#x27;</span><br><span class="line">        WHEN age &lt; 30 THEN</span><br><span class="line">            &#x27;青年&#x27;</span><br><span class="line">        WHEN age &gt;= 30</span><br><span class="line">        AND age &lt; 50 THEN</span><br><span class="line">            &#x27;中年&#x27;</span><br><span class="line">        ELSE</span><br><span class="line">            &#x27;老年&#x27;</span><br><span class="line">    END &#x27;状态&#x27;</span><br><span class="line">FROM</span><br><span class="line">    user_info;</span><br></pre></td></tr></table></figure>
+
+<p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chenduzizhong/p/9590741.html">https://www.cnblogs.com/chenduzizhong/p/9590741.html</a></p>
 
     </div>
 
@@ -269,6 +285,9 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Mysql/" rel="tag"># Mysql</a>
+          </div>
 
         
 
@@ -276,13 +295,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-JavaScript/" rel="prev" title="前端寄出-JavaScript">
-      <i class="fa fa-chevron-left"></i> 前端寄出-JavaScript
+    <a href="/2022/09/11/myblog/JAVA/java%20web/" rel="prev" title="java web相关">
+      <i class="fa fa-chevron-left"></i> java web相关
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/08/19/myblog/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LFU%E7%BC%93%E5%AD%98%E5%AE%9E%E7%8E%B0/" rel="next" title="LFU缓存实现">
-      LFU缓存实现 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -341,7 +357,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7"><span class="nav-number">1.</span> <span class="nav-text">1.ab压测工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#linux%E4%B8%8B%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">linux下安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E4%BF%A1%E6%81%AF%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.</span> <span class="nav-text">输出信息说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E7%94%9F%E9%94%99%E8%AF%AF"><span class="nav-number">1.3.</span> <span class="nav-text">发生错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-charles"><span class="nav-number">2.</span> <span class="nav-text">2.charles</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sql%E5%AE%9E%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">sql实用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">日期函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mySQL-with-as%E7%94%A8%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">mySQL - with as用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-case-when-%E7%94%A8%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">mysql case when 用法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

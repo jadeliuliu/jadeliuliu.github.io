@@ -28,7 +28,7 @@
 <meta property="og:description" content="case1、注意直接from a and b 是相当于inner join，没有的不显示。 2、原来inset error的话，自增减也会消耗掉1个，update不会消耗，但是inset duplicate会消耗。 3、项目代码里，sql置select出一条，也就是只用一个对象接收时，必须得加limit 1，不然select出多条就会报错。 4、mybatis &lt;if&gt; 标签不是必须在">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-09-02T11:15:02.000Z">
-<meta property="article:modified_time" content="2022-09-24T14:50:12.966Z">
+<meta property="article:modified_time" content="2022-09-25T08:19:05.825Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="Mysql">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-09-24 22:50:12" itemprop="dateModified" datetime="2022-09-24T22:50:12+08:00">2022-09-24</time>
+                <time title="Modified: 2022-09-25 16:19:05" itemprop="dateModified" datetime="2022-09-25T16:19:05+08:00">2022-09-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -593,6 +593,8 @@ select course, max(grade) from grade group by course;  正确
 <p>4、select里面可以出现与order by字段无关的字段。如果select as后面和表里原字段同名，group by后面用的是select as的字段。</p>
 <p>⚠️其他的查看tips</p>
 <h2 id="模糊查询-1"><a href="#模糊查询-1" class="headerlink" title="模糊查询"></a>模糊查询</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;if test=&quot;cityList != null and cityList.size() &gt; 0&quot;&gt;</span><br><span class="line">    &lt;foreach collection=&quot;cityList&quot; open=&quot;(&quot; clos=&quot;)&quot; item=&quot;city&quot; index=&quot;index&quot; separator=&quot;or&quot;&gt;</span><br><span class="line">        city like concat(#&#123;city&#125;, &quot;%&quot;)</span><br><span class="line">    &lt;/foreach&gt;</span><br><span class="line">&lt;/if&gt;</span><br></pre></td></tr></table></figure>
+
+
     </div>
 
     
@@ -690,7 +692,7 @@ select course, max(grade) from grade group by course;  正确
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
