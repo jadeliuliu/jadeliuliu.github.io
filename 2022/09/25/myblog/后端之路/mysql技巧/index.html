@@ -28,7 +28,7 @@
 <meta property="og:description" content="sql实用函数日期函数1、datepart() 获取日期中的年月日datepart(‘2022-11-11 12:12:12’, ‘yyyy’)得到：2022，也可以是mm、dd 2、datetrunc() 获取日期的指定起始日期，比如一天的开始datetrunc(‘2022-11-11 12:12:12’, ‘yyyy‘)得到：2022-01-01 00:00:00 3、quarter() 获取">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-09-25T08:25:11.412Z">
-<meta property="article:modified_time" content="2022-10-08T09:33:40.529Z">
+<meta property="article:modified_time" content="2022-10-16T13:27:22.504Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="Mysql">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-08 17:33:40" itemprop="dateModified" datetime="2022-10-08T17:33:40+08:00">2022-10-08</time>
+                <time title="Modified: 2022-10-16 21:27:22" itemprop="dateModified" datetime="2022-10-16T21:27:22+08:00">2022-10-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -277,6 +277,25 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># when 表达式中可以使用 and 连接条件</span><br><span class="line">SELECT</span><br><span class="line">    NAME &#x27;英雄&#x27;,</span><br><span class="line">    age &#x27;年龄&#x27;,</span><br><span class="line">    CASE</span><br><span class="line">        WHEN age &lt; 18 THEN</span><br><span class="line">            &#x27;少年&#x27;</span><br><span class="line">        WHEN age &lt; 30 THEN</span><br><span class="line">            &#x27;青年&#x27;</span><br><span class="line">        WHEN age &gt;= 30</span><br><span class="line">        AND age &lt; 50 THEN</span><br><span class="line">            &#x27;中年&#x27;</span><br><span class="line">        ELSE</span><br><span class="line">            &#x27;老年&#x27;</span><br><span class="line">    END &#x27;状态&#x27;</span><br><span class="line">FROM</span><br><span class="line">    user_info;</span><br></pre></td></tr></table></figure>
 
 <p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chenduzizhong/p/9590741.html">https://www.cnblogs.com/chenduzizhong/p/9590741.html</a></p>
+<h2 id="mysql批量删除大量数据"><a href="#mysql批量删除大量数据" class="headerlink" title="mysql批量删除大量数据"></a>mysql批量删除大量数据</h2><p>假设有一个表(syslogs)有1000万条记录，需要在业务不停止的情况下删除其中statusid=1的所有记录，差不多有600万条， 直接执行 DELETE FROM syslogs WHERE statusid=1 会发现删除失败，因为lock wait timeout exceed的错误。</p>
+<p>因为这条语句所涉及的记录数太多，因此我们通过LIMIT参数分批删除，比如每10000条进行一次删除，那么我们可以利用 MySQL这样的语句来完成:<br><code>DELETE FROM syslogs WHERE status=1 ORDER BY statusid LIMIT 10000;</code></p>
+<p>如果要用order by 必须要和 limit 联用，否则被优化掉。然后分多次执行就可以把这些记录成功删除。</p>
+<p>注意：<br>执行大批量删除的时候注意要使用上limit。因为如果不用limit，删除大量数据很有可能造成死锁。<br><strong>如果delete的where语句不在索引上，可以先找主键，然后根据主键删除数据库。</strong><br>平时update和delete的时候最好也加上limit 1 来防止误操作。</p>
+<p>mybatis中的delete语句可以有返回，返回结果int是删除的条数，如果没删除，返回0.</p>
+<h2 id="delete和truncate，drop的区别"><a href="#delete和truncate，drop的区别" class="headerlink" title="delete和truncate，drop的区别"></a>delete和truncate，drop的区别</h2><p>1、delete删除数据的原理:(delete属于DML语句)</p>
+<p>表中的数据被删除了，但是这个数据在硬盘上的真实存储空间不会被释放。<br>这种删除表的优点是：支持回滚，后悔了可以恢复数据，可以带where条件删除部分数据，灵活性强。<br>缺点：删除效率比较低</p>
+<p><code>delete from user;  //删除user表中的数据，但是这种删除数据的方式有点慢。</code></p>
+<p>2、truncate删除数据的原理:(DDL)</p>
+<p>可以理解为，drop table然后再create table。<br>效率比较高，表被一次截断，物理删除<br>优点：快速，不走事务，不会锁表，也不会产生大量日志写入日志文件<br>缺点：不支持回滚，只能删除表中所有数据，不能删单条数据<br>如果说公司项目里面有一张大表，数据非常多，几亿条记录：<br>删除的时候，使用delete，也许执行一个小时才能删除完，效率极其低；<br>可以选择使用truncate删除表中的数据。只需要不到1s的时间就能删除结束，效率较高。<br>但是使用truncate之前，必须仔细询问客户是否真的需要删除，并警告删除之后不可恢复。</p>
+<p><code>truncate table user; //删除user表中的数据，快速。</code></p>
+<p><strong>truncate和delete的差异</strong></p>
+<blockquote>
+<p>1、truncate是DDL语句，它不存在所谓的“事务回滚”；<br>delete是DML语句，它执行完是可以rollback的。<br>2、truncate table返回值是0；<br>delete from table返回值是被删除的行数。<br>3、InnoDB支持一个表一个文件时：<br>truncate会一次性把表干掉，且不会激活触发器，速度非常快；<br>delete from table则会一行一行删除，会激活触发器，速度比较慢。<br>delete数据，是要记录日志的，truncate表不需要记录日志。<br>4、当表中有列被其它表作为外键(foreign key)时：<br>truncate会是失败； delete则会成功。<br>5、当表中有自增列时：<br>truncate会使得自增列计数复原；<br>delete所有数据后，自增列计数并不会复原，而是保持原来的顺序自增。</p>
+</blockquote>
+<p>3、drop删除表操作</p>
+<p>truncate和delete是删除表中的数据，表还在。</p>
+<p><code>drop table 表名；// 删除表，不是删除表中的数据</code></p>
+<p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/jike11231/article/details/126551510">https://blog.csdn.net/jike11231/article/details/126551510</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/jkzyx123/article/details/127223589">https://blog.csdn.net/jkzyx123/article/details/127223589</a></p>
 
     </div>
 
@@ -357,7 +376,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sql%E5%AE%9E%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">sql实用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">日期函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mySQL-with-as%E7%94%A8%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">mySQL - with as用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-case-when-%E7%94%A8%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">mysql case when 用法</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sql%E5%AE%9E%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">sql实用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">日期函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mySQL-with-as%E7%94%A8%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">mySQL - with as用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-case-when-%E7%94%A8%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">mysql case when 用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">4.</span> <span class="nav-text">mysql批量删除大量数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#delete%E5%92%8Ctruncate%EF%BC%8Cdrop%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">delete和truncate，drop的区别</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
