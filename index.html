@@ -183,6 +183,98 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/22/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/leeco%E9%A2%98%E7%9B%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/22/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/leeco%E9%A2%98%E7%9B%AE/" class="post-title-link" itemprop="url">javaのleecode</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-10-22 09:27:14" itemprop="dateCreated datePublished" datetime="2022-10-22T09:27:14+08:00">2022-10-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-10-30 11:45:22" itemprop="dateModified" datetime="2022-10-30T11:45:22+08:00">2022-10-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><p>题目：给个数组和目标值，给出数组中两个数之和等于目标值的数的索引。<br>思想：哈希映射，利用map的快速查找key特性（<code>map.containsKey(key)</code>）来实现遍历一次就够了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">package leeco.nums;</span><br><span class="line"></span><br><span class="line">import java.util.Arrays;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 两数之和</span><br><span class="line"> *</span><br><span class="line"> * @author: liuxuan</span><br><span class="line"> * @date: 2022-10-20 23:39</span><br><span class="line"> **/</span><br><span class="line">public class TwoNumSum &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        int[] nums = new int[]&#123;2,7,11,15&#125;;</span><br><span class="line">        Solution solution = new Solution();</span><br><span class="line">        int[] res = solution.twoSum(nums, 9);</span><br><span class="line">        System.out.println(Arrays.toString(res));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static class Solution &#123;</span><br><span class="line">        public int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">            HashMap&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();</span><br><span class="line">            for (int i = 0; i &lt; nums.length; i++) &#123;</span><br><span class="line">                if (map.containsKey(target - nums[i])) &#123;</span><br><span class="line">                    return new int[]&#123;i, map.get(target - nums[i])&#125;;</span><br><span class="line">                &#125;</span><br><span class="line">                map.put(nums[i], i);</span><br><span class="line">            &#125;</span><br><span class="line">            throw new IllegalArgumentException(&quot;no result&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="两链表表示的数相加"><a href="#两链表表示的数相加" class="headerlink" title="两链表表示的数相加"></a>两链表表示的数相加</h2><p>题目：两个链表表示的数，1-&gt;2-&gt;3 表示 123，相加得到和的链表。<br>思想：相加遍历进位即可，carry表示进位，要在while循环外定义，要先算和再算进位。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">package leeco.nums;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 计算两个琏表表示的数的和</span><br><span class="line"> *</span><br><span class="line"> * @author: liuxuan</span><br><span class="line"> * @date: 2022-10-22 10:18</span><br><span class="line"> **/</span><br><span class="line">public class TwoLinkNumSum &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // 构造链表</span><br><span class="line">        ListNode listNode1 = ListNode.inputList(1, 2, 3);</span><br><span class="line">        ListNode.printList(listNode1);</span><br><span class="line">        ListNode.printList(ListNode.reverseList(listNode1));</span><br><span class="line">        ListNode l1 = ListNode.inputList(2, 4, 3);</span><br><span class="line">        ListNode l2 = ListNode.inputList(5, 6, 4);</span><br><span class="line">        Solution s = new Solution();</span><br><span class="line">        ListNode sum = s.addTwoNumbers(l1, l2);</span><br><span class="line">        ListNode.printList(sum);</span><br><span class="line">    &#125;</span><br><span class="line">    static class Solution &#123;</span><br><span class="line">        public ListNode addTwoNumbers(ListNode l1, ListNode l2) &#123;</span><br><span class="line">            // 定义pre节点，保证头节点也参与循环</span><br><span class="line">            ListNode pre = new ListNode(0);</span><br><span class="line">            ListNode cur = pre;</span><br><span class="line">            int carry = 0;</span><br><span class="line">            while (l1 != null || l2 != null) &#123;</span><br><span class="line">                int x = l1 == null ? 0 : l1.val;</span><br><span class="line">                int y = l2 == null ? 0 : l2.val;</span><br><span class="line">                int sum = (x + y + carry) % 10;</span><br><span class="line">                carry = (x + y + carry) / 10;</span><br><span class="line">                cur.next = new ListNode(sum);</span><br><span class="line">                cur = cur.next;</span><br><span class="line">                if (l1 != null) &#123;</span><br><span class="line">                    l1 = l1.next;</span><br><span class="line">                &#125;</span><br><span class="line">                if (l2 != null) &#123;</span><br><span class="line">                    l2 = l2.next;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if (carry != 0) &#123;</span><br><span class="line">                cur.next = new ListNode(carry);</span><br><span class="line">            &#125;</span><br><span class="line">            return pre.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static class ListNode &#123;</span><br><span class="line">        int val;</span><br><span class="line">        ListNode next;</span><br><span class="line">        ListNode() &#123;&#125;;</span><br><span class="line">        ListNode(int val) &#123;this.val = val;&#125;</span><br><span class="line">        ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span><br><span class="line"></span><br><span class="line">        /** 向队尾添加节点 */</span><br><span class="line">        private void addNode(ListNode newNode) &#123;</span><br><span class="line">            if (this.next == null) &#123;</span><br><span class="line">                this.next = newNode;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                this.next.addNode(newNode);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        /** 使用方法可变参数把一串数字变成链表 */</span><br><span class="line">        public static ListNode inputList(int ...data) &#123;</span><br><span class="line">            ListNode listHead = null;</span><br><span class="line">            for (int temp : data) &#123;</span><br><span class="line">                ListNode newNode = new ListNode(temp);</span><br><span class="line">                if (listHead == null) &#123;</span><br><span class="line">                    listHead = newNode;</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    listHead.addNode(newNode);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return listHead;</span><br><span class="line">        &#125;</span><br><span class="line">        /** 打印链表 */</span><br><span class="line">        public static void printList(ListNode head) &#123;</span><br><span class="line">            while (head != null) &#123;</span><br><span class="line">                System.out.print(head.val + &quot;-&gt;&quot;);</span><br><span class="line">                head = head.next;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">        /** 翻转链表 */</span><br><span class="line">        public static ListNode reverseList(ListNode head) &#123;</span><br><span class="line">            ListNode pre = null;</span><br><span class="line">            ListNode cur = head;</span><br><span class="line">            while (cur != null) &#123;</span><br><span class="line">                ListNode next = cur.next;</span><br><span class="line">                cur.next = pre;</span><br><span class="line">                pre = cur;</span><br><span class="line">                cur = next;</span><br><span class="line">            &#125;</span><br><span class="line">            return pre;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串的最长无重复字符子串"><a href="#字符串的最长无重复字符子串" class="headerlink" title="字符串的最长无重复字符子串"></a>字符串的最长无重复字符子串</h2><p>题目：一个字符串，给出字符串的连续子串中其中无重复字符的子串的最大长度。<br>思想：滑动窗口，或者叫做双指针，两个指针的差+1表示窗口的长度，用一个map记录某字符最晚出现的位置的下一个位置。如果在start指针后面出现过就需要移动start到map该字符的value的位置了。如果要子串本身，还得记录开始位置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">package leeco.nums;</span><br><span class="line"></span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 无重复字符的最长子串</span><br><span class="line"> *</span><br><span class="line"> * @author: liuxuan</span><br><span class="line"> * @date: 2022-10-22 12:29</span><br><span class="line"> **/</span><br><span class="line">public class MaxNoRepeatString &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        String s = &quot;abcabc&quot;;</span><br><span class="line">        Solution solution = new Solution();</span><br><span class="line">        System.out.println(solution.lengthOfLongestSubstring(s));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static class Solution &#123;</span><br><span class="line">        public int lengthOfLongestSubstring(String s) &#123;</span><br><span class="line">            // 用map表示字符对应的下一个位置</span><br><span class="line">            Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();</span><br><span class="line">            int res = 0;</span><br><span class="line">            String sub = null;</span><br><span class="line">            for (int start = 0, end = 0; end &lt; s.length(); end ++) &#123;</span><br><span class="line">                char c = s.charAt(end);</span><br><span class="line">                if (map.containsKey(c)) &#123;</span><br><span class="line">                    start = Math.max(start, map.get(c));</span><br><span class="line">                &#125;</span><br><span class="line">                // 如果存在key，会更新</span><br><span class="line">                map.put(c, end + 1);</span><br><span class="line">                //res = Math.max(res, end - start + 1);</span><br><span class="line">                if (end - start + 1 &gt; res) &#123;</span><br><span class="line">                    res = end - start + 1;</span><br><span class="line">                    sub = s.substring(start, end + 1);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(&quot;sub字符串：&quot; + sub);</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="寻找两个正序数组的中位数"><a href="#寻找两个正序数组的中位数" class="headerlink" title="寻找两个正序数组的中位数"></a>寻找两个正序数组的中位数</h2><p>题目：给两个正序排列的数组，返回这两个数组合起来的数组的中位数。<br>思路1：遍历，在两个数组间横跳，遍历(m+n)/2+1次就好了。时间复杂度是O(m+n)<br>思路2：遍历是挨个排除不可能的值，那么如果用二分法就可以一半一半地排除不可能的值。其实是找第K小的数，要比两个数组的K/2位置的数，小的那个数组K/2及前面的数就可以排除掉，这样递归查找。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">package leeco.nums;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 寻找两个正序数组的中位数</span><br><span class="line"> *</span><br><span class="line"> * @author: liuxuan</span><br><span class="line"> * @date: 2022-10-23 10:10</span><br><span class="line"> **/</span><br><span class="line">public class MedianOfTwoArray &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        int[] array1 = new int[]&#123;1, 2&#125;;</span><br><span class="line">        int[] array2 = new int[]&#123;3, 4&#125;;</span><br><span class="line">        Solution s = new Solution();</span><br><span class="line">        System.out.println(s.findMedianSortedArrays(array1, array2));</span><br><span class="line">        System.out.println(s.findMedianSortedArrays2(array1, array2));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static class Solution &#123;</span><br><span class="line">        // 方法一：在两个数组间遍历，移动(m+n)/2+1步</span><br><span class="line">        public double findMedianSortedArrays(int[] nums1, int[] nums2) &#123;</span><br><span class="line">            int index1 = 0, index2 = 0, left = 0, right = 0;</span><br><span class="line">            int size = nums1.length + nums2.length;</span><br><span class="line">            for (int i = 0; i &lt;= size / 2; i++) &#123;</span><br><span class="line">                // left慢一步</span><br><span class="line">                left = right;</span><br><span class="line">                if (index1 &lt; nums1.length &amp;&amp; (index2 == nums2.length || nums1[index1] &lt;= nums2[index2])) &#123;</span><br><span class="line">                    right = nums1[index1++];</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    right = nums2[index2++];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if (size % 2 == 0) &#123;</span><br><span class="line">                return (left + right) / 2.0;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                return left;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        // 方法二：二分法</span><br><span class="line">        public double findMedianSortedArrays2(int[] nums1, int[] nums2) &#123;</span><br><span class="line">            int n = nums1.length;</span><br><span class="line">            int m = nums2.length;</span><br><span class="line">            int left = (n + m + 1) / 2;</span><br><span class="line">            int right = (n + m + 2) / 2;</span><br><span class="line">            return (getKth(nums1, 0, n - 1, nums2, 0, m - 1, left) + getKth(nums1, 0, n - 1, nums2, 0, m - 1, right)) * 0.5;</span><br><span class="line">        &#125;</span><br><span class="line">        // 获取两正序数组的第k大的值</span><br><span class="line">        private int getKth(int[] nums1, int start1, int end1, int[] nums2, int start2, int end2, int k) &#123;</span><br><span class="line">            // 要进行比较的数组的长度</span><br><span class="line">            int len1 = end1 - start1 + 1;</span><br><span class="line">            int len2 = end2 - start2 + 1;</span><br><span class="line">            if (len1 + len2 &lt; k) &#123;throw new IllegalArgumentException(&quot;no result&quot;);&#125;</span><br><span class="line">            // 出递归条件</span><br><span class="line">            if (len1 == 0) return nums2[start2 + k - 1];</span><br><span class="line">            if (len2 == 0) return nums1[start1 + k - 1];</span><br><span class="line">            if (k == 1) return Math.min(nums1[start1], nums2[start2]);</span><br><span class="line">            // 要比较的两个数组的索引</span><br><span class="line">            int i = start1 + Math.min(len1, k / 2) - 1;</span><br><span class="line">            int j = start2 + Math.min(len2, k / 2) - 1;</span><br><span class="line">            if (nums1[i] &gt; nums2[j]) &#123;</span><br><span class="line">                return getKth(nums1, start1, end1, nums2, j + 1, end2, k - (j - start2 + 1));</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                return getKth(nums1, i + 1, end1, nums2, start2, end2, k - (i - start1 + 1));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="最长回文子串"><a href="#最长回文子串" class="headerlink" title="最长回文子串"></a>最长回文子串</h2><p>题目：给一个字符串，返回该字符串的最长回文子串，例如：aba，abba。<br>思想1：可以挨个遍历每个字符，从字符开始向左右散发，如果不相等了就停止，并且分两种散发：一个中心字符，两个一样的作为中心字符。记录开始位置和结束位置。<br>思想2：回文子串也是该字符串与它倒过来的字符串的最长公共子串，可以用动态规划维护一个二维数组来做。动态规划就是为了减少重复计算的问题。动态规划听起来很高大上。其实说白了就是空间换时间，将计算结果暂存起来，避免重复计算。作用和工程中用 redis 做缓存有异曲同工之妙。<br>求出最长公共子串后，并不一定是回文串，我们还需要判断该字符串倒置前的下标和当前的字符串下标是不是匹配</p>
+<blockquote>
+<p>整体思想就是，申请一个二维的数组初始化为 0，然后判断对应的字符是否相等，相等的话<br>arr [ i ][ j ] = arr [ i - 1 ][ j - 1] + 1 。<br>当 i = 0 或者 j = 0 的时候单独分析，字符相等的话 arr [ i ][ j ] 就赋为 1 。<br>arr [ i ][ j ] 保存的就是公共子串的长度，表示以i为结尾和以j为结尾的前arr[i][j]个字符是公共子串。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">package leeco.nums;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 最长回文子串</span><br><span class="line"> *</span><br><span class="line"> * @author: liuxuan</span><br><span class="line"> * @date: 2022-10-29 20:43</span><br><span class="line"> **/</span><br><span class="line">public class HuiWenString &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        String s = &quot;aacabdkacaa&quot;;</span><br><span class="line">        Solution solution = new Solution();</span><br><span class="line">        System.out.println(solution.longestPalindrome(s));</span><br><span class="line">        System.out.println(solution.longestPalindrome1(s));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static class Solution &#123;</span><br><span class="line">        public String longestPalindrome(String s) &#123;</span><br><span class="line">            if (null == s || s.length() &lt; 2) &#123;</span><br><span class="line">                return s;</span><br><span class="line">            &#125;</span><br><span class="line">            int max = 0;</span><br><span class="line">            String res = null;</span><br><span class="line">            for (int i = 0; i &lt; s.length() - 1; i ++) &#123;</span><br><span class="line">                int l = i, r = i;</span><br><span class="line">                while (l &gt;= 0 &amp;&amp; r &lt; s.length() &amp;&amp; s.charAt(l) == s.charAt(r)) &#123;</span><br><span class="line">                    l --;</span><br><span class="line">                    r ++;</span><br><span class="line">                &#125;</span><br><span class="line">                if (r - l + 1 &gt; max) &#123;</span><br><span class="line">                    max = r - l + 1;</span><br><span class="line">                    res = s.substring(l + 1, r);</span><br><span class="line">                &#125;</span><br><span class="line">                l = i;</span><br><span class="line">                r = i + 1;</span><br><span class="line">                while (l &gt;= 0 &amp;&amp; r &lt; s.length() &amp;&amp; s.charAt(l) == s.charAt(r)) &#123;</span><br><span class="line">                    l --;</span><br><span class="line">                    r ++;</span><br><span class="line">                &#125;</span><br><span class="line">                if (r - l + 1 &gt; max) &#123;</span><br><span class="line">                    max = r - l + 1;</span><br><span class="line">                    res = s.substring(l + 1, r);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public String longestPalindrome1(String s) &#123;</span><br><span class="line">            if (null == s || s.length() &lt; 2) &#123;</span><br><span class="line">                return s;</span><br><span class="line">            &#125;</span><br><span class="line">            String res = null;</span><br><span class="line">            int max = 0;</span><br><span class="line">            int length = s.length();</span><br><span class="line">            int[][] arr = new int[length][length];</span><br><span class="line">            String rev = new StringBuffer(s).reverse().toString(); //字符串翻转</span><br><span class="line">            for (int i = 0; i &lt; length; i ++) &#123;</span><br><span class="line">                for (int j = 0; j &lt; length; j ++) &#123;</span><br><span class="line">                    //如果不想等可以不赋值为0，表示以这个字符为公共最后字符没有公共字符，动态规划也用不上</span><br><span class="line">                    if (s.charAt(i) == rev.charAt(j)) &#123;</span><br><span class="line">                        //为0的边界</span><br><span class="line">                        if (i == 0 || j == 0) &#123;</span><br><span class="line">                            arr[i][j] = 1;</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            arr[i][j] = arr[i - 1][j - 1] + 1;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (arr[i][j] &gt; max) &#123;</span><br><span class="line">                        int beforeRev = length - 1 - j; //倒置前的坐标</span><br><span class="line">                        if (beforeRev + arr[i][j] - 1 == i) &#123; //判断下标是否对应</span><br><span class="line">                            max = arr[i][j];</span><br><span class="line">                            res = s.substring(i - arr[i][j] + 1, i + 1);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/25/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/mysql%E6%8A%80%E5%B7%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -214,7 +306,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-16 21:27:22" itemprop="dateModified" datetime="2022-10-16T21:27:22+08:00">2022-10-16</time>
+                <time title="Modified: 2022-11-04 21:52:07" itemprop="dateModified" datetime="2022-11-04T21:52:07+08:00">2022-11-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -255,6 +347,8 @@
 
 <p>总结：<br>1、with as 相当于一个临时表，但是不同于视图（create table as），不会存储起来，要与select配合使用。<br>2、同一个select前可以有多个临时表，写一个with就可以，用逗号隔开，最后一个with语句不要用逗号。</p>
 <p>摘自：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/397195826">https://zhuanlan.zhihu.com/p/397195826</a></p>
+<p>实战总结：<br><code>with as</code>不能单独加<code>;</code>一句单独使用，需要后面跟select一起使用。第一个<code>with as</code>得到的临时表可以在第二个临时表里用。好处是可以分步骤生成表，不用嵌套很多层。</p>
+<p>如果<code>create table as</code> ，是要加在<code>with as</code>之前的。</p>
 <h2 id="mysql-case-when-用法"><a href="#mysql-case-when-用法" class="headerlink" title="mysql case when 用法"></a>mysql case when 用法</h2><p>MySQL 的 case when 的语法有两种：</p>
 <p>简单函数<br><code>CASE [col_name] WHEN [value1] THEN [result1]…ELSE [default] END</code></p>
 <p>搜索函数<br><code>CASE WHEN [expr] THEN [result1]…ELSE [default] END</code></p>
@@ -284,6 +378,12 @@
 <p>truncate和delete是删除表中的数据，表还在。</p>
 <p><code>drop table 表名；// 删除表，不是删除表中的数据</code></p>
 <p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/jike11231/article/details/126551510">https://blog.csdn.net/jike11231/article/details/126551510</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/jkzyx123/article/details/127223589">https://blog.csdn.net/jkzyx123/article/details/127223589</a></p>
+<h2 id="mysql的subdate函数"><a href="#mysql的subdate函数" class="headerlink" title="mysql的subdate函数"></a>mysql的subdate函数</h2><p>MySQL中的SUBDATE()函数用于从给定日期减去某间隔时间。</p>
+<p>用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SUBDATE(date, INTERVAL expr, unit)</span><br><span class="line"></span><br><span class="line">此函数接受以下三个参数：</span><br><span class="line">日期：第一个指定的日期。</span><br><span class="line">expr：要减去的时间/日期间隔的值。负的表示该时间之后</span><br><span class="line">单位：间隔的类型。MICROSECOND\SECOND\MINUTE\HOUR\DAY\WEEK\MONTH\QUARTER\YEAR</span><br></pre></td></tr></table></figure>
+
+<p>例子：<br><code>select subdate(&quot;2020-11-25&quot;, INTERVAL 30 DAY)</code></p>
+<p>今天的日期：<br><code>select curdate();  2022-10-30</code><br>现在的时间：<br><code>select curtime();   13:13:54</code></p>
 
       
     </div>
@@ -751,7 +851,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-16 18:38:06" itemprop="dateModified" datetime="2022-10-16T18:38:06+08:00">2022-10-16</time>
+                <time title="Modified: 2022-11-01 09:18:50" itemprop="dateModified" datetime="2022-11-01T09:18:50+08:00">2022-11-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -781,7 +881,7 @@
 <p>如何减少上下文切换？<br>1、无锁并发编程，多线程竞争锁时会引起上下文切换，可以将数据id根据hash算法取模分段，不同线程处理不同段的数据。<br>2、CAS算法，Atomic包下，不需要加锁。<br>3、避免创建不需要的线程。每次从waiting到runnable都需要进行一次上下文切换。<br>4、协程：在单线程中实现多任务调度，维持多个任务间的切换。</p>
 <h3 id="2-死锁"><a href="#2-死锁" class="headerlink" title="2.死锁"></a>2.死锁</h3><p>线程a和线程b互相等待对方释放锁。</p>
 <p>一旦出现死锁，业务可感知，使用jstack命令dump线程。</p>
-<p>避免死锁的几个方法：<br>1、避免一个线程同时获取多个锁。<br>2、避免一个线程在锁内同时占用多个资源。<br>3、尝试使用定时锁，使用lock.tryLock(timeout)来替代内部锁机制<br>4、对于数据库锁，加锁的解锁在必须在一个数据库连接中，否则会出现解锁失败。</p>
+<p>避免死锁的几个方法：<br>1、避免一个线程同时获取多个锁。<br>2、避免一个线程在锁内同时占用多个资源。<br>3、尝试使用定时锁，使用lock.tryLock(timeout)来替代内部锁机制<br>4、对于数据库锁，加锁和解锁必须在一个数据库连接中，否则会出现解锁失败。</p>
 <h3 id="3-资源限制"><a href="#3-资源限制" class="headerlink" title="3.资源限制"></a>3.资源限制</h3><p>并发编程时的资源限制：<br>硬件限制：带宽的上传/下载速度（2Mb/s）、硬盘读写速度、CPU处理速度<br>软件限制：数据库连接数、socket连接数<br>例如：线程数比数据库连接数大很多，则某些线程会被阻塞，等待数据库连接。</p>
 <p>使用等待超时模式模拟数据库连接池：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_52043808/article/details/125759727">https://blog.csdn.net/m0_52043808/article/details/125759727</a></p>
 <p>受到资源限制时，并发执行可能会编程串行执行，但是增加了上下文切换和资源调度的时间，比串行还慢。</p>
@@ -811,8 +911,12 @@
 <h4 id="✅案例：分析CPU过高"><a href="#✅案例：分析CPU过高" class="headerlink" title="✅案例：分析CPU过高"></a>✅案例：分析CPU过高</h4><p>导致CPU过高的demo程序，一个死循环</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 有个导致CPU过高程序的demo，死循环</span><br><span class="line"> */</span><br><span class="line">public class JstackCase &#123;</span><br><span class="line"> </span><br><span class="line">     private static ExecutorService executorService = Executors.newFixedThreadPool(5);</span><br><span class="line"> </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"> </span><br><span class="line">        Task task1 = new Task();</span><br><span class="line">        Task task2 = new Task();</span><br><span class="line">        executorService.execute(task1);</span><br><span class="line">        executorService.execute(task2);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    public static Object lock = new Object();</span><br><span class="line"> </span><br><span class="line">    static class Task implements Runnable&#123;</span><br><span class="line"> </span><br><span class="line">        public void run() &#123;</span><br><span class="line">            synchronized (lock)&#123;</span><br><span class="line">                long sum = 0L;</span><br><span class="line">                while (true)&#123;</span><br><span class="line">                    sum += 1;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>排查步骤：<br>1、top<br>在服务器上，我们可以通过top命令查看各个进程的cpu使用情况，它默认是按cpu使用率由高到低排序的，拿到pid<br>2、top -Hp pid 【奇怪，不能用，只能top -p pid】<br>通过top -Hp pid可以查看该进程下，各个线程的cpu使用情况<br>3、jstack pid<br>接着使用jstack pid命令来查看当前java进程的堆栈状态<br>4、jstack -l [PID] &gt;/tmp/log.txt<br>一般在生成环境，我们可以把这些堆栈信息打到一个文件里，再回头仔细分析<br>5、把pid换成nid<br>将该线程好打印成 16进制的<br><code>printf &quot;%x\n&quot; 19343</code><br>jstack pid | grep -10 nid<br>可以看到目标线程的线程堆栈信息了</p>
+<p>排查步骤：<br>1、jps 命令获取目标 java 进程号<br>2、在服务器上，我们可以通过top命令查看各个进程的cpu使用情况，它默认是按cpu使用率由高到低排序的，拿到pid<br>top -Hp pid 【奇怪，不能用，只能top -p pid】<br>通过top -Hp pid可以查看该进程下，各个线程的cpu使用情况<br>3、把线程pid换成nid<br>将该线程好打印成 16进制的<br><code>printf &quot;%x\n&quot; 19343</code><br>4、jstack -l [PID] &gt;/tmp/log.txt<br>一般在生成环境，我们可以把这些堆栈信息打到一个文件里，再回头仔细分析<br>jstack 进程pid | grep -10 线程<br>nid<br>可以看到目标线程的线程堆栈信息了</p>
 <p>转自：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44588186/article/details/124680586">https://blog.csdn.net/weixin_44588186/article/details/124680586</a><br>【jstack案例】<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_19922839/article/details/115379649">https://blog.csdn.net/qq_19922839/article/details/115379649</a><br>【里面还有pstree 查看进程树，jvm 监控工具Liberica Mission Control】</p>
+<h4 id="✅dump线程"><a href="#✅dump线程" class="headerlink" title="✅dump线程"></a>✅dump线程</h4><p>线程dump的目的是转存线程快照。快照中是当前JVM所有线程正在执行方法的堆栈信息。</p>
+<p>通过线程dump来分析定位线程出现长时间停顿的原因，如线程死锁、线程死循环、线程请求外部资源长时间等待等。</p>
+<p>可以用arthas获取dump文件，dump文件很大，几个G，可以用IDEA打开，或者用其他分析工具。arthas也可以输出所有线程。</p>
+<p>线程dump：<a target="_blank" rel="noopener" href="https://blog.csdn.net/HaierFiller/article/details/117367228">https://blog.csdn.net/HaierFiller/article/details/117367228</a></p>
 <h2 id="第二章-java并发机制的底层实现原理"><a href="#第二章-java并发机制的底层实现原理" class="headerlink" title="第二章 java并发机制的底层实现原理"></a>第二章 java并发机制的底层实现原理</h2><p>.java代码 -编译为- .class字节码文件 -加载到- jvm -执行字节码- 转化为汇编语言在cpu执行。</p>
 <p>java的并发机制依赖于jvm的实现和cpu的执行。</p>
 <h3 id="1-volatile"><a href="#1-volatile" class="headerlink" title="1.volatile"></a>1.volatile</h3><h4 id="✅volatile底层"><a href="#✅volatile底层" class="headerlink" title="✅volatile底层"></a>✅volatile底层</h4><p>volatile是轻量级的synchronized，在多处理器开发中保证了共享变量的可见性（所有线程看到的这个变量的值是一致的）。比synchronized执行成本低，不会引起线程上下文的切换和调度。</p>
@@ -821,7 +925,7 @@
 <p>存储大体上分两种, 主存是堆内存, 工作内存是栈内存, 属于线程私有。<br>对字段操作都需要先从主存读取数据加载进工作内存, 工作内存对这个副本数据进行操作<br>volatile修饰的变量, 等于在堆中这个变量的内存区域上打了个标, 所有操作都必须从主存中读取, 由MESI&lt;缓存一致性协议&gt;实现</p>
 <p>对volatile声明的变量进行写操作会发生什么：<br>1、jvm向处理器发送一条lock前缀的指令，将这个变量所在缓存行的数据写回系统内存。lock指令执行期间会锁住总线/缓存，保证不会同时多个cpu修改共享变量。<br>2、多处理下，实现缓存一致性协议，每个处理器使用嗅探技术，保证它的内部缓存和系统内存的数据在总线上保持一致（发现自己缓存行对应的内存地址被修改，首先将缓存行置为无效，重新从系统内存中将数据读到缓存）。</p>
 <p>volitale的使用优化：<br>jdk7中的LinkedTransferQueue，使用volitale时，采用追加字节的方式优化出队入队效率。</p>
-<p>为什么？<br>因为处理器的高速缓存行是64个字节宽，不支持部分填充缓存行。这样头节点和尾节点在一个高速缓存行中，多处理器下，一个处理器修改头节点，会将整个缓存行锁定，在缓存一致性的作用下，导致其他处理器不能访问自己高速缓存行中的尾节点。<br>追加到64字节，可以避免投喂节点加载到同一个缓存行中，修改时不会相互锁定。</p>
+<p>为什么？<br>因为处理器的高速缓存行是64个字节宽，不支持部分填充缓存行。这样头节点和尾节点在一个高速缓存行中，多处理器下，一个处理器修改头节点，会将整个缓存行锁定，在缓存一致性的作用下，导致其他处理器不能访问自己高速缓存行中的尾节点。<br>节点追加到64字节，可以避免头尾节点加载到同一个缓存行中，修改时不会相互锁定。</p>
 <p>注意：缓存行非64字节的别这么做，共享变量不会被频繁写的话别这么做。</p>
 <h4 id="✅volatile使用"><a href="#✅volatile使用" class="headerlink" title="✅volatile使用"></a>✅volatile使用</h4><p>⚠️注意：volatile能保证可见性，但不能保证原子性。<br>在 volatile 字段上进行了非原子类操作，会idea提示：<code>Non-atomic operations on volatile fields</code><br>比如：count++ 就是非原子操作，分三步：<br>1、从主存读取 i<br>2、在寄存器中进行加一运算, 自增操作, 此时已经修改工作内存中的值<br>3、将计算后的值赋给 i, 也就是刷回主存</p>
 <p><strong>可见性</strong></p>
@@ -875,7 +979,7 @@
 <h4 id="✅java对象头"><a href="#✅java对象头" class="headerlink" title="✅java对象头"></a>✅java对象头</h4><p>HotSpot虚拟机中，对象在内存中存储的布局可以分为三块区域：对象头（Header）、实例数据（Instance Data）和对齐填充（Padding）。</p>
 <p>HotSpot虚拟机的对象头包括三部分信息：<br>1、mark word 2、元类指针 3、数组长度<br>普通对象头有两个区域（1，2）、数组对象头有三个区域（1,2,3）</p>
 <p><strong>Mark Word</strong></p>
-<p>这部分主要存储对象自身的运行数据，如Hashcode、gc分代年龄、对象锁，锁状态标志，偏向锁（线程）ID，偏向时间，数组长度（数组对象）等等。mark word的位长度为JVM的一个Word大小，也就是说32位JVM的Mark word为32位，64位。</p>
+<p>这部分主要存储对象自身的运行数据，如Hashcode、gc分代年龄、对象锁，锁状态标志，偏向锁（线程）ID，偏向时间等等。mark word的位长度为JVM的一个Word大小，也就是说32位JVM的Mark word为32位。</p>
 <p>Java对象头一般占有2个机器码（64位虚拟机中，1个机器码是8个字节，也就是64bit），但是 如果对象是数组类型，则需要3个机器码，因为JVM虚拟机可以通过Java对象的元数据信息确定Java对象的大小，但是无法从数组的元数据来确认数组的大小，所以用一块来记录数组长度。</p>
 <p><strong>指向类的指针</strong></p>
 <p>该指针在32位JVM的长度是32Bit，64是64bit<br>它主要指向类的数据，也就是指向方法区中的位置。</p>
@@ -977,7 +1081,7 @@
 <h4 id="✅处理器总线事务"><a href="#✅处理器总线事务" class="headerlink" title="✅处理器总线事务"></a>✅处理器总线事务</h4><p>总线事务包括读事务（内存-处理器）和写事务（处理器-内存），中间都要通过总线，总线会同步试图并发使用总线的事务，一次只有一个事务可以操作总线访问内存。</p>
 <p>所以，一次最多只有一个处理器可以访问内存，这保证了单个总线事务之中的内存读写（读跟写，不是i++）具有原子性。</p>
 <p>但是：32位的处理器上，对long型和double型这俩64位的数据的写操作拆分成了两个写事务，会分配在不同的总线事务中执行。所以不具有原子性。</p>
-<h3 id="4-volatile的内存语义"><a href="#4-volatile的内存语义" class="headerlink" title="4.volatile的内存语义"></a>4.volatile的内存语义</h3><h4 id="✅volatile的特性："><a href="#✅volatile的特性：" class="headerlink" title="✅volatile的特性："></a>✅volatile的特性：</h4><p>1、可见性：对volatile变量的单个读写，相当于是用同一个锁对单个读写方法做了同步。对volatile变量的读，总能看到最后的写入。被volatile修饰的变量对所有线程总数立即可见的，对volatile变量的所有写操作总是能立刻反应到其他线程中。</p>
+<h3 id="4-volatile的内存语义"><a href="#4-volatile的内存语义" class="headerlink" title="4.volatile的内存语义"></a>4.volatile的内存语义</h3><h4 id="✅volatile的特性："><a href="#✅volatile的特性：" class="headerlink" title="✅volatile的特性："></a>✅volatile的特性：</h4><p>1、可见性：对volatile变量的单个读写，相当于是用同一个锁对单个读写方法做了同步。对volatile变量的读，总能看到最后的写入。被volatile修饰的变量对所有线程总是立即可见的，对volatile变量的所有写操作总是能立刻反应到其他线程中。</p>
 <p>2、原子性：对单个volatile变量的读写（64位的long和double类型也是）具有原子性，volatile++的复合操作不具有原子性。</p>
 <h4 id="✅volatile变量读写实现线程之间通信"><a href="#✅volatile变量读写实现线程之间通信" class="headerlink" title="✅volatile变量读写实现线程之间通信"></a>✅volatile变量读写实现线程之间通信</h4><p>volatile变量的写、读，与锁的释放、获取有相同的内存效果。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">int a = 0;</span><br><span class="line">volatile boolean flag = false;</span><br><span class="line"></span><br><span class="line">public void writer() &#123;</span><br><span class="line">    a = 1;//1</span><br><span class="line">    flag = true;//2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void reader() &#123;</span><br><span class="line">    if (flag) &#123;  //3</span><br><span class="line">        int i = a; //4</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -996,8 +1100,8 @@
 <p>那么，如何实现限制指令重排？<br>为了实现volatile的内存语义，编译器在生成字节码时，会在指令序列中插入内存屏障来禁止特定类型的处理器重排序。<br>尽管内存屏障会降低效率，但是JMM 在实现上的一个特点：首先确保正确性，然后再去追求执行效率。</p>
 <h4 id="✅JSR-133增强volatile的内存语义"><a href="#✅JSR-133增强volatile的内存语义" class="headerlink" title="✅JSR-133增强volatile的内存语义"></a>✅JSR-133增强volatile的内存语义</h4><p>Java内存模型是一个雄心勃勃的计划，它是编程语言规范第一次尝试合并一个能够在各种处理器架构中为并发提供一致语义的内存模型。不过，定义一个既一致又直观的内存模型远比想象要更难。JSR133为Java语言定义了一个新的内存模型，它修复了早期内存模型中的缺陷。为了实现JSR133，final和volatile的语义需要重新定义。</p>
 <p>旧的内存模型中，volatile的写读没有锁的释放和获取的内存语义，也就是实现线程之间通信那一小节里，会指令重排。</p>
-<p>JSR-133，严格限制编译器和处理器对volatile变量语普通变量的重排序，确保了volatile的写读有锁的释放和获取的内存语义。</p>
-<p>volatile与锁对比：<br>锁在功能上比volatile更强大，可以确保整个临界区代码具有原子性。volatile只能对单个volatile变量读写具有原子性。<br>在可伸缩性和执行性能上，volatile更具有优势。</p>
+<p>JSR-133，严格限制编译器和处理器对volatile变量与普通变量的重排序，确保了volatile的写读有锁的释放和获取的内存语义。</p>
+<p>volatile与锁对比：<br>锁在功能上比volatile更强大，可以确保整个临界区代码具有原子性。volatile只能对单个volatile变量读写具有原子性。（所以不能单纯用volatile实现计数器）<br>在可伸缩性和执行性能上，volatile更具有优势。</p>
 <h3 id="5-锁的内存语义"><a href="#5-锁的内存语义" class="headerlink" title="5.锁的内存语义"></a>5.锁的内存语义</h3><p>达到效果：线程A在释放锁之前所有可见的共享变量，在线程B获取同一个锁之后，将立即变得对B线程可见。</p>
 <h4 id="✅锁释放和获取的内存语义"><a href="#✅锁释放和获取的内存语义" class="headerlink" title="✅锁释放和获取的内存语义"></a>✅锁释放和获取的内存语义</h4><p>1、当线程释放锁时，JMM会把该线程对应的本地内存中的共享变量刷新到主内存中。（实质上是线程A向接下来要获取这个锁的某个线程发出了（线程A对共享变量所做修改的）消息。）</p>
 <p>2、当线程获取锁时，JMM会把该线程对应的本地内存置为无效。从而使得被监视器锁保护的临界区代码必须从主内存中读取共享变量。（实质上是线程B接受了之前某个线程发出的（在释放这个锁对共享变量锁做的修改的）消息。）</p>
@@ -1012,7 +1116,7 @@
 <p>非公平锁的释放和公平锁的释放完全一致。</p>
 <p>加锁：用了：<code>unsafe.compareAndSwapInt(this, stateOffset, expect, update);</code></p>
 <p>该方法以原子操作的方式更新state变量，也就是compareAndSet() (CAS)操作。JDK文档对该方法说明如下：如果当前状态值等于预期值，则以原子方式同步状态设置为给定更新的值。此操作具有volatile读和写的内存语义。<br>（编译器不能对CAS与CAS前面和后面任意内存操作重排序。）</p>
-<p>CAS具有volatile读写内存语义的实现方式：<br>intel手册对lock前缀的说明：<br>对内存的读-改-写操作原子执行。（总线锁定/缓存锁定）<br>禁止该指令，与之前的读和写指令重排序<br>把写缓冲区的所有数据刷新到内存中<br>上面的2、3两点所具有的内存屏障的效果，足以同时实现volatile读和volatile写的内存语义。所以JDK文档说CAS 具有volatile读和volatile写的内存语义对于处理器也是符合的。</p>
+<p>CAS具有volatile读写内存语义的实现方式：lock前缀<br>intel手册对lock前缀的说明：<br>对内存的读-改-写操作原子执行。（总线锁定/缓存锁定）<br>禁止该指令，与之前的读和写指令重排序<br>把写缓冲区的所有数据刷新到内存中<br>上面的2、3两点所具有的内存屏障的效果，足以同时实现volatile读和volatile写的内存语义。所以JDK文档说CAS 具有volatile读和volatile写的内存语义对于处理器也是符合的。</p>
 <p><strong>总结：</strong><br>释放锁-获取锁的内存语义的实现方式总结 ：<br>利用volatile变量的写-读所具有的内存语义<br>利用CAS所附带的volatile读和volatile写的内存语义</p>
 <h4 id="✅concurrent包的实现"><a href="#✅concurrent包的实现" class="headerlink" title="✅concurrent包的实现"></a>✅concurrent包的实现</h4><p>Java的CAS会使用现代处理器上提供的高效机器级别的原子指令，这些原子指令以原子方式对内存执行读-改-写操作，这是在多处理器实现同步的关键。同时volatile变量的读/写和CAS可以实现线程之间的通信。这些特性就是Java整个concurrent包的基石。</p>
 <p>concurrent包的通用化实现模式：<br>1、声明共享变量volatile<br>2、使用CAS的原子条件更新来实现线程之间的同步<br>3、配合volatile的读/写和CAS具有的volatile读和写的内存语义来实现线程之间的通信。</p>
@@ -1036,20 +1140,20 @@
 <blockquote>
 <p>读final域的重排序规则可以确保：在读一个对象的final域之前，一定会先读包含这个final域的对象的引用。</p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class FinalExample &#123;</span><br><span class="line">    int                 i;  //普通变量</span><br><span class="line">    final int           j;  //final变量</span><br><span class="line">    static FinalExample obj;</span><br><span class="line">    public FinalExample() &#123; //构造函数</span><br><span class="line">        i = 1; //写普通域</span><br><span class="line">        j = 2; //写final域</span><br><span class="line">    &#125;</span><br><span class="line">    public static void writer() &#123; //写线程A执行</span><br><span class="line">        obj = new FinalExample();</span><br><span class="line">    &#125;</span><br><span class="line">    public static void reader() &#123; //读线程B执行</span><br><span class="line">        FinalExample object = obj; //读对象引用</span><br><span class="line">        int a = object.i; //读普通域</span><br><span class="line">        int b = object.j; //读final域</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class FinalExample &#123;</span><br><span class="line">    int i;  //普通变量</span><br><span class="line">    final int j;  //final变量</span><br><span class="line">    static FinalExample obj;</span><br><span class="line">    public FinalExample() &#123; //构造函数</span><br><span class="line">        i = 1; //写普通域</span><br><span class="line">        j = 2; //写final域</span><br><span class="line">    &#125;</span><br><span class="line">    public static void writer() &#123; //写线程A执行</span><br><span class="line">        obj = new FinalExample();</span><br><span class="line">    &#125;</span><br><span class="line">    public static void reader() &#123; //读线程B执行</span><br><span class="line">        FinalExample object = obj; //读对象引用</span><br><span class="line">        int a = object.i; //读普通域</span><br><span class="line">        int b = object.j; //读final域</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="✅final域为引用类型"><a href="#✅final域为引用类型" class="headerlink" title="✅final域为引用类型"></a>✅final域为引用类型</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class FinalReferenceExample &#123;</span><br><span class="line">    final int[]                  intArray; //final是引用类型</span><br><span class="line">    static FinalReferenceExample obj;</span><br><span class="line">    public FinalReferenceExample() &#123; //构造函数</span><br><span class="line">        intArray = new int[1]; //1</span><br><span class="line">        intArray[0] = 1; //2</span><br><span class="line">    &#125;</span><br><span class="line">    public static void writerOne() &#123; //写线程A执行</span><br><span class="line">        obj = new FinalReferenceExample(); //3</span><br><span class="line">    &#125;</span><br><span class="line">    public static void writerTwo() &#123; //写线程B执行</span><br><span class="line">        obj.intArray[0] = 2; //4</span><br><span class="line">    &#125;</span><br><span class="line">    public static void reader() &#123; //读线程C执行</span><br><span class="line">        if (obj != null) &#123; //5</span><br><span class="line">            int temp1 = obj.intArray[0]; //6</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="✅final域为引用类型"><a href="#✅final域为引用类型" class="headerlink" title="✅final域为引用类型"></a>✅final域为引用类型</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class FinalReferenceExample &#123;</span><br><span class="line">    final int[] intArray; //final是引用类型</span><br><span class="line">    static FinalReferenceExample obj;</span><br><span class="line">    public FinalReferenceExample() &#123; //构造函数</span><br><span class="line">        intArray = new int[1]; //1</span><br><span class="line">        intArray[0] = 1; //2</span><br><span class="line">    &#125;</span><br><span class="line">    public static void writerOne() &#123; //写线程A执行</span><br><span class="line">        obj = new FinalReferenceExample(); //3</span><br><span class="line">    &#125;</span><br><span class="line">    public static void writerTwo() &#123; //写线程B执行</span><br><span class="line">        obj.intArray[0] = 2; //4</span><br><span class="line">    &#125;</span><br><span class="line">    public static void reader() &#123; //读线程C执行</span><br><span class="line">        if (obj != null) &#123; //5</span><br><span class="line">            int temp1 = obj.intArray[0]; //6</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>本例final域为一个引用类型，它引用一个int型的数组对象。对于引用类型，写final域的重排序规则对编译器和处理器增加了如下约束：在<strong>构造函数内</strong>对一个final引用的对象的成员域的写入(2)，与随后在构造函数外把这个被构造对象的引用赋值给一个引用变量(3)，这两个操作之间不能重排序。</p>
 <p>1是对final域的写入，2是对这个final域引用的对象的成员域的写入，3是把被构造的对象的引用赋值给某个引用变量。这里除了前面提到的1不能和3重排序外，2和3也不能重排序。</p>
 <p>写线程B对数组元素的写入，读线程C可能看得到，也可能看不到。JMM不保证线程B的写入对读线程C可见，因为写线程B和读线程C之间存在数据竞争，此时的执行结果不可预知。</p>
 <p>如果想要确保读线程C看到写线程B对数组元素的写入，写线程B和读线程C之间需要使用同步原语（lock或volatile）来确保内存可见性。</p>
-<h4 id="✅为什么final引用不能从构造函数内“溢出”"><a href="#✅为什么final引用不能从构造函数内“溢出”" class="headerlink" title="✅为什么final引用不能从构造函数内“溢出”"></a>✅为什么final引用不能从构造函数内“溢出”</h4><p>写final域的重排序规则可以确保：在引用变量为任意线程可见之前，该引用变量指向的对象的final域已经在构造函数中被正确初始化过了。其实，要得到这个效果，还需要一个保证：在构造函数内部，不能让这个被构造对象的引用为其他线程所见，也就是对象引用不能在构造函数中“逸出”。</p>
+<h4 id="✅为什么含final的对象引用不能从构造函数内“溢出”"><a href="#✅为什么含final的对象引用不能从构造函数内“溢出”" class="headerlink" title="✅为什么含final的对象引用不能从构造函数内“溢出”"></a>✅为什么含final的对象引用不能从构造函数内“溢出”</h4><p>写final域的重排序规则可以确保：在引用变量为任意线程可见之前，该引用变量指向的对象的final域已经在构造函数中被正确初始化过了。其实，要得到这个效果，还需要一个保证：在构造函数内部，不能让这个被构造对象的引用为其他线程所见，也就是对象引用不能在构造函数中“逸出”。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class FinalReferenceEscapeExample &#123;</span><br><span class="line">    final int                          i;</span><br><span class="line">    static FinalReferenceEscapeExample obj;</span><br><span class="line">    public FinalReferenceEscapeExample() &#123;</span><br><span class="line">        i = 1; //1写final域</span><br><span class="line">        obj = this; //2 this引用在此“逸出”</span><br><span class="line">    &#125;</span><br><span class="line">    public static void writer() &#123;</span><br><span class="line">        new FinalReferenceEscapeExample();</span><br><span class="line">    &#125;</span><br><span class="line">    public static void reader() &#123;  //线程B</span><br><span class="line">        if (obj != null) &#123; //3</span><br><span class="line">            int temp = obj.i; //4</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>操作2使得对象还未完成构造前就为线程B可见。这里的操作1和操作2之间可能被重排序。线程B看到了此时的final域可能还没有被初始化。</p>
 <p>final不同于普通变量达到的效果是：在构造函数返回后，任意线程都将保证能看到final域正确初始化之后的值。</p>
-<h4 id="✅处理器中如何实现final语义"><a href="#✅处理器中如何实现final语义" class="headerlink" title="✅处理器中如何实现final语义"></a>✅处理器中如何实现final语义</h4><p>X86处理器不会对写-写操作做重排序，X86处理器不会对存在间接依赖关系的操作做重排序，也就是说，在X86处理器中，final域的读/写不会插入任何内存屏障！</p>
+<h4 id="✅处理器中如何实现final语义"><a href="#✅处理器中如何实现final语义" class="headerlink" title="✅处理器中如何实现final语义"></a>✅处理器中如何实现final语义</h4><p>本来应该要插入内存屏障的。<br>X86处理器不会对写-写操作做重排序，X86处理器不会对存在间接依赖关系的操作做重排序，也就是说，在X86处理器中，final域的读/写不会插入任何内存屏障！（普通变量也有依赖关系吧，也有final语义？）</p>
 <h4 id="✅JSR-133为什么要增强final的语义"><a href="#✅JSR-133为什么要增强final的语义" class="headerlink" title="✅JSR-133为什么要增强final的语义"></a>✅JSR-133为什么要增强final的语义</h4><p>在旧的Java内存模型中，一个最严重的缺陷就是线程可能看到final域的值会改变。比如，一个线程当前看到一个整型final域的值为0（还未初始化之前的默认值），过一段时间之后这个线程再去读这个final域的值时，却发现值变为1（被某个线程初始化之后的值）。</p>
 <p>为了修补这个漏洞，JSR-133专家组增强了final的语义。通过为final域增加写和读重排序规则，可以为Java程序员提供初始化安全保证：只要对象是正确构造的（被构造对象的引用在构造函数中没有“逸出”），那么不需要使用同步（指lock和volatile的使用）就可以保证任意线程都能看到这个final域在构造函数中被初始化之后的值。</p>
 <h3 id="7-happens-before"><a href="#7-happens-before" class="headerlink" title="7.happens-before"></a>7.happens-before</h3><h4 id="✅设计初衷"><a href="#✅设计初衷" class="headerlink" title="✅设计初衷"></a>✅设计初衷</h4><p>设计内存模型JMM的初衷：让程序员易于理解，易于编程，提供内存可见性保证。对编译器和处理器的束缚越少越好，方便它们优化来提高性能。</p>
@@ -1060,7 +1164,7 @@
 <p>1、如果一个操作 happens - before 另一个操作，那么另一个操作的执行结果将对第二个操作可见。</p>
 <p>2、两个操作之间存在 happens - before 关系，并不意味这 Java 平台必须要按照 happens - before 规定的顺序来执行。只要重排序之后的结果是不改变的，那么 JMM 是默认不对这种重排序处理的</p>
 <p>核心原则是：只要不改变程序的执行结果（<strong>单线程和正确同步的多线程</strong>），编译器和处理器怎么优化都行。程序员对于这两个操作是否真的被重排序并不关心，程序员只需要关系的是程序执行时的语义不能被改变（就是执行结果不能被改变）。</p>
-<p>happens - before 给编写正确同步的多线程程序的程序员一个幻觉：正确同步的多线程程序是按照 happens - before 指定的顺序来执行的。实际上不是，但是语义和按顺序执行是一样的。</p>
+<p>happens - before 给编写正确同步的多线程程序的程序员一个幻觉：正确同步的多线程程序是按照 happens - before 指定的顺序来执行的。实际上不是，但是语义和按顺序执行是一样的。<br>（实际上是可见性，但也是一种假的顺序）</p>
 <h4 id="✅happens-before规则"><a href="#✅happens-before规则" class="headerlink" title="✅happens-before规则"></a>✅happens-before规则</h4><p>1、程序顺序规则：一个线程中的每个操作，happens - before 于该程序的任意后续操作。</p>
 <p>2、监视器规则：对一个锁的解锁，happens - before 于随后对这个锁的加锁。</p>
 <p>3、volatile 变量规则：对一个 volatile 域的写，happens - before 于任意后续对这个 volatile 域的读。</p>
@@ -1083,12 +1187,12 @@
 <p>因此，双重检查锁定来实现延迟初始化诞生：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class DoubleCheckedLocking &#123; //1</span><br><span class="line">    private static Instance instance; //2</span><br><span class="line">    public static Instance getInstance() &#123; //3</span><br><span class="line">        if (instance == null) &#123; //4:第一次检查</span><br><span class="line">            synchronized (DoubleCheckedLocking.class) &#123; //5:加锁</span><br><span class="line">                if (instance == null) //6:第二次检查</span><br><span class="line">                    instance = new Instance(); //7:问题的根源出在这里</span><br><span class="line">            &#125; //8</span><br><span class="line">        &#125; //9</span><br><span class="line">        return instance; //10</span><br><span class="line">    &#125; //11</span><br><span class="line">    static class Instance &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>核心思想：不会每个线程都加锁，检查instance不为null，那么就不需要执行下面的加锁和初始化操作。获取锁之后，再检查一次是不是为null，因为在第一次判断是否为null时，可能另一个线程正在初始化。</p>
+<p>核心思想：不会每个线程都加锁，检查instance不为null，那么就不需要执行下面的加锁和初始化操作。获取锁之后，再检查一次是不是为null，因为在第一次判断是否为null时，可能另一个线程正在初始化。<br>（获取锁之前检查一次，获取锁之后检查一次）</p>
 <p>但是是错误的：在线程执行到第4行，代码读取到instance不为null时，instance引用的对象有可能还没有完成初始化。</p>
 <h4 id="✅双重检查锁定的问题"><a href="#✅双重检查锁定的问题" class="headerlink" title="✅双重检查锁定的问题"></a>✅双重检查锁定的问题</h4><p>第7行（instance=new Singleton();）创建了一个对象。这一行代码可以分解为如下的3行伪代码。</p>
 <p>memory = allocate();　　// 1<strong>：分配对象的内存空间（引用变量）<br>ctorInstance(memory);　 // 2</strong>：初始化对象<br>instance = memory;　　 // 3**：设置instance指向刚分配的内存地址（赋值引用变量）（这个时候就不为null了）</p>
 <p>上面3行伪代码中的2和3之间，可能会被重排序，因为这个重排序在没有改变单线程程序执行结果的前提下，可以提高程序的执行性能。</p>
-<p>如果发生重排序，另一个并发执行的线程B就有可能在第4行判断instance不为null。线程B接下来将访问instance所引用的对象，但此时这个对象可能还没有被A线程初始化。线程B将会访问到一个还未初始化的对象。</p>
+<p>如果发生重排序，另一个并发执行的线程B就有可能在第4行判断instance不为null。线程B接下来将访问instance所引用的对象，但此时这个对象可能还没有被A线程初始化。<strong>线程B将会访问到一个还未初始化的对象</strong>。</p>
 <p>如何解决，来实现线程安全的延迟初始化：<br>1） 不允许2和3重排序。<br>2）允许2和3重排序，但不允许其他线程“看到”这个重排序。</p>
 <h4 id="✅基于volatile的解决方案"><a href="#✅基于volatile的解决方案" class="headerlink" title="✅基于volatile的解决方案"></a>✅基于volatile的解决方案</h4><p>把instance声明为volatile型，就可以实现线程安全的延迟初始化。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class SafeDoubleCheckedLocking &#123;</span><br><span class="line">    private volatile static Instance instance;</span><br><span class="line">    public static Instance getInstance() &#123;</span><br><span class="line">        if (instance == null) &#123;</span><br><span class="line">            synchronized (SafeDoubleCheckedLocking.class) &#123;</span><br><span class="line">                if (instance == null)</span><br><span class="line">                    instance = new Instance();//instance为volatile，现在没问题了</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">    static class Instance &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1105,7 +1209,7 @@
 <p>在InstanceFactory示例代码中，首次执行getInstance()方法的线程将导致InstanceHolder类被初始化，是情况4.<br>（相当于是用一个工厂类来初始化另一个类？）</p>
 <p>Java语言是多线程的，多个线程可能在同一时间尝试去初始化同一个类或接口（比如这里多个线程可能在同一时刻调用getInstance()方法来初始化InstanceHolder类）。因此，在Java中初始化一个类或者接口时，需要做细致的同步处理。</p>
 <p>Java语言规范规定，对于每一个类或接口C，都有一个唯一的初始化锁LC与之对应。从C到LC的映射，由JVM的具体实现去自由实现。JVM在类初始化期间会获取这个初始化锁，并且每个线程至少获取一次锁来确保这个类已经被初始化过了。</p>
-<p>（<strong>多个线程初始化类不是创建不同的对象吗？难道初始化类和创建对象不一样？</strong>）</p>
+<p>（<strong>多个线程初始化类不是创建不同的对象吗？难道初始化类和创建对象不一样？</strong> 是的，先初始化类再创建对象）</p>
 <p>对于类或接口的初始化，Java语言规范制定了精巧而复杂的类初始化处理过程。Java初始化一个类或接口的处理过程如下：</p>
 <p>第1阶段：通过在Class对象上同步（即获取Class对象的初始化锁），来控制类或接口的初始化，获取锁之后，初始化维护一个状态，设置state=initialing，然后释放锁。获取不到的话，这个获取锁的线程会一直等待，直到当前线程能够获取到这个初始化锁。</p>
 <p>第2阶段：线程A执行类的初始化（上面的三步），同时线程B获取到初始化锁，发现状态是initialing，然后释放锁。后在初始化锁对应的condition上等待。</p>
@@ -1120,7 +1224,7 @@
 <h3 id="9-java内存模型综述"><a href="#9-java内存模型综述" class="headerlink" title="9.java内存模型综述"></a>9.java内存模型综述</h3><h4 id="✅处理器的内存模型"><a href="#✅处理器的内存模型" class="headerlink" title="✅处理器的内存模型"></a>✅处理器的内存模型</h4><p>JMM：相当于是java编译器的内存模型</p>
 <p>顺序一致性内存模型是一个理论参考模型，JMM和处理器内存模型在设计时通常会以顺序一致性内存模型为参照。在设计时，JMM和处理器内存模型会对顺序一致性模型做一些放松，因为如果完全按照顺序一致性模型来实现处理器和JMM，那么很多的处理器和编译器优化都要被禁止，这对执行性能将会有很大的影响。内存模型的束缚越少，处理器性能越好。</p>
 <p>根据对不同类型的读/写操作组合的执行顺序的放松，可以把常见处理器的内存模型划分为如下几种类型：<br>1、放松程序中写-读操作的顺序，由此产生了Total Store Ordering内存模型（简称为TSO）<br>2、在上面的基础上，继续放松程序中写-写操作的顺序，由此产生了Partial Store Order内存模型（简称为PSO）。<br>3、在前面两条的基础上，继续放松程序中读-写和读-读操作的顺序，由此产生了Relaxed Memory Order内存模型（简称为RMO）和PowerPC内存模型。</p>
-<p>这里处理器对读/写操作的放松，是以两个操作之间不存在数据依赖性为前提的（因为处理器要遵守as-if-serial语义，处理器不会对存在数据依赖性的两个内存操作做重排序）。</p>
+<p>这里处理器对读/写操作的放松，是以两个操作之间不存在数据依赖性为前提的（因为处理器要遵守as-if-serial语义，<strong>处理器不会对存在数据依赖性的两个内存操作做重排序</strong>）。</p>
 <p>所有处理器内存模型都允许写-读重排序，原因是：使用了写缓存区。写缓存区可能导致写-读操作重排序。都允许更早读到当前处理器的写，原因同样是因为写缓存区。由于写缓存区仅对当前处理器可见，这个特性导致当前处理器可以比其他处理器先看到临时保存在自己写缓存区中的写。</p>
 <p><strong>虚拟机对不同操作系统反映的一致性：</strong></p>
 <p>由于常见的处理器内存模型比JMM要弱，Java编译器在生成字节码时，会在执行指令序列的适当位置插入内存屏障来限制处理器的重排序。同时，由于各种处理器内存模型的强弱不同，为了在不同的处理器平台向程序员展示一个一致的内存模型，JMM在不同的处理器中需要插入的内存屏障的数量和种类也不相同。JMM屏蔽了不同处理器内存模型的差异，它在不同的处理器平台之上为Java程序员呈现了一个一致的内存模型。</p>
@@ -1130,7 +1234,7 @@
 <h4 id="✅JMM的内存可见性保证"><a href="#✅JMM的内存可见性保证" class="headerlink" title="✅JMM的内存可见性保证"></a>✅JMM的内存可见性保证</h4><p>1、单线程程序。单线程程序不会出现内存可见性问题。编译器、runtime和处理器会共同确保单线程程序的执行结果与该程序在顺序一致性模型中的执行结果相同。</p>
 <p>2、正确同步的多线程程序。正确同步的多线程程序的执行将具有顺序一致性（程序的执行结果与该程序在顺序一致性内存模型中的执行结果相同）。这是JMM关注的重点，JMM通过限制编译器和处理器的重排序来为程序员提供内存可见性保证。</p>
 <p>3、未同步/未正确同步的多线程程序。JMM为它们提供了最小安全性保障：线程执行时读取到的值，要么是之前某个线程写入的值，要么是默认值（0、null、false）。</p>
-<p>最小安全性“发生”在对象被任意线程使用之前。64位数据的非原子性写“发生”在对象被多个线程使用的过程中（写共享变量）。<br>最小安全性保证线程读取到的值不会无中生有的冒出来，但并不保证线程读取到的值一定是正确的。</p>
+<p>最小安全性“发生”在对象被任意线程使用之前。64位数据的非原子性写“发生”在对象被多个线程使用的过程中（写共享变量）。如果是写了一半的，那就是线程B写了一半的，并不是null。<br>最小安全性保证线程读取到的值不会无中生有的冒出来，但并不保证线程读取到的值一定是正确的。</p>
 <p>只要多线程程序是正确同步的，JMM保证该程序在任意的处理器平台上的执行结果，与该程序在顺序一致性内存模型中的执行结果一致。</p>
 <h4 id="✅JSR-133对旧内存模型的修补"><a href="#✅JSR-133对旧内存模型的修补" class="headerlink" title="✅JSR-133对旧内存模型的修补"></a>✅JSR-133对旧内存模型的修补</h4><p>JSR-133对JDK 5之前的旧内存模型的修补主要有两个。</p>
 <p>· 增强volatile的内存语义。旧内存模型允许volatile变量与普通变量重排序。JSR-133严格限制volatile变量与普通变量的重排序，使volatile的写-读和锁的释放-获取具有相同的内存语义。</p>
@@ -1465,6 +1569,49 @@
 <p>被唤醒后的线程，将从await()方法中的while循环中退出（isOnSyncQueue(Node node)方法返回true，节点已经在同步队列中），进而调用同步器的acquireQueued()方法加入到获取同步状态的竞争中。</p>
 <p>成功获取同步状态（或者说锁）之后，被唤醒的线程将从先前调用的await()方法返回，此时该线程已经成功地获取了锁。如果未获取到锁，将在同步队列中阻塞。</p>
 <p>Condition的signalAll()方法，相当于对等待队列中的每个节点均执行一次signal()方法，效果就是将等待队列中所有节点全部移动到同步队列中，并唤醒每个节点的线程。</p>
+<h2 id="第六章-java并发容器和框架"><a href="#第六章-java并发容器和框架" class="headerlink" title="第六章 java并发容器和框架"></a>第六章 java并发容器和框架</h2><h3 id="1-ConcurrentHashMap的实现原理与使用"><a href="#1-ConcurrentHashMap的实现原理与使用" class="headerlink" title="1.ConcurrentHashMap的实现原理与使用"></a>1.ConcurrentHashMap的实现原理与使用</h3><p>ConcurrentHashMap是线程安全且高效的HashMap。</p>
+<h4 id="✅为什么使用ConcurrentHashMap"><a href="#✅为什么使用ConcurrentHashMap" class="headerlink" title="✅为什么使用ConcurrentHashMap"></a>✅为什么使用ConcurrentHashMap</h4><p>（1）<strong>HashMap线程不安全会死循环</strong></p>
+<p>HashMap 在并发执行put操作时会引起死循环，是因为多线程会导致HashMap的Entry链表形成环形数据结构，一旦形成环形数据结构，Entry的next节点永远不为空，就会产生死循环获取Entry。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">final HashMap&lt;String,String&gt; map = new HashMap&lt;&gt;(2); // 容量为2的Map</span><br><span class="line">Thread thread = new Thread(new Runnable() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        for (int i=0;i&lt;10000;i++)&#123;</span><br><span class="line">            new Thread(new Runnable() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public void run() &#123;</span><br><span class="line">                    map.put(UUID.randomUUID().toString(),&quot;&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,&quot;ftf&quot;+i).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,&quot;ftf&quot;);</span><br><span class="line">thread.start();</span><br><span class="line">thread.join();</span><br></pre></td></tr></table></figure>
+
+<p>HashMap的实现原理：<br>HashMap的主干是一个Entry数组（Entry是以链表的形式存储的）。Entry是HashMap的基本组成单元，每一个Entry包含一个key-value键值对。(其实所谓Map其实就是保存了两个对象之间的映射关系的一种集合)。</p>
+<p>Entry结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">static class Entry&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; &#123;</span><br><span class="line">    final K key;</span><br><span class="line">    V value;</span><br><span class="line">    Entry&lt;K,V&gt; next; // 存储指向下一个Entry的引用，单链表结构。</span><br><span class="line"> </span><br><span class="line">    int hash;	   // 对key的hashcode值进行hash运算后得到的值，存储在Entry，避免重复计算。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以：HashMap由数组+链表组成的，数组是HashMap的主体，链表则是主要为了解决哈希冲突而存在的。</p>
+<p>HashMap在put的时候，插入的元素超过了容量(由负载因子决定)的范围就会触发扩容操作，就是rehash，这个会重新将原数组的内容重新hash到新的扩容数组中，在多线程的环境下，存在其他的元素也在put操作，如果hash值相同，可能出现同时在同一数组下用链表表示，造成闭环，导致在get时会出现死循环，所以HashMap是线程不安全的。</p>
+<p>HashMap的线程不安全主要体现在会造成死循环，数据丢失，数据覆盖这些问题。其中死循环和数据丢失是在JDK1.7中出现的问题，在Jdk1.8中已经得到解决，然而JDK1.8仍会有数据覆盖这样的问题。</p>
+<p>（2）<strong>效率低下的HashTable</strong></p>
+<p>HashTable容器使用synchronized来保证线程安全，但在线程竞争激烈的情况下HashTable的效率非常低下。因为当一个线程访问HashTable的同步方法时，其它线程也访问HashTable的同步方法时，会进入阻塞或轮询状态，所以竞争越激烈效率越低。</p>
+<p>（3）ConcurrentHashMap的锁分段技术可有效提升并发访问率。</p>
+<p>HashTable的线程都必须竞争同一把锁，假如容器里有多把锁每一把锁用于锁容器其中一部分数据，那么当多线程访问容器里不同数据段的数据时，线程间就不会存在锁竞争，从而可以有效提高并发率，这就是ConcurrentHashMap所使用的锁分段技术。首先将数据分成一段一段地存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据的时候，其它段的数据也能被其他线程访问。</p>
+<h4 id="✅ConcurrentHashMap的结构"><a href="#✅ConcurrentHashMap的结构" class="headerlink" title="✅ConcurrentHashMap的结构"></a>✅ConcurrentHashMap的结构</h4><p>类图：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public class ConcurrentHashMap&lt;K,V&gt; extends AbstractMap&lt;K,V&gt;</span><br><span class="line">    implements ConcurrentMap&lt;K,V&gt;, Serializable</span><br></pre></td></tr></table></figure>
+
+<p>ConcurrentHashMap是由Segment数组结构和HashEntry数组结构组成。Segment是一种可重入锁(ReentrantLock),在ConcurrentHashMap里扮演锁的角色；HashEntry则用于存储键值对数据。一个ConcurrentHashMap里包含一个Segment数组。Segment的结构和HashMap类似，是一种数组和链表结构。<strong>一个Segment里包含一个HashEntry数组</strong>，<strong>每个HashEntry是一个链表结构的元素（一个包含数据的链表）</strong>，每个Segment里守护着一个HashEntry数组里的元素，当对HashEntry数组的数据进行修改时，必须首先获得与它对应的Segment锁。</p>
+<h4 id="✅ConcurrentHashMap的初始化与定位"><a href="#✅ConcurrentHashMap的初始化与定位" class="headerlink" title="✅ConcurrentHashMap的初始化与定位"></a>✅ConcurrentHashMap的初始化与定位</h4><p>ConcurrentHashMap初始化方法是通过initialCapacity, loadFactor和concurrencyLevel等几个参数来初始化segment数组，段偏移量segmentShift，段掩码segmentMask和每个segment里的HashEntry数组来实现。</p>
+<p>ConcurrentHashMap使用分段锁Segment来保护不同段的数据，那么在插入和获取元素的时候，必须先通过散列算法定位到Segment。而且，会使用再散裂算法对元素的hashCode进行一次再散列。</p>
+<p>再散列的目的：减少散列冲突，使元素均匀地分布在不同的segmrnt上，提高容器的存取效率。</p>
+<h4 id="✅ConcurrentHashMap的操作"><a href="#✅ConcurrentHashMap的操作" class="headerlink" title="✅ConcurrentHashMap的操作"></a>✅ConcurrentHashMap的操作</h4><p>（1）get(key)</p>
+<p>经过一次再散列，先定位到segment，然后再通过散列运算定位到元素。<br>不需要加锁，除非读到的值是空的才会加锁重读。原因是：将共享变量（segment大小、HashEntry里的value）定义为volatile。利用volatile在多线程中的可见性，可以被多线程读，保证不会读到过期的值。</p>
+<p>（2）put(key, value)</p>
+<p>先定位到segment，然后在segment里进行插入操作。分两步：<br>1.是否需要扩容？<br>先判断HashEntry数组是否超过阈值，如果超过了就扩容，扩容之后再插入数据。而HashMap是先插入再扩容，这样不好，因为下次可能就没有数据进来了，那就白扩容了。<br>2.如何扩容？<br>先创建一个容量是原来2倍的数组，然后通过对原数组元素进行再散列后插入到新数组。扩容只会对某个segment进行。</p>
+<p>（3）size()</p>
+<p>Segment中有一个全局变量count是一个volatile变量，可以累加各个segment的count来计算大小。但是可能累加前count发生了变化，统计结果不准。但是锁住所有的segment再计算也不合适。</p>
+<p>在每个segment中有一个volatile修饰的count属性，表示这个segment中的元素个数，先通过2次不加锁的方法统计所有count的总和，如果两次结果不相等，或者容器被修改过了，就将Segment加锁，再进行第三次统计。</p>
+<p>ConcurrentHashMap中有一个modCount变量，每次put\remove\clean操作，都会对这个值加一，通过比较这个值，就知道是否容器是否被修改了。</p>
+<h3 id="2-ConcurrentLinkedQueue"><a href="#2-ConcurrentLinkedQueue" class="headerlink" title="2.ConcurrentLinkedQueue"></a>2.ConcurrentLinkedQueue</h3><p>无界线程安全队列。</p>
+<p>在并发编程中，有时候需要使用线程安全的对列。如果要实现一个线程安全的对列有2种方式：一种是使用阻塞算法，另一种是使用非阻塞算法。使用阻塞算法的对列可以用一个锁（入队和出队用同一把锁）或两个锁（入队和出队用不同的锁）等方式来实现。非阻塞的实现方式则可以使用循环CAS的方式来实现。【锁也是基于CAS和volatile来实现的吧】</p>
+<p>ConcurrentLinkedQueue是一个基于链接节点的无界线程安全对列，它采用先进先出的规则对节点进行排序，当我们添加一个元素的时候，它会添加到对列的尾部；当我们获取一个元素时，它会返回对列头部的元素。它采用了”wait-free”算法(即CAS算法)来实现。</p>
+<h4 id="✅ConcurrentLinkedQueue的结构"><a href="#✅ConcurrentLinkedQueue的结构" class="headerlink" title="✅ConcurrentLinkedQueue的结构"></a>✅ConcurrentLinkedQueue的结构</h4><p>ConcurrentLinkedQueue由head节点和tail节点组成，每个节点（Node）由节点元素(item)和指向下一个节点(next)的引用组成，节点和节点之间就是通过这个next关联起来，从而组成一张链表结构的对列。默认情况下head节点存储的元素为空，tail节点等于head节点。</p>
+<p>继承了AbstractQueue，不是阻塞队列。</p>
+<p>ConcurrentLinkedQueue由head节点和tail节点组成。head、tail、next、item均使用volatile修饰，保证其内存可见性。</p>
+<h4 id="✅入队列-offer-E-e"><a href="#✅入队列-offer-E-e" class="headerlink" title="✅入队列:offer(E e)"></a>✅入队列:offer(E e)</h4><p>入队列就是将入队节点添加到对列的尾部。入队主要做两件事情：<br>第一：是将入队节点设置成当前队列尾节点的下一个节点；<br>第二：是更新tail节点，如果tail节点的next不为空，则将入队节点设置为tial节点，成为队尾节点的next节点，如果tail节点的next为空，则将入队节点的设置为tail的next节点。所以tail节点不总是尾节点。【效果是两格两格得跳】</p>
+<p>1.定位尾节点<br>tail节点并不总是尾节点，所以每次入队都必须先通过tail节点来找到尾节点。尾节点可能是tail节点，也可能是tail节点的next节点。</p>
+<p>2.设置入队节点为尾节点<br>p.casNext(null,n)方法用于将入队节点设置为当前对尾节点的next节点，如果p是null，表示p是当前节点的尾节点，如果不为null，表示有其它线程更新了尾节点，则需要重新获取当前对列的尾节点。</p>
+<p>⚠️不是每次入队都更新tail节点：<br>如果将tail节点永远作为尾节点，这样每次都需要循环CAS更新tail节点，而设置一个到尾节点的距离，当tail到尾节点的距离大于某个值（通常为1）的时候再更新tail，这样可以减少更新的次数，提高入队的效率。定位尾节点时就需要增加对volatile变量读操作，但是对volatile变量的写操作开销要远远大于读操作，所以入队效率会有所提升。</p>
+<p><strong>入队方法永远返回true，所以不要通过返回值判断入队是否成功。</strong></p>
+<h4 id="✅出队列：poll"><a href="#✅出队列：poll" class="headerlink" title="✅出队列：poll()"></a>✅出队列：poll()</h4><p>不是每次出队都更新head节点，当head中有元素，就直接弹出head的元素，如果没有元素，就弹出head的next，然后更新head节点，head节点变为弹出节点的next节点。【一次走两格】<br>也是通过控制距离的方式，减少CAS更新节点的消耗。</p>
 
       
     </div>
@@ -2014,95 +2161,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/01/myblog/JAVA/maven%E5%92%8Cnuxus/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/01/myblog/JAVA/maven%E5%92%8Cnuxus/" class="post-title-link" itemprop="url">maven与nexus</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-06-01 22:34:23 / Modified: 23:10:09" itemprop="dateCreated datePublished" datetime="2022-06-01T22:34:23+08:00">2022-06-01</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="maven"><a href="#maven" class="headerlink" title="maven"></a>maven</h3><ol>
-<li><p>优秀的构建工具<br>通过简单的命令，能够完成清理、编译、测试、打包、部署等一系列过程。同时，不得不提的是，Maven是跨平台的，无论是在Windows、还是在Linux或Mac上，都可以使用同样的命令。</p>
-</li>
-<li><p>依赖管理工具<br>项目依赖的第三方的开源类库，都可以通过依赖的方式引入到项目中来。代替了原来需要首先下载第三方jar，再加入到项目中的方式。从而更好的解决了合作开发中依赖增多、版本不一致、版本冲突、依赖臃肿等问题。<br>具体是怎么实现的呢？Maven通过坐标系统准确的定位每一个构件，即通过坐标找到对应的java类库。</p>
-</li>
-<li><p>项目信息管理工具<br>能够管理项目描述、开发者列表、版本控制系统地址、许可证等一些比较零散的项目信息。除了直接的项目信息，通过Maven自动生成的站点，以及一些已有的插件，还能够轻松获得项目文档、测试报告、静态分析报告、源码版本、日志报告等非常具有价值的项目信息。</p>
-</li>
-</ol>
-<h3 id="maven仓库"><a href="#maven仓库" class="headerlink" title="maven仓库"></a>maven仓库</h3><p>maven的依赖管理功能，通过在Pom中指定坐标的形式将jar引入到项目中。jar包就存放在仓库中。</p>
-<p>Maven的仓库分为本地仓库和远程仓库。远程仓库分为：中央仓库、私服、其他远程仓库。</p>
-<p>当Maven根据坐标寻找构件时，它首先会查看本地仓库，如果本地仓库存在此构件，则直接使用；如果本地仓库不存在此构件，或者需要查看是否有更新的构件版本，Maven会去远程仓库查找，发现需要的构件之后，下载到本地仓库再使用。</p>
-<p>为什么需要私服？</p>
-<p>1.一些无法从外部仓库下载的构件，例如内部的项目，可以部署到私服上，以便供其他依赖项目使用。</p>
-<p>2.为了节省带宽和时间，在局域网内架设一个私有的仓库服务器，用其代理所有外部的远程仓库。当本地Maven项目需要下载构件时，先去私服请求，如果私服没有，则再去远程仓库请求，从远程仓库下载构件后，把构件缓存在私服上。这样，即使暂时没有Internet链接，由于私服已经缓存了大量构件，整个项目还是可以正常使用的。同时，也降低了中央仓库的负荷。</p>
-<p>如果没有私服，我们所需的所有构件都需要通过maven的中央仓库和第三方的Maven仓库下载到本地，而一个团队中的所有人都重复的从maven仓库下载构件无疑加大了仓库的负载和浪费了外网带宽，如果网速慢的话，还会影响项目的进程。很多情况下项目的开发都是在内网进行的，连接不到maven仓库怎么办呢？开发的公共构件怎么让其它项目使用？这个时候我们不得不为自己的团队搭建属于自己的maven私服，这样既节省了网络带宽也会加速项目搭建的进程，当然前提条件就是你的私服中拥有项目所需的所有构件。<br>————————————————</p>
-<p>总而言之：私服在用户局域网内的特殊远程仓库，私服起到了maven用户与中央仓库的中间作用，私服从中央仓库缓存构件，maven用户从私服下载构件。</p>
-<h3 id="nexus"><a href="#nexus" class="headerlink" title="nexus"></a>nexus</h3><p>nexus就是私服的一种。</p>
-<p>nexus是一个强大的maven仓库管理器,它极大的简化了本地内部仓库的维护和外部仓库的访问.</p>
-<p>nexus提供了强大的仓库管理功能,构件搜索功能,它基于REST,友好的UI是一个extjs的REST客户端,占用较少的内存,基于简单文件系统而非数据库.</p>
-<p>节省外网带宽；加速Maven构建；部署第三方构件；提高稳定性，增强控制；降低中央仓库的负荷；控制和审计；建立本地内部公用仓库。</p>
-<p>转载自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/youngdeng/p/15098442.html">https://www.cnblogs.com/youngdeng/p/15098442.html</a></p>
-<p>如何配置：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5b06b2541336">https://www.jianshu.com/p/5b06b2541336</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2173,7 +2231,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">86</span>
+          <span class="site-state-item-count">87</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

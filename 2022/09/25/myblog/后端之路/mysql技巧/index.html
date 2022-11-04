@@ -28,7 +28,7 @@
 <meta property="og:description" content="sql实用函数日期函数1、datepart() 获取日期中的年月日datepart(‘2022-11-11 12:12:12’, ‘yyyy’)得到：2022，也可以是mm、dd 2、datetrunc() 获取日期的指定起始日期，比如一天的开始datetrunc(‘2022-11-11 12:12:12’, ‘yyyy‘)得到：2022-01-01 00:00:00 3、quarter() 获取">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-09-25T08:25:11.412Z">
-<meta property="article:modified_time" content="2022-10-16T13:27:22.504Z">
+<meta property="article:modified_time" content="2022-11-04T13:52:07.644Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="Mysql">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-16 21:27:22" itemprop="dateModified" datetime="2022-10-16T21:27:22+08:00">2022-10-16</time>
+                <time title="Modified: 2022-11-04 21:52:07" itemprop="dateModified" datetime="2022-11-04T21:52:07+08:00">2022-11-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,6 +267,8 @@
 
 <p>总结：<br>1、with as 相当于一个临时表，但是不同于视图（create table as），不会存储起来，要与select配合使用。<br>2、同一个select前可以有多个临时表，写一个with就可以，用逗号隔开，最后一个with语句不要用逗号。</p>
 <p>摘自：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/397195826">https://zhuanlan.zhihu.com/p/397195826</a></p>
+<p>实战总结：<br><code>with as</code>不能单独加<code>;</code>一句单独使用，需要后面跟select一起使用。第一个<code>with as</code>得到的临时表可以在第二个临时表里用。好处是可以分步骤生成表，不用嵌套很多层。</p>
+<p>如果<code>create table as</code> ，是要加在<code>with as</code>之前的。</p>
 <h2 id="mysql-case-when-用法"><a href="#mysql-case-when-用法" class="headerlink" title="mysql case when 用法"></a>mysql case when 用法</h2><p>MySQL 的 case when 的语法有两种：</p>
 <p>简单函数<br><code>CASE [col_name] WHEN [value1] THEN [result1]…ELSE [default] END</code></p>
 <p>搜索函数<br><code>CASE WHEN [expr] THEN [result1]…ELSE [default] END</code></p>
@@ -296,6 +298,12 @@
 <p>truncate和delete是删除表中的数据，表还在。</p>
 <p><code>drop table 表名；// 删除表，不是删除表中的数据</code></p>
 <p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/jike11231/article/details/126551510">https://blog.csdn.net/jike11231/article/details/126551510</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/jkzyx123/article/details/127223589">https://blog.csdn.net/jkzyx123/article/details/127223589</a></p>
+<h2 id="mysql的subdate函数"><a href="#mysql的subdate函数" class="headerlink" title="mysql的subdate函数"></a>mysql的subdate函数</h2><p>MySQL中的SUBDATE()函数用于从给定日期减去某间隔时间。</p>
+<p>用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SUBDATE(date, INTERVAL expr, unit)</span><br><span class="line"></span><br><span class="line">此函数接受以下三个参数：</span><br><span class="line">日期：第一个指定的日期。</span><br><span class="line">expr：要减去的时间/日期间隔的值。负的表示该时间之后</span><br><span class="line">单位：间隔的类型。MICROSECOND\SECOND\MINUTE\HOUR\DAY\WEEK\MONTH\QUARTER\YEAR</span><br></pre></td></tr></table></figure>
+
+<p>例子：<br><code>select subdate(&quot;2020-11-25&quot;, INTERVAL 30 DAY)</code></p>
+<p>今天的日期：<br><code>select curdate();  2022-10-30</code><br>现在的时间：<br><code>select curtime();   13:13:54</code></p>
 
     </div>
 
@@ -317,7 +325,10 @@
     <a href="/2022/09/11/myblog/JAVA/java%20web/" rel="prev" title="java web相关">
       <i class="fa fa-chevron-left"></i> java web相关
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/22/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/leeco%E9%A2%98%E7%9B%AE/" rel="next" title="javaのleecode">
+      javaのleecode <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -376,7 +387,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sql%E5%AE%9E%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">sql实用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">日期函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mySQL-with-as%E7%94%A8%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">mySQL - with as用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-case-when-%E7%94%A8%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">mysql case when 用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">4.</span> <span class="nav-text">mysql批量删除大量数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#delete%E5%92%8Ctruncate%EF%BC%8Cdrop%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">delete和truncate，drop的区别</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sql%E5%AE%9E%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">sql实用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">日期函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mySQL-with-as%E7%94%A8%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">mySQL - with as用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-case-when-%E7%94%A8%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">mysql case when 用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">4.</span> <span class="nav-text">mysql批量删除大量数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#delete%E5%92%8Ctruncate%EF%BC%8Cdrop%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">delete和truncate，drop的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E7%9A%84subdate%E5%87%BD%E6%95%B0"><span class="nav-number">6.</span> <span class="nav-text">mysql的subdate函数</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -391,7 +402,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">86</span>
+          <span class="site-state-item-count">87</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="两数之和题目：给个数组和目标值，给出数组中两个数之和等于目标值的数的索引。思想：哈希映射，利用map的快速查找key特性（map.containsKey(key)）来实现遍历一次就够了。 123456789101112131415161718192021222324252627282930313233package leeco.nums;import java.util.Arrays;import">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaのleecode">
+<meta property="og:url" content="http://example.com/2022/10/22/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/leeco%E9%A2%98%E7%9B%AE/index.html">
+<meta property="og:site_name" content="Jadeliu&#39;s blog">
+<meta property="og:description" content="两数之和题目：给个数组和目标值，给出数组中两个数之和等于目标值的数的索引。思想：哈希映射，利用map的快速查找key特性（map.containsKey(key)）来实现遍历一次就够了。 123456789101112131415161718192021222324252627282930313233package leeco.nums;import java.util.Arrays;import">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-10-22T01:27:14.666Z">
+<meta property="article:modified_time" content="2022-10-30T03:45:22.592Z">
+<meta property="article:author" content="Jade liu">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="leecode">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/10/22/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/leeco%E9%A2%98%E7%9B%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>javaのleecode | Jadeliu's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jadeliu's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/22/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/leeco%E9%A2%98%E7%9B%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          javaのleecode
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-10-22 09:27:14" itemprop="dateCreated datePublished" datetime="2022-10-22T09:27:14+08:00">2022-10-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-10-30 11:45:22" itemprop="dateModified" datetime="2022-10-30T11:45:22+08:00">2022-10-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><p>题目：给个数组和目标值，给出数组中两个数之和等于目标值的数的索引。<br>思想：哈希映射，利用map的快速查找key特性（<code>map.containsKey(key)</code>）来实现遍历一次就够了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">package leeco.nums;</span><br><span class="line"></span><br><span class="line">import java.util.Arrays;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 两数之和</span><br><span class="line"> *</span><br><span class="line"> * @author: liuxuan</span><br><span class="line"> * @date: 2022-10-20 23:39</span><br><span class="line"> **/</span><br><span class="line">public class TwoNumSum &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        int[] nums = new int[]&#123;2,7,11,15&#125;;</span><br><span class="line">        Solution solution = new Solution();</span><br><span class="line">        int[] res = solution.twoSum(nums, 9);</span><br><span class="line">        System.out.println(Arrays.toString(res));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static class Solution &#123;</span><br><span class="line">        public int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">            HashMap&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();</span><br><span class="line">            for (int i = 0; i &lt; nums.length; i++) &#123;</span><br><span class="line">                if (map.containsKey(target - nums[i])) &#123;</span><br><span class="line">                    return new int[]&#123;i, map.get(target - nums[i])&#125;;</span><br><span class="line">                &#125;</span><br><span class="line">                map.put(nums[i], i);</span><br><span class="line">            &#125;</span><br><span class="line">            throw new IllegalArgumentException(&quot;no result&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="两链表表示的数相加"><a href="#两链表表示的数相加" class="headerlink" title="两链表表示的数相加"></a>两链表表示的数相加</h2><p>题目：两个链表表示的数，1-&gt;2-&gt;3 表示 123，相加得到和的链表。<br>思想：相加遍历进位即可，carry表示进位，要在while循环外定义，要先算和再算进位。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">package leeco.nums;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 计算两个琏表表示的数的和</span><br><span class="line"> *</span><br><span class="line"> * @author: liuxuan</span><br><span class="line"> * @date: 2022-10-22 10:18</span><br><span class="line"> **/</span><br><span class="line">public class TwoLinkNumSum &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // 构造链表</span><br><span class="line">        ListNode listNode1 = ListNode.inputList(1, 2, 3);</span><br><span class="line">        ListNode.printList(listNode1);</span><br><span class="line">        ListNode.printList(ListNode.reverseList(listNode1));</span><br><span class="line">        ListNode l1 = ListNode.inputList(2, 4, 3);</span><br><span class="line">        ListNode l2 = ListNode.inputList(5, 6, 4);</span><br><span class="line">        Solution s = new Solution();</span><br><span class="line">        ListNode sum = s.addTwoNumbers(l1, l2);</span><br><span class="line">        ListNode.printList(sum);</span><br><span class="line">    &#125;</span><br><span class="line">    static class Solution &#123;</span><br><span class="line">        public ListNode addTwoNumbers(ListNode l1, ListNode l2) &#123;</span><br><span class="line">            // 定义pre节点，保证头节点也参与循环</span><br><span class="line">            ListNode pre = new ListNode(0);</span><br><span class="line">            ListNode cur = pre;</span><br><span class="line">            int carry = 0;</span><br><span class="line">            while (l1 != null || l2 != null) &#123;</span><br><span class="line">                int x = l1 == null ? 0 : l1.val;</span><br><span class="line">                int y = l2 == null ? 0 : l2.val;</span><br><span class="line">                int sum = (x + y + carry) % 10;</span><br><span class="line">                carry = (x + y + carry) / 10;</span><br><span class="line">                cur.next = new ListNode(sum);</span><br><span class="line">                cur = cur.next;</span><br><span class="line">                if (l1 != null) &#123;</span><br><span class="line">                    l1 = l1.next;</span><br><span class="line">                &#125;</span><br><span class="line">                if (l2 != null) &#123;</span><br><span class="line">                    l2 = l2.next;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if (carry != 0) &#123;</span><br><span class="line">                cur.next = new ListNode(carry);</span><br><span class="line">            &#125;</span><br><span class="line">            return pre.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static class ListNode &#123;</span><br><span class="line">        int val;</span><br><span class="line">        ListNode next;</span><br><span class="line">        ListNode() &#123;&#125;;</span><br><span class="line">        ListNode(int val) &#123;this.val = val;&#125;</span><br><span class="line">        ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span><br><span class="line"></span><br><span class="line">        /** 向队尾添加节点 */</span><br><span class="line">        private void addNode(ListNode newNode) &#123;</span><br><span class="line">            if (this.next == null) &#123;</span><br><span class="line">                this.next = newNode;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                this.next.addNode(newNode);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        /** 使用方法可变参数把一串数字变成链表 */</span><br><span class="line">        public static ListNode inputList(int ...data) &#123;</span><br><span class="line">            ListNode listHead = null;</span><br><span class="line">            for (int temp : data) &#123;</span><br><span class="line">                ListNode newNode = new ListNode(temp);</span><br><span class="line">                if (listHead == null) &#123;</span><br><span class="line">                    listHead = newNode;</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    listHead.addNode(newNode);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return listHead;</span><br><span class="line">        &#125;</span><br><span class="line">        /** 打印链表 */</span><br><span class="line">        public static void printList(ListNode head) &#123;</span><br><span class="line">            while (head != null) &#123;</span><br><span class="line">                System.out.print(head.val + &quot;-&gt;&quot;);</span><br><span class="line">                head = head.next;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">        /** 翻转链表 */</span><br><span class="line">        public static ListNode reverseList(ListNode head) &#123;</span><br><span class="line">            ListNode pre = null;</span><br><span class="line">            ListNode cur = head;</span><br><span class="line">            while (cur != null) &#123;</span><br><span class="line">                ListNode next = cur.next;</span><br><span class="line">                cur.next = pre;</span><br><span class="line">                pre = cur;</span><br><span class="line">                cur = next;</span><br><span class="line">            &#125;</span><br><span class="line">            return pre;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串的最长无重复字符子串"><a href="#字符串的最长无重复字符子串" class="headerlink" title="字符串的最长无重复字符子串"></a>字符串的最长无重复字符子串</h2><p>题目：一个字符串，给出字符串的连续子串中其中无重复字符的子串的最大长度。<br>思想：滑动窗口，或者叫做双指针，两个指针的差+1表示窗口的长度，用一个map记录某字符最晚出现的位置的下一个位置。如果在start指针后面出现过就需要移动start到map该字符的value的位置了。如果要子串本身，还得记录开始位置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">package leeco.nums;</span><br><span class="line"></span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 无重复字符的最长子串</span><br><span class="line"> *</span><br><span class="line"> * @author: liuxuan</span><br><span class="line"> * @date: 2022-10-22 12:29</span><br><span class="line"> **/</span><br><span class="line">public class MaxNoRepeatString &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        String s = &quot;abcabc&quot;;</span><br><span class="line">        Solution solution = new Solution();</span><br><span class="line">        System.out.println(solution.lengthOfLongestSubstring(s));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static class Solution &#123;</span><br><span class="line">        public int lengthOfLongestSubstring(String s) &#123;</span><br><span class="line">            // 用map表示字符对应的下一个位置</span><br><span class="line">            Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();</span><br><span class="line">            int res = 0;</span><br><span class="line">            String sub = null;</span><br><span class="line">            for (int start = 0, end = 0; end &lt; s.length(); end ++) &#123;</span><br><span class="line">                char c = s.charAt(end);</span><br><span class="line">                if (map.containsKey(c)) &#123;</span><br><span class="line">                    start = Math.max(start, map.get(c));</span><br><span class="line">                &#125;</span><br><span class="line">                // 如果存在key，会更新</span><br><span class="line">                map.put(c, end + 1);</span><br><span class="line">                //res = Math.max(res, end - start + 1);</span><br><span class="line">                if (end - start + 1 &gt; res) &#123;</span><br><span class="line">                    res = end - start + 1;</span><br><span class="line">                    sub = s.substring(start, end + 1);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(&quot;sub字符串：&quot; + sub);</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="寻找两个正序数组的中位数"><a href="#寻找两个正序数组的中位数" class="headerlink" title="寻找两个正序数组的中位数"></a>寻找两个正序数组的中位数</h2><p>题目：给两个正序排列的数组，返回这两个数组合起来的数组的中位数。<br>思路1：遍历，在两个数组间横跳，遍历(m+n)/2+1次就好了。时间复杂度是O(m+n)<br>思路2：遍历是挨个排除不可能的值，那么如果用二分法就可以一半一半地排除不可能的值。其实是找第K小的数，要比两个数组的K/2位置的数，小的那个数组K/2及前面的数就可以排除掉，这样递归查找。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">package leeco.nums;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 寻找两个正序数组的中位数</span><br><span class="line"> *</span><br><span class="line"> * @author: liuxuan</span><br><span class="line"> * @date: 2022-10-23 10:10</span><br><span class="line"> **/</span><br><span class="line">public class MedianOfTwoArray &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        int[] array1 = new int[]&#123;1, 2&#125;;</span><br><span class="line">        int[] array2 = new int[]&#123;3, 4&#125;;</span><br><span class="line">        Solution s = new Solution();</span><br><span class="line">        System.out.println(s.findMedianSortedArrays(array1, array2));</span><br><span class="line">        System.out.println(s.findMedianSortedArrays2(array1, array2));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static class Solution &#123;</span><br><span class="line">        // 方法一：在两个数组间遍历，移动(m+n)/2+1步</span><br><span class="line">        public double findMedianSortedArrays(int[] nums1, int[] nums2) &#123;</span><br><span class="line">            int index1 = 0, index2 = 0, left = 0, right = 0;</span><br><span class="line">            int size = nums1.length + nums2.length;</span><br><span class="line">            for (int i = 0; i &lt;= size / 2; i++) &#123;</span><br><span class="line">                // left慢一步</span><br><span class="line">                left = right;</span><br><span class="line">                if (index1 &lt; nums1.length &amp;&amp; (index2 == nums2.length || nums1[index1] &lt;= nums2[index2])) &#123;</span><br><span class="line">                    right = nums1[index1++];</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    right = nums2[index2++];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if (size % 2 == 0) &#123;</span><br><span class="line">                return (left + right) / 2.0;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                return left;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        // 方法二：二分法</span><br><span class="line">        public double findMedianSortedArrays2(int[] nums1, int[] nums2) &#123;</span><br><span class="line">            int n = nums1.length;</span><br><span class="line">            int m = nums2.length;</span><br><span class="line">            int left = (n + m + 1) / 2;</span><br><span class="line">            int right = (n + m + 2) / 2;</span><br><span class="line">            return (getKth(nums1, 0, n - 1, nums2, 0, m - 1, left) + getKth(nums1, 0, n - 1, nums2, 0, m - 1, right)) * 0.5;</span><br><span class="line">        &#125;</span><br><span class="line">        // 获取两正序数组的第k大的值</span><br><span class="line">        private int getKth(int[] nums1, int start1, int end1, int[] nums2, int start2, int end2, int k) &#123;</span><br><span class="line">            // 要进行比较的数组的长度</span><br><span class="line">            int len1 = end1 - start1 + 1;</span><br><span class="line">            int len2 = end2 - start2 + 1;</span><br><span class="line">            if (len1 + len2 &lt; k) &#123;throw new IllegalArgumentException(&quot;no result&quot;);&#125;</span><br><span class="line">            // 出递归条件</span><br><span class="line">            if (len1 == 0) return nums2[start2 + k - 1];</span><br><span class="line">            if (len2 == 0) return nums1[start1 + k - 1];</span><br><span class="line">            if (k == 1) return Math.min(nums1[start1], nums2[start2]);</span><br><span class="line">            // 要比较的两个数组的索引</span><br><span class="line">            int i = start1 + Math.min(len1, k / 2) - 1;</span><br><span class="line">            int j = start2 + Math.min(len2, k / 2) - 1;</span><br><span class="line">            if (nums1[i] &gt; nums2[j]) &#123;</span><br><span class="line">                return getKth(nums1, start1, end1, nums2, j + 1, end2, k - (j - start2 + 1));</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                return getKth(nums1, i + 1, end1, nums2, start2, end2, k - (i - start1 + 1));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="最长回文子串"><a href="#最长回文子串" class="headerlink" title="最长回文子串"></a>最长回文子串</h2><p>题目：给一个字符串，返回该字符串的最长回文子串，例如：aba，abba。<br>思想1：可以挨个遍历每个字符，从字符开始向左右散发，如果不相等了就停止，并且分两种散发：一个中心字符，两个一样的作为中心字符。记录开始位置和结束位置。<br>思想2：回文子串也是该字符串与它倒过来的字符串的最长公共子串，可以用动态规划维护一个二维数组来做。动态规划就是为了减少重复计算的问题。动态规划听起来很高大上。其实说白了就是空间换时间，将计算结果暂存起来，避免重复计算。作用和工程中用 redis 做缓存有异曲同工之妙。<br>求出最长公共子串后，并不一定是回文串，我们还需要判断该字符串倒置前的下标和当前的字符串下标是不是匹配</p>
+<blockquote>
+<p>整体思想就是，申请一个二维的数组初始化为 0，然后判断对应的字符是否相等，相等的话<br>arr [ i ][ j ] = arr [ i - 1 ][ j - 1] + 1 。<br>当 i = 0 或者 j = 0 的时候单独分析，字符相等的话 arr [ i ][ j ] 就赋为 1 。<br>arr [ i ][ j ] 保存的就是公共子串的长度，表示以i为结尾和以j为结尾的前arr[i][j]个字符是公共子串。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">package leeco.nums;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 最长回文子串</span><br><span class="line"> *</span><br><span class="line"> * @author: liuxuan</span><br><span class="line"> * @date: 2022-10-29 20:43</span><br><span class="line"> **/</span><br><span class="line">public class HuiWenString &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        String s = &quot;aacabdkacaa&quot;;</span><br><span class="line">        Solution solution = new Solution();</span><br><span class="line">        System.out.println(solution.longestPalindrome(s));</span><br><span class="line">        System.out.println(solution.longestPalindrome1(s));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static class Solution &#123;</span><br><span class="line">        public String longestPalindrome(String s) &#123;</span><br><span class="line">            if (null == s || s.length() &lt; 2) &#123;</span><br><span class="line">                return s;</span><br><span class="line">            &#125;</span><br><span class="line">            int max = 0;</span><br><span class="line">            String res = null;</span><br><span class="line">            for (int i = 0; i &lt; s.length() - 1; i ++) &#123;</span><br><span class="line">                int l = i, r = i;</span><br><span class="line">                while (l &gt;= 0 &amp;&amp; r &lt; s.length() &amp;&amp; s.charAt(l) == s.charAt(r)) &#123;</span><br><span class="line">                    l --;</span><br><span class="line">                    r ++;</span><br><span class="line">                &#125;</span><br><span class="line">                if (r - l + 1 &gt; max) &#123;</span><br><span class="line">                    max = r - l + 1;</span><br><span class="line">                    res = s.substring(l + 1, r);</span><br><span class="line">                &#125;</span><br><span class="line">                l = i;</span><br><span class="line">                r = i + 1;</span><br><span class="line">                while (l &gt;= 0 &amp;&amp; r &lt; s.length() &amp;&amp; s.charAt(l) == s.charAt(r)) &#123;</span><br><span class="line">                    l --;</span><br><span class="line">                    r ++;</span><br><span class="line">                &#125;</span><br><span class="line">                if (r - l + 1 &gt; max) &#123;</span><br><span class="line">                    max = r - l + 1;</span><br><span class="line">                    res = s.substring(l + 1, r);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public String longestPalindrome1(String s) &#123;</span><br><span class="line">            if (null == s || s.length() &lt; 2) &#123;</span><br><span class="line">                return s;</span><br><span class="line">            &#125;</span><br><span class="line">            String res = null;</span><br><span class="line">            int max = 0;</span><br><span class="line">            int length = s.length();</span><br><span class="line">            int[][] arr = new int[length][length];</span><br><span class="line">            String rev = new StringBuffer(s).reverse().toString(); //字符串翻转</span><br><span class="line">            for (int i = 0; i &lt; length; i ++) &#123;</span><br><span class="line">                for (int j = 0; j &lt; length; j ++) &#123;</span><br><span class="line">                    //如果不想等可以不赋值为0，表示以这个字符为公共最后字符没有公共字符，动态规划也用不上</span><br><span class="line">                    if (s.charAt(i) == rev.charAt(j)) &#123;</span><br><span class="line">                        //为0的边界</span><br><span class="line">                        if (i == 0 || j == 0) &#123;</span><br><span class="line">                            arr[i][j] = 1;</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            arr[i][j] = arr[i - 1][j - 1] + 1;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (arr[i][j] &gt; max) &#123;</span><br><span class="line">                        int beforeRev = length - 1 - j; //倒置前的坐标</span><br><span class="line">                        if (beforeRev + arr[i][j] - 1 == i) &#123; //判断下标是否对应</span><br><span class="line">                            max = arr[i][j];</span><br><span class="line">                            res = s.substring(i - arr[i][j] + 1, i + 1);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/leecode/" rel="tag"># leecode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/25/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/mysql%E6%8A%80%E5%B7%A7/" rel="prev" title="Mysql技巧">
+      <i class="fa fa-chevron-left"></i> Mysql技巧
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="nav-number">1.</span> <span class="nav-text">两数之和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E9%93%BE%E8%A1%A8%E8%A1%A8%E7%A4%BA%E7%9A%84%E6%95%B0%E7%9B%B8%E5%8A%A0"><span class="nav-number">2.</span> <span class="nav-text">两链表表示的数相加</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%9C%80%E9%95%BF%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E5%AD%90%E4%B8%B2"><span class="nav-number">3.</span> <span class="nav-text">字符串的最长无重复字符子串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">寻找两个正序数组的中位数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2"><span class="nav-number">5.</span> <span class="nav-text">最长回文子串</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jade liu"
+      src="/images/head.gif">
+  <p class="site-author-name" itemprop="name">Jade liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jadeliuliu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jadeliuliu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jadeliu1998@163.com" title="E-Mail → mailto:jadeliu1998@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/jadeliu1998" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;jadeliu1998" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5823044646" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5823044646" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jade liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
