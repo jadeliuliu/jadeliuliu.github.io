@@ -183,6 +183,110 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/12/myblog/JAVA/Tomcat%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/12/myblog/JAVA/Tomcat%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">tomcat入门教程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-12 21:19:51" itemprop="dateCreated datePublished" datetime="2022-03-12T21:19:51+08:00">2022-03-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-04 14:32:50" itemprop="dateModified" datetime="2022-06-04T14:32:50+08:00">2022-06-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="tomcat"><a href="#tomcat" class="headerlink" title="tomcat"></a><strong>tomcat</strong></h3><p>为什么有tomcat？</p>
+<p>一个项目：客户端+后端+数据库。</p>
+<p>如何访问到服务？需要在web应用服务器里进行部署。</p>
+<p>tomcat就是一个web应用服务器，就是一个服务，里面放java程序。</p>
+<p>web应用服务器：tomcat、Jboos、Weblogic、Jetty。</p>
+<p>有了tomcat可以实现两个电脑之间的互相访问，前提是在一个局域网里。</p>
+<h3 id="1⃣️安装tomcat。"><a href="#1⃣️安装tomcat。" class="headerlink" title="1⃣️安装tomcat。"></a>1⃣️安装tomcat。</h3><p>apache出的，进入官网，选择tomcat9，下载压缩文件tar.gz</p>
+<p>解压缩，放library里。</p>
+<p>bin：存放各个平台下启动和停止tomcat服务的脚本文件。bat是windows系统下的脚本文件，sh是mac和linux的。</p>
+<p>conf：存放各种tomcat服务器的配置文件，可以配置端口，server.xml。</p>
+<p>lib：存放tomcat服务器需要的jar包。</p>
+<p>logs：存放tomcat服务运行的日志。</p>
+<p>temp：tomcat运行时的临时文件，文件上传下载io流的时候用，大文件放在java虚拟机内存里占用资源大，先放在temp文件夹里。</p>
+<p>webapps：存放允许客户端访问的资源（java程序）。</p>
+<p>work：存放tomcat将jsp转换之后的servlet文件。</p>
+<h3 id="2⃣️idea集成tomcat"><a href="#2⃣️idea集成tomcat" class="headerlink" title="2⃣️idea集成tomcat"></a>2⃣️idea集成tomcat</h3><p>create new project –&gt; java enterprise –&gt; web application –&gt; 完成</p>
+<p>index.jsp：写html的</p>
+<p>web.xml：配置应用的</p>
+<p>添加tomcat配置：右上角add configuration，点加号，tomcal，选local，配一个本地的tomcat，设置，写名字，选tomcat路径（主要就用tomcat的两个jar包：jsp、servlet）。相当于是把idea和tomcat映射起来了。设置url：默认浏览器，after launch是启动后自动打开浏览器，url是访问路径，访问到tomcat服务。然后选deployment添加java工程，点加号，选artifact，自动加进来了。相当于是把java工程放在test里了。然后apply，ok。</p>
+<p>点右上角虫子图标。自动跳出来页面。关掉idea，就没了。</p>
+<p>url由三部分组成：ip:port/application name</p>
+<p>可以改应用的名字，在右上角edit application，选deployment，下面context改名字。重启就可以了。</p>
+<p>也可以没有名字，只是一个/。</p>
+<h3 id="3⃣️打包在tomcat运行"><a href="#3⃣️打包在tomcat运行" class="headerlink" title="3⃣️打包在tomcat运行"></a>3⃣️打包在tomcat运行</h3><p>1.首先基于maven进行打包，将war包复制到某个路径（不改配置的话放在webapps文件夹下）<br>2.对于放在其他文件夹的war包，在tomcat包下的conf文件夹下的server.xml文件增加配置（war包路径启动）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Host&gt; 标签下</span><br><span class="line">&lt;Context docBase=&quot;/Users/liuxuan/MyProject/java/log-maven-package.war&quot; </span><br><span class="line">        path=&quot;/log&quot; </span><br><span class="line">        reloadable=&quot;true&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>path:指定访问该Web应用的URL入口<br>docBase:指定Web应用的文件路径，可以给定绝对路径，也可以给定相对于<code>&lt;Host&gt;</code>的appBase属性的相对路径，如果Web应用采用开放目录结构，则指定Web应用的 根目录，如果Web应用是个war文件，则指定war文件的路径。<br>reloadable:如果这个属性设为true，tomcat服务器在运行状态下会监视在WEB-INF/classes和WEB-INF/lib目录下class文件的改动，如果监测到有class文件被更新的，服务器会自动重新加载Web应用。<br>Tomcat本身设置了Reloadable的属性，故Tomcat在检测到class文件发生变化之后，对WebApp的应用进行了重新加载：先卸载，再重新加载。<br>在开发阶段将reloadable属性设为true，有助于调试servlet和其它的class文件，但这样用加重服务器运行负荷，建议在Web应用的发存阶段将reloadable设为false。</p>
+</blockquote>
+<p>3.启动tomcat，之前配置过环境变量，所以不用区tomcat的bin目录下启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">启动：startup.sh</span><br><span class="line">关闭：shutdown.sh</span><br><span class="line">查看运行状态：ps -ef|grep tomcat</span><br><span class="line">查看启动日志：</span><br><span class="line">cd /usr/local/tomcat/apache-tomcat-8.5.51/logs/</span><br><span class="line">tail -200f catalina.out</span><br></pre></td></tr></table></figure>
+<p>4.访问：<a target="_blank" rel="noopener" href="http://localhost:8080/log/">http://localhost:8080/log/</a><br>5.外网如何访问：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_30596023/article/details/98539676">https://blog.csdn.net/weixin_30596023/article/details/98539676</a><br>6.如何在服务器上部署：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_53324833/article/details/123802881">https://blog.csdn.net/qq_53324833/article/details/123802881</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/07/myblog/spring/springboot%20b%E7%AB%99/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1684,215 +1788,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/29/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/%E9%9D%A2%E7%BB%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/29/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/%E9%9D%A2%E7%BB%8F/" class="post-title-link" itemprop="url">实习面经</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-12-29 15:34:48 / Modified: 15:35:40" itemprop="dateCreated datePublished" datetime="2021-12-29T15:34:48+08:00">2021-12-29</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/" itemprop="url" rel="index"><span itemprop="name">笔经面经</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="阿里云一面"><a href="#阿里云一面" class="headerlink" title="阿里云一面"></a>阿里云一面</h3><p>自我介绍</p>
-<p>挑个项目阐述一下，针对项目最难的一个问题，怎么解决的</p>
-<p>TCP拥塞控制</p>
-<p>100万台服务器找100台CPU利用率最高的</p>
-<p>指针和引用的区别</p>
-<p>多进程和多线程</p>
-<p>100万个数据排序怎么控制内存</p>
-<p>Linux熟悉吗</p>
-<p>如何解决死锁</p>
-<p>如果进来还有什么需要学习的</p>
-<p>有什么问题</p>
-<h3 id="阿里钉钉一面"><a href="#阿里钉钉一面" class="headerlink" title="阿里钉钉一面"></a>阿里钉钉一面</h3><p>面试官你好，思考了很久。可以用锁，但是平时偏底层的代码基本没写过，所以没写出来。</p>
-<ol>
-<li>读写锁</li>
-</ol>
-<p>public static void putIfAbsent(Vector vector, Object object) {<br>    synchronized(vector) {<br>        if (!vector.contains(object)) {<br>            vector.add(object);<br>        }<br>        else {<br>            System.out.println(“The vertor is contains the object of “ + object.toString());<br>        }<br>    }<br>}</p>
-<ol>
-<li>固定vector大小</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">v.<span class="built_in">resize</span>(<span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li><p>struct和classs的区别，struct可以多态吗，可以继承吗</p>
-</li>
-<li><p>c++内存分配，举例</p>
-</li>
-<li><p>c++新特性</p>
-</li>
-<li><p>一个数据表如果量非常大，如何处理提高效率。</p>
-</li>
-<li><p>序列化和反序列化</p>
-</li>
-<li><p>目标：实现一个线程安全的vector<br>需求：<br>1、类似于std::vector的功能，比如push_back，insert，erase，size，clear，迭代功能等（按照自己的思路提供方法，比如你想提供哪些给别人用，就设计哪些方法）<br>2、要求能多线程安全<br>3、如果能跨平台则加分<br>备注：<br>1、考虑一下性能<br>2、可使用STL vector<br>3、需要单测</p>
-<p>//.h内容<br>//.cpp内容</p>
-</li>
-</ol>
-<h3 id="阿里钉钉二面"><a href="#阿里钉钉二面" class="headerlink" title="阿里钉钉二面"></a>阿里钉钉二面</h3><p>1.阐述项目，要比较清晰，半小时</p>
-<p>2.静态转换和动态转换</p>
-<p>3.c++内存分配，栈分配内存效率为什么高</p>
-<p>4.操作系统如何管理内存</p>
-<p>5.智能指针</p>
-<h3 id="腾讯游戏客户端开发，一面挂"><a href="#腾讯游戏客户端开发，一面挂" class="headerlink" title="腾讯游戏客户端开发，一面挂"></a>腾讯游戏客户端开发，一面挂</h3><p>1.多重继承问题</p>
-<p>2.虚析构函数</p>
-<p>3.内存对齐问题</p>
-<p>4.vector和list差别</p>
-<p>5.list删除元素操作</p>
-<p>6.erase函数用法</p>
-<p>7.物理内存和虚拟内存的辨析</p>
-<p>8.tcp和udp，http时tcp还是udp</p>
-<h3 id="字节跳动测开面经，1面-2面-3面-hr面"><a href="#字节跳动测开面经，1面-2面-3面-hr面" class="headerlink" title="字节跳动测开面经，1面+2面+3面+hr面"></a>字节跳动测开面经，1面+2面+3面+hr面</h3><p>看了那么多大佬的面经，现在来回馈牛客啦。可能记录不全，当时不会的肯定记得，会的有些忘记了。几次面试问的问题也是有重复的。楼主语言是C++。字节面试体验非常不错。</p>
-<p>每一面都有问到项目，跨专业的，跟计算机没啥关系，就不具体说了。</p>
-<h4 id="1面，一小时10分钟"><a href="#1面，一小时10分钟" class="headerlink" title="1面，一小时10分钟"></a>1面，一小时10分钟</h4><p>1.线程与进程</p>
-<p>2.TCP与UDP</p>
-<p>3.指针与引用</p>
-<p>4.new和malloc</p>
-<p>5.C++与C</p>
-<p>6.虚函数</p>
-<p>7.浏览器输入URL发生什么</p>
-<p>8.数据库三大范式</p>
-<p>（一面问的比较八股，都是基础知识，操作系统，计算机网络，数据库都有问到）</p>
-<p>9.测试用例设计，微信发朋友圈</p>
-<p>10.对测试开发的理解</p>
-<p>11.测试方法</p>
-<p>手撕代码：有效的IP地址。</p>
-<h4 id="2面，一个小时"><a href="#2面，一个小时" class="headerlink" title="2面，一个小时"></a>2面，一个小时</h4><p>1.HTTP和HTTPS</p>
-<p>2.端口</p>
-<p>3.static几种用法</p>
-<p>4.inline内联函数</p>
-<p>5.数组的sizeof</p>
-<p>6.-1在计算机中是怎么存储的</p>
-<p>7.堆和栈</p>
-<p>手撕代码：题目忘记了，用排序sort做很简单，但是面试官说超出限制，就让我写了快排。</p>
-<h4 id="3面，40分钟"><a href="#3面，40分钟" class="headerlink" title="3面，40分钟"></a>3面，40分钟</h4><p>1.事务</p>
-<p>2.刷抖音后面变卡了，找原因</p>
-<p>3.有限内存实现大量数据的排序，即外排</p>
-<p>4.快排的时间复杂度</p>
-<p>5.B+树</p>
-<p>6.数据库索引，A索引andB索引能否生效</p>
-<p>7.为什么不选开发</p>
-<p>8.有哪些offer，在面哪些公司</p>
-<p>9.对加班的看法</p>
-<p>10.说说自己的优点和缺点</p>
-<p>11.实习时间</p>
-<p>有点意外，没有手撕代码。而且40分钟结束，楼主本来已经做好了面一个多小时的准备。最后反问的时候才知道这一面是交叉面。</p>
-<h4 id="hr面，20分钟"><a href="#hr面，20分钟" class="headerlink" title="hr面，20分钟"></a>hr面，20分钟</h4><p>1.基本情况之类的</p>
-<p>2.保研还是考研，本科成绩</p>
-<p>3.其他offer</p>
-<p>4.面试过程中有啥收获</p>
-<p>5.对部门的了解</p>
-<p>6.反问实习工资，说有档次？</p>
-<p>许愿offer</p>
-<h3 id="阿里钉钉二、三面"><a href="#阿里钉钉二、三面" class="headerlink" title="阿里钉钉二、三面"></a>阿里钉钉二、三面</h3><p>没问很多技术的问题，更多的是深挖思考，都是突然袭击。</p>
-<p>第一个深挖的点是智能指针</p>
-<p>第二个是实现线程安全的vector</p>
-<p>手撕代码是字符串问题，不难，但是不能使用容器，有空间复杂度要求。</p>
-<h3 id="美团-买菜部门-一面"><a href="#美团-买菜部门-一面" class="headerlink" title="美团-买菜部门-一面"></a>美团-买菜部门-一面</h3><p>美团技术栈是java，会问面试前了解过java吗，这时候即使了解一点点也别说了解，就说没学过，不然会问java的问题，答不上来gg。</p>
-<p>HTTP为什么用TCP</p>
-<p>HTTP的短连接和长连接，用了什么机制进行改善？</p>
-<p>笔试的题目下去有没有再做？</p>
-<p>快排时间复杂度是多少，为什么？</p>
-<p>线程与进程的区别</p>
-<p>多线程，线程安全举例，什么时候需要加锁，为什么加锁，举例</p>
-<p>事务的特点</p>
-<p>事务的隔离级别</p>
-<p>可重复读指什么，怎么实现的？</p>
-<p>什么是幻读？</p>
-<p>手撕：字母组成的字符串a和字符串b，判断字符串a是否包含字符串b的所有字符，只要包含就行，不需要关心个数。用的26长度的数组代替set判断a中包含哪些字符，然后再遍历b，如果b中字符在数组中显示找不到，则不包含。时间复杂度On^2。</p>
-<p>反问：什么部门，新兴部门吗？进去实习做什么？对实习生的培养计划？</p>
-<h3 id="阿里-钉钉部门-HR面"><a href="#阿里-钉钉部门-HR面" class="headerlink" title="阿里-钉钉部门-HR面"></a>阿里-钉钉部门-HR面</h3><p>自我介绍</p>
-<p>讲一个有挑战的事情</p>
-<p>大学有啥实践工作</p>
-<p>坚持最久的事情是什么？</p>
-<p>在面其他什么公司</p>
-<p>反问</p>
-<h3 id="百度-C-开发-一面"><a href="#百度-C-开发-一面" class="headerlink" title="百度-C++开发-一面"></a>百度-C++开发-一面</h3><p>C++特点，与C相比，与其他语言相比</p>
-<p>C++11新特性</p>
-<p>多态，虚函数与纯虚函数</p>
-<p>C++内存管理，堆和栈的区别</p>
-<p>DNS属于哪一层，原理（不会）</p>
-<p>七层模型说一下</p>
-<p>数据库存储引擎区别</p>
-<p>HTTP状态码各个数字开头代表什么</p>
-<p>线程与进程的区别</p>
-<p>进程间同步（不会）死锁，如何避免死锁？</p>
-<p>Linux用过吗？用过什么指令，查看端口占用的指令用过吗</p>
-<p>LInux的IO模型了解吗</p>
-<p>手撕：删除链表的倒数第n个节点（1.先算节点个数，再删除。2.双指针，r指针先移动n）</p>
-<h3 id="百度-C-二面"><a href="#百度-C-二面" class="headerlink" title="百度-C++-二面"></a>百度-C++-二面</h3><p>项目介绍，项目中的难点</p>
-<p>C++虚函数和纯虚函数</p>
-<p>C++模板，泛型编程，STL用过什么</p>
-<p>多线程和多进程区别，多嘴说了单核多核，问了计算机组成原理的问题，CPU怎么组成的</p>
-<p>单核上多线程和多进程区别</p>
-<p>C++内存泄漏，如何排查</p>
-<p>mysql会到什么程度</p>
-<p>线程间通信方式</p>
-<p>互斥锁和自旋锁</p>
-<p>手撕：二叉树的层序遍历，需要自己构造二叉树。</p>
-<h3 id="百度-C-三面"><a href="#百度-C-三面" class="headerlink" title="百度-C++-三面"></a>百度-C++-三面</h3><p>项目介绍</p>
-<p>内存泄漏是第三次问了，怎么排查内存泄漏</p>
-<p>看过开源的代码吗</p>
-<p>问的技术问题不多，而且很多重复的</p>
-<p>手撕：给了个中难度的，二叉搜索树，给一个值，返回大于这个值的最小的节点，就是大于这个值，但是最靠近这个值的节点。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1963,7 +1858,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-count">88</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

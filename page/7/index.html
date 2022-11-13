@@ -183,6 +183,86 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/07/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/07/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">javaのleecode两数之和</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-07 10:49:32" itemprop="dateCreated datePublished" datetime="2021-10-07T10:49:32+08:00">2021-10-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-10-13 21:13:35" itemprop="dateModified" datetime="2021-10-13T21:13:35+08:00">2021-10-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。</span><br><span class="line"></span><br><span class="line">你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。</span><br><span class="line">你可以按任意顺序返回答案。</span><br><span class="line"></span><br><span class="line">输入：nums = [2,7,11,15], target = 9</span><br><span class="line">输出：[0,1]</span><br><span class="line">解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。</span><br></pre></td></tr></table></figure>
+
+<p>关于hashmap的使用：</p>
+<p>m.put(a,b)  插入<br>m.containkey(a)  查找key</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> leecode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">twonumbersum</span> </span>&#123;</span><br><span class="line">    <span class="comment">//先写功能函数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt;m = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; ++i) &#123;</span><br><span class="line">            <span class="keyword">int</span> a= target - nums[i];</span><br><span class="line">            <span class="keyword">if</span> (m.containsKey(a)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;m.get(a), i&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            m.put(nums[i], i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//再写测试函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入数组：&quot;</span>);</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str = sc.nextLine();</span><br><span class="line">        String[] arr = str.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        <span class="keyword">int</span>[] nums = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nums.length; j++) &#123;</span><br><span class="line">            nums[j] = Integer.parseInt(arr[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入目标值：&quot;</span>);</span><br><span class="line">        Scanner in=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span> target = in.nextInt();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] res=twoSum(nums, target);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> re : res) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;结果：&quot;</span>);</span><br><span class="line">            System.out.print(re + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>疑问：功能函数不是static型时，main函数也不能事static的，但是无运行按钮。除非把两个函数都变成static型。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/12/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/hexo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -653,7 +733,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-11-04 22:08:38" itemprop="dateModified" datetime="2022-11-04T22:08:38+08:00">2022-11-04</time>
+                <time title="Modified: 2022-11-12 20:54:46" itemprop="dateModified" datetime="2022-11-12T20:54:46+08:00">2022-11-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -690,7 +770,8 @@
 <p>10、sql不要写太复杂，最好把计算的工作交给代码而不是数据库。</p>
 <p>11、sql查询，如果是gmt_create&lt;某个时间，会很慢，最好加一个&gt;某个时间。</p>
 <p>12、where中时间&gt;”2022-10-10”，不管大于小于，意思都是加个00:00:00.</p>
-<p>13、mybatis中，select * from in <foreach> #{list}，中的list不能是空的？能为null吗？会报错。</foreach></p>
+<p>13、mybatis中，<code>select * from in &lt;foreach&gt; #&#123;list&#125;</code>，中的list不能是空，不能为null，会报错。</p>
+<p>14、dao里返回结果list，如果结果是一条都没有，那么返回的是空list，而不是null。</p>
 <h2 id="1-mysql增删改查"><a href="#1-mysql增删改查" class="headerlink" title="1.mysql增删改查"></a>1.mysql增删改查</h2><h3 id="a-登录"><a href="#a-登录" class="headerlink" title="a.登录"></a>a.登录</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">登录：</span><br><span class="line">mysql <span class="operator">-</span>u root <span class="operator">-</span>p密码  <span class="operator">/</span><span class="operator">/</span>连本机的</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">User</span>, Host, Password <span class="keyword">FROM</span> mysql.user;  <span class="operator">/</span><span class="operator">/</span>查看用户</span><br><span class="line"></span><br><span class="line">添加新用户：</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">&#x27;liuxuan14&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line">修改密码：</span><br><span class="line"><span class="keyword">set</span> password <span class="keyword">for</span> <span class="string">&#x27;liuxuan14&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span><span class="operator">=</span>password(<span class="string">&#x27;1998&#x27;</span>);</span><br><span class="line">为用户授权：</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>允许访问所有数据库下的所有表</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;指定ip&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;新用户密码&#x27;</span> ;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>指定数据库下的指定表</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> test.test <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;指定ip&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;新用户密码&#x27;</span> ;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>只拥有查询权限</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;指定ip&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;新用户密码&#x27;</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> OPTION;</span><br><span class="line">FLUSH PRIVILEGES;  <span class="operator">/</span><span class="operator">/</span>刷新权限</span><br><span class="line"></span><br><span class="line">删除用户：</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">user</span> liuxuan<span class="variable">@localhost</span>；</span><br><span class="line"></span><br><span class="line">连接远程数据库：</span><br><span class="line">MySQL 连接远程数据库（<span class="number">192.168</span><span class="number">.5</span><span class="number">.116</span>），端口“<span class="number">3306</span>”，用户名为“root”，密码“<span class="number">123456</span>”</span><br><span class="line">mysql <span class="operator">-</span>h <span class="number">192.168</span><span class="number">.5</span><span class="number">.116</span> <span class="operator">-</span>P <span class="number">3306</span> <span class="operator">-</span>u root <span class="operator">-</span>p123456</span><br><span class="line">mysql <span class="operator">-</span>h ip <span class="operator">-</span>P 端口 <span class="operator">-</span>A <span class="operator">-</span>u name  <span class="operator">-</span>p 密码</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> database name</span><br></pre></td></tr></table></figure>
 
 <h3 id="b-建表"><a href="#b-建表" class="headerlink" title="b.建表"></a>b.建表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS `mytable`(</span><br><span class="line">   `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT &#x27;自增&#x27;,</span><br><span class="line">   `app_id` bigint NOT NULL DEFAULT &#x27;0&#x27; COMMENT &#x27;应用id&#x27;,</span><br><span class="line">   `time` int NOT NULL DEFAULT &#x27;0&#x27; COMMENT &#x27;时间&#x27;,</span><br><span class="line">   `date` DATE,</span><br><span class="line">   PRIMARY KEY ( `id` )</span><br><span class="line">   UNIQUE KEY `idx_app` (`app_id`) USING BTREE</span><br><span class="line">   KEY `idx_ip` (`machine_ip`) USING BTREE,</span><br><span class="line">   KEY `idx_app_machineid` (`app_id`,`machine_id`) USING BTREE</span><br><span class="line">)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=&#x27;表名&#x27;;</span><br><span class="line"></span><br><span class="line">AUTO_INCREMENT定义列为自增的属性，一般用于主键，数值会自动加1。</span><br><span class="line">PRIMARY KEY关键字用于定义列为主键。 您可以使用多列来定义主键，列间以逗号分隔。</span><br><span class="line">ENGINE 设置存储引擎，CHARSET 设置编码。</span><br><span class="line"></span><br><span class="line">表结构：desc name；</span><br><span class="line">建表语句：show create tablename；</span><br></pre></td></tr></table></figure>
@@ -1795,172 +1876,6 @@ select course, max(grade) from grade group by course;  正确
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/23/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-Vue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/23/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-Vue/" class="post-title-link" itemprop="url">前端基础-vue</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-23 14:57:27" itemprop="dateCreated datePublished" datetime="2021-08-23T14:57:27+08:00">2021-08-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-13 21:16:55" itemprop="dateModified" datetime="2021-10-13T21:16:55+08:00">2021-10-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="VUE"><a href="#VUE" class="headerlink" title="VUE"></a>VUE</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。</p>
-<p>Vue 的目标是通过尽可能简单的 API 实现响应的数据绑定和组合的视图组件。</p>
-<h2 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h2><h3 id="1-CDN方法"><a href="#1-CDN方法" class="headerlink" title="(1)CDN方法"></a>(1)CDN方法</h3><p>在页面上以 CDN 包的形式导入。<br><code>&lt;script src=&quot;https://unpkg.com/vue@next&quot;&gt;&lt;/script&gt;</code></p>
-<blockquote>
-<p>CDN的全称是Content Delivery Network，即内容分发网络。CDN是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。CDN的关键技术主要有内容存储和分发技术。</p>
-<p>由于CDN是为加快网络访问速度而被优化的网络覆盖层，因此被形象地称为“网络加速器”。</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.staticfile.org/vue/2.2.2/vue.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span>    </span><br><span class="line">//<span class="tag">&lt;<span class="name">div</span>&gt;</span> 标签可以把文档分割为独立的、不同的部分。它可以用作严格的组织工具，并且不使用任何格式与其关联。用 id 或 class 来标记 <span class="tag">&lt;<span class="name">div</span>&gt;</span>，那么该标签的作用会变得更加有效。</span><br><span class="line">//如果与 CSS 一同使用，<span class="tag">&lt;<span class="name">div</span>&gt;</span> 元素可用于对大的内容块设置样式属性。</span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">//&#123;&#123; &#125;&#125; 用于输出对象属性和函数返回值。</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">  <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,   <span class="comment">//id选择器</span></span></span><br><span class="line"><span class="javascript">  <span class="attr">data</span>: &#123;         <span class="comment">//输出什么东西？</span></span></span><br><span class="line"><span class="javascript">    <span class="attr">message</span>: <span class="string">&#x27;Hello Vue.js!&#x27;</span></span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">&#125;)</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-使用npm方法"><a href="#2-使用npm方法" class="headerlink" title="(2)使用npm方法"></a>(2)使用npm方法</h3><p>npm run dev</p>
-<p>Vue.js 提供一个官方命令行工具vue-cli，可用于快速搭建大型单页应用。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 全局安装 vue-cli</span><br><span class="line">$ cnpm install --global vue-cli</span><br><span class="line"># 创建一个基于 webpack 模板的新项目</span><br><span class="line">$ vue init webpack my-project</span><br><span class="line"></span><br><span class="line">安装及运行：</span><br><span class="line">$ cd my-project</span><br><span class="line">$ cnpm install</span><br><span class="line">$ cnpm run dev</span><br><span class="line"></span><br><span class="line">项目打包：</span><br><span class="line">npm run build</span><br><span class="line">执行完成后，会在 Vue 项目下生成一个 dist 目录，一般包含 index.html 文件及 static 目录，static 目录包含了静态文件 js、css 以及图片目录 images。</span><br><span class="line">直接双击 dist/index.html 文件就可以在浏览器中看到效果了。</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-VUE项目"><a href="#3-VUE项目" class="headerlink" title="3.VUE项目"></a>3.VUE项目</h2><h3 id="1-项目目录"><a href="#1-项目目录" class="headerlink" title="(1)项目目录"></a>(1)项目目录</h3><table>
-<thead>
-<tr>
-<th align="left">目录/文件</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">build</td>
-<td align="left">项目构建(webpack)相关代码</td>
-</tr>
-<tr>
-<td align="left">config</td>
-<td align="left">配置目录，包括端口号等。我们初学可以使用默认的。</td>
-</tr>
-<tr>
-<td align="left">node_modules</td>
-<td align="left">npm 加载的项目依赖模块</td>
-</tr>
-<tr>
-<td align="left">src</td>
-<td align="left">这里是我们要开发的目录，基本上要做的事情都在这个目录里。里面包含了几个目录及文件：assets: 放置一些图片，如logo等。components: 目录里面放了一个组件文件，可以不用。App.vue: 项目入口文件，我们也可以直接将组件写这里，而不使用 components 目录。main.js: 项目的核心文件。</td>
-</tr>
-<tr>
-<td align="left">static</td>
-<td align="left">静态资源目录，如图片、字体等。</td>
-</tr>
-<tr>
-<td align="left">test</td>
-<td align="left">初始测试目录，可删除</td>
-</tr>
-<tr>
-<td align="left">.xxxx文件</td>
-<td align="left">这些是一些配置文件，包括语法配置，git配置等。</td>
-</tr>
-<tr>
-<td align="left">index.html</td>
-<td align="left">首页入口文件，你可以添加一些 meta 信息或统计代码啥的。</td>
-</tr>
-<tr>
-<td align="left">package.json</td>
-<td align="left">项目配置文件。</td>
-</tr>
-<tr>
-<td align="left">README.md</td>
-<td align="left">项目的说明文档，markdown 格式</td>
-</tr>
-</tbody></table>
-<p>app.vue:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 展示模板 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./assets/logo.png&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hello</span>&gt;</span><span class="tag">&lt;/<span class="name">hello</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="comment">// 导入组件</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> Hello <span class="keyword">from</span> <span class="string">&#x27;./components/Hello&#x27;</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  <span class="attr">name</span>: <span class="string">&#x27;app&#x27;</span>,</span></span><br><span class="line"><span class="javascript">  <span class="attr">components</span>: &#123;</span></span><br><span class="line"><span class="javascript">    Hello</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">&#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 样式代码 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-id">#app</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="attribute">font-family</span>: <span class="string">&#x27;Avenir&#x27;</span>, Helvetica, Arial, sans-serif;</span></span><br><span class="line"><span class="css">  -webkit-<span class="attribute">font-smoothing</span>: antialiased;</span></span><br><span class="line"><span class="css">  -moz-osx-<span class="attribute">font-smoothing</span>: grayscale;</span></span><br><span class="line"><span class="css">  <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">  <span class="attribute">color</span>: <span class="number">#2c3e50</span>;</span></span><br><span class="line"><span class="css">  <span class="attribute">margin-top</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-template标签"><a href="#2-template标签" class="headerlink" title="(2)template标签"></a>(2)template标签</h3><p>使用 <code>&lt;template&gt;</code> 保留页面加载时隐藏的内容。使用 JavaScript 来显示：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;h1&gt;template 元素&lt;/h1&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;单击下面的按钮，显示 template 元素中的隐藏内容。&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;button onclick=&quot;showContent()&quot;&gt;显示隐藏的内容&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;     //点击按钮才会显示，JavaScript响应事件</span><br><span class="line">  &lt;h2&gt;Flower&lt;/h2&gt;</span><br><span class="line">  &lt;img src=&quot;/i/photo/flower.gif&quot; width=&quot;180&quot; height=&quot;180&quot;&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">function showContent() &#123;</span><br><span class="line">  var temp = document.getElementsByTagName(&quot;template&quot;)[0];</span><br><span class="line">  var clon = temp.content.cloneNode(true);</span><br><span class="line">  document.body.appendChild(clon);</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-vue应用"><a href="#3-vue应用" class="headerlink" title="(3)vue应用"></a>(3)vue应用</h3><p>每个 Vue 应用都需要通过实例化 Vue 来实现。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  // 选项</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Vue 测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.staticfile.org/vue/2.4.2/vue.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;vue_det&quot;</span>&gt;</span>   //块儿</span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>site : &#123;&#123;site&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>url : &#123;&#123;url&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Alexa : &#123;&#123;alexa&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 我们的数据对象</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> data = &#123; <span class="attr">site</span>: <span class="string">&quot;hello&quot;</span>, <span class="attr">url</span>: <span class="string">&quot;www.runoob.com&quot;</span>, <span class="attr">alexa</span>: <span class="number">10000</span>&#125;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;    <span class="comment">//vue应用</span></span></span><br><span class="line"><span class="javascript">        <span class="attr">el</span>: <span class="string">&#x27;#vue_det&#x27;</span>,    <span class="comment">//id选择器</span></span></span><br><span class="line"><span class="javascript">        <span class="attr">data</span>: data       <span class="comment">//数据，在外面</span></span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 它们引用相同的对象！</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.write(vm.site === data.site) <span class="comment">// true</span></span></span><br><span class="line"><span class="javascript">	<span class="built_in">document</span>.write(<span class="string">&quot;&lt;br&gt;&quot;</span>)</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 设置属性也会影响到原始数据</span></span></span><br><span class="line"><span class="javascript">    vm.site = <span class="string">&quot;Runoob&quot;</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.write(data.site + <span class="string">&quot;&lt;br&gt;&quot;</span>) <span class="comment">// Runoob</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// ……反之亦然</span></span></span><br><span class="line"><span class="javascript">    data.alexa = <span class="number">1234</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.write(vm.alexa) <span class="comment">// 1234</span></span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>当一个 Vue 实例被创建时，它向 Vue 的响应式系统中加入了其 data 对象中能找到的所有的属性。当这些属性的值发生改变时，html 视图将也会产生相应的变化。</p>
-<h2 id="4-vscode运行html"><a href="#4-vscode运行html" class="headerlink" title="4.vscode运行html"></a>4.vscode运行html</h2><p>(1).新建.html文件</p>
-<p>(2).安装open in browser插件</p>
-<p>(3).html页面右键选择open in other browser</p>
-<h2 id="5-vue项目不用localhost"><a href="#5-vue项目不用localhost" class="headerlink" title="5.vue项目不用localhost"></a>5.vue项目不用localhost</h2><p>改变config下index.js里的ip，也是本机的私有ip，公网内的其他ip可访问。前提：一个公网。</p>
-<h2 id="6-项目解读"><a href="#6-项目解读" class="headerlink" title="6.项目解读"></a>6.项目解读</h2><p>main.js 像是加vue应用的。</p>
-<p>.vue 里面有<code>&lt;template&gt;</code> <code>&lt;script&gt;</code> <code>&lt;style&gt;</code></p>
-<p>首页入口文件：index.html</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width,initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>myfirstvue<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- built files will be auto injected --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>项目入口文件：App.vue</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./assets/logo.png&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-view</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  <span class="attr">name</span>: <span class="string">&#x27;App&#x27;</span></span></span><br><span class="line"><span class="javascript">&#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-id">#app</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="attribute">font-family</span>: <span class="string">&#x27;Avenir&#x27;</span>, Helvetica, Arial, sans-serif;</span></span><br><span class="line"><span class="css">  -webkit-<span class="attribute">font-smoothing</span>: antialiased;</span></span><br><span class="line"><span class="css">  -moz-osx-<span class="attribute">font-smoothing</span>: grayscale;</span></span><br><span class="line"><span class="css">  <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">  <span class="attribute">color</span>: <span class="number">#2c3e50</span>;</span></span><br><span class="line"><span class="css">  <span class="attribute">margin-top</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>ES6：全称 ECMAScript 6.0 ，是 JavaScript 的下一个版本标准，2015.06 发版。</p>
-<p>ES6 主要是为了解决 ES5 的先天不足，比如 JavaScript 里并没有类的概念，但是目前浏览器的 JavaScript 是 ES5 版本，大多数高版本的浏览器也支持 ES6，不过只实现了 ES6 的部分特性和功能。</p>
-<h3 id="export-default"><a href="#export-default" class="headerlink" title="export default"></a>export default</h3><p>用于导出常量、函数、文件、模块等。</p>
-<p>export可以有多个，export default只能有一个</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hello.vue中：</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;HelloWorld&#x27;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &#x27;Welcome to Your Vue.js App&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-vscode打开终端"><a href="#7-vscode打开终端" class="headerlink" title="7.vscode打开终端"></a>7.vscode打开终端</h3><p>ctrl+·（左上角esc下面的）</p>
-<p>或：查看-&gt;终端</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2031,7 +1946,7 @@ select course, max(grade) from grade group by course;  正确
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-count">88</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

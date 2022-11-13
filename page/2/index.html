@@ -183,6 +183,134 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/02/myblog/JAVA/mybatis%E5%AE%9E%E6%88%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/02/myblog/JAVA/mybatis%E5%AE%9E%E6%88%98/" class="post-title-link" itemprop="url">mybatis实战</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-06-02 21:45:44" itemprop="dateCreated datePublished" datetime="2022-06-02T21:45:44+08:00">2022-06-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-08-23 23:17:25" itemprop="dateModified" datetime="2022-08-23T23:17:25+08:00">2022-08-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="mybatis-error"><a href="#mybatis-error" class="headerlink" title="mybatis error"></a>mybatis error</h3><h4 id="✅Mybatis-Exception-Translator-translateExceptionIfPossible"><a href="#✅Mybatis-Exception-Translator-translateExceptionIfPossible" class="headerlink" title="✅Mybatis Exception Translator.translateExceptionIfPossible"></a>✅Mybatis Exception Translator.translateExceptionIfPossible</h4><p>原因：插入时找不到参数，批量插入时传的list为空也会报此问题。</p>
+<h3 id="resultMap和resultType"><a href="#resultMap和resultType" class="headerlink" title="resultMap和resultType"></a>resultMap和resultType</h3><p>ResultType和ResultMap都是执行查询语句时返回的结果集。<br>ResultType相对与ResultMap而言更简单一点。只有满足ORM（Object Relational Mapping，对象关系映射）时，即数据库表中的字段名和实体类中的属性完全一致时，才能使用，否则会出现数据不显示的情况。<br>ResultMap和ResultType的功能类似，但是ResultMap更强大一点，ResultMap可以实现将查询结果映射为复杂类型的pojo。</p>
+<h4 id="resultType"><a href="#resultType" class="headerlink" title="resultType"></a>resultType</h4><p>1.java的基础类型及其包装类int,double和java.lang.Integer,java.lang.Double等</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">返回值为int，resultType为int ,java.lang.Integer也可以--&gt;</span><br><span class="line">&lt;select id=&quot;countUser&quot; resultType=&quot;int&quot;&gt;</span><br><span class="line">    select count(*) from user</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2.自己定义的实体类,实体类和数据库字段需要一致，如果不一致需要使用resulMap自定义map，也可以直接使用map。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">返回值为实体类，resultType为User--&gt;</span><br><span class="line">&lt;select id=&quot;getUser&quot; resultType=&quot;com.entity.User&quot;&gt;</span><br><span class="line">   select * from User where id=#&#123;id&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p>3.map类型，Dao层的返回类型为<code>Map&lt;String, Object&gt;</code>，key是对应的column值，value是数据中的数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 返回值为Map&lt;String,Object&gt;，resultType为map--&gt;</span><br><span class="line">&lt;select id=&quot;getUserSelective&quot; resultType=&quot;map&quot;&gt;</span><br><span class="line">    select name,address,salary from User where id=#&#123;id&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p>4.List集合，其中该集合的类型可以为1,2,3中提到的类型。Dao层的返回类型为<code>List&lt;User&gt;</code>，这里只展示了实体类集合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">返回值为List&lt;User&gt;，resultType为User--&gt;</span><br><span class="line">&lt;select id=&quot;getUserList&quot; resultType=&quot;User&quot;&gt;</span><br><span class="line">    select * from user</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="resultMap"><a href="#resultMap" class="headerlink" title="resultMap"></a>resultMap</h4><p>结果集的映射是 MyBatis 最强大的特性,通过使用resultMap或resultType可以解决复杂映射问题。基础简单的使用resultType就可以了，但是如果出现table中列和实体类中的属性不一致或者多表级联。那么这时resultMap就可以发挥作用了。</p>
+<p>TestDao.xml:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;mapper namespace=&quot;com.repository.TestDao&quot;&gt;</span><br><span class="line">    //定义映射</span><br><span class="line">    &lt;resultMap id=&quot;TestResultMap&quot; type=&quot;com.entity.TestDO&quot;&gt;</span><br><span class="line">        &lt;result column=&quot;id&quot; property=&quot;id&quot; jdbcType=&quot;INTEGER&quot; /&gt;</span><br><span class="line">        &lt;result column=&quot;name&quot; property=&quot;name&quot; jdbcType=&quot;VARCHAR&quot; /&gt;</span><br><span class="line">    &lt;/resultMap&gt;</span><br><span class="line"></span><br><span class="line">    //定义返回栏目</span><br><span class="line">    &lt;sql id=&quot;all_colum_without_id&quot;&gt;</span><br><span class="line">        name</span><br><span class="line">    &lt;/sql&gt;</span><br><span class="line"></span><br><span class="line">    &lt;sql id=&quot;all_colum&quot;&gt;</span><br><span class="line">        name,&lt;include refid=&quot;all_colum_without_id&quot;/&gt;</span><br><span class="line">    &lt;/sql&gt;</span><br><span class="line"></span><br><span class="line">    //插入语句</span><br><span class="line">    &lt;insert id=&quot;insertOne&quot; parameterType=&quot;com.entity.TestDO&quot; useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&gt;</span><br><span class="line">        insert into table (&lt;include refid=&quot;all_colum_without_id&quot;/&gt;)</span><br><span class="line">        values (#&#123;name&#125;)</span><br><span class="line">    &lt;/insert&gt;</span><br><span class="line"></span><br><span class="line">    //批量插入</span><br><span class="line">    &lt;insert id=&quot;insertBatch&quot; parameterType=&quot;com.entity.TestDO&quot;&gt;</span><br><span class="line">        insert into table (&lt;include refid=&quot;all_colum_without_id&quot;/&gt;)</span><br><span class="line">        values</span><br><span class="line">        &lt;foreach collection=&quot;testDOList&quot; separator=&quot;,&quot; item=&quot;item&quot; index=&quot;index&quot;&gt;</span><br><span class="line">            (#&#123;item.name&#125;,</span><br><span class="line">            #&#123;item.age&#125;)</span><br><span class="line">            &lt;/foreach&gt;</span><br><span class="line">    &lt;/insert&gt;</span><br><span class="line"></span><br><span class="line">    //查询</span><br><span class="line">    &lt;select id=&quot;findById&quot; resultMap=&quot;TestResultMap&quot;&gt;</span><br><span class="line">        select &lt;include refid=&quot;all_colum&quot;/&gt; from table where id=#&#123;id&#125;</span><br><span class="line">        &lt;if test=&quot;age != null&quot;&gt;</span><br><span class="line">            and age=#&#123;age&#125;</span><br><span class="line">        &lt;if&gt;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+
+<p>TestDao.java接口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Mapper</span><br><span class="line">public interface TestDao &#123;</span><br><span class="line">    //插入</span><br><span class="line">    Integer insertOne(TestDO testDO);</span><br><span class="line">    //批量插入</span><br><span class="line">    Integer insertBatch(List&lt;TestDO&gt; testDOList);</span><br><span class="line">    //查询</span><br><span class="line">    TestDO findById(Long id, Integer age);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>jdbcType告诉框架如何解析这个属性（对应数据库中的类型），column是数据库中table的列名，property是实体类中对应的属性名字，type是对应的实体类，id=”TestResultMap”是这个resultMap的一个引用标志。</p>
+<p>这样使用resultMap就像用resultType对应实体类，在select出来的语句中直接对字段就行as，as为实体类属性名，或驼峰形式就行。</p>
+<p>resultMap更复杂的用法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wobuaizhi/article/details/83104464">https://blog.csdn.net/wobuaizhi/article/details/83104464</a></p>
+<h3 id="返回映射下划线转驼峰"><a href="#返回映射下划线转驼峰" class="headerlink" title="返回映射下划线转驼峰"></a>返回映射下划线转驼峰</h3><p>意思是返回值对应到对象，mysql返回的字段名（app_id），直接映射到对象属性名（appId）。</p>
+<p>第一种 Spring Boot</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mybatis.configuration.map-underscore-to-camel-case=true</span><br></pre></td></tr></table></figure>
+
+<p>第二种 mybatis-config.xml配置中加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;!-- 全局配置 --&gt;</span><br><span class="line">    &lt;settings&gt;</span><br><span class="line">    </span><br><span class="line">       &lt;!-- 是否开启自动驼峰命名规则映射</span><br><span class="line">        &lt;setting name=&quot;mapUnderscoreToCamelCase&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">    &lt;/settings&gt;</span><br><span class="line">&lt;/configuration&gt; </span><br></pre></td></tr></table></figure>
+
+<h3 id="mybatis-useGeneratedKeys-keyProperty"><a href="#mybatis-useGeneratedKeys-keyProperty" class="headerlink" title="mybatis useGeneratedKeys keyProperty"></a>mybatis useGeneratedKeys keyProperty</h3><p>useGeneratedKeys （仅适用于 insert 和 update）这会令 MyBatis 使用 JDBC 的 getGeneratedKeys 方法来取出由数据库内部生成的主键（比如：像 MySQL 和 SQL Server 这样的关系型数据库管理系统的自动递增字段），默认值：false。</p>
+<p>首先，如果你的数据库支持自动生成主键的字段（比如 MySQL 和 SQL Server），那么你可以设置 useGeneratedKeys=”true”，然后再把 keyProperty 设置为目标属性就 OK 了。</p>
+<p>作用：在inset时，可以不用管主键插入多少，而且插入后，还能直接用对象里的值，因为自动返回了。建表时必须设置主键自增。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertAuthor&quot; useGeneratedKeys=&quot;true&quot;</span><br><span class="line">    keyProperty=&quot;id&quot;&gt;</span><br><span class="line">  insert into Author (username,password,email,bio)</span><br><span class="line">  values (#&#123;username&#125;,#&#123;password&#125;,#&#123;email&#125;,#&#123;bio&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="DUPLICATE"><a href="#DUPLICATE" class="headerlink" title="DUPLICATE"></a>DUPLICATE</h3><p>duplicate在mybatis中的使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertOne&quot; parameterType=&quot;com.entity.TestDO&quot;&gt;</span><br><span class="line">    insert into table (id, &lt;include refid=&quot;all_colum_without_id&quot;/&gt;)</span><br><span class="line">    values (0, #&#123;name&#125;)</span><br><span class="line">    ON DUPLICATE KEY UPDATE name=values(name), age=values(age)</span><br><span class="line">&lt;/insert&gt;</span><br><span class="line"></span><br><span class="line">values后面就是插入要查哪些。</span><br><span class="line">update后面是更新要更新哪些</span><br><span class="line">什么时候更新要看表的主键索引和唯一索引</span><br><span class="line">id可选，加了id，就传0</span><br></pre></td></tr></table></figure>
+
+<p>因为更新的时候是不会返回id的，所以要去掉：<code>useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;</code><br>如果不去掉，会报<code>executorexception: error getting generated key or setting result to parameter object</code></p>
+<h3 id="xml里面foreach标签里面的属性separator"><a href="#xml里面foreach标签里面的属性separator" class="headerlink" title="xml里面foreach标签里面的属性separator"></a>xml里面foreach标签里面的属性separator</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> &lt;if test=&quot;myList != null&quot;&gt;</span><br><span class="line">    AND dm in</span><br><span class="line">    &lt;foreach collection=&quot;myList &quot; item=&quot;item&quot; open=&quot;(&quot; separator=&quot;,&quot; close=&quot;)&quot;&gt;</span><br><span class="line">        #&#123;item , jdbcType=VARCHAR &#125;</span><br><span class="line">    &lt;/foreach&gt;</span><br><span class="line">&lt;/if&gt;</span><br></pre></td></tr></table></figure>
+<p>渲染为sql：<code>AND dm in ( &#39;03&#39; , &#39;04&#39;)</code></p>
+<p>如果separator属性为or，渲染为：<code>AND ( dm  = &#39;01&#39;or dm   = &#39;02&#39; or dm   = &#39;03&#39;) </code></p>
+<h3 id="where标签的作用"><a href="#where标签的作用" class="headerlink" title="where标签的作用"></a>where标签的作用</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;select&quot; resultType=&quot;DO&quot;&gt;</span><br><span class="line"> SELECT * FROM hdc</span><br><span class="line"> WHERE</span><br><span class="line"> &lt;if test=&quot;state != null&quot;&gt;</span><br><span class="line"> state = #&#123;state&#125;</span><br><span class="line"> &lt;/if&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果state参数为空时，最终生成SQL语句为<br>SELECT * FROM hdc WHERE<br>执行会出错，可以在where 后加一个1=1，但是累赘</p>
+<p>用<code>&lt;where&gt;...&lt;/where&gt;</code>标签就好。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;selectOne&quot; resultType=&quot;DO&quot;&gt;</span><br><span class="line"> SELECT * FROM hdc</span><br><span class="line"> &lt;where&gt;</span><br><span class="line">  &lt;if test=&quot;state != null&quot;&gt;</span><br><span class="line">    state = #&#123;state&#125;</span><br><span class="line">  &lt;/if&gt;</span><br><span class="line"> &lt;/where&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p>总结：<code>&lt;where&gt;</code>标签，1、在后面if null都是空时，可以自动删除where。2、在后面多个if null，第一个为null时，会自动删掉后面有的and。</p>
+<h3 id="trim实现动态sql"><a href="#trim实现动态sql" class="headerlink" title="trim实现动态sql"></a>trim实现动态sql</h3><p>场景：想使用having，having后面用if null标签，如果后面的if null都是null，having会留着，导致出错。</p>
+<p>trim 在英语中有“点缀物”，修剪的意思。可以把‘’标签为一个装饰sql的标签。trim标签常用于动态生成sql的场景下。</p>
+<p>基本格式：<br><code>&lt;trim prefix=&quot;&quot; suffix=&quot;&quot; suffixOverrides=&quot;&quot; prefixOverrides=&quot;&quot;&gt;&lt;/trim&gt;</code><br>prefix：<br>表示在trim包裹的SQL语句前面添加的指定内容。<br>suffix：<br>表示在trim包裹的SQL末尾添加指定内容<br>prefixOverrides：<br>表示去掉（覆盖）trim包裹的SQL的指定首部内容<br>suffixOverrides：<br>表示去掉（覆盖）trim包裹的SQL的指定尾部内容</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/425922768">https://zhuanlan.zhihu.com/p/425922768</a></p>
+<p>例子(查输入的list的元素是不是在查处的一个list字段里有)：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">group by id</span><br><span class="line">&lt;trim prefix=&quot;having&quot; prefixOverrides=&quot;and&quot;&gt;</span><br><span class="line">    &lt;if test=&quot;nameList != null and nameList.size() &gt; 0&quot;&gt;</span><br><span class="line">        &lt;foreach collection=&quot;nameList&quot; open=&quot;(&quot; close=&quot;)&quot; item=&quot;name&quot; index=&quot;index&quot; separator=&quot;or&quot;&gt;</span><br><span class="line">            find_in_set(#&#123;name&#125;, names) &gt; 0</span><br><span class="line">        &lt;/foreach&gt;</span><br><span class="line">    &lt;/if&gt;</span><br><span class="line"></span><br><span class="line">    &lt;if test=&quot;nameList != null and nameList.size() &gt; 0&quot;&gt;</span><br><span class="line">        and</span><br><span class="line">        &lt;foreach collection=&quot;nameList&quot; open=&quot;(&quot; close=&quot;)&quot; item=&quot;name&quot; index=&quot;index&quot; separator=&quot;or&quot;&gt;</span><br><span class="line">            find_in_set(#&#123;name&#125;, names) &gt; 0</span><br><span class="line">        &lt;/foreach&gt;</span><br><span class="line">    &lt;/if&gt;</span><br><span class="line">&lt;/trim&gt;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/01/myblog/JAVA/maven%E5%92%8Cnuxus/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -206,10 +334,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-06-01 22:34:23 / Modified: 23:10:09" itemprop="dateCreated datePublished" datetime="2022-06-01T22:34:23+08:00">2022-06-01</time>
+              <time title="Created: 2022-06-01 22:34:23" itemprop="dateCreated datePublished" datetime="2022-06-01T22:34:23+08:00">2022-06-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-11-05 12:55:32" itemprop="dateModified" datetime="2022-11-05T12:55:32+08:00">2022-11-05</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -253,6 +387,20 @@
 <p>节省外网带宽；加速Maven构建；部署第三方构件；提高稳定性，增强控制；降低中央仓库的负荷；控制和审计；建立本地内部公用仓库。</p>
 <p>转载自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/youngdeng/p/15098442.html">https://www.cnblogs.com/youngdeng/p/15098442.html</a></p>
 <p>如何配置：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5b06b2541336">https://www.jianshu.com/p/5b06b2541336</a></p>
+<h3 id="配置项目遇到的几个问题"><a href="#配置项目遇到的几个问题" class="headerlink" title="配置项目遇到的几个问题"></a>配置项目遇到的几个问题</h3><p>背景：把之前的包想移动到新创建的一个子包里。</p>
+<p>✅父子工程引用的问题</p>
+<p>1、Parent怎么能找到childA和childB呢？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;modules&gt;</span><br><span class="line">   &lt;module&gt;childA&lt;/module&gt;</span><br><span class="line">   &lt;module&gt;childB&lt;/module&gt;</span><br><span class="line">&lt;/modules&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2、pom”继承”的概念</p>
+<p>如果分别去在各自的pom里引用包，就会导致pom文件引入的包重复。<br>父pom写好了，子pom就通过<code>&lt;parent&gt;</code>标签继承父pom的依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">   &lt;groupId&gt;com.sang.main&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;Parent-Moduel&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;1.0.2&lt;/version&gt;</span><br><span class="line">   &lt;relativePath&gt;../pom.xml&lt;/relativePath&gt;  &lt;!--本例中此处是可选的，不是在外层包下的话用--&gt;</span><br><span class="line">&lt;/parent&gt;</span><br></pre></td></tr></table></figure>
+
+<p>子pom中引入<code>&lt;parent&gt;</code>标签后，就会从父pom继承<code>&lt;version&gt;</code>等属性了,主pom中把依赖通过<code>&lt;dependecyManagement&gt;</code>引起来，表示子pom可能会用到的jar包依赖，子包引用的话，可以不加version属性，便于统一管理，加了的话表示子包单独用这个版本。</p>
+<p>摘自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/SunFlowerXT/article/details/105531109">https://blog.csdn.net/SunFlowerXT/article/details/105531109</a></p>
+<p>✅Junit找不到的问题，test放在main里，结构限定scope为test</p>
+<p>✅class notFound 以及 找不到或无法加载主类</p>
+<p>项目结构没有安排明白的原因，点project structure，父包下面的main包和test包下的java包啥的都不作为source和test，resource也不作为reesource。子包下面的模块选好。就可以了。</p>
 
       
     </div>
@@ -629,7 +777,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-11-04 22:22:23" itemprop="dateModified" datetime="2022-11-04T22:22:23+08:00">2022-11-04</time>
+                <time title="Modified: 2022-11-13 11:18:22" itemprop="dateModified" datetime="2022-11-13T11:18:22+08:00">2022-11-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -665,6 +813,7 @@
 <p>9、if、while、for关键词的后面和括号之间要有空格，HashMap&lt;Integer, Integer&gt;和变量名之间要有空格。</p>
 <p>10、不要在代码中，特别是主线程中随便Thread.sleep，这样会阻塞住线程。</p>
 <p>11、方法返回如果是包装类型Double等，如果用double接，是接不住null的，会报空指针异常。</p>
+<p>12、boolean这种类型，如果是一个对象的参数，初始化对象时，会给一个默认值false，但是单独初始化boolean类型，需要给值，不能boolean b;</p>
 <h3 id="访问权限"><a href="#访问权限" class="headerlink" title="访问权限"></a>访问权限</h3><p>private：仅限类本身可见<br>default：类内部、包访问权限<br>protected：类内部、同一个包、子类中访问<br>public：类内部、同一个包、子类、任意位置都能访问</p>
 <h3 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h3><p>✅java: Compilation failed:</p>
 <p>报错原因：<br>项目中Java版本不一致，可以查看项目中的jdk配置.<br>1、查看项目的jdk<br>File -&gt;Project Structure-&gt;Project Settings -&gt;Project </p>
@@ -1049,10 +1198,37 @@ ROUND_UP    //向远离0的方向舍入
 <p>3、string自己的split方法<br>将字符串按照分割符截取，以数组形式返回</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String str = &quot;hello, world, ni,  hao&quot;;</span><br><span class="line">String[]  strs=str.split(&quot;,&quot;);</span><br><span class="line">for(int i=0,len=strs.length;i&lt;len;i++)&#123;</span><br><span class="line">    System.out.println(strs[i]);</span><br><span class="line">&#125;</span><br><span class="line">//空格也算了</span><br><span class="line">hello</span><br><span class="line"> world</span><br><span class="line"> ni</span><br><span class="line">  hao</span><br></pre></td></tr></table></figure>
 
+<p><code>split(String regex)</code> 参数regex称为分割符,可以使用正则表达式来表示。<br>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">String str= &quot;a33b444c555d&quot;;</span><br><span class="line">//正则表达式中\d+表示一个或多个数字,java中\\表示一个普通\</span><br><span class="line">//String[] split = str.split(Pattern.compile(&quot;\\d+&quot;).toString());</span><br><span class="line">//两种写法都是一样的,下面写法简洁</span><br><span class="line">String[] split = str.split(&quot;\\d+&quot;);</span><br><span class="line"></span><br><span class="line">String str= &quot;aaa|bbb|ccc&quot;;</span><br><span class="line">//使用|作为分隔符,其余特殊字符同理</span><br><span class="line">//两个\表示一个\,加了\后表示仅匹配字符本身</span><br><span class="line">String[] split = str.split(&quot;\\|&quot;);</span><br><span class="line"></span><br><span class="line">String str= &quot;aaa,bbb#ccc&quot;;</span><br><span class="line">//使用,或#分割字符串</span><br><span class="line">String[] split = str.split(&quot;,|#&quot;);</span><br></pre></td></tr></table></figure>
+
+<p><code>split(String regex,int limit)</code> limit控制分割的次数，只填一个正则表达式的话,limit默认是0。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">（1）limit &gt; 0,(从左到右)最多分割 n - 1 次,数组的长度将不会大于 n,结尾的空字符串不会丢弃</span><br><span class="line">//limit=3,切割2次,末尾会分割出一个&quot;&quot;空字符串</span><br><span class="line">String[] split = &quot;abcb&quot;.split(&quot;b&quot;,3);</span><br><span class="line">//split:&#123;&quot;a&quot;,&quot;c&quot;,&quot;&quot;&#125;</span><br><span class="line"></span><br><span class="line">（2）limit &lt; 0,匹配到多少次就分割多少次,而且数组可以是任何长度。结尾的空字符串不会丢弃</span><br><span class="line"></span><br><span class="line">（3）limit=0不限制分割次数，要注意结尾的空字符串将会丢弃</span><br></pre></td></tr></table></figure>
+
+<p>split方法完整用法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41740883/article/details/111696866">https://blog.csdn.net/qq_41740883/article/details/111696866</a></p>
 <p>✅字符串拼接</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test3() &#123;</span><br><span class="line">    // 1.直接用+，内部会替换成StringBuilder的append方法</span><br><span class="line">    // 不建议在 for 循环中使用 “+” 进行字符串拼接，会创建多个StringBuilder 对象</span><br><span class="line">    String s1 = &quot;hel&quot;;</span><br><span class="line">    String s2 = null;</span><br><span class="line">    System.out.println(s1 + s2); //helnull  如果是null，当作字符串null来处理</span><br><span class="line">    </span><br><span class="line">    // 2.StringBuilder的append方法 （非线程安全）</span><br><span class="line">    StringBuilder s3 = new StringBuilder(&quot;hel&quot;);</span><br><span class="line">    System.out.println(s3.append(&quot;lo&quot;));</span><br><span class="line">    </span><br><span class="line">    // 3.StringBuffer的append方法 （线程安全）</span><br><span class="line">    StringBuffer s4 = new StringBuffer(&quot;hel&quot;);</span><br><span class="line">    System.out.println(s4.append(&quot;lo&quot;));</span><br><span class="line">    </span><br><span class="line">    // 4.String类的concat方法</span><br><span class="line">    System.out.println(s1.concat(&quot;lo&quot;));</span><br><span class="line">    //System.out.println(s1.concat(null)); //NPE</span><br><span class="line">    </span><br><span class="line">    // 5.String类的静态join方法 JDK 1.8 提供，可以分隔符，也可以多个字符串</span><br><span class="line">    System.out.println(String.join(&quot;&quot;, &quot;hel&quot;, &quot;lo&quot;)); //第一个参数为字符串连接符，后面可以是很多个字符串连接</span><br><span class="line">    </span><br><span class="line">    // 6.org.apache.commons.lang3.StringUtil的join方法</span><br><span class="line">    // 不用担心 NullPointerException,内部使用的仍然是 StringBuilder</span><br><span class="line">    System.out.println(StringUtils.join(&quot;hel&quot;, &quot;lo&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/ChineseSoftware/article/details/122956817">https://blog.csdn.net/ChineseSoftware/article/details/122956817</a></p>
 <p>concat与+的区别：<br>①如果拼接的字符串是 null，concat 时候就会抛出 NullPointerException，“+” 操作符会当做是 “null” 字符串来处理。<br>②如果拼接的字符串是一个空字符串(“”)，那么 concat 的效率要更高一点。毕竟不需要 new StringBuilder 对象。<br>③如果拼接的字符串非常多，concat 的效率就会下降，因为用到字符数组，开销就大。</p>
+<p>✅字符串翻转</p>
+<p>1、用stringBuffer或者stringBuilder自带的reverse方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String newS = new StringBuilder(old).reverse().toString();</span><br></pre></td></tr></table></figure>
+
+<p>2、将字符串拆分为char数组，然后交换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">char[] charArray = s.toCharArray();</span><br><span class="line">int start = 0, end = charArray.length - 1;</span><br><span class="line">for (; start &lt; end; start++, end--) &#123;</span><br><span class="line">    charArray[start] ^= charArray[end];//采用异或</span><br><span class="line">    charArray[end] ^= charArray[start];</span><br><span class="line">    charArray[start] ^= charArray[end];</span><br><span class="line">&#125;</span><br><span class="line">String newS = new String(charArray);</span><br><span class="line"></span><br><span class="line">或者：</span><br><span class="line">while (start &lt; end) &#123;</span><br><span class="line">    //交换首尾char值</span><br><span class="line">    char c = charArray[end];</span><br><span class="line">    charArray[end] = charArray[start];</span><br><span class="line">    charArray[start] = c;</span><br><span class="line">    start++;</span><br><span class="line">    end--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3、stringBuffer倒序拼接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = new StringBuffer();</span><br><span class="line">for (int i = s.length() - 1; i &gt;= 0; i--) &#123;</span><br><span class="line">    sb.append(s.charAt(i));</span><br><span class="line">&#125;</span><br><span class="line">String newS = sb.toString();</span><br></pre></td></tr></table></figure>
+
+<p>4、利用栈的先进后出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = new StringBuffer();</span><br><span class="line">Stack stack = new Stack();</span><br><span class="line">for (int i = 0; i &lt; s.length(); i++) &#123;</span><br><span class="line">    stack.push(s.charAt(i));</span><br><span class="line">&#125;</span><br><span class="line">while (!stack.isEmpty()) &#123;</span><br><span class="line">    //stack会返回栈顶值，并且会把该值删除</span><br><span class="line">    sb.append(stack.pop());</span><br><span class="line">&#125;</span><br><span class="line">String newS = sb.toString();</span><br></pre></td></tr></table></figure>
+
+<p>5、切割递归反转</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static String reverse(String s) &#123;</span><br><span class="line">    if (s.length() &lt;= 1) &#123;</span><br><span class="line">        return s;</span><br><span class="line">    &#125;</span><br><span class="line">    //每次把第一个放在后面</span><br><span class="line">    return reverse(s.substring(1)) + s.substring(0, 1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>6、二分递归反转</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static String reverse(String s) &#123;</span><br><span class="line">    int length = s.length();</span><br><span class="line">    if (length &lt;= 1) return s;</span><br><span class="line">    String left = s.substring(0, length / 2);</span><br><span class="line">    String right = s.substring(length / 2, length);</span><br><span class="line">    return reverse(right) + reverse(left);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>转自：<a target="_blank" rel="noopener" href="https://www.jb51.net/article/237801.htm">https://www.jb51.net/article/237801.htm</a></p>
 <h3 id="map相关"><a href="#map相关" class="headerlink" title="map相关"></a>map相关</h3><h4 id="map几种遍历方式"><a href="#map几种遍历方式" class="headerlink" title="map几种遍历方式"></a>map几种遍历方式</h4><p>一、Map.Entry遍历</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for (Map.Entry&lt;String, String&gt; entry : map.entrySet()) &#123;  </span><br><span class="line">  System.out.println(&quot;key= &quot; + entry.getKey());</span><br><span class="line">  System.out.println(&quot;value= &quot; + entry.getValue());</span><br><span class="line"> &#125;  </span><br></pre></td></tr></table></figure>
 <p>二、通过Iterator迭代器</p>
@@ -1070,8 +1246,11 @@ ROUND_UP    //向远离0的方向舍入
 <p>更多用法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u012894692/article/details/82557843">https://blog.csdn.net/u012894692/article/details/82557843</a></p>
 <h4 id="map的一些操作"><a href="#map的一些操作" class="headerlink" title="map的一些操作"></a>map的一些操作</h4><p>✅map的size</p>
 <p>map.size() 返回 hashMap 中键/值对的数量。</p>
-<p>✅map的put和putIfAbsent<br>1.使用 put 方法添加键值对，如果 map 集合中没有该 key 对应的值，则直接添加，并返回 value；如果已经存在对应的值，则会<strong>覆盖旧值</strong>，value 为新的值，返回值为 value。<br><code>map.put(key, value)</code></p>
-<p>2.使用 putIfAbsent 方法添加键值对，如果 map 集合中没有该 key 对应的值，则直接添加，并返回 null，如果已经存在对应的值，则依旧为原来的值，返回值为 value（旧的值）。<br><code>map.putIfAbsent(key, value)</code></p>
+<p>✅map的put和putIfAbsent<br>1.使用 put 方法添加键值对，如果 map 集合中没有该 key 对应的值，则直接添加，并返回 null；如果已经存在对应的值，则会<strong>覆盖旧值</strong>，value 为新的值，返回值为旧的value。<br><code>map.put(key, value)</code></p>
+<p>2.使用 putIfAbsent 方法添加键值对，不存在才加入，如果 map 集合中没有该 key 对应的值，则直接添加，并返回 null，如果已经存在对应的值，则依旧为原来的值，返回值为 value（旧的值）。<br><code>map.putIfAbsent(key, value)</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test1() &#123;</span><br><span class="line">    Map&lt;String, String&gt; map = new HashMap&lt;&gt;();</span><br><span class="line">    map.put(&quot;11&quot;, &quot;11&quot;);</span><br><span class="line">    System.out.println(map.put(&quot;11&quot;, &quot;22&quot;));  //输出11</span><br><span class="line">    System.out.println(map.put(&quot;22&quot;, &quot;22&quot;));  //输出null</span><br><span class="line">    System.out.println(map.putIfAbsent(&quot;11&quot;, &quot;33&quot;));  //输出22</span><br><span class="line">    System.out.println(map.putIfAbsent(&quot;33&quot;, &quot;44&quot;));  //输出33</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 <p>✅map.getOrDefault(key, defaultvalue)<br>用于map获取value，与.get(key)不同的是，如果得到的value是null的话，可以给一个默认值。</p>
 <p>举例：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;StudentGrade&gt; gradeList = Lists.newArrayList();</span><br><span class="line">//把学生成绩list变为map：学生-成绩list</span><br><span class="line">Map&lt;String, List&lt;String&gt;&gt; gradeMap = Maps.newHashMap();</span><br><span class="line">for(StudentGrade studentGrade : gradeList) &#123;</span><br><span class="line">  List&lt;String&gt; grades = gradeMap.getOrDefault(studentGrade.getName(), Lists.newArrayList());</span><br><span class="line">  grades.add(studentGrade.getGrade());</span><br><span class="line">  gradeMap.put(studentGrade.getName(), grades); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1904,7 +2083,7 @@ ROUND_UP    //向远离0的方向舍入
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-20 19:10:40" itemprop="dateModified" datetime="2022-05-20T19:10:40+08:00">2022-05-20</time>
+                <time title="Modified: 2022-11-06 10:23:24" itemprop="dateModified" datetime="2022-11-06T10:23:24+08:00">2022-11-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1965,6 +2144,8 @@ ROUND_UP    //向远离0的方向舍入
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">1.构造方法方式：</span><br><span class="line">&lt;bean name=&quot;p3&quot; class=&quot;com.bean.Person&quot; scope=&quot;prototype&quot;/&gt;</span><br><span class="line"></span><br><span class="line">Person p = (Person) ctx.getBean(&quot;p3&quot;,new Object[]&#123;&quot;王五&quot;,35&#125;);</span><br><span class="line"></span><br><span class="line">2.工厂注入方式：</span><br><span class="line">工厂类：</span><br><span class="line">public class PersonFactory &#123;</span><br><span class="line">//静态工厂注入</span><br><span class="line">public static Person getPersonInstance(String name,int age)throws Exception</span><br><span class="line">&#123;</span><br><span class="line">  Person p = (Person)Class.forName(&quot;com.bean.Person&quot;).newInstance();</span><br><span class="line">   Method m = p.getClass().getMethod(&quot;setName&quot;, java.lang.String.class);</span><br><span class="line">   m.invoke(p, name);</span><br><span class="line">   m = p.getClass().getMethod(&quot;setAge&quot;, int.class);</span><br><span class="line">   m.invoke(p, age);</span><br><span class="line">   return p;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">配置bean：</span><br><span class="line">&lt;bean name=&quot;p3&quot; class=&quot;com.factory.PersonFactory&quot; factory-method=&quot;getPersonInstance&quot; scope=&quot;prototype&quot;&gt;</span><br><span class="line">&lt;constructor-arg name=&quot;name&quot;&gt;</span><br><span class="line">&lt;null/&gt;</span><br><span class="line">&lt;/constructor-arg&gt;</span><br><span class="line">&lt;constructor-arg name=&quot;age&quot; value=&quot;0&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">Person p = (Person) ctx.getBean(&quot;p3&quot;,new Object[]&#123;&quot;王五&quot;,35&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_23927391/article/details/80625578">https://blog.csdn.net/qq_23927391/article/details/80625578</a></p>
+<h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><p>一个使用工厂模式管理多个类实现同一个接口的例子：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33898233/article/details/91414228">https://blog.csdn.net/weixin_33898233/article/details/91414228</a></p>
+<p><code>applicationContext.getBeansOfType(Sort.class);</code></p>
 
       
     </div>
@@ -2092,145 +2273,6 @@ ROUND_UP    //向远离0的方向舍入
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/22/myblog/spring/spring%E6%A1%86%E6%9E%B6%E4%B9%8Bbean%E6%B3%A8%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/22/myblog/spring/spring%E6%A1%86%E6%9E%B6%E4%B9%8Bbean%E6%B3%A8%E8%A7%A3/" class="post-title-link" itemprop="url">spring框架@Bean注解、拦截器、监听器</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-04-22 22:14:57" itemprop="dateCreated datePublished" datetime="2022-04-22T22:14:57+08:00">2022-04-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-20 23:23:55" itemprop="dateModified" datetime="2022-05-20T23:23:55+08:00">2022-05-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/spring%E7%90%86%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">spring理解</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Bean注解"><a href="#Bean注解" class="headerlink" title="@Bean注解"></a>@Bean注解</h3><p>作用在方法上的注解，Spring的@Bean注解用于告诉方法，产生一个Bean对象，然后这个Bean对象交给Spring管理。产生这个Bean对象的方法Spring只会调用一次，随后这个Spring将会将这个Bean对象放在自己的IOC容器中。(和xml配置中的bean标签的作用是一样的)</p>
-<p>@Bean主要用在@Configuration注解的类中，也可以用在@Component注解的类中。</p>
-<p>例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class AppConfig &#123;</span><br><span class="line"> </span><br><span class="line">    // 使用@Bean 注解表明myBean需要交给Spring进行管理</span><br><span class="line">    // 未指定bean 的名称，默认采用的是方法名的配置方式</span><br><span class="line">    @Bean</span><br><span class="line">    public MyBean buildMyBean()&#123;</span><br><span class="line">        return new MyBean();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">public class MyBean &#123;</span><br><span class="line"> </span><br><span class="line">    public MyBean()&#123;</span><br><span class="line">        System.out.println(&quot;MyBean Initializing&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>创建一个测试类SpringBeanApplicationTests，测试上述代码的正确性</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class SpringBeanApplicationTests &#123;</span><br><span class="line"> </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);</span><br><span class="line">        context.getBean(&quot;buildMyBean&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>@Bean的属性：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">value：bean别名和name是相互依赖关联的，value,name如果都使用的话值必须要一致；</span><br><span class="line"></span><br><span class="line">name：bean名称，如果不写会默认为注解的方法名称；</span><br><span class="line"></span><br><span class="line">autowire：自定装配默认是不开启的，建议尽量不要开启，因为自动装配不能装配基本数据类型、字符串、数组等，这是自动装配设计的局限性，并且自动装配不如依赖注入精确；</span><br><span class="line"></span><br><span class="line">initMethod：bean的初始化之前的执行方法，该参数一般不怎么用，因为完全可以在代码中实现；</span><br><span class="line"></span><br><span class="line">destroyMethod：默认使用javaConfig配置的bean，如果存在close或者shutdown方法，则在bean销毁时会自动执行该方法，如果你不想执行该方法，则添加@Bean(destroyMethod=&quot;&quot;)来防止出发销毁方法；</span><br></pre></td></tr></table></figure>
-
-<p>Spring中的@Bean注解：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_36380516/article/details/119194065">https://blog.csdn.net/weixin_36380516/article/details/119194065</a></p>
-<h3 id="Bean和-Component"><a href="#Bean和-Component" class="headerlink" title="@Bean和@Component"></a>@Bean和@Component</h3><ul>
-<li>@Component注解表明一个类会作为组件类，并告知Spring要为这个类创建bean。</li>
-<li>@Bean注解告诉Spring这个方法将会返回一个对象，这个对象要注册为Spring应用上下文中的bean。通常方法体中包含了最终产生bean实例的逻辑。</li>
-</ul>
-<p>相同点：两者的结果都是为spring容器注册Bean.<br>不同点：@Component 通常是通过类路径扫描来自动侦测以及自动装配到Spring容器中。<br>　　　　@Bean 注解通常是我们在标有该注解的方法中定义产生这个bean的逻辑。</p>
-<blockquote>
-<p>@Component （@Controller @Service @Respository）作用于类上，只有在我们的SpringBoot应用程序启用了组件扫描并且包含了被注解的类时才有效。通过组件扫描，Spring将扫描整个类路径，并将所有@Component注释类添加到Spring Context，这里有的不足就是会把整个类当成bean注册到spring 容器上，如果这个类中并不是所有方法都需要注册为bean的话，会出现不需要的方法都注册成为bean，这时候必须确保这些不需要的方法也能注册为bean或者在扫描中加filter 过滤这些不需要的bean,否者spring将无法成功启动。</p>
-</blockquote>
-<blockquote>
-<p>@Bean相对来说就更加灵活了，它可以独立加在方法上，按需注册到spring容器，而且如果你要用到第三方类库里面某个方法的时候（或者类？），你就只能用@Bean把这个方法注册到spring容器，因为用@Component你需要配置组件扫描到这个第三方类路径而且还要在别人源代码加上这个注解，很明显是不现实的。</p>
-</blockquote>
-<p>❤️当我们引用第三方库中的类需要装配到Spring容器时，则只能通过@Bean来实现<br>总结：@Component和@Bean都是用来注册Bean并装配到Spring容器中，但是Bean比Component的自定义性更强。可以实现一些Component实现不了的自定义加载类。特别是二方库或三方库的类装配为bean，只能用@Bean。</p>
-<h3 id="实现FactoryBean接口"><a href="#实现FactoryBean接口" class="headerlink" title="实现FactoryBean接口"></a>实现FactoryBean接口</h3><p>org.springframework.beans.factory中</p>
-<p>FactoryBean是一个工厂Bean，可以生成某一个类型Bean实例，它最大的一个作用是：可以让我们自定义Bean的创建过程。BeanFactory是Spring容器中的一个基本类也是很重要的一个类，在BeanFactory中可以创建和管理Spring容器中的Bean，它对于Bean的创建有一个统一的流程。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public interface FactoryBean&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">    //返回的对象实例</span><br><span class="line">    T getObject() throws Exception;</span><br><span class="line">    //Bean的类型</span><br><span class="line">    Class&lt;?&gt; getObjectType();</span><br><span class="line">    //true是单例，false是非单例  在Spring5.0中此方法利用了JDK1.8的新特性变成了default方法，返回true</span><br><span class="line">    boolean isSingleton();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>FactoryBean中定义了一个Spring Bean的很重要的三个特性：是否单例、Bean类型、Bean实例。</p>
-<p>例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">//FactoryBean接口的实现类</span><br><span class="line">@Component</span><br><span class="line">public class FactoryBeanLearn implements FactoryBean &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object getObject() throws Exception &#123;</span><br><span class="line">        //这个Bean是我们自己new的，这里我们就可以控制Bean的创建过程了</span><br><span class="line">        return new FactoryBeanServiceImpl();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Class&lt;?&gt; getObjectType() &#123;</span><br><span class="line">        return FactoryBeanService.class;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean isSingleton() &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//接口</span><br><span class="line">public interface FactoryBeanService &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 测试FactoryBean</span><br><span class="line">     */</span><br><span class="line">    void testFactoryBean();</span><br><span class="line">&#125;</span><br><span class="line">//实现类</span><br><span class="line">public class FactoryBeanServiceImpl implements FactoryBeanService &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 测试FactoryBean</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void testFactoryBean() &#123;</span><br><span class="line">        System.out.println(&quot;我是FactoryBean的一个测试类。。。。&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//单测</span><br><span class="line">@Test</span><br><span class="line">public void test() &#123;</span><br><span class="line">        ClassPathXmlApplicationContext cac = new ClassPathXmlApplicationContext(&quot;classpath:com/zkn/spring/learn/base/applicationContext.xml&quot;);</span><br><span class="line">        FactoryBeanService beanService = cac.getBean(FactoryBeanService.class);</span><br><span class="line">        beanService.testFactoryBean();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>❤️FactoryBean是自定义了一种注入Bean的方法，在类中没有加注解，也没有xml中配置，但是实现FactoryBean接口，重写getObject方法来返回对象，表示注入了bean，重写getObjectType表示获取bean时bean的类型。然后就可以通过getBean(类型.class)获取bean实例了。<br>至于，如何通过ApplicationContext.getBean()，见：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zknxx/article/details/79572387">https://blog.csdn.net/zknxx/article/details/79572387</a></p>
-<h3 id="ApplicationContextAware接口"><a href="#ApplicationContextAware接口" class="headerlink" title="ApplicationContextAware接口"></a>ApplicationContextAware接口</h3><p>org.springframework.context中</p>
-<p>当一个类实现了这个接口之后，这个类就可以方便的获得ApplicationContext对象（spring上下文），Spring发现某个Bean实现了ApplicationContextAware接口，Spring容器会在创建该Bean之后，自动调用该Bean的setApplicationContext（参数）方法，调用该方法时，会将容器本身ApplicationContext对象作为参数传递给该方法。</p>
-<p>❤️之前获取ApplicationContext需要加载配置文件从而创建应用上下文，但是实现了ApplicationContextAware接口，spring自动将容器本身ApplicationContext对象传递给其中的方法setApplicationContext。实现它的类，可以在类中创建私有的ApplicationContext变量，在setApplicationContext中this. = 进行传递。</p>
-<h3 id="InitialzingBean接口"><a href="#InitialzingBean接口" class="headerlink" title="InitialzingBean接口"></a>InitialzingBean接口</h3><p>当一个类实现这个接口之后，Spring启动后，初始化Bean时，若该Bean实现InitialzingBean接口，会自动调用afterPropertiesSet()方法，完成一些用户自定义的初始化操作。</p>
-<p>同样配置Bean的时候使用init-method也可以实现类似的操作。（不需要实现InitialzingBean接口）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void afterPropertiesSet() throws Exception &#123;&#125;</span><br><span class="line"></span><br><span class="line">&lt;bean id = &quot;springBeanInit02&quot; class = &quot;com.lyj.studySpringBoot.init.SpringBeanInit&quot; init-method=&quot;testInit&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;id&quot; value=&quot;#&#123;1111111&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;name&quot; value=&quot;$&#123;test.springEL&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;age&quot; value=&quot;#&#123;10+8&#125;&quot; /&gt; // SpringEL表达式</span><br><span class="line">	&lt;property name=&quot;sex&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">系统是先调用afterPropertiesSet方法，然后在调用init-method中指定的方法。</span><br></pre></td></tr></table></figure>
-
-<p>Spring是通过反射来调用init-method指定方法，而实现InitializingBean接口是直接调用afterPropertiesSet方法，所以后者效率高，但使用init-method方式减少了对Spring的依赖。</p>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40093255/article/details/117318760">https://blog.csdn.net/qq_40093255/article/details/117318760</a></p>
-<h3 id="MethodInterceptor接口-拦截器"><a href="#MethodInterceptor接口-拦截器" class="headerlink" title="MethodInterceptor接口-拦截器"></a>MethodInterceptor接口-拦截器</h3><p>org.aopalliance.intercept中<br>MethodInterceptor接口继承了Interceptor接口，Intercepto接口又继承了Advice接口，因此我个将这拦截器称为一个通知。</p>
-<p>实现MethodInterceptor 接口，在调用目标对象的方法时，就可以实现在调用方法之前、调用方法过程中、调用方法之后对其进行控制。</p>
-<p>拦截器就像是建立了一个通知。用切面做增强一样。</p>
-<p>简单的例子：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u012834750/article/details/71773887">https://blog.csdn.net/u012834750/article/details/71773887</a><br>1.实现接口重写invoke方法，做增强<br>2.写一个简单方法<br>3.测试中，用代理工厂设置代理对象</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">public class TestMethodInterceptor  &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // 初始化一个代理工厂</span><br><span class="line">        ProxyFactory proxyFactory=new ProxyFactory();</span><br><span class="line"></span><br><span class="line">        // 设置目标类，以便于Cglib工具包动态生成目标类的子类，即我们所需的代理类</span><br><span class="line">        // 最好把实现类单独写，这里设置的是实现类（业务）</span><br><span class="line">        proxyFactory.setTarget(new TestMethodInterceptor());</span><br><span class="line"></span><br><span class="line">        // 设置拦截器，而拦截器的&quot;public Object invoke(MethodInvocation mi)&quot;定义了代理类（实际是UserDaoImpl的子类）的方法生成策略。</span><br><span class="line">        proxyFactory.addAdvice(new adviseMethodInterceptor());</span><br><span class="line"></span><br><span class="line">        // 获取代理类</span><br><span class="line">        Object proxy = proxyFactory.getProxy();</span><br><span class="line">         // 向上转型，转型为父类类型</span><br><span class="line">        TestMethodInterceptor methodInterceptor = (TestMethodInterceptor) proxy;</span><br><span class="line"></span><br><span class="line">        methodInterceptor.doSomeThing(&quot;通过代理工厂设置代理对象，拦截代理方法&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static class adviseMethodInterceptor implements MethodInterceptor&#123;</span><br><span class="line">        @Override</span><br><span class="line">        public Object invoke(MethodInvocation methodInvocation) throws Throwable &#123;</span><br><span class="line"></span><br><span class="line">            Object result=null;</span><br><span class="line">            try&#123;</span><br><span class="line">                System.out.println(&quot;方法执行之前：&quot;+methodInvocation.getMethod().toString());</span><br><span class="line"></span><br><span class="line">                result= methodInvocation.proceed();</span><br><span class="line"></span><br><span class="line">                System.out.println(&quot;方法执行之后：&quot;+methodInvocation.getMethod().toString());</span><br><span class="line">                System.out.println(&quot;方法正常运行结果：&quot;+result);</span><br><span class="line"></span><br><span class="line">                return result;</span><br><span class="line"></span><br><span class="line">            &#125;catch (Exception e)&#123;</span><br><span class="line">                System.out.println(&quot;方法出现异常:&quot;+e.toString());</span><br><span class="line">                System.out.println(&quot;方法运行Exception结果：&quot;+result);</span><br><span class="line">                return result;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String doSomeThing(String someThing)&#123;</span><br><span class="line"></span><br><span class="line">        //int i=5/0;</span><br><span class="line">        return &quot;执行被拦截的方法：&quot;+someThing;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>AOP都是基于（Cglib）代理模式实现的，其中的关键点在于实现MethodInterceptor接口，在其“public Object invoke(MethodInvocation mi)”方法中制定代理方法的生成策略，而从此方法的MethodInvocation类型参数mi中可以获得目标对象、目标方法、方法的参数等信息，根据这些信息可以精确地控制增强效果。</p>
-<p>invoke方法的传参是MethodInvocation，表示方法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 获取方法名</span><br><span class="line">String methodName = mi.getMethod().getName();</span><br><span class="line">if (methodName.startsWith(&quot;add&quot;))</span><br><span class="line"></span><br><span class="line">// 执行目标方法</span><br><span class="line">result= methodInvocation.proceed();</span><br><span class="line"></span><br><span class="line">// 获取方法参数</span><br><span class="line">Object[] args = methodInvocation.getArguments();</span><br></pre></td></tr></table></figure>
-
-<p>另一个比较复杂的例子：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gocode/p/aop-in-spring.html">https://www.cnblogs.com/gocode/p/aop-in-spring.html</a></p>
-<p>❤️总结：拦截器，可以以动态代理的方式执行方法，另一个作用是创建一个切面，具体的通知在invoke中加，传入参数可以获取目标对象、方法、方法参数，从而选择对不同切入点进行不同的通知/增强。也可以不加通知，只是proceed执行本方法。</p>
-<h3 id="ApplicationListener接口-监听器"><a href="#ApplicationListener接口-监听器" class="headerlink" title="ApplicationListener接口-监听器"></a>ApplicationListener接口-监听器</h3><p>ApplicationContext事件机制是观察者设计模式的实现，通过ApplicationEvent类和ApplicationListener接口，可以实现ApplicationContext事件处理。</p>
-<p>如果容器中有一个ApplicationListener Bean，每当ApplicationContext发布ApplicationEvent时，ApplicationListener Bean将自动被触发。这种事件机制都必须需要程序显示publish的触发。</p>
-<p>事件可以自定义、监听也可以自定义，完全根据自己的业务逻辑来处理。</p>
-<p>1.定义事件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class EmailEvent extends ApplicationEvent&#123;</span><br><span class="line">　　 private String address;</span><br><span class="line">　　 private String text;</span><br><span class="line">　　 public EmailEvent(Object source, String address, String text)&#123;</span><br><span class="line">　　 super(source);</span><br><span class="line">　　　　　 this.address = address;</span><br><span class="line">　　　　　 this.text = text;</span><br><span class="line">　　 &#125;</span><br><span class="line">　　 public EmailEvent(Object source) &#123;</span><br><span class="line">　　　　　super(source);</span><br><span class="line">　　 &#125;</span><br><span class="line">　　 //......address和text的setter、getter</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>2.监听事件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class EmailNotifier implements ApplicationListener&#123;</span><br><span class="line">    // 监听后事件处理的方法，可以对事件做一些判断</span><br><span class="line">　　 public void onApplicationEvent(ApplicationEvent event) &#123;</span><br><span class="line">　　　　　if (event instanceof EmailEvent) &#123;</span><br><span class="line">　　　　　　　 EmailEvent emailEvent = (EmailEvent)event;</span><br><span class="line">　　　　　　　 System.out.println(&quot;邮件地址：&quot; + emailEvent.getAddress());</span><br><span class="line">　　　　　　　 System.our.println(&quot;邮件内容：&quot; + emailEvent.getText());</span><br><span class="line">　　　　　&#125; else &#123;</span><br><span class="line">　　　　　　　 System.our.println(&quot;容器本身事件：&quot; + event);</span><br><span class="line">　　　　　&#125;</span><br><span class="line">　　 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>3.触发事件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class SpringTest &#123;</span><br><span class="line">　　 public static void main(String args[])&#123;</span><br><span class="line">　　　　　ApplicationContext context = new ClassPathXmlApplicationContext(&quot;bean.xml&quot;);</span><br><span class="line">　　　　　//创建一个ApplicationEvent对象</span><br><span class="line">　　　　　EmailEvent event = new EmailEvent(&quot;hello&quot;,&quot;abc@163.com&quot;,&quot;This is a test&quot;);</span><br><span class="line">　　　　　//主动触发该事件</span><br><span class="line">　　　　　context.publishEvent(event);</span><br><span class="line">　　 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以在拦截器中做增强触发。</p>
-<p>不管是内置监听还是外部自定义监听一定要把实现ApplicationListener的类定义成一个bean才行，可以是通过注解@Component等也可以通过xml的方式去执行。</p>
-<p>监听器实现类实现的ApplicationListener接口中，可以加范型，事件类型。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2301,7 +2343,7 @@ ROUND_UP    //向远离0的方向舍入
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-count">88</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

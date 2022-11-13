@@ -28,7 +28,7 @@
 <meta property="og:description" content="maven 优秀的构建工具通过简单的命令，能够完成清理、编译、测试、打包、部署等一系列过程。同时，不得不提的是，Maven是跨平台的，无论是在Windows、还是在Linux或Mac上，都可以使用同样的命令。  依赖管理工具项目依赖的第三方的开源类库，都可以通过依赖的方式引入到项目中来。代替了原来需要首先下载第三方jar，再加入到项目中的方式。从而更好的解决了合作开发中依赖增多、版本不一致、版本冲">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-06-01T14:34:23.865Z">
-<meta property="article:modified_time" content="2022-06-01T15:10:09.968Z">
+<meta property="article:modified_time" content="2022-11-05T04:55:32.695Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="maven">
 <meta name="twitter:card" content="summary">
@@ -211,10 +211,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-06-01 22:34:23 / Modified: 23:10:09" itemprop="dateCreated datePublished" datetime="2022-06-01T22:34:23+08:00">2022-06-01</time>
+              <time title="Created: 2022-06-01 22:34:23" itemprop="dateCreated datePublished" datetime="2022-06-01T22:34:23+08:00">2022-06-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-11-05 12:55:32" itemprop="dateModified" datetime="2022-11-05T12:55:32+08:00">2022-11-05</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -265,6 +271,20 @@
 <p>节省外网带宽；加速Maven构建；部署第三方构件；提高稳定性，增强控制；降低中央仓库的负荷；控制和审计；建立本地内部公用仓库。</p>
 <p>转载自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/youngdeng/p/15098442.html">https://www.cnblogs.com/youngdeng/p/15098442.html</a></p>
 <p>如何配置：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5b06b2541336">https://www.jianshu.com/p/5b06b2541336</a></p>
+<h3 id="配置项目遇到的几个问题"><a href="#配置项目遇到的几个问题" class="headerlink" title="配置项目遇到的几个问题"></a>配置项目遇到的几个问题</h3><p>背景：把之前的包想移动到新创建的一个子包里。</p>
+<p>✅父子工程引用的问题</p>
+<p>1、Parent怎么能找到childA和childB呢？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;modules&gt;</span><br><span class="line">   &lt;module&gt;childA&lt;/module&gt;</span><br><span class="line">   &lt;module&gt;childB&lt;/module&gt;</span><br><span class="line">&lt;/modules&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2、pom”继承”的概念</p>
+<p>如果分别去在各自的pom里引用包，就会导致pom文件引入的包重复。<br>父pom写好了，子pom就通过<code>&lt;parent&gt;</code>标签继承父pom的依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">   &lt;groupId&gt;com.sang.main&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;Parent-Moduel&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;1.0.2&lt;/version&gt;</span><br><span class="line">   &lt;relativePath&gt;../pom.xml&lt;/relativePath&gt;  &lt;!--本例中此处是可选的，不是在外层包下的话用--&gt;</span><br><span class="line">&lt;/parent&gt;</span><br></pre></td></tr></table></figure>
+
+<p>子pom中引入<code>&lt;parent&gt;</code>标签后，就会从父pom继承<code>&lt;version&gt;</code>等属性了,主pom中把依赖通过<code>&lt;dependecyManagement&gt;</code>引起来，表示子pom可能会用到的jar包依赖，子包引用的话，可以不加version属性，便于统一管理，加了的话表示子包单独用这个版本。</p>
+<p>摘自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/SunFlowerXT/article/details/105531109">https://blog.csdn.net/SunFlowerXT/article/details/105531109</a></p>
+<p>✅Junit找不到的问题，test放在main里，结构限定scope为test</p>
+<p>✅class notFound 以及 找不到或无法加载主类</p>
+<p>项目结构没有安排明白的原因，点project structure，父包下面的main包和test包下的java包啥的都不作为source和test，resource也不作为reesource。子包下面的模块选好。就可以了。</p>
 
     </div>
 
@@ -348,7 +368,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#maven"><span class="nav-number">1.</span> <span class="nav-text">maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maven%E4%BB%93%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">maven仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nexus"><span class="nav-number">3.</span> <span class="nav-text">nexus</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#maven"><span class="nav-number">1.</span> <span class="nav-text">maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maven%E4%BB%93%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">maven仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nexus"><span class="nav-number">3.</span> <span class="nav-text">nexus</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE%E9%81%87%E5%88%B0%E7%9A%84%E5%87%A0%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">配置项目遇到的几个问题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -363,7 +383,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-count">88</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
