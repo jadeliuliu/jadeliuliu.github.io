@@ -28,7 +28,7 @@
 <meta property="og:description" content="@Bean注解作用在方法上的注解，Spring的@Bean注解用于告诉方法，产生一个Bean对象，然后这个Bean对象交给Spring管理。产生这个Bean对象的方法Spring只会调用一次，随后这个Spring将会将这个Bean对象放在自己的IOC容器中。(和xml配置中的bean标签的作用是一样的) @Bean主要用在@Configuration注解的类中，也可以用在@Component注解的">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-22T14:14:57.094Z">
-<meta property="article:modified_time" content="2022-05-20T15:23:55.788Z">
+<meta property="article:modified_time" content="2022-11-26T13:52:07.162Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-20 23:23:55" itemprop="dateModified" datetime="2022-05-20T23:23:55+08:00">2022-05-20</time>
+                <time title="Modified: 2022-11-26 21:52:07" itemprop="dateModified" datetime="2022-11-26T21:52:07+08:00">2022-11-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -315,6 +315,12 @@
 <p>可以在拦截器中做增强触发。</p>
 <p>不管是内置监听还是外部自定义监听一定要把实现ApplicationListener的类定义成一个bean才行，可以是通过注解@Component等也可以通过xml的方式去执行。</p>
 <p>监听器实现类实现的ApplicationListener接口中，可以加范型，事件类型。</p>
+<h3 id="接口防刷"><a href="#接口防刷" class="headerlink" title="接口防刷"></a>接口防刷</h3><p>写一个通用类用redis锁来实现，需要前段传一个东西来表示redis的key：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32871365/article/details/122113652">https://blog.csdn.net/qq_32871365/article/details/122113652</a></p>
+<p>在前段访问前，先从后端申请一个token，然后拿这tocken访问，后端校验tocken：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42071874/article/details/90402099">https://blog.csdn.net/weixin_42071874/article/details/90402099</a></p>
+<p>自定义注解+redis+拦截器的方法：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40918145/article/details/108734614">https://blog.csdn.net/weixin_40918145/article/details/108734614</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45637260/article/details/127692497">https://blog.csdn.net/qq_45637260/article/details/127692497</a><br>1.写一个自定义注解传可访问次数<br>2.写一个拦截器，获取自定义注解，并且获取HttpServletRequest，从中获取ip，然后redis记录访问次数<br>3.配置拦截器WebMvcConfigurerAdapter<br>4.controller接口方法上加自定义注解</p>
+<p>同样是以ip为维度，拦截器/aop：<br><a target="_blank" rel="noopener" href="https://www.jb51.net/article/205093.htm">https://www.jb51.net/article/205093.htm</a></p>
+<p>自定义注解：切面aop：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34033209/article/details/118601590">https://blog.csdn.net/qq_34033209/article/details/118601590</a></p>
+<p>tocken：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/LilLazy/p/14708539.html">https://www.cnblogs.com/LilLazy/p/14708539.html</a></p>
 
     </div>
 
@@ -398,7 +404,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bean%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">@Bean注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bean%E5%92%8C-Component"><span class="nav-number">2.</span> <span class="nav-text">@Bean和@Component</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0FactoryBean%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.</span> <span class="nav-text">实现FactoryBean接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApplicationContextAware%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.</span> <span class="nav-text">ApplicationContextAware接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InitialzingBean%E6%8E%A5%E5%8F%A3"><span class="nav-number">5.</span> <span class="nav-text">InitialzingBean接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MethodInterceptor%E6%8E%A5%E5%8F%A3-%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="nav-number">6.</span> <span class="nav-text">MethodInterceptor接口-拦截器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApplicationListener%E6%8E%A5%E5%8F%A3-%E7%9B%91%E5%90%AC%E5%99%A8"><span class="nav-number">7.</span> <span class="nav-text">ApplicationListener接口-监听器</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bean%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">@Bean注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bean%E5%92%8C-Component"><span class="nav-number">2.</span> <span class="nav-text">@Bean和@Component</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0FactoryBean%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.</span> <span class="nav-text">实现FactoryBean接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApplicationContextAware%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.</span> <span class="nav-text">ApplicationContextAware接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InitialzingBean%E6%8E%A5%E5%8F%A3"><span class="nav-number">5.</span> <span class="nav-text">InitialzingBean接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MethodInterceptor%E6%8E%A5%E5%8F%A3-%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="nav-number">6.</span> <span class="nav-text">MethodInterceptor接口-拦截器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ApplicationListener%E6%8E%A5%E5%8F%A3-%E7%9B%91%E5%90%AC%E5%99%A8"><span class="nav-number">7.</span> <span class="nav-text">ApplicationListener接口-监听器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E9%98%B2%E5%88%B7"><span class="nav-number">8.</span> <span class="nav-text">接口防刷</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

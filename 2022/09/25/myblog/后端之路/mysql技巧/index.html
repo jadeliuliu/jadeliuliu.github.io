@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="sql实用函数日期函数1、datepart() 获取日期中的年月日datepart(‘2022-11-11 12:12:12’, ‘yyyy’)得到：2022，也可以是mm、dd 2、datetrunc() 获取日期的指定起始日期，比如一天的开始datetrunc(‘2022-11-11 12:12:12’, ‘yyyy‘)得到：2022-01-01 00:00:00 3、quarter() 获取">
+  <meta name="description" content="mysql日期函数✅datepart() 获取日期中的年月日datepart(‘2022-11-11 12:12:12’, ‘yyyy’)得到：2022，也可以是mm、dd ✅datetrunc() 获取日期的指定起始日期，比如一天的开始datetrunc(‘2022-11-11 12:12:12’, ‘yyyy‘)得到：2022-01-01 00:00:00 ✅quarter() 获取日期的季度">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mysql技巧">
 <meta property="og:url" content="http://example.com/2022/09/25/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/mysql%E6%8A%80%E5%B7%A7/index.html">
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
-<meta property="og:description" content="sql实用函数日期函数1、datepart() 获取日期中的年月日datepart(‘2022-11-11 12:12:12’, ‘yyyy’)得到：2022，也可以是mm、dd 2、datetrunc() 获取日期的指定起始日期，比如一天的开始datetrunc(‘2022-11-11 12:12:12’, ‘yyyy‘)得到：2022-01-01 00:00:00 3、quarter() 获取">
+<meta property="og:description" content="mysql日期函数✅datepart() 获取日期中的年月日datepart(‘2022-11-11 12:12:12’, ‘yyyy’)得到：2022，也可以是mm、dd ✅datetrunc() 获取日期的指定起始日期，比如一天的开始datetrunc(‘2022-11-11 12:12:12’, ‘yyyy‘)得到：2022-01-01 00:00:00 ✅quarter() 获取日期的季度">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-09-25T08:25:11.412Z">
-<meta property="article:modified_time" content="2022-11-04T13:52:07.644Z">
+<meta property="article:modified_time" content="2022-11-26T12:42:56.359Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="Mysql">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-11-04 21:52:07" itemprop="dateModified" datetime="2022-11-04T21:52:07+08:00">2022-11-04</time>
+                <time title="Modified: 2022-11-26 20:42:56" itemprop="dateModified" datetime="2022-11-26T20:42:56+08:00">2022-11-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -249,12 +249,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="sql实用函数"><a href="#sql实用函数" class="headerlink" title="sql实用函数"></a>sql实用函数</h2><h3 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h3><p>1、datepart()</p>
+        <h2 id="mysql日期函数"><a href="#mysql日期函数" class="headerlink" title="mysql日期函数"></a>mysql日期函数</h2><p>✅datepart()</p>
 <p>获取日期中的年月日<br>datepart(‘2022-11-11 12:12:12’, ‘yyyy’)<br>得到：2022，也可以是mm、dd</p>
-<p>2、datetrunc()</p>
+<p>✅datetrunc()</p>
 <p>获取日期的指定起始日期，比如一天的开始<br>datetrunc(‘2022-11-11 12:12:12’, ‘yyyy‘)<br>得到：2022-01-01 00:00:00</p>
-<p>3、quarter()</p>
+<p>✅quarter()</p>
 <p>获取日期的季度<br>quarter(‘2022-11-11 00:00:00’)<br>得到：4</p>
+<p>✅subdate函数</p>
+<p>MySQL中的SUBDATE()函数用于从给定日期减去某间隔时间。</p>
+<p>用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SUBDATE(date, INTERVAL expr, unit)</span><br><span class="line"></span><br><span class="line">此函数接受以下三个参数：</span><br><span class="line">日期：第一个指定的日期。</span><br><span class="line">expr：要减去的时间/日期间隔的值。负的表示该时间之后</span><br><span class="line">单位：间隔的类型。MICROSECOND\SECOND\MINUTE\HOUR\DAY\WEEK\MONTH\QUARTER\YEAR</span><br></pre></td></tr></table></figure>
+
+<p>例子：<br><code>select subdate(&quot;2020-11-25&quot;, INTERVAL 30 DAY)</code></p>
+<p>今天的日期：<br><code>select curdate();  2022-10-30</code><br>现在的时间：<br><code>select curtime();   13:13:54</code></p>
+<p>✅mysql计算时间差函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">1.timestampdiff(interval, datetime1,datetime2)</span><br><span class="line">返回（时间2-时间1）的时间差，结果单位由interval参数给出</span><br><span class="line">select timestampdiff(MINUTE,&#x27;2012-10-01&#x27;,&#x27;2013-01-13&#x27;); # 149760</span><br><span class="line"></span><br><span class="line">2.天数差函数 datediff</span><br><span class="line">语法：传入两个日期参数，比较DAY天数，第一个参数减去第二个参数的天数值。</span><br><span class="line">select datediff(‘2013-01-13’,‘2012-10-01’); # 104</span><br><span class="line"></span><br><span class="line">3.时间差函数：timediff</span><br><span class="line">语法：timediff(time1,time2)</span><br><span class="line">结果：返回两个时间相减得到的差值，time1-time2，如果其中一个是null，返回也是null。</span><br><span class="line">select timediff(‘2018-05-21 14:51:43’,‘2018-05-19 12:54:43’);</span><br><span class="line"></span><br><span class="line">4.其他求时间的函数</span><br><span class="line">select now(); //2022-11-26 16:18:45</span><br><span class="line">select curdate(); //2022-11-26</span><br><span class="line">select curtime();</span><br></pre></td></tr></table></figure>
+
+<p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_53370274/article/details/122122628">https://blog.csdn.net/weixin_53370274/article/details/122122628</a></p>
+<p>✅日期转换为时间戳</p>
+<p>10位的时间戳精确到s<br>13位的时间戳精确到ms毫秒</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">UNIX_TIMESTAMP函数:日期转时间戳(10位)</span><br><span class="line">select unix_timestamp(now()); //1669452093</span><br><span class="line"></span><br><span class="line">FROM_UNIXTIME函数：时间戳转日期（第二个参数非必填，默认：%Y-%m-%d %H:%i:%s）</span><br><span class="line">select from_unixtime(unix_timestamp(now()));</span><br><span class="line">select from_unixtime(unix_timestamp(now()), &#x27;%Y~%m~%d %H:%i:%S&#x27;);  //2022~11~26 16:48:38</span><br></pre></td></tr></table></figure>
+
+<p>✅日期和字符串相互转化</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">日期转化为指定格式字符串：</span><br><span class="line">select date_format(now(),&#x27;%Y-%m-%d %H:%i:%S&#x27;); //2022-11-26 16:45:59</span><br><span class="line"></span><br><span class="line">指定格式字符串转化为日期：</span><br><span class="line">select str_to_date(&#x27;2022-11-29&#x27;, &#x27;%Y-%m-%d %H:%i:%S&#x27;); //2022-11-29 00:00:00</span><br></pre></td></tr></table></figure>
+
 <h2 id="mySQL-with-as用法"><a href="#mySQL-with-as用法" class="headerlink" title="mySQL - with as用法"></a>mySQL - with as用法</h2><p>如果一整句查询中多个子查询都需要使用同一个子查询的结果，那么就可以用with as，将共用的子查询提取出来，加个别名。后面查询语句可以直接用，对于大量复杂的SQL语句起到了很好的优化作用。</p>
 <p>构造数据：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">-- 分类表</span><br><span class="line">CREATE TABLE category ( cid VARCHAR ( 32 ) PRIMARY KEY, cname VARCHAR ( 50 ) );</span><br><span class="line"></span><br><span class="line">-- 商品表</span><br><span class="line">CREATE TABLE products (</span><br><span class="line">	pid VARCHAR ( 32 ) PRIMARY KEY,</span><br><span class="line">	pname VARCHAR ( 50 ),</span><br><span class="line">	price INT,</span><br><span class="line">	flag VARCHAR ( 2 ),-- 是否上架标记为：1表示上架、0表示下架</span><br><span class="line">	category_id VARCHAR ( 32 ),</span><br><span class="line">	FOREIGN KEY ( category_id ) REFERENCES category ( cid ) </span><br><span class="line">);</span><br><span class="line">-- 分类数据</span><br><span class="line">INSERT INTO category(cid,cname) VALUES(&#x27;c001&#x27;,&#x27;家电&#x27;);</span><br><span class="line">INSERT INTO category(cid,cname) VALUES(&#x27;c002&#x27;,&#x27;鞋服&#x27;);</span><br><span class="line">INSERT INTO category(cid,cname) VALUES(&#x27;c003&#x27;,&#x27;化妆品&#x27;);</span><br><span class="line">INSERT INTO category(cid,cname) VALUES(&#x27;c004&#x27;,&#x27;汽车&#x27;);</span><br><span class="line"></span><br><span class="line">-- 商品数据</span><br><span class="line">INSERT INTO products(pid, pname,price,flag,category_id) VALUES(&#x27;p001&#x27;,&#x27;小米电视机&#x27;,5000,&#x27;1&#x27;,&#x27;c001&#x27;);</span><br><span class="line">INSERT INTO products(pid, pname,price,flag,category_id) VALUES(&#x27;p002&#x27;,&#x27;格力空调&#x27;,3000,&#x27;1&#x27;,&#x27;c001&#x27;);</span><br><span class="line">INSERT INTO products(pid, pname,price,flag,category_id) VALUES(&#x27;p003&#x27;,&#x27;美的冰箱&#x27;,4500,&#x27;1&#x27;,&#x27;c001&#x27;);</span><br></pre></td></tr></table></figure>
@@ -298,12 +316,12 @@
 <p>truncate和delete是删除表中的数据，表还在。</p>
 <p><code>drop table 表名；// 删除表，不是删除表中的数据</code></p>
 <p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/jike11231/article/details/126551510">https://blog.csdn.net/jike11231/article/details/126551510</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/jkzyx123/article/details/127223589">https://blog.csdn.net/jkzyx123/article/details/127223589</a></p>
-<h2 id="mysql的subdate函数"><a href="#mysql的subdate函数" class="headerlink" title="mysql的subdate函数"></a>mysql的subdate函数</h2><p>MySQL中的SUBDATE()函数用于从给定日期减去某间隔时间。</p>
-<p>用法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SUBDATE(date, INTERVAL expr, unit)</span><br><span class="line"></span><br><span class="line">此函数接受以下三个参数：</span><br><span class="line">日期：第一个指定的日期。</span><br><span class="line">expr：要减去的时间/日期间隔的值。负的表示该时间之后</span><br><span class="line">单位：间隔的类型。MICROSECOND\SECOND\MINUTE\HOUR\DAY\WEEK\MONTH\QUARTER\YEAR</span><br></pre></td></tr></table></figure>
+<h2 id="mysql的空间"><a href="#mysql的空间" class="headerlink" title="mysql的空间"></a>mysql的空间</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">类型	    占用空间	  取值范围</span><br><span class="line">tinyint	      1个字节	    -128~127</span><br><span class="line">smallint	2个字节	    -32768~32767</span><br><span class="line">mediumint	3个字节	    -223~ 223 - 1</span><br><span class="line">int	        4个字节	    -231~ 231- 1</span><br><span class="line">bigint	    8个字节	    -263~ 263- 1</span><br></pre></td></tr></table></figure>
 
-<p>例子：<br><code>select subdate(&quot;2020-11-25&quot;, INTERVAL 30 DAY)</code></p>
-<p>今天的日期：<br><code>select curdate();  2022-10-30</code><br>现在的时间：<br><code>select curtime();   13:13:54</code></p>
+<p>mysql数据类型及占用空间：<a target="_blank" rel="noopener" href="https://blog.csdn.net/why_still_confused/article/details/125945285">https://blog.csdn.net/why_still_confused/article/details/125945285</a></p>
+<h2 id="分库分表的表怎么查询"><a href="#分库分表的表怎么查询" class="headerlink" title="分库分表的表怎么查询"></a>分库分表的表怎么查询</h2><p>逻辑库查询暂不支持join查询。</p>
+<h2 id="Lindorm云原生多模数据库"><a href="#Lindorm云原生多模数据库" class="headerlink" title="Lindorm云原生多模数据库"></a>Lindorm云原生多模数据库</h2><p>Lindorm是面向物联网、互联网、车联网等设计和优化的云原生多模超融合数据库，支持宽表、时序、文本、对象、流、空间等多种数据的统一访问和融合处理，并兼容SQL、HBase/Cassandra/S3、TSDB、HDFS、Solr、Kafka等多种标准接口和无缝集成三方生态工具，适用于日志、监控、账单、广告、社交、出行、风控等场景，Lindorm也是为阿里巴巴核心业务提供支撑的数据库之一。</p>
+<p><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/174640.html">https://help.aliyun.com/document_detail/174640.html</a></p>
 
     </div>
 
@@ -387,7 +405,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sql%E5%AE%9E%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">sql实用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">日期函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mySQL-with-as%E7%94%A8%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">mySQL - with as用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-case-when-%E7%94%A8%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">mysql case when 用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">4.</span> <span class="nav-text">mysql批量删除大量数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#delete%E5%92%8Ctruncate%EF%BC%8Cdrop%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">delete和truncate，drop的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E7%9A%84subdate%E5%87%BD%E6%95%B0"><span class="nav-number">6.</span> <span class="nav-text">mysql的subdate函数</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E6%97%A5%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">mysql日期函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mySQL-with-as%E7%94%A8%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">mySQL - with as用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-case-when-%E7%94%A8%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">mysql case when 用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">4.</span> <span class="nav-text">mysql批量删除大量数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#delete%E5%92%8Ctruncate%EF%BC%8Cdrop%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">delete和truncate，drop的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E7%9A%84%E7%A9%BA%E9%97%B4"><span class="nav-number">6.</span> <span class="nav-text">mysql的空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E7%9A%84%E8%A1%A8%E6%80%8E%E4%B9%88%E6%9F%A5%E8%AF%A2"><span class="nav-number">7.</span> <span class="nav-text">分库分表的表怎么查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lindorm%E4%BA%91%E5%8E%9F%E7%94%9F%E5%A4%9A%E6%A8%A1%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">8.</span> <span class="nav-text">Lindorm云原生多模数据库</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
