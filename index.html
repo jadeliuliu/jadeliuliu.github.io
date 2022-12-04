@@ -183,6 +183,114 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/27/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/27/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-11-27 19:31:18 / Modified: 22:10:25" itemprop="dateCreated datePublished" datetime="2022-11-27T19:31:18+08:00">2022-11-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>工厂模式是用工厂方法代替new操作的一种模式。例如，Executors创建线程池ExecutorService的方法，就是工厂模式。</p>
+<p>工厂模式在Java程序系统可以说是随处可见。因为工厂模式就相当于创建实例对象的new，我们经常要根据类Class生成实例对象，如A a=new A()，工厂模式也是用来创建实例对象。使用工厂模式创建实例对象，会给你系统带来更大的可扩展性和尽量少的修改量（降低耦合）。</p>
+<h3 id="一、简单工厂模式"><a href="#一、简单工厂模式" class="headerlink" title="一、简单工厂模式"></a>一、简单工厂模式</h3><p>简单工厂模式不属于GOF的23种经典设计模式，相当于一种编程习惯。</p>
+<p>简单工厂模式包含如下三种角色：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">抽象产品：定义了产品的规范，描述了产品的主要特性和功能。（可以是接口）</span><br><span class="line">具体产品：实现或者继承抽象产品的子类。</span><br><span class="line">具体工厂：提供了创建产品的方法，使用者通过该方法来获取产品。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">* 在工厂方法中根据类型创建不同的具体对象</span><br><span class="line">**/</span><br><span class="line">public class SimpleCoffeeFactory &#123;</span><br><span class="line">	// 根据type判断类型，实例化并返回对应对象</span><br><span class="line">    public Coffee createCoffee(String type) &#123;</span><br><span class="line">        Coffee coffee = null;</span><br><span class="line">        if(&quot;americano&quot;.equals(type)) &#123;</span><br><span class="line">            coffee = new AmericanoCoffee();</span><br><span class="line">        &#125; else if(&quot;latte&quot;.equals(type)) &#123;</span><br><span class="line">            coffee = new LatteCoffee();</span><br><span class="line">        &#125;</span><br><span class="line">        return coffee;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>工厂处理创建对象的细节，一旦有了工厂，后期如果需要对象直接从工厂中获取即可。这样也就解除了和实现类的耦合，不需要关注创建对象的细节，但同时又产生了新的耦合。后期如果再添加新的类，就必须修改工厂类的代码，违反了开闭原则。</p>
+<hr>
+<p>静态工厂模式：在开发中也有一部分人将工厂类中的创建对象的功能定义为静态的，这个就是静态工厂模式，它也不是23种设计模式中的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class SimpleCoffeeFactory &#123;</span><br><span class="line">    public static Coffee createCoffee(String type) &#123;</span><br><span class="line">        Coffee coffee = null;</span><br><span class="line">        if(&quot;americano&quot;.equals(type)) &#123;</span><br><span class="line">            coffee = new AmericanoCoffee();</span><br><span class="line">        &#125; else if(&quot;latte&quot;.equals(type)) &#123;</span><br><span class="line">            coffee = new LatteCoffee();</span><br><span class="line">        &#125;</span><br><span class="line">        return coffe;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、工厂方法模式"><a href="#二、工厂方法模式" class="headerlink" title="二、工厂方法模式"></a>二、工厂方法模式</h3><p>针对简单工厂模式的缺点，使用工厂方法模式就可以完美的解决，完全遵循开闭原则。</p>
+<p>工厂方法模式（FACTORY METHOD）是一种常用的类创建型设计模式,此模式的核心精神是封装类中变化的部分，提取其中个性化善变的部分为独立类，通过依赖注入以达到解耦、复用和方便后期维护拓展的目的。它的核心结构有四个角色，分别是抽象工厂、具体工厂、抽象产品、具体产品。</p>
+<p>四个角色：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">抽象工厂（Abstract Factory）：提供了创建产品的接口，调用者通过它访问具体工厂的工厂方法来创建产品。</span><br><span class="line">具体工厂（ConcreteFactory）：主要是实现抽象工厂中的抽象方法，完成具体产品的创建。</span><br><span class="line">抽象产品（Product）：定义了产品的规范，描述了产品的主要特性和功能。</span><br><span class="line">具体产品（ConcreteProduct）：实现了抽象产品角色所定义的接口，由具体工厂来创建，它同具体工厂之间一一对应。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">* 抽象工厂</span><br><span class="line">**/</span><br><span class="line">public interface CoffeeFactory &#123;</span><br><span class="line">    Coffee createCoffee();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">* 具体工厂</span><br><span class="line">* </span><br><span class="line">* 抽象产品为coffee，具体产品为LatteCoffee和AmericanCoffee</span><br><span class="line">* 这种工厂模式可以通过不同的具体工厂创建出不同的具体产品</span><br><span class="line">**/</span><br><span class="line">public class LatteCoffeeFactory implements CoffeeFactory &#123;</span><br><span class="line">    public Coffee createCoffee() &#123;</span><br><span class="line">        return new LatteCoffee();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class AmericanCoffeeFactory implements CoffeeFactory &#123;</span><br><span class="line">    public Coffee createCoffee() &#123;</span><br><span class="line">        return new AmericanCoffee();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>要增加产品类时不需要修改工厂类的代码了，这样就解决了简单工厂模式的缺点，但要相应地增加工厂类。</p>
+<p>工厂方法模式是简单工厂模式的进一步抽象。由于使用了多态性，工厂方法模式保持了简单工厂模式的优点，而且克服了它的缺点。</p>
+<p>优点：<br>在获取对象时只需要知道具体工厂的名称就可以得到对应的对象，无须知道具体创建过程；在系统增加新的类时只需要添加对应的具体工厂类，无须对原工厂进行任何修改，满足开闭原则；</p>
+<p>缺点：<br>每增加一个类就要增加一个对应的具体工厂类，增加了系统的复杂度。</p>
+<h3 id="三、抽象工厂模式"><a href="#三、抽象工厂模式" class="headerlink" title="三、抽象工厂模式"></a>三、抽象工厂模式</h3><p>抽象工厂模式（Abstract Factory Pattern）隶属于设计模式中的创建型模式，用于产品族的构建。抽象工厂是所有形态的工厂模式中最为抽象和最具一般性的一种形态。抽象工厂是指当有多个抽象角色时使用的一种工厂模式。抽象工厂模式可以向客户端提供一个接口，使客户端在不必指定产品的具体情况下，创建<strong>多个产品族</strong>中的产品对象。</p>
+<p>工厂模式中的每一个形态都是针对一定问题的解决方案，工厂方法针对的是多个产品系列结构；而抽象工厂模式针对的是多个产品族结构，一个产品族内有多个产品系列。</p>
+<p>抽象工厂模式的主要角色如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">抽象工厂（Abstract Factory）：提供了创建产品的接口，它包含多个创建产品的方法，可以创建多个不同等级的产品。</span><br><span class="line">具体工厂（Concrete Factory）：主要是实现抽象工厂中的多个抽象方法，完成具体产品的创建。</span><br><span class="line">抽象产品（Product）：定义了产品的规范，描述了产品的主要特性和功能，抽象工厂模式有多个抽象产品。</span><br><span class="line">具体产品（ConcreteProduct）：实现了抽象产品角色所定义的接口，由具体工厂来创建，它 同具体工厂之间是多对一的关系。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">* 抽象工厂</span><br><span class="line">**/</span><br><span class="line">public interface DessertFactory &#123;</span><br><span class="line">    Coffee createCoffee();</span><br><span class="line">    Dessert createDessert();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">* 具体工厂</span><br><span class="line">**/</span><br><span class="line">public class AmericanDessertFactory implements DessertFactory &#123;</span><br><span class="line">    public Coffee createCoffee() &#123;</span><br><span class="line">        return new AmericanCoffee();</span><br><span class="line">    &#125;</span><br><span class="line">    public Dessert createDessert() &#123;</span><br><span class="line">        return new MatchaMousse();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class ItalyDessertFactory implements DessertFactory &#123;</span><br><span class="line">    public Coffee createCoffee() &#123;</span><br><span class="line">        return new LatteCoffee();</span><br><span class="line">    &#125;</span><br><span class="line">    public Dessert createDessert() &#123;</span><br><span class="line">        return new Tiramisu();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果要加同一个产品族的话，只需要再加一个对应的工厂类即可，不需要修改其他的类。</p>
+<p>优点：<br>当一个产品族中的多个对象被设计成一起工作时，它能保证客户端始终只使用同一个产品族中的对象。</p>
+<p>缺点：<br>当产品族中需要增加一个新的产品时，所有的工厂类都需要进行修改。</p>
+<h3 id="四、模式扩展（简单工厂-配置文件解除耦合）"><a href="#四、模式扩展（简单工厂-配置文件解除耦合）" class="headerlink" title="四、模式扩展（简单工厂+配置文件解除耦合）"></a>四、模式扩展（简单工厂+配置文件解除耦合）</h3><p>可以通过工厂模式+配置文件的方式解除工厂对象和产品对象的耦合。在工厂类中加载配置文件中的全类名，并创建对象进行存储，客户端如果需要对象，直接获取即可。</p>
+<p>创建配置文件:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">american=cn.com.supercoder.pattern.AmericanCoffee</span><br><span class="line">latte=cn.com.supercoder.pattern.LatteCoffee</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">public class CoffeeFactory &#123;</span><br><span class="line">    private static Map&lt;String,Coffee&gt; map = new HashMap();</span><br><span class="line">    // 加载配置文件</span><br><span class="line">    static &#123;</span><br><span class="line">        Properties p = new Properties();</span><br><span class="line">        InputStream is = CoffeeFactory.class.getClassLoader().getResourceAsStream(&quot;bean.properties&quot;);</span><br><span class="line">        try &#123;</span><br><span class="line">            p.load(is);</span><br><span class="line">            // 遍历Properties集合对象</span><br><span class="line">            Set&lt;Object&gt; keys = p.keySet();</span><br><span class="line">            for (Object key : keys) &#123;</span><br><span class="line">                // 根据键获取值（全类名）</span><br><span class="line">                String className = p.getProperty((String) key);</span><br><span class="line">                // 获取Class对象</span><br><span class="line">                Class clazz = Class.forName(className);</span><br><span class="line">                // 实例化对象</span><br><span class="line">                Coffee obj = (Coffee) clazz.newInstance();</span><br><span class="line">                // 将对象以键值对的形式存入map</span><br><span class="line">                map.put((String)key,obj);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	/**</span><br><span class="line">	* 获取对象时直接根据配置文件中的key获取对应的对象</span><br><span class="line">	**/</span><br><span class="line">    public static Coffee createCoffee(String name) &#123;</span><br><span class="line">        return map.get(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45867375/article/details/124597130">https://blog.csdn.net/qq_45867375/article/details/124597130</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/05/myblog/JAVA/Page%E5%88%86%E9%A1%B5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1024,7 +1132,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-11-23 00:05:49" itemprop="dateModified" datetime="2022-11-23T00:05:49+08:00">2022-11-23</time>
+                <time title="Modified: 2022-11-30 22:54:39" itemprop="dateModified" datetime="2022-11-30T22:54:39+08:00">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1994,6 +2102,109 @@
 <h3 id="7-Executors的线程池："><a href="#7-Executors的线程池：" class="headerlink" title="7.Executors的线程池："></a>7.Executors的线程池：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">定长线程池(FixedThreadPool)：用于控制线程最大并发数</span><br><span class="line">只有核心线程</span><br><span class="line">线程数量固定</span><br><span class="line">执行完立即回收</span><br><span class="line">任务队列为链表结构的有界队列(消耗内存)</span><br><span class="line"></span><br><span class="line">定时线程池(ScheduledThreadPool)：用于执行定时或周期性的任务</span><br><span class="line">核心线程数量固定</span><br><span class="line">非核心线程数量无限(线程过多导致内存溢出)</span><br><span class="line">执行完闲置10ms后回收</span><br><span class="line">任务队列为延时阻塞队列</span><br><span class="line"></span><br><span class="line">可缓存线程池(CachedThreadPool)：执行大量且耗时少的任务</span><br><span class="line">无核心线程</span><br><span class="line">非核心线程数量无限(线程过多导致内存溢出)</span><br><span class="line">执行完闲置60s后回收</span><br><span class="line">任务队列为不存储元素的阻塞队列</span><br><span class="line"></span><br><span class="line">单线程化线程池(SingleThreadExecutor)：应用于不适合并发但可能引起IO阻塞性及影响UI线程响应的操作，如数据库操作</span><br><span class="line">只有1个核心线程</span><br><span class="line">无非核心线程</span><br><span class="line">执行完立即回收</span><br><span class="line">任务队列为链表结构的有界队列(消耗内存)</span><br></pre></td></tr></table></figure>
 
 <p>原书笔记：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41398418/article/details/126279652">https://blog.csdn.net/qq_41398418/article/details/126279652</a></p>
+<h2 id="第十章-Executor框架"><a href="#第十章-Executor框架" class="headerlink" title="第十章 Executor框架"></a>第十章 Executor框架</h2><p>在Java中，使用线程来异步执行任务。Java线程的创建与销毁需要一定的开销，如果我们为每一个任务创建一个新线程来执行，这些线程的创建与销毁将消耗大量的计算资源。同时， 为每一个任务创建一个新线程来执行，这种策略可能会使处于高负荷状态的应用最终崩溃。</p>
+<p>Java的线程既是工作单元，也是执行机制。从JDK 5开始，把工作单元与执行机制分离开来。工作单元包括Runnable和Callable，而执行机制由Executor框架提供。</p>
+<h3 id="1-Executor框架"><a href="#1-Executor框架" class="headerlink" title="1.Executor框架"></a>1.Executor框架</h3><h4 id="✅Executor框架的两级调度模型"><a href="#✅Executor框架的两级调度模型" class="headerlink" title="✅Executor框架的两级调度模型"></a>✅Executor框架的两级调度模型</h4><p>在HotSpot VM的线程模型中，Java线程（java.lang.Thread）被一对一映射为本地操作系统线程。操作系统会调度所有线程并将它们分配给可用的CPU。</p>
+<p><strong>两级调度模型</strong>：<br>在上层，Java多线程程序通常把应用分解为若干个任务，然后使用用户级的调度器（Executor框架）将这些任务映射为固定数量的线程；在底层，操作系统内核将这些线程映射到硬件处理器上。<br><em>应用程序通过Executor框架控制上层的调度；而下层的调度由操作系统内核控制，下层的调度不受应用程序的控制。</em></p>
+<h4 id="✅Executor框架的结构"><a href="#✅Executor框架的结构" class="headerlink" title="✅Executor框架的结构"></a>✅Executor框架的结构</h4><p>Executor框架主要由3大部分组成：</p>
+<p>1、任务。包括被执行任务需要实现的接口：Runnable接口或Callable接口。</p>
+<p>2、任务的执行。包括任务执行机制的核心接口Executor，以及实现自Executor的ExecutorService接口。Executor框架有两个关键类实现了ExecutorService接口（ThreadPoolExecutor和<br>ScheduledThreadPoolExecutor）。</p>
+<p>3、异步计算的结果。包括接口Future和实现Future接口的FutureTask类。</p>
+<hr>
+<p>Executor框架的类与接口：</p>
+<p>1、Executor是一个接口，它是Executor框架的基础，它将任务的提交与任务的执行分离开来。</p>
+<p>2、ExecutorService接口，实现自Executor接口。</p>
+<p>3、ThreadPoolExecutor类是线程池的核心实现类，用来执行被提交的任务。</p>
+<p>4、ScheduledThreadPoolExecutor是一个实现类，可以在给定的延迟后运行命令，或者定期执行命令。<br>ScheduledThreadPoolExecutor比Timer更灵活，功能更强大。</p>
+<p>5、Future接口和实现Future接口的FutureTask类，代表异步计算的结果。</p>
+<p>6、Runnable接口和Callable接口的实现类，都可以被ThreadPoolExecutor或Scheduled- ThreadPoolExecutor执行。</p>
+<hr>
+<p>使用步骤：</p>
+<p>1.创建任务对象：主线程创建实现Runnable或者Callable接口的任务对象。<code>工具类Executors可以把一个Runnable对象封装为一个Callable对象（Executors.callable（Runnable task）或Executors.callable（Runnable task，Object resule））</code></p>
+<p>2.任务提交给线程池执行：把Runnable对象直接交给ExecutorService执行<code>（ExecutorService.execute（Runnable command））</code>；或者也可以把Runnable对象或Callable对象提交给ExecutorService执行<code>（ExecutorService.submit（Runnable task）或ExecutorService.submit（Callabletask））</code><br>如果执行ExecutorService.submit（…），ExecutorService将返回一个实现Future接口的对象（到目前为止的JDK中，返回的是FutureTask对象）。由于FutureTask实现了Runnable，程序员也可以创建FutureTask，然后直接交给ExecutorService执行。</p>
+<p>3.submit的获取结果：主线程可以执行<code>FutureTask.get()</code>方法来等待任务执行完成。主线程也可以执行<code>FutureTask.cancel（boolean mayInterruptIfRunning）</code>来取消此任务的执行。</p>
+<h4 id="✅-Executor框架的成员"><a href="#✅-Executor框架的成员" class="headerlink" title="✅ Executor框架的成员"></a>✅ Executor框架的成员</h4><p>Executor框架的主要成员：ThreadPoolExecutor、<br>ScheduledThreadPoolExecutor、Future接口、Runnable接口、Callable接口和Executors。</p>
+<hr>
+<p>（1） ThreadPoolExecutor</p>
+<p>ThreadPoolExecutor可以使用工厂类Executors来创建。Executors可以创建3种类型的ThreadPoolExecutor：SingleThreadExecutor、FixedThreadPool和CachedThreadPool。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">固定线程数的FixedThreadPool的 API。</span><br><span class="line">适用于为了满足资源管理的需求，而需要限制当前线程数量的应用场景，它适用于负载比较重的服务器。</span><br><span class="line">public static ExecutorService newFixedThreadPool(int nThreads) &#123;</span><br><span class="line">    return new ThreadPoolExecutor(nThreads, nThreads,</span><br><span class="line">        0L, TimeUnit.MILLISECONDS,</span><br><span class="line">        new LinkedBlockingQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">单个线程的SingleThreadExecutor的API.</span><br><span class="line">适用于需要保证顺序地执行各个任务；只要一个线程的应用场景。</span><br><span class="line">public static ExecutorService newSingleThreadExecutor(ThreadFactory threadFactory) &#123;</span><br><span class="line">    return new FinalizableDelegatedExecutorService(new ThreadPoolExecutor(1, 1,</span><br><span class="line">        0L, TimeUnit.MILLISECONDS,</span><br><span class="line">        new LinkedBlockingQueue&lt;Runnable&gt;(),</span><br><span class="line">        threadFactory));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CachedThreadPool是大小无界的线程池，</span><br><span class="line">适用于执行很多的短期异步任务的小程序，或者 是负载较轻的服务器。</span><br><span class="line">public static ExecutorService newCachedThreadPool() &#123;</span><br><span class="line">    return new ThreadPoolExecutor(0, Integer.MAX_VALUE,</span><br><span class="line">        60L, TimeUnit.SECONDS,</span><br><span class="line">        new SynchronousQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>（2） ScheduledThreadPoolExecutor<br>ScheduledThreadPoolExecutor可以使用工厂类Executors来创建。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ScheduledThreadPoolExecutor。</span><br><span class="line">包含若干个线程的ScheduledThreadPoolExecutor。</span><br><span class="line">适用于需要多个后台线程执行周期任务</span><br><span class="line">public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize) &#123;</span><br><span class="line">    return new ScheduledThreadPoolExecutor(corePoolSize);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">SingleThreadScheduledExecutor。</span><br><span class="line">只包含一个线程的ScheduledThreadPoolExecutor。</span><br><span class="line">public static ScheduledExecutorService newSingleThreadScheduledExecutor() &#123;</span><br><span class="line">    return new DelegatedScheduledExecutorService</span><br><span class="line">        (new ScheduledThreadPoolExecutor(1));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>（3） Future接口</p>
+<p>Future接口和实现Future接口的FutureTask类用来表示异步计算的结果。当我们把Runnable 接口或Callable接口的实现类提交（submit）给ThreadPoolExecutor或<br>ScheduledThreadPoolExecutor时，会向我们返回一个FutureTask对象。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">api:</span><br><span class="line">&lt;T&gt; Future&lt;T&gt; submit(Callable&lt;T&gt; task);</span><br><span class="line">&lt;T&gt; Future&lt;T&gt; submit(Runnable task, T result);</span><br><span class="line">Future&lt;?&gt; submit(Runnable task);</span><br></pre></td></tr></table></figure>
+
+<p>到目前最新的JDK 8为止，Java通过上述API返回的是一个FutureTask对象。但从API可以看到，Java仅仅保证返回的是一个实现了Future接口的对象。</p>
+<hr>
+<p>（4） Runnable接口和Callable接口</p>
+<p>Runnable接口和Callable接口的实现类，都可以被ThreadPoolExecutor或Scheduled- ThreadPoolExecutor执行。它们之间的区别是Runnable不会返回结果，而Callable可以返回结果。</p>
+<p>工厂类Executors可以把一个Runnable包装成一个Callable。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static Callable&lt;Object&gt; callable(Runnable task) //结果是null</span><br><span class="line"></span><br><span class="line">public static &lt;T&gt; Callable&lt;T&gt; callable(Runnable task, T result)  //结果是result</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-ThreadPoolExecutor详解"><a href="#2-ThreadPoolExecutor详解" class="headerlink" title="2.ThreadPoolExecutor详解"></a>2.ThreadPoolExecutor详解</h3><p>介绍一下Executors创建的三种用的是什么参数</p>
+<p>1.FixThreadPool内部使用无界队列LinkedBlockingQueue作为任务队列，队列的容量为Integer.MAX_VALUE，由于是无界队列，所以不会拒绝任务，maximumPool没有意义，可能会造成任务无限堆积，从而导致系统资源耗尽的情况。</p>
+<p>2.SingleThreadExecutor：与FixThreadPool类似，只是SingleThreadExecutor的线程数固定为1</p>
+<p>3.CachedThreadPool的corePool为空，maximumPoolSize为Integer.MAX_VALUE，keepAliveTime为60L，这意味着线程空闲超过60秒则会进行回收。CachedThreadPool内部使用不存储元素的阻塞队列SynchronousQueue作为任务队列，每个插入操作必须等待另一个线程的移除操作。这意味着如果任务的提交速度高于线程的处理速度，那么CachedThreadPool则会不断的创建新的线程，在极端的情况下，会耗尽CPU和内存资源。</p>
+<h3 id="3-ScheduledThreadPoolExecutor"><a href="#3-ScheduledThreadPoolExecutor" class="headerlink" title="3.ScheduledThreadPoolExecutor"></a>3.ScheduledThreadPoolExecutor</h3><p>ScheduledThreadPoolExecutor主要用来执行需要延迟或者定时执行的任务，功能与Timer类似，不同的是Timer只能单线程允许，ScheduledThreadPoolExecutor可以指定多个线程。</p>
+<p>ScheduledThreadPoolExecutor执行<code>scheduleAtFixedRate()方法或者scheduleWithFixedDelay()</code>方法时，会把要执行的任务放在一个无界队列DelayQueue中，<code>ScheduledThreadPoolExecutor会把Runable对象封装成ScheduledFutureTask（实现了RunnableScheduledFuture接口）</code>。线程池中的线程从DelayQueue中获取ScheduledFutureTask。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">private class ScheduledFutureTask&lt;V&gt;</span><br><span class="line">    extends FutureTask&lt;V&gt; implements RunnableScheduledFuture&lt;V&gt;</span><br></pre></td></tr></table></figure>
+
+<p>ScheduledFutureTask内部包含三个成员变量。<br>time：任务要被执行的具体时间<br>sequenceNumber：任务排序编号，如果两个任务的time相同，那么则sequenceNumber较小的会先执行<br>period：任务执行的周期</p>
+<hr>
+<p>ScheduledThreadPoolExecutor执行任务的流程大体是：<br>1.从DelayQueue中获取ScheduledFutureTask（time大于当前时间的任务）<br>2.执行ScheduledFutureTask<br>3.修改ScheduledFutureTask的time为下次要执行的时间<br>4.将ScheduledFutureTask再次放入DelayQueue中</p>
+<h3 id="3-FutureTask"><a href="#3-FutureTask" class="headerlink" title="3.FutureTask"></a>3.FutureTask</h3><p>Future接口和FutureTask实现类代表线程异步执行的结果，可以通过FutureTask.get()方法获取异步返回的结果。</p>
+<p>FutureTask类还实现了Runnable接口，因此可以交给Executor执行，也可以直接在当前线程中执行：<code>FutureTask.run()</code>。</p>
+<hr>
+<p>根据FutureTask.run被执行的时机，FutureTask可处于下面3种状态：<br>未启动：方法还没有被执行之前，FutureTask处于未启动状态<br>已启动：方法被执行的过程中，FutureTask处于已启动状态<br>已完成：方法执行完后正常结束或、取消(即执行FutureTask.cancel)或抛异常，FutureTask处于已完成状态</p>
+<hr>
+<p>FutureTask状态决定get和cancel方法执行结果：</p>
+<p>1.gei方法：如果未启动或已启动状态，get方法将导致调用线程阻塞，如果已完成状态，get方法将导致调用线程立即返回结果或抛出异常。</p>
+<p>2.cancel方法：当处于未启动状态，该任务将不会执行，当处于已启动状态，<code>Future.cancel(true)</code>将中断此任务线程来停止任务，<code>Future.cancel(false)</code>将不会对正在执行此任务的线程产生影响，当处于已完成状态时，cancel方法将返回false。</p>
+<p>当一个线程需要等待另一个线程把某个任务执行完后并获取结果它才能继续执行，可使用FutureTask。</p>
+<hr>
+<p>FutureTask的实现：</p>
+<p>FutureTask的实现基于AbstractQueuedSynchronizer(AQS是同步框架，它提供通用机制来原子性管理同步状态、阻塞和唤醒线程，以及维护被阻塞线程的队列)。java.util.concurrent里的很多阻塞类：ReetrantLock、Semaphore、ReetrantReadWriteLock、CountDownLatch都是基于AQS实现。</p>
+<hr>
+<p>AQS遗忘的知识：<br>AQS实现的同步器都会包含两种类型的操作：<br>1.acquuire操作，获取同步状态，用来阻塞调用线程。FutureTask中为get方法。<br>2.release操作，释放同步状态，用来解除阻塞线程的阻塞，FutureTask中为run方法和cancel方法。</p>
+<hr>
+<p>基于复合优先于基础原则，FutureTask的内部私有类Sync继承自AQS。实现了AQS的<code>tryAcquireShared(int) 和 tryReleaseShared(int)</code>.</p>
+<p>🤔因为FutureTask涉及到线程的阻塞唤醒也就是同步，所以用AQS。</p>
+<h2 id="第十一章-java并发编程实践"><a href="#第十一章-java并发编程实践" class="headerlink" title="第十一章 java并发编程实践"></a>第十一章 java并发编程实践</h2><h3 id="1-生产者和消费者模式"><a href="#1-生产者和消费者模式" class="headerlink" title="1.生产者和消费者模式"></a>1.生产者和消费者模式</h3><p>什么是生产者和消费者模式？</p>
+<p>生产者和消费者模式是<strong>通过一个容器来解决生产者和消费者的强耦合问题</strong>。生产者和消费者彼此之间不直接通信，而是<strong>通过阻塞队列来进行通信</strong>，所以生产者生产完数据之后不用等待消费者处理，直接扔给阻塞队列，消费者不找生产者要数据，而是直接从阻塞队列里取，<strong>阻塞队列就相当于一个缓冲区</strong>，平衡了生产者和消费者的处理能力。</p>
+<p>这个阻塞队列就是用来给生产者和消费者解耦的。纵观大多数设计模式，都会<strong>找一个第三者出来进行解耦</strong>，如工厂模式的第三者是工厂类，模板模式的第三者是模板类。在学习一些设计模式的过程中，先找到这个模式的第三者，能帮助我们快速熟悉一个设计模式。</p>
+<p>获取机器有多少个CPU，来决定线程池大小：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int corePoolSize = Runtime.getRuntime().availableProcessors();</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-多生产者和多消费者场景"><a href="#2-多生产者和多消费者场景" class="headerlink" title="2.多生产者和多消费者场景"></a>2.多生产者和多消费者场景</h3><p>在多核时代，多线程并发处理速度比单线程处理速度更快，所以可以使用多个线程来生产数据，同样可以使用多个消费线程来消费数据。而更复杂的情况是，消费者消费的数据，有可能需要继续处理，于是消费者处理完数据之后，它又要作为生产者把数据放在新的队列里，交给其他消费者继续处理.</p>
+<h3 id="3-线程池就是生产者消费者模式"><a href="#3-线程池就是生产者消费者模式" class="headerlink" title="3.线程池就是生产者消费者模式"></a>3.线程池就是生产者消费者模式</h3><p>Java 中的线程池类其实就是一种生产者和消费者模式的实现方式，但是更加高明。生产者把任务丢给线程池，线程池创建线程并处理任务，如果将要运行的任务数大于线程池的基本线程数就把任务扔到阻塞队列里，这种做法比只使用一个阻塞队列来实现生产者和消费者模式显然要高明很多，因为消费者能够处理直接就处理掉了（不用中转队列），这样速度更快，而生产者先存，消费者再取这种方式显然慢一些。</p>
+<p>生产者消费者例子：</p>
+<p>调用一个远程接口查询数据，如果远程服务接口查询时需要几十秒的时间，那么它可以提供一个申请查询的接口，这个接口把要申请查询任务放数据库中，然后该接口立刻返回。然后服务器端用线程轮询并获取申请任务进行处理，处理完之后发消息给调用方，让调用方再来调用另外一个接口取数据。</p>
+<p>再比如：</p>
+<p>1.有一些任务，这些任务放在db里，表示完成进程，同时将表的id放入redis队列中。</p>
+<p>2.任务处理端，从redis队列中取出id，再用id从数据库读出一个任务进行处理，并更新db中任务完成的进程。</p>
+<p>3.因为redis缓存稳定性考虑，定时任务搂db中长时间未完成的任务，将id放入redis队列中。</p>
+<h3 id="4-线上问题定位"><a href="#4-线上问题定位" class="headerlink" title="4.线上问题定位"></a>4.线上问题定位</h3><p>看日志、系统状态和 dump 线程。</p>
+<p>在 Java 进程这一行里可以看到 CPU 利用率是 300%，不用担心，这个是当前机器所有核加在一起的 CPU 利用率。</p>
+<p>jstack命令可以把线程 dump 下来，看看究竟是哪个线程、执行什么代码造成的 CPU 利用率高。</p>
+<p>dump 出来的线程 ID（nid）是十六进制的，而我们用 TOP 命令看到的线程 ID 是十进制的，所以要用 printf 命令转换一下进制。然后用十六进制的 ID 去 dump 里找到对应的线程。</p>
+<p>十进制转十六进制：<br><code>printf &quot;%x\n&quot; 31558</code></p>
+<p><code>netstat -nat | grep 8080 -c</code> 多少台机器连接到本机8080端口</p>
+<p><code>ps -eLf|grep java -c</code> 看java线程数</p>
+<h3 id="5-异步任务池"><a href="#5-异步任务池" class="headerlink" title="5.异步任务池"></a>5.异步任务池</h3><p>如果一个任务仍进线程池之后，运行线程池的程序重启了，那么线程池里的任务就会丢失。另外，线程池只能处理本机的任务，在集群环境下不能有效地调度所有机器的任务。所以，结合线程池开发一个异步任务处理池。</p>
+<p>任务池的主要处理流程是，每台机器会启动一个任务池，每个任务池里有多个线程池，当某台机器将一个任务交给任务池后，任务池会先将这个任务保存到数据中，然后某台机器上的任务池会从数据库中获取待执行的任务，再执行这个任务。</p>
+<p>每个任务有几种状态，分别是创建（NEW）、执行中（EXECUTING）、RETRY（重试）、挂起（SUSPEND）、中止（TEMINER）和执行完成（FINISH）。</p>
+<p>创建：提交给任务池之后的状态。<br>执行中：任务池从数据库中拿到任务执行时的状态。<br>重试：当执行任务时出现错误，程序显式地告诉任务池这个任务需要重试，并设置下一次执行时间。<br>挂起：当一个任务的执行依赖于其他任务完成时，可以将这个任务挂起，当收到消息后，再开始执行。<br>中止：任务执行失败，让任务池停止执行这个任务，并设置错误消息告诉调用端。<br>执行完成：任务执行结束。</p>
 
       
     </div>
@@ -2273,150 +2484,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/04/myblog/JAVA/war%E5%8C%85jar%E5%8C%85%E6%89%93%E5%8C%85tomcat%E9%83%A8%E7%BD%B2servlet%E5%BA%94%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/04/myblog/JAVA/war%E5%8C%85jar%E5%8C%85%E6%89%93%E5%8C%85tomcat%E9%83%A8%E7%BD%B2servlet%E5%BA%94%E7%94%A8/" class="post-title-link" itemprop="url">jar、war、tomcat、servlet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-06-04 14:47:55" itemprop="dateCreated datePublished" datetime="2022-06-04T14:47:55+08:00">2022-06-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-05 23:59:59" itemprop="dateModified" datetime="2022-06-05T23:59:59+08:00">2022-06-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="tomcat与servlet"><a href="#tomcat与servlet" class="headerlink" title="tomcat与servlet"></a>tomcat与servlet</h3><p>1.tomcat就是一个web应用服务器，相当于市存放java程序的容器。以便服务被访问。<br>2.servlet实际上是java类，java语言编写的服务器端程序，它用来处理http协议相关的所有内容，没有main方法，需要在servlet容器中进行管理，可以是tomact。如何使用：继承HttpServlet（tomcat里的jar包支持），它帮助我们完成通信的规则。<br>3.tomcat与servlet关系：tomcat是servlet/jsp容器，servlet时web应用开发的组件，tomcat负责处理客户请求，把请求传送给servlet，再将servlet的响应传送回给客户。<br>4.新建web工程时，如果不用maven，java enterprise - web application，再引入jdk、tomcat（tomcat的lib下有servlet包）。如果用maven，就选archetype-webapp。</p>
-<h3 id="war包与jar包"><a href="#war包与jar包" class="headerlink" title="war包与jar包"></a>war包与jar包</h3><p>1.Jar文件（扩展名为. Jar，Java Application Archive）包含Java类的普通库、资源（resources）、辅助文件（auxiliary files）等。<br>2.jar包是java打的包，一般只是包括一些编译后class文件和一些部署文件，在声明了Main_class之后是可以用java命令运行的。<br>3.jar包通常是开发时要引用通用类，打成包便于存放管理。<br>————————————————<br>1.War文件（扩展名为.War,Web Application Archive）包含全部Web应用程序。在这种情形下，一个Web应用程序被定义为单独的一组文件、类和资源，用户可以对war文件进行封装，并把它作为小型服务程序（servlet）来访问。<br>2.war包可以理解为javaweb打的包，是一个web模块，包括写的代码编译成的class文件，依赖的包，配置文件，所有的网站页面，包括html，jsp等等。一个war包可以理解为是一个web项目，里面是项目的所有东西。<br>3.war包需要发布到一个容器里面，拿Tomcat来说,将war文件包放置它的\webapps\目录下，启动Tomcat,这个包可以自动进行解压，也就是你的web目录，相当于发布了。<br>4.WAR是Sun提出的一种Web应用程序格式，与JAR类似，也是许多文件的一个压缩包。这个包中的文件按一定目录结构来组织：通常其根目录下包含有Html和Jsp文件或者包含这两种文件的目录，另外还会有一个WEB-INF目录，这个目录很重要。通常在WEB-INF目录下有一个web.xml文件和一个classes目录，web.xml是这个应用的配置文件，而classes目录下则包含编译好的Servlet类和Jsp或Servlet所依赖的其它类（JavaBean）。另外还有META-INF目录，里面有MANIFEST.MF文件。存储了项目的元信息。其中文件manifest.mf仅此一份，描述了程序的基本信息、Main-Class的入口、jar依赖路径Class-Path。<br>————————————————</p>
-<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Sunny5319/article/details/90933532">https://blog.csdn.net/Sunny5319/article/details/90933532</a></p>
-<p>jar包和war包都是为了项目的部署和发布，通常在打包部署的时候，会在里面加上部署的相关信息。这个打包实际上就是把代码和依赖的东西压缩在一起，变成后缀名为.jar和.war的文件</p>
-<hr>
-<p>什么时候用jar、war?<br>当你的项目在没有完全完成的时候，不适合使用war文件，因为你的类会由于调试之类的经常改，这样来回删除、创建war文件很不方便，来回修改，来回打包，最好是你的项目已经完成了，不做修改的时候，那就打个war包，这个时候一个war文件就相当于一个web应用程序；而jar文件就是把类和一些相关的资源封装到一个包中，便于程序中引用。</p>
-<h3 id="jar包打包"><a href="#jar包打包" class="headerlink" title="jar包打包"></a>jar包打包</h3><p>安装好JDK之后,jar.exe就已经安装好了。在命令行中键入jar命令之后，会有详细的用法介绍。</p>
-<h4 id="✅单个文件打包"><a href="#✅单个文件打包" class="headerlink" title="✅单个文件打包"></a>✅单个文件打包</h4><p>将一个单独的java文件打包：<br><code>jar cvf /Users/liuxuan/MyProject/java/test.jar /Users/liuxuan/MyProject/java/jartest/hello.java</code><br>使用<code>java -jar test.jar</code> 提示没有主清单属性。</p>
-<p>所以增加清单配置文件：MANIFEST.MF</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Manifest-Version: 1.0</span><br><span class="line">Main-Class: hello</span><br><span class="line"></span><br><span class="line">//注意：1. 冒号后面加一个空格，2. 最后必须回车到新的空行</span><br></pre></td></tr></table></figure>
-<p>再打包：<code>jar cvfm test.jar ./*</code><br>java -jar运行，找不到或无法加载主类 hello。</p>
-<p>所以在打包前先编译：<code>javac hello.java</code>，生成class文件，然后再打包，运行，可以执行。</p>
-<blockquote>
-<p>META-INF文件夹相当于一个信息包，目录中的文件和目录获得Java 2平台的认可与解释，用来配置应用程序、扩展程序、类加载器和服务。这个文件夹和其中的 MANIFEST.MF文件，在用jar打包时自动生成。<br>执行jar文件的时候，这个jar里是需要具备 META-INF/MANIFEST.MF的，否则java -jar就找不到main class。</p>
-</blockquote>
-<p>多个文件也可以如此打包，首先应该javac编译，然后增加主清单配置文件，其中可以指示默认入口函数（其中有main方法）。如果打的包中有其他类，java -jar jar包 是运行默认类，运行其他类方法：<code>java -cp test.jar com.test.sum 3 9</code>。<br>main函数可以有输入参数：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package com.test;</span><br><span class="line"></span><br><span class="line">public class sum&#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        if(args.length &lt; 2)&#123;</span><br><span class="line">            System.out.println(&quot;Paras: num1 num2&quot;);</span><br><span class="line">            System.exit(-1);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        final int num1 = Integer.valueOf(args[0]);</span><br><span class="line">        System.out.println(&quot;Num1: &quot; + num1);</span><br><span class="line">        final int num2 = Integer.valueOf(args[1]);</span><br><span class="line">        System.out.println(&quot;Num2: &quot; + num2);</span><br><span class="line"></span><br><span class="line">        final int sum = num1 + num2;</span><br><span class="line">        System.out.println(num1 + &quot; + &quot; + num2 + &quot; = &quot; + sum);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Xminyang/article/details/108059776">https://blog.csdn.net/Xminyang/article/details/108059776</a></p>
-<h4 id="✅使用idea打包"><a href="#✅使用idea打包" class="headerlink" title="✅使用idea打包"></a>✅使用idea打包</h4><p>🤔不可以java -jar的打包：<br>1.点击intellij idea左上角的“File”菜单 -&gt; Project Structure<br>2.点击”Artifacts” -&gt; 绿色的”+” -&gt; “JAR” -&gt; Empty<br>3. Name栏填入自定义的名字，Output ditectory选择jar包目标目录，Available Elements里双击需要添加到jar包的文件（添加java工程编译文件）<br>4. OK之后，点击菜单中“Build” -&gt; “Build Artifacts”<br>5. 点击弹出框中待生成jar包下面的build即可</p>
-<p>生成了jar包，直接java -jar执行，报<code>Error: Invalid or corrupt jarfile testjar.jar</code>.<br>需要用 -cp 指定类来执行，例如：<code>java -cp testjar.jar leecode.JianPanHang500</code></p>
-<p>🤔可以直接java -jar的打包：<br>如果需要直接java -jar 执行的jar包：<br>1.点击”Artifacts” -&gt; 绿色的”+” -&gt; “JAR” -&gt; from modules…<br>2.选择主类，选择META-INF位置<br>3.OK之后，点击菜单中“Build” -&gt; “Build Artifacts”<br>4.点击弹出框中待生成jar包下面的build即可</p>
-<p>注意：在选择主类时需要全路径，rebuild之后可以重新编译，<code>java -jar lee.jar</code>直接运行主类。</p>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42239765/article/details/123236019">https://blog.csdn.net/qq_42239765/article/details/123236019</a></p>
-<h4 id="✅使用maven打包"><a href="#✅使用maven打包" class="headerlink" title="✅使用maven打包"></a>✅使用maven打包</h4><p>🤔不包含依赖包，也不指定入口：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">    &lt;!-- 项目最终打包成的名字 --&gt;</span><br><span class="line">    &lt;finalName&gt;mylogmavenpackage&lt;/finalName&gt;</span><br><span class="line">  &lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;!-- 指定项目编译时的java版本和编码方式 --&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.7.0&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">        &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">        &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">  &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
-
-<p>🤔指定入口，将依赖的jar包输出到指定目录<br>指定了入口类，可以直接使用java -jar project.jar执行，但是第三方依赖存在一个指定的外部目录下，迁移时需将jar和依赖目录一起迁移。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">  &lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;!-- 指定项目编译时的java版本和编码方式 --&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.7.0&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">        &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">        &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.1.0&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;archive&gt;</span><br><span class="line">          &lt;manifest&gt;</span><br><span class="line">            &lt;mainClass&gt;com.netty.client.SignalClient&lt;/mainClass&gt; &lt;!-- 指定入口类 --&gt;</span><br><span class="line">            &lt;addClasspath&gt;true&lt;/addClasspath&gt; &lt;!-- 在jar的MF文件中生成classpath属性 --&gt;</span><br><span class="line">            &lt;classpathPrefix&gt;lib/&lt;/classpathPrefix&gt; &lt;!-- classpath前缀,即依赖jar包的路径 --&gt;</span><br><span class="line">          &lt;/manifest&gt;</span><br><span class="line">        &lt;/archive&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.1.1&lt;/version&gt;</span><br><span class="line">      &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">          &lt;id&gt;copy&lt;/id&gt;</span><br><span class="line">          &lt;phase&gt;install&lt;/phase&gt;</span><br><span class="line">          &lt;goals&gt;</span><br><span class="line">            &lt;goal&gt;copy-dependencies&lt;/goal&gt;</span><br><span class="line">          &lt;/goals&gt;</span><br><span class="line">          &lt;configuration&gt;</span><br><span class="line">            &lt;!-- 指定依赖包的输出路径，需与上方的classpathPrefix保持一致 --&gt;</span><br><span class="line">            &lt;outputDirectory&gt;$&#123;project.build.directory&#125;/lib&lt;/outputDirectory&gt;</span><br><span class="line">          &lt;/configuration&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">      &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">  &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
-
-<p>🤔将项目依赖和项目打成一个jar包（胖包）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">  &lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;!-- 指定项目编译时的java版本和编码方式 --&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.7.0&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">        &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">        &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;3.1.0&lt;/version&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;archive&gt;</span><br><span class="line">          &lt;manifest&gt;</span><br><span class="line">            &lt;mainClass&gt;com.netty.client.SignalClient&lt;/mainClass&gt; &lt;!-- 指定入口类路径 --&gt;</span><br><span class="line">          &lt;/manifest&gt;</span><br><span class="line">        &lt;/archive&gt;</span><br><span class="line">        &lt;descriptorRefs&gt;</span><br><span class="line">          &lt;descriptorRef&gt;jar-with-dependencies&lt;/descriptorRef&gt; &lt;!-- jar包后缀，生成的jar包形式为：project-1.0-SNAPSHOT-jar-with-dependencies.jar --&gt;</span><br><span class="line">        &lt;/descriptorRefs&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">      &lt;!-- 添加此项后，可直接使用mvn package | mvn install --&gt;</span><br><span class="line">      &lt;!-- 不添加此项，需直接使用mvn package assembly:single --&gt;</span><br><span class="line">      &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">          &lt;id&gt;make-assembly&lt;/id&gt;</span><br><span class="line">          &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">          &lt;goals&gt;</span><br><span class="line">            &lt;goal&gt;single&lt;/goal&gt;</span><br><span class="line">          &lt;/goals&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">      &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">  &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="打war包"><a href="#打war包" class="headerlink" title="打war包"></a>打war包</h3><p>上面打jar包，其实都有对应的打war包的方法：</p>
-<p>✅手动打war包<br><code>jar cvf test.war ./*</code></p>
-<p>✅idea打war包<br>artifact中选择web application，explode对于war explode，archive对应war。</p>
-<p>✅maven打war包<br>pom.xml中指示<br><code>&lt;packaging&gt;war&lt;/packaging&gt;</code><br>maven有多种打包方式。</p>
-<h3 id="war包和war-explode包"><a href="#war包和war-explode包" class="headerlink" title="war包和war explode包"></a>war包和war explode包</h3><p>1.war模式<br>这种可以称之为是发布模式，就是先将WEB工程打成war包，然后再将其上传到服务器进行发布 。</p>
-<p>2.war exploded模式<br>是将WEB工程以当前文件夹的位置关系上传到服务器，即直接把文件夹、jsp页面 、classes等等移到Tomcat 部署文件夹里面，进行加载部署。因此这种方式支持热部署，一般在开发的时候也是用这种方式。<br>在平时开发的时候，使用热部署的话，应该对Tomcat进行相应的设置，这样的话修改的jsp界面什么的东西才可以及时的显示出来。<br>（热部署，对于Java应用程序来说，热部署就是在运行时更新Java类文件。）</p>
-<p>问题：<br>idea进行部署，会将war包移到tomcat webapp文件夹下吗？</p>
-<h3 id="java-web工程目录结构"><a href="#java-web工程目录结构" class="headerlink" title="java web工程目录结构"></a>java web工程目录结构</h3><p>1.src文件夹：这是用来存放Java源文件。下面有main文件夹和test文件夹。<br>1.1.src/main/java：存放相应的Java代码，并根据对应的Java项目继续分层<br>1.2.src/main/resource：存放一些配置文件，例如application.properties、logback.xml<br>1.3.src/main/webapp：Web应用的网页，用来放静态资源比如HTML、CSS、图片等文件。WEB-INF目录所在。WEB-INF中存放网站配置文件目录，web.xml等配置信息。</p>
-<p>2..idea文件夹：是存储IntelliJ IDEA项目的配置信息，主要内容有IntelliJ IDEA项目本身的一些编译配置、文件编码信息、jar包的数据源和相关的插件配置信息。一般用git做版本控制的时候会把.idea文件夹排除，因为这个文件下保存的都是个人本地Idea编译器的配置。</p>
-<p>3.target文件夹：是用来存放项目构建后的文件和目录、jar包、war包、编译的class文件，都是maven构建时生成的。存放的是单个module的编译结果。</p>
-<p>4.out文件夹：存放该项目下所有module的编译结果。</p>
-<p>5.pom.xml：项目对象模型</p>
-<h3 id="新建个web工程并部署"><a href="#新建个web工程并部署" class="headerlink" title="新建个web工程并部署"></a>新建个web工程并部署</h3><p>1.new project，选maven，选archetype maven<br>2.选择maven setting，新建工程<br>3.简单写个index.jsp，在webapp目录下（主页）<br>4.通过idea部署，生成war_explode包，热部署<br>5.lsof -i:8080 查看端口占用<br>6.target文件夹下有war包了，但是在tomcat-webapp文件夹下并没有该项目。<br>7.关闭idea，web也无法访问了，所以要想一直运行，得打jar包放在webapp目录下？<br>8.并且发现，没用servlet，不用导入servlet包。</p>
-<h3 id="pom-xml结构"><a href="#pom-xml结构" class="headerlink" title="pom.xml结构"></a>pom.xml结构</h3><p>pom.xml 就是 maven 的配置文件，用以描述项目的各种信息。</p>
-<p><code>&lt;project </code>  是 pom.xml 中描述符的根。</p>
-<p><code>&lt;modelVersion&gt;</code> 指定 pom.xml 符合哪个版本的描述符。maven 2 和 3 只能为 4.0.0。</p>
-<p>在 maven 中，根据 groupId、artifactId、version 组合来唯一识别一个 jar 包。<br><code>&lt;groupId&gt;</code> - 团体、组织的标识符。团体标识的约定是，它以创建这个项目的组织名称的逆向域名(reverse domain name)开头。一般对应着 java 的包结构。<br><code>&lt;artifactId&gt;</code> - 单独项目的唯一标识符。例如junit。不要在 artifactId 中包含点号(.)。<br><code>&lt;version&gt;</code> - 一个项目的特定版本。</p>
-<blockquote>
-<p>maven 在版本管理时候可以使用几个特殊的字符串 SNAPSHOT、LATEST、RELEASE。比如 1.0-SNAPSHOT。各个部分的含义和处理逻辑如下说明：<br>SNAPSHOT - 这个版本一般用于开发过程中，表示不稳定的版本。<br>LATEST - 指某个特定构件的最新发布，这个发布可能是一个发布版，也可能是一个 snapshot 版，具体看哪个时间最后。<br>RELEASE ：指最后一个发布版。</p>
-</blockquote>
-<p><code>&lt;packaging&gt;</code> - 项目的类型，描述了项目打包后的输出，默认是 jar。常见的输出类型为：pom, jar, maven-plugin, ejb, war, ear, rar, par。</p>
-<p><code>&lt;name&gt;</code> - 项目名字</p>
-<p><code>&lt;url&gt;</code> - 项目网站</p>
-<p><code>&lt;description&gt;</code> - 项目描述</p>
-<p><code>&lt;parent&gt;</code> - maven 支持继承功能。子 POM 可以使用 parent 指定父 POM ，然后继承其配置。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  &lt;parent&gt;</span><br><span class="line">    &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;my-parent&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.0&lt;/version&gt;</span><br><span class="line">    &lt;relativePath&gt;../my-parent&lt;/relativePath&gt;</span><br><span class="line">  &lt;/parent&gt;</span><br><span class="line"></span><br><span class="line">relativePath ： 在搜索本地和远程存储库之前，它不是必需的，但可以用作 maven 的指示符，以首先搜索给定该项目父级的路径。</span><br></pre></td></tr></table></figure>
-
-<p><code>&lt;modules&gt;</code> - 子模块列表。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;modules&gt;</span><br><span class="line">    &lt;module&gt;my-project-api&lt;/module&gt;</span><br><span class="line">    &lt;module&gt;my-project-repository&lt;/module&gt;</span><br><span class="line">&lt;/modules&gt;</span><br></pre></td></tr></table></figure>
-
-<p><code>&lt;properties&gt;</code> - 属性列表。定义的属性可以在 pom.xml 文件中任意处使用。使用方式为 ${propertie} 。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">例子：</span><br><span class="line">	&lt;properties&gt;</span><br><span class="line">		&lt;!-- Test --&gt;</span><br><span class="line">		&lt;junit.version&gt;1.16.1&lt;/junit.version&gt;</span><br><span class="line">	&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">	&lt;dependency&gt;</span><br><span class="line">		&lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">		&lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">		&lt;version&gt;$&#123;junit.version&#125;&lt;/version&gt;</span><br><span class="line">		&lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">	&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<p><code>&lt;dependencies&gt;</code> - 依赖配置</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">groupId, artifactId, version - 和基本配置中的 groupId、artifactId、version 意义相同。</span><br><span class="line"></span><br><span class="line">type - 对应 packaging 的类型，如果不使用 type 标签，maven 默认为 jar。</span><br><span class="line"></span><br><span class="line">scope - 此元素指的是任务的类路径（编译和运行时，测试等）以及如何限制依赖关系的传递性。有 5 种可用的限定范围：</span><br><span class="line">compile : 如果没有指定 scope 标签，maven 默认为这个范围。编译依赖关系在所有 classpath 中都可用。此外，这些依赖关系被传播到依赖项目。</span><br><span class="line">provided : 与 compile 类似，但是表示您希望 jdk 或容器在运行时提供它。它只适用于编译和测试 classpath，不可传递。</span><br><span class="line">runtime : 此范围表示编译不需要依赖关系，而是用于执行。它是在运行时和测试 classpath，但不是编译 classpath。</span><br><span class="line">test : 此范围表示正常使用应用程序不需要依赖关系，仅适用于测试编译和执行阶段。它不是传递的。</span><br><span class="line">system : 此范围与 provided 类似，除了您必须提供明确包含它的 jar。该 artifact 始终可用，并且不是在仓库中查找。</span><br><span class="line"></span><br><span class="line">systemPath - 仅当依赖范围是系统时才使用。否则，如果设置此元素，构建将失败。该路径必须是绝对路径，因此建议使用 propertie 来指定特定的路径，如\$ &#123;java.home&#125; / lib。由于假定先前安装了系统范围依赖关系，maven 将不会检查项目的仓库，而是检查库文件是否存在。如果没有，maven 将会失败，并建议您手动下载安装。</span><br><span class="line"></span><br><span class="line">optional - optional 让其他项目知道，当您使用此项目时，您不需要这种依赖性才能正常工作。</span><br><span class="line"></span><br><span class="line">exclusions - 包含一个或多个排除元素，每个排除元素都包含一个表示要排除的依赖关系的 groupId 和 artifactId。与可选项不同，可能或可能不会安装和使用，排除主动从依赖关系树中删除自己。</span><br></pre></td></tr></table></figure>
-
-<p><code>&lt;dependencyManagement&gt;</code> - 是在<code>&lt;dependencies&gt;</code>外用的。表示依赖 jar 包的声明。即你在项目中的 dependencyManagement 下声明了依赖，maven 不会加载该依赖，dependencyManagement 声明可以被子 POM 继承。<br>它的一个使用案例是当有父子项目的时候，父项目中可以利用 <code>&lt;dependencyManagement&gt;</code> 声明子项目中需要用到的依赖 jar 包，之后，当某个或者某几个子项目需要加载该依赖的时候，就可以在子项目中 dependencies 节点只配置 groupId 和 artifactId 就可以完成依赖的引用。<br><code>&lt;dependencyManagement&gt;</code> 主要是为了统一管理依赖包的版本，确保所有子项目使用的版本一致，类似的还有plugins和pluginManagement。</p>
-<p><code>&lt;build&gt;</code> - 构建配置。<br><code>&lt;plugins&gt;</code> - 配置插件，在<code>&lt;build&gt;</code>下。<br><code>pluginManagement</code> - 与 dependencyManagement 很相似，在当前 POM 中仅声明插件，而不是实际引入插件。子 POM 中只配置 groupId 和 artifactId 就可以完成插件的引用，且子 POM 有权重写 pluginManagement 定义。<br>它的目的在于统一所有子 POM 的插件版本。<br><code>&lt;extensions&gt;</code> - 扩展配置，扩展是在构建期间激活的 artifacts。扩展不需要实际执行任何操作，也不包含 Mojo。因此，扩展对于指定普通插件接口的多个实现中的一个是非常好的。</p>
-<p>pom.xml解析：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/76874769">https://zhuanlan.zhihu.com/p/76874769</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2487,7 +2554,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">88</span>
+          <span class="site-state-item-count">89</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

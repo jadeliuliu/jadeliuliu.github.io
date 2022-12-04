@@ -183,6 +183,94 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/13/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/0.%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/13/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/0.%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" class="post-title-link" itemprop="url">java数和数组输入</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-13 16:02:14" itemprop="dateCreated datePublished" datetime="2021-10-13T16:02:14+08:00">2021-10-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-07 18:53:59" itemprop="dateModified" datetime="2021-11-07T18:53:59+08:00">2021-11-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>java的输入需要依赖Scanner类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br></pre></td></tr></table></figure>
+
+<p>如果需要输入，则先声明一个Scanner对象：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Scanner s = new Scanner(System.in);</span><br></pre></td></tr></table></figure>
+
+<p>Scanner附属于输入流System.in，声明Scanner对象之后，在输入的时候需要使用<strong>next()方法</strong>系列指定输入的类型，如输入整数、输入字符串等。遇到回车结束。</p>
+<p>常用的next()方法系列：nextInt():输入整数  nextLine():输入字符串   nextDouble():输入双精度数   next():输入字符串（以空格作为分隔符）。</p>
+<p>next()方法读取到空白符就结束l；<br>nextLine()读取到回车结束也就是“\r”；</p>
+<p>!!!意思是next(),空格结束是键盘输入，回车之后，拿取空格之前的，还是需要回车的。</p>
+<p>就不能空格结束算作输入一个吗？？？貌似不能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输入数字</span></span><br><span class="line"><span class="keyword">package</span> inoutput;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">number</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">float</span> x;</span><br><span class="line">        Scanner in=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        x=in.nextFloat();</span><br><span class="line">        System.out.println(x);   <span class="comment">//换行输出，输出之后自动换行</span></span><br><span class="line">        System.out.print(x);    <span class="comment">//不换行打印</span></span><br><span class="line">        System.out.printf(<span class="string">&quot;输出是：%f&quot;</span>, x);   <span class="comment">//按格式输出</span></span><br><span class="line"></span><br><span class="line">        String s1;</span><br><span class="line">        Scanner sin=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        s1=sin.next();</span><br><span class="line">        System.out.println(s1);</span><br><span class="line"></span><br><span class="line">        String s2;</span><br><span class="line">        Scanner sin2=<span class="keyword">new</span> Scanner(System.in);  <span class="comment">//每次输入之前，都需要重新来？？？</span></span><br><span class="line">        s2=sin2.nextLine();</span><br><span class="line">        System.out.println(s2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输入数组</span></span><br><span class="line"><span class="keyword">package</span> inoutput;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">nums</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//输入不定长的数组</span></span><br><span class="line">        System.out.print(<span class="string">&quot;请输入：&quot;</span>);</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str = sc.nextLine();</span><br><span class="line">        String[] arr = str.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        <span class="keyword">int</span>[] b = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; b.length; j++) &#123;</span><br><span class="line">            b[j] = Integer.parseInt(arr[j]);</span><br><span class="line">            System.out.print(b[j] + <span class="string">&quot;,&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//输入定长数组</span></span><br><span class="line">        System.out.print(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入三个数：&quot;</span>);</span><br><span class="line">        Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span>[] c=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;c.length; i++)&#123;</span><br><span class="line">            c[i]=in.nextInt();</span><br><span class="line">            System.out.print(c[i] + <span class="string">&quot;,&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/07/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -412,7 +500,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-09-11 15:53:48" itemprop="dateModified" datetime="2022-09-11T15:53:48+08:00">2022-09-11</time>
+                <time title="Modified: 2022-11-30 22:52:58" itemprop="dateModified" datetime="2022-11-30T22:52:58+08:00">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -581,7 +669,9 @@
 
 <h2 id="alias-设置指令的别名"><a href="#alias-设置指令的别名" class="headerlink" title="alias 设置指令的别名"></a>alias 设置指令的别名</h2><p>alis 别名 = 指令名称<br>输入alias可列出目前所有的别名设置。<br>alias只限于该次登录操作，若要永久，需要在～/.zshrc文件中设置<br>alias 简写 = 全写</p>
 <h2 id="tr-多行合成一行-、awk使用"><a href="#tr-多行合成一行-、awk使用" class="headerlink" title="tr(多行合成一行)、awk使用"></a>tr(多行合成一行)、awk使用</h2><p>✅想把文件里的换行变成逗号（多行变一行）：<br><code>cat doc.txt|tr &#39;\n&#39; &#39;,&#39;</code></p>
-<p>✅想把每行按照自己想要的方式组装：<br><code>awk -F &quot;,&quot; &#39;&#123;print &quot;想拼接的字符串&quot; $2&#125;&#39; 文件名</code><br><code>-F &quot;,&quot; 是指定每行几个列的分割元素，默认是空格。</code><br><code>&#39;&#123;print $0&#125;&#39; 是打印整行</code><br><code>&#39;&#123;print $1&#125;&#39; 是打印第一列</code><br><code>&#39;&#123;print $2 “\&quot;”&#125;&#39; 是打印第二列后面再拼接一个“ </code></p>
+<p>✅想把每行按照自己想要的方式组装：<br><code>awk -F &quot;,&quot; &#39;&#123;print &quot;想拼接的字符串&quot; $2&#125;&#39; 文件名</code><br><code>-F &quot;,&quot; 是指定每行几个列的分割元素，默认是空格。</code><br><code>&#39;&#123;print $0&#125;&#39; 是打印整行</code><br><code>&#39;&#123;print $1&#125;&#39; 是打印第一列</code><br><code>&#39;&#123;print $2 “\&quot;”&#125;&#39; 是打印第二列后面再拼接一个“ </code><br>eg:<code>awk -F &quot;,&quot; &#39;&#123;print &quot;balabala&quot; $1 &quot;bala&quot; $2&#125;&#39; a.txt</code></p>
+<p>想排序输出：<code>|sort -k 2</code>  根据第二列排序,-r倒叙，-n根据数值<br>sort命令：<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-sort.html">https://www.runoob.com/linux/linux-comm-sort.html</a></p>
+<p>想只展示前多少行：<code>|head -10</code></p>
 <p>✅想把输出的文本保存到文件里<br><code>awk ... &gt; out.txt</code></p>
 <h2 id="看磁盘空间"><a href="#看磁盘空间" class="headerlink" title="看磁盘空间"></a>看磁盘空间</h2><p><code>df -h</code><br>看文件的大小：<br>直接ll，显示的是文件的字节大小，想用M、G单位来表示文件的大小：用<code>ll -h</code></p>
 <p>✅想清理日志<br>清理日志，rm worker.log 清不干净。</p>
@@ -1703,182 +1793,6 @@ select course, max(grade) from grade group by course;  正确
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/25/myblog/JAVA/MAC%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEMaven/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/25/myblog/JAVA/MAC%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEMaven/" class="post-title-link" itemprop="url">mac安装和配置maven</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-25 12:18:11" itemprop="dateCreated datePublished" datetime="2021-08-25T12:18:11+08:00">2021-08-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 22:02:48" itemprop="dateModified" datetime="2021-09-25T22:02:48+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="MAC安装和配置Maven"><a href="#MAC安装和配置Maven" class="headerlink" title="MAC安装和配置Maven"></a>MAC安装和配置Maven</h1><h2 id="1-Maven简介"><a href="#1-Maven简介" class="headerlink" title="1.Maven简介"></a>1.Maven简介</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">背景：开发A项目，A项目中的一些功能依赖于B项目中的某些类，那么如何维系这种依赖关系？需要用哪个项目中的哪些类，也就是用别人写好了的功能代码，导入jar包即可。所以这里也如此，可以将B项目打成jar包，然后在A项目的Library下导入B的jar文件，这样，A项目就可以调用B项目中的某些类了。如果在开发过程中，发现B中的bug，则必须将B项目修改好，并重新将B打包并对A项目进行重编译操作</span><br></pre></td></tr></table></figure>
-
-<p>Maven是基于项目对象模型(POM project object model)，可以通过一小段描述信息（配置）来管理项目的构建，报告和文档的软件项目管理工具。</p>
-<p>Maven的核心功能便是合理叙述项目间的依赖关系，通俗点讲，就是通过pom.xml文件的配置获取jar包，而不用手动去添加jar包。</p>
-<p>由于Maven仓库中所有的JAR都有其自己的坐标，该坐标告诉Maven它的组ID，构件ID，版本，打包方式等等， 因此Maven项目可以方便的进行依赖版本管理。</p>
-<h2 id="2-安装和配置Maven"><a href="#2-安装和配置Maven" class="headerlink" title="2.安装和配置Maven"></a>2.安装和配置Maven</h2><p>下载地址： <a target="_blank" rel="noopener" href="https://maven.apache.org/download.cgi">https://maven.apache.org/download.cgi</a></p>
-<p>![image-20210824144100726](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824144100726.png)</p>
-<p>我下载在了<code>/Library/ApacheMaven</code></p>
-<p><code>vim ~/.bash_profile</code>  //配置环境变量</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export M=&quot;/Library/ApacheMaven&quot;  //根据自己放在哪个目录</span><br><span class="line">export PATH=&quot;$M/bin:$PATH&quot;</span><br></pre></td></tr></table></figure>
-
-<p><code>source ~/.bash_profile</code>     //使配置生效</p>
-<p><code>mvn -v</code>   //查看版本</p>
-<p>或者，可以直接<code>brew install maven</code></p>
-<h3 id="下载远程仓库到本地"><a href="#下载远程仓库到本地" class="headerlink" title="下载远程仓库到本地"></a>下载远程仓库到本地</h3><p>maven 就像是一个大仓库，里面是很多的jar包，我们需要的时候就去里面拿，所以这就涉及到一个 ‘‘本地仓库’’（不能需要什么再去网上下载吧，速度有时候很慢的）,那么咱们就得先把这些jar包下载到咱们本地方便使用，<br>默认请况下，这个本地仓库会在/user/name/.m2下面（name 是你的用户名）。为了方便，把本地仓库改在Maven安装目录下。</p>
-<p>打开安装目录下的conf目录下的<code>settings.xml</code><br>加入<code>&lt;localRepository&gt;/Library/ApacheMaven/repository &lt;/localRepository&gt;</code></p>
-<p>输入<code>mvn help:system</code></p>
-<p>![image-20210824175620786](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824175620786.png)</p>
-<p>多了一个repository文件夹，这就是咱们从远程仓库下载到本地仓库的文件。</p>
-<h2 id="3-创建Maven项目"><a href="#3-创建Maven项目" class="headerlink" title="3.创建Maven项目"></a>3.创建Maven项目</h2><h3 id="a-使用命令行创建Maven项目"><a href="#a-使用命令行创建Maven项目" class="headerlink" title="a.使用命令行创建Maven项目"></a>a.使用命令行创建Maven项目</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn archetype:generate -DgroupId=cn.xuanliu.helloword -DartifactId=helloworld -Dpackage=cn.cxuanliu.helloword -Dversion=1.0-SNAPSHOT -DarchetypeArtifactId=maven-archetype-quickstart</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>mvn</code>:表示使用的是maven命令。</li>
-<li><code>archetype:generate</code>:表示使用generate这个插件为我们的maven项目自动生成一个maven骨架，即我们项目的工程结构。后边跟的是该插件为我们创建工程结构所需要的一连串的参数。</li>
-<li><code>-DgroupId</code>:标识项目的坐标元素之一，项目包名，可以是：域名的反写+项目名。</li>
-<li><code>-DartifactId</code>:标识项目的坐标元素之一，它的值为我们的项目名。我这里指定我要生成的项目名为helloword。</li>
-<li><code>-Dpackage</code>:标识项目的坐标元素之一,这里值就跟DgroupId的值保持一致即可。此属性在命令行中可选。</li>
-<li><code>-Dversion</code>:指定版本号。此属性在命令行中可选</li>
-<li><code>-DarchetypeArtifactId</code>:表示我们生成的工程结构为哪一种，这里的属性值为<code>maven-archetype-quickstart</code>表示生成工程目录结构为quickstart的结构。其值还可以为<code>maven-archetype-webapp</code>表示生成的工程目录结构为webapp的结构。</li>
-</ul>
-<p>![image-20210824155803431](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824155803431.png)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">目录解读：在maven项目的开发中，所有的源代码放在文件夹 /src/main/java/下, 所有的单元测试代码放入 /src/test/java/。</span><br><span class="line">pom.xml 描述了整个项目的信息</span><br></pre></td></tr></table></figure>
-
-<h3 id="b-使用IDEA创建Maven项目"><a href="#b-使用IDEA创建Maven项目" class="headerlink" title="b.使用IDEA创建Maven项目"></a>b.使用IDEA创建Maven项目</h3><p><code>Create New Project</code>，选择<code>Maven</code>，勾选<code>Create from archetype</code></p>
-<p><img src="https://img2018.cnblogs.com/blog/1068501/201809/1068501-20180914191722384-1695467171.png" alt="img"></p>
-<p>写<code>Maven</code>的坐标，“groupId”，“artifactId”，以及“version”，其中groupId是公司域名的反写，而artifactId是项目名或模块名，version就是该项目或模块所对应的版本号。</p>
-<p>![image-20210824174243856](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824174243856.png)</p>
-<p>![image-20210824180029943](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824180029943.png)</p>
-<p>maven会自动下载maven依赖，当所有的都自动完成后，创建的maven项目结构如下所示： </p>
-<p>![image-20210824180441439](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210824180441439.png)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">（1）在大多数情况下，把项目的主代码放到 src/main/java 目录下（遵循Maven约定），如果没有其他的配置，Maven在运行时将自动搜寻该目录下的主代码。</span><br><span class="line">（2）为了使项目的结构保持清晰，所以IDEA自动创建了 test 文件，将主代码和测试代码分别放到了独立的目录中。</span><br><span class="line">（3）pom.xml为Maven的核心配置文件，它的全称为（Project Object Model，项目对象模型），我们在使用Maven的时候也通常在这个pom .xml 中配置。</span><br></pre></td></tr></table></figure>
-
-<h4 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml:"></a>pom.xml:</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>    <span class="comment">&lt;!-- xml头，指定xml文档的版本信息和编码方式 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- &lt;project&gt;为所有pom.xml的根元素，声明了一些POM相关的命名空间及xsd元素，</span></span><br><span class="line"><span class="comment">  这些元素不是pom.xml中必须添加的，但是使用这些属性可以使第三方工具，</span></span><br><span class="line"><span class="comment">  如IDE中的xml编辑器帮助开发者快速编辑POM。 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- &lt;modeVersion&gt; 指定了当前POM模板的版本 --&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.liuxuan<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>    <span class="comment">&lt;!-- &lt;groupId&gt; 定义了该项目属于哪个项目组 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>ideamaven<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>   <span class="comment">&lt;!-- &lt;&lt;artifactId&gt;定义了当前Maven项目在项目组的唯一一个ID,项目名 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span>  <span class="comment">&lt;!--&lt;version&gt;定义了Hello Maven项目当前的版本号 1.0-SNAPSHOT 为IDEA默认的初始版本号 --&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>在没有实际的java代码时，我们就可以完整的创建一个Maven项目的pom.xml，这说明了Maven可以使项目对象模型最大程度的与代码相独立，这充分体现了解耦的原则和理念！为开发者节省了时间，大大缩短了项目开发周期。在项目开发到稳定期时，升级版本时，开发者可以不需要修改实际的 java 代码，而是只修改pom.xml，这一特点使Maven被广泛的使用。</p>
-<h2 id="4-编写主代码"><a href="#4-编写主代码" class="headerlink" title="4.编写主代码"></a>4.编写主代码</h2><p><strong>项目主代码和测试代码不同，主代码会被打包到最终的构件中，而测试代码只在运行测试时用到，不会被打包。</strong></p>
-<p><strong>在src/main/java中创建文件com/feiyu/web/helloworld/helloWorld.java</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.liuxuan;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello liuxuan&#x27;s Maven!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="keyword">new</span> hello().sayHello());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>右键运行。</p>
-<p>目录：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---pom.xml　　　　核心配置，项目根下</span><br><span class="line">---src</span><br><span class="line">　　---main　　　　　　</span><br><span class="line">　　　   ---java　　　　java源码目录</span><br><span class="line">　　     ---resources　  java配置文件目录</span><br><span class="line">　　---test</span><br><span class="line">　　　　　---java　　　　测试源码目录</span><br><span class="line">　　　　　---resources　  测试配置目录</span><br><span class="line">---target    输出目录</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-Maven仓库"><a href="#5-Maven仓库" class="headerlink" title="5.Maven仓库"></a>5.Maven仓库</h2><p>Maven 仓库是项目中依赖的第三方库，这个库所在的位置叫做仓库。在 Maven 中，任何一个依赖、插件或者项目构建的输出，都可以称之为构件。Maven 仓库能帮助我们管理构件（主要是JAR），它就是放置所有JAR文件（WAR，ZIP，POM等等）的地方。</p>
-<p>Maven 仓库有三种类型：</p>
-<ul>
-<li>本地（local）</li>
-<li>中央（central）</li>
-<li>远程（remote）</li>
-</ul>
-<h3 id="a-本地仓库"><a href="#a-本地仓库" class="headerlink" title="a.本地仓库"></a>a.本地仓库</h3><p>第一次执行 maven 命令的时候才被创建。运行 Maven 的时候，Maven 所需要的任何构件都是直接从本地仓库获取的。如果本地仓库没有，它会首先尝试从远程仓库下载构件至本地仓库，然后再使用本地仓库的构件。</p>
-<p>默认情况下，不管Linux还是 Windows，每个用户在自己的用户目录下都有一个路径名为 .m2/respository/ 的仓库目录。</p>
-<p>可以修改默认位置，改变settings.xml中的配置。<br><code>&lt;localRepository&gt;C:/MyLocalRepository&lt;/localRepository&gt;</code></p>
-<h3 id="b-中央仓库"><a href="#b-中央仓库" class="headerlink" title="b.中央仓库"></a>b.中央仓库</h3><p>Maven 中央仓库是由 Maven 社区提供的仓库，其中包含了大量常用的库。</p>
-<p>中央仓库包含了绝大多数流行的开源Java构件，以及源码、作者信息、SCM、信息、许可证信息等。一般来说，简单的Java项目依赖的构件都可以在这里下载到。</p>
-<p>中央仓库的关键概念：</p>
-<ul>
-<li>这个仓库由 Maven 社区管理。</li>
-<li>不需要配置。</li>
-<li>需要通过网络才能访问。</li>
-</ul>
-<p>要浏览中央仓库的内容，maven 社区提供了一个 URL：<a target="_blank" rel="noopener" href="http://search.maven.org/#browse%E3%80%82%E4%BD%BF%E7%94%A8%E8%BF%99%E4%B8%AA%E4%BB%93%E5%BA%93%EF%BC%8C%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E5%8F%AF%E4%BB%A5%E6%90%9C%E7%B4%A2%E6%89%80%E6%9C%89%E5%8F%AF%E4%BB%A5%E8%8E%B7%E5%8F%96%E7%9A%84%E4%BB%A3%E7%A0%81%E5%BA%93%E3%80%82">http://search.maven.org/#browse。使用这个仓库，开发人员可以搜索所有可以获取的代码库。</a></p>
-<h3 id="c-远程仓库"><a href="#c-远程仓库" class="headerlink" title="c.远程仓库"></a>c.远程仓库</h3><p>中央仓库是一些常用的库？远程仓库是开发人员自己定制仓库，包含了所需要的代码库或者其他工程中用到的 jar 文件。</p>
-<h3 id="d-Maven依赖搜索顺序"><a href="#d-Maven依赖搜索顺序" class="headerlink" title="d.Maven依赖搜索顺序"></a>d.Maven依赖搜索顺序</h3><ul>
-<li><strong>步骤 1</strong> － 在本地仓库中搜索，如果找不到，执行步骤 2，如果找到了则执行其他操作。</li>
-<li><strong>步骤 2</strong> － 在中央仓库中搜索，如果找不到，并且有一个或多个远程仓库已经设置，则执行步骤 4，如果找到了则下载到本地仓库中以备将来引用。</li>
-<li><strong>步骤 3</strong> － 如果远程仓库没有被设置，Maven 将简单的停滞处理并抛出错误（无法找到依赖的文件）。</li>
-<li><strong>步骤 4</strong> － 在一个或多个远程仓库中搜索依赖的文件，如果找到则下载到本地仓库以备将来引用，否则 Maven 将停止处理并抛出错误（无法找到依赖的文件）。</li>
-</ul>
-<h3 id="e-更换Maven阿里云仓库"><a href="#e-更换Maven阿里云仓库" class="headerlink" title="e.更换Maven阿里云仓库"></a>e.更换Maven阿里云仓库</h3><p>Maven根目录下，conf文件夹下setting.xml文件，mirrors节点上修改。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirrors&gt;</span><br><span class="line">  &lt;mirror&gt;</span><br><span class="line">    &lt;id&gt;alimaven&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;aliyun maven&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span><br><span class="line">    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;</span><br><span class="line">  &lt;/mirror&gt;</span><br><span class="line">&lt;/mirrors&gt;</span><br></pre></td></tr></table></figure>
-
-<p>第二步：pom.xml文件里添加：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;repositories&gt;  </span><br><span class="line">        &lt;repository&gt;  </span><br><span class="line">            &lt;id&gt;alimaven&lt;/id&gt;  </span><br><span class="line">            &lt;name&gt;aliyun maven&lt;/name&gt;  </span><br><span class="line">            &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;  </span><br><span class="line">            &lt;releases&gt;  </span><br><span class="line">                &lt;enabled&gt;true&lt;/enabled&gt;  </span><br><span class="line">            &lt;/releases&gt;  </span><br><span class="line">            &lt;snapshots&gt;  </span><br><span class="line">                &lt;enabled&gt;false&lt;/enabled&gt;  </span><br><span class="line">            &lt;/snapshots&gt;  </span><br><span class="line">        &lt;/repository&gt;  </span><br><span class="line">&lt;/repositories&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="6-Maven命令"><a href="#6-Maven命令" class="headerlink" title="6.Maven命令"></a>6.Maven命令</h2><p><code>maven -version   Maven版本及控制信息</code></p>
-<p><code>mvn archetype:create  -DgroupId=   DartifactId=   构建java项目</code>   </p>
-<p><code>mvn archetype:create  -DgroupId=   DartifactId=   -DarchetypeArtifactId=maven-archetype-webapp ls创建web项目</code></p>
-<p><code>mvn compile     编译源代码</code>     </p>
-<p><code>mvn test-compile    编译测试代码</code></p>
-<p><code>mvn clean   打包前清理掉之前有过打包的文件夹target</code></p>
-<p><code>mvn package  打包，package包括了编译、打包这两步</code>    </p>
-<p>![image-20210825113016694](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210825113016694.png)</p>
-<p><code>mvn install   将打包好的jar包部署到本地，放到本地仓库</code> </p>
-<h2 id="7-运行jar包"><a href="#7-运行jar包" class="headerlink" title="7.运行jar包"></a>7.运行jar包</h2><p><code>java -jar ideamaven-1.0-SNAPSHOT.jar</code></p>
-<p>问题：<code>ideamaven-1.0-SNAPSHOT.jar中没有主清单属性</code></p>
-<p>解决：找不到<code>main</code>方法，需要在<code>pom.xml</code>配置<code>main</code>方法的位置。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--  添加main方法   --&gt;</span><br><span class="line">&lt;plugin&gt;</span><br><span class="line">  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;1.2.1&lt;/version&gt;</span><br><span class="line">  &lt;executions&gt;</span><br><span class="line">    &lt;execution&gt;</span><br><span class="line">      &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">      &lt;goals&gt;</span><br><span class="line">        &lt;goal&gt;shade&lt;/goal&gt;</span><br><span class="line">      &lt;/goals&gt;</span><br><span class="line">      &lt;configuration&gt;</span><br><span class="line">        &lt;transformers&gt;</span><br><span class="line">          &lt;transformer implementation=&quot;org.apache.maven.plugins.shade.resource.ManifestResourceTransformer&quot;&gt;</span><br><span class="line">            &lt;!-- 在这里指定入口类 --&gt;</span><br><span class="line">            &lt;mainClass&gt;com.liuxuan.hello&lt;/mainClass&gt;</span><br><span class="line">          &lt;/transformer&gt;</span><br><span class="line">        &lt;/transformers&gt;</span><br><span class="line">      &lt;/configuration&gt;</span><br><span class="line">    &lt;/execution&gt;</span><br><span class="line">  &lt;/executions&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
-
-<p>mvn打包和jar包运行问题未解决。</p>
-<p>问题：<code>Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.0:compile (default-compile) on project ideamaven: Compilation failure</code></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://console.cloud.baidu-int.com/devops/icode/repos/baidu/netdisk/platform-idproducter/reviews/18480257/files/base...latest/service/create_service.go">https://console.cloud.baidu-int.com/devops/icode/repos/baidu/netdisk/platform-idproducter/reviews/18480257/files/base...latest/service/create_service.go</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wfy2695766757/article/details/81189291">https://blog.csdn.net/wfy2695766757/article/details/81189291</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1949,7 +1863,7 @@ select course, max(grade) from grade group by course;  正确
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">88</span>
+          <span class="site-state-item-count">89</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

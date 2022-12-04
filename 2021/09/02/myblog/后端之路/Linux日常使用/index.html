@@ -28,7 +28,7 @@
 <meta property="og:description" content="给用户添加sudo权限–切换到拥有sudo权限的用户下，可以是su。 –输入命令”sudo vim &#x2F;etc&#x2F;sudoers”开始编辑&#x2F;etc&#x2F;sudoers文件。 –找到”root ALL&#x3D;(ALL:ALL) ALL”这一 行，在它下面添加”xxx ALL&#x3D;(ALL:ALL) ALL”(这里的xxx是你的用户名)，然后保存退出。因为是只读模式，输入”:wq!”强制保存并退出。 获得本机ip12i">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-09-02T12:26:37.000Z">
-<meta property="article:modified_time" content="2022-09-11T07:53:48.023Z">
+<meta property="article:modified_time" content="2022-11-30T14:52:58.724Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-09-11 15:53:48" itemprop="dateModified" datetime="2022-09-11T15:53:48+08:00">2022-09-11</time>
+                <time title="Modified: 2022-11-30 22:52:58" itemprop="dateModified" datetime="2022-11-30T22:52:58+08:00">2022-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -395,7 +395,9 @@
 
 <h2 id="alias-设置指令的别名"><a href="#alias-设置指令的别名" class="headerlink" title="alias 设置指令的别名"></a>alias 设置指令的别名</h2><p>alis 别名 = 指令名称<br>输入alias可列出目前所有的别名设置。<br>alias只限于该次登录操作，若要永久，需要在～/.zshrc文件中设置<br>alias 简写 = 全写</p>
 <h2 id="tr-多行合成一行-、awk使用"><a href="#tr-多行合成一行-、awk使用" class="headerlink" title="tr(多行合成一行)、awk使用"></a>tr(多行合成一行)、awk使用</h2><p>✅想把文件里的换行变成逗号（多行变一行）：<br><code>cat doc.txt|tr &#39;\n&#39; &#39;,&#39;</code></p>
-<p>✅想把每行按照自己想要的方式组装：<br><code>awk -F &quot;,&quot; &#39;&#123;print &quot;想拼接的字符串&quot; $2&#125;&#39; 文件名</code><br><code>-F &quot;,&quot; 是指定每行几个列的分割元素，默认是空格。</code><br><code>&#39;&#123;print $0&#125;&#39; 是打印整行</code><br><code>&#39;&#123;print $1&#125;&#39; 是打印第一列</code><br><code>&#39;&#123;print $2 “\&quot;”&#125;&#39; 是打印第二列后面再拼接一个“ </code></p>
+<p>✅想把每行按照自己想要的方式组装：<br><code>awk -F &quot;,&quot; &#39;&#123;print &quot;想拼接的字符串&quot; $2&#125;&#39; 文件名</code><br><code>-F &quot;,&quot; 是指定每行几个列的分割元素，默认是空格。</code><br><code>&#39;&#123;print $0&#125;&#39; 是打印整行</code><br><code>&#39;&#123;print $1&#125;&#39; 是打印第一列</code><br><code>&#39;&#123;print $2 “\&quot;”&#125;&#39; 是打印第二列后面再拼接一个“ </code><br>eg:<code>awk -F &quot;,&quot; &#39;&#123;print &quot;balabala&quot; $1 &quot;bala&quot; $2&#125;&#39; a.txt</code></p>
+<p>想排序输出：<code>|sort -k 2</code>  根据第二列排序,-r倒叙，-n根据数值<br>sort命令：<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-sort.html">https://www.runoob.com/linux/linux-comm-sort.html</a></p>
+<p>想只展示前多少行：<code>|head -10</code></p>
 <p>✅想把输出的文本保存到文件里<br><code>awk ... &gt; out.txt</code></p>
 <h2 id="看磁盘空间"><a href="#看磁盘空间" class="headerlink" title="看磁盘空间"></a>看磁盘空间</h2><p><code>df -h</code><br>看文件的大小：<br>直接ll，显示的是文件的字节大小，想用M、G单位来表示文件的大小：用<code>ll -h</code></p>
 <p>✅想清理日志<br>清理日志，rm worker.log 清不干净。</p>
@@ -502,7 +504,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">88</span>
+          <span class="site-state-item-count">89</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

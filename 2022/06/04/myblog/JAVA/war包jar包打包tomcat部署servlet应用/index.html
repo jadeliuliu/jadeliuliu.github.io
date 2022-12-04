@@ -28,7 +28,7 @@
 <meta property="og:description" content="tomcat与servlet1.tomcat就是一个web应用服务器，相当于市存放java程序的容器。以便服务被访问。2.servlet实际上是java类，java语言编写的服务器端程序，它用来处理http协议相关的所有内容，没有main方法，需要在servlet容器中进行管理，可以是tomact。如何使用：继承HttpServlet（tomcat里的jar包支持），它帮助我们完成通信的规则。3.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-06-04T06:47:55.036Z">
-<meta property="article:modified_time" content="2022-06-05T15:59:59.086Z">
+<meta property="article:modified_time" content="2022-11-28T15:29:11.230Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="tomcat">
@@ -220,7 +220,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-05 23:59:59" itemprop="dateModified" datetime="2022-06-05T23:59:59+08:00">2022-06-05</time>
+                <time title="Modified: 2022-11-28 23:29:11" itemprop="dateModified" datetime="2022-11-28T23:29:11+08:00">2022-11-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -294,7 +294,7 @@
 <p>3.target文件夹：是用来存放项目构建后的文件和目录、jar包、war包、编译的class文件，都是maven构建时生成的。存放的是单个module的编译结果。</p>
 <p>4.out文件夹：存放该项目下所有module的编译结果。</p>
 <p>5.pom.xml：项目对象模型</p>
-<h3 id="新建个web工程并部署"><a href="#新建个web工程并部署" class="headerlink" title="新建个web工程并部署"></a>新建个web工程并部署</h3><p>1.new project，选maven，选archetype maven<br>2.选择maven setting，新建工程<br>3.简单写个index.jsp，在webapp目录下（主页）<br>4.通过idea部署，生成war_explode包，热部署<br>5.lsof -i:8080 查看端口占用<br>6.target文件夹下有war包了，但是在tomcat-webapp文件夹下并没有该项目。<br>7.关闭idea，web也无法访问了，所以要想一直运行，得打jar包放在webapp目录下？<br>8.并且发现，没用servlet，不用导入servlet包。</p>
+<h3 id="新建个web工程并部署"><a href="#新建个web工程并部署" class="headerlink" title="新建个web工程并部署"></a>新建个web工程并部署</h3><p>1.new project，选maven，选maven-archetype-webapp<br>2.选择maven setting，新建工程<br>3.简单写个index.jsp，在webapp目录下（主页）<br>4.通过idea部署，生成war_explode包，热部署<br>5.lsof -i:8080 查看端口占用<br>6.target文件夹下有war包了，但是在tomcat-webapp文件夹下并没有该项目。<br>7.关闭idea，web也无法访问了，所以要想一直运行，得打jar包放在webapp目录下？<br>8.并且发现，没用servlet，不用导入servlet包。</p>
 <h3 id="pom-xml结构"><a href="#pom-xml结构" class="headerlink" title="pom.xml结构"></a>pom.xml结构</h3><p>pom.xml 就是 maven 的配置文件，用以描述项目的各种信息。</p>
 <p><code>&lt;project </code>  是 pom.xml 中描述符的根。</p>
 <p><code>&lt;modelVersion&gt;</code> 指定 pom.xml 符合哪个版本的描述符。maven 2 和 3 只能为 4.0.0。</p>
@@ -420,7 +420,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">88</span>
+          <span class="site-state-item-count">89</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
