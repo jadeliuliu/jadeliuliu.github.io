@@ -28,7 +28,7 @@
 <meta property="og:description" content="fastjson是阿里出品的处理JSON字符串的Java类库，可以对JSON字符串、JSON对象、Java对象进行互相转换。需要导入fastjson包。 String、JSONObject、Object转换一、字符串转成JSON对象&#x2F;数组字符串转成JSON对象JSON.parseObject(String text)JSON.parse(String text) 字符串转成JSON数组JSON.p">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-30T01:44:44.290Z">
-<meta property="article:modified_time" content="2022-10-30T07:52:50.137Z">
+<meta property="article:modified_time" content="2022-12-10T11:42:28.244Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-30 15:52:50" itemprop="dateModified" datetime="2022-10-30T15:52:50+08:00">2022-10-30</time>
+                <time title="Modified: 2022-12-10 19:42:28" itemprop="dateModified" datetime="2022-12-10T19:42:28+08:00">2022-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -273,7 +273,7 @@
 <h4 id="JSONObject"><a href="#JSONObject" class="headerlink" title="JSONObject"></a>JSONObject</h4><p>JSONObject 是根据 JSON 形式在 Java 中存在的对象映射<br>各大 JSON 类库的 JSONObject 内部实现也是不太一样的。<br>例如fastjson：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public class JSONObject extends JSON implements Map&lt;String, Object&gt;, Cloneable, Serializable, InvocationHandler &#123;</span><br><span class="line">&#125;</span><br><span class="line">对 HashMap 的一层封装，并提供了一些个性化方法。</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JSONObject json = new JSONObject();</span><br><span class="line">json.put(&quot;key&quot;,&quot;value&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">JSONObject json = new JSONObject();</span><br><span class="line">json.put(&quot;key&quot;,&quot;value&quot;);</span><br><span class="line">json.put(&quot;key1&quot;,&quot;11&quot;);</span><br><span class="line">System.out.println(json.getInteger(&quot;key1&quot;));</span><br></pre></td></tr></table></figure>
 
 <h4 id="JSONArray"><a href="#JSONArray" class="headerlink" title="JSONArray"></a>JSONArray</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public class JSONArray extends JSON implements List&lt;Object&gt;, Cloneable, RandomAccess, Serializable &#123;</span><br><span class="line">&#125;</span><br><span class="line">一个 List 中 套了个 Map 类结构</span><br></pre></td></tr></table></figure>
 
@@ -406,7 +406,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-count">90</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20210629132506469.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNDA5MTQz,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy53YW5kb3VpcC5jb20vY3Jhd2xlci9hcnRpY2xlLzIwMTk4MS9hYTVmNTVkNjVkMTUxYjUxYzJiOGRhZTAyNTNmN2NmMQ?x-oss-process=image/format,png">
 <meta property="article:published_time" content="2022-09-11T06:46:24.600Z">
-<meta property="article:modified_time" content="2022-09-11T07:03:17.087Z">
+<meta property="article:modified_time" content="2022-12-10T07:13:56.693Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -215,10 +215,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-09-11 14:46:24 / Modified: 15:03:17" itemprop="dateCreated datePublished" datetime="2022-09-11T14:46:24+08:00">2022-09-11</time>
+              <time title="Created: 2022-09-11 14:46:24" itemprop="dateCreated datePublished" datetime="2022-09-11T14:46:24+08:00">2022-09-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-10 15:13:56" itemprop="dateModified" datetime="2022-12-10T15:13:56+08:00">2022-12-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -332,7 +338,9 @@
 <p>IP 哈希（IP hash）<br>ip_hash 依据发出请求的客户端 IP 的 hash 值来分配服务器，该算法可以保证同 IP 发出的请求映射到同一服务器，或者具有相同 hash 值的不同 IP 映射到同一服务器。特点：该算法在一定程度上解决了集群部署环境下 Session 不共享的问题。</p>
 <p>所以：<br>Nginx 作为一款优秀的反向代理服务器，可以通过不同的负载均衡算法来解决请求量过大情况下的服务器资源分配问题。较为常见的负载均衡算法有轮询、加权轮询、IP 哈希等等，可分别应对不同的请求场景。</p>
 <p>————————————————<br>好文章：从对CDN的理解到Nginx负载均衡<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40409143/article/details/118330238">https://blog.csdn.net/qq_40409143/article/details/118330238</a></p>
-<h3 id="✅nginx与RPC远程过程调用什么关系？"><a href="#✅nginx与RPC远程过程调用什么关系？" class="headerlink" title="✅nginx与RPC远程过程调用什么关系？"></a>✅nginx与RPC远程过程调用什么关系？</h3><p>RPC是远程过程调用，是一种计算机通信协议。<br>nginx是代理服务器。<br>Nginx 和后端服务之间的交互在本质上也可以理解为 RPC 数据交互。也许你会争辩说 Nginx 和后端服务之间使用的是 HTTP 协议，走的是短连接，严格上不能算是 RPC 调用。</p>
+<h3 id="✅nginx与RPC远程过程调用什么关系？"><a href="#✅nginx与RPC远程过程调用什么关系？" class="headerlink" title="✅nginx与RPC远程过程调用什么关系？"></a>✅nginx与RPC远程过程调用什么关系？</h3><p>RPC是远程过程调用，是一种计算机通信思想。</p>
+<p>nginx是代理服务器。它可以为后端分布式服务提供负载均衡的功能，它可以将后端多个服务地址聚合为单个地址来对外提供服务。</p>
+<p>Nginx 和后端服务之间的交互在本质上也可以理解为 RPC 数据交互。也许你会争辩说 Nginx 和后端服务之间使用的是 HTTP 协议，走的是短连接，严格上不能算是 RPC 调用。 Nginx 和后端服务之间还可以走其它的协议，比如 uwsgi 协议、fastcgi 协议等，这两个协议都是采用了比 HTTP 协议更加节省流量的二进制协议。</p>
 <p>讲RPC、RPC与nginx、RPC与HTTP间的关系的好文章：<br><a target="_blank" rel="noopener" href="https://www.kancloud.cn/machh03/server/2096716">https://www.kancloud.cn/machh03/server/2096716</a></p>
 <h3 id="✅与gateway有什么关系？"><a href="#✅与gateway有什么关系？" class="headerlink" title="✅与gateway有什么关系？"></a>✅与gateway有什么关系？</h3><p>网关(Gateway)就是一个网络连接到另一个网络的“关口”。</p>
 <p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy53YW5kb3VpcC5jb20vY3Jhd2xlci9hcnRpY2xlLzIwMTk4MS9hYTVmNTVkNjVkMTUxYjUxYzJiOGRhZTAyNTNmN2NmMQ?x-oss-process=image/format,png"></p>
@@ -391,6 +399,54 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;httpclient&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
 <p>实现http连接池：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34484062/article/details/109470135">https://blog.csdn.net/qq_34484062/article/details/109470135</a></p>
+<h2 id="rpc"><a href="#rpc" class="headerlink" title="rpc"></a>rpc</h2><p>远程过程调用（Remote Procedure Call，缩写为 RPC）允许运行于一台计算机的程序调用另一台计算机的子程序，而程序员无需额外地为这个交互作用编程。 如果涉及的软件采用面向对象编程，那么远程过程调用亦可称作远程调用或远程方法调用，比如 Java RMI。</p>
+<p>远程过程调用是一个分布式计算的客户端-服务器（Client/Server）的例子，它简单而又广受欢迎。 远程过程调用总是由客户端对服务器发出一个执行若干过程请求，并用客户端提供的参数。执行结果将返回给客户端。 由于存在各式各样的变体和细节差异，对应地派生了各式远程过程调用协议，而且它们并不互相兼容。</p>
+<p>为了允许不同的客户端均能访问服务器，许多标准化的 RPC 系统应运而生了。其中大部分采用接口描述语言（Interface Description Language，IDL），方便跨平台的远程过程调用。<br>有些实现扩展了远程调用的模型，实现了双向的服务调用，但是不管怎样，调用过程还是由一个客户端发起，服务器端提供响应，基本模型没有变化。</p>
+<p>服务的调用过程为：<br>1、client调用client stub，这是一次本地过程调用<br>2、client stub将参数打包成一个消息，然后发送这个消息。打包过程也叫做 marshalling<br>3、client所在的系统将消息发送给server<br>4、server的的系统将收到的包传给server stub<br>5、server stub解包得到参数。 解包也被称作 unmarshalling<br>6、最后server stub调用服务过程. 返回结果按照相反的步骤传给client</p>
+<hr>
+<p>RPC (Remote Procedure Call)即远程过程调用，是分布式系统常见的一种通信方法，已经有 40 多年历史。当两个物理分离的子系统需要建立逻辑上的关联时，RPC 是牵线搭桥的常见技术手段之一。除 RPC 之外，常见的多系统数据交互方案还有分布式消息队列、HTTP 请求调用、数据库和分布式缓存。</p>
+<p>其中 RPC 和 HTTP 调用是没有经过中间件的，它们是端到端系统的直接数据交互。<strong>HTTP 调用其实也可以看成是一种特殊的 RPC，只不过传统意义上的 RPC 是指长连接数据交互，而 HTTP 一般是指即用即走的短链接。</strong></p>
+<p>RPC 在我们熟知的各种中间件中都有它的身影。Nginx/Redis/MySQL/Dubbo/Hadoop/Spark/Tensorflow 等重量级开源产品都是在 RPC 技术的基础上构建出来的，我们<strong>这里说的 RPC 指的是广义的 RPC，也就是分布式系统的通信技术</strong>。RPC 在技术中的地位好比我们身边的空气，它无处不在，但是又有很多人根本不知道它的存在。</p>
+<p>例如数据库：<br>子系统和数据库之间的交互也是通过 RPC 进行的，只不过这里是三个子系统之间复杂的组合消息交互罢了。如果再深入进去，你会发现，这里的数据库不是那种单机数据库，而是具备主从复制功能的数据库，比如 MySQL。在互联网企业里一般都会使用这种主从读写分离的数据库。一个业务子系统将数据写往主库，主库再将数据同步到从库，然后另一个业务子系统又从从库里将数据取出来。这时又可以进一步将它们看成是四个子系统之间进行的更加复杂的 RPC 数据交互。</p>
+<hr>
+<p>一些分布式场景中RPC的使用：（广义上的RPC）</p>
+<p>✅nginx<br>Ngnix 是互联网企业使用最为广泛的代理服务器。它可以为后端分布式服务提供负载均衡的功能，它可以将后端多个服务地址聚合为单个地址来对外提供服务。Nginx 和后端服务之间的交互在本质上也可以理解为 RPC 数据交互。也许你会争辩说 Nginx 和后端服务之间使用的是 HTTP 协议，走的是短连接，严格上不能算是 RPC 调用。不过 Nginx 和后端服务之间还可以走其它的协议，比如 uwsgi 协议、fastcgi 协议等，这两个协议都是采用了比 HTTP 协议更加节省流量的二进制协议。</p>
+<p>✅Hadoop<br>在大数据技术领域，RPC 也占据了非常重要的地位。大数据领域广泛应用了非常多的分布式技术，分布式意味着节点的物理隔离，隔离意味着需要通信，通信意味着 RPC 的存在。大数据需要通信的量比业务系统更加庞大，所以在数据通信优化上做的更深。比如最常见的 Hadoop 文件系统 hdfs，一般包括一个 NameNode 和多个 DataNode，NameNode 和 DataNode 之间就是通过一种称为 Hadoop RPC 的二进制协议进行通讯。</p>
+<p>✅TensorFlow<br>在人工智能领域，RPC 也很重要，著名的 TensorFlow 框架如果需要处理上亿的数据，就需要依靠分布式计算力，需要集群化，当多个分布式节点需要集体智慧时，就必须引入 RPC 技术进行通讯。Tensorflow Cluster 的 RPC 通讯框架使用了 Google 内部自研的 gRPC 框架。</p>
+<p>转自：<a target="_blank" rel="noopener" href="https://www.kancloud.cn/machh03/server/2096716">https://www.kancloud.cn/machh03/server/2096716</a><br>里面还有实现rpc</p>
+<h2 id="理解http和rpc"><a href="#理解http和rpc" class="headerlink" title="理解http和rpc"></a>理解http和rpc</h2><p>HTTP1.0 协议时，HTTP 调用还只能是短链接调用，一个请求来回之后连接就会关闭。HTTP1.1 在 HTTP1.0 协议的基础上进行了改进，引入了 KeepAlive 特性可以保持 HTTP 连接长时间不断开，以便在同一个连接之上进行多次连续的请求，进一步拉近了 HTTP 和 RPC 之间的距离。</p>
+<p>当 HTTP 协议进化到 2.0 之后，Google 开源了一个建立在 HTTP2.0 协议之上的通信框架直接取名为 gRPC，也就是 Google RPC，这时 HTTP 和 RPC 之间已经没有非常明显的界限了。</p>
+<p>HTTP 与 RPC 的关系就好比普通话与方言的关系。要进行跨企业服务调用时，往往都是通过 HTTP API，也就是普通话，虽然效率不高，但是通用，没有太多沟通的学习成本。但是在企业内部还是 RPC 更加高效，同一个企业公用一套方言进行高效率的交流，要比通用的 HTTP 协议来交流更加节省资源。整个中国有非常多的方言，正如有很多的企业内部服务各有自己的一套交互协议一样。好比开源 RPC 协议中 Protobuf 和 Thrift 一样，它们两应该是 RPC 协议中使用最为广泛的两个。</p>
+<p>rpc基于什么实现网络传输？<br>1.rpc可以基于tcp直接开发自己的协议，这个是可以保持长连接的，tcp的传输效率高，并且可以一直维持链接</p>
+<p>2.自定义协议可以优化数据的传输，例如更大的压缩比。分布式系统中非常有用。</p>
+<p>3.http协议1.x一般情况下一个来回就关闭连接，虽然提供了keep-alive可以保持长连接，但是依然不方便，所以就出现了http2.0， http2.0基本上可以当做tcp协议使用了。所以grpc就会使用http2.0开发。</p>
+<h2 id="rest和restful"><a href="#rest和restful" class="headerlink" title="rest和restful"></a>rest和restful</h2><p>REST，英文全称Representational State Transfer（表述性状态转移），是一组架构约束条件和原则（注意，REST是设计风格而不是标准）。满足这些约束条件和原则的应用程序或设计就是RESTful。可以降低开发的复杂性，提高系统的可伸缩性。体现在Web开发中就是通过HTTP方法中的POST、DELETE、PUT、GET来对资源进行操作。</p>
+<p>一种软件架构风格，设计风格而不是标准，只是提供了一组设计原则和约束条件。它主要用于客户端和服务器交互类的软件。基于这个风格设计的软件可以更简洁，更有层次，更易于实现缓存等机制。</p>
+<p>在 REST 样式的 Web 服务中，每个资源都有一个地址。资源本身都是方法调用的目标，方法列表对所有资源都是一样的。这些方法都是标准方法，包括 HTTP GET、POST、PUT、DELETE，还可能包括 HEADER 和 OPTIONS。</p>
+<p>Representation（表现层）<br>资源的信息载体形式。它可以是文本、XML、JSON或者是一个二进制文件。它的表现形式应该在HTTP请求的头信息中用Accept和Content-Type字段指定描述。</p>
+<p>State Transfer（状态转移）<br>互联网通信协议HTTP协议，是一个无状态协议。这意味着，所有的状态都保存在服务器端。因此，如果客户端想要操作服务器，必须通过某种手段，让服务器端发生”状态转移”。</p>
+<p>在 HTTP 中，我们一般通过四种 HTTP 动词来对应资源的变化：<br>POST（新建资源，也可用于更新资源）<br>DELETE（删除资源）<br>PUT（更新资源）<br>GET（获取资源）</p>
+<p>REST架构原则：<br>对网络上所有资源都有一个资源标识符<br>对资源的操作不会改变标识符<br>同一资源有多种表现形式，如XML、JSON…<br>所有操作都是无状态的（Stateless）</p>
+<p>RESTful，是一种网络应用程序的设计风格和开发方式。RESTful可以通过一套统一的接口为Web，iOS和Android提供服务。比如微博开放平台，微信开放平台等，它们不需要有显式的前端，只需要一套提供服务的接口。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">在使用RESTful风格之前，我们通常是这样操作用户数据:</span><br><span class="line">//创建用户信息</span><br><span class="line">http://localhost:8080/user/createUser</span><br><span class="line">//删除id为1的用户信息</span><br><span class="line">http://localhost:8080/user/deleteUser/1</span><br><span class="line">//修改id为2的用户信息</span><br><span class="line">http://localhost:8080/user/updateUser/2</span><br><span class="line">//获取所有用户信息</span><br><span class="line">http://localhost:8080/user/getUsers</span><br><span class="line"></span><br><span class="line">使用RESTful风格之后:</span><br><span class="line">//创建用户信息</span><br><span class="line">POST http://localhost:8080/user</span><br><span class="line">//删除id为1的用户信息</span><br><span class="line">DELETE http://localhost:8080/user/1</span><br><span class="line">//修改id为2的用户信息</span><br><span class="line">PUT http://localhost:8080/user/2</span><br><span class="line">//获取所有用户信息</span><br><span class="line">GET http://localhost:8080/user获取所有用户信息</span><br><span class="line">通过约定不同的HTTP方法来实现不同的业务，有一个更加直观的了解。</span><br><span class="line">1、看URL就知道要操作什么</span><br><span class="line">2、看HTTP方法就知道要如何操作</span><br><span class="line">3、看HTTP状态码就知道返回结果如何</span><br></pre></td></tr></table></figure>
+
+<p>参考：<br>rest与restful：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44316527/article/details/106276655">https://blog.csdn.net/weixin_44316527/article/details/106276655</a></p>
+<hr>
+<p>rpc与restful：</p>
+<p>RPC（Remote Procedure Call Protocol）就是远程调用。最简单的想法，应该就是把HTTP协议当做RPC来用。比如我们把网址作为一个借口，传入的参数作为函数参数，response的数据作为返回信息。这其实就是一个调用。</p>
+<p>RESTful和RPC最大的区别应该就是面向对象了。<br>从设计上来看，RPC，所谓的远程过程调用 ，是面向方法的 ；<br>REST：所谓的 Representational state transfer ，是面向资源的；<br>除此之外，还有一种叫做 SOA，所谓的面向服务的架构，它是面向消息的。<br>很多人只知道GET和POST，因为现在最常用的就是GET和POST了。虽说这应该是违背了HTTP设计的初衷。</p>
+<p>序列化协议的区别：<br>接口调用通常包含两个部分，序列化和通信协议。<br>通信协议，上面已经提及了，REST 是 基于 HTTP 协议，而 RPC 可以基于 TCP/UDP，也可以基于 HTTP 协议进行传输的。<br>常见的序列化协议，有：json、xml、hession、protobuf、thrift、text、bytes等，REST 通常使用的是 JSON或者XML，而 RPC 使用的是 JSON-RPC，或者 XML-RPC。</p>
+<p>什么时候用？<br>REST 接口更加规范，通用适配性要求高，建议对外的接口都统一成 REST。而组件内部的各个模块，可以选择 RPC，一个是不用耗费太多精力去开发和维护多套的HTTP接口，一个RPC的调用性能更高。从性能角度看，由于HTTP本身提供了丰富的状态功能与扩展功能，但也正由于HTTP提供的功能过多，导致在网络传输时，需要携带的信息更多，从性能角度上讲，较为低效。而RPC服务网络传输上仅传输与业务内容相关的数据，传输数据更小，性能更高。</p>
+<p>转自：<br><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/53677">https://developer.aliyun.com/article/53677</a></p>
+<hr>
+<p>restful和http：</p>
+<p>REST 是一种软件架构风格。这种风格的典型应用，就是HTTP。其因为简单、扩展性强的特点而广受开发者的青睐。</p>
+<p>某种意义下，我们说 REST 可以其实就是指代 HTTP 协议。</p>
+<hr>
+<p>总结：rpc、http、rest</p>
+<p>rpc是一种协议还是，还是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的思想？更是后者<br>rpc包含：服务发现、负载、容器、网络传输、序列化等组件。<br>rpc指明了程序如何进行网络传输和序列化。</p>
+<p>关于rpc和http的比较：<br>rpc的网络传输是如何实现的，rpc是连接，http是短连接。<br>http是一种rpc（广义上），还是rpc可以基于http实现？<br>RPC可以基于TCP协议也可以基于HTTP协议。<br>HTTP需要携带的信息更多，低效，RPC仅传输与业务相关的数据，传输数据更小，性能更高</p>
+<p>关于rpc和restful的比较：<br>rpc面向方法，restful面向资源。<br>日常写的接口，更多基于rpc面向方法的，虽然有的是rpc接口，有的是http接口。</p>
 
     </div>
 
@@ -474,7 +530,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E9%A1%B5502"><span class="nav-number">1.</span> <span class="nav-text">网页502</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#504%E9%94%99%E8%AF%AF"><span class="nav-number">2.</span> <span class="nav-text">504错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx"><span class="nav-number">3.</span> <span class="nav-text">nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85nginx%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">3.1.</span> <span class="nav-text">✅nginx是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85%E4%BB%80%E4%B9%88%E6%98%AF%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%9F"><span class="nav-number">3.2.</span> <span class="nav-text">✅什么是代理服务器？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85%E4%BB%80%E4%B9%88%E6%98%AF%E6%AD%A3%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">3.3.</span> <span class="nav-text">✅什么是正反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85nginx%E4%B8%8Etomcat%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB"><span class="nav-number">3.4.</span> <span class="nav-text">✅nginx与tomcat什么关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-springboot%E5%86%85%E7%BD%AEtomcat-%E5%92%8C-tomcat"><span class="nav-number">3.5.</span> <span class="nav-text">✅ springboot内置tomcat 和 tomcat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85tomcat%E5%92%8Cspring-mvc"><span class="nav-number">3.6.</span> <span class="nav-text">✅tomcat和spring mvc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85nginx%E4%B8%8E%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90DNS%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB"><span class="nav-number">3.7.</span> <span class="nav-text">✅nginx与域名解析DNS什么关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85nginx%E4%B8%8ECDN%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91%E7%BD%91%E7%BB%9C%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB"><span class="nav-number">3.8.</span> <span class="nav-text">✅nginx与CDN内容分发网络什么关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85nginx%E4%B8%8ERPC%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="nav-number">3.9.</span> <span class="nav-text">✅nginx与RPC远程过程调用什么关系？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85%E4%B8%8Egateway%E6%9C%89%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="nav-number">3.10.</span> <span class="nav-text">✅与gateway有什么关系？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85nginx%E4%B8%8E%E7%BB%9F%E4%B8%80%E6%8E%A5%E5%85%A5%E6%9C%89%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="nav-number">3.11.</span> <span class="nav-text">✅nginx与统一接入有什么关系？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">nginx配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-number">4.1.</span> <span class="nav-text">nginx配置文件结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx%E8%B6%85%E6%97%B6%E9%85%8D%E7%BD%AE"><span class="nav-number">4.2.</span> <span class="nav-text">nginx超时配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PoolingHttpClientConnectionManager"><span class="nav-number">5.</span> <span class="nav-text">PoolingHttpClientConnectionManager</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E9%A1%B5502"><span class="nav-number">1.</span> <span class="nav-text">网页502</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#504%E9%94%99%E8%AF%AF"><span class="nav-number">2.</span> <span class="nav-text">504错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx"><span class="nav-number">3.</span> <span class="nav-text">nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85nginx%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">3.1.</span> <span class="nav-text">✅nginx是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85%E4%BB%80%E4%B9%88%E6%98%AF%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%9F"><span class="nav-number">3.2.</span> <span class="nav-text">✅什么是代理服务器？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85%E4%BB%80%E4%B9%88%E6%98%AF%E6%AD%A3%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">3.3.</span> <span class="nav-text">✅什么是正反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85nginx%E4%B8%8Etomcat%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB"><span class="nav-number">3.4.</span> <span class="nav-text">✅nginx与tomcat什么关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85-springboot%E5%86%85%E7%BD%AEtomcat-%E5%92%8C-tomcat"><span class="nav-number">3.5.</span> <span class="nav-text">✅ springboot内置tomcat 和 tomcat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85tomcat%E5%92%8Cspring-mvc"><span class="nav-number">3.6.</span> <span class="nav-text">✅tomcat和spring mvc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85nginx%E4%B8%8E%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90DNS%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB"><span class="nav-number">3.7.</span> <span class="nav-text">✅nginx与域名解析DNS什么关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85nginx%E4%B8%8ECDN%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91%E7%BD%91%E7%BB%9C%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB"><span class="nav-number">3.8.</span> <span class="nav-text">✅nginx与CDN内容分发网络什么关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85nginx%E4%B8%8ERPC%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="nav-number">3.9.</span> <span class="nav-text">✅nginx与RPC远程过程调用什么关系？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85%E4%B8%8Egateway%E6%9C%89%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="nav-number">3.10.</span> <span class="nav-text">✅与gateway有什么关系？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9C%85nginx%E4%B8%8E%E7%BB%9F%E4%B8%80%E6%8E%A5%E5%85%A5%E6%9C%89%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="nav-number">3.11.</span> <span class="nav-text">✅nginx与统一接入有什么关系？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">nginx配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-number">4.1.</span> <span class="nav-text">nginx配置文件结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx%E8%B6%85%E6%97%B6%E9%85%8D%E7%BD%AE"><span class="nav-number">4.2.</span> <span class="nav-text">nginx超时配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PoolingHttpClientConnectionManager"><span class="nav-number">5.</span> <span class="nav-text">PoolingHttpClientConnectionManager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rpc"><span class="nav-number">6.</span> <span class="nav-text">rpc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%A7%A3http%E5%92%8Crpc"><span class="nav-number">7.</span> <span class="nav-text">理解http和rpc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rest%E5%92%8Crestful"><span class="nav-number">8.</span> <span class="nav-text">rest和restful</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -489,7 +545,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-count">90</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

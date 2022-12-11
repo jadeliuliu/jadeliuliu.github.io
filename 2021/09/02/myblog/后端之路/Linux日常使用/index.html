@@ -28,7 +28,7 @@
 <meta property="og:description" content="给用户添加sudo权限–切换到拥有sudo权限的用户下，可以是su。 –输入命令”sudo vim &#x2F;etc&#x2F;sudoers”开始编辑&#x2F;etc&#x2F;sudoers文件。 –找到”root ALL&#x3D;(ALL:ALL) ALL”这一 行，在它下面添加”xxx ALL&#x3D;(ALL:ALL) ALL”(这里的xxx是你的用户名)，然后保存退出。因为是只读模式，输入”:wq!”强制保存并退出。 获得本机ip12i">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-09-02T12:26:37.000Z">
-<meta property="article:modified_time" content="2022-11-30T14:52:58.724Z">
+<meta property="article:modified_time" content="2022-12-10T08:45:08.505Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-11-30 22:52:58" itemprop="dateModified" datetime="2022-11-30T22:52:58+08:00">2022-11-30</time>
+                <time title="Modified: 2022-12-10 16:45:08" itemprop="dateModified" datetime="2022-12-10T16:45:08+08:00">2022-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -399,6 +399,22 @@
 <p>想排序输出：<code>|sort -k 2</code>  根据第二列排序,-r倒叙，-n根据数值<br>sort命令：<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-sort.html">https://www.runoob.com/linux/linux-comm-sort.html</a></p>
 <p>想只展示前多少行：<code>|head -10</code></p>
 <p>✅想把输出的文本保存到文件里<br><code>awk ... &gt; out.txt</code></p>
+<p>✅awk中字符串截取substr<br>每一行从第3个字符开始截取到末尾(包括第三个)：<br><code>awk &#39;&#123;print substr($0, 3)&#125;&#39; test.txt</code><br>每一行某列字符串的截取：从第3个开始截取10个<br><code>awk &#39;&#123;print substr($1, 3,10)&#125;&#39; test.txt</code></p>
+<p>✅awk中字符串替换<br><code>gsub(r,s) 在整个$0中用s替代r:</code><br>将文件中的所有逗号变没：<br><code>awk &#39;gsub(&quot;,&quot;, &quot;&quot;)&#123;print $0&#125;&#39; test.txt</code><br>注意gsub内部用双引号””<br>注意如果没逗号，啥都不输出<br><code>gsub(r,s,t) 在整个t中用s替代r:</code><br><code>awk &#39;gsub(&quot;1&quot;,&quot;2&quot;,$1)&#39; test.txt</code><br>仅输出被替换的行，如果没有被替换字符，不输出。</p>
+<p>✅awk列运算<br>求每一行中的最大值的列：<br><code>awk &#39;&#123;m=0;for(x=0;x&lt;=NF;x++)if($x&gt;m) &#123;m=$x&#125;;print m&#125;&#39; test.txt</code></p>
+<p>求第2列中最大的值(遍历行)：<br><code>awk &#39;BEGIN&#123;max=0&#125;&#123;if($3&gt;max)max=$3&#125;END&#123;print &quot;Max =&quot;,max&#125;&#39; test.txt</code></p>
+<p>求第2列所有行的和：<br><code>awk &#39;&#123;sum+=$2&#125;END&#123;print &quot;Sum =&quot;,sum&#125;&#39; test.txt</code></p>
+<p>对第2列求平均值：<br><code>awk &#39;&#123;sum+=$2&#125;END&#123;print &quot;Avg =&quot;,sum/NR&#125;&#39; test.txt</code></p>
+<p>对每一行的前5列求平均值：<br><code>awk &#39;&#123;sum=0;for(i=1;i&lt;=5;i++)&#123;sum+=$i&#125;&#123;print sum/5&#125;&#125;&#39; test.txt</code><br><code>awk &#39;&#123;sum=0;for(i=1;i&lt;=5;i++)&#123;sum+=$i&#125;;print sum/5&#125;&#39; test.txt</code><br>可以用{}分割语句，也可以用;分割</p>
+<p>✅awk输出/删除指定列<br>输出每行的前5列，并按行输出：<br><code>awk &#39;&#123;for(i=1;i&lt;6;i++)printf(&quot;%s &quot;,$i);printf(&quot;\n&quot;)&#125;&#39; test.txt</code><br>用print的话带自动换行，但是不要加%s占位符<br>都输出到一行：<br><code>awk &#39;&#123;for(i=1;i&lt;6;i++)printf(&quot;%s &quot;,$i)&#125;&#39; test.txt</code></p>
+<p>每行输出多列，并修改分隔符：<br><code>awk &#39;&#123;for(i=2;i&lt;=NF;i++)printf(&quot;%s\t&quot;,$i);printf(&quot;\n&quot;)&#125;&#39; test.txt</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">awk &#x27;&#123;print $1&#125;&#x27; 本来每行输出一个，print会自动换行</span><br><span class="line">如果没行输出多个，for遍历是针对单行的，最大列NF，不换行用printf</span><br></pre></td></tr></table></figure>
+
+<p>删除最后一列：<br><code>awk &#39;&#123;$NF=&quot;&quot;;print&#125;&#39; test.txt</code><br>删除第三列:<br><code>awk &#39;&#123;$3=&quot;&quot;;print&#125;&#39; test.txt</code></p>
+<p>每三行合并成一列：<br><code>awk &#39;&#123;if(NR%3 != 0)&#123;ORS=&quot; &quot;&#125;else&#123;ORS=&quot;\n&quot;&#125;print&#125;&#39; test.txt</code></p>
+<p>✅awk基本操作符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$0             表示整个当前行</span><br><span class="line">$1             每行第一个字段</span><br><span class="line">NF            字段数量变量</span><br><span class="line">NR            每行的记录号，多文件记录递增</span><br><span class="line">FNR          与NR类似，不过多文件记录不递增，每个文件都从1开始</span><br><span class="line">\t                制表符</span><br><span class="line">\n               换行符</span><br><span class="line">FS             BEGIN时定义分隔符</span><br><span class="line">RS             输入的记录分隔符， 默认为换行符(即文本是按一行一行输入)</span><br><span class="line">~                匹配，与==相比不是精确比较</span><br><span class="line">!~               不匹配，不精确比较</span><br><span class="line">==              等于，必须全部相等，精确比较</span><br><span class="line">!=               不等于，精确比较</span><br><span class="line">&amp;&amp;　          逻辑与</span><br><span class="line">||                逻辑或</span><br><span class="line">+                匹配时表示1个或1个以上</span><br><span class="line">/[0-9][0-9]+/      两个或两个以上数字</span><br><span class="line">/[0-9][0-9]*/       一个或一个以上数字</span><br><span class="line">OFS            输出字段分隔符， 默认是空格，可以改为制表符等</span><br><span class="line">ORS           输出的记录分隔符，默认是换行符，即一行一行输出到屏幕</span><br><span class="line">-F  &#x27;[:#/]&#x27;      定义三个分隔符，[ ]内可以放置多个分隔符</span><br><span class="line"></span><br><span class="line">链接：https://www.jianshu.com/p/e3fa91a8d9f2</span><br></pre></td></tr></table></figure>
+
 <h2 id="看磁盘空间"><a href="#看磁盘空间" class="headerlink" title="看磁盘空间"></a>看磁盘空间</h2><p><code>df -h</code><br>看文件的大小：<br>直接ll，显示的是文件的字节大小，想用M、G单位来表示文件的大小：用<code>ll -h</code></p>
 <p>✅想清理日志<br>清理日志，rm worker.log 清不干净。</p>
 <p>1、通过重定向到空来清空文件内容<br>shell重定向null<br><code>&gt; access.log</code></p>
@@ -504,7 +520,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-count">90</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

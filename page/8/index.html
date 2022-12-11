@@ -183,6 +183,101 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/25/myblog/JAVA/MAC%E4%B8%8B%E5%AE%89%E8%A3%85java%E7%8E%AF%E5%A2%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/25/myblog/JAVA/MAC%E4%B8%8B%E5%AE%89%E8%A3%85java%E7%8E%AF%E5%A2%83/" class="post-title-link" itemprop="url">mac安装和配置java环境</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-25 16:47:53" itemprop="dateCreated datePublished" datetime="2021-08-25T16:47:53+08:00">2021-08-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-25 22:03:14" itemprop="dateModified" datetime="2021-09-25T22:03:14+08:00">2021-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="MAC下java环境安装"><a href="#MAC下java环境安装" class="headerlink" title="MAC下java环境安装"></a>MAC下java环境安装</h1><h2 id="1-下载jdk8并且安装"><a href="#1-下载jdk8并且安装" class="headerlink" title="1.下载jdk8并且安装"></a>1.下载jdk8并且安装</h2><p><code>java -version</code>看一下有没有安装</p>
+<p>若没有，<a target="_blank" rel="noopener" href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></p>
+<h2 id="2-配置java环境"><a href="#2-配置java环境" class="headerlink" title="2.配置java环境"></a>2.配置java环境</h2><p>我们如果要在terminal终端上使JAVA命令，还有让其实应用知道JDK1.8环境的存在，那我们还需要配置系统的环境变量。</p>
+<p>访达中，打开资源库，打开java，下面有jdk目录。</p>
+<p><code>/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home</code>  右键打开终端</p>
+<p>终端运行：<code>sudo vim/etc/profile</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=&quot;/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home&quot;</span><br><span class="line">export JAVA_HOME</span><br><span class="line">CLASS_PATH=&quot;$JAVA_HOME/lib&quot;</span><br><span class="line">PATH=&quot;.$PATH:$JAVA_HOME/bin&quot;</span><br></pre></td></tr></table></figure>
+
+<p><code>source /etc/profile  //使配置生效</code></p>
+<p><code>echo $JAVA_HOME //得到配置的路径，说明配置成功</code></p>
+<h2 id="3-vim一个java程序"><a href="#3-vim一个java程序" class="headerlink" title="3.vim一个java程序"></a>3.vim一个java程序</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">文件名需要跟java文件中的类名一致！</span><br><span class="line">public class helloworld &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(&quot;Hello World&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">javac helloworld.java   //生成.class字节码文件</span><br><span class="line">java helloworld    //运行</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-java-IDE"><a href="#4-java-IDE" class="headerlink" title="4.java IDE"></a>4.java IDE</h3><p>官网下载：<a target="_blank" rel="noopener" href="https://www.jetbrains.com/">https://www.jetbrains.com/</a></p>
+<p>下载破解包，保存在百度云中了。</p>
+<p>安装IDEA，在注册页面，选择 Evaluate for free，点击 Evaluate 试用软件</p>
+<p>将下载的破解文件夹中的 jetbrains-agent.jar 文件拖动到软件内，然后点击 Restart 重启软件</p>
+<p>重启完成之后，如果弹出了激活方式，选择 Activation code，没有弹出则不用管，复制破解文件中的 Activation code，然后选择激活，重启软件</p>
+<p>重启软件，在 Get Help 中点击 About ，可以查看激活情况</p>
+<p><strong>不得行</strong></p>
+<p>更新：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bbc7cd207a85">https://www.jianshu.com/p/bbc7cd207a85</a></p>
+<h3 id="5-用idea的第一个java程序"><a href="#5-用idea的第一个java程序" class="headerlink" title="5.用idea的第一个java程序"></a>5.用idea的第一个java程序</h3><p>![image-20210823173916506](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210823173916506.png)</p>
+<p>右键运行。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/25/myblog/JAVA/MAC%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AEMaven/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1229,180 +1324,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-HTML/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/19/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-HTML/" class="post-title-link" itemprop="url">前端基础-html层叠样式表</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-19 19:52:32" itemprop="dateCreated datePublished" datetime="2021-08-19T19:52:32+08:00">2021-08-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 22:14:54" itemprop="dateModified" datetime="2021-09-25T22:14:54+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><p>HTML 是一种在 Web 上使用的通用标记语言。HTML 允许你格式化文本，添加图片，创建链接、输入表单、框架和表格等等，并可将之存为文本文件，浏览器即可读取和显示。</p>
-<p>HTML 的关键是标签，其作用是指示将出现的内容。</p>
-<p>页面F12看代码</p>
-<!--         -->是注释语句。
-
-<p>&lt;!     &gt;这不是，<!DOCTYPE HTML>这是放在第一行的声明，指示 web 浏览器关于页面使用哪个 HTML 版本进行编写的指令。</p>
-<p>对于中文网页需要使用 <meta charset="utf-8"> 声明编码，否则会出现乱码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;  //声明版本</span><br><span class="line">&lt;html&gt;     //根元素</span><br><span class="line">&lt;head&gt;    //包含文档元数据</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;    </span><br><span class="line">&lt;title&gt;标题&lt;/title&gt;  //文档标题</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;    //可见的页面部分</span><br><span class="line">&lt;h1&gt;我的第一个标题&lt;/h1&gt;    //h1 -- h6</span><br><span class="line">&lt;hr&gt;       //一条水平线</span><br><span class="line">&lt;p&gt;我的第一个段落。&lt;/p&gt;</span><br><span class="line">&lt;a href=&quot;https://www.runoob.com&quot;&gt;这是一个链接&lt;/a&gt;   </span><br><span class="line">//&lt;a是标签   href是属性</span><br><span class="line">&lt;img loading=&quot;lazy&quot; src=&quot;/images/logo.png&quot; width=&quot;258&quot; height=&quot;39&quot; /&gt;</span><br><span class="line">&lt;b&gt;加粗文本&lt;/b&gt;</span><br><span class="line">&lt;i&gt;斜体文本&lt;/i&gt;</span><br><span class="line">&lt;sub&gt; 下标&lt;/sub&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="（1）元素-amp-标签"><a href="#（1）元素-amp-标签" class="headerlink" title="（1）元素 &amp; 标签"></a>（1）元素 &amp; 标签</h3><ul>
-<li>HTML 元素以<strong>开始标签</strong>起始</li>
-<li>HTML 元素以<strong>结束标签</strong>终止</li>
-<li><strong>元素的内容</strong>是开始标签与结束标签之间的内容</li>
-<li>大多数 HTML 元素可拥有<strong>属性</strong></li>
-<li>HTML 标签对大小写不敏感：<P> 等同于 <p></p></P></li>
-</ul>
-<h3 id="（2）属性"><a href="#（2）属性" class="headerlink" title="（2）属性"></a>（2）属性</h3><ul>
-<li>HTML 元素可以设置<strong>属性</strong></li>
-<li>属性可以在元素中添加<strong>附加信息</strong></li>
-<li>属性一般描述于<strong>开始标签</strong> &lt;&gt;里面</li>
-<li>属性总是以名称/值对的形式出现，**比如：name=”value”**。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="left">属性</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">class</td>
-<td align="left">为html元素定义一个或多个类名（classname）(类名从样式文件引入)</td>
-</tr>
-<tr>
-<td align="left">id</td>
-<td align="left">定义元素的唯一id</td>
-</tr>
-<tr>
-<td align="left">style</td>
-<td align="left">规定元素的行内样式（inline style）</td>
-</tr>
-<tr>
-<td align="left">title</td>
-<td align="left">描述了元素的额外信息 (作为工具条使用)</td>
-</tr>
-</tbody></table>
-<h3 id="（3）可添加在头部的标签"><a href="#（3）可添加在头部的标签" class="headerlink" title="（3）可添加在头部的标签"></a>（3）可添加在头部<head>的标签</head></h3><head> 元素包含了所有的头部标签元素。在 <head>元素中你可以插入脚本（scripts）, 样式文件（CSS），及各种meta信息。
-
-<p>可以添加在头部区域的元素标签为:<code> &lt;title&gt;, &lt;style&gt;, &lt;meta&gt;, &lt;link&gt;, &lt;script&gt;, &lt;noscript&gt; 和 &lt;base&gt;</code>。</p>
-<table>
-<thead>
-<tr>
-<th align="center">标签</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>&lt;title&gt;</code></td>
-<td align="center">搜索引擎以及收藏夹中的标题</td>
-</tr>
-<tr>
-<td align="center"><code>&lt;base&gt;</code></td>
-<td align="center">定义了页面链接标签的默认链接地址</td>
-</tr>
-<tr>
-<td align="center"><code>&lt;link&gt;</code></td>
-<td align="center">文档和外部资源之间的关系</td>
-</tr>
-<tr>
-<td align="center"><code>&lt;style&gt;</code></td>
-<td align="center">定义了HTML文档的样式文件</td>
-</tr>
-<tr>
-<td align="center"><code>&lt;meta&gt;</code></td>
-<td align="center">定义了文档的元数据</td>
-</tr>
-<tr>
-<td align="center"><code>&lt;script&gt;</code></td>
-<td align="center">定义了客户端的脚本文件</td>
-</tr>
-</tbody></table>
-<h3 id="（4）CSS"><a href="#（4）CSS" class="headerlink" title="（4）CSS"></a>（4）CSS</h3><p>CSS (Cascading Style Sheets) 用于渲染HTML元素标签的样式。使用方法：</p>
-<ul>
-<li>内联样式- 在HTML元素中使用”style” <strong>属性</strong></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;body style=&quot;background-color:yellow;&quot;&gt;</span><br><span class="line">&lt;h2 style=&quot;background-color:red;&quot;&gt;这是一个标题&lt;/h2&gt;</span><br><span class="line">&lt;p style=&quot;background-color:green;&quot;&gt;这是一个段落。&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>内部样式表 -在HTML文档头部 <code>&lt;head&gt;</code> 区域使用<code>&lt;style&gt; </code><strong>标签</strong> 来包含CSS</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt; </span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt; </span><br><span class="line">&lt;title&gt;标题&lt;/title&gt; </span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">body &#123;background-color:yellow;&#125;</span><br><span class="line">p &#123;color:blue;&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h2&gt;这是一个标题&lt;/h2&gt;</span><br><span class="line">&lt;p&gt;这是一个段落。&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>外部引用 - 使用外部 CSS <strong>文件</strong>（适合一个样式应用与多个页面）</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;mystyle.css&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="（5）script脚本"><a href="#（5）script脚本" class="headerlink" title="（5）script脚本"></a>（5）script脚本</h3><p>JavaScript 使 HTML 页面具有更强的动态和交互性。</p>
-<ul>
-<li>使用<code>&lt;script&gt;</code>标签，可以在<code>&lt;head&gt;</code>也可以在<code>&lt;body&gt;</code></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">document.write(&quot;Hello World!&quot;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></head></head>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1473,7 +1394,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-count">90</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -183,6 +183,150 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/19/myblog/JAVA/java%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/19/myblog/JAVA/java%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3/" class="post-title-link" itemprop="url">java实现自定义注解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-19 10:22:13" itemprop="dateCreated datePublished" datetime="2022-03-19T10:22:13+08:00">2022-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-09 22:43:27" itemprop="dateModified" datetime="2022-04-09T22:43:27+08:00">2022-04-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="关于注解"><a href="#关于注解" class="headerlink" title="关于注解"></a>关于注解</h3><p>Annotation，注解是Java SE 5.0版本开始引入的概念，它是对java源代码的说明，是一种元数据（描述数据的数据）。</p>
+<ul>
+<li>注释<br>   注释是对代码的说明，给代码的读者看，便于帮读者梳理业务逻辑；</li>
+<li>注解<br>  注解也是对代码的说明，需要配合工具（解析它的代码）使用，参与代码的编译，给应用程序看的。</li>
+</ul>
+<p>注解的渊源：</p>
+<p>在频繁使用注解之前，是用xml 来作为元数据使用，在最开始使用ssm(Spring,SpringMVC,Mybatis)框架时，bean与bean之间的依赖关系是通过xml文件来配置，这个xml文件和源代码分散，当微服务、分布式注解流行，系统越来越大，需要越来越多的xml文件来配置管理，文件配置冗长，而且类型不安全（运行期才会发现错误）,此时就需要一种比较简单直观而且类型安全的配置方式，注解就应运而生了，按照Springboot“约定大于配置”的方式，通过注解来约定其含义，更是减少了xml配置文件的数量。<br>     对于一些经常变动或者配置复杂的配置，使用xml文件来说是比较合适的，所以现在经常是注解和xml方式共存。<br>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zt15732625878/article/details/99671586">https://blog.csdn.net/zt15732625878/article/details/99671586</a></p>
+<p>————————————————</p>
+<h3 id="注解分类"><a href="#注解分类" class="headerlink" title="注解分类"></a>注解分类</h3><p>按照来源划分，可以分为 JDK的注解，第三方的注解，自定义注解。</p>
+<p>JDK注解</p>
+<p>Java 内置三大注解<br>@Override （标记重写方法）<br>@Deprecated （标记过时）<br>@SuppressWarnings （忽略警告）</p>
+<p>元注解 (注解的注解)<br>@Target （注解的作用目标）<br>@Retention （注解的生命周期）<br>@Document （注解是否被包含在JavaDoc中）<br>@Inherited （是否允许子类集成该注解）</p>
+<p>第三方注解（主要来源于各种框架）<br>Spring注解<br>@RequestMapping,@RestController,@Configuration,@Value,@Controller,@Service,@Repository,@Component等<br>SpringBoot注解<br>@SpringBootApplication,@EnableAutoConfiguration等<br>JPA注解<br>@Table,@Entity,@Column,@Id等<br>……</p>
+<p>自定义注解<br>使用元注解自己定义的注解</p>
+<h3 id="注解的定义"><a href="#注解的定义" class="headerlink" title="注解的定义"></a>注解的定义</h3><p>1&gt;.每一个方法实际上是声明了一个配置参数,<br>2&gt;.方法的名称就是参数的名称,<br>3&gt;.返回值类型就是参数的类型,(返回值类型只能是基本类型、Class、String、enum)<br>4&gt;.可以通过default来声明参数的默认值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">修饰符 <span class="meta">@interface</span> 注解名 &#123;</span><br><span class="line">    注解元素的声明<span class="number">1</span> </span><br><span class="line">    注解元素的声明<span class="number">2</span></span><br><span class="line">    <span class="function">type <span class="title">elementName</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">type <span class="title">elementName</span><span class="params">()</span> <span class="keyword">default</span> value</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@Service的定义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ElementType.TYPE 代表在类上使用</span></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="comment">// RetentionPolicy.RUNTIME 代表运行时使用，可以通过反射获取到</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="comment">//包含在JavaDoc中</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="comment">//允许通过包扫描的方式自动检测</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Service &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * The value may indicate a suggestion for a logical component name,</span></span><br><span class="line"><span class="comment">	 * to be turned into a Spring bean in case of an autodetected component.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the suggested component name, if any (or empty String otherwise)</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@AliasFor(annotation = Component.class)</span></span><br><span class="line">	<span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Annotation：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Annotation</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>所有注解</strong>，<strong>默认是一个实现了Annotation接口的接口。</strong></p>
+<h3 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a>自定义注解</h3><p>注解是一种能被添加到java源代码中的元数据，可以看作是一种特殊的标记，可以用在方法、类、参数和包上，程序在编译或者运行时可以检测到这些标记而进行一些特殊的处理。</p>
+<p>注解的基本元素：</p>
+<ul>
+<li>修饰符<br> 访问修饰符必须为public,不写默认为pubic；</li>
+<li>关键字<br> 关键字为@interface；</li>
+<li>注解名称<br> 注解名称为自定义注解的名称，使用时还会用到；</li>
+<li>注解类型元素<br> 注解类型元素是注解中内容，可以理解成自定义接口的实现部分；</li>
+</ul>
+<p>使用元注解修饰注解：</p>
+<p>@Target，@Retention,@Document,@Inherited用来修饰注解。</p>
+<p><strong>@Target</strong><br> 表明该注解可以应用的java元素类型。<br>ElementType.TYPE    应用于类、接口（包括注解类型）、枚举<br>ElementType.FIELD    应用于属性（包括枚举中的常量）<br>ElementType.METHOD    应用于方法<br>ElementType.PARAMETER    应用于方法的形参<br>ElementType.CONSTRUCTOR    应用于构造函数<br>ElementType.LOCAL_VARIABLE    应用于局部变量<br>ElementType.ANNOTATION_TYPE    应用于注解类型<br>ElementType.PACKAGE    应用于包<br>ElementType.TYPE_PARAMETER    1.8版本新增，应用于类型变量<br>ElementType.TYPE_USE    1.8版本新增，应用于任何使用类型的语句中（例如声明语句、泛型和强制转换语句中的类型）</p>
+<p>@Retention<br>  表明该注解的生命周期<br>RetentionPolicy.SOURCE    编译时被丢弃，不包含在类文件中<br>RetentionPolicy.CLASS    JVM加载时被丢弃，包含在类文件中，默认值<br>RetentionPolicy.RUNTIME    由JVM 加载，包含在类文件中，在运行时可以被获取到</p>
+<p>@Document<br>  表明该注解标记的元素可以被Javadoc 或类似的工具文档化</p>
+<p>@Inherited<br>  表明使用了@Inherited注解的注解，所标记的类的子类也会拥有这个注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.FIELD, ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Info &#123;</span><br><span class="line">      <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;tracy&quot;</span>;</span><br><span class="line">      <span class="function"><span class="keyword">boolean</span> <span class="title">isDelete</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用自定义注解"><a href="#使用自定义注解" class="headerlink" title="使用自定义注解"></a>使用自定义注解</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Builder</span></span><br><span class="line"><span class="comment">// 为Person类配置了刚刚定义的注解@Info</span></span><br><span class="line"><span class="meta">@Info(isDelete = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用反射解析注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnnotationTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//获取Person的Class对象(类)</span></span><br><span class="line">            Person person = Person.builder().build();</span><br><span class="line">            Class clazz = person.getClass();</span><br><span class="line">            <span class="comment">//判断类上是否有Info注解</span></span><br><span class="line">            <span class="keyword">if</span> (clazz.isAnnotationPresent(Info.class)) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;Person类上配置了Info注解！&quot;</span>);</span><br><span class="line">                <span class="comment">//获取该对象上Info类型的注解</span></span><br><span class="line">                Info infoAnno = (Info) clazz.getAnnotation(Info.class);</span><br><span class="line">                System.out.println(<span class="string">&quot;infoAnno.value :&quot;</span> + infoAnno.value() + <span class="string">&quot;,infoAnno.isDelete:&quot;</span> + infoAnno.isDelete());</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;Person类上没有配置Info注解！&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于一个类或者接口来说，Class类(java.lang包下)中提供了一些方法用于反射注解，当然对于字段、方法来说反射注解的方式很类似。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回指定的注解</span></span><br><span class="line">getAnnotation</span><br><span class="line"><span class="comment">//判断当前元素是否被指定注解修饰</span></span><br><span class="line">isAnnotationPresent</span><br><span class="line"><span class="comment">//返回所有的注解</span></span><br><span class="line">getAnnotations</span><br></pre></td></tr></table></figure>
+
+<p>————————————————</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zt15732625878/article/details/100061528">https://blog.csdn.net/zt15732625878/article/details/100061528</a></p>
+<p>————————————————</p>
+<h3 id="使用自定义注解例子2"><a href="#使用自定义注解例子2" class="headerlink" title="使用自定义注解例子2"></a>使用自定义注解例子2</h3><p>&lt;1&gt;.作用在属性上注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.FIELD)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> FiledAnnotation &#123;</span><br><span class="line">	 <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;GetFiledAnnotation&quot;</span>;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&lt;2&gt;.作用在方法上注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.METHOD)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MethodAnnotation &#123;</span><br><span class="line">	<span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> &quot;MethodAnnotation&quot;</span>;   </span><br><span class="line">    <span class="function">String <span class="title">url</span><span class="params">()</span> <span class="keyword">default</span> &quot;https:<span class="comment">//www.cnblogs.com&quot;;</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>&lt;3&gt;.作用在类上注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> TypeAnnotation &#123;</span><br><span class="line">	<span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;Is-TypeAnnotation&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&lt;4&gt;.使用自定义注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@TypeAnnotation(value = &quot;doWork&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Worker</span> </span>&#123;</span><br><span class="line"><span class="meta">@FiledAnnotation(value = &quot;CSDN博客&quot;)</span></span><br><span class="line"><span class="keyword">private</span> String myfield = <span class="string">&quot;&quot;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@MethodAnnotation()</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getDefaultInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;do the getDefaultInfo method&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@MethodAnnotation(name = &quot;百度&quot;, url = &quot;www.baidu.com&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getDefineInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;do the getDefineInfo method&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&lt;5&gt;.测试自定义注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestMain</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	</span><br><span class="line">    Class cls = Class.forName(<span class="string">&quot;com.zbz.annotation.pattern3.Worker&quot;</span>);</span><br><span class="line">    Method[] method = cls.getMethods();</span><br><span class="line">    <span class="comment">/**判断Worker类上是否有TypeAnnotation注解*/</span></span><br><span class="line">    <span class="keyword">boolean</span> flag = cls.isAnnotationPresent(TypeAnnotation.class);</span><br><span class="line">    <span class="comment">/**获取Worker类上是TypeAnnotation注解值*/</span></span><br><span class="line">    <span class="keyword">if</span> (flag) &#123;</span><br><span class="line">    	TypeAnnotation typeAnno = (TypeAnnotation) cls.getAnnotation(TypeAnnotation.class);</span><br><span class="line">    	System.out.println(<span class="string">&quot;@TypeAnnotation值:&quot;</span> + typeAnno.value());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**方法上注解*/</span></span><br><span class="line">    List&lt;Method&gt; list = <span class="keyword">new</span> ArrayList&lt;Method&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; method.length; i++) &#123;</span><br><span class="line">        list.add(method[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (Method m : list) &#123;</span><br><span class="line">    	MethodAnnotation methodAnno = m.getAnnotation(MethodAnnotation.class);</span><br><span class="line">        <span class="keyword">if</span> (methodAnno == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        System.out.println( <span class="string">&quot;方法名称:&quot;</span> + m.getName());</span><br><span class="line">        System.out.println(<span class="string">&quot;方法上注解name = &quot;</span> + methodAnno.name());</span><br><span class="line">        System.out.println(<span class="string">&quot;方法上注解url = &quot;</span> + methodAnno.url());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**属性上注解*/</span></span><br><span class="line">    List&lt;Field&gt; fieldList = <span class="keyword">new</span> ArrayList&lt;Field&gt;();  <span class="comment">//Field表示属性</span></span><br><span class="line">    <span class="keyword">for</span> (Field f : cls.getDeclaredFields()) &#123;<span class="comment">// 访问所有字段</span></span><br><span class="line">    	FiledAnnotation filedAno = f.getAnnotation(FiledAnnotation.class);</span><br><span class="line">    	System.out.println( <span class="string">&quot;属性名称:&quot;</span> + f.getName());</span><br><span class="line">    	System.out.println(<span class="string">&quot;属性注解值FiledAnnotation = &quot;</span> + filedAno.value());</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangbeizhen18/article/details/87885441/">https://blog.csdn.net/zhangbeizhen18/article/details/87885441/</a></p>
+<p>————————————————</p>
+<h3 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h3><p>自定义注解像是为类或者什么的新增加了属性，可以有默认值，通过类可以获得类上的自定义注解，然后通过注解获得注解中的值。注解不是属于对象的。定义在属性上的，可以用属性注解来区别这些属性，相当于属性名的别名。</p>
+<h3 id="其他参考"><a href="#其他参考" class="headerlink" title="其他参考"></a>其他参考</h3><p>自定义注解+AOP：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/283936459">https://zhuanlan.zhihu.com/p/283936459</a></p>
+<p>使用方法上的注解，实现通过注解来唤醒一个类里方法的效果：</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b5b79434d3b5">https://www.jianshu.com/p/b5b79434d3b5</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/12/myblog/JAVA/Mybatis%E5%85%A5%E9%97%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2101,82 +2245,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/05/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2022.1.5.Excel%E8%A1%A8%E5%88%97%E5%90%8D%E7%A7%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/05/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2022.1.5.Excel%E8%A1%A8%E5%88%97%E5%90%8D%E7%A7%B0/" class="post-title-link" itemprop="url">javaのleecode Excel表列名称</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-01-05 13:25:49 / Modified: 14:46:40" itemprop="dateCreated datePublished" datetime="2022-01-05T13:25:49+08:00">2022-01-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">给你一个整数 columnNumber ，返回它在 Excel 表中相对应的列名称。</span><br><span class="line">A -&gt; <span class="number">1</span></span><br><span class="line">B -&gt; <span class="number">2</span></span><br><span class="line">C -&gt; <span class="number">3</span></span><br><span class="line">...</span><br><span class="line">Z -&gt; <span class="number">26</span></span><br><span class="line">AA -&gt; <span class="number">27</span></span><br><span class="line">AB -&gt; <span class="number">28</span> </span><br></pre></td></tr></table></figure>
-
-<p>首先要输入一个int，输出一个string，应该涉及到大写字母到小写字母的转换，以及字母到ASCII码的转换。</p>
-<p>相当于26进制的转换，10进制变26进制，再转变为字母。</p>
-<blockquote>
-<p>A的ASCII码是65，a的ASCII码是97，ASCII码表中，小写字母排在大写字母的后面，一个字母的大小写数值相差32，一般知道大写字母的ASCII码数值，其对应的小写字母的ASCII码数值就算出来了，是大写字母的ASCII码数值+32。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> leecode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@program</span>: leeco</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: Excel表列名称</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: liuxuan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2022-01-05 14:08</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">excelTable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;输入一个数字：&quot;</span>);</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span> num = sc.nextInt();</span><br><span class="line">        excelTableSolution s = <span class="keyword">new</span> excelTableSolution();</span><br><span class="line">        System.out.println(s.convertToTitle(num));</span><br><span class="line">        System.out.println(s.convertToTitle1(num));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">excelTableSolution</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">convertToTitle</span><span class="params">(<span class="keyword">int</span> columnNumber)</span> </span>&#123;</span><br><span class="line">        String res = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">while</span>(columnNumber &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> pre = (columnNumber-<span class="number">1</span>) % <span class="number">26</span> +<span class="number">1</span>;  <span class="comment">//26除余是0，这样变为26</span></span><br><span class="line">            res += (<span class="keyword">char</span>) (pre - <span class="number">1</span> + <span class="string">&#x27;A&#x27;</span>);</span><br><span class="line">            columnNumber = (columnNumber - pre) / <span class="number">26</span>; <span class="comment">//注意！</span></span><br><span class="line">        &#125;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder(res);</span><br><span class="line">        <span class="keyword">return</span> sb.reverse().toString();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//或者，直接用StringBuilder类</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">convertToTitle1</span><span class="params">(<span class="keyword">int</span> columnNumber)</span> </span>&#123;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">while</span>(columnNumber &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> pre = (columnNumber-<span class="number">1</span>) % <span class="number">26</span> +<span class="number">1</span>;  <span class="comment">//26除余是0，这样变为26</span></span><br><span class="line">            sb.append((<span class="keyword">char</span>) (pre - <span class="number">1</span> + <span class="string">&#x27;A&#x27;</span>));</span><br><span class="line">            columnNumber = (columnNumber - pre) / <span class="number">26</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.reverse().toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2247,7 +2315,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-count">90</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
