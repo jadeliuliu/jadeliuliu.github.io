@@ -1918,7 +1918,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-12-18 21:44:08" itemprop="dateModified" datetime="2022-12-18T21:44:08+08:00">2022-12-18</time>
+                <time title="Modified: 2022-12-21 21:53:16" itemprop="dateModified" datetime="2022-12-21T21:53:16+08:00">2022-12-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2234,6 +2234,20 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">通过已有的模型去预测房价</span><br><span class="line">model = joblib.load(&quot;test.pkl&quot;)</span><br><span class="line">print(&quot;从文件加载进来的模型预测房价的结果：&quot;, std_y.inverse_transform(model.predict(x_test)))</span><br></pre></td></tr></table></figure>
 
 
+<h4 id="4-6-无监督学习-K-means"><a href="#4-6-无监督学习-K-means" class="headerlink" title="4.6 无监督学习 K-means"></a>4.6 无监督学习 K-means</h4><p>没有目标值 - 无监督学习</p>
+<p>聚类：K-means(K均值聚类)<br>降维：PCA</p>
+<p>K-means聚类步骤：<br>1、随机设置K个特征空间内的点作为初始的聚类中心<br>2、对于其他每个点计算到K个中心的距离，未知的点选择最近的一个聚类中心点作为标记类别<br>3、接着对着标记的聚类中心之后，重新计算出每个聚类的新中心点（平均值）<br>4、如果计算得出的新中心点与原中心点一样，那么结束，否则重新进行第二步过程</p>
+<p>K-超参数<br>1）看需求，要分为多少堆<br>2）调节超参数</p>
+<p>api：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sklearn.cluster.KMeans(n_clusters=8,init=‘k-means++’)</span><br><span class="line">k-means聚类</span><br><span class="line">n_clusters:开始的聚类中心数量，k值</span><br><span class="line">init:初始化方法，默认为&#x27;k-means ++’</span><br><span class="line">labels_:默认标记的类型，可以和真实值比较（不是值比较）</span><br><span class="line"></span><br><span class="line">cust = data[:500]</span><br><span class="line">km = KMeans(n_clusters=4)</span><br><span class="line">km.fit(cust)</span><br><span class="line">pre = km.predict(cust)</span><br></pre></td></tr></table></figure>
+
+<p>Kmeans性能评估指标：<br>轮廓系数，类似设计模式中的高内聚低耦合。<br>内部距离最小化，外部距离最大化。<br><code>SCi = (bi - ai)/max(bi,ai)</code><br>对于每个点i 为已聚类数据中的样本 ，b_i 为i 到其它族群的所有样本的距离最小值，a_i 为i 到本身簇的距离平均值。最终计算出所有的样本点的轮廓系数平均值</p>
+<p>如果b_i&gt;&gt;a_i:趋近于1效果越好， b_i&lt;&lt;a_i:趋近于-1，效果不好。轮廓系数的值是介于 [-1,1] ，越趋近于1代表内聚度和分离度都相对较优。</p>
+<p>轮廓系数api：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sklearn.metrics.silhouette_score(X, labels)</span><br><span class="line">计算所有样本的平均轮廓系数</span><br><span class="line">X：特征值</span><br><span class="line">labels：被聚类标记的目标值</span><br></pre></td></tr></table></figure>
+
+<p>K-means优缺点：<br>特点分析：采用迭代式算法，直观易懂并且非常实用<br>缺点：容易收敛到局部最优解(多次聚类)<br>应用场景：没有目标值的分类，做在分类之前。</p>
+<h4 id="4-7-总结"><a href="#4-7-总结" class="headerlink" title="4.7 总结"></a>4.7 总结</h4><p>1.线性回归 - 线性模型 - 线性关系：y=w1x1+w2x2+…+wnxn+b。构建损失函数-最小二乘法/均方误差。优化损失：正规方程（矩阵相乘直接求解），梯度下降（不断试错，不断迭代）。模型评估：均方误差。<br>2.过拟合和欠拟合，过拟合：模型过于复杂 - 正则化（用L2）。欠拟合：模型过于简单 - 增加数据、特征。<br>3.岭回归，正则化力度对模型参数的影响。<br>4.逻辑回归，用于分类，输入是线性回归的输出，放入激活函数sigmoid中。损失函数：对数似然函数。优化损失：梯度下降。二分类的模型评估：召回率，样本不均衡时使用AUC指标，接近0.5就不好。<br>5.保存和加载模型<br>6.K-Means，聚类的步骤，模型评估：用轮廓系数[-1,1]</p>
 
       
     </div>
