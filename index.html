@@ -183,6 +183,345 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/22/myblog/spring/springboot%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/22/myblog/spring/springboot%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">springboot学习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-12-22 18:37:23" itemprop="dateCreated datePublished" datetime="2022-12-22T18:37:23+08:00">2022-12-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-01-06 23:21:45" itemprop="dateModified" datetime="2023-01-06T23:21:45+08:00">2023-01-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="springboot创建工程"><a href="#springboot创建工程" class="headerlink" title="springboot创建工程"></a>springboot创建工程</h2><p>微服务体系下不可或缺。<br>ssm(spring+springMvc+mybatis) -&gt; springboot -&gt; springcloud</p>
+<p>springboot：约定优于配置，不用专注于配置。2014年发布。</p>
+<p>springboot的位置：是spring的顶级项目，和springFramework(ioc、aop)是同等级的。</p>
+<p>springboot使用最小配置快速构建spring项目。springboot不是spring功能上的增强，而是提供一种快速开发spring项目的方式。</p>
+<p>spring缺点：<br>&lt;1&gt; 写配置文件，繁琐<br>&lt;2&gt; 依赖繁琐，maven坐标版本问题</p>
+<p>springboot提供的优点：<br>&lt;1&gt; 自动配置，应用程序启动时的过程<br>&lt;2&gt; 起步依赖，坐标pom打包到一起，对其他库的依赖传递<br>&lt;3&gt; 其他：嵌入式服务器，安全，健康检测</p>
+<hr>
+<p>✅ 用springboot搭建一个web项目：<br>&lt;1&gt; 创建maven项目<br>&lt;2&gt; 引入起步依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--springboot工程需要继承的父工程   --&gt;</span><br><span class="line">&lt;parent&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.6.1&lt;/version&gt;</span><br><span class="line">&lt;/parent&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;!--  web开发的起步依赖  --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br></pre></td></tr></table></figure>
+
+<p>&lt;3&gt; 写一个controller</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package com.liuxuan.controller;</span><br><span class="line"></span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author: liuxuan</span><br><span class="line"> * @date: 2022-12-22 23:28</span><br><span class="line"> **/</span><br><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;/h&quot;)</span><br><span class="line">public class HelloController &#123;</span><br><span class="line">    @RequestMapping(&quot;/hello&quot;)</span><br><span class="line">    public String hello() &#123;</span><br><span class="line">        return &quot;hello!&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&lt;4&gt; 写引导类，springboot项目入口，然后运行main方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package com.liuxuan;</span><br><span class="line"></span><br><span class="line">import org.springframework.boot.SpringApplication;</span><br><span class="line">import org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author: liuxuan</span><br><span class="line"> * @date: 2022-12-22 23:38</span><br><span class="line"> **/</span><br><span class="line">@SpringBootApplication</span><br><span class="line">public class StartApplication &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(StartApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>✅ 快速构建</p>
+<p>用idea，选Spring Initializr，选maven project，选jar打包方式，勾选依赖。</p>
+<h2 id="springboot起步依赖"><a href="#springboot起步依赖" class="headerlink" title="springboot起步依赖"></a>springboot起步依赖</h2><p>spring-boot-starter-parent，往里看源码，最终是spring-boot-dependency包，其中pom文件中<code>&lt;dependencyManagement&gt;</code> 是版本锁定，父工程中定义的版本信息，自己工程中就可以不写版本号。</p>
+<p>spring-boot-starter-web，往里看，发现引入了spring-web、spring-webmvc。</p>
+<p>总结：<br>1.在spring-boot-starter-parent中定义了各种技术的版本信息，组合了一套最优搭配的技术版本。<br>2.在各种starter中，定义了完成该功能的坐标合集，其中大部分版本信息来自于父工程。<br>3.我们工程继承自parent，引入starter，通过依赖传递，就可以简单方便获取需要的jar包，并且不会存在版本冲突问题。</p>
+<h2 id="springboot配置"><a href="#springboot配置" class="headerlink" title="springboot配置"></a>springboot配置</h2><p>配置文件分类：properties文件、yaml/yml文件。<br>profile文件，三种环境动态切换。</p>
+<p>springboot基于约定，配置有默认值，替换的话，用application.properties/application.yml文件来配置。resource根目录下，application.properties/yml/yaml 文件里面放程序自动识别的内容，也可以写自己定义的内容。</p>
+<p>同一级目录下，配置文件的加载顺序：properties &gt; yml &gt; yaml</p>
+<p>yaml：不是一个标记语言，是直观的能被电脑识别的数据序列化格式，以数据为核心，比xml更加简洁。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">xml:</span><br><span class="line">&lt;server&gt;</span><br><span class="line">    &lt;port&gt;8080&lt;/port&gt;</span><br><span class="line">&lt;/server&gt;</span><br><span class="line"></span><br><span class="line">yml:</span><br><span class="line">server:</span><br><span class="line">    port: 8080</span><br><span class="line"></span><br><span class="line">properties:</span><br><span class="line">server.port=8080</span><br></pre></td></tr></table></figure>
+
+<p>yaml语法：大小写敏感、数据值前必须有空格（至少一个）、缩进表示层级关系，缩进空格个数不重要，但要左对齐、#注释</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 8082</span><br><span class="line"></span><br><span class="line">person:</span><br><span class="line">  name: liu</span><br><span class="line">  address: [beijing, shanghai]</span><br><span class="line"></span><br><span class="line">msg1: &quot;hello \n world&quot;  #双引号识别转义字符</span><br><span class="line">msg2: &#x27;hello \n world&#x27;  #单引号原样输出</span><br><span class="line"></span><br><span class="line">参数引用：$&#123;name&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>读取配置文件内容：</p>
+<p>1.@Value方法，单个属性注入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Value(&quot;$&#123;person.name&#125;&quot;)</span><br><span class="line">private String name;</span><br><span class="line"></span><br><span class="line">@Value(&quot;$&#123;person.address[0]&#125;&quot;)</span><br><span class="line">private String address;</span><br></pre></td></tr></table></figure>
+
+<p>2.Environment</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">private Environment env;    </span><br><span class="line"></span><br><span class="line">env.getProperty(&quot;person.name&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>3.@ConfigurationProperties，对象和配置的绑定</p>
+<p>在实体类Person上加注解 <code>@ConfigurationProperties(prefix=&quot;person&quot;)</code></p>
+<hr>
+<p>profile：一套程序通常需要部署在不同的环境下，开发测试生产，如果每次打包都要修改配置文件，麻烦，profile提供进行动态配置切换的方式。</p>
+<p>配置方式：<br>1.多profile文件方式：提供多个配置文件，每个代表一个环境<br>application-dev.properties/yml<br>application-test.properties/yml<br>application-pro.properties/yml</p>
+<p>2.yml单文件方式<br>用—分割不同环境配置</p>
+<p>激活方式：<br>1.配置方式：<br><code>spring.profiles.active=dev</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">    profiles:</span><br><span class="line">        active: dev</span><br></pre></td></tr></table></figure>
+
+<p>2.虚拟机参数<br>在VM option中输入：<code>-Dspring.profiles.active=test</code></p>
+<p>3.命令行参数<br>先package打包<br><code>java -jar ...jar --spring.profiles.active=test</code></p>
+<hr>
+<p>打包过程中，遇到：jar中没有主清单属性</p>
+<p>原因：打包后的jar文件中的MANIFEST.MF缺少项目启动项，即没有Main-Class</p>
+<p>解决方案：<br>1、指定MANIFEST.MF路径<br>项目打包前：<br>第一步 file–&gt;project structure 弹框后选中Atifacts—&gt; + —-&gt;jar—-&gt;from module with dependenceis<br>第二步 选择一个Main Class，选的StartApplication文件</p>
+<p>2、项目pom.xml文件中添加插件spring-boot-maven-plugin</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">    &lt;plugins&gt;</span><br><span class="line">        &lt;plugin&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;/plugin&gt;</span><br><span class="line">    &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>内部配置加载顺序：</p>
+<p>1.项目根目录下的config文件夹下<br>2.项目根目录（idea点prpject files的根目录）下<br>3.classPath（resource目录下）的config文件夹下<br>4.classPath（resource目录下）下</p>
+<p>前两个不会打进jar包里</p>
+<hr>
+<p>外部配置加载顺序：</p>
+<p>1.命令行指定端口号：<code>java -jar spring-boot-study-api-1.0-SNAPSHOT.jar --server.port=8086</code><br>指定默认前缀路径：<code>--server.servlet.context-path=/default</code><br>2.指定外部配置文件路径：<code>--spring.config.location=路径</code><br>3.在jar包同目录下（target文件夹下），加一个配置文件<code>application.properties</code>，同样生效，外部配置优先生效</p>
+<h2 id="springboot整合其他框架"><a href="#springboot整合其他框架" class="headerlink" title="springboot整合其他框架"></a>springboot整合其他框架</h2><h3 id="springboot整合Junit"><a href="#springboot整合Junit" class="headerlink" title="springboot整合Junit"></a>springboot整合Junit</h3><p>1.引入spring-boot-starter-test 起步依赖<br>2.在测试类上加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringRunner.class) //springboot2不用加</span><br><span class="line">@SpringBootTest(classes = StartApplication.class) //如果与StartApplication在一个包下，可以不加括号里的</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="springboot整合redis"><a href="#springboot整合redis" class="headerlink" title="springboot整合redis"></a>springboot整合redis</h3><p>1.引入spring-boot-starter-data-redis依赖<br>2.连接本地的redis，不需要任何配置<br>3.直接用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">private RedisTemplate redisTemplate;</span><br><span class="line"></span><br><span class="line">redisTemplate.boundValueOps(&quot;name&quot;).set(&quot;liu&quot;);</span><br><span class="line">Object o = redisTemplate.boundValueOps(&quot;name&quot;).get();</span><br></pre></td></tr></table></figure>
+<p>4.其他ip的，需要配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  redis:</span><br><span class="line">    host: 127.0.0.1</span><br><span class="line">    port: 6379</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="spring整合mybatis"><a href="#spring整合mybatis" class="headerlink" title="spring整合mybatis"></a>spring整合mybatis</h3><p>1.引入mybatis起步依赖 <code>mybatis-spring-boot-starter</code> （不同于其他，这个是mybatis提供的，用3.0.1的有点问题，改用2.1.0），添加mysql驱动 <code>mysql-connector-java</code><br>2.配置datasource和mybatis</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  datasource:</span><br><span class="line">    url: jdbc:mysql:///test?serverTimezone=UTC</span><br><span class="line">    #db.url=jdbc:mysql://localhost:3306/test?characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=GMT%2B8</span><br><span class="line">    username: liuxuan</span><br><span class="line">    password: jade</span><br><span class="line">    driver-class-name: com.mysql.cj.jdbc.Driver</span><br></pre></td></tr></table></figure>
+<p>3.创建表，并编写实体类<br>4.纯注解开发</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Mapper</span><br><span class="line">@Repository</span><br><span class="line">public interface StudentMapper &#123;</span><br><span class="line"></span><br><span class="line">    @Select(&quot;select * from student&quot;)</span><br><span class="line">    public List&lt;Student&gt; findAll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>5 .xml映射文件形式开发<br>Mapper接口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Mapper</span><br><span class="line">@Repository</span><br><span class="line">public interface StudentXmlMapper &#123;</span><br><span class="line"></span><br><span class="line">    public List&lt;Student&gt; findAll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>xml配置文件：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">mapper</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.liuxuan.repository.mapper.StudentXmlMapper&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;findAll&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;com.liuxuan.repository.domain.Student&quot;</span>&gt;</span></span><br><span class="line">        select * from student</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>增加mybatis配置(不在spring下)：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mybatis:</span><br><span class="line">  # Mapper映射文件路径</span><br><span class="line">  mapper-locations: classpath:mapper/*Mapper.xml</span><br><span class="line">  # 包扫描</span><br><span class="line">  type-aliases-package: com.liuxuan.repository.domain</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="springboot原理分析"><a href="#springboot原理分析" class="headerlink" title="springboot原理分析"></a>springboot原理分析</h2><h3 id="springboot自动配置"><a href="#springboot自动配置" class="headerlink" title="springboot自动配置"></a>springboot自动配置</h3><p>Condition是spring4.0增加的条件判断功能，可以实现选择性地创建Bean操作。</p>
+<h4 id="✅需求1-创建bean增加条件"><a href="#✅需求1-创建bean增加条件" class="headerlink" title="✅需求1:创建bean增加条件"></a>✅需求1:创建bean增加条件</h4><p>1.自定义条件类，继承Condition接口，实现matches方法，方法中进行逻辑判断，参数context可以获取上下文容器等，metadata可以获取注解属性。<br>2.判断条件，初始化bean时使用@Conditional(条件类.class)注解</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">需要加注解@Conditional：</span><br><span class="line">@Configuration</span><br><span class="line">public class UserConfig &#123;</span><br><span class="line">    @Bean</span><br><span class="line">    @Conditional(ClassCondition.class)</span><br><span class="line">    public User user() &#123;</span><br><span class="line">        return new User();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">自己定义一个实现了Condition接口的类，里面实现条件判断matches方法：</span><br><span class="line">public class ClassCondition implements Condition &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) &#123;</span><br><span class="line">        // 写创建bean的条件：导入jedis坐标后创建bean</span><br><span class="line">        try &#123;</span><br><span class="line">            Class cls = Class.forName(&quot;redis.clients.jedis.Jedis&quot;);</span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">获取bean：</span><br><span class="line">@SpringBootApplication</span><br><span class="line">public class StartApplication &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // 启动springboot应用，获取spring的ioc容器</span><br><span class="line">        ConfigurableApplicationContext context = SpringApplication.run(StartApplication.class, args);</span><br><span class="line"></span><br><span class="line">        // 获取bean</span><br><span class="line">        Object user = context.getBean(&quot;user&quot;);</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="✅需求2-用自定义注解实现动态Condition"><a href="#✅需求2-用自定义注解实现动态Condition" class="headerlink" title="✅需求2:用自定义注解实现动态Condition"></a>✅需求2:用自定义注解实现动态Condition</h4><p>定义自定义注解：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE, ElementType.METHOD&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Conditional(ClassCondition.class)</span><br><span class="line">public @interface ConditionOnClass &#123;</span><br><span class="line">    String[] value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Config中加注解：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class UserConfig &#123;</span><br><span class="line">    @Bean</span><br><span class="line">//    @Conditional(ClassCondition.class)</span><br><span class="line">    @ConditionOnClass(&quot;redis.clients.jedis.Jedis&quot;)</span><br><span class="line">    public User user() &#123;</span><br><span class="line">        return new User();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>继承Condition接口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class ClassCondition implements Condition &#123;</span><br><span class="line">    /**</span><br><span class="line">     * @param context  上下文对象。用于获取环境、Ioc容器、classLoader对象</span><br><span class="line">     * @param metadata 注解元对象，可以用于获取注解定义的属性值</span><br><span class="line">     * @return boolean</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) &#123;</span><br><span class="line">        // 需求1：写创建bean的条件：导入jedis坐标后创建bean</span><br><span class="line">//        try &#123;</span><br><span class="line">//            Class cls = Class.forName(&quot;redis.clients.jedis.Jedis&quot;);</span><br><span class="line">//        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">//            e.printStackTrace();</span><br><span class="line">//            return false;</span><br><span class="line">//        &#125;</span><br><span class="line">//        return true;</span><br><span class="line"></span><br><span class="line">        // 需求2：通过注解属性值value指定坐标后创建bean</span><br><span class="line">        Map&lt;String, Object&gt; map = metadata.getAnnotationAttributes(ConditionOnClass.class.getName());</span><br><span class="line">        String[] value = (String[])map.get(&quot;value&quot;);</span><br><span class="line">        try &#123;</span><br><span class="line">            for (String className : value) &#123;</span><br><span class="line">                Class&lt;?&gt; cls = Class.forName(className);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看包spring-boot-anto-configuration中，springboot已经定义好了很多condition注解，例如：@ConditionalOnClass。</p>
+<hr>
+<h4 id="✅切换内置服务器"><a href="#✅切换内置服务器" class="headerlink" title="✅切换内置服务器"></a>✅切换内置服务器</h4><p>spring-boot-starter-web</p>
+<p>spring-boot-autoconfiguration 包的web的embedded中内置了四种服务器，包括jetty、netty、tomcat、undertom。</p>
+<p>里面还有个类负责选择web服务器，原理也是用了@ConditionalOnClass注解，看导入了什么坐标来选择服务器。</p>
+<p>用<exclusions> 把spring-boot-starter-web 中的 spring-boot-starter-tomcat 排除掉。再引入jetty的依赖，就会切换为jetty服务器。</exclusions></p>
+<hr>
+<h4 id="✅-Enable-注解"><a href="#✅-Enable-注解" class="headerlink" title="✅ @Enable*注解"></a>✅ @Enable*注解</h4><p>SpringBoot提供了很多@Enable开头的注解，用于动态启动某些功能(获取一些bean)，其底层原理是使用@Import注解导入一些配置类，实现Bean的动态加载。</p>
+<p>看注解 @SpringBootApplication</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Inherited</span><br><span class="line">@SpringBootConfiguration --内部@Configuration可配置bean</span><br><span class="line">@EnableAutoConfiguration --重点</span><br><span class="line">@ComponentScan(   --包扫描</span><br><span class="line">    excludeFilters = &#123;@Filter(</span><br><span class="line">    type = FilterType.CUSTOM,</span><br><span class="line">    classes = &#123;TypeExcludeFilter.class&#125;</span><br><span class="line">), @Filter(</span><br><span class="line">    type = FilterType.CUSTOM,</span><br><span class="line">    classes = &#123;AutoConfigurationExcludeFilter.class&#125;</span><br><span class="line">)&#125;</span><br><span class="line">)</span><br><span class="line">public @interface SpringBootApplication</span><br><span class="line"></span><br><span class="line">其中Enable注解下：</span><br><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Inherited</span><br><span class="line">@AutoConfigurationPackage</span><br><span class="line">@Import(&#123;AutoConfigurationImportSelector.class&#125;)</span><br><span class="line">public @interface EnableAutoConfiguration &#123;</span><br><span class="line"></span><br><span class="line">重要的是Import注解</span><br></pre></td></tr></table></figure>
+
+<p>⚠️启动子模块的启动类，无法启动父工程的controller。</p>
+<p>springboot工程不可以直接获取其他jar包中定义的bean，比如redisTemplate。</p>
+<p>原因：@ComponentScan 包扫描的范围是：当前引导类所在包及其子包，其他项目配置Bean的包不在该范围内。</p>
+<p>尝试：另外创建一个子模块，子模块引入另一个子模块的pom，然后尝试获取另一个子模块的bean。<br>报错：NoSuchBeanDefinitionException。</p>
+<p>如何获取Bean：<br>1.在启动类上加@ComponentScan注解，扫描要引入Bean的包。<br>缺点：要写包太累赘<br>2.使用@Import注解加载要导入bean的配置类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">public @interface Import &#123;</span><br><span class="line">    Class&lt;?&gt;[] value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>value中的这些类会被spring创建并放入IOC容器中。<br>缺点：要记类的名字<br>3.对Import注解进行封装<br>自定义一个Enable注解，把Import注解封装进去，要想用这个bean的时候，直接用Enable注解就可以</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE, ElementType.METHOD&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Import(UserConfig.class)</span><br><span class="line">public @interface EnableUser &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication(exclude = DataSourceAutoConfiguration.class) //排除此类的AutoConfig</span><br><span class="line">//@ComponentScan(&quot;com.liuxuan.condition&quot;)</span><br><span class="line">//@Import(UserConfig.class)</span><br><span class="line">@EnableUser</span><br><span class="line">public class StartApplication &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // 启动springboot应用，获取spring的ioc容器</span><br><span class="line">        ConfigurableApplicationContext context = SpringApplication.run(StartApplication.class, args);</span><br><span class="line"></span><br><span class="line">        // 获取bean</span><br><span class="line">        Object user = context.getBean(&quot;user&quot;);</span><br><span class="line">        System.out.println(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>😊<code>@SpringBootApplication(exclude=&#123;DataSourceAutoConfiguration.class&#125;)</code></p>
+<p>exclude，排除此类的AutoConfig，即禁止 SpringBoot 自动注入数据源配置。</p>
+<p>DataSourceAutoConfiguration.class 会自动查找 application.yml 或者 properties 文件里的 spring.datasource.* 相关属性并自动配置单数据源「注意这里提到的单数据源」。</p>
+<p>那么问题来了，排除了自动配置，Spring还怎么识别到数据库配置呢？</p>
+<p>答：显然接下来就需要手动配置，如果你发现项目中存在这个排除的操作，可以在项目中搜一下Java关键字@ConfigurationProperties(“spring.datasource)，你可能会发现手动配置数据源的类。</p>
+<p>再来回答为何要手动配置数据源，因为要配置多数据源，上边有提到DataSourceAutoConfiguration.class默认会帮我们自动配置单数据源，所以，如果想在项目中使用多数据源就需要排除它，手动指定多数据源。</p>
+<p>@SpringBootApplication注解中exclude参数使用及原理:<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/csdn_20150804/article/details/116104742">https://blog.csdn.net/csdn_20150804/article/details/116104742</a></p>
+<h4 id="✅-Import注解"><a href="#✅-Import注解" class="headerlink" title="✅ @Import注解"></a>✅ @Import注解</h4><p>@Enable*底层依赖@Import注解导入一些类，使用@Import导入的类会被Spring加载到IOC容器中，@Import提供四种用法：</p>
+<p>1.导入Bean</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">StartApplication上：</span><br><span class="line">@Import(User.class)</span><br><span class="line"></span><br><span class="line">StartApplication中：</span><br><span class="line">// 根据类型获取bean</span><br><span class="line">Object user = context.getBean(User.class);</span><br><span class="line">System.out.println(user);</span><br><span class="line">// 获取bean名称</span><br><span class="line">Map&lt;String, User&gt; map = context.getBeansOfType(User.class);</span><br><span class="line">System.out.println(map);</span><br></pre></td></tr></table></figure>
+
+<p>2.导入配置类<br>这种方式，配置类上的@Configuration注解可以不加</p>
+<p>3.导入ImportSelect实现类。一般用于加载配置文件中的类。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Import(MyImportSelector.class)</span><br><span class="line"></span><br><span class="line">实现类：</span><br><span class="line">public class MyImportSelector implements ImportSelector &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public String[] selectImports(AnnotationMetadata importingClassMetadata) &#123;</span><br><span class="line">        return new String[]&#123;&quot;com.liuxuan.condition.User&quot;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.导入ImportBeanDefinitionRegistrar实现类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Import(MyImportBeanDefinitionRegistrar.class)</span><br><span class="line"></span><br><span class="line">实现类：</span><br><span class="line">public class MyImportBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) &#123;</span><br><span class="line">        AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder.rootBeanDefinition(User.class).getBeanDefinition();</span><br><span class="line">        registry.registerBeanDefinition(&quot;beanName&quot;, beanDefinition);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="✅-EnableAutoConfiguration注解"><a href="#✅-EnableAutoConfiguration注解" class="headerlink" title="✅@EnableAutoConfiguration注解"></a>✅@EnableAutoConfiguration注解</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">@EnableAutoConfiguration</span><br><span class="line"></span><br><span class="line">@Import(&#123;AutoConfigurationImportSelector.class&#125;)</span><br><span class="line"></span><br><span class="line">AutoConfigurationImportSelector中：</span><br><span class="line">public String[] selectImports(AnnotationMetadata annotationMetadata) &#123;</span><br><span class="line">    if (!this.isEnabled(annotationMetadata)) &#123;</span><br><span class="line">        return NO_IMPORTS;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        AutoConfigurationImportSelector.AutoConfigurationEntry autoConfigurationEntry = this.getAutoConfigurationEntry(annotationMetadata);</span><br><span class="line">        return StringUtils.toStringArray(autoConfigurationEntry.getConfigurations());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">核心代码：getAutoConfigurationEntry</span><br><span class="line">List&lt;String&gt; configurations = this.getCandidateConfigurations(annotationMetadata, attributes);</span><br><span class="line"></span><br><span class="line">protected List&lt;String&gt; getCandidateConfigurations(AnnotationMetadata metadata, AnnotationAttributes attributes) &#123;</span><br><span class="line">    List&lt;String&gt; configurations = SpringFactoriesLoader.loadFactoryNames(this.getSpringFactoriesLoaderFactoryClass(), this.getBeanClassLoader());</span><br><span class="line">    Assert.notEmpty(configurations, &quot;No auto configuration classes found in META-INF/spring.factories. If you are using a custom packaging, make sure that file is correct.&quot;);</span><br><span class="line">    return configurations;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">意思是：从spring-boot-autoconfiguration的jar包下面的META-INF/spring.factories文件中加载。</span><br><span class="line">看到这个文件中可以看到：</span><br><span class="line"> # Auto Configure</span><br><span class="line">org.springframework.boot.autoconfigure.EnableAutoConfiguration=\</span><br><span class="line">org.springframework.boot.autoconfigure.admin.SpringApplicationAdminJmxAutoConfiguration,\</span><br><span class="line">org.springframework.boot.autoconfigure.aop.AopAutoConfiguration,\</span><br><span class="line">org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration,\</span><br><span class="line">有很多配置文件类</span><br></pre></td></tr></table></figure>
+
+<p>总结：<br>@EnableAutoConfiguration 如何实现自动配置<br>1.@EnableAutoConfiguration注解内部使用@Import({AutoConfigurationImportSelector.class}) 来加载配置类<br>2.配置文件位置：META-INF/spring.factories，该配置文件中定义了大量的配置类，当springboot应用启动时，会自动加载这些配置类，初始化bean<br>3.并不是所有的bean都会被初始化，在配置类中使用Condition来加载满足条件的bean</p>
+<h4 id="✅自定义starter实现"><a href="#✅自定义starter实现" class="headerlink" title="✅自定义starter实现"></a>✅自定义starter实现</h4><p>看mybatis-spring-boot-starter如何实现：<br>1.看到mybatis-spring-boot-starter包下没什么，只有一个pom文件，里面引入mybatis-spring-boot-autoconfigure包<br>2.mybatis-spring-boot-autoconfigure包的META-INF/spring.factories文件中定义了MybatisAutoConfiguration<br>3.@EnableAutoConfiguration会自动识别到META-INF/spring.factories文件，从而识别到MybatisAutoConfiguration，模块中初始化的bean就创建出来</p>
+<p>需求：自定义redis-starter，当导入redis-starter坐标时，springboot自动创建jedis的bean。</p>
+<p>1.创建一个redis-autoconfiguration模块，在里面提供jedis的bean，并实现自动配置。</p>
+<p>⚠️亲测，一个模块的配置了8082端口，另一个模块没配置端口，但是允许该模块的StartApplication，要用的是8082端口。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">RedisAutoConfiguration.class:</span><br><span class="line">@Configuration</span><br><span class="line">@EnableConfigurationProperties(RedisProperties.class) //RedisProperties被spring识别，创建bean</span><br><span class="line">@ConditionalOnClass(Jedis.class)  //疑问：创建之前不是没这个Bean吗</span><br><span class="line">public class RedisAutoConfiguration &#123;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    @ConditionalOnMissingBean(name = &quot;jedis&quot;)  //已经定义了就不定义</span><br><span class="line">    public Jedis getJedisBean(RedisProperties redisProperties) &#123;</span><br><span class="line">        System.out.println(&quot;RedisAutoConfiguration...&quot;);</span><br><span class="line">        return new Jedis(redisProperties.getIp(), redisProperties.getPort());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">RedisProperties.class:</span><br><span class="line">@Getter</span><br><span class="line">@Setter</span><br><span class="line">@ConfigurationProperties(prefix = &quot;redis&quot;) //与配置文件中对应</span><br><span class="line">public class RedisProperties &#123;</span><br><span class="line">    private String ip = &quot;localhost&quot;; //没提供时给默认值</span><br><span class="line">    private Integer port = 6379;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.创建META-INF/spring.factories文件，其中配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.boot.autoconfigure.EnableAutoConfiguration=\</span><br><span class="line">    com.liuxuan.redis.configuration.RedisAutoConfiguration</span><br></pre></td></tr></table></figure>
+
+<p>3.创建redis-starter模块，pom文件中引入redis-configuration依赖。</p>
+<p>4.在另一个模块中，pom文件中引入redis-starter依赖。在StartApplication中尝试获取bean。这个模块中导入了Jedis依赖，但是并没有Jedis的bean的配置文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ConfigurableApplicationContext context = SpringApplication.run(StartApplication.class, args);</span><br><span class="line">Jedis jedis = context.getBean(Jedis.class);</span><br><span class="line">System.out.println(jedis);</span><br><span class="line"></span><br><span class="line">jedis.set(&quot;hello&quot;, &quot;hi&quot;);</span><br><span class="line">System.out.println(jedis.get(&quot;hello&quot;));</span><br></pre></td></tr></table></figure>
+
+<p>5.可以在使用的模块中进行配置redis的ip和host</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis.port=6379</span><br><span class="line">redis.ip=localhost</span><br></pre></td></tr></table></figure>
+
+<p>总结：StartApplication上的@SpringBootApplication注解中的@EnableAutoConfiguration中的@Import({AutoConfigurationImportSelector.class})中会自动去找jar包中的META-INF/spring.factories文件，识别到需要加载的配置类，再获取配置类创建的bean，从而实现自动配置bean。</p>
+<p>看spring-boot-autoconfiguration包下的data下的redis文件中，就定义了RedisAutoConfiguration，和上面实现类似。</p>
+<h3 id="springboot监听机制"><a href="#springboot监听机制" class="headerlink" title="springboot监听机制"></a>springboot监听机制</h3><p>springboot的监听机制，其实是对java提供的事件监听机制的封装。</p>
+<p>java中的事件监听机制定义了以下几个角色：<br>1.事件：Event，继承java.util.EventObject类的对象<br>2.事件源：Source，任意对象Object<br>3.监听器：Listener，实现java.util.EventListener接口的对象</p>
+<p>springboot不需要这么麻烦，springboot在项目启动时，会对几个监听器进行回调，我们可以实现这些监听器接口，在项目启动时完成一些操作。</p>
+<p>ApplicationContextInitializer、SpringApplicationRunListener、CommandLineRunner、ApplicationRunner</p>
+<p>1 .继承这些接口，重写方法，并打印对应操作，@Component注册bean。<br>2 .启动发现只有后两个有打印。<br>CommandLineRunner、ApplicationRunner在项目启动后执行run方法，可以帮助做一些事情，比如：缓存预热(提前把数据库的数据加到缓存)<br>打印这两个方法的args，发现是空数组，在配置中的environment中的program arguments中添加hello world，就会返回[hello, world]<br>3 .其他两个监听器怎么用：在META-INF/spring.factories（固定的写法，工程启动时会被自动扫描到）中配置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.context.ApplicationContextInitializer=\</span><br><span class="line">  com.liuxuan.listener.MyApplicationContextInitializer</span><br><span class="line">org.springframework.boot.SpringApplicationRunListener=\</span><br><span class="line">  com.liuxuan.listener.MySpringApplicationRunListener</span><br></pre></td></tr></table></figure>
+
+<p>MyApplicationContextInitializer的initialize：项目还没有准备ioc容器之前，可以检测一些资源是否存在。<br>MySpringApplicationRunListener 报错：<code>java.lang.NoSuchMethodException: com.liuxuan.listener.MySpringApplicationRunListener.&lt;init&gt;(org.springframework.boot.SpringApplication, [Ljava.lang.String;)</code><br>表示需要一个构造方法。<br>看一下代码中提供的一个实现类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//入参SpringApplication表示项目启动时的事件源</span><br><span class="line">public EventPublishingRunListener(SpringApplication application, String[] args) &#123;</span><br><span class="line">        this.application = application;</span><br><span class="line">        this.args = args;</span><br><span class="line">        this.initialMulticaster = new SimpleApplicationEventMulticaster();</span><br><span class="line">        Iterator var3 = application.getListeners().iterator();</span><br><span class="line"></span><br><span class="line">        while(var3.hasNext()) &#123;</span><br><span class="line">            ApplicationListener&lt;?&gt; listener = (ApplicationListener)var3.next();</span><br><span class="line">            this.initialMulticaster.addApplicationListener(listener);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因此，加一个构造方法，并把@Component去掉。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">public class MySpringApplicationRunListener implements SpringApplicationRunListener &#123;</span><br><span class="line"></span><br><span class="line">    public MySpringApplicationRunListener(SpringApplication application, String[] args) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void starting(ConfigurableBootstrapContext bootstrapContext) &#123;</span><br><span class="line">        System.out.println(&quot;MySpringApplicationRunListener 项目启动中...&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void environmentPrepared(ConfigurableBootstrapContext bootstrapContext, ConfigurableEnvironment environment) &#123;</span><br><span class="line">        System.out.println(&quot;MySpringApplicationRunListener 环境对象开始准备中(还不能获取配置信息)...&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void contextPrepared(ConfigurableApplicationContext context) &#123;</span><br><span class="line">        System.out.println(&quot;MySpringApplicationRunListener 上下文对象开始准备(还没加载ioc容器)...&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void contextLoaded(ConfigurableApplicationContext context) &#123;</span><br><span class="line">        System.out.println(&quot;MySpringApplicationRunListener 上下文对象开始加载(创建springboot启动的bean)...&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void started(ConfigurableApplicationContext context, Duration timeTaken) &#123;</span><br><span class="line">        System.out.println(&quot;MySpringApplicationRunListener 加载完成...&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void started(ConfigurableApplicationContext context) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void ready(ConfigurableApplicationContext context, Duration timeTaken) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void running(ConfigurableApplicationContext context) &#123;</span><br><span class="line">        System.out.println(&quot;MySpringApplicationRunListener 项目启动完成开始运行...&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void failed(ConfigurableApplicationContext context, Throwable exception) &#123;</span><br><span class="line">        System.out.println(&quot;MySpringApplicationRunListener 项目启动失败...&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看spring-boot包下的context下的event包下的一些定义好的事件Event，往里看都是继承自EventObject的。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/22/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/sqlite/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/22/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/sqlite/" class="post-title-link" itemprop="url">sqlite</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-12-22 11:49:15 / Modified: 18:32:59" itemprop="dateCreated datePublished" datetime="2022-12-22T11:49:15+08:00">2022-12-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="什么是sqlite"><a href="#什么是sqlite" class="headerlink" title="什么是sqlite"></a>什么是sqlite</h2><p>SQLite 是一个软件库，实现了自给自足的、无服务器的、零配置的、事务性的 SQL 数据库引擎。SQLite 是在世界上最广泛部署的 SQL 数据库引擎。</p>
+<p>它是一个零配置的数据库，这意味着与其他数据库不一样，您不需要在系统中配置。</p>
+<hr>
+<p>sqlite的优点：</p>
+<p>&lt;1&gt; 不需要一个单独的服务器进程或操作的系统（无服务器的）<br>&lt;2&gt; SQLite 不需要配置，这意味着不需要安装或管理。<br>&lt;3&gt; 一个完整的 SQLite 数据库是存储在一个单一的跨平台的磁盘文件。<br>&lt;4&gt; SQLite 是非常小的，是轻量级的，完全配置时小于 400KB<br>&lt;5&gt; SQLite 是自给自足的，这意味着不需要任何外部的依赖。<br>&lt;6&gt; SQLite 事务是完全兼容 ACID 的，允许从多个进程或线程安全访问。</p>
+<h2 id="安装sqlite"><a href="#安装sqlite" class="headerlink" title="安装sqlite"></a>安装sqlite</h2><p>linux和macOS，基本都系统预装了。<br>输入<code>sqlite3</code>检查是否安装。</p>
+<p>如果未安装，下载网址：<a target="_blank" rel="noopener" href="https://www.sqlite.org/download.html">https://www.sqlite.org/download.html</a><br>下载<code>sqlite-autoconf-*.tar.gz。</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ tar xvzf sqlite-autoconf-3071502.tar.gz</span><br><span class="line">$ cd sqlite-autoconf-3071502</span><br><span class="line">$ ./configure --prefix=/usr/local</span><br><span class="line">$ make</span><br><span class="line">$ make install</span><br></pre></td></tr></table></figure>
+
+<h2 id="sqlite命令"><a href="#sqlite命令" class="headerlink" title="sqlite命令"></a>sqlite命令</h2><p><code>.show </code>命名，查看 SQLite 命令提示符的默认设置。</p>
+<p>更改配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sqlite&gt;.header on    </span><br><span class="line">sqlite&gt;.mode column</span><br><span class="line">sqlite&gt;.timer on</span><br></pre></td></tr></table></figure>
+
+<p>创建数据库：<br><code>$ sqlite3 DatabaseName.db </code> 或 <code>sqlite&gt;.open test.db </code></p>
+<p>创建的数据库文件位于 sqlite3 命令同一目录下。<br>打开已存在数据库也是用 .open 命令，以上命令如果 test.db 存在则直接会打开，不存在就创建它。</p>
+<p><code>.databases</code> 展示数据库列表<br><code>.quit</code> 退出<br><code>testDB.db .dump &gt; testDB.sql</code> 导出完整的数据库到文本文件中<br><code>testDB.db &lt; testDB.sql</code> 恢复db文件</p>
+<p><code>attach database file_name AS database_name;</code> 将同一文件夹下的db文件附加进来，并给个别名。<br>数据库名称 main 和 temp 被保留用于主数据库和存储临时表及其他临时数据对象的数据库。这两个数据库名称可用于每个数据库连接，且不应该被用于附加。</p>
+<p><code>detach database &#39;database_name&#39;;</code> 断开给定名称的连接，而其余的仍然有效</p>
+<p>创建表：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE database_name.table_name(</span><br><span class="line">   ID INT PRIMARY KEY     NOT NULL,</span><br><span class="line">   NAME           TEXT    NOT NULL,</span><br><span class="line">   AGE            INT     NOT NULL,</span><br><span class="line">   ADDRESS        CHAR(50),</span><br><span class="line">   SALARY         REAL</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p><code>.tables</code> 查看创建的表</p>
+<p><code>.schema tableName</code> 得到表的完整信息（建表语句）</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/10/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/elasticsearch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -206,10 +545,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-12-10 15:22:27 / Modified: 15:28:30" itemprop="dateCreated datePublished" datetime="2022-12-10T15:22:27+08:00">2022-12-10</time>
+              <time title="Created: 2022-12-10 15:22:27" itemprop="dateCreated datePublished" datetime="2022-12-10T15:22:27+08:00">2022-12-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-22 11:49:00" itemprop="dateModified" datetime="2022-12-22T11:49:00+08:00">2022-12-22</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -231,7 +576,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="什么是elastsearch"><a href="#什么是elastsearch" class="headerlink" title="什么是elastsearch"></a>什么是elastsearch</h2><p>ES=elaticsearch简写， Elasticsearch是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。<br>Elasticsearch也使用Java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，通过面向文档从而让全文搜索变得简单。</p>
+          <h2 id="什么是elasticsearch"><a href="#什么是elasticsearch" class="headerlink" title="什么是elasticsearch"></a>什么是elasticsearch</h2><p>ES=elaticsearch简写， Elasticsearch是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。<br>Elasticsearch也使用Java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，通过面向文档从而让全文搜索变得简单。</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45081813/article/details/113061113">https://blog.csdn.net/weixin_45081813/article/details/113061113</a></p>
 
       
@@ -1335,7 +1680,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-11-30 22:54:39" itemprop="dateModified" datetime="2022-11-30T22:54:39+08:00">2022-11-30</time>
+                <time title="Modified: 2023-01-07 15:13:16" itemprop="dateModified" datetime="2023-01-07T15:13:16+08:00">2023-01-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2196,7 +2541,7 @@
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">静态方法和非静态方法：</span><br><span class="line">静态方法:是使用static关键字修饰的方法，又叫类方法.属于类的，</span><br><span class="line">不属于对象， 在实例化对象之前就可以通过类名.方法名调用静态方法。</span><br><span class="line">非静态方法：又称为实例方法，成员方法。属于对象的，不属于类的。</span><br><span class="line"></span><br><span class="line">静态方法和非静态方法的区别：</span><br><span class="line">1.调用方法</span><br><span class="line">静态方法中，可以调用静态方法，不能调用非静态方法。在静态方法中，不能使用super和this关键字。不能引用成员变量。</span><br><span class="line">普通方法中，可以调用普通方法，也可以调用静态方法。</span><br><span class="line">2.使用方法</span><br><span class="line">静态方法可以直接调用，类名调用和对象调用。</span><br><span class="line">但是非静态方法只能通过对象调用。（对象名.方法名）</span><br><span class="line">3.生命周期不同</span><br><span class="line">静态方法的生命周期跟相应的类一样长，静态方法和静态变量会随着类的定义而被分配和装载入内存中。一直到线程结束，静态属性和方法才会被销毁。</span><br><span class="line">非静态方法的生命周期和类的实例化对象一样长，只有当类实例化了一个对象，非静态方法才会被创建，而当这个对象被销毁时，非静态方法也马上被销毁。</span><br><span class="line"></span><br><span class="line">静态方法优点：常住在内存中，调用快捷方便，全剧唯一，用类调用就行。</span><br><span class="line">应用场景：</span><br><span class="line">1. 静态方法最适合工具类中方法的定义；比如文件操作，日期处理方法等.</span><br><span class="line">2. 静态方法适合入口方法的定义；如单例模式，因为从外部拿不到构造函数，所有定义一个静态的方法获取对象非常有必要.</span><br><span class="line">3. 静态变量适合全局变量的定义.（如布尔型静态成员变量做控制符）</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">静态类：</span><br><span class="line">java允许我们在一个类里面定义静态类。比如内部类（nested class）。</span><br><span class="line">把nested class封闭起来的类叫外部类。</span><br><span class="line">在java中，我们不能用static修饰顶级类（top level class）。只有内部类可以为static。</span><br><span class="line"></span><br><span class="line">静态内部类和非静态内部类的区别：</span><br><span class="line">1.内部静态类不需要有指向外部类的引用。但非静态内部类需要持有对外部类的引用。（此话怎样）</span><br><span class="line">2.非静态内部类能够访问外部类的静态和非静态成员。静态类不能访问外部类的非静态成员。他只能访问外部类的静态成员。</span><br><span class="line">3.一个非静态内部类不能脱离外部类实体被创建，一个非静态内部类可以访问外部类的数据和方法，因为他就在外部类里面。</span><br><span class="line"></span><br><span class="line">class OuterClass&#123;</span><br><span class="line">  private static String msg = &quot;GeeksForGeeks&quot;;</span><br><span class="line">  // 静态内部类</span><br><span class="line">  public static class NestedStaticClass&#123;</span><br><span class="line">    // 静态内部类只能访问外部类的静态成员</span><br><span class="line">    public void printMessage() &#123;</span><br><span class="line">     // 试着将msg改成非静态的，这将导致编译错误 </span><br><span class="line">     System.out.println(&quot;Message from nested static class: &quot; + msg); </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  // 非静态内部类</span><br><span class="line">  public class InnerClass&#123;</span><br><span class="line">    // 不管是静态方法还是非静态方法都可以在非静态内部类中访问</span><br><span class="line">    public void display()&#123;</span><br><span class="line">     System.out.println(&quot;Message from non-static nested class: &quot;+ msg);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br><span class="line">class Main</span><br><span class="line">&#123;</span><br><span class="line">  // 怎么创建静态内部类和非静态内部类的实例</span><br><span class="line">  public static void main(String args[])&#123;</span><br><span class="line">    // 创建静态内部类的实例</span><br><span class="line">    OuterClass.NestedStaticClass printer = new OuterClass.NestedStaticClass();</span><br><span class="line">    // 创建静态内部类的非静态方法</span><br><span class="line">    printer.printMessage();  </span><br><span class="line">    // 为了创建非静态内部类，我们需要外部类的实例</span><br><span class="line">    OuterClass outer = new OuterClass();    </span><br><span class="line">    OuterClass.InnerClass inner = outer.new InnerClass();</span><br><span class="line">    // 调用非静态内部类的非静态方法</span><br><span class="line">    inner.display();</span><br><span class="line">    // 我们也可以结合以上步骤，一步创建的内部类实例</span><br><span class="line">    OuterClass.InnerClass innerObject = new OuterClass().new InnerClass();</span><br><span class="line">    // 同样我们现在可以调用内部类方法</span><br><span class="line">    innerObject.display();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">一个类包在另一个外部类里面，叫做内部类，可以和其他内部类重名。</span><br><span class="line">但是和一个类并列在一个类文件里，不是内部类，不能重名。不同于内部类，是可以直接使用的。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">静态类：</span><br><span class="line">java允许我们在一个类里面定义静态类。比如内部类（nested class）。</span><br><span class="line">把nested class封闭起来的类叫外部类。</span><br><span class="line">在java中，我们不能用static修饰顶级类（top level class）。只有内部类可以为static。</span><br><span class="line">（一般工具类也不是static的，方法是static的）</span><br><span class="line"></span><br><span class="line">静态内部类和非静态内部类的区别：</span><br><span class="line">1.内部静态类不需要有指向外部类的引用。但非静态内部类需要持有对外部类的引用。（此话怎样）</span><br><span class="line">2.非静态内部类能够访问外部类的静态和非静态成员。静态类不能访问外部类的非静态成员。他只能访问外部类的静态成员。</span><br><span class="line">3.一个非静态内部类不能脱离外部类实体被创建，一个非静态内部类可以访问外部类的数据和方法，因为他就在外部类里面。</span><br><span class="line"></span><br><span class="line">class OuterClass&#123;</span><br><span class="line">  private static String msg = &quot;GeeksForGeeks&quot;;</span><br><span class="line">  // 静态内部类</span><br><span class="line">  public static class NestedStaticClass&#123;</span><br><span class="line">    // 静态内部类只能访问外部类的静态成员</span><br><span class="line">    public void printMessage() &#123;</span><br><span class="line">     // 试着将msg改成非静态的，这将导致编译错误 </span><br><span class="line">     System.out.println(&quot;Message from nested static class: &quot; + msg); </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  // 非静态内部类</span><br><span class="line">  public class InnerClass&#123;</span><br><span class="line">    // 不管是静态方法还是非静态方法都可以在非静态内部类中访问</span><br><span class="line">    public void display()&#123;</span><br><span class="line">     System.out.println(&quot;Message from non-static nested class: &quot;+ msg);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br><span class="line">class Main</span><br><span class="line">&#123;</span><br><span class="line">  // 怎么创建静态内部类和非静态内部类的实例</span><br><span class="line">  public static void main(String args[])&#123;</span><br><span class="line">    // 创建静态内部类的实例</span><br><span class="line">    OuterClass.NestedStaticClass printer = new OuterClass.NestedStaticClass();</span><br><span class="line">    // 创建静态内部类的非静态方法</span><br><span class="line">    printer.printMessage();  </span><br><span class="line">    // 为了创建非静态内部类，我们需要外部类的实例</span><br><span class="line">    OuterClass outer = new OuterClass();    </span><br><span class="line">    OuterClass.InnerClass inner = outer.new InnerClass();</span><br><span class="line">    // 调用非静态内部类的非静态方法</span><br><span class="line">    inner.display();</span><br><span class="line">    // 我们也可以结合以上步骤，一步创建的内部类实例</span><br><span class="line">    OuterClass.InnerClass innerObject = new OuterClass().new InnerClass();</span><br><span class="line">    // 同样我们现在可以调用内部类方法</span><br><span class="line">    innerObject.display();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Inner class &#x27;Person&#x27; may be &#x27;static&#x27; </span><br><span class="line">ide提示内部类最好是静态的. 不然不能在所在外部类里直接new一个对象。</span><br><span class="line"></span><br><span class="line">一个类包在另一个外部类里面，叫做内部类，可以和其他内部类重名。</span><br><span class="line">但是和一个类并列在一个类文件里，不是内部类，不能重名。不同于内部类，是可以直接使用的，相当于一个单独的文件，不建议这么做。</span><br></pre></td></tr></table></figure>
 
 <p>静态内部类和非静态内部类：<a target="_blank" rel="noopener" href="https://www.jb51.net/article/74838.htm">https://www.jb51.net/article/74838.htm</a></p>
 <h2 id="第八章-java中的并发工具类"><a href="#第八章-java中的并发工具类" class="headerlink" title="第八章 java中的并发工具类"></a>第八章 java中的并发工具类</h2><p>JDK的并发包里提供了几个非常有用的并发工具类。CountDownLatch、CyclicBarrier和Semaphore工具类提供了一种并发流程控制的手段，Exchanger工具类提供了在线程间交换数据的一种方法。</p>
@@ -2423,181 +2768,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/22/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/idea%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/22/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/idea%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">Idea日常使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-07-22 21:43:06" itemprop="dateCreated datePublished" datetime="2022-07-22T21:43:06+08:00">2022-07-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-11-20 17:33:36" itemprop="dateModified" datetime="2022-11-20T17:33:36+08:00">2022-11-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="替换文字"><a href="#替换文字" class="headerlink" title="替换文字"></a>替换文字</h2><p>command + R ：当前文件替换<br>command + shift + R ：全局文件替换</p>
-<h2 id="字符编码问题"><a href="#字符编码问题" class="headerlink" title="字符编码问题"></a>字符编码问题</h2><p>换行符：LF<br>编码：UTF-8<br>提交代码之后中文乱码：设置里 File Encodings 里的都选UTF-8，Transparent native-to-ascii conversion（透明转换为ascii）不勾选。</p>
-<h2 id="变量高亮"><a href="#变量高亮" class="headerlink" title="变量高亮"></a>变量高亮</h2><p>变量写操作颜色设置：Settings-&gt; Editor -&gt; Color Scheme -&gt; General -&gt; Code -&gt; identifier under caret(write) -&gt; 设置底色</p>
-<p>变量读操作颜色设置：Settings-&gt; Editor -&gt; Color Scheme -&gt; General -&gt; Code -&gt; identifier under caret -&gt; 设置底色</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/03/myblog/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/python/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/03/myblog/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/python/" class="post-title-link" itemprop="url">python语言</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-07-03 16:22:40 / Modified: 23:07:55" itemprop="dateCreated datePublished" datetime="2022-07-03T16:22:40+08:00">2022-07-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>✅计算机组成：<br>硬件：中央处理器CPU（处理指令、运算数据的）、存储器（内存（存临时数据读写速度快）、外存（硬盘、U盘））、输入设备、输出设备<br>软件：应用软件、系统软件（操作系统）</p>
-<p>✅编译型语言和解释型语言：</p>
-<ul>
-<li><p>编译型语言：在执行之前要先经过编译过程，编译成为一个可执行的机器语言的文件，比如exe。因为翻译只做一遍，以后都不需要翻译，所以执行效率高。<br>  代表：C、C++<br>  优缺点：执行速度快、跨平台差（操作一步，与操作系统联系紧密）、不便调试。</p>
-</li>
-<li><p>解释型语言：解释性语言编写的程序不进行预先编译，以文本方式存储程序代码。执行时才翻译执行。程序每执行一次就要翻译一遍。解释一句，执行一句，直至结束。<br>  代表：Java、C#、Python、JavaScript<br>  优缺点：速度较慢、跨平台好（操作两步，跨平台有优势，可在windows上运行，也可在linux上运行）、易于调试</p>
-</li>
-</ul>
-<p>怎么选：<br>编译型语言由于程序执行速度快，同等条件下对系统要求较低，因此像开发操作系统、大型应用程序、数据库系统等时都采用它，像C/C++、Pascal/Object Pascal（Delphi）等都是编译语言。</p>
-<p>而一些网页脚本、服务器脚本及辅助开发接口这样的对速度要求不高、对不同系统平台间的兼容性有一定要求的程序则通常使用解释性语言，如Java、JavaScript、VBScript、Perl、Python、Ruby、MATLAB等等。</p>
-<p>一个比较好的例子：编译型语言就像炒菜吃饭，只有将全部的菜炒好了才能吃饭，解释型语言就像吃火锅，边放菜边吃，不需要将菜全部放在火锅里面。</p>
-<p>✅java是解释型语言，javac编译成.class字节码文件是？<br>java的编译器（javac.exe）先将java文件编译为class文件，也就是字节码；然后将字节码交由jvm(java虚拟机)解释执行；<br>所以很多地方都说“java是一种半编译、半解释执行”的语言；</p>
-<p>java是解释型的语言，因为虽然java也需要编译，编译成.class文件，<br>但是并不是机器可以识别的语言，而是字节码，最终还是需要 jvm的解释（逐行解释为特定平台机器码），才能在各个平台执行，这同时也是java跨平台的原因。<br>所以可以说java即是编译型的，也是解释型，但是假如非要归类的话，从概念上的定义，恐怕java应该归到解释型的语言中。</p>
-<p>✅编译器和解释器之间的主要区别<br>1、编译器将一个程序作为一个整体进行翻译，而解释器则一条一条地翻译一个程序<br>2、在编译器的情况下生成中间代码或目标代码。而解释器不创建中间代码<br>3、编译器比解释器要快得多，因为编译器一次完成整个程序，而解释器则是依次编译每一行代码<br>4、由于要生成目标代码，编译器比解释器需要更多的内存<br>5、编译器同时显示所有错误，很难检测错误，而解释器则逐个显示每条语句的错误，更容易检测错误<br>6、在编译器中，当程序中出现错误时，它会停止翻译，并在删除错误后重新翻译整个程序。相反，当解释器中发生错误时，它会阻止其翻译，在删除错误后，翻译将继续<br>7、在编译器中，这个过程需要两个步骤，首先将源代码翻译成目标程序，然后执行。而在解释器中，这是一个一次性的过程，源代码在编译的同时执行<br>8、编译器用于编程语言，如C、c++、c#、Scala等。解释器用于PHP、Ruby、Python等语言。<br>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/CodeHouse/article/details/121846119">https://blog.csdn.net/CodeHouse/article/details/121846119</a></p>
-<p>✅脚本语言（动态语言）和静态语言</p>
-<p>脚本语言:又被称为扩建的语言，或者动态语言，用来控制软件应用程序，脚本通常以文本保存，只 在被调用时进行解释或编译。脚本语言有:PHP、Python、JavaScript、Lua、Scala、VBScript， ActionScript，MAXScript，ASP，JSP，SQL，Perl，Shell，Ruby，JavaFX，AutoIt等 脚本语言是一种解释性的语言，它不象c/c++等可以编译成二进制代码，以可执行文件的形式存在，脚本 语言不需要编译，可以直接用，由解释器来负责解释。在运行时才确定数据类型的语言。</p>
-<p>静态语言:要求在使用变量之前必须声明数据类型。 例如:C、C++、Golang、Java、C#等。 </p>
-<p>so：脚本语言一定是解释型语言，解释型语言不一定是脚本语言。</p>
-<p>✅Python解释器：<br>CPU不能直接处理 Python 语言，只能直接处理机器指令语言，那是一种由0和1数字组成的语言。.py结尾的文件需要解释器去运行执行。解释器就是能够执行用其他计算机语言编写的程序的系统软件，它是一种翻译程序。它的执行方式是一边翻译一边执行，因此其执行效率一般偏低，但是解释器的实现较为简单，而且编写源程序的高级语言可以使用更加灵活和富于表现力的语法。</p>
-<p>常见的Python解释器：</p>
-<p>　　1、CPython：这个解释器是用C语言开发的，所以叫CPython。在命令行下运行Python就是启动CPython解释器。CPython是使用最广的Python解释器。</p>
-<p>2、IPython：IPython是基于CPython之上的一个交互解释器，也就是说，IPython只是在交互方式上有所增强，但是执行Python代码的功能和CPython是完全一样的。</p>
-<p>　　3、PyPy：PyPy是另一个解释器，它的目标是执行速度。采用JIT技术，对Python代码进行动态编译，所以可以显著提高Python代码的执行速度。</p>
-<p>　　4.Jython：Jython是运行在Java平台上的Python解释器，可以直接把Python代码编译成Java字节码执行。</p>
-<h3 id="mac安装python环境"><a href="#mac安装python环境" class="headerlink" title="mac安装python环境"></a>mac安装python环境</h3><p>终端输入python，跳出的是2.7版本<br>终端输入python3，跳出的是3.9版本<br>就没安装了，要找解析器去官网下载安装</p>
-<p>终端执行.py文件：<br>1、写文件，前面要加个注释<br><code>#!/usr/bin/env python3</code><br><code>print(&quot;hello!&quot;)</code><br>2、给文件以执行权限<br><code>chmod a+x hi.py</code><br>3、运行文件<br><code>./hi.py</code></p>
-<p>✅安装pycharm<br>官网下载：<a target="_blank" rel="noopener" href="https://www.jetbrains.com.cn/en-us/pycharm/download">https://www.jetbrains.com.cn/en-us/pycharm/download</a><br>下载的社区版本。破解太费劲。<br>新建工程，选择解析器，不选虚拟的那个，选previously configured nterpret.<br>警告：PEP 8: W292 no newline at end of file，因为没有换行，换个行就好了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2664,7 +2838,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">90</span>
+          <span class="site-state-item-count">92</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -2718,7 +2892,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

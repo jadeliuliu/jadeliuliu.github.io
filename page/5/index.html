@@ -183,6 +183,474 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/09/myblog/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/09/myblog/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">机器学习与深度学习入门</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-09 11:26:33" itemprop="dateCreated datePublished" datetime="2022-01-09T11:26:33+08:00">2022-01-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-25 00:15:38" itemprop="dateModified" datetime="2022-12-25T00:15:38+08:00">2022-12-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="机器学习与深度学习的区别"><a href="#机器学习与深度学习的区别" class="headerlink" title="机器学习与深度学习的区别"></a>机器学习与深度学习的区别</h2><p>机器学习—拥有找一个函数的能力，根据输出的不同，分为regression回归、分类classification，以及很少提及的结构化学习structured learning（输出图像，文本）。</p>
+<p>1.找一个带有未知参数的函数：y=b+wx，b偏置，w权重，机器学习中，未知的参数是通过数据来学习的。带有未知参数的函数称为model模型。</p>
+<p>2.从训练数据中定义Loss（损失），Loss是关于参数b、w的函数，用来判断一组参数值好还是不好。<br>用训练集计算误差，可以是绝对值误差MAE，也可以是均方误差MSE。<br>如果y值是基于概率分布的，一般采取cross-entropy交叉熵，可以绘制误差等高线图error surface。</p>
+<p>3.优化，找一组最好的参数w，b使得误差最小。<br>Gradient Descent 梯度下降。举例先只有一个参数w，绘制横坐标为w对应的损失函数曲线，初始时取一个点，随机取的，也可以用遗传算法给出一个较优的模型初始参数。选定一个随机初始值，求该点的偏导值，即该点曲线切线的斜率。然后进行移动点，跨度多少取决于斜率大小，斜率越大，跨度越大，此外，还有一个η，称为learning rate 学习率，自己设定，η越大跨度越大，训练越快。机器学习中需要自己设定的值称为超参数hyperparameters。以此类推，求下一个点下下个点。停止的时机：看预设的迭代次数，或者某一组参数计算出的微分值刚好是0，则停止训练，是个局部最优，不保证全部最优解。</p>
+<p>对模型的修改需要对问题的具体理解，考虑前七天比只考虑前一天的误差要小。x是前一天的，y是预测的后一天的。考虑前七天的话，就有七个w。训练数据集是已知的，测试数据集是本来假装不知道的，也就是要预测的y。</p>
+<p>输入x乘权重，再加上一个偏置的模型，称为线性模型。</p>
+<p>线性模型具有局限性，模型偏差。</p>
+<p>有时是分段线性折线函数=常数+一些列的分段斜线。</p>
+<p>有时是曲线：可以用分段线性折线逼近连续曲线，需要足够的切分。（也可以用max(0,斜线)叠加表示）</p>
+<p>分段斜线可以用sigmoid函数来逼近。</p>
+<p><img src="https://img-blog.csdnimg.cn/db4301aa58234ae881c7774fb1472f4f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_18,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>改变w，可以改变坡度。改变b可以左右移动。改变c可以改变高度。</p>
+<p><img src="https://img-blog.csdnimg.cn/b57fe006fd424401b0976b630ed3331b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p>来源：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1qP4y147PJ/?spm_id_from=333.788.recommend_more_video.-1">https://www.bilibili.com/video/BV1qP4y147PJ/?spm_id_from=333.788.recommend_more_video.-1</a></p>
+<p>总结来讲：首先选择模型，线性模型或者复杂逼近曲线，最小化损失函数，用梯度下降法，选择初始值迭代计算进行逼近。</p>
+<p>Sigmold函数和ReLU在机器学习中，称为激活函数。可以将激活函数过程重复几次，来优化模型。激活函数的部分叫做神经元，很多神经元组成神经网络。每一列神经元称为隐藏层，很多层影藏层形成深度学习。</p>
+<p>AlexNet16层。VGG19层。GoogleNet22层。ResidualNet152层。并不是层数越多网络越深预测的效果就更好，会发生过拟合Overfitting。</p>
+<h2 id="机器学习入门"><a href="#机器学习入门" class="headerlink" title="机器学习入门"></a>机器学习入门</h2><h3 id="1-机器学习概述"><a href="#1-机器学习概述" class="headerlink" title="1.机器学习概述"></a>1.机器学习概述</h3><h4 id="1-1-人工智能概述"><a href="#1-1-人工智能概述" class="headerlink" title="1.1.人工智能概述"></a>1.1.人工智能概述</h4><p>1956年达特茅斯会议，人工智能元年。最初是用来搞统计的。</p>
+<p>人工智能包括机器学习，机器学习包括深度学习。<br>机器学习是人工智能的实现途径（1980s开始）<br>深度学习（人工神经网络）是机器学习的方法（2020开始）</p>
+<h4 id="1-2-人工智能的几个方向："><a href="#1-2-人工智能的几个方向：" class="headerlink" title="1.2.人工智能的几个方向："></a>1.2.人工智能的几个方向：</h4><p>传统预测（量化投资、广告推荐等）<br>图像cv（人脸识别、图像检测）<br>自然语言处理nlp（翻译、智能客服）</p>
+<h4 id="1-3-机器学习概述"><a href="#1-3-机器学习概述" class="headerlink" title="1.3.机器学习概述"></a>1.3.机器学习概述</h4><p>机器学习是从数据中自动分析获得模型，并利用模型对未知数据进行预测。</p>
+<p>机器学习：数据 -（训练）- 模型 - 预测<br>人：经验 - （归纳）- 规律 - 预测</p>
+<h4 id="1-4-数据集构成"><a href="#1-4-数据集构成" class="headerlink" title="1.4.数据集构成"></a>1.4.数据集构成</h4><p>特征值（房子面积、位置、楼层） + 目标值（房价）</p>
+<p>每一行是一个样本。<br>数据集可以没有目标值。</p>
+<h4 id="1-5-机器学习算法分类"><a href="#1-5-机器学习算法分类" class="headerlink" title="1.5.机器学习算法分类"></a>1.5.机器学习算法分类</h4><p>目标值：类别 - 分类问题（人脸识别）<br>目标值：连续型数据 - 回归问题<br>目标值：无 - 无监督学习</p>
+<ul>
+<li>监督学习(supervised learning)（预测）<br>定义：输入数据是由输入特征值和目标值所组成。函数的输出可以是一个连续的值(称为回归），或是输出是有限个离散值（称作分类）。<br>分类： k-近邻算法、贝叶斯分类、决策树与随机森林、逻辑回归、神经网络<br>回归： 线性回归、岭回归</li>
+<li>无监督学习(unsupervised learning)<br>定义：输入数据是由输入特征值所组成。<br>聚类： k-means</li>
+</ul>
+<p>还有半监督学习，强化学习。</p>
+<h4 id="1-6-机器学习开发流程"><a href="#1-6-机器学习开发流程" class="headerlink" title="1.6.机器学习开发流程"></a>1.6.机器学习开发流程</h4><p>获取数据 -&gt; 数据预处理 -&gt; 特征工程 -&gt; 机器学习算法与训练 -&gt; 模型评估 -&gt; 应用</p>
+<p>算法是核心，数据、计算是基础。</p>
+<p>从入门到实际，再到理论。</p>
+<p>库和框架：Scikit-learn、Tensflow（深度学习框架）</p>
+<h3 id="2-特征工程"><a href="#2-特征工程" class="headerlink" title="2.特征工程"></a>2.特征工程</h3><h4 id="2-1-数据集"><a href="#2-1-数据集" class="headerlink" title="2.1.数据集"></a>2.1.数据集</h4><p>✅可用数据集：<br>scikitlearn特点：1、数据量较小  2、方便学习<br>scikit-learn网址：<a target="_blank" rel="noopener" href="http://scikit-learn.org/stable/datasets/index.html#datasets">http://scikit-learn.org/stable/datasets/index.html#datasets</a></p>
+<p>Kaggle特点：1、大数据竞赛平合   2、80万科学家   3、真实数据     4、数据量巨大<br>Kaggle网址：<a target="_blank" rel="noopener" href="https://www.kaggle.com/datasets">https://www.kaggle.com/datasets</a></p>
+<p>Uc特点：1、收录了360个数据集    2、覆盖科学、生活、经济等领域   3、数据量几十万<br>UCI数据集网址： <a target="_blank" rel="noopener" href="http://archive.ics.uci.edu/ml/">http://archive.ics.uci.edu/ml/</a></p>
+<p>✅Scikit-learn：<br>Python语言的机器学习工具<br>Scikit-learn包括许多知名的机器学习算法的实现<br>Scikit-learn文档完善，容易上手，丰富的API</p>
+<p>✅安装：<br><code>pip3 install sklearn</code>  安装<br><code>pip3 list</code>   查看一下<br><code>python3</code>  进入python<br><code>import sklearn</code>  验证一下</p>
+<p>✅获取数据集api：<br>sklearn.datasets 加载获取流行数据集<br>1、datasets.load_*()<br>获取小规模数据集，数据包含在datasets里<br>2、datasets.fetch_*(data_home=None)<br>获取大规模数据集，需要从网络上下载，函数的第一个参数是data_home，表示数据集下载的目录,默认是 ~/scikit_learn_data/<br>datasets.fetch_20newsgroups(data_home=None,subset=‘train’)<br>subset：’train’或者’test’，’all’，可选，选择要加载的数据集。<br>训练集的“训练”，测试集的“测试”，两者的“全部”</p>
+<blockquote>
+<p>load和fetch返回的数据类型datasets.base.Bunch(字典格式)<br>data：特征数据数组，是 [n_samples * n_features] 的二维 numpy.ndarray 数组<br>target：标签数组，是 n_samples 的一维 numpy.ndarray 数组<br>DESCR：数据描述<br>feature_names：特征名,新闻数据，手写数字、回归数据集没有<br>target_names：标签名</p>
+</blockquote>
+<p>**Bunch(字典格式)**，继承自字典的数据结构，可以键值对，也可以点属性。</p>
+<p>✅数据集的划分api：划分为训练数据和测试数据</p>
+<p>训练数据：用于训练，构建模型    70% 80% 75%<br>测试数据：在模型检验时使用，用于评估模型是否有效    30% 20% 30%</p>
+<p>sklearn.model_selection.train_test_split(arrays, *options)</p>
+<blockquote>
+<p>x 数据集的特征值<br>y 数据集的标签值<br>test_size 测试集的大小，一般为float<br>random_state 随机数种子,不同的种子会造成不同的随机采样结果。相同的种子采样结果相同。<br>return 测试集特征训练集特征值值，训练标签，测试标签(默认随机取)</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from sklearn .datasets import load_iris</span><br><span class="line">from sklearn.model_selection import train_test_split</span><br><span class="line"></span><br><span class="line">def datasets_demo():</span><br><span class="line">    # 获取数据集</span><br><span class="line">    iris = load_iris()</span><br><span class="line">    print(&quot;鸢尾花数据集：\n&quot;, iris)</span><br><span class="line">    print(&quot;查看数据集描述：\n&quot;, iris[&quot;DESCR&quot;])</span><br><span class="line">    print(&quot;查看特征值名字：\n&quot;, iris.feature_names)</span><br><span class="line">    print(&quot;查看样本数：\n&quot;, iris.data.shape)</span><br><span class="line"></span><br><span class="line">    # 数据集划分</span><br><span class="line">    # 训练集的特征值x_train 测试集的特征值x_test 训练集的目标值y_train 测试集的目标值y_test</span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=0.2, random_state=22)</span><br><span class="line">    print(&quot;x_train:\n&quot;, x_train.shape)</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    # sklearn数据集使用</span><br><span class="line">    datasets_demo()</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-特征工程"><a href="#2-2-特征工程" class="headerlink" title="2.2.特征工程"></a>2.2.特征工程</h4><p>什么是特征工程：<br>特征工程是使用专业背景知识和技巧处理数据，使得特征能在机器学习算法上发挥更好的作用的过程。<br>意义：会直接影响机器学习的效果</p>
+<p>重要性：<br>数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。</p>
+<p>pandas:一个数据读取非常方便以及基本的处理格式的工具（数据清洗、数据处理）<br>sklearn:对于特征的处理提供了强大的接口</p>
+<p>特征工程包括：<br>特征抽取、特征预处理、特征降维</p>
+<h5 id="✅特征抽取"><a href="#✅特征抽取" class="headerlink" title="✅特征抽取"></a>✅特征抽取</h5><p>将任意数据（如文本或图像）转换为可用于机器学习的数字特征<br>也叫特征值化，是为了计算机更好的去理解数据<br>分为：<br>1.字典特征提取(特征离散化)<br>2.文本特征提取<br>3.图像特征提取（深度学习将介绍）</p>
+<p>特征提取的API：<br><code>sklearn.feature_extraction</code></p>
+<p><strong>字典特征提取</strong>：对字典数据进行特征值化<br><code>sklearn.feature_extraction.DictVectorizer(sparse=True,…)</code><br><code>DictVectorizer.fit_transform(X)</code> X:字典或者包含字典的迭代器返回值：返回sparse矩阵<br><code>CountVectorizer.get_feature_names()</code> 返回值:单词列表<br>字典 -&gt; 矩阵（二维数组）（其中字典每一行是一个矢量，也就是一维数组）<br>其中属于类别的，会用onehot编码，比如有三类，会变成三列。<br>对于特征当中存在类别信息的我们都会做one-hot编码处理。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.feature_extraction import DictVectorizer</span><br><span class="line"></span><br><span class="line">def dict_demo():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    对字典类型的数据进行特征抽取</span><br><span class="line">    :return: None</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    data = [&#123;&#x27;city&#x27;: &#x27;北京&#x27;,&#x27;temperature&#x27;:100&#125;, &#123;&#x27;city&#x27;: &#x27;上海&#x27;,&#x27;temperature&#x27;:60&#125;, &#123;&#x27;city&#x27;: &#x27;深圳&#x27;,&#x27;temperature&#x27;:30&#125;]</span><br><span class="line">    # 1、实例化一个转换器类</span><br><span class="line">    transfer = DictVectorizer(sparse=False)</span><br><span class="line">    # 2、调用fit_transform</span><br><span class="line">    data = transfer.fit_transform(data)</span><br><span class="line">    print(&quot;返回的结果:\n&quot;, data)</span><br><span class="line">    # 打印特征名字</span><br><span class="line">    print(&quot;特征名字：\n&quot;, transfer.get_feature_names())</span><br><span class="line"></span><br><span class="line">    return None</span><br><span class="line"></span><br><span class="line">返回的结果:</span><br><span class="line"> [[  0.   1.   0. 100.]</span><br><span class="line"> [  1.   0.   0.  60.]</span><br><span class="line"> [  0.   0.   1.  30.]]</span><br></pre></td></tr></table></figure>
+<p>没有加上sparse=False参数的结果是矩阵1的位置，<strong>稀疏矩阵</strong>，优点：节省内存，提高加载速度。</p>
+<p>字典特征提取的使用场景：<br>1、数据集中类别特征比较多<br>2、本身拿到的就是字典类型</p>
+<p><strong>文本特征提取</strong>：对文本数据进行特征值化<br>单词作为特征最合适。</p>
+<p><strong>1.countVectorizer文本特征提取 - 出现个数</strong></p>
+<p>api：<br><code>sklearn.feature_extraction.text.CountVectorizer(stop_words=[])</code>      返回词频矩阵（统计每个样本特征词出现的个数），stop_words是停用词，没有用的词，比如to，以列表形式传入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CountVectorizer.fit_transform(X)    X:文本或者包含文本字符串的可迭代对象 返回值：返回sparse矩阵</span><br><span class="line">CountVectorizer.inverse_transform(X)    X:array数组或者sparse矩阵 返回值:转换之前数据格</span><br><span class="line">CountVectorizer.get_feature_names()     返回值:单词列表</span><br></pre></td></tr></table></figure>
+<p>标点和字母不作为特征词列表。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">def text_count_demo():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    对文本进行特征抽取，countvetorizer</span><br><span class="line">    :return: None</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    data = [&quot;life is short,i like like python&quot;, &quot;life is too long,i dislike python&quot;]</span><br><span class="line">    # 1、实例化一个转换器类</span><br><span class="line">    # transfer = CountVectorizer(sparse=False)</span><br><span class="line">    transfer = CountVectorizer()</span><br><span class="line">    # 2、调用fit_transform （（注意返回格式，利用toarray()方法进行sparse矩阵转换array数组））</span><br><span class="line">    data = transfer.fit_transform(data)</span><br><span class="line">    print(&quot;文本特征抽取的结果：\n&quot;, data.toarray())</span><br><span class="line">    print(&quot;返回特征名字：\n&quot;, transfer.get_feature_names())</span><br><span class="line"></span><br><span class="line">    return None</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    # 3、文本特征提取</span><br><span class="line">    text_count_demo()</span><br></pre></td></tr></table></figure>
+
+<p>[“life is short,i like like python”, “life is too long,i dislike python”]<br>结果是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">返回特征名字：</span><br><span class="line"> [&#x27;dislike&#x27;, &#x27;is&#x27;, &#x27;life&#x27;, &#x27;like&#x27;, &#x27;long&#x27;, &#x27;python&#x27;, &#x27;short&#x27;, &#x27;too&#x27;]</span><br><span class="line">文本特征抽取的结果：</span><br><span class="line"> [[0 1 1 2 0 1 1 0]</span><br><span class="line"> [1 1 1 0 1 1 0 1]]</span><br></pre></td></tr></table></figure>
+
+<p><strong>jieba分词</strong><br>如果样本是中文，整个短语变成特征词了，得用空格隔开。用jieba分词可以分开。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.feature_extraction.text import CountVectorizer</span><br><span class="line">import jieba</span><br><span class="line"></span><br><span class="line">def cut_word(text):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    对中文进行分词</span><br><span class="line">    &quot;我爱北京天安门&quot;————&gt;&quot;我 爱 北京 天安门&quot;</span><br><span class="line">    :param text:</span><br><span class="line">    :return: text</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # 用结巴对中文字符串进行分词，想要字符串</span><br><span class="line">    text = &quot; &quot;.join(list(jieba.cut(text)))</span><br><span class="line"></span><br><span class="line">    return text</span><br><span class="line"></span><br><span class="line">def text_chinese_count_demo2():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    对中文进行特征抽取</span><br><span class="line">    :return: None</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    data = [&quot;今天很残酷，明天更残酷，后天很美好，但绝对大部分是死在明天晚上，所以每个人不要放弃今天。&quot;,</span><br><span class="line">            &quot;我们看到的从很远星系来的光是在几百万年之前发出的，这样当我们看到宇宙时，我们是在看它的过去。&quot;,</span><br><span class="line">            &quot;如果只用一种方式了解某样事物，你就不会真正了解它。了解事物真正含义的秘密取决于如何将其与我们所了解的事物相联系。&quot;]</span><br><span class="line">    # 将原始数据转换成分好词的形式</span><br><span class="line">    text_list = []</span><br><span class="line">    for sent in data:</span><br><span class="line">        text_list.append(cut_word(sent))</span><br><span class="line">    print(text_list)</span><br><span class="line"></span><br><span class="line">    # 1、实例化一个转换器类</span><br><span class="line">    # transfer = CountVectorizer(sparse=False)</span><br><span class="line">    transfer = CountVectorizer(stop_words=[&quot;一种&quot;])</span><br><span class="line">    # 2、调用fit_transform</span><br><span class="line">    data = transfer.fit_transform(text_list)</span><br><span class="line">    print(&quot;文本特征抽取的结果：\n&quot;, data.toarray())</span><br><span class="line">    print(&quot;返回特征名字：\n&quot;, transfer.get_feature_names())</span><br><span class="line"></span><br><span class="line">    return None</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    # 4、中文文本特征提取</span><br><span class="line">    text_chinese_count_demo2()</span><br></pre></td></tr></table></figure>
+
+<p>但是这样有个问题：想找的关键词其实是在某一个类别的文章中出现的次数很多，但是在其他类别的文章中出现次数很少，不要我们这些词。</p>
+<p><strong>2.Tf-idf文本特征提取 - 重要程度</strong></p>
+<p>TF-IDF的主要思想是：如果某个词或短语在一篇文章中出现的概率高，并且在其他文章中很少出现，则认为此词或者短语具有很好的类别区分能力，适合用来分类。<br>TF-IDF作用：用以评估一字词对于一个文件集或一个语料库中的其中一份文件的重要程度。<br>分类机器学习算法进行文章分类中前期数据处理方式</p>
+<p>公式：<br>词频（term frequency，tf）指的是某一个给定的词语在该文件中出现的频率<br>逆向文档频率（inverse document frequency，idf）是一个词语普遍重要性的度量。某一特定词语的idf，可以由总文件数目除以包含该词语之文件的数目，再将得到的商取以10为底的对数得到</p>
+<p>例子：<br>注：假如一篇文件的总词语数是100个，而词语”非常”出现了5次，那么”非常”一词在该文件中的词频就是5/100=0.05。而计算文件频率（IDF）的方法是以文件集的文件总数，除以出现”非常”一词的文件数。所以，如果”非常”一词在1,000份文件出现过，而文件总数是10,000,000份的话，其逆向文件频率就是lg（10,000,000 / 1,0000）=3。最后”非常”对于这篇文档的tf-idf的分数为0.05 * 3=0.15。</p>
+<p>API：<br><code>transfer = TfidfVectorizer(stop_words=[&#39;一种&#39;, &#39;不会&#39;, &#39;不要&#39;])</code><br><code>data = transfer.fit_transform(text_list)</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">def text_chinese_tfidf_demo():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    对中文进行特征抽取</span><br><span class="line">    :return: None</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    data = [&quot;一种还是一种今天很残酷，明天更残酷，后天很美好，但绝对大部分是死在明天晚上，所以每个人不要放弃今天。&quot;,</span><br><span class="line">            &quot;我们看到的从很远星系来的光是在几百万年之前发出的，这样当我们看到宇宙时，我们是在看它的过去。&quot;,</span><br><span class="line">            &quot;如果只用一种方式了解某样事物，你就不会真正了解它。了解事物真正含义的秘密取决于如何将其与我们所了解的事物相联系。&quot;]</span><br><span class="line">    # 将原始数据转换成分好词的形式</span><br><span class="line">    text_list = []</span><br><span class="line">    for sent in data:</span><br><span class="line">        text_list.append(cut_word(sent))</span><br><span class="line">    print(text_list)</span><br><span class="line"></span><br><span class="line">    # 1、实例化一个转换器类</span><br><span class="line">    # transfer = CountVectorizer(sparse=False)</span><br><span class="line">    transfer = TfidfVectorizer(stop_words=[&#x27;一种&#x27;, &#x27;不会&#x27;, &#x27;不要&#x27;])</span><br><span class="line">    # 2、调用fit_transform</span><br><span class="line">    data = transfer.fit_transform(text_list)</span><br><span class="line">    print(&quot;文本特征抽取的结果：\n&quot;, data.toarray())</span><br><span class="line">    print(&quot;返回特征名字：\n&quot;, transfer.get_feature_names())</span><br><span class="line"></span><br><span class="line">    return None</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    # 5、tfidf文本提取</span><br><span class="line">    text_chinese_tfidf_demo()</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="✅特征预处理"><a href="#✅特征预处理" class="headerlink" title="✅特征预处理"></a>✅特征预处理</h5><p>scikit-learn的解释：<br><code>provides several common utility functions and transformer classes to change raw feature vectors into a representation that is more suitable for the downstream estimators.</code><br>翻译过来：通过一些转换函数将特征数据转换成更加适合算法模型的特征数据的过程</p>
+<p>数值型数据的<strong>无量纲化</strong>：<br>归一化<br>标准化</p>
+<p>api：<br><code>sklearn.preprocessing</code></p>
+<p>为什么我们要进行归一化/标准化(无量纲化)？<br>特征的单位或者大小相差较大，或者某特征的方差相比其他的特征要大出几个数量级，容易影响（支配）目标结果，使得一些算法无法学习到其它的特征。<br>量纲不统一<br>所以，需要用到一些方法进行无量纲化，使不同规格的数据转换到同一规格。</p>
+<p><strong>归一化</strong><br>通过对原始数据进行变换把数据映射到(默认为[0,1])之间<br>api：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sklearn.preprocessing.MinMaxScaler (feature_range=(0,1)… )</span><br><span class="line">MinMaxScalar.fit_transform(X)</span><br><span class="line">X:numpy array格式的数据[n_samples,n_features]</span><br><span class="line">返回值：转换后的形状相同的array</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line">from sklearn.preprocessing import MinMaxScaler</span><br><span class="line"></span><br><span class="line">def minmax_demo():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    归一化演示</span><br><span class="line">    :return: None</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # 0、pandas读取文本</span><br><span class="line">    data = pd.read_csv(&quot;dating.txt&quot;)</span><br><span class="line">    # 不要目标值每一行都要，要前三列</span><br><span class="line">    data = data.iloc[:, :3]</span><br><span class="line">    print(data)</span><br><span class="line">    # 1、实例化一个转换器类</span><br><span class="line">    transfer = MinMaxScaler(feature_range=(2, 3))</span><br><span class="line">    # 2、调用fit_transform</span><br><span class="line">    data = transfer.fit_transform(data[[&#x27;milage&#x27;,&#x27;Liters&#x27;,&#x27;Consumtime&#x27;]])</span><br><span class="line">    print(&quot;最小值最大值归一化处理的结果：\n&quot;, data)</span><br><span class="line"></span><br><span class="line">    return None</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    # 6、特征预处理-归一化</span><br><span class="line">    minmax_demo()</span><br></pre></td></tr></table></figure>
+
+<p>归一化缺点：最大值最小值是变化的，另外，最大值与最小值（可能是异常值）非常容易受异常点影响，所以这种方法鲁棒性较差，只适合传统精确小数据场景。</p>
+<p><strong>标准化</strong><br>通过对原始数据进行变换把数据变换到均值为0,标准差为1范围内<br>公式：<br>(原值 - 平均值) / 标准差<br>优点：<br>对于归一化来说：如果出现异常点，影响了最大值和最小值，那么结果显然会发生改变<br>对于标准化来说：如果出现异常点，由于具有一定数据量，少量的异常点对于平均值的影响并不大，从而方差改变较小。<br>api：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sklearn.preprocessing.StandardScaler( )</span><br><span class="line">处理之后每列来说所有数据都聚集在均值0附近标准差差为1</span><br><span class="line">StandardScaler.fit_transform(X)</span><br><span class="line">X:numpy array格式的数据[n_samples,n_features]</span><br><span class="line">返回值：转换后的形状相同的array</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line">from sklearn.preprocessing import StandardScaler</span><br><span class="line"></span><br><span class="line">def stand_demo():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    标准化演示</span><br><span class="line">    :return: None</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    data = pd.read_csv(&quot;dating.txt&quot;)</span><br><span class="line">    print(data)</span><br><span class="line">    # 1、实例化一个转换器类</span><br><span class="line">    transfer = StandardScaler()</span><br><span class="line">    # 2、调用fit_transform</span><br><span class="line">    data = transfer.fit_transform(data[[&#x27;milage&#x27;,&#x27;Liters&#x27;,&#x27;Consumtime&#x27;]])</span><br><span class="line">    print(&quot;标准化的结果:\n&quot;, data)</span><br><span class="line">    print(&quot;每一列特征的平均值：\n&quot;, transfer.mean_)</span><br><span class="line">    print(&quot;每一列特征的方差：\n&quot;, transfer.var_)</span><br><span class="line"></span><br><span class="line">    return None</span><br></pre></td></tr></table></figure>
+<p>在已有样本足够多的情况下比较稳定，适合现代嘈杂大数据场景。</p>
+<h5 id="✅特征降维"><a href="#✅特征降维" class="headerlink" title="✅特征降维"></a>✅特征降维</h5><p>ndarray<br>维数：嵌套的层数<br>0维：标量<br>1维：向量<br>2维：矩阵<br>3维：</p>
+<p>此处的降维的对象是二维数组（几行表示几个样本，几列表示几个特征），目标是<strong>降低特征的个数</strong>。</p>
+<p>降维是指在某些限定条件下，降低随机变量(特征)个数，得到一组“不相关”主变量的过程。</p>
+<p>相关的特征：比如湿度与降雨量</p>
+<p>为什么要特征降维？<br>正是因为在进行训练的时候，我们都是使用特征进行学习。如果特征本身存在问题或者特征之间相关性较强，对于算法学习预测会影响较大。</p>
+<p><strong>第一部分：特征选择</strong><br>数据中包含冗余或无关变量（或称特征、属性、指标等），旨在从原有特征中找出主要特征。（例如鸟是否有爪子就是冗余特征）<br>**Filter(过滤式)**：主要探究特征本身特点、特征与特征和目标值之间关联<br>方差选择法：低方差特征过滤<br>相关系数：衡量某两个特征之间的相关程度<br>**Embedded (嵌入式)**：算法自动选择特征（特征与目标值之间的关联）<br>决策树:信息熵、信息增益<br>正则化：L1、L2<br>深度学习：卷积等</p>
+<p>模块：<br><code>sklearn.feature_selection</code></p>
+<p>过滤式：<br><strong>低方差特征过滤</strong>：删除低方差的一些特征<br>特征方差小：某个特征大多样本的值比较相近，比如都是有爪子，就是0<br>特征方差大：某个特征很多样本的值都有差别<br>api：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sklearn.feature_selection.VarianceThreshold(threshold = 0.0)</span><br><span class="line">删除所有低方差特征</span><br><span class="line">Variance.fit_transform(X)</span><br><span class="line">X:numpy array格式的数据[n_samples,n_features]</span><br><span class="line">返回值：训练集差异低于threshold的特征将被删除。默认值是保留所有非零方差特征，即删除所有样本中具有相同值的特征。</span><br></pre></td></tr></table></figure>
+
+<p>低方差特征过滤例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">def variance_demo():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    删除低方差特征——特征选择</span><br><span class="line">    :return: None</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    data = pd.read_csv(&quot;factor_returns.csv&quot;)</span><br><span class="line">    print(data)</span><br><span class="line">    # 1、实例化一个转换器类</span><br><span class="line">    transfer = VarianceThreshold(threshold=1)</span><br><span class="line">    # 2、调用fit_transform，iloc去掉一些无用的列</span><br><span class="line">    data = transfer.fit_transform(data.iloc[:, 1:10])</span><br><span class="line">    print(&quot;删除低方差特征的结果：\n&quot;, data)</span><br><span class="line">    print(&quot;形状：\n&quot;, data.shape)</span><br><span class="line"></span><br><span class="line">    return None</span><br></pre></td></tr></table></figure>
+<p>效果：去掉了一些没用的冗余的特征</p>
+<p><strong>相关系数</strong>：<br>皮尔逊相关系数(Pearson Correlation Coefficient)<br>反映变量之间相关关系密切程度的统计指标，公式略。<br>相关系数解读：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">相关系数的值介于–1与+1之间，即–1≤ r ≤+1。其性质如下：</span><br><span class="line"></span><br><span class="line">当r&gt;0时，表示两变量正相关，r&lt;0时，两变量为负相关</span><br><span class="line">当|r|=1时，表示两变量为完全相关，当r=0时，表示两变量间无相关关系</span><br><span class="line">当0&lt;|r|&lt;1时，表示两变量存在一定程度的相关。且|r|越接近1，两变量间线性关系越密切；|r|越接近于0，表示两变量的线性相关越弱</span><br><span class="line">一般可按三级划分：|r|&lt;0.4为低度相关；0.4≤|r|&lt;0.7为显著性相关；0.7≤|r|&lt;1为高度线性相关</span><br></pre></td></tr></table></figure>
+<p>api:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from scipy.stats import pearsonr</span><br><span class="line">x : (N,) array_like</span><br><span class="line">y : (N,) array_like Returns: (Pearson’s correlation coefficient, p-value)</span><br></pre></td></tr></table></figure>
+
+<p>相关系数的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line">from scipy.stats import pearsonr</span><br><span class="line"></span><br><span class="line">def pearsonr_demo():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    相关系数计算</span><br><span class="line">    :return: None</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    data = pd.read_csv(&quot;factor_returns.csv&quot;)</span><br><span class="line"></span><br><span class="line">    factor = [&#x27;pe_ratio&#x27;, &#x27;pb_ratio&#x27;, &#x27;market_cap&#x27;, &#x27;return_on_asset_net_profit&#x27;, &#x27;du_return_on_equity&#x27;, &#x27;ev&#x27;,</span><br><span class="line">              &#x27;earnings_per_share&#x27;, &#x27;revenue&#x27;, &#x27;total_expense&#x27;]</span><br><span class="line"></span><br><span class="line">    for i in range(len(factor)):</span><br><span class="line">        for j in range(i, len(factor) - 1):</span><br><span class="line">            print(</span><br><span class="line">                &quot;指标%s与指标%s之间的相关性大小为%f&quot; % (factor[i], factor[j + 1], pearsonr(data[factor[i]], data[factor[j + 1]])[0]))</span><br><span class="line"></span><br><span class="line">    return None</span><br></pre></td></tr></table></figure>
+
+<p>也可以通过画图来观察结果，散点图：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">plt.figure(figsize=(20, 8), dpi=100)</span><br><span class="line">plt.scatter(data[&#x27;revenue&#x27;], data[&#x27;total_expense&#x27;])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>如果两个特征相关性很高：<br>1.可以选取其中一个<br>2.可以按一定权重加权两个特征<br>3.主成分分析，自动将相关性很强的特征合成</p>
+<p><strong>第二部分：主成分分析</strong><br>定义：高维数据转化为低维数据的过程，在此过程中可能会舍弃原有数据、创造新的变量。PCA：主成分分析<br>作用：是数据维数压缩，尽可能降低原数据的维数（复杂度），损失少量信息。<br>应用：回归分析或者聚类分析当中<br>抽象理解：将一个三维的东西拍成一个二维的照片，尽可能保留更多的信息，保持原有的特征。<br>再比如：二维的几个点降到一维（一条线），想投影到一条线之后，五个点也还在，且距离直接之和更少。找到一个合适的直线，通过一个矩阵运算得出主成分分析的结果。</p>
+<p>api：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sklearn.decomposition.PCA(n_components=None)</span><br><span class="line">将数据分解为较低维数空间</span><br><span class="line">n_components:</span><br><span class="line">小数：表示保留百分之多少的信息</span><br><span class="line">整数：减少到多少特征</span><br><span class="line">PCA.fit_transform(X) X:numpy array格式的数据[n_samples,n_features]</span><br><span class="line">返回值：转换后指定维度的array</span><br></pre></td></tr></table></figure>
+
+<p>三个特征降维的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.decomposition import PCA</span><br><span class="line"></span><br><span class="line">def pca_demo():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    对数据进行PCA降维</span><br><span class="line">    :return: None</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    data = [[2,8,4,5], [6,3,0,8], [5,4,9,1]]</span><br><span class="line"></span><br><span class="line">    # 1、实例化PCA, 小数——保留多少信息</span><br><span class="line">    transfer = PCA(n_components=0.9)</span><br><span class="line">    # 2、调用fit_transform</span><br><span class="line">    data1 = transfer.fit_transform(data)</span><br><span class="line"></span><br><span class="line">    print(&quot;保留90%的信息，降维结果为：\n&quot;, data1)</span><br><span class="line"></span><br><span class="line">    # 1、实例化PCA, 整数——指定降维到的维数</span><br><span class="line">    transfer2 = PCA(n_components=3)</span><br><span class="line">    # 2、调用fit_transform</span><br><span class="line">    data2 = transfer2.fit_transform(data)</span><br><span class="line">    print(&quot;降维到3维的结果：\n&quot;, data2)</span><br><span class="line"></span><br><span class="line">    return None</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">保留90%的信息，降维结果为：</span><br><span class="line"> [[ -3.13587302e-16   3.82970843e+00]</span><br><span class="line"> [ -5.74456265e+00  -1.91485422e+00]</span><br><span class="line"> [  5.74456265e+00  -1.91485422e+00]]</span><br><span class="line">降维到3维的结果：</span><br><span class="line"> [[ -3.13587302e-16   3.82970843e+00   4.59544715e-16]</span><br><span class="line"> [ -5.74456265e+00  -1.91485422e+00   4.59544715e-16]</span><br><span class="line"> [  5.74456265e+00  -1.91485422e+00   4.59544715e-16]]</span><br></pre></td></tr></table></figure>
+
+<p><strong>第三部分：案例：探究用户对物品类别的喜好细分降维</strong></p>
+<p>1）合并表，使得user_id与aisle在一张表当中<br>2）进行交叉表变换-交叉表透视表<br>3）特征冗余过多-PCA降维</p>
+<p>pandas可以读取csv文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line">data = pd.read_csv(“./route”)</span><br><span class="line">table3 = pd.merge(table1, table2, on=[“uid”, “uid”]) //用来合并表，默认内连接</span><br><span class="line"></span><br><span class="line">3、交叉表处理，把user_id和aisle进行分组</span><br><span class="line">table = pd.crosstab(tab3[&quot;user_id&quot;], tab3[&quot;aisle&quot;])</span><br><span class="line"></span><br><span class="line">4、主成分分析的方法进行降维</span><br><span class="line"> 1）实例化一个转换器类PCA</span><br><span class="line">transfer = PCA(n_components=0.95)</span><br><span class="line"> 2）fit_transform</span><br><span class="line">data = transfer.fit_transform(table)</span><br><span class="line"></span><br><span class="line">data.shape</span><br></pre></td></tr></table></figure>
+<p>Jupiter 处理数据的工具，可视化数据。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p><img src="https://img-blog.csdnimg.cn/f293d52326fb423aa007de3748b7598e.png"></p>
+<h3 id="3-分类算法"><a href="#3-分类算法" class="headerlink" title="3.分类算法"></a>3.分类算法</h3><p>目标值：类别</p>
+<h4 id="3-1-sklearn转换器和预估器-estimator"><a href="#3-1-sklearn转换器和预估器-estimator" class="headerlink" title="3.1 sklearn转换器和预估器(estimator)"></a>3.1 sklearn转换器和预估器(estimator)</h4><p>  3.1.1 转换器-特征工程的父类<br>    1 实例化（实例化的是一个转换器类（Transformer））<br>    2 调用fit_transform 标准化，是fit计算每一列平均值和标准差 transform进行计算转换</p>
+<p>  3.1.2 估计器-sklearn机器学习算法的实现<br>    1 实例化一个eatimator<br>    2 estimator.fit(x_train, y_train) 计算 — 调用完毕，模型生成<br>    3 模型评估<br>      1）直接对比真实值和预测值<br>        y_predict = estimator.predictor(x_test)<br>        y_test = y_predict<br>      2）计算准确率<br>      accuracy = estimator.score(x_test, y_test)</p>
+<h4 id="3-2-K-近邻算法-KNN算法"><a href="#3-2-K-近邻算法-KNN算法" class="headerlink" title="3.2 K-近邻算法(KNN算法)"></a>3.2 K-近邻算法(KNN算法)</h4><p>  核心思想：根据邻居来推断出类别<br>  3.2.1 KNN算法原理<br>     如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本中的大多数属于某一个类别，则该样本也属于这个类别。<br>    k=1 容易收到异常点的影响<br>    如何确定谁是邻居，计算距离 eg：欧氏距离（默认），曼哈顿距离（绝对值距离），明可夫斯基距离<br>    例子：电影分类：先求距离，再取k。<br>    K值取得过大：容易收到样本不均衡的影响。</p>
+<p>  3.2.2 k-近邻算法api</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sklearn.neighbors.KNeighborsClassifier(n_neighbors=5,algorithm=&#x27;auto&#x27;)</span><br><span class="line">	◦	n_neighbors：k值，int,可选（默认= 5），k_neighbors查询默认使用的邻居数</span><br><span class="line">	◦	algorithm：&#123;‘auto’，‘ball_tree’，‘kd_tree’，‘brute’&#125;，可选用于计算最近邻居的算法：‘ball_tree’将会使用 BallTree，‘kd_tree’将使用 KDTree。‘auto’将尝试根据传递给fit方法的值来决定最合适的算法。 (不同实现方式影响效率)</span><br></pre></td></tr></table></figure>
+
+<p>  3.2.3 案例：鸢尾花种类预测<br>    1）获取数据，四个特征<br>    2）数据集划分<br>    3）特征工程：标准化<br>    4）KNN预估器流程<br>    5）模型评估</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.datasets import load_iris</span><br><span class="line">from sklearn.model_selection import train_test_split</span><br><span class="line">from sklearn.preprocessing import StandardScaler</span><br><span class="line">from sklearn.neighbors import KNeighborsClassifier</span><br><span class="line"></span><br><span class="line">def knn_iris():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    案例：鸢尾花种类预测</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # 1）获取数据，四个特征</span><br><span class="line">    iris = load_iris()</span><br><span class="line">    # 2）数据集划分</span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, random_state=6)</span><br><span class="line">    # 3）特征工程：标准化 1.实例化一个转换器类 2.对训练集和测试集标准化（测试集用训练集fit的结果）</span><br><span class="line">    transform = StandardScaler()</span><br><span class="line">    x_train = transform.fit_transform(x_train)</span><br><span class="line">    x_test = transform.transform(x_test)</span><br><span class="line">    # 4）KNN预估器流程：1.实例化一个预估器对象 2.将训练集的特征值和目标值传入进行训练</span><br><span class="line">    estimator = KNeighborsClassifier(n_neighbors=3)</span><br><span class="line">    estimator.fit(x_train, y_train)</span><br><span class="line">    # 5）模型评估  1.直接比对真实值和预估值 2.计算准确率</span><br><span class="line">    y_predict = estimator.predict(x_test)</span><br><span class="line">    print(&quot;y_predict:\n&quot;, y_predict)</span><br><span class="line">    print(&quot;预测值和真实值:\n&quot;, y_predict == y_test)</span><br><span class="line">    score = estimator.score(x_test, y_test)</span><br><span class="line">    print(&quot;score:\n&quot;, score)</span><br><span class="line">    return None</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    # 代码1.knn算法对iris进行分类</span><br><span class="line">    knn_iris()</span><br></pre></td></tr></table></figure>
+
+<p>  3.2.4 knn优缺点<br>    •    优点：<br>    ◦    简单，易于理解，易于实现，无需训练<br>    •    缺点：<br>    ◦    懒惰算法，对测试样本分类时的计算量大，内存开销大<br>    ◦    必须指定K值，K值选择不当则分类精度不能保证<br>    •    使用场景：小数据场景，几千～几万样本，具体场景具体业务去测试</p>
+<h4 id="3-3-模型选择与调优"><a href="#3-3-模型选择与调优" class="headerlink" title="3.3 模型选择与调优"></a>3.3 模型选择与调优</h4><p>  3.3.1 什么是交叉验证<br>交叉验证：将拿到的训练数据，分为训练和验证集。例如：将数据分成5份，其中一份作为验证集。然后经过5次(组)的测试，每次都更换不同的验证集。即得到5组模型的结果，取平均值作为最终结果。又称5折交叉验证。目的：让被评估的模型更加准确可信<br>  •    训练集：训练集+验证集<br>    •    测试集：测试集</p>
+<p>  3.3.2 超参数搜索-网格搜索<br>  通常情况下，有很多参数是需要手动指定的（如k-近邻算法中的K值），这种叫超参数。但是手动过程繁杂，所以需要对模型预设几种超参数组合。每组超参数都采用交叉验证来进行评估。最后选出最优参数组合建立模型</p>
+<p>  3.3.3 模型选择与调优api</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sklearn.model_selection.GridSearchCV(estimator, param_grid=None,cv=None)</span><br><span class="line">◦	对估计器的指定参数值进行详尽搜索</span><br><span class="line">◦	estimator：估计器对象</span><br><span class="line">◦	param_grid：估计器参数(dict)&#123;“n_neighbors”:[1,3,5]&#125;，将想要用的参数值以字典格式传入</span><br><span class="line">◦	cv：指定几折交叉验证，常用10折</span><br><span class="line">◦	fit：输入训练数据</span><br><span class="line">◦	score：准确率</span><br><span class="line">◦	结果分析：</span><br><span class="line">▪	best_param：最佳参数</span><br><span class="line">▪	bestscore：最佳结果</span><br><span class="line">▪	best_estimator：最佳估计器</span><br><span class="line">▪	cv_results：交叉验证结果-每次交叉验证后的验证集准确率结果和训练集准确率结果</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">def knn_iris_gscv():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    案例：鸢尾花种类预测knn,添加网格搜索和交叉验证</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # 1）获取数据，四个特征</span><br><span class="line">    iris = load_iris()</span><br><span class="line">    # 2）数据集划分</span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, random_state=6)</span><br><span class="line">    # 3）特征工程：标准化 1.实例化一个转换器类 2.对训练集和测试集标准化（测试集用训练集fit的结果）</span><br><span class="line">    transform = StandardScaler()</span><br><span class="line">    x_train = transform.fit_transform(x_train)</span><br><span class="line">    x_test = transform.transform(x_test)</span><br><span class="line">    # 4）KNN预估器流程：1.实例化一个预估器对象 2.将训练集的特征值和目标值传入进行训练</span><br><span class="line">    estimator = KNeighborsClassifier()</span><br><span class="line">    # 加入网格搜索和交叉验证</span><br><span class="line">    # 参数准备</span><br><span class="line">    param_dict = &#123;&quot;n_neighbors&quot;: [3, 5, 10]&#125;</span><br><span class="line">    estimator = GridSearchCV(estimator, param_grid=param_dict, cv=10)</span><br><span class="line">    estimator.fit(x_train, y_train)</span><br><span class="line">    # 5）模型评估  1.直接比对真实值和预估值 2.计算准确率</span><br><span class="line">    y_predict = estimator.predict(x_test)</span><br><span class="line">    print(&quot;y_predict:\n&quot;, y_predict)</span><br><span class="line">    print(&quot;预测值和真实值:\n&quot;, y_predict == y_test)</span><br><span class="line">    score = estimator.score(x_test, y_test)</span><br><span class="line">    print(&quot;score:\n&quot;, score)  # 测试集的结果</span><br><span class="line">    print(&quot;最佳参数:\n&quot;, estimator.best_params_)</span><br><span class="line">    print(&quot;最佳结果:\n&quot;, estimator.best_score_)  # 验证集的结果</span><br><span class="line">    print(&quot;最佳估计器:\n&quot;, estimator.best_estimator_)</span><br><span class="line">    print(&quot;交叉验证结果:\n&quot;, estimator.cv_results_)</span><br><span class="line">    return None</span><br></pre></td></tr></table></figure>
+
+
+<p>  3.3.4 案例-Facebook签到位置预测K值调优</p>
+<pre><code>处理数据，反复调试，如果用pycharm，每次调试都要加载一次。所以用jupyter。
+
+流程：
+  1）获取数据
+  2）数据处理：过滤无用数据，筛选特征值x和目标值y，数据集划分
+</code></pre>
+<p><code>data.head() data=data.query(“x&lt;2 &amp; x&gt;1”)</code><br><code>处理时间数据：time_value = pd.to_data_time(data[“time”], unit=“s”)  date = pd.DateTimeIndex(time_value)</code><br><code>对数据进行分组： data.groupby(“place”).count()</code><br>      3）特征工程：标准化<br>      4）KNN算法预估流程<br>      5）模型选择与调优<br>      6）模型评估</p>
+<h4 id="3-4-朴素贝叶斯算法"><a href="#3-4-朴素贝叶斯算法" class="headerlink" title="3.4 朴素贝叶斯算法"></a>3.4 朴素贝叶斯算法</h4><p>3.4.1 什么是朴素贝叶斯算法：<br>给出分类事件每个类别的概率。</p>
+<p>•    联合概率：包含多个条件，且所有条件同时成立的概率<br>◦    记作：P(A,B)<br>◦    特性：P(A, B) = P(A)P(B) &lt;=&gt; 事件AB相互独立<br>•    条件概率：就是事件A在另外一个事件B已经发生条件下的发生概率<br>◦    记作：P(A|B)</p>
+<p>贝叶斯公式：<code>p(c|w) = [p(w|c)p(c)]/p(w)</code>。w为特征值，c为目标值。</p>
+<p>朴素是什么：假定特征与特征之间相互独立。</p>
+<p>应用场景：文本分类(单词作为特征，假设相互独立) </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">P(C)：每个文档类别的概率(某文档类别数／总文档数量)</span><br><span class="line">P(W│C)：给定类别下特征（被预测文档中出现的词）的概率（某类别词1数量/某类别所有次数量）</span><br><span class="line">计算方法：P(F1│C)=Ni/N （训练文档中去计算）</span><br><span class="line">Ni为该F1词在C类别所有文档中出现的次数</span><br><span class="line">N为所属类别C下的文档所有词出现的次数和</span><br><span class="line">P(F1,F2,…) 预测文档中每个词的概率</span><br></pre></td></tr></table></figure>
+
+<p>计算出来某个概率为0，怎么办？<br>拉普拉斯平滑系:  <code>p(w|c) = (ni+a)/(n+am)</code><br>目的：防止计算出的分类概率为0<br>a为指定的系数一般为1，m为训练文档中统计出的特征词有多少种</p>
+<p>3.4.2 朴素贝叶斯api</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sklearn.naive_bayes.MultinomialNB(alpha = 1.0)</span><br><span class="line">朴素贝叶斯分类</span><br><span class="line">alpha：拉普拉斯平滑系数</span><br></pre></td></tr></table></figure>
+
+<p>3.4.3 案例：20类新闻分类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">def nbcls():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    朴素贝叶斯对新闻数据集进行预测</span><br><span class="line">    :return:</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # 获取新闻的数据，20个类别</span><br><span class="line">    news = fetch_20newsgroups(data_home=&#x27;/Users/liuxuan/MyProject/pypro/python-learn&#x27;, subset=&#x27;all&#x27;)</span><br><span class="line">    # 划分数据集</span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(news.data, news.target, test_size=0.3)</span><br><span class="line">    # 对于文本数据，进行特征抽取 1.获取实例化对象 2.转换</span><br><span class="line">    tf = TfidfVectorizer()</span><br><span class="line">    x_train = tf.fit_transform(x_train)</span><br><span class="line">    # 这里打印出来的列表是：训练集当中的所有不同词的组成的一个列表</span><br><span class="line">    print(tf.get_feature_names())</span><br><span class="line">    # print(x_train.toarray())</span><br><span class="line">    # 不能调用fit_transform</span><br><span class="line">    x_test = tf.transform(x_test)</span><br><span class="line">    # estimator估计器流程,并训练</span><br><span class="line">    mlb = MultinomialNB(alpha=1.0)</span><br><span class="line">    mlb.fit(x_train, y_train)</span><br><span class="line">    # 进行预测，验证</span><br><span class="line">    y_predict = mlb.predict(x_test)</span><br><span class="line">    print(&quot;预测每篇文章的类别：&quot;, y_predict[:100])</span><br><span class="line">    print(&quot;真实类别为：&quot;, y_test[:100])</span><br><span class="line">    print(&quot;预测准确率为：&quot;, mlb.score(x_test, y_test))</span><br><span class="line">    return None</span><br></pre></td></tr></table></figure>
+
+<p>3.4.4 优缺点<br>优点：<br>朴素贝叶斯模型发源于古典数学理论，有稳定的分类效率。<br>对缺失数据不太敏感，算法也比较简单，常用于文本分类。<br>分类准确度高，速度快<br>缺点：<br>由于使用了样本属性独立性的假设，所以如果特征属性有关联时其效果不好</p>
+<h4 id="3-5-决策树"><a href="#3-5-决策树" class="headerlink" title="3.5 决策树"></a>3.5 决策树</h4><p>决策树思想的来源非常朴素，程序设计中的条件分支结构就是if-then结构，最早的决策树就是利用这类结构分割数据的一种分类学习方法<br>思想：如何高效地进行决策，先看哪个再看哪个，决定特征的先后顺序。</p>
+<p>3.5.1 决策树分类原理<br>用数学的方法来得到，应该先看哪个特征再看哪个特征。<br>信息论基础<br>信息：消除随机不定性的东西<br>信息的衡量 - 信息量 - 信息墒<br>p为每个球队获胜的概率（假设概率相等，都为1/32）<br>信息墒 H = -(p1logp1 + p2logp2 + … + p32logp32)=5bit<br>决策树的划分依据之一——信息增益<br>信息增益：特征A对训练数据集D的信息增益g(D,A),定义为集合D的信息熵H(D)与特征A给定条件下D的信息条件熵H(D|A)之差<br>（知道哪个特征之后，不确定性减少的量）<br><code>g(D,A)= H(D) - 条件墒H(D|A)</code><br>条件墒怎么算：特征A有多少种，每种分别计算信息墒，然后根据样本特征类种类比例累加。</p>
+<p>3.5.2 决策树api</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">•	class sklearn.tree.DecisionTreeClassifier(criterion=’gini’, max_depth=None,random_state=None)</span><br><span class="line">◦	决策树分类器</span><br><span class="line">◦	criterion:默认是’gini’系数，也可以选择信息增益的熵’entropy’</span><br><span class="line">◦	max_depth:树的深度大小，太深容易过拟合</span><br><span class="line">◦	random_state:随机数种子</span><br><span class="line">•	其中会有些超参数：max_depth:树的深度大小</span><br><span class="line">◦	其它超参数我们会结合随机森林讲解</span><br></pre></td></tr></table></figure>
+<p>步骤：<br>1）获取数据集<br>2）划分数据集，决策树不用做标准化<br>3）决策树预估器进行分类<br>4）模型评估</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">def decision_iris():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    用决策树对鸢尾花进行分类</span><br><span class="line">    :return:</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # 1）获取数据集</span><br><span class="line">    iris = load_iris()</span><br><span class="line">    # 2）划分数据集，决策树不用做标准化</span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, random_state=6)</span><br><span class="line">    # 3）决策树预估器进行分类</span><br><span class="line">    estimator = DecisionTreeClassifier(criterion=&#x27;entropy&#x27;)</span><br><span class="line">    estimator.fit(x_train,y_train)</span><br><span class="line">    # 4）模型评估</span><br><span class="line">    y_predict = estimator.predict(x_test)</span><br><span class="line">    print(&quot;y_predict:\n&quot;, y_predict)</span><br><span class="line">    print(&quot;预测值和真实值:\n&quot;, y_predict == y_test)</span><br><span class="line">    score = estimator.score(x_test, y_test)</span><br><span class="line">    print(&quot;score:\n&quot;, score)</span><br></pre></td></tr></table></figure>
+
+<p>3.5.3 决策树可视化</p>
+<p>1.保存树的结构到dot文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1、sklearn.tree.export_graphviz() 该函数能够导出DOT格式</span><br><span class="line">	◦tree.export_graphviz(estimator,out_file=&#x27;tree.dot’,feature_names=[‘’,’’])</span><br><span class="line">2、复制文件内容到网站：http://www.webgraphviz.com</span><br><span class="line"></span><br><span class="line"> 可视化决策树</span><br><span class="line">export_graphviz(estimator, out_file=&#x27;iris_tree.dot&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>3.5.4 决策树优缺点<br>    •    优点：<br>    ◦    简单的理解和解释，树木可视化。可理解性强，反观神经网络是个黑盒。<br>    •    缺点：<br>    ◦    容易产生过拟合。<br>    •    改进：<br>    ◦    减枝cart算法(决策树API当中已经实现，随机森林参数调优有相关介绍)<br>    ◦    随机森林<br>注：企业重要决策，由于决策树很好的分析能力，在决策过程应用较多， 可以选择特征</p>
+<p>⚠️：特征转换为字典，进行字典特征抽取，因为one-hot编码特征变多，用get_feature_names，获取特征。</p>
+<h4 id="3-6-随机森林"><a href="#3-6-随机森林" class="headerlink" title="3.6 随机森林"></a>3.6 随机森林</h4><p>什么是集成学习方法：<br>集成学习通过建立几个模型组合的来解决单一预测问题。它的工作原理是生成多个分类器/模型，各自独立地学习和作出预测。这些预测最后结合成组合预测，因此优于任何一个单分类的做出预测。三个臭皮匠，顶一个诸葛亮。由分类结果的众数来决定目标值。</p>
+<p>什么是随机森林：<br>在机器学习中，随机森林是一个包含多个决策树的分类器，并且其输出的类别是由个别树输出的类别的众数而定。<br>3.6.1 随机森林原理过程<br>如何建造每棵树：两个随机：<br>N个样本，M个特征<br>1）训练集随机<br>采取bootstrap抽样（随机有放回抽样）<br>用N来表示训练用例（样本）的个数，M表示特征数目。<br>    ◦    1、一次随机选出一个样本，重复N次， （有可能出现重复的样本）<br>    ◦    2、随机去选出m个特征, m &lt;&lt;M，建立决策树，起到降维的效果，运算快。可以让正确的结果脱颖而出（真理掌握在少数人手里）</p>
+<p>2）特征随机。</p>
+<p>为什么采用BootStrap抽样<br>    •    为什么要随机抽样训练集？　　<br>    ◦    如果不进行随机抽样，每棵树的训练集都一样，那么最终训练出的树分类结果也是完全一样的<br>    •    为什么要有放回地抽样？<br>    ◦    如果不是有放回的抽样，那么每棵树的训练样本都是不同的，都是没有交集的，这样每棵树都是“有偏的”，都是绝对“片面的”（当然这样说可能不对），也就是说每棵树训练出来都是有很大的差异的；而随机森林最后分类取决于多棵树（弱分类器）的投票表决。</p>
+<p>3.6.2 随机森林api</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">•	class sklearn.ensemble.RandomForestClassifier(n_estimators=10, criterion=’gini’, max_depth=None, bootstrap=True, random_state=None, min_samples_split=2)</span><br><span class="line">◦	随机森林分类器</span><br><span class="line">◦	n_estimators：integer，optional（default = 10）森林里的树木数量</span><br><span class="line">◦	criterion：string，可选（default =“gini”）分割特征的测量方法</span><br><span class="line">◦	max_depth：integer或None，可选（默认=无）树的最大深度 5,8,15,25,30</span><br><span class="line">◦	max_features=&quot;auto”,每个决策树的最大特征数量(m怎么选)</span><br><span class="line">▪	If &quot;auto&quot;, then max_features=sqrt(n_features).</span><br><span class="line">▪	If &quot;sqrt&quot;, then max_features=sqrt(n_features) (same as &quot;auto&quot;).</span><br><span class="line">▪	If &quot;log2&quot;, then max_features=log2(n_features).</span><br><span class="line">▪	If None, then max_features=n_features.</span><br><span class="line">◦	bootstrap：boolean，optional（default = True）是否在构建树时使用放回抽样</span><br><span class="line">◦	min_samples_split:节点划分最少样本数</span><br><span class="line">◦	min_samples_leaf:叶子节点的最小样本数</span><br><span class="line">•	超参数：n_estimator, max_depth, min_samples_split,min_samples_leaf</span><br></pre></td></tr></table></figure>
+
+<p>3.6.3 鸢尾花实例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">def random_decision_iris():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    用决策树对鸢尾花进行分类</span><br><span class="line">    :return:</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # 1）获取数据集</span><br><span class="line">    iris = load_iris()</span><br><span class="line">    # 2）划分数据集，决策树不用做标准化</span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(iris.data, iris.target, random_state=6)</span><br><span class="line">    # 3）随机森林预估器进行分类</span><br><span class="line">    estimator = RandomForestClassifier(criterion=&#x27;entropy&#x27;)</span><br><span class="line">    # 加入网格搜索和交叉验证</span><br><span class="line">    # 参数准备</span><br><span class="line">    param_dict = &#123;&quot;n_estimators&quot;: [120, 200, 300, 500, 800, 1200], &quot;max_depth&quot;: [5, 8, 15, 25, 30]&#125;</span><br><span class="line">    # 超参数调优</span><br><span class="line">    estimator = GridSearchCV(estimator, param_grid=param_dict, cv=2)</span><br><span class="line">    estimator.fit(x_train,y_train)</span><br><span class="line">    # 4）模型评估</span><br><span class="line">    y_predict = estimator.predict(x_test)</span><br><span class="line">    print(&quot;y_predict:\n&quot;, y_predict)</span><br><span class="line">    print(&quot;预测值和真实值:\n&quot;, y_predict == y_test)</span><br><span class="line">    score = estimator.score(x_test, y_test)</span><br><span class="line">    print(&quot;score:\n&quot;, score)</span><br><span class="line">    # 可视化决策树</span><br><span class="line">    # export_graphviz(estimator, out_file=&#x27;iris_tree.dot&#x27;)</span><br><span class="line">    print(&quot;score:\n&quot;, score)  # 测试集的结果</span><br><span class="line">    print(&quot;最佳参数:\n&quot;, estimator.best_params_)</span><br><span class="line">    print(&quot;最佳结果:\n&quot;, estimator.best_score_)  # 验证集的结果</span><br><span class="line">    print(&quot;最佳估计器:\n&quot;, estimator.best_estimator_)</span><br><span class="line">    print(&quot;交叉验证结果:\n&quot;, estimator.cv_results_)</span><br><span class="line">    return None</span><br></pre></td></tr></table></figure>
+
+<p>3.6.4 优缺点<br>    •    在当前所有算法中，具有极好的准确率（没有免费的午餐）<br>    •    能够有效地运行在大数据集上，处理具有高维特征的输入样本，而且不需要降维（M&gt;&gt;m相当于是降维了）<br>    •    能够评估各个特征在分类问题上的重要性</p>
+<h4 id="3-7-总结"><a href="#3-7-总结" class="headerlink" title="3.7 总结"></a>3.7 总结</h4><p>1.转换器和预估器：转换器在特征工程里用，预估器在机器学习算法训练模型里用。封装在同一父类里面，调同一个方法（fit_transform、fit）</p>
+<p>2.KNN算法：核心思想是根据邻居确定类别，谁是邻居：距离公式，k的取值：找几个邻居，太小容易受异常值影响，过大容易受样本不均衡影响。缺陷是时间复杂度高，应用场景是少量数据。</p>
+<p>3.朴素贝叶斯算法：朴素：假定特征与特征之间独立。样本量不够导致出现0的情况：引入拉普拉斯平滑系数。优点：对缺失数据不敏感，计算快。缺点：特征之间关联影响效果。应用场景：文本分类。</p>
+<p>4.决策树：以何种顺序决策是最高效的，用信息增益来决定决策顺序。信息增益=信息墒-条件墒。优点是可以可视化，可解释能力强。缺点容易过拟合。</p>
+<p>5.随机森林：随机：训练集随机和特征随机，森林：多个决策树。优点容易取得比较好的效果，有降维的效果，降低模型复杂度。应用场景：高维度特征大数据场景。</p>
+<h3 id="4-回归与聚类算法"><a href="#4-回归与聚类算法" class="headerlink" title="4.回归与聚类算法"></a>4.回归与聚类算法</h3><h4 id="4-1-线性回归"><a href="#4-1-线性回归" class="headerlink" title="4.1 线性回归"></a>4.1 线性回归</h4><p>4.1.1 线性回归原理<br>回归问题 - 目标值是连续性的。<br>线性回归(Linear regression)是利用回归方程(函数)对一个或多个自变量(特征值)和因变量(目标值)之间关系进行建模的一种分析方式。<br>通俗：找到一个特定的函数关系，描述特征值和目标值的关系。<br>满足线性关系的：<br>h(w) = w1x1+w2x2+…+b = wTx+b<br>W是权重值/回归系数。b是偏置。<br>这个函数关系就叫做线性模型。<br>广义的线性模型，可以是非线性关系。<br>线性模型，当函数关系当中，满足自变量一次/参数一次的，都叫线性模型。<br>自变量一次：h(w) = w1x1+w2x2+…+b = wTx+b<br>参数一次：y=w1x1 + w2x1^2 + w3x1^3 + w4x2^3 +…+b （没有log/e）<br>线性关系一定是线性模型，但是线性模型不一定是线性关系。</p>
+<p>4.1.2 线性回归的损失和优化原理<br>权重和偏置（模型参数）是未知的，求解，使得预测准确。<br>首先，随意假定一组模型参数，带入一组特征值。<br>预测值和真实值的差值在迭代中缩小。<br>衡量预测值和真实值的误差：损失函数/cost/成本函数/目标函数<br>损失函数=累加(预测值-真实值)^2<br>减少这个损失，使得预测更准确，又称最小二乘法。</p>
+<p>优化损失的方法：<br>1.正规方程（天才）-用正规方程直接求解w<br>当特征过多过复杂时，求解速度太慢并且得不到结果（特别是求逆），只能在线性回归中使用。</p>
+<p>2.梯度下降（勤奋努力的普通人）-不断地试错、改进<br>数据量很大的情况下，梯度下降可以取得更好的结果。<br>先给初使的权重，迭代来获取新的权重，沿着切线的方向移动<br>α为学习速率，需要手动指定（超参数），表示步长，α旁边的整体表示方向<br>沿着这个函数下降的方向找，最后就能找到山谷的最低点，然后更新W值<br>使用：面对训练数据规模十分庞大的任务 ，能够找到较好的结果。<br>线性回归的损失函数图像有一个唯一的最小值点。<br>但不是线性回归的损失函数，可能到一个局部最小点。<br>机器学习中的学习过程就可以理解为梯度下降的试错改进。</p>
+<p>4.1.3 线性回归API<br>sklearn提供给我们两种实现的API， 可以根据选择使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">sklearn.linear_model.LinearRegression(fit_intercept=True)</span><br><span class="line">  通过正规方程优化</span><br><span class="line">  fit_intercept：是否计算偏置，一般true，不然只能是过原点的，局限性</span><br><span class="line">  LinearRegression.coef_：看回归系数</span><br><span class="line">  LinearRegression.intercept_：看偏置</span><br><span class="line">sklearn.linear_model.SGDRegressor(loss=&quot;squared_loss&quot;, fit_intercept=True, learning_rate =&#x27;invscaling&#x27;, eta0=0.01)</span><br><span class="line">  SGDRegressor类实现了随机梯度下降学习，它支持不同的loss函数和正则化惩罚项来拟合线性回归模型。</span><br><span class="line">  loss:损失函数类型</span><br><span class="line">  loss=”squared_loss”: 普通最小二乘法</span><br><span class="line">  fit_intercept：是否计算偏置</span><br><span class="line">  learning_rate : string, optional</span><br><span class="line">    学习率算法</span><br><span class="line">    &#x27;constant&#x27;: eta = eta0 （默认0.01）</span><br><span class="line">    &#x27;optimal&#x27;: eta = 1.0 / (alpha * (t + t0)) [default]随着迭代次数变多学习率变小</span><br><span class="line">    &#x27;invscaling&#x27;: eta = eta0 / pow(t, power_t)  power_t=0.25:存在父类当中</span><br><span class="line">    对于一个常数值的学习率来说，可以使用learning_rate=’constant’ ，并使用eta0来指定学习率。</span><br><span class="line">  SGDRegressor.coef_：回归系数</span><br><span class="line">  SGDRegressor.intercept_：偏置</span><br></pre></td></tr></table></figure>
+
+
+<p>4.1.4 波士顿房价预测<br>流程：<br>1）获取数据集<br>2）划分数据集<br>3）特征工程：无量纲化-标准化<br>4）预估器流程 fit() -&gt; 模型 coef_ intercept_<br>5）模型评估 </p>
+<p>回归性能评估: 均方误差MSE（上面的损失函数+平均）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sklearn.metrics.mean_squared_error(y_true, y_pred)</span><br><span class="line">均方误差回归损失</span><br><span class="line">y_true:真实目标值</span><br><span class="line">y_pred:预测目标值</span><br><span class="line">return:浮点数结果</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.datasets import load_boston</span><br><span class="line">from sklearn.model_selection import train_test_split</span><br><span class="line">from sklearn.preprocessing import StandardScaler</span><br><span class="line">from sklearn.linear_model import LinearRegression,SGDRegressor</span><br><span class="line">from sklearn.metrics import mean_squared_error</span><br><span class="line"></span><br><span class="line">def linear1():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    线性回归正规方程优化方法预测房子价格</span><br><span class="line">    :return:</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # 1）获取数据集</span><br><span class="line">    lb = load_boston()</span><br><span class="line">    # print(lb.data)</span><br><span class="line">    # print(lb.target)</span><br><span class="line">    print(&quot;特征数量&quot;, lb.data.shape)</span><br><span class="line"></span><br><span class="line">    # 2)对数据集进行划分</span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(lb.data, lb.target, test_size=0.3, random_state=24)</span><br><span class="line"></span><br><span class="line">    # 3）特征工程：无量纲化 - 标准化</span><br><span class="line">    transfer = StandardScaler()</span><br><span class="line">    x_train = transfer.fit_transform(x_train)</span><br><span class="line">    x_test = transfer.fit_transform(x_test)</span><br><span class="line">    # print(x_train)</span><br><span class="line"></span><br><span class="line">    # 4）预估器流程 fit() -&gt; 模型</span><br><span class="line">    # 使用正规方程求解</span><br><span class="line">    lr = LinearRegression()</span><br><span class="line">    lr.fit(x_train, y_train)</span><br><span class="line"></span><br><span class="line">    # 5）得出模型</span><br><span class="line">    print(&quot;权重系数：&quot;, lr.coef_)</span><br><span class="line">    print(&quot;偏置：&quot;, lr.intercept_)</span><br><span class="line"></span><br><span class="line">    # 6）模型评估</span><br><span class="line">    y_predict = lr.predict(x_test)</span><br><span class="line">    print(&quot;预测房价：&quot;, y_predict)</span><br><span class="line">    print(&quot;正规方程的均方误差为：&quot;, mean_squared_error(y_test, y_predict))</span><br><span class="line">    return None</span><br><span class="line"></span><br><span class="line">def linear2():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    线性回归梯度下降优化方法预测房子价格</span><br><span class="line">    :return:</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # 1）获取数据集</span><br><span class="line">    lb = load_boston()</span><br><span class="line">    # print(lb.data)</span><br><span class="line">    # print(lb.target)</span><br><span class="line"></span><br><span class="line">    # 2)对数据集进行划分</span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(lb.data, lb.target, test_size=0.3, random_state=24)</span><br><span class="line"></span><br><span class="line">    # 3）特征工程：无量纲化 - 标准化</span><br><span class="line">    transfer = StandardScaler()</span><br><span class="line">    x_train = transfer.fit_transform(x_train)</span><br><span class="line">    x_test = transfer.fit_transform(x_test)</span><br><span class="line">    # print(x_train)</span><br><span class="line"></span><br><span class="line">    # 4）梯度下降进行预测，调参</span><br><span class="line">    sgd = SGDRegressor(max_iter=10000, eta0=0.0001, learning_rate=&quot;constant&quot;)</span><br><span class="line">    sgd.fit(x_train, y_train)</span><br><span class="line">    print(&quot;SGD的权重参数为：&quot;, sgd.coef_)</span><br><span class="line">    print(&quot;偏置：&quot;, sgd.intercept_)</span><br><span class="line"></span><br><span class="line">    # 6）模型评估</span><br><span class="line">    y_predict = sgd.predict(x_test)</span><br><span class="line">    print(&quot;预测房价：&quot;, y_predict)</span><br><span class="line">    print(&quot;梯度下降的均方误差为：&quot;, mean_squared_error(y_test, y_predict))</span><br><span class="line">    return None</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    linear1()</span><br><span class="line">    linear2()</span><br></pre></td></tr></table></figure>
+
+<p>4.1.5 正规方程和梯度下降的对比</p>
+<p>梯度下降            正规方程<br>需要选择学习率    不需要<br>需要迭代求解     一次运算得出<br>特征数量较大可以使用  需要计算方程，时间复杂度高O(n3)</p>
+<p>选择：<br>小规模数据：LinearRegression(不能解决拟合问题)、岭回归<br>大规模数据：SGDRegressor</p>
+<p>4.1.6 梯度下降优化方法GD、SGD、SAG</p>
+<p>GD<br>梯度下降(Gradient Descent)，原始的梯度下降法需要计算所有样本的值才能够得出梯度，计算量大，所以后面才有会一系列的改进。</p>
+<p>SGD<br>随机梯度下降(Stochastic gradient descent)是一个优化方法。它在一次迭代时只考虑一个训练样本。<br>SGD的优点是：高效容易实现<br>SGD的缺点是：SGD需要许多超参数：比如正则项参数、迭代数。SGD对于特征标准化是敏感的。</p>
+<p>SAG<br>随机平均梯度法(Stochasitc Average Gradient)，由于收敛的速度太慢，有人提出SAG等基于梯度下降的算法<br>Scikit-learn：SGDRegressor、岭回归、逻辑回归等当中都会有SAG优化</p>
+<h4 id="4-2-过拟合和欠拟合"><a href="#4-2-过拟合和欠拟合" class="headerlink" title="4.2 过拟合和欠拟合"></a>4.2 过拟合和欠拟合</h4><p>训练集上表现得好，测试集上表现不好 - 过拟合。<br>学习到的特征太小，导致区分标准太粗糙，不能准确识别。-欠拟合<br>学的特征太多了 - 过拟合。</p>
+<p>过拟合：一个假设在训练数据上能够获得比其他假设更好的拟合， 但是在测试数据集上却不能很好地拟合数据，此时认为这个假设出现了过拟合的现象。(模型过于复杂)<br>欠拟合：一个假设在训练数据上不能获得更好的拟合，并且在测试数据集上也不能很好地拟合数据，此时认为这个假设出现了欠拟合的现象。(模型过于简单)</p>
+<p>用一个曲线来表示：随着模型复杂度的增大，训练集的损失值越来越少，但是测试集的损失值先变小再变大。临界值左边是欠拟合，右边是过拟合。</p>
+<p>欠拟合原因以及解决办法<br>原因：学习到数据的特征过少<br>解决办法：增加数据的特征数量</p>
+<p>过拟合原因以及解决办法<br>原因：原始特征过多，存在一些嘈杂特征， 模型过于复杂是因为模型尝试去兼顾各个测试数据点，泛化能力比较差。<br>解决办法：<br>正则化，尽量减小高次项特征的影响<br>（这里针对回归，我们选择了正则化。但是对于其他机器学习算法如分类算法来说也会出现这样的问题，除了一些算法本身作用之外（决策树、神经网络），我们更多的也是去自己做特征选择，包括之前说的删除、合并一些特征）</p>
+<p>在学习的时候，数据提供的特征有些影响模型复杂度或者这个特征的数据点异常较多，所以算法在学习的时候尽量减少这个特征的影响（甚至删除某个特征的影响），这就是正则化</p>
+<p>注：调整时候，算法并不知道某个特征影响，而是去调整参数得出优化的结果</p>
+<p>正则化类别：<br>L2正则化<br>作用：可以使得模型其中一些W权重系数都很小，都接近于0，削弱某个特征的影响<br>优点：越小的参数说明模型越简单，越简单的模型则越不容易产生过拟合现象<br>Ridge回归（岭回归）<br>加入L2正则化后的损失函数：<br>损失函数=(累加(预测值-真实值)^2)*(1/2m) + 惩罚系数(超参，惩罚的补偿) * 惩罚项(权重系数的平方和)<br>目的是：不仅使得损失变小，还让权重系数变小。达到不仅让模型更加准确，还消除高次项的影响。</p>
+<p>L1正则化<br>作用：可以使得其中一些W的值直接为0，删除这个特征的影响<br>LASSO回归<br>惩罚项是w的绝对值。</p>
+<p>线性回归的损失函数用最小二乘法，等价于当预测值与真实值的误差满足正态分布时的极大似然估计；岭回归的损失函数，是最小二乘法+L2范数，等价于当预测值与真实值的误差满足正态分布，且权重值也满足正态分布（先验分布）时的最大后验估计；LASSO的损失函数，是最小二乘法+L1范数，等价于等价于当预测值与真实值的误差满足正态分布，且且权重值满足拉普拉斯分布（先验分布）时的最大后验估计。</p>
+<h4 id="4-3-线性回归的改进-岭回归"><a href="#4-3-线性回归的改进-岭回归" class="headerlink" title="4.3 线性回归的改进 - 岭回归"></a>4.3 线性回归的改进 - 岭回归</h4><p>岭回归，其实也是一种线性回归。只不过在算法建立回归方程时候，加上L2正则化的限制，从而达到解决过拟合的效果</p>
+<p>api：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sklearn.linear_model.Ridge(alpha=1.0, fit_intercept=True,solver=&quot;auto&quot;, normalize=False)</span><br><span class="line">具有l2正则化的线性回归</span><br><span class="line">alpha:正则化力度=惩罚项系数，也叫 λ</span><br><span class="line">λ取值：0~1 1~10</span><br><span class="line">-fit_intercept：是否添加偏置</span><br><span class="line">solver:会根据数据自动选择优化方法</span><br><span class="line">-sag:如果数据集、特征都比较大，选择该随机梯度下降优化</span><br><span class="line">normalize:数据是否进行标准化</span><br><span class="line">-normalize=False:可以在fit之前调用preprocessing.StandardScaler标准化数据</span><br><span class="line"></span><br><span class="line">模型参数：</span><br><span class="line">Ridge.coef_:回归权重</span><br><span class="line">Ridge.intercept_:回归偏置</span><br></pre></td></tr></table></figure>
+
+<p>Ridge方法相当于SGDRegressor(penalty=’l2’, loss=”squared_loss”),默认l2,只不过SGDRegressor实现了一个普通的随机梯度下降学习，推荐使用Ridge(实现了SAG)</p>
+<p>正则化力度越大，权重系数会越小<br>正则化力度越小，权重系数会越大</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">rd = Ridge(alpha=1.0)</span><br><span class="line"></span><br><span class="line">rd.fit(x_train, y_train)</span><br><span class="line">print(&quot;岭回归的权重参数为：&quot;, rd.coef_)</span><br><span class="line"></span><br><span class="line">y_rd_predict = std_y.inverse_transform(rd.predict(x_test))</span><br><span class="line"></span><br><span class="line">print(&quot;岭回归的预测的结果为：&quot;, y_rd_predict)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(&quot;岭回归的均方误差为：&quot;, mean_squared_error(y_test, y_rd_predict))</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-4-分类；分类算法-逻辑回归与二分类"><a href="#4-4-分类；分类算法-逻辑回归与二分类" class="headerlink" title="4.4 分类；分类算法-逻辑回归与二分类"></a>4.4 分类；分类算法-逻辑回归与二分类</h4><p>逻辑回归（Logistic Regression）是机器学习中的一种分类模型，逻辑回归是一种分类算法，虽然名字中带有回归，但是它与回归之间有一定的联系。由于算法的简单和高效，在实际中应用非常广泛。</p>
+<p>应用场景：<br>广告点击率<br>是否为垃圾邮件<br>是否患病<br>金融诈骗<br>虚假账号<br>都属于两个类别之间的判断。逻辑回归就是解决二分类问题的利器</p>
+<p>线性回归的输出 就是 逻辑回归（激活函数）的输入。</p>
+<p>激活函数sigmoid函数：<code>1/(1 + e^(-x))</code><br>将某个函数映射到0-1区间。<br>回归的结果输入到sigmoid函数当中<br>输出结果：[0, 1]区间中的一个概率值，默认为0.5为阈值.</p>
+<p>逻辑回归最终的分类是通过属于某个类别的概率值来判断是否属于某个类别，并且这个类别默认标记为1(正例),另外的一个类别会标记为0(反例)。</p>
+<p>需要构建损失函数：（先线性回归，再sigmiod映射为逻辑回归结果，再计算损失函数）<br>线性回归的损失函数： (y_predict - y_true)平方和/总数<br>逻辑回归的真实值/预测值：是否属于某个类别<br>所以用：<strong>对数似然损失</strong>，定义为一个分段函数（根据真实值），真实值为1时，预测越接近1损失越小。</p>
+<p>优化：<br>同样使用梯度下降优化算法，去减少损失函数的值。这样去更新逻辑回归前面对应算法的权重参数，提升原本属于1类别的概率，降低原本是0类别的概率。</p>
+<p>api：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sklearn.linear_model.LogisticRegression(solver=&#x27;liblinear&#x27;, penalty=‘l2’, C = 1.0)</span><br><span class="line">solver:优化求解方式（默认开源的liblinear库实现，内部使用了坐标轴下降法来迭代优化损失函数）</span><br><span class="line">-sag：根据数据集自动选择，随机平均梯度下降</span><br><span class="line">penalty：正则化的种类(l2)</span><br><span class="line">C：正则化力度</span><br></pre></td></tr></table></figure>
+
+<p>LogisticRegression方法相当于 SGDClassifier(loss=”log”, penalty=” “),SGDClassifier实现了一个普通的随机梯度下降学习，也支持平均随机梯度下降法（ASGD），可以通过设置average=True。而使用LogisticRegression(实现了SAG)</p>
+<p>案例：<br>流程：<br>1）获取数据<br>2）数据处理-处理缺失值<br>3）数据集划分<br>4）特征工程：无量纲化处理-标准化<br>5）逻辑回归预估器<br>6）模型评估</p>
+<p>用jupyter可视化。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">def logisticregression():</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    逻辑回归进行癌症预测</span><br><span class="line">    :return: None</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # 1、读取数据，处理缺失值以及标准化</span><br><span class="line">    column_name = [&#x27;Sample code number&#x27;, &#x27;Clump Thickness&#x27;, &#x27;Uniformity of Cell Size&#x27;, &#x27;Uniformity of Cell Shape&#x27;,</span><br><span class="line">                   &#x27;Marginal Adhesion&#x27;, &#x27;Single Epithelial Cell Size&#x27;, &#x27;Bare Nuclei&#x27;, &#x27;Bland Chromatin&#x27;,</span><br><span class="line">                   &#x27;Normal Nucleoli&#x27;, &#x27;Mitoses&#x27;, &#x27;Class&#x27;]</span><br><span class="line"></span><br><span class="line">    data = pd.read_csv(&quot;https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data&quot;,</span><br><span class="line">                       names=column_name)</span><br><span class="line"></span><br><span class="line">    # 删除缺失值</span><br><span class="line">    data = data.replace(to_replace=&#x27;?&#x27;, value=np.nan)</span><br><span class="line"></span><br><span class="line">    data = data.dropna()</span><br><span class="line"></span><br><span class="line">    # 取出特征值</span><br><span class="line">    x = data[column_name[1:10]]</span><br><span class="line"></span><br><span class="line">    y = data[column_name[10]]</span><br><span class="line"></span><br><span class="line">    # 分割数据集</span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3)</span><br><span class="line"></span><br><span class="line">    # 进行标准化</span><br><span class="line">    std = StandardScaler()</span><br><span class="line"></span><br><span class="line">    x_train = std.fit_transform(x_train)</span><br><span class="line"></span><br><span class="line">    x_test = std.transform(x_test)</span><br><span class="line"></span><br><span class="line">    # 使用逻辑回归</span><br><span class="line">    lr = LogisticRegression()</span><br><span class="line"></span><br><span class="line">    lr.fit(x_train, y_train)</span><br><span class="line"></span><br><span class="line">    print(&quot;得出来的权重,几个特征有几个：&quot;, lr.coef_)</span><br><span class="line"></span><br><span class="line">    # 预测类别</span><br><span class="line">    print(&quot;预测的类别：&quot;, lr.predict(x_test))</span><br><span class="line"></span><br><span class="line">    # 得出准确率</span><br><span class="line">    print(&quot;预测的准确率:&quot;, lr.score(x_test, y_test))</span><br><span class="line">    return None</span><br></pre></td></tr></table></figure>
+
+<p>在很多分类场景当中我们不一定只关注预测的准确率，比如以这个癌症举例子！！！我们并不关注预测的准确率，而是关注在所有的样本当中，癌症患者有没有被全部预测（检测）出来。</p>
+<p>想要关注的：真的患癌症的，能够被检测出来。</p>
+<p>✅精确率和召回率：<br>混淆矩阵：<br>在分类任务下，预测结果(Predicted Condition)与正确标记(True Condition)之间存在四种不同的组合，构成混淆矩阵(适用于多分类)<br>真实结果是正例，预测结果是正例：真正例TP<br>真实结果是正例，预测结果是假例：伪反例FN<br>真实结果是假例，预测结果是正例：伪正例FP<br>真实结果是假例，预测结果是假例：真反例TN</p>
+<p>精确率：预测结果为正例样本中真实为正例的比例 （TP/TP+FP）<br>召回率：真实为正例的样本中预测结果为正例的比例（查的全，对正样本的区分能力）（TP/TP+FN）</p>
+<hr>
+<p>总结：<br>1.准确率（Accuracy）。顾名思义，就是所有预测正确的（包括正类和负类）占总的的比例。</p>
+<p>2.精确率（Precision），查准率。即正确预测为正类的占全部预测为正类的的比例。个人理解：在所有预测为正类中真正为正类的占所有预测为正类的的比例。</p>
+<p>3.召回率（Recall），查全率。即正确预测为正类的占全部实际为正类的的比例。个人理解：在所有预测为正类中真正为正类的占总体实际为正类的的比例。</p>
+<p>对于精确率和召唤率，其实就是分母不同，一个分母是预测为正类的样本数，另一个是原始样本中所有的正类样本数。</p>
+<p>召回率 (Recall)：该类样本有多少被找出来了（召回了多少）。</p>
+<p>精确率 (Precision)：你认为的该类样本，有多少猜对了（猜的精确性如何）。</p>
+<p>召回率：<a target="_blank" rel="noopener" href="https://blog.csdn.net/PingBryant/article/details/115561777">https://blog.csdn.net/PingBryant/article/details/115561777</a></p>
+<hr>
+<p>还有其他的评估标准，F1-score，反映了模型的稳健型<br>F1 = 2TP/(2TP + FN + FP) = （2<em>准确率</em>召回率）/（准确率+召回率）</p>
+<p>分类评估报告api：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sklearn.metrics.classification_report(y_true, y_pred, labels=[], target_names=None )</span><br><span class="line">y_true：真实目标值</span><br><span class="line">y_pred：估计器预测目标值</span><br><span class="line">labels:指定类别对应的数字</span><br><span class="line">target_names：目标类别名称</span><br><span class="line">return：每个类别精确率与召回率</span><br><span class="line"></span><br><span class="line">print(&quot;每个特征的精确率和召回率为：&quot;, classification_report(y_test, lr.predict(x_test), labels=[2, 4], target_names=[&#x27;良性&#x27;, &#x27;恶性&#x27;]))</span><br></pre></td></tr></table></figure>
+
+<p>假设这样一个情况，如果99个样本癌症，1个样本非癌症，不管怎样我全都预测正例(默认癌症为正例),准确率就为99%，召回率100%但是这样效果并不好，这就是样本不均衡下的评估问题。</p>
+<p>ROC曲线与AUC指标：</p>
+<p>TPR = TP / (TP + FN)<br>所有真实类别为1的样本中，预测类别为1的比例 - 召回率<br>FPR = FP / (FP + FN)<br>所有真实类别为0的样本中，预测类别为1的比例</p>
+<p>ROC曲线的横轴就是FPRate，纵轴就是TPRate，当二者相等时，表示的意义则是：对于不论真实类别是1还是0的样本，分类器预测为1的概率是相等的，此时AUC为0.5。</p>
+<p>AUC如何计算：ROC曲线和坐标轴包围的面积，如果是0，1，那就是1.</p>
+<p>AUC的概率意义是随机取一对正负样本，正样本得分大于负样本的概率<br>AUC的最小值为0.5，最大值为1，取值越高越好<br>AUC=1，完美分类器，采用这个预测模型时，不管设定什么阈值都能得出完美预测。绝大多数预测的场合，不存在完美分类器。<br>0.5&lt;AUC&lt;1，优于随机猜测。这个分类器（模型）妥善设定阈值的话，能有预测价值。<br>最终AUC的范围在[0.5, 1]之间，并且越接近1越好</p>
+<p>AUC计算api：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.metrics import roc_auc_score</span><br><span class="line">sklearn.metrics.roc_auc_score(y_true, y_score)</span><br><span class="line">计算ROC曲线面积，即AUC值</span><br><span class="line">y_true:每个样本的真实类别，必须为0(反例),1(正例)标记</span><br><span class="line">y_score:每个样本预测的概率值</span><br><span class="line"></span><br><span class="line">0.5~1之间，越接近于1约好</span><br><span class="line">y_test = np.where(y_test &gt; 2.5, 1, 0)</span><br><span class="line"></span><br><span class="line">print(&quot;AUC指标：&quot;, roc_auc_score(y_test, lr.predict(x_test)))</span><br></pre></td></tr></table></figure>
+
+<p>AUC只能用来评价二分类<br>AUC非常适合评价样本不平衡中的分类器性能.</p>
+<h4 id="4-5-模型保存和加载"><a href="#4-5-模型保存和加载" class="headerlink" title="4.5 模型保存和加载"></a>4.5 模型保存和加载</h4><p>当训练或者计算好一个模型之后，那么如果别人需要我们提供结果预测，就需要保存模型（主要是保存算法的参数）</p>
+<p>sklearn模型的保存和加载API:(模型序列化到本地)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.externals import joblib</span><br><span class="line">保存：joblib.dump(rf, &#x27;test.pkl&#x27;)</span><br><span class="line">加载：estimator = joblib.load(&#x27;test.pkl&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>保存：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> 使用线性模型进行预测</span><br><span class="line"> 使用正规方程求解</span><br><span class="line">lr = LinearRegression()</span><br><span class="line">lr.fit(x_train, y_train)</span><br><span class="line">保存训练完结束的模型</span><br><span class="line">joblib.dump(lr, &quot;test.pkl&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>加载：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">通过已有的模型去预测房价</span><br><span class="line">model = joblib.load(&quot;test.pkl&quot;)</span><br><span class="line">print(&quot;从文件加载进来的模型预测房价的结果：&quot;, std_y.inverse_transform(model.predict(x_test)))</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="4-6-无监督学习-K-means"><a href="#4-6-无监督学习-K-means" class="headerlink" title="4.6 无监督学习 K-means"></a>4.6 无监督学习 K-means</h4><p>没有目标值 - 无监督学习</p>
+<p>聚类：K-means(K均值聚类)<br>降维：PCA</p>
+<p>K-means聚类步骤：<br>1、随机设置K个特征空间内的点作为初始的聚类中心<br>2、对于其他每个点计算到K个中心的距离，未知的点选择最近的一个聚类中心点作为标记类别<br>3、接着对着标记的聚类中心之后，重新计算出每个聚类的新中心点（平均值）<br>4、如果计算得出的新中心点与原中心点一样，那么结束，否则重新进行第二步过程</p>
+<p>K-超参数<br>1）看需求，要分为多少堆<br>2）调节超参数</p>
+<p>api：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sklearn.cluster.KMeans(n_clusters=8,init=‘k-means++’)</span><br><span class="line">k-means聚类</span><br><span class="line">n_clusters:开始的聚类中心数量，k值</span><br><span class="line">init:初始化方法，默认为&#x27;k-means ++’</span><br><span class="line">labels_:默认标记的类型，可以和真实值比较（不是值比较）</span><br><span class="line"></span><br><span class="line">cust = data[:500]</span><br><span class="line">km = KMeans(n_clusters=4)</span><br><span class="line">km.fit(cust)</span><br><span class="line">pre = km.predict(cust)</span><br></pre></td></tr></table></figure>
+
+<p>Kmeans性能评估指标：<br>轮廓系数，类似设计模式中的高内聚低耦合。<br>内部距离最小化，外部距离最大化。<br><code>SCi = (bi - ai)/max(bi,ai)</code><br>对于每个点i 为已聚类数据中的样本 ，b_i 为i 到其它族群的所有样本的距离最小值，a_i 为i 到本身簇的距离平均值。最终计算出所有的样本点的轮廓系数平均值</p>
+<p>如果b_i&gt;&gt;a_i:趋近于1效果越好， b_i&lt;&lt;a_i:趋近于-1，效果不好。轮廓系数的值是介于 [-1,1] ，越趋近于1代表内聚度和分离度都相对较优。</p>
+<p>轮廓系数api：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sklearn.metrics.silhouette_score(X, labels)</span><br><span class="line">计算所有样本的平均轮廓系数</span><br><span class="line">X：特征值</span><br><span class="line">labels：被聚类标记的目标值</span><br></pre></td></tr></table></figure>
+
+<p>K-means优缺点：<br>特点分析：采用迭代式算法，直观易懂并且非常实用<br>缺点：容易收敛到局部最优解(多次聚类)<br>应用场景：没有目标值的分类，做在分类之前。</p>
+<h4 id="4-7-总结"><a href="#4-7-总结" class="headerlink" title="4.7 总结"></a>4.7 总结</h4><p>1.线性回归 - 线性模型 - 线性关系：y=w1x1+w2x2+…+wnxn+b。构建损失函数-最小二乘法/均方误差。优化损失：正规方程（矩阵相乘直接求解），梯度下降（不断试错，不断迭代）。模型评估：均方误差。<br>2.过拟合和欠拟合，过拟合：模型过于复杂 - 正则化（用L2）。欠拟合：模型过于简单 - 增加数据、特征。<br>3.岭回归，正则化力度对模型参数的影响。<br>4.逻辑回归，用于分类，输入是线性回归的输出，放入激活函数sigmoid中。损失函数：对数似然函数。优化损失：梯度下降。二分类的模型评估：召回率，样本不均衡时使用AUC指标，接近0.5就不好。<br>5.保存和加载模型<br>6.K-Means，聚类的步骤，模型评估：用轮廓系数[-1,1]</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/08/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2022.1.8.%E6%95%B4%E6%95%B0%E8%BD%AC%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/08/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2022.1.8.%E6%95%B4%E6%95%B0%E8%BD%AC%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97/" class="post-title-link" itemprop="url">javaのleecode 整数转罗马数字</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-01-08 19:13:32" itemprop="dateCreated datePublished" datetime="2022-01-08T19:13:32+08:00">2022-01-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-09 11:25:57" itemprop="dateModified" datetime="2022-01-09T11:25:57+08:00">2022-01-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。  1 &lt;= num &lt;= 3999</span><br><span class="line">字符          数值</span><br><span class="line">I             1</span><br><span class="line">V             5</span><br><span class="line">X             10</span><br><span class="line">L             50</span><br><span class="line">C             100</span><br><span class="line">D             500</span><br><span class="line">M             1000</span><br><span class="line">；</span><br><span class="line">通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做 IIII，而是 IV。数字 1 在数字 5 的左边，所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，数字 9 表示为 IX。这个特殊的规则只适用于以下六种情况：</span><br><span class="line"></span><br><span class="line">I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。</span><br><span class="line">X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 </span><br><span class="line">C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。</span><br><span class="line"></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">链接：https://leetcode-cn.com/problems/integer-to-roman</span><br><span class="line"></span><br><span class="line">输入: num = 9</span><br><span class="line">输出: &quot;IX&quot;</span><br><span class="line">输入: num = 1994</span><br><span class="line">输出: &quot;MCMXCIV&quot;</span><br><span class="line">解释: M = 1000, CM = 900, XC = 90, IV = 4.</span><br></pre></td></tr></table></figure>
+
+<p>注意总共 13 个独特的符号（每个符号由 1 个或 2 个字母组成）。确定罗马数字的规则是：对于罗马数字从左到右的每一位，选择尽可能大的符号值。</p>
+<p>思路：建立一个数值-罗马符号的列表，从大到小排列，对列表进行遍历，如果num值大于当前遍历到的列表元素，就减去，并加上相应的字符串，直到num变为0。需要注意：同一个符号可能用好多次。所以while循环。列表就用数组表示，两个数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> leecode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@program</span>: leeco</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 罗马数字</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: liuxuan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2022-01-08 20:04</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">luomashuzi</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;输入一个整数：&quot;</span>);</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span> num = sc.nextInt();</span><br><span class="line">        luomashuziSolution s = <span class="keyword">new</span> luomashuziSolution();</span><br><span class="line">        System.out.print(s.intToRoman(num));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">luomashuziSolution</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] values = &#123;<span class="number">1000</span>, <span class="number">900</span>, <span class="number">500</span>, <span class="number">400</span>, <span class="number">100</span>, <span class="number">90</span>, <span class="number">50</span>, <span class="number">40</span>, <span class="number">10</span>, <span class="number">9</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">1</span>&#125;;</span><br><span class="line">    String[] symbols = &#123;<span class="string">&quot;M&quot;</span>, <span class="string">&quot;CM&quot;</span>, <span class="string">&quot;D&quot;</span>, <span class="string">&quot;CD&quot;</span>, <span class="string">&quot;C&quot;</span>, <span class="string">&quot;XC&quot;</span>, <span class="string">&quot;L&quot;</span>, <span class="string">&quot;XL&quot;</span>, <span class="string">&quot;X&quot;</span>, <span class="string">&quot;IX&quot;</span>, <span class="string">&quot;V&quot;</span>, <span class="string">&quot;IV&quot;</span>, <span class="string">&quot;I&quot;</span>&#125;;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">intToRoman</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        StringBuilder res = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;values.length; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> value = values[i];</span><br><span class="line">            String symbol = symbols[i];</span><br><span class="line">            <span class="keyword">while</span>(num &gt;= value)&#123;</span><br><span class="line">                num -= value;</span><br><span class="line">                res.append(symbol);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(num == <span class="number">0</span>)  <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/05/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2022.1.5.Excel%E8%A1%A8%E5%88%97%E5%90%8D%E7%A7%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1807,200 +2275,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/27/myblog/JAVA/%E3%80%8Ajava%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E3%80%8B%E4%B9%8BJDBC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/11/27/myblog/JAVA/%E3%80%8Ajava%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E3%80%8B%E4%B9%8BJDBC/" class="post-title-link" itemprop="url">《Java基础入门》之JDBC</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-11-27 19:20:17 / Modified: 22:39:58" itemprop="dateCreated datePublished" datetime="2021-11-27T19:20:17+08:00">2021-11-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>实际开发中，项目中的数据是存储在数据库中的，Java对数据库的操作提供了一套可以执行SQL语句的API，即JDBC。</p>
-<h2 id="JDBC概念"><a href="#JDBC概念" class="headerlink" title="JDBC概念"></a>JDBC概念</h2><p>JDBC（java database connectivity，Java数据库连接）是一套用于执行SQL语句的Java API。应用程序通过该API连接到关系型数据库，并使用SQL语句来完成对数据库中数据的增删改查。</p>
-<p>JDBC要求各个数据库厂商按照统一的规范来提供数据库驱动，在程序中由JDBC和具体的数据库驱动联系，使得应用程序不必直接与底层数据库交互，使得代码的通用性更强。</p>
-<p>JDBC在应用程序与数据库之间起到一个桥梁作用。当应用程序使用JDBC访问特定的数据库时，只需要通过不同的数据库驱动与其对应的数据库进行连接，连接后即可对该数据库进行相应的操作。</p>
-<h2 id="JDBC常用API"><a href="#JDBC常用API" class="headerlink" title="JDBC常用API"></a>JDBC常用API</h2><p>JDBC的API主要位于java.sql包中，定义了一系列访问数据库的接口和类。</p>
-<h3 id="Driver接口"><a href="#Driver接口" class="headerlink" title="Driver接口"></a>Driver接口</h3><p>是所有JDBC驱动程序必须实现的接口，专门提供给数据库厂商使用。</p>
-<h3 id="DriverManager类"><a href="#DriverManager类" class="headerlink" title="DriverManager类"></a>DriverManager类</h3><p>用于加载JDBC驱动并创建与数据库的连接。在加载数据库驱动时，通常使用Class类的静态方法forName()来实现。参数是数据库驱动类所对应的字符串。</p>
-<h3 id="Connection接口"><a href="#Connection接口" class="headerlink" title="Connection接口"></a>Connection接口</h3><p>代表Java程序和数据库的连接对象，只有获得该连接对象后，才能访问数据库，并操作数据表。</p>
-<h3 id="Statement接口"><a href="#Statement接口" class="headerlink" title="Statement接口"></a>Statement接口</h3><p>用于执行静态的SQL语句，并返回一个结果对象。</p>
-<p>Statement接口对象可以通过Connection实例的createStatement()方法获得，该方法把静态的SQL语句发送到数据库中编译执行，然后返回数据库的处理结果。</p>
-<h3 id="PreparedStatement接口"><a href="#PreparedStatement接口" class="headerlink" title="PreparedStatement接口"></a>PreparedStatement接口</h3><p>使用Statement接口操作SQL语句会过于繁琐，并且存在安全隐患，因此，JDBC提供了扩展的PreparedStatement接口。是Statement的子接口，用于执行预编译的SQL语句，可以使用占位符？来替代参数，然后通过setXXX()方法为SQL语句的参数赋值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String sql=<span class="string">&quot;insert into users(is,name,email) values(?,?,?)&quot;</span>;</span><br><span class="line">PreparedStatement prestmt = conn.preparedStatement(sql);</span><br><span class="line">prestmt.setInt(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">prestmt.setString(<span class="number">2</span>,<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">prestmt.setObject(<span class="number">3</span>,<span class="string">&quot;111@1.com&quot;</span>);  <span class="comment">//通用方法？</span></span><br><span class="line">prestmt.executeUpdate();</span><br></pre></td></tr></table></figure>
-
-<h3 id="ResultSet接口"><a href="#ResultSet接口" class="headerlink" title="ResultSet接口"></a>ResultSet接口</h3><p>用于保存JDBC执行查询时返回的结果集，结果集封装在一个逻辑表格中。接口内部有一个指向表格数据行的游标（或指针），ResultSet对象初始化时，游标在第一行之前。调用next()方法，游标移动到下一行，若下一行没有数据，则返回false。</p>
-<p>应用程序中使用next方法作为while循环的条件来迭代ResultSet结果集。</p>
-<p>getXXX方法用于获取指定的数据，可以用索引（从1开始）也可用字段的名称来获取。</p>
-<p>例如第1列字段名为id，字段类型int，可以用getInt(“id”)或getInt(1)获得该列的值。</p>
-<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><h3 id="第一步：加载数据库驱动"><a href="#第一步：加载数据库驱动" class="headerlink" title="第一步：加载数据库驱动"></a><em>第一步：加载数据库驱动</em></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);  <span class="comment">//加载mysql数据库的驱动</span></span><br><span class="line">Class.forName(<span class="string">&quot;oracle.jdbc.driver.OracleDriver&quot;</span>);   <span class="comment">//加载Oracle数据库的驱动</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="第二步：获取数据库连接"><a href="#第二步：获取数据库连接" class="headerlink" title="第二步：获取数据库连接"></a><em>第二步：获取数据库连接</em></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Connection conn = DriverManager.getConnection(String url, String user, String pwd);</span><br></pre></td></tr></table></figure>
-
-<p>连接数据库的url需要遵循固定写法：</p>
-<p><code>jdbc:mysql://hostname:port/databasename</code></p>
-<p>mysql指MySQL数据库，hostname指主机的名称（如果数据库在本机上，hostname可以为localhost或127.0.0.1。如果在其他机器上，那么hostname为所要连接机器的IP地址。port指端口号，mysql默认端口号为3306，databasename指的是mysql中相应数据库的名字。</p>
-<h3 id="第三步：通过Connection对象获取Statement对象"><a href="#第三步：通过Connection对象获取Statement对象" class="headerlink" title="第三步：通过Connection对象获取Statement对象"></a><em>第三步：通过Connection对象获取Statement对象</em></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Statement stmt = conn.createStatement();</span><br></pre></td></tr></table></figure>
-
-<p>也可以用PreparedStatement。</p>
-<h3 id="第四步：使用Statement执行SQL语句"><a href="#第四步：使用Statement执行SQL语句" class="headerlink" title="第四步：使用Statement执行SQL语句"></a><em>第四步：使用Statement执行SQL语句</em></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">execute(String sql);  用于执行任意sql语句</span><br><span class="line">executeQuery(String sql);   执行查询操作，返回一个ResultSet结果集对象</span><br><span class="line">executeUpdate(String sql);  执行insert、update、delete会返回受sql语句影响的行数，执行create、alter返回<span class="number">0</span></span><br><span class="line"></span><br><span class="line">ResultSet rs=stmt.executeQuery(sql);</span><br></pre></td></tr></table></figure>
-
-<h3 id="第五步：操作ResultSet结果集"><a href="#第五步：操作ResultSet结果集" class="headerlink" title="第五步：操作ResultSet结果集"></a><em>第五步：操作ResultSet结果集</em></h3><h3 id="第六步：关闭连接，释放资源"><a href="#第六步：关闭连接，释放资源" class="headerlink" title="第六步：关闭连接，释放资源"></a><em>第六步：关闭连接，释放资源</em></h3><p>顺序为：ResultSet、Statement、Connection。为了保证在异常情况下也能关闭资源，用try…catch的finally代码块统一关闭资源。</p>
-<h2 id="第一个JDBC程序"><a href="#第一个JDBC程序" class="headerlink" title="第一个JDBC程序"></a>第一个JDBC程序</h2><h3 id="数据库建表"><a href="#数据库建表" class="headerlink" title="数据库建表"></a>数据库建表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">create database jdbc;</span><br><span class="line">show databases;</span><br><span class="line">use jdbc;</span><br><span class="line">create table test_table(</span><br><span class="line">    id int primary key auto_increment,</span><br><span class="line">    name varchar(40),</span><br><span class="line">    sex varchar(2),</span><br><span class="line">    birthday date</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">查看表结构： desc test_table;</span><br><span class="line">查看建表语句：show create table test_table;</span><br></pre></td></tr></table></figure>
-
-<p>如果出现中文乱码的情况，是因为MySQL数据库默认使用UTF-8编码格式，而命令行窗口默认使用的是GBK编码格式，所以执行带有中文数据的插入语句会出现解析错误。需要执行：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set character_set_client=gbk;</span><br><span class="line">set character_set_results=gbk;</span><br></pre></td></tr></table></figure>
-
-<h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">insert into test_table(name, sex, birthday)</span><br><span class="line">values(&#x27;jade&#x27;,&#x27;男&#x27;,&#x27;2000-1-1&#x27;),(&#x27;marry&#x27;,&#x27;女&#x27;,&#x27;1999-2-21&#x27;),(&#x27;james&#x27;,&#x27;男&#x27;,&#x27;2010-2-3&#x27;);</span><br></pre></td></tr></table></figure>
-
-<h3 id="新建项目，导入数据库驱动"><a href="#新建项目，导入数据库驱动" class="headerlink" title="新建项目，导入数据库驱动"></a>新建项目，导入数据库驱动</h3><p>IDE下正常创建一个项目，右键新建一个文件夹，取名libs。</p>
-<p>下载Mysql驱动文件：<a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/connector/j/%EF%BC%8C%E9%80%89%E6%8B%A9platform">https://dev.mysql.com/downloads/connector/j/，选择platform</a> independent，下载 <strong>ZIP Archive</strong>。直接No thanks, just start my download.  复制到libs文件夹下。</p>
-<p>把jar包添加到项目里，类似eclipse的add to build path功能，file – project structure – modules – dependencies – 加号 – 第一项–添加jar包 – apply。</p>
-<h3 id="编写JDBC程序"><a href="#编写JDBC程序" class="headerlink" title="编写JDBC程序"></a>编写JDBC程序</h3><p>src下新建包com.liuxuan.jdbc。创建类Test。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.liuxuan.jdbc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> jdk.nashorn.internal.parser.JSONParser;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@program</span>: JDBCdemo</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: jdbc</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: liuxuan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2021-11-27 22:09</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        Connection conn = <span class="keyword">null</span>;</span><br><span class="line">        Statement stmt = <span class="keyword">null</span>;</span><br><span class="line">        ResultSet rs = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//1.加载数据库驱动 com.mysql.jdbc.Driver 多加了cj</span></span><br><span class="line">            Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">            <span class="comment">//2.通过DriverManager获取数据库连接</span></span><br><span class="line">            String url = <span class="string">&quot;jdbc:mysql://localhost:3306/jdbc&quot;</span>;</span><br><span class="line">            String username = <span class="string">&quot;liuxuan&quot;</span>;</span><br><span class="line">            String password = <span class="string">&quot;jade&quot;</span>;</span><br><span class="line">            conn = DriverManager.getConnection(url, username, password);</span><br><span class="line">            <span class="comment">//3.通过Connection对象获取Statement对象</span></span><br><span class="line">            stmt = conn.createStatement();</span><br><span class="line">            <span class="comment">//4.使用Statement执行SQL语句</span></span><br><span class="line">            String sql = <span class="string">&quot;select * from test_table&quot;</span>;</span><br><span class="line">            rs = stmt.executeQuery(sql);</span><br><span class="line">            <span class="comment">//5.操作ResultSet结果集</span></span><br><span class="line">            System.out.println(<span class="string">&quot;id  |  name  |  sex  &quot;</span></span><br><span class="line">                            +<span class="string">&quot;  birthday  &quot;</span>);</span><br><span class="line">            <span class="keyword">while</span>(rs.next())&#123;</span><br><span class="line">                <span class="keyword">int</span> id = rs.getInt(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">                String name = rs.getString(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">                String sex = rs.getString(<span class="string">&quot;sex&quot;</span>);</span><br><span class="line">                Date birthday = rs.getDate(<span class="string">&quot;birthday&quot;</span>);</span><br><span class="line">                System.out.println(id+<span class="string">&quot;  |  &quot;</span>+name+<span class="string">&quot;  |  &quot;</span></span><br><span class="line">                                +sex+<span class="string">&quot;  |  &quot;</span>+birthday);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">            <span class="comment">//6.关闭连接，释放资源</span></span><br><span class="line">            <span class="keyword">if</span>(rs != <span class="keyword">null</span>)&#123;rs.close();&#125;</span><br><span class="line">            <span class="keyword">if</span>(stmt != <span class="keyword">null</span>)&#123;stmt.close();&#125;</span><br><span class="line">            <span class="keyword">if</span>(conn != <span class="keyword">null</span>)&#123;conn.close();&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/26/myblog/JAVA/%E3%80%8Ajava%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E3%80%8B%E4%B9%8BGUI/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/11/26/myblog/JAVA/%E3%80%8Ajava%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E3%80%8B%E4%B9%8BGUI/" class="post-title-link" itemprop="url">《Java基础入门》之GUI</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-11-26 13:47:02 / Modified: 13:48:47" itemprop="dateCreated datePublished" datetime="2021-11-26T13:47:02+08:00">2021-11-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>GUI：Graphical User Interface 图形用户接口。用来提供给用户操作的图像界面的接口。</p>
-<p>java针对GUI设计提供了一些基本的图形用户接口开发工具，如AWT、Swing、JavaFX。</p>
-<p>AWT是sun公司最早推出的一套API，组件种类有限，无法实现GUI设计的全部功能。</p>
-<h2 id="Swing概述"><a href="#Swing概述" class="headerlink" title="Swing概述"></a>Swing概述</h2><p>早期JDK1.0发布时，就为GUI开发提供了一套基础类库（AWT），即抽象窗口工具包。AWT需要牺牲功能来实现平台无关性。因此，Sun公司对AWT进行改进，提出Swing组件，提供更加丰富的组件和功能，来满足GUI设计的一切需求。</p>
-<p>Swing是一组轻量级组件，由Java语言开发，同时底层以AWT为基础。Swing并不是AWT的替代品，而是在原有的AWT的基础上进行补充和改进。</p>
-<p>Swing组件的所有类都继承自Container类，然后根据GUI开发的功能扩展了两个主要分支：容器分支（Window窗口和Panel面板）和组件分支。</p>
-<p>容器分支是为了实现图形用户界面窗口容器而设计的。</p>
-<p>组件分支是为了实现向容器中填充数据、元素以及人机交互组件等功能。</p>
-<p>Swing组件类中常用的顶级容器类包括：JApplet、JFrame和JDialog。常用的组件类：AbstractButton类及其子类就是用来定义按钮常见行为的工具类，JTextComponent类及其子类就是用来定义文本内容编辑区域的工具类。</p>
-<h2 id="JavaFX概述"><a href="#JavaFX概述" class="headerlink" title="JavaFX概述"></a>JavaFX概述</h2><p>JavaFX同Swing一样，都用于处理图形用户界面，是一个强大的图形和多媒体处理工具包集合，允许开发者设计、创建、测试、调试和部署富客户端程序，并且和Java一样具有跨平台特性。</p>
-<p>Sun公司于2008年推出JavaFX，来弥补Java在桌面应用程序的缺陷。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2067,7 +2345,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">90</span>
+          <span class="site-state-item-count">92</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -2121,7 +2399,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

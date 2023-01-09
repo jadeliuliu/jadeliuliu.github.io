@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/b57fe006fd424401b0976b630ed3331b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/f293d52326fb423aa007de3748b7598e.png">
 <meta property="article:published_time" content="2022-01-09T03:26:33.867Z">
-<meta property="article:modified_time" content="2022-12-21T13:53:16.141Z">
+<meta property="article:modified_time" content="2022-12-24T16:15:38.939Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="MachineLearning">
 <meta name="twitter:card" content="summary">
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-12-21 21:53:16" itemprop="dateModified" datetime="2022-12-21T21:53:16+08:00">2022-12-21</time>
+                <time title="Modified: 2022-12-25 00:15:38" itemprop="dateModified" datetime="2022-12-25T00:15:38+08:00">2022-12-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -519,8 +519,17 @@
 
 <p>在很多分类场景当中我们不一定只关注预测的准确率，比如以这个癌症举例子！！！我们并不关注预测的准确率，而是关注在所有的样本当中，癌症患者有没有被全部预测（检测）出来。</p>
 <p>想要关注的：真的患癌症的，能够被检测出来。</p>
-<p>精确率和召回率：<br>混淆矩阵：<br>在分类任务下，预测结果(Predicted Condition)与正确标记(True Condition)之间存在四种不同的组合，构成混淆矩阵(适用于多分类)<br>真实结果是正例，预测结果是正例：真正例TP<br>真实结果是正例，预测结果是假例：伪反例FN<br>真实结果是假例，预测结果是正例：伪正例FP<br>真实结果是假例，预测结果是假例：真反例TN</p>
+<p>✅精确率和召回率：<br>混淆矩阵：<br>在分类任务下，预测结果(Predicted Condition)与正确标记(True Condition)之间存在四种不同的组合，构成混淆矩阵(适用于多分类)<br>真实结果是正例，预测结果是正例：真正例TP<br>真实结果是正例，预测结果是假例：伪反例FN<br>真实结果是假例，预测结果是正例：伪正例FP<br>真实结果是假例，预测结果是假例：真反例TN</p>
 <p>精确率：预测结果为正例样本中真实为正例的比例 （TP/TP+FP）<br>召回率：真实为正例的样本中预测结果为正例的比例（查的全，对正样本的区分能力）（TP/TP+FN）</p>
+<hr>
+<p>总结：<br>1.准确率（Accuracy）。顾名思义，就是所有预测正确的（包括正类和负类）占总的的比例。</p>
+<p>2.精确率（Precision），查准率。即正确预测为正类的占全部预测为正类的的比例。个人理解：在所有预测为正类中真正为正类的占所有预测为正类的的比例。</p>
+<p>3.召回率（Recall），查全率。即正确预测为正类的占全部实际为正类的的比例。个人理解：在所有预测为正类中真正为正类的占总体实际为正类的的比例。</p>
+<p>对于精确率和召唤率，其实就是分母不同，一个分母是预测为正类的样本数，另一个是原始样本中所有的正类样本数。</p>
+<p>召回率 (Recall)：该类样本有多少被找出来了（召回了多少）。</p>
+<p>精确率 (Precision)：你认为的该类样本，有多少猜对了（猜的精确性如何）。</p>
+<p>召回率：<a target="_blank" rel="noopener" href="https://blog.csdn.net/PingBryant/article/details/115561777">https://blog.csdn.net/PingBryant/article/details/115561777</a></p>
+<hr>
 <p>还有其他的评估标准，F1-score，反映了模型的稳健型<br>F1 = 2TP/(2TP + FN + FP) = （2<em>准确率</em>召回率）/（准确率+召回率）</p>
 <p>分类评估报告api：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sklearn.metrics.classification_report(y_true, y_pred, labels=[], target_names=None )</span><br><span class="line">y_true：真实目标值</span><br><span class="line">y_pred：估计器预测目标值</span><br><span class="line">labels:指定类别对应的数字</span><br><span class="line">target_names：目标类别名称</span><br><span class="line">return：每个类别精确率与召回率</span><br><span class="line"></span><br><span class="line">print(&quot;每个特征的精确率和召回率为：&quot;, classification_report(y_test, lr.predict(x_test), labels=[2, 4], target_names=[&#x27;良性&#x27;, &#x27;恶性&#x27;]))</span><br></pre></td></tr></table></figure>
@@ -658,7 +667,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">90</span>
+          <span class="site-state-item-count">92</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -712,7 +721,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

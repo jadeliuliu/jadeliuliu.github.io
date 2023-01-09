@@ -28,7 +28,7 @@
 <meta property="og:description" content="Serializable接口位于java.io.Serializable包中，一般在创建实体类的时候会去实现这个接口，目的是为了序列化。 序列化指的是把对象转化成字节序列的过程，就是把内存中的对象转换成一连串的字节bytes描述的过程。反序列化就是将字节bytes数据恢复为对象的过程。 需要将内存中对象状态数据保存到文件或数据库中时，需要进行序列化。这个比较直观的就是通过ObjectOutputS">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-30T01:59:37.290Z">
-<meta property="article:modified_time" content="2022-11-25T14:20:57.169Z">
+<meta property="article:modified_time" content="2023-01-07T09:50:44.260Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-11-25 22:20:57" itemprop="dateModified" datetime="2022-11-25T22:20:57+08:00">2022-11-25</time>
+                <time title="Modified: 2023-01-07 17:50:44" itemprop="dateModified" datetime="2023-01-07T17:50:44+08:00">2023-01-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -294,6 +294,59 @@
 
 <p>其他方法：如andThen方法<br><a target="_blank" rel="noopener" href="http://t.zoukankan.com/liyihua-p-12286100.html">http://t.zoukankan.com/liyihua-p-12286100.html</a></p>
 <p>和@FunctionalInterface作用一样？</p>
+<h3 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h3><p>函数式接口就是只有一个抽象方法的接口。</p>
+<p>函数式接口，即适用于函数式编程场景的接口。而Java中的函数式编程体现就是Lambda，所以函数式接口就是可以适用于Lambda使用的接口。只有确保接口中有且仅有一个抽象方法，Java中的Lambda才能顺利地进行推导。可以有多个default方法。</p>
+<p>为了避免别人在这个接口中增加接口函数导致其有多个接口函数需要被实现，变成”非函数接口”，可以在接口上加上一个注解<code>@FunctionalInterface</code>, 这样别人就无法在里面添加新的接口函数了。</p>
+<p><code>@FunctionalInterface public interface Function&lt;T, R&gt; &#123;   &#125;</code></p>
+<p>在java.util.function包下：</p>
+<h4 id="✅Function接口"><a href="#✅Function接口" class="headerlink" title="✅Function接口"></a>✅Function接口</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@FunctionalInterface</span><br><span class="line">public interface Function&lt;T, R&gt; &#123;</span><br><span class="line">    R apply(T t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数型接口：<code>Function&lt;T, R&gt;</code>，有参有返回值，接受一个T类型的参数，并返回一个R类型的返回值。</p>
+<p>其中的抽象方法：<code>R apply(T t);</code></p>
+<p>T是输入，R是输出，表示一个类型转换，lambda表达式实现apply方法。<br>stream的map方法，传参就是Function，表示映射。</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class FunctionTest &#123;</span><br><span class="line">    Function&lt;String, String&gt; function = (str) -&gt; &#123;</span><br><span class="line">        return &quot;hello,&quot; + str;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    String funDemo(String str2, Function&lt;String, String&gt; function) &#123;</span><br><span class="line">        return function.apply(str2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void testFunDemo() &#123;</span><br><span class="line">        System.out.println(funDemo(&quot;小明&quot;, function));</span><br><span class="line">        System.out.println(funDemo(&quot;小美&quot;, str -&gt; &quot;hello&quot;+str));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="✅Predicate接口"><a href="#✅Predicate接口" class="headerlink" title="✅Predicate接口"></a>✅Predicate接口</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@FunctionalInterface</span><br><span class="line">public interface Predicate&lt;T&gt; &#123;</span><br><span class="line">    boolean test(T t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>断言型接口：<code>Predicate&lt;T&gt;</code> 有参有返回值，返回值是boolean类型，用来判断某项条件是否满足。经常用来进行筛滤操作。</p>
+<p>其中的抽象方法：<code>boolean test(T t);</code></p>
+<p>T是输入，输出boolean类型，表示一种条件过滤。<br>stream的filter方法穿参是Predicate。</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class PredicateTest &#123;</span><br><span class="line">    Predicate&lt;Integer&gt; predicate = (i) -&gt; &#123;</span><br><span class="line">        return i &gt; 10;</span><br><span class="line">    &#125;;</span><br><span class="line">    boolean preDemo(Integer i, Predicate&lt;Integer&gt; predicate) &#123;</span><br><span class="line">        return predicate.test(i);</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public void testPreDemo() &#123;</span><br><span class="line">        System.out.println(preDemo(12, predicate));//打印结果：true</span><br><span class="line">        System.out.println(preDemo(12, i -&gt; i &gt; 13));//打印结果：false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="✅Consumer接口"><a href="#✅Consumer接口" class="headerlink" title="✅Consumer接口"></a>✅Consumer接口</h4><p>消费型接口：Consumer 有参无返回值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@FunctionalInterface</span><br><span class="line">public interface Consumer&lt;T&gt; &#123;</span><br><span class="line">    void accept(T t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class ConsumerTest &#123;</span><br><span class="line">    Consumer&lt;String&gt; consumer = (str) -&gt; &#123;</span><br><span class="line">        System.out.println(str);</span><br><span class="line">    &#125;;</span><br><span class="line">    public void conDemo(String str, Consumer&lt;String&gt; consumer) &#123;</span><br><span class="line">        consumer.accept(str);</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public void testConDemo() &#123;</span><br><span class="line">        conDemo(&quot;hello&quot;, consumer);//打印结果：hello</span><br><span class="line">        conDemo(&quot;hello&quot;, s -&gt; System.out.println(s));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>更多函数式接口：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45580378/article/details/124853396">https://blog.csdn.net/weixin_45580378/article/details/124853396</a></p>
+<p>迷惑：<br>1.函数式接口中的default方法是干嘛的<br>2.泛型。<code>Function&lt;T, R&gt;</code>代表两个泛型；<code>Function&lt;? super T, ? extends R&gt; mapper</code>代表限制泛型类型？</p>
+<h3 id="Optional"><a href="#Optional" class="headerlink" title="Optional"></a>Optional</h3><p>Java 8 提供的，是一个包含有可选值的包装类，这意味着 Optional 类既可以含有对象也可以为空。</p>
+<p>Optional，可以避免没有必要的 null 值检查.</p>
+<p><code>public final class Optional&lt;T&gt; &#123;&#125;</code></p>
+<p>Optional 是 Java 实现函数式编程的强劲一步，并且帮助在范式中实现。<br>在 Java 8 之前，任何访问对象方法或属性的调用都可能导致NullPointerException.</p>
+<p>✅创建Optional对象</p>
+<p>1）可以使用静态方法 empty() 创建一个空的 Optional 对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;String&gt; empty = Optional.empty();</span><br><span class="line">System.out.println(empty); // 输出：Optional.empty</span><br><span class="line"></span><br><span class="line">@Test(expected = NoSuchElementException.class)</span><br><span class="line">    public void whenCreateEmptyOptional_thenNull() &#123;</span><br><span class="line">        Optional&lt;Person&gt; emptyOpt = Optional.empty();</span><br><span class="line">        System.out.println(emptyOpt);</span><br><span class="line">        emptyOpt.get(); //NoSuchElementException</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2）可以使用静态方法 of() 创建一个非空的 Optional 对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;String&gt; opt = Optional.of(&quot;11&quot;);</span><br><span class="line">System.out.println(opt); // 输出：Optional[11]</span><br></pre></td></tr></table></figure>
+
+<p>传递给 of() 方法的参数必须是非空的，也就是说不能为 null，否则仍然会抛出 NullPointerException。</p>
+<p>3）可以使用静态方法 ofNullable() 创建一个即可空又可非空的 Optional 对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String name = null;</span><br><span class="line">Optional&lt;String&gt; optOrNull = Optional.ofNullable(name);</span><br><span class="line">System.out.println(optOrNull); // 输出：Optional.empty</span><br></pre></td></tr></table></figure>
+
+<p>✅ifPresent方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public boolean isPresent() &#123;</span><br><span class="line">    return value != null;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void ifPresent(Consumer&lt;? super T&gt; consumer) &#123;</span><br><span class="line">    if (value != null)</span><br><span class="line">        consumer.accept(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以通过方法 isPresent() 判断一个 Optional 对象是否存在，如果存在，该方法返回 true，否则返回 false——取代了 obj != null 的判断。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;String&gt; opt = Optional.of(&quot;11&quot;);</span><br><span class="line">System.out.println(opt.isPresent()); // 输出：false</span><br><span class="line"></span><br><span class="line">Optional&lt;String&gt; optOrNull = Optional.ofNullable(null);</span><br><span class="line">System.out.println(opt.isPresent()); // 输出：true</span><br></pre></td></tr></table></figure>
+
+<p>ifPresent(Consumer&lt;? super T&gt; consumer) 是如果不为null的话，对对象做什么操作。</p>
+<p>java中的Optional：<br><a target="_blank" rel="noopener" href="https://www.jb51.net/article/214824.htm">https://www.jb51.net/article/214824.htm</a><br>一文彻底搞懂 Java 的 Optional：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qing_gee/article/details/104767082">https://blog.csdn.net/qing_gee/article/details/104767082</a></p>
 
     </div>
 
@@ -377,7 +430,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Serializable%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">Serializable接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MultipartFile%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.</span> <span class="nav-text">MultipartFile接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pattern%E7%B1%BB-amp-Matcher%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">Pattern类&amp;Matcher类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Function%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.</span> <span class="nav-text">Function接口</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Serializable%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">Serializable接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MultipartFile%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.</span> <span class="nav-text">MultipartFile接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pattern%E7%B1%BB-amp-Matcher%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">Pattern类&amp;Matcher类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Function%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.</span> <span class="nav-text">Function接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3"><span class="nav-number">5.</span> <span class="nav-text">函数式接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85Function%E6%8E%A5%E5%8F%A3"><span class="nav-number">5.1.</span> <span class="nav-text">✅Function接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85Predicate%E6%8E%A5%E5%8F%A3"><span class="nav-number">5.2.</span> <span class="nav-text">✅Predicate接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%9C%85Consumer%E6%8E%A5%E5%8F%A3"><span class="nav-number">5.3.</span> <span class="nav-text">✅Consumer接口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Optional"><span class="nav-number">6.</span> <span class="nav-text">Optional</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -392,7 +445,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">90</span>
+          <span class="site-state-item-count">92</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -446,7 +499,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

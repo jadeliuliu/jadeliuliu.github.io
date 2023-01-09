@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="什么是elastsearchES&#x3D;elaticsearch简写， Elasticsearch是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。Elasticsearch也使用Java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，通">
+  <meta name="description" content="什么是elasticsearchES&#x3D;elaticsearch简写， Elasticsearch是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。Elasticsearch也使用Java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性">
 <meta property="og:type" content="article">
 <meta property="og:title" content="elasticsearch">
 <meta property="og:url" content="http://example.com/2022/12/10/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/elasticsearch/index.html">
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
-<meta property="og:description" content="什么是elastsearchES&#x3D;elaticsearch简写， Elasticsearch是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。Elasticsearch也使用Java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，通">
+<meta property="og:description" content="什么是elasticsearchES&#x3D;elaticsearch简写， Elasticsearch是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。Elasticsearch也使用Java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-12-10T07:22:27.412Z">
-<meta property="article:modified_time" content="2022-12-10T07:28:30.936Z">
+<meta property="article:modified_time" content="2022-12-22T03:49:00.164Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -211,10 +211,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-12-10 15:22:27 / Modified: 15:28:30" itemprop="dateCreated datePublished" datetime="2022-12-10T15:22:27+08:00">2022-12-10</time>
+              <time title="Created: 2022-12-10 15:22:27" itemprop="dateCreated datePublished" datetime="2022-12-10T15:22:27+08:00">2022-12-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-12-22 11:49:00" itemprop="dateModified" datetime="2022-12-22T11:49:00+08:00">2022-12-22</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -243,7 +249,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="什么是elastsearch"><a href="#什么是elastsearch" class="headerlink" title="什么是elastsearch"></a>什么是elastsearch</h2><p>ES=elaticsearch简写， Elasticsearch是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。<br>Elasticsearch也使用Java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，通过面向文档从而让全文搜索变得简单。</p>
+        <h2 id="什么是elasticsearch"><a href="#什么是elasticsearch" class="headerlink" title="什么是elasticsearch"></a>什么是elasticsearch</h2><p>ES=elaticsearch简写， Elasticsearch是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。<br>Elasticsearch也使用Java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，通过面向文档从而让全文搜索变得简单。</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45081813/article/details/113061113">https://blog.csdn.net/weixin_45081813/article/details/113061113</a></p>
 
     </div>
@@ -266,7 +272,10 @@
     <a href="/2022/11/27/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="prev" title="设计模式">
       <i class="fa fa-chevron-left"></i> 设计模式
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/12/22/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/sqlite/" rel="next" title="sqlite">
+      sqlite <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -325,7 +334,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFelastsearch"><span class="nav-number">1.</span> <span class="nav-text">什么是elastsearch</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFelasticsearch"><span class="nav-number">1.</span> <span class="nav-text">什么是elasticsearch</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -340,7 +349,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">90</span>
+          <span class="site-state-item-count">92</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -394,7 +403,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

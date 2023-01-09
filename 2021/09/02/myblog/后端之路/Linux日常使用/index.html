@@ -28,7 +28,7 @@
 <meta property="og:description" content="给用户添加sudo权限–切换到拥有sudo权限的用户下，可以是su。 –输入命令”sudo vim &#x2F;etc&#x2F;sudoers”开始编辑&#x2F;etc&#x2F;sudoers文件。 –找到”root ALL&#x3D;(ALL:ALL) ALL”这一 行，在它下面添加”xxx ALL&#x3D;(ALL:ALL) ALL”(这里的xxx是你的用户名)，然后保存退出。因为是只读模式，输入”:wq!”强制保存并退出。 获得本机ip12i">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-09-02T12:26:37.000Z">
-<meta property="article:modified_time" content="2022-12-13T13:31:49.569Z">
+<meta property="article:modified_time" content="2023-01-07T11:50:33.588Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-12-13 21:31:49" itemprop="dateModified" datetime="2022-12-13T21:31:49+08:00">2022-12-13</time>
+                <time title="Modified: 2023-01-07 19:50:33" itemprop="dateModified" datetime="2023-01-07T19:50:33+08:00">2023-01-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -291,7 +291,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#x27;Cost time:&#x27; &#x27;&#123;print $2&#125;&#x27; platform-idproducer.log.wf</span><br><span class="line">//-F指定分隔符用来指定分隔符，指定&#x27;Cost time:&#x27;为分隔符。</span><br><span class="line">//总共分成两个域，&#x27;&#123;print $2&#125;&#x27;表示输出第二个域，&#x27;&#x27;少不了</span><br></pre></td></tr></table></figure>
 
 <p>awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。</p>
-<p>awk工作流程是这样的：读入有’\n’换行符分割的一条记录，然后将记录按指定的域分隔符划分域，填充域，$0则表示所有域,$1表示第一个域,$n表示第n个域。默认域分隔符是”空白键” 或 “[tab]键”</p>
+<p>awk工作流程是这样的：读入有’\n’换行符分割的一条记录，然后将记录按指定的域分隔符划分域，填充域，<code>$0</code>则表示所有域,<code>$1</code>表示第一个域,<code>$n</code>表示第n个域。默认域分隔符是”空白键” 或 “[tab]键”</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#x27;Cost time:&#x27; &#x27;&#123;print $2&#125;&#x27; platform-idproducer.log.wf|grep &#x27;ns&#x27;</span><br><span class="line">//表示上一步输出的文本，逐行筛选，有ns的输出，不加&#x27;&#x27;也行</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#x27;Cost time:&#x27; &#x27;&#123;print $2&#125;&#x27; platform-idproducer.log.wf|grep &#x27;ns&#x27;|awk -F &#x27;ns&#x27; &#x27;&#123;print $1&#125;&#x27;</span><br><span class="line">//上一步输出逐行的***ns，这一步自定义ns为分隔符，输出第一个域，相当于去掉了ns，只剩下数字</span><br></pre></td></tr></table></figure>
@@ -301,6 +301,8 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#x27;Cost time:&#x27; &#x27;&#123;print $2&#125;&#x27; platform-idproducer.log.wf|grep &#x27;ns&#x27;|awk -F &#x27;ns&#x27; &#x27;&#123;print $1&#125;&#x27;|awk &#x27;BEGIN&#123;sum=0&#125;&#123;sum=sum+$1&#125;END&#123;print sum/NR&#125;&#x27;</span><br><span class="line">//BEGIN 初始化代码块，主要是引用全局变量</span><br><span class="line">//END 结尾代码块，在对每一行进行处理之后再执行的代码块，主要是进行最终计算或输出结尾摘要信息</span><br><span class="line">//begin的作用在于不会每行都刷新sum，保证sum的全局性</span><br><span class="line">//end的意思是最后遍历完才执行后面的语句，如果不用end，则每行都计算一下</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">应用：查看日志中error为0的行数：</span><br><span class="line">awk &#x27;&#123;print $0&#125;&#x27; old.log|grep &#x27;errno&quot;:0&#x27;|awk &#x27;END&#123;print NR&#125;&#x27;</span><br><span class="line">//输出有error：0的行数，即正确请求数</span><br></pre></td></tr></table></figure>
+
+
 
 <h2 id="管道符"><a href="#管道符" class="headerlink" title="管道符|"></a>管道符|</h2><p>利用Linux所提供的管道符“|”将两个命令隔开，管道符左边命令的输出就会作为管道符右边命令的输入。连续使用管道意味着第一个命令的输出会作为 第二个命令的输入，第二个命令的输出又会作为第三个命令的输入，依此类推。</p>
 <h2 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h2><p>Linux ps （英文全拼：process status）命令用于显示当前进程的状态，类似于 windows 的任务管理器。</p>
@@ -418,6 +420,8 @@
 <p>✅awk基本操作符</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$0             表示整个当前行</span><br><span class="line">$1             每行第一个字段</span><br><span class="line">NF            字段数量变量</span><br><span class="line">NR            每行的记录号，多文件记录递增</span><br><span class="line">FNR          与NR类似，不过多文件记录不递增，每个文件都从1开始</span><br><span class="line">\t                制表符</span><br><span class="line">\n               换行符</span><br><span class="line">FS             BEGIN时定义分隔符</span><br><span class="line">RS             输入的记录分隔符， 默认为换行符(即文本是按一行一行输入)</span><br><span class="line">~                匹配，与==相比不是精确比较</span><br><span class="line">!~               不匹配，不精确比较</span><br><span class="line">==              等于，必须全部相等，精确比较</span><br><span class="line">!=               不等于，精确比较</span><br><span class="line">&amp;&amp;　          逻辑与</span><br><span class="line">||                逻辑或</span><br><span class="line">+                匹配时表示1个或1个以上</span><br><span class="line">/[0-9][0-9]+/      两个或两个以上数字</span><br><span class="line">/[0-9][0-9]*/       一个或一个以上数字</span><br><span class="line">OFS            输出字段分隔符， 默认是空格，可以改为制表符等</span><br><span class="line">ORS           输出的记录分隔符，默认是换行符，即一行一行输出到屏幕</span><br><span class="line">-F  &#x27;[:#/]&#x27;      定义三个分隔符，[ ]内可以放置多个分隔符</span><br><span class="line"></span><br><span class="line">链接：https://www.jianshu.com/p/e3fa91a8d9f2</span><br></pre></td></tr></table></figure>
 
+<p>✅awk实现根据1还是0变到true/false</p>
+<p><code>awk -F &#39;,&#39; &#39;&#123;print $1 &quot;,&quot; $2&#125;&#123;if($2&lt;1)&#123;bb=&quot;false&quot;&#125;else&#123;bb=&quot;true&quot;&#125;&#123;print &quot;,&quot; bb&#125;&#125;&#39; test.txt &gt; out.txt</code></p>
 <h2 id="看磁盘空间"><a href="#看磁盘空间" class="headerlink" title="看磁盘空间"></a>看磁盘空间</h2><p><code>df -h</code><br>看文件的大小：<br>直接ll，显示的是文件的字节大小，想用M、G单位来表示文件的大小：用<code>ll -h</code></p>
 <p>✅想清理日志<br>清理日志，rm worker.log 清不干净。</p>
 <p>1、通过重定向到空来清空文件内容<br>shell重定向null<br><code>&gt; access.log</code></p>
@@ -523,7 +527,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">90</span>
+          <span class="site-state-item-count">92</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -577,7 +581,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

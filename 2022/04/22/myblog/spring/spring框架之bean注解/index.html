@@ -28,7 +28,7 @@
 <meta property="og:description" content="@Bean注解作用在方法上的注解，Spring的@Bean注解用于告诉方法，产生一个Bean对象，然后这个Bean对象交给Spring管理。产生这个Bean对象的方法Spring只会调用一次，随后这个Spring将会将这个Bean对象放在自己的IOC容器中。(和xml配置中的bean标签的作用是一样的) @Bean主要用在@Configuration注解的类中，也可以用在@Component注解的">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-22T14:14:57.094Z">
-<meta property="article:modified_time" content="2022-11-26T13:52:07.162Z">
+<meta property="article:modified_time" content="2023-01-08T04:08:03.294Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-11-26 21:52:07" itemprop="dateModified" datetime="2022-11-26T21:52:07+08:00">2022-11-26</time>
+                <time title="Modified: 2023-01-08 12:08:03" itemprop="dateModified" datetime="2023-01-08T12:08:03+08:00">2023-01-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -283,6 +283,24 @@
 <h3 id="ApplicationContextAware接口"><a href="#ApplicationContextAware接口" class="headerlink" title="ApplicationContextAware接口"></a>ApplicationContextAware接口</h3><p>org.springframework.context中</p>
 <p>当一个类实现了这个接口之后，这个类就可以方便的获得ApplicationContext对象（spring上下文），Spring发现某个Bean实现了ApplicationContextAware接口，Spring容器会在创建该Bean之后，自动调用该Bean的setApplicationContext（参数）方法，调用该方法时，会将容器本身ApplicationContext对象作为参数传递给该方法。</p>
 <p>❤️之前获取ApplicationContext需要加载配置文件从而创建应用上下文，但是实现了ApplicationContextAware接口，spring自动将容器本身ApplicationContext对象传递给其中的方法setApplicationContext。实现它的类，可以在类中创建私有的ApplicationContext变量，在setApplicationContext中this. = 进行传递。</p>
+<p>实现ApplicationContextAware接口可以方便获取ApplicationContext，即spring容器，获取容器之后就可以方便获取bean。</p>
+<p>例子：<br>获取一个排序工厂：</p>
+<p>排序接口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface Sort &#123;</span><br><span class="line">    SortType getSortType();</span><br><span class="line">    int[] sorting(int[] sourceArray);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>排序算法实现接口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class SelectionSort implements Sort &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public SortType getSortType() &#123;</span><br><span class="line">        return SortType.SELECTION;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    @Override</span><br><span class="line">    public int[] sorting(int[] sourceArray) &#123;</span><br><span class="line">        int[] arr = Arrays.copyOf(sourceArray, sourceArray.length);</span><br><span class="line"> </span><br><span class="line">        // 总共要经过 N-1 轮比较</span><br><span class="line">        for (int i = 0; i &lt; arr.length - 1; i++) &#123;</span><br><span class="line">            int min = i;</span><br><span class="line"> </span><br><span class="line">            // 每轮需要比较的次数 N-i</span><br><span class="line">            for (int j = i + 1; j &lt; arr.length; j++) &#123;</span><br><span class="line">                if (arr[j] &lt; arr[min]) &#123;</span><br><span class="line">                    // 记录目前能找到的最小值元素的下标</span><br><span class="line">                    min = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            // 将找到的最小值和i位置所在的值进行交换</span><br><span class="line">            if (i != min) &#123;</span><br><span class="line">                int temp = arr[i];</span><br><span class="line">                arr[i] = arr[min];</span><br><span class="line">                arr[min] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        return arr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>枚举排序类型:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public enum SortType &#123;</span><br><span class="line">    SELECTION,</span><br><span class="line">    BUBBLE,</span><br><span class="line">    INSERT,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>排序工厂，实现 ApplicationContextAware 接口:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class SortFactory implements ApplicationContextAware &#123;</span><br><span class="line">    private static Map&lt;SortType, Sort&gt; sortBeanMap = new ConcurrentHashMap&lt;&gt;(16);</span><br><span class="line">    @Override</span><br><span class="line">    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException &#123;</span><br><span class="line">        Map&lt;String, Sort&gt; map = applicationContext.getBeansOfType(Sort.class);</span><br><span class="line">        map.forEach((key, value) -&gt; sortBeanMap.put(value.getSortType(), value));</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    public int[] sorting(SortType sortType, int[] sourceArray) &#123;</span><br><span class="line">        Sort sort = sortBeanMap.get(sortType);</span><br><span class="line">        return sort.sorting(sourceArray);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class SortController &#123;</span><br><span class="line"> </span><br><span class="line">    private final SortFactory sortFactory;</span><br><span class="line"> </span><br><span class="line">    public SortController(SortFactory sortFactory) &#123;</span><br><span class="line">        this.sortFactory = sortFactory;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    @PostMapping(value = &quot;factory/sort&quot;)</span><br><span class="line">    public Object sortFactory(SortType sortType, int[] sourceArr) &#123;</span><br><span class="line">        return sortFactory.sorting(sortType, sourceArr);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33898233/article/details/91414228">https://blog.csdn.net/weixin_33898233/article/details/91414228</a></p>
 <h3 id="InitialzingBean接口"><a href="#InitialzingBean接口" class="headerlink" title="InitialzingBean接口"></a>InitialzingBean接口</h3><p>当一个类实现这个接口之后，Spring启动后，初始化Bean时，若该Bean实现InitialzingBean接口，会自动调用afterPropertiesSet()方法，完成一些用户自定义的初始化操作。</p>
 <p>同样配置Bean的时候使用init-method也可以实现类似的操作。（不需要实现InitialzingBean接口）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void afterPropertiesSet() throws Exception &#123;&#125;</span><br><span class="line"></span><br><span class="line">&lt;bean id = &quot;springBeanInit02&quot; class = &quot;com.lyj.studySpringBoot.init.SpringBeanInit&quot; init-method=&quot;testInit&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;id&quot; value=&quot;#&#123;1111111&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;name&quot; value=&quot;$&#123;test.springEL&#125;&quot; /&gt;</span><br><span class="line">	&lt;property name=&quot;age&quot; value=&quot;#&#123;10+8&#125;&quot; /&gt; // SpringEL表达式</span><br><span class="line">	&lt;property name=&quot;sex&quot; value=&quot;false&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">系统是先调用afterPropertiesSet方法，然后在调用init-method中指定的方法。</span><br></pre></td></tr></table></figure>
@@ -419,7 +437,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">90</span>
+          <span class="site-state-item-count">92</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -473,7 +491,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
