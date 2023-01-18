@@ -455,10 +455,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-12-22 11:49:15 / Modified: 18:32:59" itemprop="dateCreated datePublished" datetime="2022-12-22T11:49:15+08:00">2022-12-22</time>
+              <time title="Created: 2022-12-22 11:49:15" itemprop="dateCreated datePublished" datetime="2022-12-22T11:49:15+08:00">2022-12-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-01-18 23:24:07" itemprop="dateModified" datetime="2023-01-18T23:24:07+08:00">2023-01-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -503,6 +509,12 @@
 
 <p><code>.tables</code> 查看创建的表</p>
 <p><code>.schema tableName</code> 得到表的完整信息（建表语句）</p>
+<h2 id="java使用sqlite"><a href="#java使用sqlite" class="headerlink" title="java使用sqlite"></a>java使用sqlite</h2><p>sqlite没有像mysql使用comment增加字段/表名注释，使用–注释内容。</p>
+<p>SQLite——Java使用：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38322527/article/details/125717093">https://blog.csdn.net/qq_38322527/article/details/125717093</a></p>
+<p>SQLite数据库基本使用（Java）：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44102521/article/details/119884521">https://blog.csdn.net/weixin_44102521/article/details/119884521</a></p>
+<p>查询获取list：<br><a target="_blank" rel="noopener" href="https://m.runoob.com/sqlite/sqlite-java.html?ivk_sa=1024320u">https://m.runoob.com/sqlite/sqlite-java.html?ivk_sa=1024320u</a></p>
+<p>sqlite没有comment：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qinxu0611/article/details/128609756">https://blog.csdn.net/qinxu0611/article/details/128609756</a></p>
+<p>SQLite 线程安全和并发：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/feng9exe/p/10682567.html">https://www.cnblogs.com/feng9exe/p/10682567.html</a></p>
 
       
     </div>
@@ -1396,7 +1408,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-12-13 21:38:31" itemprop="dateModified" datetime="2022-12-13T21:38:31+08:00">2022-12-13</time>
+                <time title="Modified: 2023-01-18 17:10:54" itemprop="dateModified" datetime="2023-01-18T17:10:54+08:00">2023-01-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1521,9 +1533,9 @@
 <p>堆：</p>
 <p>堆内存用来存放new创建的对象和数组。<br>堆内存中所有的实体都有内存地址值。<br>堆内存中的实体是用来封装数据的，这些数据都有默认初始化值。<br>堆内存中的实体不再被指向时，JVM启动垃圾回收机制，自动清除，这也是JAVA优于C++的表现之一（C++中需要程序员手动清除）</p>
 <h3 id="✅String-str-“abc”的内部工作"><a href="#✅String-str-“abc”的内部工作" class="headerlink" title="✅String str = “abc”的内部工作"></a>✅String str = “abc”的内部工作</h3><p>(1)先定义一个名为str的对String类的对象引用变量：String str；</p>
-<p>(2)在栈中查找有没有存放值为”abc”的地址，如果没有，则开辟一个存放字面值为”abc”的地址，接着在堆中创建一个新的String类的对象o，并将o的字符串值指向这个地址，而且在栈中这个地址旁边记下这个引用的对象o。如果已经有了值为”abc”的地址，则查找对象o，并返回o的地址。</p>
-<p>(3)将str指向对象o的地址。</p>
-<p>值得注意的是，一般String类中字符串值都是直接存值的。但像String str = “abc”；这种场合下，其字符串值却是保存了一个指向存在栈中数据的引用！</p>
+<p>(2)在栈中查找有没有存放值为”abc”的地址（引用），如果没有，则在栈中开辟一个存放字面值为”abc”的地址，接着在堆中创建一个新的String类的对象“abc”，并将该字符串指向这个地址，而且在栈中这个地址旁边记下这个引用的对象“abc”。如果已经有了值为”abc”的地址，则查找对象“abc”，并返回“abc”的地址。</p>
+<p>(3)将str指向对象“abc”的地址。</p>
+<p>值得注意的是，一般String类中字符串值都是直接存值的。但像String str = “abc”；这种场合下，其字符串值却是保存了一个指向存在栈中数据的引用！<br><strong>（有点问题，指向的是堆中的字符串常量池里的字符串吧？？）</strong></p>
 <p>例子：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String str1 = “abc”;  </span><br><span class="line">String str2 = “abc”;  </span><br><span class="line">System.out.println(str1==str2); //true</span><br></pre></td></tr></table></figure>
 
@@ -1534,14 +1546,23 @@
 <p>💡原因：事实上，String类被设计成为不可改变(immutable)的类。如果你要改变其值，可以，但JVM在运行时根据新值悄悄创建了一个新对象，然后将这个对象的地址返回给原来类的引用。这个创建过程虽说是完全自动进行的，但它毕竟占用了更多的时间。在对时间要求比较敏感的环境中，会带有一定的不良影响。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String str1 = new String(“abc”);</span><br><span class="line">String str2 = “abc”;</span><br><span class="line">System.out.println(str1==str2); //false</span><br></pre></td></tr></table></figure>
 
-<p>💡原因：只要是用new()来新建对象的，都会在堆中创建，而且其字符串是单独存值的，即使与栈中的数据相同，也不会与栈中的数据共享。</p>
-<p><strong>意思是：String str = “abc” 的创建对象方式，会在栈中保存“abc”。如果多次这样创建一个值的String对象，会先去栈里看有没有，如果有，堆里就不新建对象了，栈里新建一个引用变量指向那个对象，如果没有就新建，但是new方式不会看，都是新建。</strong></p>
+<p>💡原因：只要是用new()来新建对象的，都会在堆中创建，而且其字符串是单独存值的，即使与栈中的数据相同，也不会与栈中的数据共享。<br><strong>（与字符串常量池共享吧？）</strong></p>
+<p><strong>意思是：String str = “abc” 的创建对象方式，会在栈中保存“abc”。（字符串常量池中吧？）如果多次这样创建一个值的String对象，会先去栈里看有没有，如果有，堆里就不新建对象了，栈里新建一个引用变量指向那个对象，如果没有就新建，但是new方式不会看，都是新建。</strong></p>
 <p>结论：</p>
 <p>(1)我们在使用诸如String str = “abc”; 的格式定义类时，总是想当然地认为，我们创建了String类的对象str。担心陷阱！对象可能并没有被创建！唯一可以肯定的是，指向String类的引用被创建了。至于这个引用到底是否指向了一个新的对象，必须根据上下文来考虑，除非你通过new()方法来显要地创建一个新的对象。因此，更为准确的说法是，我们创建了一个指向String类的对象的引用变量str，这个对象引用变量指向了某个值为”abc”的String对象。</p>
 <p>(2)使用String str = “abc”; 的方式，可以在一定程度上提高程序的运行速度，因为JVM会自动根据栈中数据的实际情况来决定是否有必要创建新对象。而对于String str = new String(“abc”); 的代码，则一概在堆中创建新对象，而不管其字符串值是否相等，是否有必要创建新对象，从而加重了程序的负担。这个思想应该是享元模式的思想，但JDK的内部在这里实现是否应用了这个模式，不得而知。</p>
 <p>(3)当比较包装类里面的数值是否相等时，用equals()方法；当测试两个包装类的引用是否指向同一个对象时，用==。</p>
 <p>(4)由于String类的不可改变immutable性质，当String变量需要经常变换其值时，应该考虑使用StringBuffer类，以提高程序效率。</p>
 <p>参考：<br>程序中堆栈空间加载过程：<a target="_blank" rel="noopener" href="https://www.jb51.net/article/229958.htm">https://www.jb51.net/article/229958.htm</a><br>堆栈区别、String创建过程：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/529280783">https://zhuanlan.zhihu.com/p/529280783</a></p>
+<h3 id="String不可变怎么理解"><a href="#String不可变怎么理解" class="headerlink" title="String不可变怎么理解"></a>String不可变怎么理解</h3><p>看了一圈优点模糊，主要几个疑问：<br>1、<code>String s = &quot;abc&quot;;</code>，到底怎么个流程，已有的字符串怎么找到的。<br>2、字符串常量池在哪里存的。初步结论是java8在堆中。<br>3、运行时常量池和字符串常量池？</p>
+<p><strong>看看jvm虚拟机再解惑吧</strong></p>
+<p>string类为什么是不可变的：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/liuqinhou/article/details/126160186">https://blog.csdn.net/liuqinhou/article/details/126160186</a></p>
+<p>String源码角度分析为什么不可变，通过反射的方法改变：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangjg_blog/article/details/18319521">https://blog.csdn.net/zhangjg_blog/article/details/18319521</a></p>
+<p>浅谈为什么Java里面String类是不可变的：<br><a target="_blank" rel="noopener" href="https://www.jb51.net/article/157814.htm">https://www.jb51.net/article/157814.htm</a></p>
+<p>String是如何实现其对象不可变：<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/498718374">https://zhuanlan.zhihu.com/p/498718374</a></p>
+<p>Java 常量池详解（一）字符串常量池：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Prior_SX/article/details/123463430">https://blog.csdn.net/Prior_SX/article/details/123463430</a></p>
+<p>字符串常量池和运行时常量池是在堆还是在方法区？<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cosmos-wong/p/12925299.html">https://www.cnblogs.com/cosmos-wong/p/12925299.html</a></p>
+<p>Java8中字符串常量池到底是在哪里：<br><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_14234228/2489846">https://blog.51cto.com/u_14234228/2489846</a></p>
 <h3 id="✅堆内存共享性问题"><a href="#✅堆内存共享性问题" class="headerlink" title="✅堆内存共享性问题"></a>✅堆内存共享性问题</h3><p>问题来源：既然各个java进程共享堆内存，那么看fullgc的情况跟哪个进程线程有什么关系呢？</p>
 <p>没错，堆是全局共享的，但是会存在一些问题</p>
 <p>就是多个线程在堆上同时申请空间，如果在并发的场景中，两个线程先后把对象引用指向了同一个堆的内存区域，那可能就会出现问题；为了解决这个问题呢，就得进行同步控制，说到同步控制，就会影响到效率。</p>
