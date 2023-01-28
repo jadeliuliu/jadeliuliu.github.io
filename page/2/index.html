@@ -1352,7 +1352,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-18 18:59:10" itemprop="dateModified" datetime="2023-01-18T18:59:10+08:00">2023-01-18</time>
+                <time title="Modified: 2023-01-23 20:54:09" itemprop="dateModified" datetime="2023-01-23T20:54:09+08:00">2023-01-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1738,6 +1738,9 @@ ROUND_UP    //向远离0的方向舍入
 
 <h3 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h3><p>LinkedList是一种可以在任何位置进行高效地插入和移除操作的有序序列，它是基于双向链表实现的，是线程不安全的，允许元素为null的双向链表。</p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/162980143">https://zhuanlan.zhihu.com/p/162980143</a></p>
+<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><h4 id="✅移除"><a href="#✅移除" class="headerlink" title="✅移除"></a>✅移除</h4><p>移除Set集合中的指定对象：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;String&gt; set = Sets.newHashSet();</span><br><span class="line">set.add(&quot;111&quot;);</span><br><span class="line">set.add(&quot;222&quot;);</span><br><span class="line">set.remove(&quot;111&quot;);</span><br><span class="line">System.out.println(set);</span><br></pre></td></tr></table></figure>
+
 <h4 id="获取上一个下一个元素"><a href="#获取上一个下一个元素" class="headerlink" title="获取上一个下一个元素"></a>获取上一个下一个元素</h4><p>用迭代器的<code>previous()</code>方法和<code>next()</code>方法</p>
 <h3 id="Comparable、Comparator"><a href="#Comparable、Comparator" class="headerlink" title="Comparable、Comparator"></a>Comparable、Comparator</h3><p>要讲这个，就要讲list的排序，看上面，有几种办法：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1.list.sort(Comparator.comparing(A::getB))</span><br><span class="line">2.list.stream.sorted(Comparator.comparing(A::getB)).collect(Collectors.toList())</span><br><span class="line">3.list.stream.sorted((a1,a2)-&gt;a1.compareTo(a2))</span><br><span class="line">4.直接Collections.sort(list)  </span><br><span class="line">//这个需要list的元素实现Comparable接口，重写compareTo方法，比如String就实现了</span><br><span class="line">5.Collections.sort(list, new Comparator&lt;A&gt;()&#123;</span><br><span class="line">  @Oerride</span><br><span class="line">  public int compare(A a1, A a2)&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>

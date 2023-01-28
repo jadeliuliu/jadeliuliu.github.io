@@ -1009,7 +1009,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-08 10:59:24" itemprop="dateModified" datetime="2023-01-08T10:59:24+08:00">2023-01-08</time>
+                <time title="Modified: 2023-01-23 21:20:04" itemprop="dateModified" datetime="2023-01-23T21:20:04+08:00">2023-01-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1127,6 +1127,11 @@
 <h2 id="Mock被测试类的其他public方法"><a href="#Mock被测试类的其他public方法" class="headerlink" title="Mock被测试类的其他public方法"></a>Mock被测试类的其他public方法</h2><p>直接用Mockito.when是不行，会报空指针。</p>
 <p>还没搞出来。</p>
 <p>Java中使用PowerMockito mock static方法/new对象/mock对象的public或private方法的简单示例：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/epic358/p/16559549.html">https://www.cnblogs.com/epic358/p/16559549.html</a></p>
+<h2 id="Mock测试修改方法的入参"><a href="#Mock测试修改方法的入参" class="headerlink" title="Mock测试修改方法的入参"></a>Mock测试修改方法的入参</h2><p>如果方法有返回值，直接使用Mockito.when().thenReturn()的方式Mock即可，但是对于没有返回值的方法，但是在方法内部却对方法的入参做了一些逻辑的方法，就不能再用这种方式，应该用另外一个Mock方法，即doNothing。</p>
+<p>Mock的时候，首先匹配参数，然后在ArgumentMatcher中修改参数即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// mock方式修改方法入参</span><br><span class="line">doNothing().when(userService).service(any(), argThat(new ArgumentMatcher&lt;UserResponse&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean matches(UserResponse response) &#123;</span><br><span class="line">        ImportInfo importInfo = new ImportInfo();</span><br><span class="line">        importInfo.setStatus(&quot;APPROVING&quot;);</span><br><span class="line">        // 修改入参的属性</span><br><span class="line">        response.setImportInfo(importInfo);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;));</span><br><span class="line">Request request = new Request();</span><br><span class="line">Response response = new Response();</span><br><span class="line">// 这个是我们要验证的主方法</span><br><span class="line">handler.handle(request, response);</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.wxxblog.com/article/5">https://www.wxxblog.com/article/5</a></p>
 <h2 id="单元测试风格"><a href="#单元测试风格" class="headerlink" title="单元测试风格"></a>单元测试风格</h2><p>单元测试的意义在于验证业务代码，高覆盖率+可读性 = 高价值。高覆盖率包括对代码的覆盖，也包括对测试用例的覆盖。</p>
 <p>一个方法要测试多种测试场景的话，就写多个mock方法，一个单侧方法只针对一个行为。但是看，有些公共的mock打桩可以提取出来，写成一个公共的私有方法，或者写一个init方法，用@Before注解修饰，在运行测试方法时就提前打桩。</p>
 <p>推荐的风格：<br>1.一个测试方法仅调用一次被测方法<br>2.至少一个正例的测试用例<br>3，提取公共的mock插桩<br>4.异常流的测试中，只引入一种异常的mock重写<br>5.加注释：测试什么场景，期望什么结果</p>
