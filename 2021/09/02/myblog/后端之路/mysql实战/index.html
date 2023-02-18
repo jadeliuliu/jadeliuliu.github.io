@@ -28,7 +28,7 @@
 <meta property="og:description" content="case1、注意直接from a and b 是相当于inner join，没有的不显示。 2、原来inset error的话，自增减也会消耗掉1个，update不会消耗，但是inset duplicate会消耗。 3、项目代码里，sql置select出一条，也就是只用一个对象接收时，必须得加limit 1，不然select出多条就会报错。 5、可以select * from table wher">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-09-02T11:15:02.000Z">
-<meta property="article:modified_time" content="2023-01-08T01:47:30.063Z">
+<meta property="article:modified_time" content="2023-02-18T09:22:06.265Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="Mysql">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-08 09:47:30" itemprop="dateModified" datetime="2023-01-08T09:47:30+08:00">2023-01-08</time>
+                <time title="Modified: 2023-02-18 17:22:06" itemprop="dateModified" datetime="2023-02-18T17:22:06+08:00">2023-02-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -398,7 +398,7 @@
 <p>也就是：<br>建表时，not null 和 default null（或者default别的）是分开的。<br>如果not null，就不能传null，但是可以不传。<br>not null不传，有默认值，会设置为默认值。<br>not null不传，但是没有default，会报错：<br>insert into student1 (name) values (“liu”);<br>ERROR 1364 (HY000): Field ‘m_id’ doesn’t have a default value。<br>如果没有default，就不能不传。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS `student1`(</span><br><span class="line">   `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT &#x27;自增&#x27;,</span><br><span class="line">   `name` varchar(3) NOT NULL DEFAULT &#x27;&#x27;,</span><br><span class="line">   `m_id` int NOT NULL,</span><br><span class="line">   PRIMARY KEY ( `id` )</span><br><span class="line">)ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COMMENT=&quot;student&quot;;</span><br></pre></td></tr></table></figure>
 
-<p>所以说：<br>如果 NOT NULL，就不能传null。<br>如果没有default，就不能不传。</p>
+<p>所以说：<br>如果 NOT NULL，就不能传null。<br>如果没有default，就不能不传。<br>not null的话，其实default就没什么用了，除非不传。</p>
 <h2 id="分库分表实践"><a href="#分库分表实践" class="headerlink" title="分库分表实践"></a>分库分表实践</h2><p>数据库性能瓶颈：<br>① 数据库连接 数据库连接是非常稀少的资源,MySQL数据库默认100个连接，单机最大1500连接。如果一个库里既有用户相关的数据又有商品、订单相关的数据，当海量用户同时操作时,数据库连接就很可能成为瓶颈。</p>
 <p>② 数据量 MySQL单库数据量在5000万以内性能比较好，超过阈值后性能会随着数据量的增大而变弱。MySQL单表的数据量是500w-1000w之间性能比较好，超过1000w性能也会下降。</p>
 <p>③ 硬件问题 因为单个服务的磁盘空间是有限制的，如果并发压力下所有的请求都访问同一个节点，肯定会对磁盘IO造成非常大的影响。</p>

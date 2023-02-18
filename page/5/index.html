@@ -214,7 +214,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-12-25 00:15:38" itemprop="dateModified" datetime="2022-12-25T00:15:38+08:00">2022-12-25</time>
+                <time title="Modified: 2023-02-16 09:27:04" itemprop="dateModified" datetime="2023-02-16T09:27:04+08:00">2023-02-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -553,6 +553,10 @@
 
 <p>K-means优缺点：<br>特点分析：采用迭代式算法，直观易懂并且非常实用<br>缺点：容易收敛到局部最优解(多次聚类)<br>应用场景：没有目标值的分类，做在分类之前。</p>
 <h4 id="4-7-总结"><a href="#4-7-总结" class="headerlink" title="4.7 总结"></a>4.7 总结</h4><p>1.线性回归 - 线性模型 - 线性关系：y=w1x1+w2x2+…+wnxn+b。构建损失函数-最小二乘法/均方误差。优化损失：正规方程（矩阵相乘直接求解），梯度下降（不断试错，不断迭代）。模型评估：均方误差。<br>2.过拟合和欠拟合，过拟合：模型过于复杂 - 正则化（用L2）。欠拟合：模型过于简单 - 增加数据、特征。<br>3.岭回归，正则化力度对模型参数的影响。<br>4.逻辑回归，用于分类，输入是线性回归的输出，放入激活函数sigmoid中。损失函数：对数似然函数。优化损失：梯度下降。二分类的模型评估：召回率，样本不均衡时使用AUC指标，接近0.5就不好。<br>5.保存和加载模型<br>6.K-Means，聚类的步骤，模型评估：用轮廓系数[-1,1]</p>
+<h2 id="看图说话"><a href="#看图说话" class="headerlink" title="看图说话"></a>看图说话</h2><p>什么是特征：图像的像素、区域。单词的特性，等可以被区别于其他图像的地方，并且可以经过向量化的计算被模型所获取。</p>
+<p>CNN核函数 - 得到向量一片区域的相关特性<br>编码器：例如Faster-RCNN，yolo，把文本或图像的特征做向量化的处理<br>解码器：CNN-LSTM。Transformer，把向量化处理后的特征做语义识别、分割等操作，并输出。</p>
+<p>图片向量化、编码器（生成计算机可以理解的上下文信息）、解码器、文本向量化</p>
+<p>看图说话：用编码器Faster-RCNN从图像中提取对象，用解码器生成一句话图像表达</p>
 
       
     </div>

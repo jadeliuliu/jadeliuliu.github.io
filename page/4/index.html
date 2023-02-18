@@ -1607,7 +1607,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/02/15/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/shell%E5%88%B7%E9%A2%981/" class="post-title-link" itemprop="url">shellのleecode193.有效的电话号码</a>
+            <a href="/2022/02/15/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/shell%E5%88%B7%E9%A2%981/" class="post-title-link" itemprop="url">shellのleecode</a>
         </h2>
 
         <div class="post-meta">
@@ -1616,10 +1616,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-02-15 22:51:56 / Modified: 22:54:42" itemprop="dateCreated datePublished" datetime="2022-02-15T22:51:56+08:00">2022-02-15</time>
+              <time title="Created: 2022-02-15 22:51:56" itemprop="dateCreated datePublished" datetime="2022-02-15T22:51:56+08:00">2022-02-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-02-14 22:03:18" itemprop="dateModified" datetime="2023-02-14T22:03:18+08:00">2023-02-14</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -1641,8 +1647,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">给定一个包含电话号码列表（一行一个电话号码）的文本文件 file.txt，写一个单行 bash 脚本输出所有有效的电话号码。</span><br><span class="line"></span><br><span class="line">你可以假设一个有效的电话号码必须满足以下两种格式： (xxx) xxx-xxxx 或 xxx-xxx-xxxx。（x 表示一个数字）</span><br><span class="line"></span><br><span class="line">你也可以假设每行前后没有多余的空格字符。</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">假设 file.txt 内容如下：</span><br><span class="line">987-123-4567</span><br><span class="line">123 456 7890</span><br><span class="line">(123) 456-7890</span><br><span class="line">你的脚本应当输出下列有效的电话号码：</span><br><span class="line">987-123-4567</span><br><span class="line">(123) 456-7890</span><br></pre></td></tr></table></figure>
+          <h2 id="193-有效的电话号码"><a href="#193-有效的电话号码" class="headerlink" title="193.有效的电话号码"></a>193.有效的电话号码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">给定一个包含电话号码列表（一行一个电话号码）的文本文件 file.txt，写一个单行 bash 脚本输出所有有效的电话号码。</span><br><span class="line"></span><br><span class="line">你可以假设一个有效的电话号码必须满足以下两种格式： (xxx) xxx-xxxx 或 xxx-xxx-xxxx。（x 表示一个数字）</span><br><span class="line"></span><br><span class="line">你也可以假设每行前后没有多余的空格字符。</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line">假设 file.txt 内容如下：</span><br><span class="line">987-123-4567</span><br><span class="line">123 456 7890</span><br><span class="line">(123) 456-7890</span><br><span class="line">你的脚本应当输出下列有效的电话号码：</span><br><span class="line">987-123-4567</span><br><span class="line">(123) 456-7890</span><br></pre></td></tr></table></figure>
 
+<p>匹配符合规则的字符串，所以使用正则表达式来检索符合要求的字符串即可。需要用正则表达式中的普通字符、特殊字符、限定符、定位符来描述对应的规律。</p>
+<p>正则表达式的重点有三：特殊字符、限定字符、定位符<br>特殊字符：勿忘加上转义符’&#39;<br>限定字符：限定字符出现的次数，掌握它也就get了精华<br>定位符：字面意思</p>
+<p>表达 (xxx) xxx-xxxx 的正则：<br><code>^\([0-9][0-9][0-9]\) [0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]$</code><br>优化：<code>^\([0-9]&#123;3&#125;\) [0-9]&#123;3&#125;-[0-9]&#123;4&#125;$</code></p>
+<p>表达 xxx-xxx-xxxx 的正则：<br><code>^[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]$</code><br>优化：<code>^[0-9]&#123;3&#125;-[0-9]&#123;3&#125;-[0-9]&#123;4&#125;$</code></p>
+<p>同时表示xxx-xxx-xxxx和 (xxx) xxx-xxxx 的正则：<br>使用特殊字符()和|。用最外面一个()来标记一个表达式，使用|来指明两项之间的任意选择。<br><code>^([0-9]&#123;3&#125;-|\([0-9]&#123;3&#125;\) )[0-9]&#123;3&#125;-[0-9]&#123;4&#125;$</code><br>使用grep -p的话，-P 使用 Perl 拓展正则，主要是为了支持\d匹配数字。<br><code>grep -P &#39;^(\(\d&#123;3&#125;\) |\d&#123;3&#125;-)\d&#123;3&#125;-\d&#123;4&#125;$&#39; file.txt</code></p>
+<p>最终：<br><code>grep -P &#39;^([0-9]&#123;3&#125;-|\([0-9]&#123;3&#125;\) )[0-9]&#123;3&#125;-[0-9]&#123;4&#125;$&#39; file.txt</code><br>或<br><code>awk &#39;/^([0-9]&#123;3&#125;-|\([0-9]&#123;3&#125;\) )[0-9]&#123;3&#125;-[0-9]&#123;4&#125;$/&#39; file.txt</code><br>或<br><code>gawk &#39;/^([0-9]&#123;3&#125;-|\([0-9]&#123;3&#125;\) )[0-9]&#123;3&#125;-[0-9]&#123;4&#125;$/&#39; file.txt</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">限定符	表达含义</span><br><span class="line">*	出现次数&gt;=0</span><br><span class="line">+	出现次数&gt;=1</span><br><span class="line">?	出现次数 0 or 1, 等价&#123;0,1&#125;</span><br><span class="line">&#123;n&#125;	出现次数=n</span><br><span class="line">&#123;n,&#125;	出现次数&gt;=n</span><br><span class="line">&#123;n, m&#125;	n=&lt; 出现次数&lt;= m</span><br><span class="line"></span><br><span class="line">定位符	表达含义</span><br><span class="line">^	字符串开始的位置</span><br><span class="line">$	字符串结束的位置</span><br><span class="line">\b	限定单词(字)的字符，常用来确定一个单词，可以结合两个‘\b’使用</span><br><span class="line">\B	限定非单词(字)边界的字符，用的很少</span><br></pre></td></tr></table></figure>
 
       
     </div>
