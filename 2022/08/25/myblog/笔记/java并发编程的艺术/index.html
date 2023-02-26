@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/332bc0544764bd13d7ddb4ac4e73871f.png">
 <meta property="article:published_time" content="2022-08-25T15:05:34.157Z">
-<meta property="article:modified_time" content="2023-01-23T12:28:34.534Z">
+<meta property="article:modified_time" content="2023-02-18T16:00:04.877Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="notes">
 <meta name="twitter:card" content="summary">
@@ -221,7 +221,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-23 20:28:34" itemprop="dateModified" datetime="2023-01-23T20:28:34+08:00">2023-01-23</time>
+                <time title="Modified: 2023-02-19 00:00:04" itemprop="dateModified" datetime="2023-02-19T00:00:04+08:00">2023-02-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -990,7 +990,7 @@
 <p><strong>入队方法永远返回true，所以不要通过返回值判断入队是否成功。</strong></p>
 <h4 id="✅出队列：poll"><a href="#✅出队列：poll" class="headerlink" title="✅出队列：poll()"></a>✅出队列：poll()</h4><p>不是每次出队都更新head节点，当head中有元素，就直接弹出head的元素，如果没有元素，就弹出head的next，然后更新head节点，head节点变为弹出节点的next节点。【一次走两格】<br>也是通过控制距离的方式，减少CAS更新节点的消耗。</p>
 <h3 id="3-阻塞队列"><a href="#3-阻塞队列" class="headerlink" title="3.阻塞队列"></a>3.阻塞队列</h3><p>阻塞对列(BlockingQueue)是一个支持两个附加操作的对列。这两个附加操作支持阻塞的插入和移除方法。</p>
-<p>1）支持阻塞的插入方法：意思是当对列满时，对列会阻塞插入元素的线程，直到对列不满。<br>2）支持阻塞的移除方法：意思是当对列为空时，获取元素的线程会等待对列变为空。</p>
+<p>1）支持阻塞的插入方法：意思是当对列满时，对列会阻塞插入元素的线程，直到对列不满。<br>2）支持阻塞的移除方法：意思是当对列为空时，获取元素的线程会等待对列不为空。</p>
 <p>阻塞队列常用于生产者和消费者的场景，生产者是向对列里添加元素的线程，消费者是从队列里取元素的线程。阻塞队列就是生产者用来存放元素，消费者用来获取元素的容器。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">--------------------插入和移除操作的4种处理方式--------------</span><br><span class="line"></span><br><span class="line">方法/处理方式    抛出异常    返回特殊值    一直阻塞    超时退出</span><br><span class="line">插入方法        add(e)     offer(e)     put(e)      offer(e,time,unit)</span><br><span class="line">移除方法       remove()    poll()       take()     poll(time,unit)</span><br><span class="line">检查方法      element()    peek()       不可用      不可用</span><br><span class="line"></span><br><span class="line">1）抛出异常：当队列满时，如果再往对列里插入元素，会抛出IllegalStateException(&quot;Queue full&quot;)异常。当队列空时，从队列里获取元素会抛出NoSuchElementException异常。</span><br><span class="line">2）返回特殊值：当往队列插入元素时，会返回元素是否插入成功，成功返回true。如果是移除方法，则是从队列里取出一个元素，如果没有返回null。</span><br><span class="line">3）一直阻塞：当阻塞队列满时，如果生产者线程往队列里put元素，队列会一直阻塞生产者线程，直到对列可用或者响应中断退出。当队列为空时，如果消费者线程从队列里take元素，队列会阻塞住消费者线程，直到队列不为空。</span><br><span class="line">4）超时退出：当阻塞队列满时，如果生产者线程往队列里插入元素，队列会阻塞生产者线程一段时间，如果超过了指定的时间，生产者线程就会退出。</span><br></pre></td></tr></table></figure>
 
@@ -1399,7 +1399,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">92</span>
+          <span class="site-state-item-count">94</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
