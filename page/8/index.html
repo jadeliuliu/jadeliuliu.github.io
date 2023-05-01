@@ -183,6 +183,571 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/07/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/07/myblog/leecode%E5%88%B7%E9%A2%98%E4%B9%8Bjava/2.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">javaのleecode两数之和</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-10-07 10:49:32" itemprop="dateCreated datePublished" datetime="2021-10-07T10:49:32+08:00">2021-10-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-10-13 21:13:35" itemprop="dateModified" datetime="2021-10-13T21:13:35+08:00">2021-10-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leecode%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">leecode刷题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。</span><br><span class="line"></span><br><span class="line">你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。</span><br><span class="line">你可以按任意顺序返回答案。</span><br><span class="line"></span><br><span class="line">输入：nums = [2,7,11,15], target = 9</span><br><span class="line">输出：[0,1]</span><br><span class="line">解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。</span><br></pre></td></tr></table></figure>
+
+<p>关于hashmap的使用：</p>
+<p>m.put(a,b)  插入<br>m.containkey(a)  查找key</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> leecode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">twonumbersum</span> </span>&#123;</span><br><span class="line">    <span class="comment">//先写功能函数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt;m = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; ++i) &#123;</span><br><span class="line">            <span class="keyword">int</span> a= target - nums[i];</span><br><span class="line">            <span class="keyword">if</span> (m.containsKey(a)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;m.get(a), i&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            m.put(nums[i], i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//再写测试函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入数组：&quot;</span>);</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str = sc.nextLine();</span><br><span class="line">        String[] arr = str.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        <span class="keyword">int</span>[] nums = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nums.length; j++) &#123;</span><br><span class="line">            nums[j] = Integer.parseInt(arr[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入目标值：&quot;</span>);</span><br><span class="line">        Scanner in=<span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span> target = in.nextInt();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] res=twoSum(nums, target);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> re : res) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;结果：&quot;</span>);</span><br><span class="line">            System.out.print(re + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>疑问：功能函数不是static型时，main函数也不能事static的，但是无运行按钮。除非把两个函数都变成static型。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/12/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/hexo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/12/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/hexo/" class="post-title-link" itemprop="url">如何搭建一个hexo博客</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-12 21:13:59" itemprop="dateCreated datePublished" datetime="2021-09-12T21:13:59+08:00">2021-09-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-01-10 15:52:48" itemprop="dateModified" datetime="2022-01-10T15:52:48+08:00">2022-01-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-新建仓库"><a href="#1-新建仓库" class="headerlink" title="1.新建仓库"></a>1.新建仓库</h3><p>jadeliuliu.github.io</p>
+<h3 id="2-安装hexo"><a href="#2-安装hexo" class="headerlink" title="2.安装hexo"></a>2.安装hexo</h3><p>首先需要安装npm，Node Package Manager ，是一个NodeJS包管理和分发工具，大家都把自己开发的模块打包后放到npm官网上，如果要使用，直接通过npm安装就可以直接用，不用管代码存在哪，应该从哪下载。</p>
+<h4 id="安装npm"><a href="#安装npm" class="headerlink" title="安装npm"></a>安装npm</h4><p><code>brew install node</code>     安装好了nodejs和npm </p>
+<p><code>npm -v</code>  检查</p>
+<p>安装hexo:<code>npm install -g hexo</code></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/390f202c5b0e">https://www.jianshu.com/p/390f202c5b0e</a></p>
+<h3 id="3-初始化项目"><a href="#3-初始化项目" class="headerlink" title="3.初始化项目"></a>3.初始化项目</h3><p><code>hexo init</code>  </p>
+<p><code>hexo s</code>  浏览器可访问</p>
+<h3 id="4-部署到github"><a href="#4-部署到github" class="headerlink" title="4.部署到github"></a>4.部署到github</h3><p>在项目根目录下找到 <code>_congif.yml</code>，找到 <code>deploy</code> 字段并填写完整</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">type: git</span><br><span class="line">  repo: https://github.com/jadeliuliu/jadeliuliu.github.io</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<p>需要额外的一个工具来帮助我们推到仓库上，是 <code>hexo-deployer-git</code></p>
+<p><code>npm install hexo-deployer-git --save</code></p>
+<p><code>hexo clean</code></p>
+<p><code>hexo deploy</code></p>
+<h3 id="5-出现443的问题"><a href="#5-出现443的问题" class="headerlink" title="5.出现443的问题"></a>5.出现443的问题</h3><p>连接超时的问题：网上主流解决方法是自定义一个接口代理或输入如下语句禁用接口代理</p>
+<p><code>git config --global --unset https.proxy</code></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/longroad1216/article/details/114853527">https://blog.csdn.net/longroad1216/article/details/114853527</a></p>
+<p>或者https换成git试一试</p>
+<p>6.登录github需要tocken</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41010198/article/details/119698015">https://blog.csdn.net/weixin_41010198/article/details/119698015</a></p>
+<h3 id="6-更换next主题"><a href="#6-更换next主题" class="headerlink" title="6.更换next主题"></a>6.更换next主题</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone <span class="symbol">https:</span>/<span class="regexp">/github.com/theme</span>-<span class="keyword">next</span>/hexo-theme-<span class="keyword">next</span> themes/<span class="keyword">next</span></span><br></pre></td></tr></table></figure>
+
+<p>配置文件里改theme</p>
+<p>hexo s 看效果</p>
+<p>hexo -s 看帮助</p>
+<h3 id="7-参考"><a href="#7-参考" class="headerlink" title="7.参考"></a>7.参考</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">https://blog.csdn.net/weixin_39766258/article/details/110638797</span><br><span class="line">（比较全的指南）</span><br><span class="line"></span><br><span class="line">https://www.jianshu.com/p/e17711e44e00</span><br><span class="line">（添加分类）</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-添加分类"><a href="#8-添加分类" class="headerlink" title="8.添加分类"></a>8.添加分类</h3><p>测试：</p>
+<p>// 我们可以写成一条命令<br>$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo s<br>$ hexo d</p>
+<p>文章：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 如何搭建一个hexo博客</span><br><span class="line">date: <span class="number">2021</span>年<span class="number">09</span>月<span class="number">15</span>日 <span class="number">20</span>:<span class="number">58</span>:<span class="number">49</span></span><br><span class="line">categories: </span><br><span class="line">- 后端</span><br><span class="line">tags:</span><br><span class="line">- hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-增加目录"><a href="#9-增加目录" class="headerlink" title="9.增加目录"></a>9.增加目录</h3><p>主题配置文件位于<code>themes/next/_config.yml</code></p>
+<p>每行目录超长自动换行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">toc:</span><br><span class="line">  enable: true  </span><br><span class="line">  wrap: true </span><br></pre></td></tr></table></figure>
+
+<h3 id="10-首页只显示文章标题"><a href="#10-首页只显示文章标题" class="headerlink" title="10.首页只显示文章标题"></a>10.首页只显示文章标题</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/12/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/hexo/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/Linux%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/Linux%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">Linux日常使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-02 20:26:37" itemprop="dateCreated datePublished" datetime="2021-09-02T20:26:37+08:00">2021-09-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-03-26 19:00:10" itemprop="dateModified" datetime="2023-03-26T19:00:10+08:00">2023-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="给用户添加sudo权限"><a href="#给用户添加sudo权限" class="headerlink" title="给用户添加sudo权限"></a>给用户添加sudo权限</h2><p>–切换到拥有sudo权限的用户下，可以是su。 –输入命令”sudo vim /etc/sudoers”开始编辑/etc/sudoers文件。 –找到”root ALL=(ALL:ALL) ALL”这一 行，在它下面添加”xxx ALL=(ALL:ALL) ALL”(这里的xxx是你的用户名)，然后保存退出。因为是只读模式，输入”:wq!”强制保存并退出。</p>
+<h2 id="获得本机ip"><a href="#获得本机ip" class="headerlink" title="获得本机ip"></a>获得本机ip</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ifconfig | grep &quot;inet&quot;</span><br><span class="line">ifconfig en0</span><br></pre></td></tr></table></figure>
+
+<p>localhost：127.0.0.1 ，在 Linux 中，其定义位于 /etc/hosts。用于本机中各个应用之间的网络交互。不需要联网，本机访问。</p>
+<p>localhost等于127.0.0.1，不过localhost是域名，127.0.0.1是IP地址。</p>
+<p>本机 IP 就是本机对外放开访问的IP地址，这个网址就是与物理网卡绑定的IP地址。</p>
+<p>访问127.0.0.1不调用网卡驱动，而是立即转发到本机IP层进行处理，不涉及底层操作。</p>
+<p>本机IP，我们可以理解为本机有三块网卡，一块网卡叫做loopback（虚拟网卡），一块叫做ethernet（有线网卡），一块叫做wlan（你的无线网卡）。127.0.0.1 这个地址通常分配给 loopback 接口。</p>
+<p>ping 127.0.0.1一般作为测试本机TCP/IP协议栈正常与否的判断之一。</p>
+<h3 id="共有ip："><a href="#共有ip：" class="headerlink" title="共有ip："></a>共有ip：</h3><p>组建一个企业级网络，需要去向“电信运营商ISP”申请一个接入Internet的宽带，同时ISP还会给我们分配一个或多个IP地址，这些IP地址可以供我们企业内部上网，这些ISP分配给我们的IP，就是公有IP。</p>
+<p>公有地址（Public address，也可称为公网地址）由Internet NIC（Internet Network Information Center因特网信息中心）负责。这些IP地址分配给注册并向Internet NIC提出申请的组织机构。通过它直接访问因特网，它是广域网范畴内的。</p>
+<h3 id="私有IP："><a href="#私有IP：" class="headerlink" title="私有IP："></a>私有IP：</h3><p>我们企业或家庭内部组建局域网用的IP，一般都会用私有IP。</p>
+<p>私有地址（Private address，也可称为专网地址）属于非注册地址，专门为组织机构内部使用，它是局域网范畴内的，私有IP禁止出现在Internet中，在ISP连接用户的地方，将来自于私有IP的流量全部都会阻止并丢掉。私有ip在公网上不能被识别。必须通过NAT将内部IP地址转换成公网上可用的IP地址，从而实现内部IP地址与外部公网的通信。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IP地址分固定和动态的两种，固定IP地址不会变，价格比较贵，多是企事业单位使用。</span><br><span class="line">家庭宽带连接就是动态IP，在不上网的时候,先前所用IP资源就会被释放出来供他人使用. 如果再上网，系统又分配一个IP给你，所以家庭用户的IP都是自动分配的，上网了就找一个给你用，断网了马上收回，再给其它人用，这样可以缓解IP地址紧张的问题。</span><br></pre></td></tr></table></figure>
+
+<h3 id="子网掩码-netmask："><a href="#子网掩码-netmask：" class="headerlink" title="子网掩码 netmask："></a><strong>子网掩码 netmask：</strong></h3><p>将某个IP地址划分成网络地址和主机地址两部分，子网掩码必须是多个 1 相连，多个 0 相连的形式，总共 8 * 4 = 32 位。1的部分就是网络地址部分 0的部分就是主机地址部分。</p>
+<p>255.255.255.0这个子网掩码可以容纳2的8次方（台）电脑，也就是256台，但是有两个IP是不能用的，位数全为0为网络号 位数全为1位广播号，减去这两台，就是254台。</p>
+<p>一种子网掩码的简便写法:<br>192.163.1.199/24<br>ip后面的/24就是子网掩码255.255.255.0的简写 意为网络位为24位也就是二进制左边24个1</p>
+<h3 id="广播地址broadcast："><a href="#广播地址broadcast：" class="headerlink" title="广播地址broadcast："></a>广播地址broadcast：</h3><p>广播地址(Broadcast Address)是专门用于同时向网络中所有工作站进行发送的一个地址。在使用TCP/IP 协议的网络中，主机标识段host ID 为全1 的IP 地址为广播地址，广播的分组传送给host ID段所涉及的所有计算机。例如，对于10.1.1.0 （255.0.0.0 ）网段，其直播广播地址为10.255.255.255 （255 即为2 进制的11111111 ），当发出一个目的地址为10.255.255.255 的分组（封包）时，它将被分发给该网段上的所有计算机。</p>
+<h3 id="my-Mac-地址："><a href="#my-Mac-地址：" class="headerlink" title="my Mac 地址："></a>my Mac 地址：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">inet 172.22.150.82 netmask 0xfffffe00 broadcast 172.22.151.255</span><br><span class="line">inet是本机ip</span><br><span class="line">netmask表示了23位网络位，9位主机位</span><br><span class="line">broadcast表示150二进制：10010110，前七位网络号，后面一位变1，即广播号：172.22.151.255</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件相关"><a href="#文件相关" class="headerlink" title="文件相关"></a>文件相关</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ls  显示所有文件</span><br><span class="line">ls -a   显示包括.开头的隐藏文件</span><br><span class="line">ls -l   列出文件详细信息  = ll</span><br><span class="line">ll -a = ls -al</span><br><span class="line"></span><br><span class="line">ll -a |grep pre  //找pre的</span><br><span class="line"></span><br><span class="line">tree  数状显示当前目录下所有文件</span><br><span class="line">tree需要先安装</span><br><span class="line">tree --version  参看是否安装</span><br><span class="line">sudo apt/brew install tree   安装</span><br><span class="line">tree -L 2   显示二级目录</span><br></pre></td></tr></table></figure>
+
+<h2 id="文本查看相关"><a href="#文本查看相关" class="headerlink" title="文本查看相关"></a>文本查看相关</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cat 是一个文本文件查看和连接工具。</span><br><span class="line">cat -n a.md   带行号显示</span><br><span class="line">cat -b a.md   空白行不编号</span><br><span class="line">cat a.md &gt; b.md  a内容写到b中，覆盖</span><br><span class="line">cat a.md b.md &gt; c.md  a.b.都写到c里</span><br><span class="line">cat a.md|tail -n2   显示最后两行</span><br><span class="line">cat a.md|tail -n+2   显示从第二行到尾</span><br><span class="line">cat a.md|head -n2   显示前两行</span><br><span class="line">cat a.md|head -n4 | tail -n+2   显示2-4行 tail从2开始，head前4行，两者交集</span><br><span class="line">cat /dev/null &gt; a.md  清空文件</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tail 命令可用于查看文件的内容，-f 常用于查阅正在改变的日志。</span><br><span class="line">tail -f -n10 a.md  不断循环读取尾部10行</span><br><span class="line">tail -n10 a.md  显示最后10行</span><br><span class="line">tail -n +20 notes.log   从第20行显示至末尾</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n &#x27;2,4p&#x27; a.md    显示2-4行</span><br></pre></td></tr></table></figure>
+
+<p><code>tail -fn10 worker.log</code></p>
+<h2 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h2><p>场景：求日志中某一值的个数及平均值<br>AWK 是一种处理文本文件的语言，是一个强大的文本分析工具。<br>样式扫描和处理语言。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#x27;Cost time:&#x27; &#x27;&#123;print $2&#125;&#x27; platform-idproducer.log.wf|grep &#x27;ns&#x27;|awk -F &#x27;ns&#x27; &#x27;&#123;print $1&#125;&#x27;|awk &#x27;BEGIN&#123;sum=0&#125;&#123;sum=sum+$1&#125;END&#123;print sum/NR&#125;&#x27;</span><br><span class="line">//输出平均</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -f platform-idproducer.log.wf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /dev/null &gt; platform-idproducer.log.wf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#x27;Cost time:&#x27; &#x27;&#123;print $2&#125;&#x27; platform-idproducer.log.wf|grep &#x27;ns&#x27;|awk -F &#x27;ns&#x27; &#x27;&#123;print $1&#125;&#x27;|awk &#x27;END&#123;print NR&#125;&#x27;</span><br><span class="line">//输出行数</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#x27;Cost time:&#x27; &#x27;&#123;print $2&#125;&#x27; platform-idproducer.log.wf</span><br><span class="line">//-F指定分隔符用来指定分隔符，指定&#x27;Cost time:&#x27;为分隔符。</span><br><span class="line">//总共分成两个域，&#x27;&#123;print $2&#125;&#x27;表示输出第二个域，&#x27;&#x27;少不了</span><br></pre></td></tr></table></figure>
+
+<p>awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。</p>
+<p>awk工作流程是这样的：读入有’\n’换行符分割的一条记录，然后将记录按指定的域分隔符划分域，填充域，<code>$0</code>则表示所有域,<code>$1</code>表示第一个域,<code>$n</code>表示第n个域。默认域分隔符是”空白键” 或 “[tab]键”</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#x27;Cost time:&#x27; &#x27;&#123;print $2&#125;&#x27; platform-idproducer.log.wf|grep &#x27;ns&#x27;</span><br><span class="line">//表示上一步输出的文本，逐行筛选，有ns的输出，不加&#x27;&#x27;也行</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#x27;Cost time:&#x27; &#x27;&#123;print $2&#125;&#x27; platform-idproducer.log.wf|grep &#x27;ns&#x27;|awk -F &#x27;ns&#x27; &#x27;&#123;print $1&#125;&#x27;</span><br><span class="line">//上一步输出逐行的***ns，这一步自定义ns为分隔符，输出第一个域，相当于去掉了ns，只剩下数字</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#x27;Cost time:&#x27; &#x27;&#123;print $2&#125;&#x27; platform-idproducer.log.wf|grep &#x27;ns&#x27;|awk -F &#x27;ns&#x27; &#x27;&#123;print $1&#125;&#x27;|awk &#x27;&#123;print NR,$0&#125;&#x27;</span><br><span class="line">//NR表示每行的记录号，这个输出行号+所有域</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">awk -F &#x27;Cost time:&#x27; &#x27;&#123;print $2&#125;&#x27; platform-idproducer.log.wf|grep &#x27;ns&#x27;|awk -F &#x27;ns&#x27; &#x27;&#123;print $1&#125;&#x27;|awk &#x27;BEGIN&#123;sum=0&#125;&#123;sum=sum+$1&#125;END&#123;print sum/NR&#125;&#x27;</span><br><span class="line">//BEGIN 初始化代码块，主要是引用全局变量</span><br><span class="line">//END 结尾代码块，在对每一行进行处理之后再执行的代码块，主要是进行最终计算或输出结尾摘要信息</span><br><span class="line">//begin的作用在于不会每行都刷新sum，保证sum的全局性</span><br><span class="line">//end的意思是最后遍历完才执行后面的语句，如果不用end，则每行都计算一下</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">应用：查看日志中error为0的行数：</span><br><span class="line">awk &#x27;&#123;print $0&#125;&#x27; old.log|grep &#x27;errno&quot;:0&#x27;|awk &#x27;END&#123;print NR&#125;&#x27;</span><br><span class="line">//输出有error：0的行数，即正确请求数</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="管道符"><a href="#管道符" class="headerlink" title="管道符|"></a>管道符|</h2><p>利用Linux所提供的管道符“|”将两个命令隔开，管道符左边命令的输出就会作为管道符右边命令的输入。连续使用管道意味着第一个命令的输出会作为 第二个命令的输入，第二个命令的输出又会作为第三个命令的输入，依此类推。</p>
+<h2 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h2><p>Linux ps （英文全拼：process status）命令用于显示当前进程的状态，类似于 windows 的任务管理器。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ps -A    显示所有进程信息</span><br><span class="line">-e和-A的意思是一样的，即显示有关其他用户进程的信息，包括那些没有控制终端的进程。</span><br><span class="line">-f显示用户id，进程id，父进程id，最近CPU使用情况，进程开始时间等等。</span><br><span class="line">ps -ef|grep idpro</span><br></pre></td></tr></table></figure>
+
+<p>✅ps- ef 和 -aux</p>
+<p>1、ps -ef用于查看全格式的全部进程，ps -aux也是用于查看进程。其中“ps”是在Linux中是查看进程的命令，“-e ”参数代表显示所有进程，“-f”参数代表全格式。</p>
+<p>2、ps -ef和ps aux，这两者的输出结果差别不大，但展示风格不同。aux是BSD风格，显示的项目有：USER , PID , %CPU , %MEM , VSZ , RSS , TTY , STAT , START , TIME , COMMAND。而-ef是System V风格，显示的项目有：UID , PID , PPID , C , STIME , TTY , TIME , CMD。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">-ef字段含义：</span><br><span class="line">字段含义如下：</span><br><span class="line">UID       PID       PPID      C     STIME    TTY       TIME         CMD</span><br><span class="line">zzw      14124   13991      0     00:38      pts/0      00:00:00    grep --color=auto dae</span><br><span class="line"></span><br><span class="line">UID      ：程序被该 UID 所拥有</span><br><span class="line">PID      ：就是这个程序的 ID </span><br><span class="line">PPID    ：则是其上级父程序的ID</span><br><span class="line">C          ：CPU使用的资源百分比</span><br><span class="line">STIME ：系统启动时间</span><br><span class="line">TTY     ：登入者的终端机位置</span><br><span class="line">TIME   ：使用掉的CPU时间。</span><br><span class="line">CMD   ：所下达的是什么指令</span><br><span class="line"></span><br><span class="line">aux字段含义：</span><br><span class="line">USER PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND</span><br><span class="line"></span><br><span class="line">格式说明：</span><br><span class="line">USER: 进程拥有者</span><br><span class="line">PID: pid</span><br><span class="line">%CPU: 占用的 CPU 使用率</span><br><span class="line">%MEM: 占用的记忆体使用率</span><br><span class="line">VSZ: 占用的虚拟记忆体大小</span><br><span class="line">RSS: 占用的记忆体大小</span><br><span class="line">TTY: 终端的次要装置号码 (minor device number of tty)</span><br><span class="line"></span><br><span class="line">STAT: 该行程的状态，linux的进程有5种状态：</span><br><span class="line">D 不可中断 uninterruptible sleep (usually IO)</span><br><span class="line">R 运行 runnable (on run queue)</span><br><span class="line">S 中断 sleeping</span><br><span class="line">T 停止 traced or stopped</span><br><span class="line">Z 僵死 a defunct (”zombie”) process</span><br><span class="line">注: 其它状态还包括W(无驻留页), &lt;(高优先级进程), N(低优先级进程), L(内存锁页).</span><br><span class="line">1、运行状态(正在运行或在运行队列中等待[就绪队列])</span><br><span class="line">2、中断状态(休眠中, 受阻, 在等待某个条件的形成或接受到信号)</span><br><span class="line">3、不可中断状态(收到信号不唤醒和不可运行, 进程必须等待直到有中断发生)</span><br><span class="line">4、僵死状态(进程已终止, 但进程描述符存在, 直到父进程调用wait4()系统调用后释放)</span><br><span class="line">5、停止状态(进程收到SIGSTOP, SIGSTP, SIGTIN, SIGTOU信号后停止运行运行)</span><br><span class="line"></span><br><span class="line">START: 行程开始时间</span><br><span class="line">TIME: 执行的时间</span><br><span class="line">COMMAND:所执行的指令</span><br></pre></td></tr></table></figure>
+
+<p>3、COMMADN列如果过长，aux会截断显示，而ef不会。</p>
+<p>综上，如果想查看进程的CPU占用率和内存占用率，可以使用aux ，如果想查看进程的父进程ID和完整的COMMAND命令，可以使用ef。</p>
+<p>ps命令列出的是当前那些进程的快照，就是执行ps命令的那个时刻的那些进程，如果想要动态的显示进程信息，就可以使用top命令。</p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_54514751/article/details/126281162">https://blog.csdn.net/weixin_54514751/article/details/126281162</a></p>
+<p>✅pid<br>PID 代表进程标识号process identification，它是在操作系统中创建时自动分配给每个进程的唯一标识号。一个进程是一个正在运行的程序实例。</p>
+<h2 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h2><p>grep 搜索文本中匹配某个模式的行</p>
+<p>grep命令是查找，是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。</p>
+<p>grep全称是Global Regular Expression Print，表示全局正则表达式版本，它的使用权限是所有用户。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep &#x27;UpdateItem&#x27; ./platform-idproducer.log  //必须得是单引号</span><br></pre></td></tr></table></figure>
+
+<h2 id="jps-查看进程信息"><a href="#jps-查看进程信息" class="headerlink" title="jps-查看进程信息"></a>jps-查看进程信息</h2><p>JVM Process Status Tool，显示指定系统内所有的HotSpot虚拟机进程。</p>
+<p>功能： 显示当前所有java进程pid的命令，我们可以通过这个命令来查看到底启动了几个java进程（因为每一个java程序都会独占一个java虚拟机实例）。</p>
+<p>缺点： 不过jps有个缺点是只能显示当前用户的进程id，要显示其他用户的还只能用linux的ps命令。</p>
+<p>jps：列出所有正在运行的java进程，其中jps命令也是一个java程序，前面的数字就是对应的进程id。</p>
+<p>jps -l：（输出主类全名或jar路径）输出应用程序main.class的完整package名或者应用程序jar文件完整路径名。</p>
+<p>jps -q：只输出LVMID</p>
+<p>jps -m：输出JVM启动时传递给main()的参数。</p>
+<p>jps -v：输出JVM启动时显示指定的JVM参数</p>
+<p>✅jps失效：<br>在定位问题过程会遇到这样一种情况，用 jps 查看不到进程id，用 ps -ef | grep java 却能看到启动的java进程。</p>
+<p>jps 的实现机制：<br>java程序启动后，会在目录 /tmp/hsperfdata_{userName}/ 下生成几个文件，文件名就是java进程的 pid ，因此jps列出进程id就是把这个目录下的文件名列一下而已，至于系统参数，则是读取文件中的内容。</p>
+<p>jps失效情况：<br>由于磁盘满了，无法创建这些文件；<br>用户对这些文件没有读的权限；<br>因为某种原因这些文件或者目录被清除；<br>出现以上这些情况，就会导致jps命令失效。</p>
+<p>如果jps命令失效，而我们又要获取pid，还可以使用以下两种方法：<br>top | grep java<br>ps -ef |grep java</p>
+<p>原文：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wangzhongshun/article/details/112546027">https://blog.csdn.net/wangzhongshun/article/details/112546027</a></p>
+<h2 id="top命令"><a href="#top命令" class="headerlink" title="top命令"></a>top命令</h2><p>top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。显示当前系统正在执行的进程的相关信息，包括进程ID、内存占用率、CPU占用率</p>
+<p>top是一个动态显示过程,即可以通过用户按键来不断刷新当前状态.如果在前台执行该命令,它将独占前台,直到用户终止该程序为止.</p>
+<p>top命令提供了实时的对系统处理器的状态监视.它将显示系统中CPU最“敏感”的任务列表.该命令可以按CPU使用.内存使用和执行时间对任务进行排序；而且该命令的很多特性都可以通过交互式命令或者在个人定制文件中进行设定.</p>
+<p>直接top，显示信息解读：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_51627713/article/details/118091336">https://blog.csdn.net/m0_51627713/article/details/118091336</a></p>
+<p>top命令选项：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-d      #delay time  延迟时间</span><br><span class="line">-H      #Threads mode  是否开启线程模式，默认是off</span><br><span class="line">-p      # PID monitoring  只显示某个进程的信息，e.g: top -P 488  只显示进程号为488的进程信息</span><br><span class="line">-u      # user filter    过滤用户</span><br><span class="line">-o      # sort 排序，-o fieldname  ,指定要排序的字段  ,</span><br><span class="line">          e.g: top -d 300  -o +PID  按照PID字段从小到大排序</span><br><span class="line">      top -d 300  -o -PID  按照PID字段从大到小排序</span><br><span class="line">-w      # -w [ number ] 指定字段之间的间隔宽度，默认是512</span><br><span class="line">-b :  #批处理模式，可以把top命令行的输出导入到一个文件中</span><br><span class="line">c : 切换显示模式，共有两种模式，一是只显示执行档的名称，另一种是显示完整的路径与名称</span><br></pre></td></tr></table></figure>
+
+<h2 id="参看端口使用"><a href="#参看端口使用" class="headerlink" title="参看端口使用"></a>参看端口使用</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">lsof</span><br><span class="line">lsof(list open files)是一个列出当前系统打开文件的工具。</span><br><span class="line">而有一点要切记，在Unix中一切（包括网络套接口）都是文件。</span><br><span class="line">lsof 查看端口占用语法格式：</span><br><span class="line">lsof -i:端口号</span><br><span class="line">使用-i:port来显示与指定端口相关的网络信息</span><br><span class="line"></span><br><span class="line">参考：https://www.jianshu.com/p/a3aa6b01b2e1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">netstat</span><br><span class="line">yum install -y net-tools</span><br><span class="line">netstat -tunlp | grep 端口号</span><br><span class="line">-t (tcp) 仅显示tcp相关选项</span><br><span class="line">-u (udp)仅显示udp相关选项</span><br><span class="line">-n 拒绝显示别名，能显示数字的全部转化为数字</span><br><span class="line">-l 仅列出在Listen(监听)的服务状态</span><br><span class="line">-p 显示建立相关链接的程序名</span><br><span class="line">netstat -ntlp   //查看当前所有tcp端口</span><br><span class="line">netstat -ntulp | grep 80   //查看所有80端口使用情况</span><br><span class="line">netstat -ntulp | grep 3306   //查看所有3306端口使用情况</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">netstat -anp查看端口占用情况</span><br><span class="line"></span><br><span class="line">-a，显示所有</span><br><span class="line">-n，不用别名显示，只用数字显示</span><br><span class="line">-p，显示进程号和进程名</span><br></pre></td></tr></table></figure>
+
+<h2 id="yum-apt-brew"><a href="#yum-apt-brew" class="headerlink" title="yum apt brew"></a>yum apt brew</h2><p>linux系统基本上分两大类：<br>1.RedHat系列：Redhat、Centos、Fedora等，使用yum<br>2.Debian系列：Debian、Ubuntu等，使用apt-get</p>
+<p>Mac系统:<br>Homebrew，Homebrew简称brew</p>
+<h2 id="ping"><a href="#ping" class="headerlink" title="ping"></a>ping</h2><p>在网络中ping是一个十分强大的TCP/IP工具。它的作用主要为：<br>（1）用来检测网络的连通情况和分析网络速度；<br>（2）根据域名得到服务器IP；<br>（3）根据ping返回的TTL值来判断对方所使用的操作系统及数据包经过路由器数量。</p>
+<blockquote>
+<p>我们通常会用它来直接ping IP地址，来测试网络的连通情况。</p>
+<p>bytes值：数据包大小，也就是字节。</p>
+<p>time值：响应时间，这个时间越小，说明你连接这个地址速度越快。</p>
+<p>TTL值：Time To Live,表示DNS记录在DNS服务器上存在的时间，它是IP协议包的一个值，告诉路由器该数据包何时需要被丢弃。可以通过Ping返回的TTL值大小，粗略地判断目标系统类型是Windows系列还是UNIX/Linux系列。</p>
+<p>默认情况下，Linux系统的TTL值为64或255，WindowsNT/2000/XP系统的TTL值为128，Windows98系统的TTL值为32，UNIX主机的TTL值为255。</p>
+<p>100<del>130ms之间，Windows系统 ；<br>240</del>255ms之间，UNIX/Linux系统。</p>
+</blockquote>
+<h2 id="telnet"><a href="#telnet" class="headerlink" title="telnet"></a>telnet</h2><p>测试指定端口连通性：</p>
+<blockquote>
+<p>telnet 102.106.228.173 8601即可</p>
+<p>1、检测主机是否安装telnet<br>rpm -qa telnet-server<br>若无输入内容，则表示没有安装。出于安全考虑telnet-server.rpm是默认没有安装的，而telnet的客户端是标配。即下面的软件是默认安装的。</p>
+<p>2、若未安装，则安装telnet-server，否则忽略此步骤<br>yum install telnet-server 　</p>
+<p>3、检测telnet-server的rpm包是否安装<br>rpm -qa telnet<br>输出：telnet-0.17-47.el6_3.1.x86_64</p>
+<p>4、若未安装，则安装telnet，否则忽略此步骤<br>yum install telnet</p>
+<p>5.测试<br>Trying ::1…<br>Connected to localhost.<br>Escape character is ‘^]’.</p>
+<p>表明连接成功。（stats查看状态，flush_all:清楚缓存）</p>
+</blockquote>
+<p>8080端口一下访问不了？</p>
+<h2 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h2><p>在Linux中curl是一个利用URL规则在命令行下工作的文件传输工具，可以说是一款很强大的http命令行工具。它支持文件的上传和下载，是综合传输工具，但按传统，习惯称url为下载工具。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://www.linux.com  //访问网址</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">保存网页：</span><br><span class="line">1.使用linux的重定向功能保存</span><br><span class="line">curl http://www.linux.com &gt;&gt; linux.html</span><br><span class="line">2.可以使用curl的内置option:-o(小写)保存网页</span><br><span class="line">curl -o linux.html http://www.linux.com</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">保存网页中的文件：</span><br><span class="line">curl -O http://www.linux.com/hello.sh</span><br><span class="line">要注意这里后面的url要具体到某个文件，不然抓不下来</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl进行post请求：</span><br><span class="line">-H后面为请求头，可以添加多个，curl默认的请求方式是GET，我们要使用POST的话，就得加上“-X POST</span><br><span class="line"></span><br><span class="line">请求体，也就是json格式，此时只需要添加-d后，加上单引号，单引号里面添加花括号，然后json格式的key-value添加进去即可</span><br><span class="line"></span><br><span class="line">curl &#x27;http://10.12.205.134:8182/pt/idproducer/v2/createapp&#x27; -H &quot;Content-Type:application/json&quot; -X POST -d &#x27;&#123;&quot;appid&quot;:10001,&quot;machineid&quot;:250031,&quot;step&quot;:10000,&quot;autoincre&quot;:0&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>curl命令，只能linux上操作，mac上还不行。</p>
+<h2 id="Linux-的打印命令-echo"><a href="#Linux-的打印命令-echo" class="headerlink" title="Linux 的打印命令 echo"></a>Linux 的打印命令 echo</h2><p><code>echo &quot;c.biancheng.net&quot;</code> </p>
+<p>如果加入了 <code>-n</code>选项，则在输出内容结束后，不会换行，直接显示新行的提示符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输出时间：</span><br><span class="line">echo &quot;访问时间是：`date &#x27;+%Y%m%d %H:%M:%S&#x27;`&quot;</span><br><span class="line">输出：访问时间是：20210902 17:14:27</span><br><span class="line"></span><br><span class="line">想要输出换行：</span><br><span class="line">echo -e &quot;hello\nman&quot;</span><br></pre></td></tr></table></figure>
+
+<p>shell脚本中打印变量：<br><code>a=1 echo $a a=$a+1 echo $a</code><br>这样打印的是字符型<code>1+1</code><br>Bash 本质上只有字符型变量<br>执行<code>M=$((45+20)</code>，或<code>let M=45+20 </code>才能得到65。如果事先声明变量是整型数，就不必使用<code>$((…))</code>或者<code>let</code>。</p>
+<p>用带选项-i 的declare 命令，可以使变量具有整数（integer）属性。</p>
+<p><code>declare -i a</code></p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ A=15 B=30</span><br><span class="line">$ declare -i C=$A+$B</span><br><span class="line">$ D=$A+$B</span><br><span class="line">$ echo C=$C, D=$D</span><br><span class="line">C=45, D=15+30</span><br></pre></td></tr></table></figure>
+
+<h2 id="vim快速操作"><a href="#vim快速操作" class="headerlink" title="vim快速操作"></a>vim快速操作</h2><p>在vim的普通模式下.</p>
+<p><code>gg</code>光标跳转到该文件的行首</p>
+<p>应用鼠标： 按下<code>:</code>之后，<code>set mouse=a</code></p>
+<p>关闭鼠标功能：<code>:set mouse-=a</code></p>
+<h2 id="linux执行多行命令"><a href="#linux执行多行命令" class="headerlink" title="linux执行多行命令"></a>linux执行多行命令</h2><p><code>;</code>隔开即可</p>
+<h2 id="shell脚本后台一直运行"><a href="#shell脚本后台一直运行" class="headerlink" title="shell脚本后台一直运行"></a>shell脚本后台一直运行</h2><p>使用sh，其中test.sh为所执行的脚本，out.txt为输出信息的地方。<br>sh test.sh&gt;&amp;out.txt &amp;</p>
+<h2 id="rm-mv-cp"><a href="#rm-mv-cp" class="headerlink" title="rm mv cp"></a>rm mv cp</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">使用指令 cp 将当前目录 test/ 下的所有文件复制到新目录 newtest 下，输入如下命令：</span><br><span class="line">cp –r test/ newtest</span><br><span class="line"></span><br><span class="line">删除当前目录下的所有文件及目录，命令行为：</span><br><span class="line">rm  -r  *</span><br><span class="line">-f 即使原档案属性设为唯读，亦直接删除，无需逐一确认。</span><br><span class="line">-r 将目录及以下之档案亦逐一删除。</span><br><span class="line"></span><br><span class="line">将 /usr/runoob 下的所有文件和目录移到当前目录下</span><br><span class="line">mv /usr/runoob/*  . </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cp  拷贝</span><br><span class="line">cp bj.txt ./java/jee：把当前目录的bj.txt拷贝到当前目的java文件夹里的jee文件夹里</span><br><span class="line">cp dd.txt ee.txt   ：复制并改名,并存放在当前目录下  (cp源文件名 新文件名)</span><br><span class="line">cp file1 file2 复制一个文件 </span><br><span class="line">cp dir/* . 复制一个目录下的所有文件到当前工作目录 </span><br><span class="line">cp -a /tmp/dir1 . 复制一个目录到当前工作目录 </span><br><span class="line">cp -a dir1 dir2 复制一个目录</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mv  移动/剪切、重命名</span><br><span class="line">mv aa.txt ../android/   把当前目录下的文件aa.txt剪切到上一级目录的子目录android目录里</span><br><span class="line">mv aa.txt ..     把文件aa.txt移动到上一级目录</span><br><span class="line">mv bb.txt cc.txt   把文件bb.txt重命名为cc.txt</span><br><span class="line">mv dir1 new_dir    重命名/移动 一个目录 </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">rm  删除文件或目录</span><br><span class="line">rm 直接删除，rm文件名</span><br><span class="line">rm -f file1   删除一个叫做 &#x27;file1&#x27; 的文件或目录，假如要删除的文件不存在,也不提示 rm -f文件名</span><br><span class="line">rm -i   删除前提示是否删除，默认不删除， 若要删除，输入y</span><br><span class="line">rm -d   删除空白目录   rm -d空目录名  </span><br><span class="line">rm -r  删除有内容的目录,将指定目录下的所有文件及子目录一并处理，递归删除  </span><br><span class="line">rm -rf filename  强制删除目录或文件(目录有内容时，也删除)</span><br><span class="line">rm -rf dir1  删除一个叫做 &#x27;dir1&#x27;的目录并同时删除其内容 </span><br><span class="line">rm -rf dir1 dir2   同时删除两个目录及它们的内容</span><br></pre></td></tr></table></figure>
+
+<h2 id="alias-设置指令的别名"><a href="#alias-设置指令的别名" class="headerlink" title="alias 设置指令的别名"></a>alias 设置指令的别名</h2><p>alis 别名 = 指令名称<br>输入alias可列出目前所有的别名设置。<br>alias只限于该次登录操作，若要永久，需要在～/.zshrc文件中设置<br>alias 简写 = 全写</p>
+<h2 id="tr-多行合成一行-、awk使用"><a href="#tr-多行合成一行-、awk使用" class="headerlink" title="tr(多行合成一行)、awk使用"></a>tr(多行合成一行)、awk使用</h2><p>tr：转换文本中的字符</p>
+<p>wc：统计文本的行数、字数、字节数</p>
+<p>✅想把文件里的换行变成逗号（多行变一行）：<br><code>cat doc.txt|tr &#39;\n&#39; &#39;,&#39;</code></p>
+<p>✅想把每行按照自己想要的方式组装：<br><code>awk -F &quot;,&quot; &#39;&#123;print &quot;想拼接的字符串&quot; $2&#125;&#39; 文件名</code><br><code>-F &quot;,&quot; 是指定每行几个列的分割元素，默认是空格。</code><br><code>&#39;&#123;print $0&#125;&#39; 是打印整行</code><br><code>&#39;&#123;print $1&#125;&#39; 是打印第一列</code><br><code>&#39;&#123;print $2 “\&quot;”&#125;&#39; 是打印第二列后面再拼接一个“ </code><br>eg:<code>awk -F &quot;,&quot; &#39;&#123;print &quot;balabala&quot; $1 &quot;bala&quot; $2&#125;&#39; a.txt</code></p>
+<p>想排序输出：<code>|sort -k 2</code>  根据第二列排序,-r倒叙，-n根据数值<br>sort命令：<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-sort.html">https://www.runoob.com/linux/linux-comm-sort.html</a></p>
+<p>想只展示前多少行：<code>|head -10</code></p>
+<p>✅想把输出的文本保存到文件里<br><code>awk ... &gt; out.txt</code></p>
+<p>✅awk中字符串截取substr<br>每一行从第3个字符开始截取到末尾(包括第三个)：<br><code>awk &#39;&#123;print substr($0, 3)&#125;&#39; test.txt</code><br>每一行某列字符串的截取：从第3个开始截取10个<br><code>awk &#39;&#123;print substr($1, 3,10)&#125;&#39; test.txt</code></p>
+<p>✅awk中字符串替换<br><code>gsub(r,s) 在整个$0中用s替代r:</code><br>将文件中的所有逗号变没：<br><code>awk &#39;gsub(&quot;,&quot;, &quot;&quot;)&#123;print $0&#125;&#39; test.txt</code><br>注意gsub内部用双引号””<br>注意如果没逗号，啥都不输出<br><code>gsub(r,s,t) 在整个t中用s替代r:</code><br><code>awk &#39;gsub(&quot;1&quot;,&quot;2&quot;,$1)&#39; test.txt</code><br>仅输出被替换的行，如果没有被替换字符，不输出。</p>
+<p>✅awk列运算<br>求每一行中的最大值的列：<br><code>awk &#39;&#123;m=0;for(x=0;x&lt;=NF;x++)if($x&gt;m) &#123;m=$x&#125;;print m&#125;&#39; test.txt</code></p>
+<p>求第2列中最大的值(遍历行)：<br><code>awk &#39;BEGIN&#123;max=0&#125;&#123;if($3&gt;max)max=$3&#125;END&#123;print &quot;Max =&quot;,max&#125;&#39; test.txt</code></p>
+<p>求第2列所有行的和：<br><code>awk &#39;&#123;sum+=$2&#125;END&#123;print &quot;Sum =&quot;,sum&#125;&#39; test.txt</code></p>
+<p>对第2列求平均值：<br><code>awk &#39;&#123;sum+=$2&#125;END&#123;print &quot;Avg =&quot;,sum/NR&#125;&#39; test.txt</code></p>
+<p>对每一行的前5列求平均值：<br><code>awk &#39;&#123;sum=0;for(i=1;i&lt;=5;i++)&#123;sum+=$i&#125;&#123;print sum/5&#125;&#125;&#39; test.txt</code><br><code>awk &#39;&#123;sum=0;for(i=1;i&lt;=5;i++)&#123;sum+=$i&#125;;print sum/5&#125;&#39; test.txt</code><br>可以用{}分割语句，也可以用;分割</p>
+<p>✅awk输出/删除指定列<br>输出每行的前5列，并按行输出：<br><code>awk &#39;&#123;for(i=1;i&lt;6;i++)printf(&quot;%s &quot;,$i);printf(&quot;\n&quot;)&#125;&#39; test.txt</code><br>用print的话带自动换行，但是不要加%s占位符<br>都输出到一行：<br><code>awk &#39;&#123;for(i=1;i&lt;6;i++)printf(&quot;%s &quot;,$i)&#125;&#39; test.txt</code></p>
+<p>每行输出多列，并修改分隔符：<br><code>awk &#39;&#123;for(i=2;i&lt;=NF;i++)printf(&quot;%s\t&quot;,$i);printf(&quot;\n&quot;)&#125;&#39; test.txt</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">awk &#x27;&#123;print $1&#125;&#x27; 本来每行输出一个，print会自动换行</span><br><span class="line">如果没行输出多个，for遍历是针对单行的，最大列NF，不换行用printf</span><br></pre></td></tr></table></figure>
+
+<p>删除最后一列：<br><code>awk &#39;&#123;$NF=&quot;&quot;;print&#125;&#39; test.txt</code><br>删除第三列:<br><code>awk &#39;&#123;$3=&quot;&quot;;print&#125;&#39; test.txt</code></p>
+<p>每三行合并成一列：<br><code>awk &#39;&#123;if(NR%3 != 0)&#123;ORS=&quot; &quot;&#125;else&#123;ORS=&quot;\n&quot;&#125;print&#125;&#39; test.txt</code></p>
+<p>✅awk基本操作符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$0             表示整个当前行</span><br><span class="line">$1             每行第一个字段</span><br><span class="line">NF            字段数量变量</span><br><span class="line">NR            每行的记录号，多文件记录递增</span><br><span class="line">FNR          与NR类似，不过多文件记录不递增，每个文件都从1开始</span><br><span class="line">\t                制表符</span><br><span class="line">\n               换行符</span><br><span class="line">FS             BEGIN时定义分隔符</span><br><span class="line">RS             输入的记录分隔符， 默认为换行符(即文本是按一行一行输入)</span><br><span class="line">~                匹配，与==相比不是精确比较</span><br><span class="line">!~               不匹配，不精确比较</span><br><span class="line">==              等于，必须全部相等，精确比较</span><br><span class="line">!=               不等于，精确比较</span><br><span class="line">&amp;&amp;　          逻辑与</span><br><span class="line">||                逻辑或</span><br><span class="line">+                匹配时表示1个或1个以上</span><br><span class="line">/[0-9][0-9]+/      两个或两个以上数字</span><br><span class="line">/[0-9][0-9]*/       一个或一个以上数字</span><br><span class="line">OFS            输出字段分隔符， 默认是空格，可以改为制表符等</span><br><span class="line">ORS           输出的记录分隔符，默认是换行符，即一行一行输出到屏幕</span><br><span class="line">-F  &#x27;[:#/]&#x27;      定义三个分隔符，[ ]内可以放置多个分隔符</span><br><span class="line"></span><br><span class="line">链接：https://www.jianshu.com/p/e3fa91a8d9f2</span><br></pre></td></tr></table></figure>
+
+<p>✅awk实现根据1还是0变到true/false</p>
+<p><code>awk -F &#39;,&#39; &#39;&#123;print $1 &quot;,&quot; $2&#125;&#123;if($2&lt;1)&#123;bb=&quot;false&quot;&#125;else&#123;bb=&quot;true&quot;&#125;&#123;print &quot;,&quot; bb&#125;&#125;&#39; test.txt &gt; out.txt</code></p>
+<p>awk中{}和;的区别：<br>1.首先，最外层必须有<code>&#39;&#39;</code><br>2.awk中for循环和后面要执行的语句必须在一个{}中，不能单独把for()用{}圈起来。<br>3.如果for循环后面想执行两条语句，<code>for(x=1;x&lt;4;x++)&#123;m+=$x;print m&#125;</code>，单个语句用{}或者;都可以。<br>4.最外面的<code>&#39;&#39;</code>里面只有几条语句，必须要用{}，几个{}语句可以不用{}阔起来。</p>
+<p>$1和$2之间加不加逗号有什么区别：<br>{print ($1 $2)} 两个输出之间没有分割。<br>{print ($1 $2)} 两个输出之间有分割，但不管-F用什么分割的，这个分割都是一个空格。</p>
+<h2 id="看磁盘空间"><a href="#看磁盘空间" class="headerlink" title="看磁盘空间"></a>看磁盘空间</h2><p><code>df -h</code><br>看文件的大小：<br>直接ll，显示的是文件的字节大小，想用M、G单位来表示文件的大小：用<code>ll -h</code></p>
+<p>✅想清理日志<br>清理日志，rm worker.log 清不干净。</p>
+<p>1、通过重定向到空来清空文件内容<br>shell重定向null<br><code>&gt; access.log</code></p>
+<p>2、使用’true’命令重定向清空文<br>本质上等同于true命令，它可以用作无操作<br><code>true &gt; access.log</code></p>
+<p>3、使用echo命令清空文件<br>使用带有空字符串的echo命令，并将其重定向到文件<br><code>echo “” &gt; access.log </code> 或 <code>echo &gt; access.log</code></p>
+<p>更多：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1721287">https://cloud.tencent.com/developer/article/1721287</a></p>
+<h2 id="sort命令"><a href="#sort命令" class="headerlink" title="sort命令"></a>sort命令</h2><p>sort命令可以把文本或文本的内容按照一定的字母顺序排列并格式化输出，是一个不错的文本分析工具。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-b 忽略行首的空格</span><br><span class="line">-f 英文字母判断时忽略大小写</span><br><span class="line">-r 将文本以反序输出</span><br><span class="line">-t 定义文本中的分隔符</span><br><span class="line">-n 以数字大小排序</span><br><span class="line">-u 去除重复行，输出唯一的行</span><br><span class="line">-k 按照指定的列进行排序</span><br><span class="line">-m 将多个文本文件合并并排序：sort -m file1.txt file2.txt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sort -u big.csv &gt; small.csv</span><br><span class="line">cat big.csv | sort | uniq  也可以</span><br><span class="line">cat big.csv | sort | uniq -d 输出重复行</span><br><span class="line"></span><br><span class="line">cat file1.csv file2.csv | sort | uniq  并集</span><br><span class="line">cat file1.csv file2.csv | sort | uniq -d  交集</span><br></pre></td></tr></table></figure>
+
+<h2 id="shell两个数组比较，得到元素的并集、交集"><a href="#shell两个数组比较，得到元素的并集、交集" class="headerlink" title="shell两个数组比较，得到元素的并集、交集"></a>shell两个数组比较，得到元素的并集、交集</h2><p>linux shell 实现数组比较，取元素的并集、交集时，可以使用sort排序、uniq统计和awk数据过滤</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">file_list_1=(&quot;test1&quot; &quot;test2&quot; &quot;test3&quot; &quot;test4&quot; &quot;test5&quot; &quot;test6&quot;)</span><br><span class="line">file_list_2=(&quot;test5&quot; &quot;test6&quot; &quot;test7&quot; &quot;test8&quot;)</span><br><span class="line"></span><br><span class="line">-# 对list去重</span><br><span class="line">file_list_uniq=`echo $&#123;file_list_1[*]&#125;|uniq`</span><br><span class="line">echo $&#123;file_list_uniq[*]&#125;</span><br><span class="line"></span><br><span class="line">-# 获取并集，A ∪ B</span><br><span class="line">file_list_union=(`echo $&#123;file_list_1[*]&#125; $&#123;file_list_2[*]&#125;|sed &#x27;s/ /\n/g&#x27;|sort|uniq`)</span><br><span class="line">echo $&#123;file_list_union[*]&#125;</span><br><span class="line"></span><br><span class="line">-# 获取交集，A n B</span><br><span class="line">file_list_inter=(`echo $&#123;file_list_1[*]&#125; $&#123;file_list_2[*]&#125;|sed &#x27;s/ /\n/g&#x27;|sort|uniq -c|awk &#x27;$1!=1&#123;print $2&#125;&#x27;`)</span><br><span class="line">echo $&#123;file_list_inter[*]&#125;</span><br><span class="line"></span><br><span class="line">-# 对称差集，不属于 A n B</span><br><span class="line">file_list_4=(`echo $&#123;file_list_1[*]&#125; $&#123;file_list_2[*]&#125;|sed &#x27;s/ /\n/g&#x27;|sort|uniq -c|awk &#x27;$1==1&#123;print $2&#125;&#x27;`)</span><br><span class="line">echo $&#123;file_list_4[*]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/const-zpc/p/16900535.html">https://www.cnblogs.com/const-zpc/p/16900535.html</a></p>
+<p>sed命令：从文本中抽取文本，构建修改文本。<br><code>sed &#39;s/ /\n/g&#39;</code> 命令：意思是将文本中的每个空格替换成一个换行符，从而将文本拆分成多行文本。</p>
+<p><code>sed &#39;s/被替换的字符串/替换的字符串/g&#39;</code>  <code>/g</code>时全局的意思，找到所有匹配项。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/project%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/project%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">项目相关</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-02 20:01:00" itemprop="dateCreated datePublished" datetime="2021-09-02T20:01:00+08:00">2021-09-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-25 21:54:06" itemprop="dateModified" datetime="2021-09-25T21:54:06+08:00">2021-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="修改路由"><a href="#修改路由" class="headerlink" title="修改路由"></a>修改路由</h2><p>![image-20210901112055198](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210901112055198.png)</p>
+<p>路由字符串可随意修改，后面跟action下的文件里的函数名就好。</p>
+<p>注意后面跟的create和文件名没关系，文件名可以改成别的。</p>
+<p>文件里的函数名必须是是Create，需要大写。</p>
+<p>访问的接口的create可大写可小写。</p>
+<h2 id="修改端口"><a href="#修改端口" class="headerlink" title="修改端口"></a>修改端口</h2><p>首先查看端口占用，再更改配置</p>
+<p>![image-20210901112159550](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210901112159550.png)</p>
+<h2 id="post请求怎么通过url访问"><a href="#post请求怎么通过url访问" class="headerlink" title="post请求怎么通过url访问"></a>post请求怎么通过url访问</h2><p>post请求当然无法通过url访问，内容不在url里，而在body里。</p>
+<p>用curl</p>
+<h2 id="访问网址的脚本"><a href="#访问网址的脚本" class="headerlink" title="访问网址的脚本"></a>访问网址的脚本</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">echo &quot;访问时间是：`date &#x27;+%Y%m%d %H:%M:%S&#x27;`--$code---&gt;$url&quot; &gt;&gt; result.log</span><br><span class="line">n=0</span><br><span class="line">max=11</span><br><span class="line">while(($n&lt;max))</span><br><span class="line">do</span><br><span class="line">    curl &#x27;https://www.baidu.com/&#x27; //访问url</span><br><span class="line">    n=($n+1)</span><br><span class="line">    sleep 1s</span><br><span class="line">done</span><br><span class="line">#while循环访问url,直到状态码为200跳出循环</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">result.log</span><br><span class="line">n=0</span><br><span class="line">max=20</span><br><span class="line"><span class="meta">while(($</span><span class="bash">n&lt;max))</span></span><br><span class="line">do</span><br><span class="line">    echo -e &quot;times:$n, time:`date &#x27;+%Y%m%d %H:%M:%S&#x27;`&quot; &gt;&gt; new.log</span><br><span class="line">    curl &#x27;http://10.12.205.134:8182/pt/idproducer/v2/create?appid=10001&#x27;&gt;&gt;new.log</span><br><span class="line">    echo -e &quot;\n&quot;&gt;&gt;new.log</span><br><span class="line">    </span><br><span class="line">    echo -e &quot;times:$n, time:`date &#x27;+%Y%m%d %H:%M:%S&#x27;`&quot; &gt;&gt; old.log</span><br><span class="line">    curl &#x27;http://10.12.205.134:8182/pt/idproducer/create?appid=3&#x27;&gt;&gt;old.log</span><br><span class="line">    echo -e &quot;\n&quot;&gt;&gt;old.log</span><br><span class="line">    n=($n+1)</span><br><span class="line">    sleep 1s</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>不加次数时间：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">n=0</span><br><span class="line">max=3600</span><br><span class="line"><span class="meta">while(($</span><span class="bash">n&lt;max))</span></span><br><span class="line">do</span><br><span class="line">    curl &#x27;http://10.229.66.155:2010/pt/idproducer/v2/create?appid=10001&#x27;&gt;&gt;new.log</span><br><span class="line">    echo -e &quot;\n&quot; &gt;&gt; new.log</span><br><span class="line">    curl &#x27;http://10.229.66.155:2010/pt/idproducer/create?appid=13&#x27;&gt;&gt;old.log</span><br><span class="line">    echo -e &quot;\n&quot; &gt;&gt; old.log</span><br><span class="line">    n=$n+1</span><br><span class="line">    sleep 1s</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<h2 id="快速计算的脚本"><a href="#快速计算的脚本" class="headerlink" title="快速计算的脚本"></a>快速计算的脚本</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">echo -n &quot;please input your name and age:&quot;</span><br><span class="line">read name age</span><br><span class="line">echo &quot;welcome $name, your age is $age&quot;</span><br><span class="line"></span><br><span class="line">read -p &quot;please input your name and age:&quot; name age</span><br><span class="line">echo &quot;welcome $name, your age is $age&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">echo -n &quot;please input your maxid and oldstep and newstep:&quot;</span><br><span class="line">read maxid oldstep newstep</span><br><span class="line">declare -i a=$maxid+$oldstep*5000000</span><br><span class="line">declare -i b=$a/$newstep</span><br><span class="line">echo &quot;after calcu is: $b&quot;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/mysql%E5%AE%9E%E6%88%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -637,7 +1202,7 @@ select course, max(grade) from grade group by course;  正确
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-01-08 11:37:54" itemprop="dateModified" datetime="2023-01-08T11:37:54+08:00">2023-01-08</time>
+                <time title="Modified: 2023-05-01 11:20:25" itemprop="dateModified" datetime="2023-05-01T11:20:25+08:00">2023-05-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -710,7 +1275,8 @@ select course, max(grade) from grade group by course;  正确
 <h3 id="git空间与命令"><a href="#git空间与命令" class="headerlink" title="git空间与命令"></a>git空间与命令</h3><p>Working Directory：即工作区。操作系统层面的目录树结构，也可以理解为一个tree目录对象</p>
 <p>Stage(Index)：即暂存区，为等待Commit的文件列表。是以扁平的文件清单实现的，不过从理解层面上也可以理解为tree目录对象</p>
 <p>Local Repository(History)：本地版本库。有向无环图，其每一个节点都是一个tree目录对象</p>
-<p>Remote Repository：远程版本库。有向无环图，其每一个节点都是一个tree目录对象<br><img src="https://img-blog.csdnimg.cn/e1d1bb1fa97743cfb9074e383841a1eb.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="image"><br>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/kekec/p/9248487.html">https://www.cnblogs.com/kekec/p/9248487.html</a></p>
+<p>Remote Repository：远程版本库。有向无环图，其每一个节点都是一个tree目录对象</p>
+<p><img src="/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/git%E5%BA%94%E7%94%A8%E4%B8%8Egithub/images/git%E5%B7%A5%E4%BD%9C%E5%8C%BA.png"><br>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/kekec/p/9248487.html">https://www.cnblogs.com/kekec/p/9248487.html</a></p>
 <p>git status 是看暂存区的改动，如果commit了，暂存区就空了。</p>
 <h3 id="应用：在本地进行了add-commit还未push，想要撤销本地的本次commit"><a href="#应用：在本地进行了add-commit还未push，想要撤销本地的本次commit" class="headerlink" title="应用：在本地进行了add-commit还未push，想要撤销本地的本次commit"></a>应用：在本地进行了add-commit还未push，想要撤销本地的本次commit</h3><p>git log 查看commit id，拿上一个commit id，而不是最新的commit id（这是要回退的id）<br>git reset ：回退到某个版本，不清空暂存区，工作区也不变，需要再提交的话需要add后commit<br>git reset –soft：回退到某个版本，不清空暂存区，工作区也不变，需要再提交的话直接commit<br>git reset –hard：彻底回退到某个版本，撤销的commit中的所有更改都被冲掉，暂存区为空了，工作区也恢复为版本库版本。</p>
 <h3 id="应用：本地修改了，没有add，想撤销修改变为版本库里的"><a href="#应用：本地修改了，没有add，想撤销修改变为版本库里的" class="headerlink" title="应用：本地修改了，没有add，想撤销修改变为版本库里的"></a>应用：本地修改了，没有add，想撤销修改变为版本库里的</h3><p>用git reset –hard 解决  //恢复为本地库里的内容</p>
@@ -794,6 +1360,12 @@ select course, max(grade) from grade group by course;  正确
 <p>4、强制提交之后，那次commit之后所有的修改都处于没有提交的状态，可以再修改文件，然后将他们都再添加提交即可。</p>
 <p>5、使用git commit -m命令再提交新的commit。</p>
 <p>6、最终是希望撤回的commit已经消失，换成了新提交的commit。</p>
+<h3 id="git-commit还没push，想将修改的代码回到本地工作区"><a href="#git-commit还没push，想将修改的代码回到本地工作区" class="headerlink" title="git commit还没push，想将修改的代码回到本地工作区"></a>git commit还没push，想将修改的代码回到本地工作区</h3><p>可以使用命令 <code>git reset HEAD~</code>，将最近一次的commit回退到本地工作区。<br>执行完这个命令之后，最近一次的commit就会被删除，修改的代码会回到本地工作区，可以继续进行修改和提交。如果需要撤销多个commit，可以使用<code>git reset HEAD~n</code>，其中n为需要回退的commit次数。</p>
+<h3 id="细说git-reset"><a href="#细说git-reset" class="headerlink" title="细说git reset"></a>细说git reset</h3><p>git reset命令用于将当前分支的HEAD指针指向指定的提交，并根据指定的模式重置索引和工作树。有三种模式：–soft –mixed –hard</p>
+<p>1、git reset –soft: 将当前分支的HEAD指针指向指定的提交，不修改索引和工作树。用于取消上次提交，并将修改保留在索引中（保留在暂存区，可以直接commit）以便在此进行提交。</p>
+<p>2、git reset –mixed：将当前分支的HEAD指针指向指定的提交，重置索引，但不修改工作树。用于取消上次提交，并将修改还原到索引中（保存在本地工作区，需要add再commit）以便重新提交或修改后再提交。【默认】</p>
+<p>3、git reset –hard：将当前分支的HEAD指针指向指定的提交，并且将索引和工作树都重置为该提交的状态。这种模式用于完全取消上一次提交，并将修改还原到工作树，比便重新开始。</p>
+<p>git reset –soft HEAD~ 和 git reset –soft HEAD^ 的区别：<br>大多情况下是等价的，它们都可以让当前分支的HEAD指针指向当前提交的父提交。<br>但是有多个父提交的情况下略有不同：<br>git reset –soft HEAD^ 表示第一个父提交，git reset –soft HEAD^2表示第二个父提交。<br>git reset –soft HEAD~ 表示当前提交的父提交，git reset –soft HEAD~2表示当前提交的父提交的父提交。</p>
 <h3 id="feature分支和release分支"><a href="#feature分支和release分支" class="headerlink" title="feature分支和release分支"></a>feature分支和release分支</h3><p>1⃣️ master 分支：<br>master 为主分支，也是用于部署生产环境的分支，确保master分支稳定性，master 分支一般由develop以及hotfix分支合并，任何时间都不能直接修改代码。</p>
 <p>2⃣️ develop 分支：<br>develop 为开发分支，始终保持最新完成以及bug修复后的代码<br>一般开发的新功能时，feature分支都是基于develop分支下创建的</p>
 <p>3⃣️ feature 分支：<br>开发新功能时，以develop为基础创建feature分支<br>分支命名: feature/ 开头的为特性分支， 命名规则: feature/user_module、 feature/cart_module</p>
@@ -1366,493 +1938,6 @@ select course, max(grade) from grade group by course;  正确
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/23/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-Vue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/23/myblog/%E5%89%8D%E7%AB%AF%E9%97%A8%E5%A4%96%E6%B1%89/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80-Vue/" class="post-title-link" itemprop="url">前端基础-vue</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-23 14:57:27" itemprop="dateCreated datePublished" datetime="2021-08-23T14:57:27+08:00">2021-08-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-10-13 21:16:55" itemprop="dateModified" datetime="2021-10-13T21:16:55+08:00">2021-10-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="VUE"><a href="#VUE" class="headerlink" title="VUE"></a>VUE</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。</p>
-<p>Vue 的目标是通过尽可能简单的 API 实现响应的数据绑定和组合的视图组件。</p>
-<h2 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h2><h3 id="1-CDN方法"><a href="#1-CDN方法" class="headerlink" title="(1)CDN方法"></a>(1)CDN方法</h3><p>在页面上以 CDN 包的形式导入。<br><code>&lt;script src=&quot;https://unpkg.com/vue@next&quot;&gt;&lt;/script&gt;</code></p>
-<blockquote>
-<p>CDN的全称是Content Delivery Network，即内容分发网络。CDN是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。CDN的关键技术主要有内容存储和分发技术。</p>
-<p>由于CDN是为加快网络访问速度而被优化的网络覆盖层，因此被形象地称为“网络加速器”。</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.staticfile.org/vue/2.2.2/vue.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span>    </span><br><span class="line">//<span class="tag">&lt;<span class="name">div</span>&gt;</span> 标签可以把文档分割为独立的、不同的部分。它可以用作严格的组织工具，并且不使用任何格式与其关联。用 id 或 class 来标记 <span class="tag">&lt;<span class="name">div</span>&gt;</span>，那么该标签的作用会变得更加有效。</span><br><span class="line">//如果与 CSS 一同使用，<span class="tag">&lt;<span class="name">div</span>&gt;</span> 元素可用于对大的内容块设置样式属性。</span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">//&#123;&#123; &#125;&#125; 用于输出对象属性和函数返回值。</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">  <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,   <span class="comment">//id选择器</span></span></span><br><span class="line"><span class="javascript">  <span class="attr">data</span>: &#123;         <span class="comment">//输出什么东西？</span></span></span><br><span class="line"><span class="javascript">    <span class="attr">message</span>: <span class="string">&#x27;Hello Vue.js!&#x27;</span></span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">&#125;)</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-使用npm方法"><a href="#2-使用npm方法" class="headerlink" title="(2)使用npm方法"></a>(2)使用npm方法</h3><p>npm run dev</p>
-<p>Vue.js 提供一个官方命令行工具vue-cli，可用于快速搭建大型单页应用。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 全局安装 vue-cli</span><br><span class="line">$ cnpm install --global vue-cli</span><br><span class="line"># 创建一个基于 webpack 模板的新项目</span><br><span class="line">$ vue init webpack my-project</span><br><span class="line"></span><br><span class="line">安装及运行：</span><br><span class="line">$ cd my-project</span><br><span class="line">$ cnpm install</span><br><span class="line">$ cnpm run dev</span><br><span class="line"></span><br><span class="line">项目打包：</span><br><span class="line">npm run build</span><br><span class="line">执行完成后，会在 Vue 项目下生成一个 dist 目录，一般包含 index.html 文件及 static 目录，static 目录包含了静态文件 js、css 以及图片目录 images。</span><br><span class="line">直接双击 dist/index.html 文件就可以在浏览器中看到效果了。</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-VUE项目"><a href="#3-VUE项目" class="headerlink" title="3.VUE项目"></a>3.VUE项目</h2><h3 id="1-项目目录"><a href="#1-项目目录" class="headerlink" title="(1)项目目录"></a>(1)项目目录</h3><table>
-<thead>
-<tr>
-<th align="left">目录/文件</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">build</td>
-<td align="left">项目构建(webpack)相关代码</td>
-</tr>
-<tr>
-<td align="left">config</td>
-<td align="left">配置目录，包括端口号等。我们初学可以使用默认的。</td>
-</tr>
-<tr>
-<td align="left">node_modules</td>
-<td align="left">npm 加载的项目依赖模块</td>
-</tr>
-<tr>
-<td align="left">src</td>
-<td align="left">这里是我们要开发的目录，基本上要做的事情都在这个目录里。里面包含了几个目录及文件：assets: 放置一些图片，如logo等。components: 目录里面放了一个组件文件，可以不用。App.vue: 项目入口文件，我们也可以直接将组件写这里，而不使用 components 目录。main.js: 项目的核心文件。</td>
-</tr>
-<tr>
-<td align="left">static</td>
-<td align="left">静态资源目录，如图片、字体等。</td>
-</tr>
-<tr>
-<td align="left">test</td>
-<td align="left">初始测试目录，可删除</td>
-</tr>
-<tr>
-<td align="left">.xxxx文件</td>
-<td align="left">这些是一些配置文件，包括语法配置，git配置等。</td>
-</tr>
-<tr>
-<td align="left">index.html</td>
-<td align="left">首页入口文件，你可以添加一些 meta 信息或统计代码啥的。</td>
-</tr>
-<tr>
-<td align="left">package.json</td>
-<td align="left">项目配置文件。</td>
-</tr>
-<tr>
-<td align="left">README.md</td>
-<td align="left">项目的说明文档，markdown 格式</td>
-</tr>
-</tbody></table>
-<p>app.vue:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 展示模板 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./assets/logo.png&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hello</span>&gt;</span><span class="tag">&lt;/<span class="name">hello</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="comment">// 导入组件</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> Hello <span class="keyword">from</span> <span class="string">&#x27;./components/Hello&#x27;</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  <span class="attr">name</span>: <span class="string">&#x27;app&#x27;</span>,</span></span><br><span class="line"><span class="javascript">  <span class="attr">components</span>: &#123;</span></span><br><span class="line"><span class="javascript">    Hello</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript">&#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 样式代码 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-id">#app</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="attribute">font-family</span>: <span class="string">&#x27;Avenir&#x27;</span>, Helvetica, Arial, sans-serif;</span></span><br><span class="line"><span class="css">  -webkit-<span class="attribute">font-smoothing</span>: antialiased;</span></span><br><span class="line"><span class="css">  -moz-osx-<span class="attribute">font-smoothing</span>: grayscale;</span></span><br><span class="line"><span class="css">  <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">  <span class="attribute">color</span>: <span class="number">#2c3e50</span>;</span></span><br><span class="line"><span class="css">  <span class="attribute">margin-top</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-template标签"><a href="#2-template标签" class="headerlink" title="(2)template标签"></a>(2)template标签</h3><p>使用 <code>&lt;template&gt;</code> 保留页面加载时隐藏的内容。使用 JavaScript 来显示：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;h1&gt;template 元素&lt;/h1&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;单击下面的按钮，显示 template 元素中的隐藏内容。&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;button onclick=&quot;showContent()&quot;&gt;显示隐藏的内容&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;     //点击按钮才会显示，JavaScript响应事件</span><br><span class="line">  &lt;h2&gt;Flower&lt;/h2&gt;</span><br><span class="line">  &lt;img src=&quot;/i/photo/flower.gif&quot; width=&quot;180&quot; height=&quot;180&quot;&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">function showContent() &#123;</span><br><span class="line">  var temp = document.getElementsByTagName(&quot;template&quot;)[0];</span><br><span class="line">  var clon = temp.content.cloneNode(true);</span><br><span class="line">  document.body.appendChild(clon);</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-vue应用"><a href="#3-vue应用" class="headerlink" title="(3)vue应用"></a>(3)vue应用</h3><p>每个 Vue 应用都需要通过实例化 Vue 来实现。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var vm = new Vue(&#123;</span><br><span class="line">  // 选项</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Vue 测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.staticfile.org/vue/2.4.2/vue.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;vue_det&quot;</span>&gt;</span>   //块儿</span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>site : &#123;&#123;site&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>url : &#123;&#123;url&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Alexa : &#123;&#123;alexa&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 我们的数据对象</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> data = &#123; <span class="attr">site</span>: <span class="string">&quot;hello&quot;</span>, <span class="attr">url</span>: <span class="string">&quot;www.runoob.com&quot;</span>, <span class="attr">alexa</span>: <span class="number">10000</span>&#125;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;    <span class="comment">//vue应用</span></span></span><br><span class="line"><span class="javascript">        <span class="attr">el</span>: <span class="string">&#x27;#vue_det&#x27;</span>,    <span class="comment">//id选择器</span></span></span><br><span class="line"><span class="javascript">        <span class="attr">data</span>: data       <span class="comment">//数据，在外面</span></span></span><br><span class="line"><span class="javascript">    &#125;)</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 它们引用相同的对象！</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.write(vm.site === data.site) <span class="comment">// true</span></span></span><br><span class="line"><span class="javascript">	<span class="built_in">document</span>.write(<span class="string">&quot;&lt;br&gt;&quot;</span>)</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 设置属性也会影响到原始数据</span></span></span><br><span class="line"><span class="javascript">    vm.site = <span class="string">&quot;Runoob&quot;</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.write(data.site + <span class="string">&quot;&lt;br&gt;&quot;</span>) <span class="comment">// Runoob</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// ……反之亦然</span></span></span><br><span class="line"><span class="javascript">    data.alexa = <span class="number">1234</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.write(vm.alexa) <span class="comment">// 1234</span></span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>当一个 Vue 实例被创建时，它向 Vue 的响应式系统中加入了其 data 对象中能找到的所有的属性。当这些属性的值发生改变时，html 视图将也会产生相应的变化。</p>
-<h2 id="4-vscode运行html"><a href="#4-vscode运行html" class="headerlink" title="4.vscode运行html"></a>4.vscode运行html</h2><p>(1).新建.html文件</p>
-<p>(2).安装open in browser插件</p>
-<p>(3).html页面右键选择open in other browser</p>
-<h2 id="5-vue项目不用localhost"><a href="#5-vue项目不用localhost" class="headerlink" title="5.vue项目不用localhost"></a>5.vue项目不用localhost</h2><p>改变config下index.js里的ip，也是本机的私有ip，公网内的其他ip可访问。前提：一个公网。</p>
-<h2 id="6-项目解读"><a href="#6-项目解读" class="headerlink" title="6.项目解读"></a>6.项目解读</h2><p>main.js 像是加vue应用的。</p>
-<p>.vue 里面有<code>&lt;template&gt;</code> <code>&lt;script&gt;</code> <code>&lt;style&gt;</code></p>
-<p>首页入口文件：index.html</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width,initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>myfirstvue<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- built files will be auto injected --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>项目入口文件：App.vue</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;./assets/logo.png&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-view</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  <span class="attr">name</span>: <span class="string">&#x27;App&#x27;</span></span></span><br><span class="line"><span class="javascript">&#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-id">#app</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="attribute">font-family</span>: <span class="string">&#x27;Avenir&#x27;</span>, Helvetica, Arial, sans-serif;</span></span><br><span class="line"><span class="css">  -webkit-<span class="attribute">font-smoothing</span>: antialiased;</span></span><br><span class="line"><span class="css">  -moz-osx-<span class="attribute">font-smoothing</span>: grayscale;</span></span><br><span class="line"><span class="css">  <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">  <span class="attribute">color</span>: <span class="number">#2c3e50</span>;</span></span><br><span class="line"><span class="css">  <span class="attribute">margin-top</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>ES6：全称 ECMAScript 6.0 ，是 JavaScript 的下一个版本标准，2015.06 发版。</p>
-<p>ES6 主要是为了解决 ES5 的先天不足，比如 JavaScript 里并没有类的概念，但是目前浏览器的 JavaScript 是 ES5 版本，大多数高版本的浏览器也支持 ES6，不过只实现了 ES6 的部分特性和功能。</p>
-<h3 id="export-default"><a href="#export-default" class="headerlink" title="export default"></a>export default</h3><p>用于导出常量、函数、文件、模块等。</p>
-<p>export可以有多个，export default只能有一个</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hello.vue中：</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;HelloWorld&#x27;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &#x27;Welcome to Your Vue.js App&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-vscode打开终端"><a href="#7-vscode打开终端" class="headerlink" title="7.vscode打开终端"></a>7.vscode打开终端</h3><p>ctrl+·（左上角esc下面的）</p>
-<p>或：查看-&gt;终端</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/23/myblog/cpp%E4%BF%AE%E7%82%BC/Mac%E4%B8%8Bvscode%E9%85%8D%E7%BD%AEcpp%E7%8E%AF%E5%A2%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/23/myblog/cpp%E4%BF%AE%E7%82%BC/Mac%E4%B8%8Bvscode%E9%85%8D%E7%BD%AEcpp%E7%8E%AF%E5%A2%83/" class="post-title-link" itemprop="url">mac下vscode配置cpp环境</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-23 12:57:31" itemprop="dateCreated datePublished" datetime="2021-08-23T12:57:31+08:00">2021-08-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 21:57:47" itemprop="dateModified" datetime="2021-09-25T21:57:47+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cpp%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">cpp开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-安装vscode"><a href="#1-安装vscode" class="headerlink" title="1.安装vscode"></a>1.安装vscode</h3><h3 id="2-插件安装"><a href="#2-插件安装" class="headerlink" title="2.插件安装"></a>2.插件安装</h3><p>安装“C/C++”、“C/C++ Clang Command Adapter”</p>
-<h3 id="3-新建cpp文件"><a href="#3-新建cpp文件" class="headerlink" title="3.新建cpp文件"></a>3.新建cpp文件</h3><h3 id="4-配置1-c-cpp-properties-json"><a href="#4-配置1-c-cpp-properties-json" class="headerlink" title="4.配置1 c_cpp_properties.json"></a>4.配置1 c_cpp_properties.json</h3><p>按 <code>Command + Shift + P</code> 打开命令行面板，输入 <code>C/Cpp: Edit Configurations</code>命令<br>此时会在当前工作空间目录生成.vscode配置目录<br>同时在配置目录会生成一个c_cpp_properties.json文件</p>
-<p>将要用到的库的路径添加到includePath数组中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;Mac&quot;,</span><br><span class="line">            &quot;includePath&quot;: [</span><br><span class="line">                        &quot;$&#123;workspaceFolder&#125;&quot;,</span><br><span class="line">                        &quot;/Library/Developer/CommandLineTools/usr/include/c++/v1&quot;,</span><br><span class="line">                        &quot;/usr/local/include&quot;,</span><br><span class="line">                        &quot;/Library/Developer/CommandLineTools/usr/include&quot;,</span><br><span class="line">                    ],</span><br><span class="line">            &quot;defines&quot;: [],</span><br><span class="line">            &quot;macFrameworkPath&quot;: [</span><br><span class="line">                &quot;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks&quot;</span><br><span class="line">            ],</span><br><span class="line">            &quot;compilerPath&quot;: &quot;/usr/bin/clang&quot;,</span><br><span class="line">            &quot;cStandard&quot;: &quot;c17&quot;,</span><br><span class="line">            &quot;cppStandard&quot;: &quot;c++98&quot;,</span><br><span class="line">            &quot;intelliSenseMode&quot;: &quot;macos-clang-x64&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;version&quot;: 4</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-配置2-tasks-json"><a href="#5-配置2-tasks-json" class="headerlink" title="5.配置2 tasks.json"></a>5.配置2 tasks.json</h3><p>按 <code>Command + Shift + P</code> 打开命令行面板，输入 <code>tasks</code>，选择 <code>Tasks:Configure Task</code> 生成 <code>tasks.json</code> 配置文件，选择的模板为MSBuild</p>
-<p>该文件其实就是一个命令行构建工具<br>把运行程序时在终端输入的命令和参数对于”command”和”args”的值<br>输入shift+command+b，便可构建成功，生成可执行文件a.out</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // See https://go.microsoft.com/fwlink/?LinkId=733558</span><br><span class="line">    // for the documentation about the tasks.json format</span><br><span class="line">        &quot;version&quot;: &quot;2.0.0&quot;,</span><br><span class="line">        &quot;tasks&quot;: [</span><br><span class="line">            &#123;</span><br><span class="line">                &quot;label&quot;: &quot;c++&quot;,</span><br><span class="line">                &quot;command&quot;: &quot;clang++&quot;,</span><br><span class="line">                &quot;type&quot;: &quot;shell&quot;,</span><br><span class="line">                &quot;args&quot;: [</span><br><span class="line">                    &quot;main.cpp&quot;,</span><br><span class="line">                    &quot;-std=c++11&quot;,</span><br><span class="line">                    &quot;-g&quot;</span><br><span class="line">                ],</span><br><span class="line">                &quot;presentation&quot;: &#123;</span><br><span class="line">                    &quot;echo&quot;: true,</span><br><span class="line">                    &quot;reveal&quot;: &quot;always&quot;,</span><br><span class="line">                    &quot;focus&quot;: false,</span><br><span class="line">                    &quot;panel&quot;: &quot;new&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-
-<h3 id="6-配置3-launch-json"><a href="#6-配置3-launch-json" class="headerlink" title="6.配置3 launch.json"></a>6.配置3 <strong>launch.json</strong></h3><p>如果需要对项目进行进行 <code>debug</code>，则需要先生成 <code>launch.json</code> 文件并对其做相应的配置</p>
-<ul>
-<li><p>按 <code>Command + Shift + D</code> 进入到运行界面</p>
-</li>
-<li><p>点击 <code>创建 launch.json 文件</code>，选择 <code>C++(GDB/LLDB)</code></p>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // 使用 IntelliSense 了解相关属性。 </span><br><span class="line">    // 悬停以查看现有属性的描述。</span><br><span class="line">    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387</span><br><span class="line">    &quot;version&quot;: &quot;0.2.0&quot;,</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;c/c++ Launch&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;cppdbg&quot;,</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">            &quot;program&quot;: &quot;$&#123;workspaceFolder&#125;/a.out&quot;,</span><br><span class="line">            &quot;args&quot;: [],</span><br><span class="line">            &quot;stopAtEntry&quot;: false,</span><br><span class="line">            &quot;cwd&quot;: &quot;$&#123;workspaceFolder&#125;&quot;,</span><br><span class="line">            &quot;environment&quot;: [],</span><br><span class="line">            &quot;externalConsole&quot;: true,</span><br><span class="line">            &quot;MIMode&quot;: &quot;lldb&quot;,</span><br><span class="line">            &quot;preLaunchTask&quot;:&quot;c++&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
-
-<p>![image-20210816193726334](/Users/liuxuan14/Library/Application Support/typora-user-images/image-20210816193726334.png)</p>
-<h3 id="7-shift-command-b编译失败"><a href="#7-shift-command-b编译失败" class="headerlink" title="7.shift+command+b编译失败"></a>7.shift+command+b编译失败</h3><p>于VScode报错“终端将被任务重用，按任意键关闭”的解决方案：</p>
-<p>原因是本地端口是被共享的，所以必须关闭一个进程才能执行另一个，只需要对 <code>tasks.json</code>文件做一些修改即可。</p>
-<p>tasks.json里把”panel”=”shared”改成：”panel”=”new”</p>
-<h3 id="8-如何运行？"><a href="#8-如何运行？" class="headerlink" title="8.如何运行？"></a>8.如何运行？</h3><p>输入shift+command+b，便可构建成功，生成可执行文件a.out</p>
-<p>编译完成后，会在项目路径下生成 <code>main</code> 文件，使用 <code>./main</code> 即可执行</p>
-<hr>
-<p>出现错误，重新参考，理解三个配置文件</p>
-<hr>
-<p>在配置环境之前先检查一下机器上都安装了什么C++编译器，通过以下两条命令可以查看是否安装了g++/clang编译器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ --version</span><br><span class="line">clang++ --version</span><br></pre></td></tr></table></figure>
-
-<p>然后安装两个插件</p>
-<p>然后新建工程目录，在里面新建一个cpp文件命名为main.cpp。</p>
-<p>然后点击侧边栏的Debug按钮，点击设置图标，便会提示你选择环境，这里就选择C++那一项。</p>
-<p>此时VSCode会在你的工程目录下自动新建一个.vscode的文件夹，并新建了一个launch.json的文件，这里需要对生成的文件进行一些小改动。本人配置如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // 使用 IntelliSense 了解相关属性。 </span><br><span class="line">    // 悬停以查看现有属性的描述。</span><br><span class="line">    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387</span><br><span class="line">    &quot;version&quot;: &quot;0.2.0&quot;,</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;(lldb) Launch&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;cppdbg&quot;,</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">            &quot;program&quot;: &quot;$&#123;workspaceFolder&#125;/a.out&quot;,</span><br><span class="line">            //a.out 是需要运行的二进制文件可以改名</span><br><span class="line">            &quot;args&quot;: [],</span><br><span class="line">            &quot;stopAtEntry&quot;: false,</span><br><span class="line">            &quot;cwd&quot;: &quot;$&#123;workspaceFolder&#125;&quot;,</span><br><span class="line">            &quot;environment&quot;: [],</span><br><span class="line">            &quot;externalConsole&quot;: true,</span><br><span class="line">            &quot;MIMode&quot;: &quot;lldb&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>保存后按快捷键⇧⌘B编译，此时会出现提示没有找到要运行的生成任务，所以接下来将进行生成任务的配置工作，VSCode提供了一些模版，有需要的可以自行选择，这里就选则Others。</p>
-<p>此时.vscode目录下会出现一个task.json文件，对它进行改写。本人配置如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // See https://go.microsoft.com/fwlink/?LinkId=733558</span><br><span class="line">    // for the documentation about the tasks.json format</span><br><span class="line">    &quot;version&quot;: &quot;2.0.0&quot;,</span><br><span class="line">    &quot;tasks&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;label&quot;: &quot;hello world&quot;,  //描述</span><br><span class="line">            &quot;type&quot;: &quot;shell&quot;,</span><br><span class="line">            &quot;command&quot;: &quot;clang++&quot;,</span><br><span class="line">            &quot;args&quot;: [</span><br><span class="line">            </span><br><span class="line">                &quot;main.cpp&quot;  //文件名</span><br><span class="line">            ],</span><br><span class="line">            &quot;group&quot;: &#123;</span><br><span class="line">                &quot;kind&quot;:&quot;build&quot;,</span><br><span class="line">                &quot;isDefault&quot;: true</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;presentation&quot;: &#123;</span><br><span class="line">                &quot;echo&quot;: true,</span><br><span class="line">                &quot;reveal&quot;: &quot;always&quot;,</span><br><span class="line">                &quot;focus&quot;: false,</span><br><span class="line">                &quot;panel&quot;: &quot;new&quot;  //新建端口</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>保存后再次按快捷键⇧⌘B就能够顺利编译了，编译完成后按F5执行，得到输出结果。</p>
-<p>每次编译完成后，我们会发现目录下多了一个a.out文件，这个文件是Linux/Unix环境下编译器编译源代码并连接产生的可执行文件，在未指定的情况下其默认命名为a.out。那么如何通过修改配置文件来修改这个文件的命名呢？</p>
-<p>方法很简单，在task.json中的args属性下填入<code>-o yourfilename.out</code></p>
-<p>可以发现这里的command和args两个属性就相当于在命令行中执行了<code>clang++ -o yourfilename.out main.cpp</code>，所以如果还有其他的需求也可以对这里进行改写。最后不要忘记修改launch.json中的program属性，将.out的文件名修改为与task.json一致。便可以成功编译执行了。</p>
-<hr>
-<p>用了第二种之后，control+command+b 编译</p>
-<p>再F5执行，不行，应该是branch文件配置的原因。</p>
-<p>但是./\ app.out 可以运行。先这样。</p>
-<p>参考：</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43119354/article/details/89219180?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-0.control&amp;spm=1001.2101.3001.4242">https://blog.csdn.net/qq_43119354/article/details/89219180?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-0.control&amp;spm=1001.2101.3001.4242</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/20/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/20/myblog/golang%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/go-%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-title-link" itemprop="url">go-操作mysql数据库</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-20 17:19:46" itemprop="dateCreated datePublished" datetime="2021-08-20T17:19:46+08:00">2021-08-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 21:59:16" itemprop="dateModified" datetime="2021-09-25T21:59:16+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/golang%E5%85%A5%E9%97%A8/" itemprop="url" rel="index"><span itemprop="name">golang入门</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="1-mysql原始命令"><a href="#1-mysql原始命令" class="headerlink" title="1.mysql原始命令"></a>1.mysql原始命令</h2><h3 id="a-登录"><a href="#a-登录" class="headerlink" title="a.登录"></a>a.登录</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">登录：</span><br><span class="line">mysql <span class="operator">-</span>u root <span class="operator">-</span>p密码  <span class="operator">/</span><span class="operator">/</span>连本机的</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">User</span>, Host, Password <span class="keyword">FROM</span> mysql.user;  <span class="operator">/</span><span class="operator">/</span>查看用户</span><br><span class="line"></span><br><span class="line">添加新用户：</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">&#x27;liuxuan14&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line">修改密码：</span><br><span class="line"><span class="keyword">set</span> password <span class="keyword">for</span> <span class="string">&#x27;liuxuan14&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span><span class="operator">=</span>password(<span class="string">&#x27;1998&#x27;</span>);</span><br><span class="line">为用户授权：</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>允许访问所有数据库下的所有表</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;指定ip&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;新用户密码&#x27;</span> ;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>指定数据库下的指定表</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> privileges <span class="keyword">on</span> test.test <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;指定ip&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;新用户密码&#x27;</span> ;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>只拥有查询权限</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">select</span> <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;指定ip&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;新用户密码&#x27;</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> OPTION;</span><br><span class="line">FLUSH PRIVILEGES;  <span class="operator">/</span><span class="operator">/</span>刷新权限</span><br><span class="line"></span><br><span class="line">删除用户：</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">user</span> liuxuan<span class="variable">@localhost</span>；</span><br><span class="line"></span><br><span class="line">连接远程数据库：</span><br><span class="line">MySQL 连接远程数据库（<span class="number">192.168</span><span class="number">.5</span><span class="number">.116</span>），端口“<span class="number">3306</span>”，用户名为“root”，密码“<span class="number">123456</span>”</span><br><span class="line">mysql <span class="operator">-</span>h <span class="number">192.168</span><span class="number">.5</span><span class="number">.116</span> <span class="operator">-</span>P <span class="number">3306</span> <span class="operator">-</span>u root <span class="operator">-</span>p123456</span><br><span class="line">mysql <span class="operator">-</span>h ip <span class="operator">-</span>P 端口 <span class="operator">-</span>A <span class="operator">-</span>u name  <span class="operator">-</span>p 密码</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> database name</span><br></pre></td></tr></table></figure>
-
-<h3 id="b-建表"><a href="#b-建表" class="headerlink" title="b.建表"></a>b.建表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS `mytable`(</span><br><span class="line">   `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT &#x27;自增&#x27;,</span><br><span class="line">   `app_id` bigint NOT NULL DEFAULT &#x27;0&#x27; COMMENT &#x27;应用id&#x27;,</span><br><span class="line">   `time` int NOT NULL DEFAULT &#x27;0&#x27; COMMENT &#x27;时间&#x27;,</span><br><span class="line">   `date` DATE,</span><br><span class="line">   PRIMARY KEY ( `id` )</span><br><span class="line">   UNIQUE KEY `idx_app` (`app_id`) USING BTREE</span><br><span class="line">   KEY `idx_ip` (`machine_ip`) USING BTREE,</span><br><span class="line">   KEY `idx_app_machineid` (`app_id`,`machine_id`) USING BTREE</span><br><span class="line">)ENGINE=InnoDB DEFAULT COMMENT=&#x27;表名&#x27;;</span><br><span class="line"></span><br><span class="line">AUTO_INCREMENT定义列为自增的属性，一般用于主键，数值会自动加1。</span><br><span class="line">PRIMARY KEY关键字用于定义列为主键。 您可以使用多列来定义主键，列间以逗号分隔。</span><br><span class="line">ENGINE 设置存储引擎，CHARSET 设置编码。</span><br><span class="line"></span><br><span class="line">表结构：desc name；</span><br><span class="line">建表语句：show create tablename；</span><br></pre></td></tr></table></figure>
-
-<p>注释</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">注释：comment</span><br><span class="line">create table test1 ( </span><br><span class="line">    field_name int comment &#x27;字段的注释&#x27; </span><br><span class="line">)comment=&#x27;表的注释&#x27;;</span><br><span class="line">修改表的注释：</span><br><span class="line">alter table test1 comment &#x27;修改后的表的注释&#x27;;</span><br><span class="line">修改字段的注释：</span><br><span class="line">alter table test1 modify column field_name int comment &#x27;修改后的字段注释&#x27;; </span><br><span class="line">查看表注释：</span><br><span class="line">show  create  table  test1; </span><br><span class="line">查看字段注释：</span><br><span class="line">show  full  columns  from  test1; </span><br></pre></td></tr></table></figure>
-
-<p>索引</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">唯一索引：</span><br><span class="line">UNIQUE KEY</span><br><span class="line">1  主键是一种约束，唯一索引是一种索引，两者在本质上是不同的。</span><br><span class="line">2  主键创建后一定包含一个唯一性索引，唯一性索引不一定就是主键。</span><br><span class="line">3   唯一性索引列允许空值， 而主键列不允许为空值。</span><br><span class="line">4   主键可以被其他表引用为外键，而唯一索引不能。</span><br><span class="line">5   一个表最多只能创建一个主键，但是可以创建多个唯一索引。</span><br><span class="line">6   主键更适合那些不容易改变的唯一标识，如自动递增列，身份证号等。</span><br><span class="line">7   在RBO 模式下，主键的执行计划优先级高于唯一索引。两者可以提高查询的速度。</span><br></pre></td></tr></table></figure>
-
-<h3 id="c-添加一个字段"><a href="#c-添加一个字段" class="headerlink" title="c.添加一个字段"></a>c.添加一个字段</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table tablename add `app_name` varchar(16) NOT NULL DEFAULT &#x27;&#x27;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="d-修改数据"><a href="#d-修改数据" class="headerlink" title="d.修改数据"></a>d.修改数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update tablename set 字段=&#x27;修改的值&#x27; where 条件；</span><br><span class="line">多个字段中间加,</span><br></pre></td></tr></table></figure>
-
-<h3 id="e-删除"><a href="#e-删除" class="headerlink" title="e.删除"></a>e.删除</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">删库：drop database name;</span><br><span class="line">删表：drop table name；</span><br><span class="line"></span><br><span class="line">mysql删除一行：</span><br><span class="line">delete from 表 where 条件；</span><br></pre></td></tr></table></figure>
-
-<h3 id="f-添加一行"><a href="#f-添加一行" class="headerlink" title="f.添加一行"></a>f.添加一行</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert into tablename (app_id,machine_id,machine_ip,ctime,use_perc) values(?,?,?,?,?);   //对应字段加</span><br><span class="line"></span><br><span class="line">insert into 表名 values(int,&#x27;string&#x27;)(..);  //可一次性加多行，一行全部数都有</span><br><span class="line"></span><br><span class="line">insert into 表名 set 列名=&#x27;&#x27;, ...;</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-go操作数据库"><a href="#2-go操作数据库" class="headerlink" title="2.go操作数据库"></a>2.go操作数据库</h2><p>使用：database/sql包</p>
-<p>mysql默认端口号3306</p>
-<p>查看：mysql内，<code>show global variables like &#39;port&#39;; </code></p>
-<p>查看mysql配置文件目录：</p>
-<p><code>mysql --help|grep &#39;my.cnf&#39;</code></p>
-<h3 id="a-创建连接池"><a href="#a-创建连接池" class="headerlink" title="a.创建连接池"></a>a.创建连接池</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//1.创建连接池</span><br><span class="line">func newPool() *sql.DB &#123;  //sql.DB 表示一个连接池</span><br><span class="line">	cfg := mysql.NewConfig()</span><br><span class="line">	cfg.User = &quot;name&quot;</span><br><span class="line">	cfg.Passwd = &quot;123456&quot;</span><br><span class="line">	cfg.Net = &quot;tcp&quot;</span><br><span class="line">	cfg.Addr = &quot;127.0.0.1:3306&quot;</span><br><span class="line">	cfg.DBName = &quot;mydb&quot;</span><br><span class="line">	dsn := cfg.FormatDSN()</span><br><span class="line"></span><br><span class="line">	db, err := sql.Open(&quot;mysql&quot;, dsn)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	if err := db.Ping(); err != nil &#123; //ping测试网络连通性及用户密码是否正确</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	return db</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="b-query查询"><a href="#b-query查询" class="headerlink" title="b.query查询"></a>b.query查询</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">func QueryUser(id int64) (*User, error) &#123;</span><br><span class="line">  var db = newPool()  //创建连接</span><br><span class="line">	rows, err := db.Query(&quot;select `id`, `name` from `users` where `id` = ?&quot;, id)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return nil, err</span><br><span class="line">	&#125;</span><br><span class="line">	defer rows.Close() // 注意这里，一定要关闭</span><br><span class="line">	user := User&#123;&#125;</span><br><span class="line">	for rows.Next() &#123;</span><br><span class="line">		if err := rows.Scan(&amp;user.ID, &amp;user.Name); err != nil &#123;</span><br><span class="line">			return nil, err</span><br><span class="line">		&#125;</span><br><span class="line">		break</span><br><span class="line">	&#125;</span><br><span class="line">	if err := rows.Err(); err != nil &#123;</span><br><span class="line">		return nil, err</span><br><span class="line">	&#125;</span><br><span class="line">	return &amp;user, nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>连接池对程序员是透明的，这里并不需要显式的从连接池里获取连接，而是通过连接池来执行查询语句。<br>Query 方法返回一个 *Rows 指针，代表结果集。</p>
-<p>要注意的是 defer rows.Close() 如果忘了关闭，可能会造成连接泄露。</p>
-<p>rows.Scan 方法有个方便的特性，如果id在数据库里是 varchar(50) 类型，我们传的参数&amp;user.ID指向int64，这依然可以工作，Scan 方法会执行自动转换。</p>
-<h3 id="c-单行查询queryrow"><a href="#c-单行查询queryrow" class="headerlink" title="c.单行查询queryrow"></a>c.单行查询queryrow</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// QueryUser1 单行查询</span><br><span class="line">func QueryUser1(id int64) (*User, error) &#123;</span><br><span class="line">	row := pool.QueryRow(&quot;select `id`, `name` from `users` where `id` = ?&quot;, id)</span><br><span class="line">	user := User&#123;&#125;</span><br><span class="line">	if err := row.Scan(&amp;user.ID, &amp;user.Name); err != nil &#123;</span><br><span class="line">		if err == sql.ErrNoRows &#123;</span><br><span class="line">			return nil, nil  // 返回 (*User)(nil) 表示查询结果不错在</span><br><span class="line">		&#125;</span><br><span class="line">		return nil, err</span><br><span class="line">	&#125;</span><br><span class="line">	return &amp;user, nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="d-插入更新删除exec"><a href="#d-插入更新删除exec" class="headerlink" title="d.插入更新删除exec"></a>d.插入更新删除exec</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// InsertUser 插入用户</span><br><span class="line">func InsertUser(name string) (int64, error) &#123;</span><br><span class="line">	res, err := pool.Exec(&quot;insert into `users` (`name`) values (?)&quot;, name)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return 0, err</span><br><span class="line">	&#125;</span><br><span class="line">	return res.LastInsertId()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// UpdateUser 更新用户</span><br><span class="line">func UpdateUser(id int64, name string) error &#123;</span><br><span class="line">	_, err := pool.Exec(&quot;update `users` set `name` = ? where `id` = ?&quot;, name, id)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return err</span><br><span class="line">	&#125;</span><br><span class="line">	return nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// DeleteUser 删除用户</span><br><span class="line">func DeleteUser(id int64) error &#123;</span><br><span class="line">	_, err := pool.Exec(&quot;delete from `users` where `id` = ?&quot;, id)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return err</span><br><span class="line">	&#125;</span><br><span class="line">	return nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="e-事务"><a href="#e-事务" class="headerlink" title="e.事务"></a>e.事务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">// UpdateFooBar 更新</span><br><span class="line">func UpdateFooBar(id int64, x, y string) (err error) &#123;</span><br><span class="line">	tx, err := pool.Begin()</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	defer func() &#123;</span><br><span class="line">		switch &#123;</span><br><span class="line">		case err != nil:</span><br><span class="line">			tx.Rollback()</span><br><span class="line">		default:</span><br><span class="line">			err = tx.Commit()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	_, err = tx.Exec(&quot;update `foo` set `x` = ? where `id` = ?&quot;, x, id)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	_, err = tx.Exec(&quot;update `bar` set `y` = ? where `id` = ?&quot;, y, id)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-mysql加锁"><a href="#3-mysql加锁" class="headerlink" title="3.mysql加锁"></a>3.mysql加锁</h2><p>读锁全表锁(LOCK TABLE 表 READ)<br>读锁行锁(SELECT … LOCK IN SHARE MODE)<br>写锁全表锁(LOCK TABLE 表 WRITE)<br>写锁行锁(SELECT … FOR UPDATE)</p>
-<p>锁总体可以分为乐观锁和悲观锁，简单说，乐观锁用版本号控制，悲观锁用锁控制。<br>乐观锁：核心原理是增加一个version的字段来控制。添加一个version字段，每个更新时where条件都加上它，并且也更新它UPDATE users SET name=”雪山飞猪”,version=version+1 WHERE id=3 AND version=0 UPDATE users SET name=”chenqionghe”,version=version+1 WHERE id=3 AND version=0。这就是最简单的CAS机制。<br>悲观锁：类似Go语言里的Mutex和RwMutex</p>
-<p>共享锁(S锁)又称读锁，若事务T对数据对象A加上S锁，则事务T可以读A但不能修改A，其他事务只能再对A加S锁，而不能加X锁，直到T释放A上的S 锁。这保证了其他事务可以读A，但在T释放A上的S锁之前不能对A做任何修改。</p>
-<p>排他锁(X锁)又称写锁。若事务T对数据对象A加上X锁，事务T可以读A也可以修改A，其他事务不能再对A加任何锁，直到T释放A上的锁。这保证了其他事务在T释放A上的锁之前不能再读取和修改A。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">写锁表锁：</span><br><span class="line">加锁：lock table kiss_share_idproducer write;</span><br><span class="line">此时其他进程无法读也无法写。</span><br><span class="line">解锁：unlock table;</span><br><span class="line">--------------------------------</span><br><span class="line">写锁行锁：</span><br><span class="line">begin;</span><br><span class="line">加锁：select * from  kiss_share_idproducer where app_id=21 for update;</span><br><span class="line">其他再加锁，等待，直到占锁的commit；</span><br><span class="line">更新：update kiss_share_idproducer set mix_id=7 where app_id=21;</span><br><span class="line">解锁：commit;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">读锁表锁：</span><br><span class="line">加锁：lock table kiss_share_idproducer read;</span><br><span class="line">此时其他进程可以读但无法写。</span><br><span class="line">解锁：unlock table;</span><br><span class="line">-------------------------------</span><br><span class="line">读锁行锁：</span><br><span class="line">加锁：select * from  kiss_share_idproducer where app_id=21 lock in share mode;</span><br><span class="line">其他再加锁，等待，直到占锁的commit；</span><br><span class="line">更新：update kiss_share_idproducer set mix_id=7 where app_id=21;</span><br><span class="line">解锁：commit;</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>go的mysql操作：<a target="_blank" rel="noopener" href="https://blog.csdn.net/embinux/article/details/84031620">https://blog.csdn.net/embinux/article/details/84031620</a></p>
-<p>mysql加锁：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33838871/article/details/113566444">https://blog.csdn.net/weixin_33838871/article/details/113566444</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/2021.8.15%20%E7%AC%94%E8%AF%95%E8%AE%B0%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/19/myblog/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/2021.8.15%20%E7%AC%94%E8%AF%95%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">2021.8.15 笔试记录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-19 20:03:52" itemprop="dateCreated datePublished" datetime="2021-08-19T20:03:52+08:00">2021-08-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 21:46:45" itemprop="dateModified" datetime="2021-09-25T21:46:45+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AC%94%E7%BB%8F%E9%9D%A2%E7%BB%8F/" itemprop="url" rel="index"><span itemprop="name">笔经面经</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>1.需要掌握以下图的深度优先遍历</p>
-<p>2.信号量上执行正确的PV操作可有效避免多进程并发执行产生的与时间有关的错误。信号量S=0时，表示当前？</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1923,20 +2008,20 @@ select course, max(grade) from grade group by course;  正确
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

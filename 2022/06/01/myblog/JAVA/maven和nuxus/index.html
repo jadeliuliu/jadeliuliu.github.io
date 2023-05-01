@@ -28,7 +28,7 @@
 <meta property="og:description" content="maven 优秀的构建工具通过简单的命令，能够完成清理、编译、测试、打包、部署等一系列过程。同时，不得不提的是，Maven是跨平台的，无论是在Windows、还是在Linux或Mac上，都可以使用同样的命令。  依赖管理工具项目依赖的第三方的开源类库，都可以通过依赖的方式引入到项目中来。代替了原来需要首先下载第三方jar，再加入到项目中的方式。从而更好的解决了合作开发中依赖增多、版本不一致、版本冲">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-06-01T14:34:23.865Z">
-<meta property="article:modified_time" content="2023-02-28T01:32:02.145Z">
+<meta property="article:modified_time" content="2023-03-26T03:08:59.837Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="maven">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-28 09:32:02" itemprop="dateModified" datetime="2023-02-28T09:32:02+08:00">2023-02-28</time>
+                <time title="Modified: 2023-03-26 11:08:59" itemprop="dateModified" datetime="2023-03-26T11:08:59+08:00">2023-03-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,14 +263,8 @@
 <p>✅mvn命令</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">mvn -v //查看版本 </span><br><span class="line">mvn archetype:create //创建 Maven 项目 </span><br><span class="line">mvn compile //编译源代码 </span><br><span class="line">mvn test-compile //编译测试代码 </span><br><span class="line">mvn test //运行应用程序中的单元测试 </span><br><span class="line">mvn site //生成项目相关信息的网站 </span><br><span class="line">mvn package //依据项目生成 jar 文件 </span><br><span class="line">mvn install //在本地 Repository 中安装 jar </span><br><span class="line">mvn -Dmaven.test.skip=true //忽略测试文档编译 </span><br><span class="line">mvn clean //清除目标目录中的生成结果 </span><br><span class="line">mvn clean compile //将.java类编译为.class文件 </span><br><span class="line">mvn clean package //进行打包 </span><br><span class="line">mvn clean test //执行单元测试 </span><br><span class="line">mvn clean deploy //部署到版本仓库 </span><br><span class="line">mvn clean install //使其他项目使用这个jar,会安装到maven本地仓库中 </span><br><span class="line">mvn archetype:generate //创建项目架构 </span><br><span class="line">mvn dependency:list //查看已解析依赖 </span><br><span class="line">mvn dependency:tree com.xx.xxx //看到依赖树 </span><br><span class="line">mvn dependency:analyze //查看依赖的工具 </span><br><span class="line">mvn help:system //从中央仓库下载文件至本地仓库 </span><br><span class="line">mvn help:active-profiles //查看当前激活的profiles </span><br><span class="line">mvn help:all-profiles //查看所有profiles </span><br><span class="line">mvn help:effective -pom //查看完整的pom信息</span><br></pre></td></tr></table></figure>
 
-<p>✅打包时注意</p>
-<p>打包时注意：</p>
-<p>当mvn仓库里缺少jar包，同时又从中央仓库自动下载不下来的时候，就需要自己下载jar包然后放仓库里了，<br>但是有时候只是简单的把jar和source放仓库的文件夹下，并不管用，这个时候你可以用命令把jar把打进去：<br><code>mvn install:install-file -Dfile=D:\xxx.jar -DgroupId=commons-dbcp -DartifactId= commons-dbcp -Dversion= 1.4 -Dpackaging=jar</code><br>-Dfile 是存在本地磁盘里jar 的路径</p>
-<p>✅jar包冲突</p>
-<p>mvn dependency:tree命令解决jar包冲突<br>当项目出现jar包冲突时,用命令mvn dependency:tree 查看依赖情况<br>mvn dependency:tree 查看依赖树,查看包结构间的依赖<br>mvn dependency:tree &gt;d:/tmp 把结果输出到文件，<br>然后再pom.xml文件里排除掉冲突的jar包</p>
-<p>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/good_good_xiu/article/details/116740333">https://blog.csdn.net/good_good_xiu/article/details/116740333</a></p>
-<p>⚠️本地启动项目，有包显红，在maven - root - compile一下。<br>maven中的compile命令是用来将源代码编译成可执行的class文件，或者把它打包成jar文件，以便他人使用。</p>
-<p>为什么包没有在pom中引入，但是compile编译之后在target文件中却出现了呢。<br>maven会自动寻找依赖并自动加载它们，在某些情况下，即使它们没有在pom文件中显式引入，也会被自动加载到项目中。也有可能其他依赖引入了该包。这些jar包会被编译成class文件，maven把它们放在target目录下，以便正常使用。</p>
+
+
 <h3 id="maven仓库"><a href="#maven仓库" class="headerlink" title="maven仓库"></a>maven仓库</h3><p>maven的依赖管理功能，通过在Pom中指定坐标的形式将jar引入到项目中。jar包就存放在仓库中。</p>
 <p>Maven的仓库分为本地仓库和远程仓库。远程仓库分为：中央仓库、私服、其他远程仓库。</p>
 <p>当Maven根据坐标寻找构件时，它首先会查看本地仓库，如果本地仓库存在此构件，则直接使用；如果本地仓库不存在此构件，或者需要查看是否有更新的构件版本，Maven会去远程仓库查找，发现需要的构件之后，下载到本地仓库再使用。</p>
@@ -299,6 +293,14 @@
 <p>✅Junit找不到的问题，test放在main里，结构限定scope为test</p>
 <p>✅class notFound 以及 找不到或无法加载主类</p>
 <p>项目结构没有安排明白的原因，点project structure，父包下面的main包和test包下的java包啥的都不作为source和test，resource也不作为reesource。子包下面的模块选好。就可以了。</p>
+<p>✅打包时注意</p>
+<p>打包时注意：</p>
+<p>当mvn仓库里缺少jar包，同时又从中央仓库自动下载不下来的时候，就需要自己下载jar包然后放仓库里了，<br>但是有时候只是简单的把jar和source放仓库的文件夹下，并不管用，这个时候你可以用命令把jar把打进去：<br><code>mvn install:install-file -Dfile=D:\xxx.jar -DgroupId=commons-dbcp -DartifactId= commons-dbcp -Dversion= 1.4 -Dpackaging=jar</code><br>-Dfile 是存在本地磁盘里jar 的路径</p>
+<p>✅jar包冲突</p>
+<p>mvn dependency:tree命令解决jar包冲突<br>当项目出现jar包冲突时,用命令mvn dependency:tree 查看依赖情况<br>mvn dependency:tree 查看依赖树,查看包结构间的依赖<br>mvn dependency:tree &gt;d:/tmp 把结果输出到文件，<br>然后再pom.xml文件里排除掉冲突的jar包</p>
+<p>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/good_good_xiu/article/details/116740333">https://blog.csdn.net/good_good_xiu/article/details/116740333</a></p>
+<p>⚠️本地启动项目，有包显红，在maven - root - compile一下。<br>maven中的compile命令是用来将源代码编译成可执行的class文件，或者把它打包成jar文件，以便他人使用。</p>
+<p>✅为什么包没有在pom中引入，但是compile编译之后在target文件中却出现了呢。<br>maven会自动寻找依赖并自动加载它们，在某些情况下，即使它们没有在pom文件中显式引入，也会被自动加载到项目中。也有可能其他依赖引入了该包。这些jar包会被编译成class文件，maven把它们放在target目录下，以便正常使用。</p>
 
     </div>
 
@@ -397,20 +399,20 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
