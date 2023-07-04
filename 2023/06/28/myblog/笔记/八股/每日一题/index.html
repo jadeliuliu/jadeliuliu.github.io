@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="mysql查询慢怎么优化1.建索引，where order by涉及的列建立索引2.索引优化，最左匹配原则3.建立分区，如时间字段4.利用缓存redis，缓存热数据5.查询限定数据范围，如查询一个月内的6.读写分离7.分库分表，垂直拆分水平拆分8.数据异构到es9.冷热数据分离10.升级OceanBase 1 使用索引：建立合适的索引可以大大提高查询效率，可以使用explain命令查看查询执行计划">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络八股文">
+<meta property="og:url" content="http://example.com/2023/06/28/myblog/%E7%AC%94%E8%AE%B0/%E5%85%AB%E8%82%A1/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/index.html">
+<meta property="og:site_name" content="Jadeliu&#39;s blog">
+<meta property="og:description" content="mysql查询慢怎么优化1.建索引，where order by涉及的列建立索引2.索引优化，最左匹配原则3.建立分区，如时间字段4.利用缓存redis，缓存热数据5.查询限定数据范围，如查询一个月内的6.读写分离7.分库分表，垂直拆分水平拆分8.数据异构到es9.冷热数据分离10.升级OceanBase 1 使用索引：建立合适的索引可以大大提高查询效率，可以使用explain命令查看查询执行计划">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-06-28T01:28:04.231Z">
+<meta property="article:modified_time" content="2023-07-03T14:53:00.512Z">
+<meta property="article:author" content="Jade liu">
+<meta property="article:tag" content="八股">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/06/28/myblog/%E7%AC%94%E8%AE%B0/%E5%85%AB%E8%82%A1/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>网络八股文 | Jadeliu's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jadeliu's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/28/myblog/%E7%AC%94%E8%AE%B0/%E5%85%AB%E8%82%A1/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网络八股文
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-06-28 09:28:04" itemprop="dateCreated datePublished" datetime="2023-06-28T09:28:04+08:00">2023-06-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-03 22:53:00" itemprop="dateModified" datetime="2023-07-03T22:53:00+08:00">2023-07-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%85%AB%E8%82%A1/" itemprop="url" rel="index"><span itemprop="name">八股</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="mysql查询慢怎么优化"><a href="#mysql查询慢怎么优化" class="headerlink" title="mysql查询慢怎么优化"></a>mysql查询慢怎么优化</h3><p>1.建索引，where order by涉及的列建立索引<br>2.索引优化，最左匹配原则<br>3.建立分区，如时间字段<br>4.利用缓存redis，缓存热数据<br>5.查询限定数据范围，如查询一个月内的<br>6.读写分离<br>7.分库分表，垂直拆分水平拆分<br>8.数据异构到es<br>9.冷热数据分离<br>10.升级OceanBase</p>
+<p>1 使用索引：建立合适的索引可以大大提高查询效率，可以使用explain命令查看查询执行计划，确定是否使用索引。</p>
+<p>2．减少全表扫描：全表扫描是查询速度慢的主要原因之一。可以通过优化查询语句或者使用索引避免全表扫描。</p>
+<p>3.分页查询：如果查询结果集比较大，可以考虑使用分页查询，将查询结果分批返回，避免一次性返回大量数据。</p>
+<p>4.优化查询语句：优化查询语句可以使查询更加高效。可以从避免使用子查询、优化where子句条件、避免使用不必要的表连接等方面来优化查询语句。避免使用SELECT *，使用具体的宇段列表；使用JOIN时，使用合适的JOIN方式；使用LIMIT限制查询结果数量等。</p>
+<p>5.优化服务器参数：MysQL服务器的参数设置也可以影响查询性能。可以通过修改参数配置文件来优化MySQL服务器。例如，可以通过修改缓存大小、线程池大小等参数来提高MysQL服务器的性能。</p>
+<p>6.使用缓存：如果查询的数据不需要每次都进行查询，可以考虑使用缓存来提高查询效率。例如，可以使用Redis缓存查询结果，下次查询时可以直接从缓存中获取结果，而不需要重复查询数据库。</p>
+<p>7.使用分区表：将大的表分割成多个分区，可以大大提高查询效率。</p>
+<h3 id="微服务是什么"><a href="#微服务是什么" class="headerlink" title="微服务是什么"></a>微服务是什么</h3><p>微服务是一种架构风格，它将一个大型复杂的软件系统划分成多个小型的服务，每个服务运行在其独立的进程中，服务之间通过轻量级的通信机制相互协作，可以独立地部署、扩展和维护。</p>
+<p>微服务架构通常由以下组件组成：<br>1 服务：微服务架构中的基本单位，每个服务都是一个独立的、自治的、精简的业务功能。一个服务可以由多个进程、容器或虚拟机组成，每个服务都有自己的数据存储和处理能力。<br>2．服务注册与发现：微服务架构中需要一种机制来管理所有的服务，将其注册到服务注册中心并提供发现服务。服务注册中心可以帮助服务实例注册、发现、注销和维护的过程。<br>3. 负载均衡：在微服务架构中，服务实例的数量可能非常多，需要一种机制来分配请求流量。负载均衡器可以帮助将请求流量分配到不同的服务实例上，以实现高可用、高性能和高弹性。<br>4. API网关：微服务架构中的AP!网关可以作为服务访问的入口，为客户端提供一个整体的视图。API网关可以提供安全性、监控、缓存、路由等功能。</p>
+<p>微服务架构的优点包括：<br>1模块化：微服务架构将系统拆分为多个小型服务，每个服务都可以独立开发、测试和部署。<br>2．可扩展性：微服务架构可以水平扩展，通过增加或减少服务实例的数量，可以灵活地调整系统的容量和性能。<br>3. 可靠性：由于微服务架构中的服务是自治的，如果某个服务出现故障，其他服务不会受到影响。<br>4. 技木异构性：微服务架构可以使用不同的编程语言、框架和技术栈，可以采用最适合服务的技术栈。<br>5. 可维护性：微服务架构可以让开发人员专注于单个服务的开发和维护，降低了系统的复杂度和维护成本。</p>
+<p>综上所述，微服务架构是一种分布式系统的设计方法，它的目标是将大型系统拆分为多个小型服务，以提高系统的可维护性、可扩展性、可靠性和灵活性。</p>
+<h3 id="微服务之间是如何通讯的"><a href="#微服务之间是如何通讯的" class="headerlink" title="微服务之间是如何通讯的"></a>微服务之间是如何通讯的</h3><p>微服务之间可以通过多种方式进行通讯，常见的有以下几种：</p>
+<ol>
+<li><p>HTTP/REST： 采用HTTP协议进行通讯，每个服务提供RESTful API，可以通过HTTP请求调用其他服务的API接口。<br>HTTP/REST通讯简单，易于理解和调试，但有时候会存在性能瓶颈。</p>
+</li>
+<li><p>gRPC：采用Google开源的gRPC框架进行通讯，基于HTTP 2.0协议，数据传输效率高，同时支持多种编程语言和多种序列化协议，能够支持更加复杂的场景。</p>
+</li>
+<li><p>消息队列：采用消息队列进行异步通讯，每个服务可以发布和订阅消息，服务之间通过消息传递来进行通讯。消息队列可以解耜服务之问的直接依赖关系，提高系统的可靠性和伸缩性，但也可能会引入一些复杂性。(发送消息监听消息)</p>
+</li>
+<li><p>RPC： 远程过程调用 (Remote Procedure Call， RPC)是一种传输协议和通信协议，用于通过网络从远程计算机程序请求服务。每个服务都暴露出一些远程调用接口，其他服务可以通过RPC调用这些接口。（一个节点请求另一个节点提供的服务，优点是简单无中间件代理 缺点是只支持请求响应模式，不支持通知订阅）</p>
+</li>
+</ol>
+<p>不同的通讯方式各有优缺点，具体选择需要根据实际业务场景和需求来确定。<br>例如，如果需要快速迭代开发，HTTP/REST可能是更好的选择；如果需要高效的数据传输和支持多种编程语言，gRPC是更好的选择；如果需要异步通讯和解耩服务之间的依赖关系，消息队列可能是更好的选择。</p>
+<p>在微服务架构中，服务之问的通讯是通过网络进行的，因此需要考虑网络延迟、故障率、安全性等因素，需要采用相应的技术手段来保证通讯的可靠性和安全性。</p>
+<h3 id="RPC和HTTP的区别"><a href="#RPC和HTTP的区别" class="headerlink" title="RPC和HTTP的区别"></a>RPC和HTTP的区别</h3><p>RPC：就像调用本地的函数一样去调用远程函数。<br>RPC是一个完整的远程调用方案，通常包括通信协议和序列化协议。<br>通信协议包括：http协议（grpc用的是http2）、自定义报文的tcp协议（dubbo）。<br>序列化协议包括：基于文本编码的xml、json，基于二进制编码的protobuf、hessian等。</p>
+<p>HTTP，超文本传输协议，是从万维网服务器传输超文本到本地浏览器的传输协议，是通信协议，不是完整的远程调用框架。</p>
+<h3 id="为什么RPC有的用自定义TCP协议进行远程通信，而不是HTTP"><a href="#为什么RPC有的用自定义TCP协议进行远程通信，而不是HTTP" class="headerlink" title="为什么RPC有的用自定义TCP协议进行远程通信，而不是HTTP"></a>为什么RPC有的用自定义TCP协议进行远程通信，而不是HTTP</h3><p>HTTP好处是支持连接池复用，建立一定数量的连接不断开，不会频繁地创建和销毁连接。<br>但是http传输协议的header部分有很多冗余部分，例如content-type、last-modified、expires等，即使http body用二进制编码，header头的键值依然文本编码，占用字节数。<br>自定义的TCP协议可以精简传输内容，传输速度更高，可以自定义tcp协议的报文。</p>
+<p>因此，对于性能要求比较高的系统来说，通常使用自定义tcp协议的rpc来做后段进程通信。</p>
+<p>其实，使用http协议比较多的还是前后端的通信，原因在于主流网页浏览器都支持http协议，而且http在缓存、幂等重试乃至cookie这种浏览器安全相关的方面做了很多功夫。</p>
+<h3 id="grpc和rpc的关系"><a href="#grpc和rpc的关系" class="headerlink" title="grpc和rpc的关系"></a>grpc和rpc的关系</h3><p>gRPC是一种基于Google开源的RPC (Remote Procedure Call，远程过程调用）框架实现的通用 RPC 框架。gRPC 支特多种编程语言，并且基于HTTP/2 协议实现，提供了诸多的优化和特性。</p>
+<p>RPC，它允许客户端应用程序像调用本地服务一样调用远程服务。在RPC 中，客户端应用程序可以调用远程服务，而无需了解服务实现的细节，而服务实现者也不需要了解调用方的具体实现。</p>
+<p>gRPC 是在RPC 的基础上，使用Google 开源的Protocol Buffers 作为 IDL (Imntertace Definition Lanuege接口定义语言）和数据序列化机制，提供了高效的数据传输和多语言支持等功能。gRPC 基于 HTTP/2 协议实现，不仅可以提供更高效的数据传输，还可以支持双向流、多路复用等诸多特性，适用于分布式系统中的服务间通信。</p>
+<p>综上所述，gRPC 是在 RPC 的基础上，使用 Protocol Buffers 作为 IDL 和数据序列化机制的一种通用 RPC 框架。gRPC基于 HTTP/2 协议实现，提供了高效的数据传输和多语言支持等特性，适用于分布式系统中的服务问通信。</p>
+<hr>
+<p>rpc是完整的远程调用方案，http是通信协议，rpc可以用http通信协议也可以用udp，grpc是一种rpc，它使用的http2.0.这样说有问题吗？？？</p>
+<p>RPC (Remote Procedure Call)，远程过程调用和 HTTP (Hypertext Transfer Protocol，超文本传输协议）都是用于网络通讯的协议，但它们的底层实现机制和应用场景有一些不同。</p>
+<p>RPC 协议可以支持多种底层的通讯机制，如TCP，UDP，RMI 等，它的通讯方式更加灵活和高效。与 HTTP 协议相比，RPC 协议的数据传输效率更高，因为它不需要像 HTTP 协议那样在每次请求和响应时都需要传输大量的头部信息。</p>
+<p>gRPC 是一种基于 Google 开源的 RPC 框架实现的通用 RPC框架，它是基于 HTTP/2 协议实现的，因此在底层数据传输时使用了 HTTP/2 协议。HTTP/2 协议相比于 HTTP/1.× 协议，具有更高的性能和更好的效率，例如多路复用、二进制传输格式等特性，这些特性可以帮助gRPC 提高性能和效率。</p>
+<p>综上所述，RPC 和HTTP 都是用于网络通讯的协议，但它们的底层实现机制和应用场景有所不同。虽然 gRPC 底层使用了HTTP/2 协议，但它并不是 HTTP 协议的直接实现，而是在 RPC 协议的基础上发展而来的通用 RPC 框架。</p>
+<h3 id="HTTP有什么特点"><a href="#HTTP有什么特点" class="headerlink" title="HTTP有什么特点"></a>HTTP有什么特点</h3><p>1.HTTP允许传输任意类型的数据，传输的类型由content—type加以标记。</p>
+<p>2.无状态，对于客户端每次发送的请求，服务端都认为是一个新的请求，上一次会话和下一次会话之间没有联系。</p>
+<p>3.支持客户端/服务端模式，web服务端负责处理请求和响应，客户端负责发送请求和接收响应。</p>
+<h3 id="HTTP长连接"><a href="#HTTP长连接" class="headerlink" title="HTTP长连接"></a>HTTP长连接</h3><p>复用TCP连接，多个HTTP请求复用同一个TCP连接，这就节省了TCP连接建立和断开的消耗。</p>
+<h3 id="HTTP1-1和HTTP2-0的区别"><a href="#HTTP1-1和HTTP2-0的区别" class="headerlink" title="HTTP1.1和HTTP2.0的区别"></a>HTTP1.1和HTTP2.0的区别</h3><p>HTTP1.0 : 默认使用短连接，浏览器和服务器每进行一次HTTP操作，就建立一次连接，任务结束就中断连接。</p>
+<p>HTTP1.1起 : 默认使用长连接，要使用长连接，客户端和服务端的HTTP首部的connection都要设置为keep-alive，才能支持长连接。</p>
+<p>HTTP1.1和HTTP2.0的区别 : </p>
+<ol>
+<li>HTTP2.0支持新的二进制格式：HTTP1.1基于文本格式传输数据，HTTP2.0采用二进制格式传输数据，解析更高效。</li>
+<li>HTTP2.0支持多路复用：在一个连接中，允许同时发送多个请求或响应，并且这些请求或响应能够并行的传输而不被阻塞。</li>
+<li>HTTP2.0支持头部压缩：HTTP1.1的header带有大量信息，而且每次都要重复发送，HTTP2.0把header从数据中分离，并封装成头帧和数据帧，使用特定算法压缩头帧，有效减少头信息大小。并且HTTP2.0在客户端和服务端记录了之前发送的键值对，相同的数据不会重复发送，减少了冗余数据，降低开销。</li>
+<li>HTTP2.0支持服务端推送：HTTP2.0允许服务端向客户端推送资源，无需客户端发送请求到服务端获取。</li>
+</ol>
+<h3 id="HTTP通信安全吗"><a href="#HTTP通信安全吗" class="headerlink" title="HTTP通信安全吗"></a>HTTP通信安全吗</h3><p>HTTP不安全，因为是明文传输。<br>可以使用HTTPS：在HTTP基础上加入SSL/TSL协议，依靠SSl证书来验证服务器的身份，为客户端和服务端之间建立SSL通道，确保数据传输安全。</p>
+<h3 id="RESTFUL是什么"><a href="#RESTFUL是什么" class="headerlink" title="RESTFUL是什么"></a>RESTFUL是什么</h3><p>REST：resource representational state transform 资源表现层状态转移。</p>
+<p>RESTFUL：满足REST（对资源的访问状态的变化通过URL的变化（HTTP的method）表现出来），是一种网络应用的设计风格。</p>
+<p>REST描述的是网络中client和server的一种交互形式，通过URL就知道要什么资源，通过HTTP method就知道要干什么，通过HTTP status code就知道结果如何。</p>
+<p>GET：获取资源；POST：添加资源；PUT：修改资源；DELETE：删除；<br>URL原则上不用动词。<br>用URL定位资源，用HTTP描述操作。</p>
+<p>REST优点：<br>1.风格统一<br>2.面向资源，一目了然，具有自解释性<br>3.充分利用HTTP协议本身语义</p>
+<h3 id="正向代理和反向代理"><a href="#正向代理和反向代理" class="headerlink" title="正向代理和反向代理"></a>正向代理和反向代理</h3><p>正向代理：代理的对象是客户端，隐藏了真实的请求客户端，服务端不知道真实的客户端是谁，客户端请求的服务都被代理服务器代替去请求。例如：科学上网工具。</p>
+<p>反向代理：代理的对象是服务端，隐藏了真实的服务端，nginx反向代理服务器，可以用来做负载均衡。</p>
+<h3 id="网络分层："><a href="#网络分层：" class="headerlink" title="网络分层："></a>网络分层：</h3><p>应用层：为应用程序提供交互服务DNS、HTTP、SMTP<br>传输层：TCP、UDP<br>网络层：选择合适的路由，交换节点 IP协议<br>数据链路层：传送帧<br>物理层：比特流的透明传输</p>
+<h3 id="GET和POST区别"><a href="#GET和POST区别" class="headerlink" title="GET和POST区别"></a>GET和POST区别</h3><p>1.最本质的区别在规范上，GET请求用来获取资源，也就是进行查询操作的，POST请求用来传输实体对象的，进行添加，修改和删除。</p>
+<p>2.GET请求参数通过url传递，POST请求参数放在请求体中。</p>
+<p>3.GET请求，浏览器会把请求头和请求体一并发送出去，而POST请求浏览器会先发送请求头，服务器响应100 continue，浏览器再发送请求体。</p>
+<h3 id="Autowired和-Resource的区别"><a href="#Autowired和-Resource的区别" class="headerlink" title="@Autowired和@Resource的区别"></a>@Autowired和@Resource的区别</h3><p>@Autowired是spring的注解，如果按照名称匹配接口不同实现类需要结合@Qualifier，默认根据类型注入。</p>
+<p>@Resource是j2ee的注解，默认按byName自动注入，name和type属性都不指定，spring容器将通过反射默认按byName注入。</p>
+<h3 id="java反射是什么"><a href="#java反射是什么" class="headerlink" title="java反射是什么"></a>java反射是什么</h3><p>动态获取信息，动态调用对象方法 - java反射。</p>
+<p>在运行过程中，任意一个类，知道这个类的属性、方法；任意一个对象，可以调用它的方法/属性。</p>
+<p>反射应用场景：<br>1.JDBC连接数据库时使用Class.forName()，通过反射加载数据库的驱动程序。<br>2.IDEA利用反射动态解析对象类型、结果，提示对象属性、方法。<br>3.Web服务器中利用反射调用Servlet的service方法。<br>4.JDK动态代理底层依赖反射实现。</p>
+<h3 id="String、StringBuilder、StringBuffer"><a href="#String、StringBuilder、StringBuffer" class="headerlink" title="String、StringBuilder、StringBuffer"></a>String、StringBuilder、StringBuffer</h3><p>1.可变性：String不可变<br>2.线程安全：String线程安全，StringBuilder非线程安全，StringBuffer线程安全，内部使用synchronized同步。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%85%AB%E8%82%A1/" rel="tag"># 八股</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/05/01/myblog/%E7%AC%94%E8%AE%B0/%E5%85%AB%E8%82%A1/java%E5%B9%B6%E5%8F%91/" rel="prev" title="java并发">
+      <i class="fa fa-chevron-left"></i> java并发
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql%E6%9F%A5%E8%AF%A2%E6%85%A2%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">mysql查询慢怎么优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">2.</span> <span class="nav-text">微服务是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B9%8B%E9%97%B4%E6%98%AF%E5%A6%82%E4%BD%95%E9%80%9A%E8%AE%AF%E7%9A%84"><span class="nav-number">3.</span> <span class="nav-text">微服务之间是如何通讯的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPC%E5%92%8CHTTP%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">RPC和HTTP的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88RPC%E6%9C%89%E7%9A%84%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89TCP%E5%8D%8F%E8%AE%AE%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AFHTTP"><span class="nav-number">5.</span> <span class="nav-text">为什么RPC有的用自定义TCP协议进行远程通信，而不是HTTP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grpc%E5%92%8Crpc%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">6.</span> <span class="nav-text">grpc和rpc的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9"><span class="nav-number">7.</span> <span class="nav-text">HTTP有什么特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E9%95%BF%E8%BF%9E%E6%8E%A5"><span class="nav-number">8.</span> <span class="nav-text">HTTP长连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP1-1%E5%92%8CHTTP2-0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">9.</span> <span class="nav-text">HTTP1.1和HTTP2.0的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E9%80%9A%E4%BF%A1%E5%AE%89%E5%85%A8%E5%90%97"><span class="nav-number">10.</span> <span class="nav-text">HTTP通信安全吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RESTFUL%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">11.</span> <span class="nav-text">RESTFUL是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">12.</span> <span class="nav-text">正向代理和反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82%EF%BC%9A"><span class="nav-number">13.</span> <span class="nav-text">网络分层：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GET%E5%92%8CPOST%E5%8C%BA%E5%88%AB"><span class="nav-number">14.</span> <span class="nav-text">GET和POST区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Autowired%E5%92%8C-Resource%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">15.</span> <span class="nav-text">@Autowired和@Resource的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java%E5%8F%8D%E5%B0%84%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">16.</span> <span class="nav-text">java反射是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E3%80%81StringBuilder%E3%80%81StringBuffer"><span class="nav-number">17.</span> <span class="nav-text">String、StringBuilder、StringBuffer</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jade liu"
+      src="/images/head.gif">
+  <p class="site-author-name" itemprop="name">Jade liu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jadeliuliu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jadeliuliu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jadeliu1998@163.com" title="E-Mail → mailto:jadeliu1998@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/jadeliu1998" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;jadeliu1998" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5823044646" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5823044646" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jade liu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
