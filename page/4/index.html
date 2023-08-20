@@ -183,6 +183,280 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/29/myblog/JAVA/java%E6%B3%A8%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/29/myblog/JAVA/java%E6%B3%A8%E8%A7%A3/" class="post-title-link" itemprop="url">java常规注解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-29 22:56:27" itemprop="dateCreated datePublished" datetime="2022-04-29T22:56:27+08:00">2022-04-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-08-20 15:33:54" itemprop="dateModified" datetime="2023-08-20T15:33:54+08:00">2023-08-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>从JDK5开始,Java增加对元数据的支持，也就是注解，注解与注释是有一定区别的，可以把注解理解为代码里的特殊标记，这些标记可以在编译，类加载，运行时被读取，并执行相应的处理。通过注解开发人员可以在不改变原有代码和逻辑的情况下在源代码中嵌入补充信息。</p>
+<p>所有的注解本质上都是继承自 Annotation 接口。但是，手动定义一个接口继承 Annotation 接口无效的，需要通过 @interface 声明注解，Annotation 接口本身也不定义注解类型，只是一个普通的接口。</p>
+<h3 id="Pattern"><a href="#Pattern" class="headerlink" title="@Pattern"></a>@Pattern</h3><p>用来限定string格式，用正则表达式来限定。<br>需要导入validation-api包。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Getter</span><br><span class="line">    @Setter</span><br><span class="line">    public static class StudentVO&#123;</span><br><span class="line">        @Pattern(regexp = &quot;^[A-Za-z]+$&quot;, message = &quot;只能字母&quot;)</span><br><span class="line">        private String name;</span><br><span class="line">        private Long age;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>常用的正则表达式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">1 匹配首尾空格的正则表达式：(^\s*)|(\s*$)</span><br><span class="line">  2 整数或者小数：^[0-9]+\.&#123;0,1&#125;[0-9]&#123;0,2&#125;$</span><br><span class="line">  3 只能输入数字：&quot;^[0-9]*$&quot;。</span><br><span class="line">  4 只能输入n位的数字：&quot;^\d&#123;n&#125;$&quot;。</span><br><span class="line">  5 只能输入至少n位的数字：&quot;^\d&#123;n,&#125;$&quot;。</span><br><span class="line">  6 只能输入m~n位的数字：。&quot;^\d&#123;m,n&#125;$&quot;</span><br><span class="line">  7 只能输入零和非零开头的数字：&quot;^(0|[1-9][0-9]*)$&quot;。</span><br><span class="line">  8 只能输入有两位小数的正实数：&quot;^[0-9]+(.[0-9]&#123;2&#125;)?$&quot;。</span><br><span class="line">  9 只能输入有1~3位小数的正实数：&quot;^[0-9]+(.[0-9]&#123;1,3&#125;)?$&quot;。</span><br><span class="line"> 10 只能输入非零的正整数：&quot;^\+?[1-9][0-9]*$&quot;。</span><br><span class="line"> 11 只能输入非零的负整数：&quot;^\-[1-9][]0-9&quot;*$。</span><br><span class="line"> 12 只能输入长度为3的字符：&quot;^.&#123;3&#125;$&quot;。</span><br><span class="line"> 13 只能输入由26个英文字母组成的字符串：&quot;^[A-Za-z]+$&quot;。</span><br><span class="line"> 14 只能输入由26个大写英文字母组成的字符串：&quot;^[A-Z]+$&quot;。</span><br><span class="line"> 15 只能输入由26个小写英文字母组成的字符串：&quot;^[a-z]+$&quot;。</span><br><span class="line"> 16 只能输入由数字和26个英文字母组成的字符串：&quot;^[A-Za-z0-9]+$&quot;。</span><br><span class="line"> 17 只能输入由数字、26个英文字母或者下划线组成的字符串：&quot;^\w+$&quot;。</span><br><span class="line"> 18 验证用户密码：&quot;^[a-zA-Z]\w&#123;5,17&#125;$&quot;正确格式为：以字母开头，长度在6~18之间，只能包含字符、数字和下划线。</span><br><span class="line"> 19 验证是否含有^%&amp;&#x27;,;=?$\&quot;等字符：&quot;[^%&amp;&#x27;,;=?$\x22]+&quot;。</span><br><span class="line"> 20 只能输入汉字：&quot;^[\u4e00-\u9fa5]&#123;0,&#125;$&quot;</span><br><span class="line"> 21 验证Email地址：&quot;^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$&quot;。</span><br><span class="line"> 22 验证InternetURL：&quot;^http://([\w-]+\.)+[\w-]+(/[\w-./?%&amp;=]*)?$&quot;。</span><br><span class="line"> 23 验证电话号码：&quot;^(\(\d&#123;3,4&#125;-)|\d&#123;3.4&#125;-)?\d&#123;7,8&#125;$&quot;正确格式为：&quot;XXX-XXXXXXX&quot;、&quot;XXXX-XXXXXXXX&quot;、&quot;XXX-XXXXXXX&quot;、&quot;XXX-XXXXXXXX&quot;、&quot;XXXXXXX&quot;和&quot;XXXXXXXX&quot;。</span><br><span class="line"> 24 验证身份证号（15位或18位数字）：&quot;^\d&#123;15&#125;|\d&#123;18&#125;$&quot;。</span><br><span class="line"> 25 验证一年的12个月：&quot;^(0?[1-9]|1[0-2])$&quot;正确格式为：&quot;01&quot;～&quot;09&quot;和&quot;1&quot;～&quot;12&quot;。</span><br><span class="line"> 26 验证一个月的31天：&quot;^((0?[1-9])|((1|2)[0-9])|30|31)$&quot;正确格式为；&quot;01&quot;～&quot;09&quot;和&quot;1&quot;～&quot;31&quot;。</span><br><span class="line"> 27 匹配中文字符的正则表达式： [\u4e00-\u9fa5]</span><br><span class="line"> 28 匹配双字节字符(包括汉字在内)：[^\x00-\xff]</span><br><span class="line"> 29 应用：计算字符串的长度（一个双字节字符长度计2，ASCII字符计1）</span><br><span class="line"> 30 String.prototype.len=function()&#123;return this.replace(/[^\x00-\xff]/g,&quot;aa&quot;).length;&#125;</span><br><span class="line"> 31 匹配空行的正则表达式：\n[\s| ]*\r</span><br><span class="line"> 32 匹配html标签的正则表达式：&lt;(.*)&gt;(.*)&lt;\/(.*)&gt;|&lt;(.*)\/&gt;</span><br><span class="line">————————————————</span><br><span class="line">原文链接：https://blog.csdn.net/qq_36927265/article/details/87864026</span><br></pre></td></tr></table></figure>
+
+<p>在control层，前端调用来进行数据校验。</p>
+<p>一、VO对象内用@Pattern限定，control方法中用@Valid检查。<br><a target="_blank" rel="noopener" href="http://www.wpf123.com/post/97.html">http://www.wpf123.com/post/97.html</a></p>
+<p>二、control类用@Validated注解，方法内String参数用@Pattern</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@Validated</span><br><span class="line">class Controller &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping</span><br><span class="line">public ResponseEntity&lt;List&lt;Permission&gt;&gt; query(</span><br><span class="line">    @RequestHeader(&quot;iv-user&quot;) String userId,</span><br><span class="line">        @Pattern(regexp = &quot;^accessor$&quot;, message = &quot;请求参数不合法&quot;)</span><br><span class="line">        @RequestParam(&quot;findBy&quot;) String accessor,</span><br><span class="line">        @RequestParam(&quot;accessorId&quot;) long accessorId)&#123;</span><br><span class="line">        //...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="JSONField"><a href="#JSONField" class="headerlink" title="@JSONField"></a>@JSONField</h3><p>来自fastjson，fastjson是阿里巴巴出品的快速解析json的一个工具,</p>
+<p>一、name属性：用来指定JSON串中key的名称。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@JSONField(name = &quot;AGE&quot;)</span><br><span class="line">private String age;</span><br></pre></td></tr></table></figure>
+<p>也可以作用在setter、getter方法上。</p>
+<p>二、format规定日期格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@JSONField(format=&quot;yyyy-MM-dd HH:mm:ss&quot;)</span><br><span class="line">private Date date;</span><br></pre></td></tr></table></figure>
+
+<p>三、ordinal：规定字段的顺序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@JSONField(ordinal = 3)</span><br><span class="line">private int f0;</span><br><span class="line"></span><br><span class="line">@JSONField(ordinal = 2)</span><br><span class="line">private int f1;</span><br><span class="line"></span><br><span class="line">@JSONField(ordinal = 1)</span><br><span class="line">private int f2;</span><br></pre></td></tr></table></figure>
+
+<p>四、serialize/deserialize指定字段不序列化</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@JSONField(serialize=false)</span><br><span class="line">public Date date;</span><br></pre></td></tr></table></figure>
+
+<p>五、<code>@JSONField(serializeUsing=xxx.class, deserializeUsing=xxx.class)</code><br>指定序列化和反序列化字段使用的序列化器和反序列化器。<br>需要实现<code>ObjectSerializer</code>接口。</p>
+<h3 id="ToString"><a href="#ToString" class="headerlink" title="@ToString"></a>@ToString</h3><p>LomBok中的注解，用来简化代码。</p>
+<p>1.默认情况下，将打印所有非静态字段。<br>2.如果要跳过某些字段，可以用注释这些字段@ToString.Exclude。<br>3.可以使用精确指定要被toString方法包含的字段，先设置@ToString(onlyExplicitlyIncluded = true)，然后使用@ToString.Include标记每个要包含的字段。<br>4.可以更改用于标识成员的名称@ToString.Include(name = “some other name”)，name相当于给字段起别名。<br>5.可以通过更改成员的打印顺序@ToString.Include(rank = 1)。rank 表示该字段的优先级，值越大排在越前面，默认为 0，等级相同的成员以它们在源文件中出现的顺序打印。</p>
+<h3 id="CrossOrigin"><a href="#CrossOrigin" class="headerlink" title="@CrossOrigin"></a>@CrossOrigin</h3><p>出于安全原因，浏览器禁止Ajax调用驻留在当前原点之外的资源。</p>
+<p>跨源资源共享（CORS）是由大多数浏览器实现的W3C规范，允许您灵活地指定什么样的跨域请求被授权，而不是使用一些不太安全和不太强大的策略，如IFRAME或JSONP。</p>
+<p>参数：<br>origins： 允许可访问的域列表<br>maxAge:准备响应前的缓存持续的最大时间（以秒为单位）。</p>
+<p>用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@CrossOrigin(origins = &#123;&quot;http://domain2.com&quot;,&quot;。。。&quot;&#125;, maxAge = 3600)</span><br><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;/account&quot;)</span><br><span class="line">public class AccountController &#123;</span><br><span class="line"></span><br><span class="line">    @GetMapping(&quot;/&#123;id&#125;&quot;)</span><br><span class="line">    public Account retrieve(@PathVariable Long id) &#123;</span><br><span class="line">        // ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>更多：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/188106">https://cloud.tencent.com/developer/article/188106</a></p>
+<h3 id="RestController"><a href="#RestController" class="headerlink" title="@RestController"></a>@RestController</h3><p>开发restful API时，会用到，@RestController 是@controller和@ResponseBody 的结合。</p>
+<p>@Controller 将当前修饰的类注入Spring IOC容器，使得从该类所在的项目跑起来的过程中，这个类就被实例化。</p>
+<p>@ResponseBody 它的作用是指该类中所有的API接口返回的数据，甭管你对应的方法返回Map或是其他Object，它会以Json字符串的形式返回给客户端。</p>
+<h3 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping"></a>@RequestMapping</h3><p>@RequestMapping 是 Spring Web 应用程序中最常被用到的注解之一。在Spring MVC 中使用 @RequestMapping 来映射请求，也就是通过它来指定控制器可以处理哪些URL请求。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@RestController  </span><br><span class="line">@RequestMapping(&quot;/home&quot;)  </span><br><span class="line">public class IndexController &#123;  </span><br><span class="line">    @RequestMapping(&quot;/&quot;)  </span><br><span class="line">    String get() &#123;  </span><br><span class="line">        //mapped to hostname:port/home/  </span><br><span class="line">        return &quot;go to home&quot;;  </span><br><span class="line">    &#125;  </span><br><span class="line">    @RequestMapping(&quot;/index&quot;)  </span><br><span class="line">    String index() &#123;  </span><br><span class="line">        //mapped to hostname:port/home/index/  </span><br><span class="line">        return &quot;go to index&quot;;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>参考：<br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6f5aec232c97">https://www.jianshu.com/p/6f5aec232c97</a></p>
+<p>✅RequestMapping参数</p>
+<p>1，value，method<br>value：指定请求的实际地址，指定的地址可以是URI Template模式。<br>method：指定请求的method类型，GET、POST、PUT、DELETE等。</p>
+<p>2，consumes，produces<br>consumes：指定处理请求的提交内容类型（content-type），例如application/json，text/html。<br>produces：指定返回的内容类型，仅当request请求头中的（Accept）类型中包含该指定类型才返回。不但可以设置返回值类型还可以设定返回值的字符编码。</p>
+<p>3，params，headers<br>params：指定request中必须包含某些参数值时，才让该方法处理。<br>headers：指定request中必须包含某些指定的header值，才能让该方法处理请求。</p>
+<p>前后端数据json数据类型</p>
+<p>1，json对象类型，即前端定义的Content type为application/x-www-form-urlencoded等，后端应使用@RequestParam注解接收此类型的json参数。</p>
+<p>2，json字符串类型，即前端定义的Content type为application/json，后端应使用@RequestBody注解接收json参数。</p>
+<p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/FlyGoldfish/articles/15649305.html">https://www.cnblogs.com/FlyGoldfish/articles/15649305.html</a></p>
+<p>在Spring MVC 中使用 @RequestMapping 来映射请求，也就是通过它来指定控制器可以处理哪些URL请求，相当于Servlet中在web.xml中配置</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;/web&quot;)</span><br><span class="line">piblic class TestController &#123;</span><br><span class="line">    // 方法仅处理请求方式是GET和request Content-Type为“application/json”类型的请求</span><br><span class="line">    //普通参数用@RequestParam</span><br><span class="line">    @RequestMapping(value = &quot;/test1&quot;, method = &#123;RequestMethod.GET, RequestMethod.POST&#125;, consumes = &quot;application/json&quot;)</span><br><span class="line">    public String test2(@RequestParam(&quot;id&quot;) String id)&#123;</span><br><span class="line">        return &quot;test&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //对象类型用@RequestBody</span><br><span class="line">    @RequestMapping(value = &quot;/test2&quot;, method = &#123;RequestMethod.GET, RequestMethod.POST&#125;, consumes = MediaType.APPLICATION_JSON_VALUE)</span><br><span class="line">    public String test2(@RequestBody VO vo)&#123;</span><br><span class="line">        return &quot;test&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //指定返回值类型为json</span><br><span class="line">    @RequestMapping(value = &quot;/list&quot; , method = RequestMethod.POST,produces=&quot;application/json&quot;)</span><br><span class="line">public JSONObject list(@PathVariable String communityId) &#123;</span><br><span class="line">   JSONObject object = new JSONObject();</span><br><span class="line">   object.put(&quot;communityId&quot;,communityId);</span><br><span class="line">   return object;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">    //@responseBody就是返回值是json数据，使用@responseBody，就可以省略produces属性</span><br><span class="line">    @RequestMapping(value = &quot;/list&quot; , method = RequestMethod.POST)</span><br><span class="line">    @ResponseBody</span><br><span class="line">    public JSONObject list(@PathVariable String communityId) &#123;</span><br><span class="line">    JSONObject object = new JSONObject();</span><br><span class="line">    object.put(&quot;communityId&quot;,communityId);</span><br><span class="line">    return object;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //返回值是json数据，字符编码为utf-8</span><br><span class="line">    @RequestMapping(value = &quot;/list&quot; , method = RequestMethod.POST,produces=&quot;application/json;charset=utf-8&quot;)</span><br><span class="line">    public JSONObject list(@PathVariable String communityId) &#123;</span><br><span class="line">    JSONObject object = new JSONObject();</span><br><span class="line">    object.put(&quot;communityId&quot;,communityId);</span><br><span class="line">    return object;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更多用法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46058921/article/details/122141863">https://blog.csdn.net/weixin_46058921/article/details/122141863</a></p>
+<p>✅MediaType<br>consumes参数中可以用的。</p>
+<p>MediaType媒体类型：决定浏览器将以什么形式、什么编码对资源进行解析Content-Type：也属于MediaType媒体类型，主要用于在请求头中指定资源的MediaType</p>
+<p><a target="_blank" rel="noopener" href="https://javajgs.com/archives/75280">https://javajgs.com/archives/75280</a></p>
+<p>✅RequestMapping、GetMapping、PostMapping的区别</p>
+<p>@RequestMapping是一个无方法的注解。@GetMapping和@PostMapping是组合注解，分别是@RequestMapping(method = RequestMethod.GET)和@RequestMapping(method = RequestMethod.POST)的缩写。<br>GET、POST是方法的映射，表示为<br>@RequestMapping(method = RequestMethod.${方法})</p>
+<p>在一开始的映射是使用@RequestMapping(method = RequestMethod.${方法})来表示。后来Spring4.3中引进了@GetMapping、@PostMapping、@PutMapping、@DeleteMapping、@PatchMapping注解来帮助简化常用的HTTP方法的映射。</p>
+<h3 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h3><p>@RequestParam：将请求参数绑定到你控制器的方法参数上（是springmvc中接收普通参数的注解）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">语法：f(@RequestParam(value=”参数名”,required=”true/false”,defaultValue=””) String s</span><br><span class="line">       , 其他入参）</span><br><span class="line"> </span><br><span class="line">value：参数名</span><br><span class="line"> </span><br><span class="line">required：是否包含该参数，默认为true，表示该请求路径中必须包含该参数，如果不包含就报错。</span><br><span class="line"> </span><br><span class="line">defaultValue：默认参数值，如果设置了该值，required=true将失效，自动为false,如果没有传该参数，就使用默认值</span><br></pre></td></tr></table></figure>
+
+<p>✅@RequestParam如何接收List参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value = &quot;hello&quot;, method = &#123;RequestMethod.POST&#125;)</span><br><span class="line">@ResponseBody</span><br><span class="line">public boolean hello(@RequestParam(value = &quot;userIds&quot;) List&lt;Long&gt; userIds) &#123;</span><br><span class="line">   </span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>postman传参：直接在Params中加：1,2,3</p>
+<p>⚠️：@RequestBody传的vo，并且指明传入json格式（contentType），放在body-row中。<br>用的是@RequestParam传参，放在Params中，放在body-row中用json格式不行。放在Params中，相当于是加在url后面。</p>
+<p>✅@RequestParam如何接收Date参数</p>
+<p>首先引入joda-time包。maven的dependency：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> &lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;joda-time&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;joda-time&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.4&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在Controller代码里：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public String testMethod(@RequestParam @DateTimeFormat(pattern=&quot;yyyy-MM-dd&quot;) Date testdate)&#123;</span><br><span class="line">    System.out.println(testDate);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>postman传参：直接2022-09-24 00:00:00</p>
+<h3 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h3><p>@RequestBody主要用来接收前端传递给后端的json字符串中的数据的(请求体中的数据的)，因此@RequestBody只能用于接收POST请求的参数<br>@RequestParam接收的是key-value里面的参数(URL中的参数)，通常用于接收GET请求的参数（POST也能接收只接收URL里的，请求体的接收不到）</p>
+<p>即：<br>如果参数是放在请求体VO中，传入后台的话，那么后台要用@RequestBody才能接收到；<br>如果不是放在请求体中的话，那么后台接收前台传过来的参数时，要用@RequestParam来接收。</p>
+<p>总结：<br>@RequestParam和@RequestBody都能接收Post方式请求传来的数据，但是@RequestParam不能接收json字符串，而@RequestBody能，@RequestBody不能接收form-data类型的内容，@RequestParam能。<br>一个请求，只有一个RequestBody；一个请求，可以有多个RequestParam。<br>@ReuestBody接受单个参数的时候只能先使用Map&lt;String,Object&gt; params接收,然后再使用params.get(“name”)获取参数的值。</p>
+<p>更多：<a target="_blank" rel="noopener" href="https://blog.csdn.net/justry_deng/article/details/80972817">https://blog.csdn.net/justry_deng/article/details/80972817</a></p>
+<h3 id="postman上如何请求"><a href="#postman上如何请求" class="headerlink" title="postman上如何请求"></a>postman上如何请求</h3><p>✅post请求，传参是list的话，用@RequestParam的话只能放在url后面，长度是有限制的。用@RequestBody是放在body里。</p>
+<p>✅关于@RequestParam传参和@RequestBody传参，在postman中如何加：<br>1、@RequestParam的参数可以放在postman的param中（跟在url后面），也可以放在body里的form-data里（放在body里的），但是不能放在body的raw里。能放在哪里需要看consume参数的MedisType，想放在form-data里需要设置MedisType为multipart/form-data，或者不要限定为json。<br>2、@RequestBody的参数放在body里的raw里格式为json。一般传对象vo。</p>
+<p>✅RequestBody传map型参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@ResponseBody</span><br><span class="line">@PostMapping(&quot;/test&quot;)</span><br><span class="line">public String testMethod(@RequestBody Map&lt;String,String&gt; map)&#123;</span><br><span class="line">    System.out.println(testDate);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>postman如何请求：<br>1.设置请求方式为Post<br>2.在Headers中添加Content-Type，值为application/json<br>3.在body中选择row，选择json数据格式，最后在下面以json的数据格式填写参数</p>
+<p>✅@RequestParam传参什么时候放在form-data里，什么时候放在params里</p>
+<p>长的话放在form-data里，不是跟在url后的。如果放在params里就是跟在url后面的。</p>
+<h3 id="ResponseBody"><a href="#ResponseBody" class="headerlink" title="@ResponseBody"></a>@ResponseBody</h3><p>@ResponseBody 注解的作用是将Controller的方法返回的对象，通过适当的转换器转换为指定的格式之后，写入到response对象的body区，通常用来返回JSON数据或者是XML数据。</p>
+<p>@ResponseBody的作用其实是将java对象转为json格式的数据，然后直接写入HTTP response 的body中；一般在异步获取数据时使用</p>
+<p>@ResponseBody 是作用在方法上的</p>
+<p>更多：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_47609799/article/details/124843709">https://blog.csdn.net/weixin_47609799/article/details/124843709</a></p>
+<h3 id="Builder"><a href="#Builder" class="headerlink" title="@Builder"></a>@Builder</h3><p>lombok中的注解。<br>Builder 使用创建者模式又叫建造者模式。简单来说，就是一步步创建一个对象，它对用户屏蔽了里面构建的细节，但却可以精细地控制对象的构造过程。</p>
+<p>@Builder注解的作用主要是用来生成对象，并且可以为对象链式赋值。放在实体类上。<br>​@Builder​​注释为你的类生成相对略微复杂的构建器API。</p>
+<p>使用方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Student student = Student.builder()</span><br><span class="line">        .name( &quot;admin&quot; )</span><br><span class="line">        .age( 18 )</span><br><span class="line">        .build();</span><br></pre></td></tr></table></figure>
+
+<p>与@Singular结合使用<br>使用@Singular注释注释一个集合字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Singular</span><br><span class="line">private List&lt;String&gt; hobbies;</span><br><span class="line"></span><br><span class="line">.hobbies( &quot;110&quot; ).hobbies( &quot;112&quot; )</span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/g56467467464/article/details/105407741">https://blog.csdn.net/g56467467464/article/details/105407741</a></p>
+<h3 id="TableName"><a href="#TableName" class="headerlink" title="@TableName"></a>@TableName</h3><p>baomidou.mybatisplus的注解<br>@TableName是mybatis-plus中的注解，主要是实现实体类型和数据库中的表实现映射。<br>放在实体类DO上。</p>
+<p>虽然功能相同，但是，@TableName是mybatis-plus中的注解，@Table是Hibernate中的注解。</p>
+<h3 id="Param"><a href="#Param" class="headerlink" title="@Param"></a>@Param</h3><p>1 、@Param注解的作用是给参数命名,参数命名后就能根据名字得到参数值,正确的将参数传入sql语句中（一般通过#{}的方式，${}会有sql注入的问题）。<br>2、一般写在mappe接口（DAO接口）的入参，对应xml中#{}中的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">使用方法：</span><br><span class="line">Mapper接口方法：</span><br><span class="line">public int findById(@Param(&quot;userId&quot;) int userId);</span><br><span class="line">对应的xml文件：</span><br><span class="line"> &lt;select id=&quot;findById&quot; resultMap=&quot;baseMap&quot;&gt;</span><br><span class="line">    select &lt;include redif=&quot;all_column_list&quot;&gt; from table_name</span><br><span class="line">    where user_id = #&#123;userId&#125;</span><br><span class="line"> &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p>不使用@Param注解时，参数只能有一个，并且是Javabean。</p>
+<p>使用了@Param后，可以不用parameterType？ 存疑</p>
+<h3 id="Mapper"><a href="#Mapper" class="headerlink" title="@Mapper"></a>@Mapper</h3><p>在使用Mybatis持久层框架来操作数据库时，我们可以使用@Mapper注解和@MapperScan注解来将Mapper接口类交给Sprinig进行管理。</p>
+<p>目的就是为了不再写mapper映射文件（xml文件）。</p>
+<p>Spring Boot的核心理念是：不建议使用xml文件配置。但是，这对MyBatis来说进退两难，因为MyBatis离不开xml，需要xml来配置sql语句。为了迎合Spring Boot的发展理念，MyBatis官方开发了mybatis-spring-boot-starter，我们要想更少的依赖xml，需要深入的研究mybatis-spring-boot-starter中的用法，尤其是@MapperScan和@Mapper的用法。</p>
+<p>一、注解@Mapper，这种方式要求每一个Mapper类都需要添加此注解<br>在接口类上添加了@Mapper，在编译之后会生成相应的接口实现类</p>
+<p>二、@MapperScan注解，可以让我们不用为每个Mapper类都添加@Mapper注解。指定要变成实现类的接口所在的包<br>添加位置：是在Springboot启动类上面添加，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication  </span><br><span class="line">@MapperScan(&#123;&quot;cn.mybatis.mappers.class&quot;,&quot;cn.mybatis.mappers.student&quot;&#125;)  </span><br><span class="line">public class SpringbootMybatisDemoApplication&#123;  </span><br><span class="line">    public static void main(String[] args) &#123;  </span><br><span class="line">       SpringApplication.run(SpringbootMybatisDemoApplication.class, args);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>最终实现：直接在Mapper类中采用注解的形式操作数据库，通过@MapperScan扫描制定的映射器存放路径，最终不需要加任何注解，也不需要对应的xml文件来配置sql语句。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//不需要加任何注解，也不需要对应的xml文件</span><br><span class="line">public interface UserMapper&#123;</span><br><span class="line">     @Select(&quot;select * from user&quot;)</span><br><span class="line">     List&lt;User&gt; getUserList(String userId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="http://www.mybatis.cn/archives/862.html">http://www.mybatis.cn/archives/862.html</a></p>
+<h3 id="PostConstruct"><a href="#PostConstruct" class="headerlink" title="@PostConstruct"></a>@PostConstruct</h3><p>@PostContruct是Java自带的注解，在方法上加该注解会在项目启动的时候执行该方法，也可以理解为在spring容器初始化的时候执行该方法。可作为一些数据的常规化加载，比如数据字典之类的。</p>
+<p>从Java EE5规范开始，Servlet中增加了两个影响Servlet生命周期的注解，@PostConstruct和@PreDestroy，这两个注解被用来修饰一个非静态的void（）方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@PostConstruct</span><br><span class="line">public void someMethod()&#123;&#125;</span><br><span class="line"></span><br><span class="line">public @PostConstruct void someMethod()&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行时机：在依赖注入完成后被自动调用。在服务器加载Servlet的时候运行，并且只会被服务器执行一次。PostConstruct在构造函数之后执行，init（）方法之前执行。<br>Constructor &gt;&gt; @Autowired &gt;&gt; @PostConstruct &gt;&gt; init &gt;&gt; service &gt;&gt; destroy &gt;&gt; PreDestroy</p>
+<p>该注解与BeanPostProcessor接口有关，它有个实现类CommonAnnotationBeanPostProcessor，就是专门处理@PostConstruct  @PreDestroy注解。</p>
+<hr>
+<p>InitialzingBean接口的afterPropertiesSet和配置bean时的init-method，也有类似功能。</p>
+<p>initMethod和InitializingBean是spring提供的两种对类的属性进行装配的方式。initMethod和InitializingBean指定方法的执行顺序在普通属性装配之后，initMethod指定的方法又在InitializingBean指定的方法之后执行。</p>
+<p>三者执行顺序：Construction &gt; 对象属性set() 方法-&gt; @PostConstruct -&gt; InitializingBean -&gt; initMethod</p>
+<p>总结：可不可以理解为@PostConstruct在初始化自己bean时，依赖注入其他属性bean后执行，而InitialzingBean接口又是在它后面。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/chinawangfei/article/details/122825129">https://blog.csdn.net/chinawangfei/article/details/122825129</a></p>
+<h3 id="Deprecated"><a href="#Deprecated" class="headerlink" title="@Deprecated"></a>@Deprecated</h3><p>@Deprecated是java内置注解，此注解可以用在方法，属性，类上，表示已废弃，不维护，可能会删除。<br>表示不推荐程序员使用，但是还可以使用。</p>
+<h3 id="Valid"><a href="#Valid" class="headerlink" title="@Valid"></a>@Valid</h3><p>用于对象属性字段的规则检测，为了避免使用冗余的代码进行if判断，使用@Valid注解实现。</p>
+<p>是Spring中的注解，需要引入依赖，如果是 springboot 项目，那么可以不用引入了，已经引入了，就存在于最核心的 web 开发包 spring-boot-starter-web 里面。</p>
+<p>如果不是，需要引入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;javax.validation&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;validation-api&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.1.0.Final&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"> </span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.hibernate&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;hibernate-validator&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;5.4.1.Final&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用方法：在被检验的实体类中，使用注解加一些限制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@NotBlank(message = &quot;请输入名称&quot;)</span><br><span class="line">@Length(message = &quot;名称不能超过个 &#123;max&#125; 字符&quot;, max = 10)</span><br><span class="line">public String name;</span><br><span class="line"> </span><br><span class="line">@NotNull(message = &quot;请输入年龄&quot;)</span><br><span class="line">@Range(message = &quot;年龄范围为 &#123;min&#125; 到 &#123;max&#125; 之间&quot;, min = 1, max = 100)</span><br><span class="line">public Integer age;</span><br><span class="line"></span><br><span class="line">@Email(message = &quot;邮箱不正确&quot;)</span><br><span class="line">@Min(value = 1000000)</span><br><span class="line"></span><br><span class="line">@NotEmpty(message=&quot;不能为空&quot;)</span><br><span class="line">@Size(message=&quot;最多5个&quot;, max=5)</span><br><span class="line">private List&lt;Intefer&gt; list;</span><br></pre></td></tr></table></figure>
+
+<p>在Controller的对应方法中，对传入参数加@Valid注解：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@PostMapping(&quot;/action/register&quot;)</span><br><span class="line">public Result registerByForm(@Valid @RequestBody RegisterUser registerUser)&#123;</span><br><span class="line">    return userService.register(registerUser);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43587472/article/details/110388778">https://blog.csdn.net/weixin_43587472/article/details/110388778</a></p>
+<h3 id="Transactional注解"><a href="#Transactional注解" class="headerlink" title="@Transactional注解"></a>@Transactional注解</h3><p>springframework中的注解。<br>声明式事务管理，是建立在AOP之上，本质上是对方法前后进行拦截，然后再目标方法开始之前创建或加入一个一个事务，在执行完目标方法之后，根据执行情况提交或者回滚事务。</p>
+<p>简而言之：@Transactional注解在代码执行出错时进行事务的回滚。</p>
+<p>java异常模型：<br>Throwable是最顶层的父类，有Error和Exception两个子类。<br>Error表示严重的错误（如OOM等）；<br>Exception可以分为运行时异常（RuntimeException及其子类）和非运行时异常（Exception的子类中，除了RuntimeException及其子类之外的类）。</p>
+<p>非运行时异常是检查异常（checked exceptions），一定要try catch，因为这类异常是可预料的，编译阶段就检查的出来；<br>Error和运行时异常是非检查异常（unchecked exceptions），不需要try catch，因为这类异常是不可预料的，编辑阶段不会检查，没必要检查，也检查不出来。</p>
+<p>spring的@Transactional注解可以很方便的开启事务，但是默认只在遇到运行时异常和Error时才会回滚，非运行时异常不回滚，即Exception的子类中，除了RuntimeException及其子类，其他的类默认不回滚。</p>
+<p>而rollbackFor属性可以解决这个问题，rollbackFor = Exception.class表示Exception及其子类的异常都会触发回滚，同时不影响Error的回滚。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 运行时异常，正常回滚</span><br><span class="line">@Transactional</span><br><span class="line">public void save()&#123;</span><br><span class="line">    StudentDO studentDO = new StudentDO();</span><br><span class="line">    studentDO.setName(&quot;ltm&quot;);</span><br><span class="line">    studentDO.setAge(22);</span><br><span class="line">    studentMapper.insert(studentDO);</span><br><span class="line">    throw new RuntimeException(&quot;我是异常&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 非运行时异常，加rollbackFor属性，抛出异常，并回滚</span><br><span class="line">@Transactional(rollbackFor = Exception.class)</span><br><span class="line">public void save() throws IOException&#123;</span><br><span class="line">    StudentDO studentDO = new StudentDO();</span><br><span class="line">    studentDO.setName(&quot;ltm&quot;);</span><br><span class="line">    studentDO.setAge(22);</span><br><span class="line">    studentMapper.insert(studentDO);</span><br><span class="line">    throw new IOException();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c5988db897fc">https://www.jianshu.com/p/c5988db897fc</a></p>
+<p>使用方法：<br>1.需要在启动类上添加@EnableTransactionManagement注解。<br>2.当作用在类上，该类所以public方法都具有该类型的事务属性。也可以加在public方法上。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_9177933/2978291">https://blog.51cto.com/u_9177933/2978291</a></p>
+<h3 id="SneakyThrows"><a href="#SneakyThrows" class="headerlink" title="@SneakyThrows"></a>@SneakyThrows</h3><p>✅java的异常体系</p>
+<p><img src="/images/java%E5%BC%82%E5%B8%B8.png"></p>
+<p>Error是编译时错误和系统错误，系统错误在除特殊情况下，都不需要你来关心，基本不会出现。而编译时错误，如果你使用了编译器，那么编译器会提示。</p>
+<p>Exception则是可以被抛出的基本类型，我们需要主要关心的也是这个类。<br>Exception又分为RunTimeException和其他Exception。</p>
+<p>RunTimeException：运行时异常，又称不受检查异常，不受检查，因为不受检查，所以在代码中可能会有RunTimeException时Java编译检查时不会告诉你有这个异常，但是在实际运行代码时则会暴露出来，比如经典的1/0，空指针等。如果不处理也会被Java自己处理。</p>
+<p>其他Exception，受检查异常。可以理解为错误，必须要开发者解决以后才能编译通过，解决的方法有两种，<br>1：throw到上层，<br>2，try-catch处理。</p>
+<p>✅@SneakyThrows的作用：<br>普通Exception类,也就是我们常说的受检异常或者Checked Exception会强制要求抛出它的方法声明throws，调用者必须显示的去处理这个异常。设计的目的是为了提醒开发者处理一些场景中必然可能存在的异常情况。比如网络异常造成IOException。</p>
+<p>但是现实大部分情况下的异常，我们都是一路往外抛了事。所以渐渐的java程序员处理Exception的常见手段就是外面包一层RuntimeException，接着往上丢.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">&#125;catch(Exception e)&#123;</span><br><span class="line">throw new RuntimeException(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而Lombok的@SneakyThrows就是为了消除这样的模板代码。<br>使用注解后不需要担心Exception的处理.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> import lombok.SneakyThrows;</span><br><span class="line"></span><br><span class="line">public class SneakyThrowsExample implements Runnable &#123;</span><br><span class="line">  @SneakyThrows(UnsupportedEncodingException.class)</span><br><span class="line">  public String utf8ToString(byte[] bytes) &#123;</span><br><span class="line">    return new String(bytes, &quot;UTF-8&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  @SneakyThrows</span><br><span class="line">  public void run() &#123;</span><br><span class="line">    throw new Throwable();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原理：最重要的是throw (T)t, 使用泛型,将传入的Throwable强转为RuntimeException异常.<br>虽然, 我们抛出的异常不是RuntimeException,但是可以骗过javac编译器,泛型最后存储为字节码文件时并没有泛型信息.</p>
+<p>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_22162093/article/details/115486647">https://blog.csdn.net/qq_22162093/article/details/115486647</a></p>
+<h3 id="Data"><a href="#Data" class="headerlink" title="@Data"></a>@Data</h3><p>@Data注解是lombok.jar包下的注解，该注解通常用在实体bean上，不需要写出set和get方法，但是具备实体bean所具备的方法，简化编程提高变成速度。</p>
+<p>@Data相当于@Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode这5个注解的合集。</p>
+<p>@Data ：注在类上，提供类的get、set、equals、hashCode、toString等方法<br>@AllArgsConstructor ：注在类上，提供类的全参构造<br>@NoArgsConstructor ：注在类上，提供类的无参构造<br>@Setter ：注在属性上，提供 set 方法<br>@Getter ：注在属性上，提供 get 方法<br>@EqualsAndHashCode ：注在类上，提供对应的 equals 和 hashCode 方法<br>@Log4j/@Slf4j ：注在类上，提供对应的 Logger 对象，变量名为 log</p>
+<h3 id="RequiredArgsConstructor"><a href="#RequiredArgsConstructor" class="headerlink" title="@RequiredArgsConstructor"></a>@RequiredArgsConstructor</h3><p>lombok中的注解。可用于生成有参构造函数，也可以方便在写controller或者Service层的时候，需要注入很多的mapper接口或者另外的service接口的时候就避免会写很多的@Autowired注解。</p>
+<p>实体类有参构造函数：<br>必须声明的变量为final</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Getter</span><br><span class="line">@Setter</span><br><span class="line">@ToString</span><br><span class="line">@RequiredArgsConstructor</span><br><span class="line">static class Person &#123;</span><br><span class="line">    private final String name;</span><br><span class="line">    private final Integer age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@RequiredArgsConstructor(onConstructor =@_(@Autowired))<br>写在类上可以代替@Autowired注解，需要注意的是在注入时需要用final定义，或者使用@notnull注解.<br>当我们需要注入Bean的时候可以直接在类名称上使用。代替了Autowrited注解.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;/v1/demo&quot;)</span><br><span class="line">@RequiredArgsConstructor(onConstructor = @__(@Autowired))</span><br><span class="line">public class DemoController &#123;</span><br><span class="line">    private final DemoService demoService;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="SuppressWarnings"><a href="#SuppressWarnings" class="headerlink" title="@SuppressWarnings"></a>@SuppressWarnings</h3><p>作用：抑制编译器警告，有时候可以看到idea中有警告的颜色标注，当我们不希望看到这些警告的时候，可以使用 SuppressWarnings注解来抑制警告信息。<br>在<code>&#123;&quot; &quot;&#125; </code>中，可以写入你希望抑制(不显示)警告信息。</p>
+<p>例如：<br><code>@SuppressWarnings&#123;&quot;rawtypes&quot;, &quot;unchecked&quot;, &quot;unused&quot;&#125;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">all，抑制所有警告</span><br><span class="line">boxing，抑制与封装/拆装作业相关的警告</span><br><span class="line">cast，抑制与强制转型作业相关的警告</span><br><span class="line">dep-ann，抑制与淘汰注释相关的警告</span><br><span class="line">deprecation，抑制与淘汰的相关警告</span><br><span class="line">fallthrough，抑制与switch陈述式中遗漏break相关的警告</span><br><span class="line">finally，抑制与未传回finally区块相关的警告</span><br><span class="line">hiding，抑制与隐藏变数的区域变数相关的警告</span><br><span class="line">incomplete-switch，抑制与switch陈述式(enum case)中遗漏项目相关的警告</span><br><span class="line">javadoc，抑制与javadoc相关的警告</span><br><span class="line">nls，抑制与非nls字串文字相关的警告</span><br><span class="line">null，抑制与空值分析相关的警告</span><br><span class="line">rawtypes，抑制与使用raw类型相关的警告</span><br><span class="line">resource，抑制与使用Closeable类型的资源相关的警告</span><br><span class="line">restriction，抑制与使用不建议或禁止参照相关的警告</span><br><span class="line">serial，抑制与可序列化的类别遗漏serialVersionUID栏位相关的警告</span><br><span class="line">static-access，抑制与静态存取不正确相关的警告</span><br><span class="line">static-method，抑制与可能宣告为static的方法相关的警告</span><br><span class="line">super，抑制与置换方法相关但不含super呼叫的警告</span><br><span class="line">synthetic-access，抑制与内部类别的存取未最佳化相关的警告</span><br><span class="line">sync-override，抑制因为置换同步方法而遗漏同步化的警告</span><br><span class="line">unchecked，抑制与未检查的作业相关的警告</span><br><span class="line">unqualified-field-access，抑制与栏位存取不合格相关的警告</span><br><span class="line">unused，抑制与未用的程式码及停用的程式码相关的警告</span><br></pre></td></tr></table></figure>
+
+<p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41684621/article/details/123807986">https://blog.csdn.net/qq_41684621/article/details/123807986</a></p>
+<p>✅<code>Raw use of parameterized class</code> 参数化类型的原始使用</p>
+<p>指出省略了类型的参数化类的使用。这种对参数化类型的原始使用在Java中是有效的，但是会破坏使用类型参数的目的，并可能掩盖错误。此检查反映了编译阶段对原始类型的警告。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">List list = new ArrayList(); //不指定范型，默认为Object类型</span><br><span class="line">list.add(&quot;123&quot;);</span><br><span class="line">list.add(1L);</span><br><span class="line">list.add(0.11d);</span><br><span class="line">// 可以这样构造list，但是下面转类型会出错，不能吧String类型转为double。</span><br><span class="line">//java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Double</span><br><span class="line">for (Object o : list) &#123;</span><br><span class="line">    double a = (double) o;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码就是直接使用原生态类型的实现，在编译时期不会有任何问题，但是一旦运行就会报错：Exception in thread “main” java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Double，代码设计应该使错误尽早被发现，而这就是不安全的表现了，而且可读性而言，缺少了形式类型参数，我们很难明白List存储的类型是什么，表述性变差。</p>
+<p>如果确定使用是安全的，不会在运行时候导致错误，则可通过 <code>@SuppressWarnings(&quot;rawtypes&quot;)</code>消除使用原生态类型警告。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1677759">https://cloud.tencent.com/developer/article/1677759</a></p>
+<p>✅<code>Unchecked call to ... </code> 调用未经检查</p>
+<p>比如上面add的时候就会提示，表示未检查add的参数的类型，因为定义list的时候没指定类型，如果指定类型就不报了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/26/myblog/spring/BeanFactory%E5%92%8CApplicationContext/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2050,112 +2324,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/19/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/protocolbuffer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/19/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/protocolbuffer/" class="post-title-link" itemprop="url">proto buffer的java使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-03-19 11:39:24 / Modified: 12:21:30" itemprop="dateCreated datePublished" datetime="2022-03-19T11:39:24+08:00">2022-03-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="pb介绍"><a href="#pb介绍" class="headerlink" title="pb介绍"></a>pb介绍</h3><p>Protocol Buffers 是一种轻便高效的结构化数据存储格式，可以用于结构化数据串行化，或者说序列化。它很适合做数据存储或 RPC 数据交换格式。可用于通讯协议、数据存储等领域的语言无关、平台无关、可扩展的序列化结构数据格式。目前提供了 C++、Java、Python 三种语言的 API。<br>protocol buffer和xml、json类似，也可以作为开发中的一种数据交换格式，只不过相较xml和json，protocol buffer的优点更明显，它更小、更快、更简单。<br>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/yubo_725/article/details/52219489">https://blog.csdn.net/yubo_725/article/details/52219489</a></p>
-<p>————————————————</p>
-<h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><h4 id="文件本地转换"><a href="#文件本地转换" class="headerlink" title="文件本地转换"></a>文件本地转换</h4><p>可以使用用ProtocolBuffer的编译器实现.protocaol文件到,java文件的转换。</p>
-<p>首先我们需要去Google的网站上下载Protocol Buffer的编译器：<a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/downloads">https://developers.google.com/protocol-buffers/docs/downloads</a></p>
-<p>在Java中使用ProtocolBuffer的步骤大致分为下面这几点：</p>
-<p>（1）编写.proto文件，定义消息类型</p>
-<p>（2）使用ProtocolBuffer的编译器，将.proto文件编译成对应的java文件</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.demo.msg;</span><br><span class="line"> </span><br><span class="line">option java_outer_classname = <span class="string">&quot;PersonBean&quot;</span>;</span><br><span class="line"> </span><br><span class="line">message Person &#123;</span><br><span class="line">    required string name = <span class="number">1</span>;</span><br><span class="line">    required int32 age = <span class="number">2</span>;</span><br><span class="line">    optional string gender = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>保存到一个Person.proto文件中，其中package指定了包名，和java中的包名类似，option java_outer_classname = “PersonBean”;这句指定了编译器在编译.proto文件时，输出的java类的类名，接着使用message定义了一个名为Person的消息，里面包含3个成员变量，其中用required修饰的变量代表必须的，optional修饰的变量代表是可选的，这里定义消息的形式跟java中定义类非常相似。</p>
-<p>下面需要用ProtocolBuffer的编译器来编译上面的消息，我们从google的网站上下载下来的是一个protoc.exe文件，将该文件跟上面定义的消息文件Person.proto放在同一个目录下，然后在命令行中进入该目录，执行下面的命令：</p>
-<p><code>protoc.exe --java_out=./ Person.proto</code><br>就在当前目录下生成了对应的java文件PersonProto.java</p>
-<h4 id="socket线上传输"><a href="#socket线上传输" class="headerlink" title="socket线上传输"></a>socket线上传输</h4><p>在lib目录下引入了protobuf-java-2.5.0.jar包，这个包就是用来对ProtocolBuffer消息进行序列化和反序列化的.</p>
-<p>服务端，定义一个Server类，用于处理客户端发送过来的消息。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.demo.server;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> com.demo.constant.Constants;</span><br><span class="line"><span class="keyword">import</span> com.demo.msg.PersonBean;</span><br><span class="line"><span class="keyword">import</span> com.google.protobuf.ByteString;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Server</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ServerSocket ss = <span class="keyword">new</span> ServerSocket(Constants.PORT);</span><br><span class="line">        System.out.println(<span class="string">&quot;server started...&quot;</span>);</span><br><span class="line">        Socket socket = ss.accept();</span><br><span class="line">        System.out.println(<span class="string">&quot;a client connected!&quot;</span>);</span><br><span class="line">        <span class="comment">//从输入流中解析出Person对象，反序列化，byte流-&gt;java对象</span></span><br><span class="line">        PersonBean.Person person = PersonBean.Person.parseFrom(ByteString.readFrom(socket.getInputStream()));</span><br><span class="line">        <span class="keyword">if</span>(person != <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;server received data:\n&quot;</span> + person.toString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>客户端，定义一个Client类，用于生成一个Person类对象并发送给Server</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.demo.client;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> com.demo.constant.Constants;</span><br><span class="line"><span class="keyword">import</span> com.demo.msg.PersonBean;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.io.OutputStream;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Socket socket = <span class="keyword">new</span> Socket(<span class="string">&quot;localhost&quot;</span>, Constants.PORT);</span><br><span class="line">        <span class="comment">//构造一个Person对象</span></span><br><span class="line">        PersonBean.Person person = PersonBean.Person.newBuilder().setName(<span class="string">&quot;zhangsan&quot;</span>)</span><br><span class="line">                .setAge(<span class="number">20</span>).setGender(<span class="string">&quot;male&quot;</span>).build();</span><br><span class="line">        OutputStream os = socket.getOutputStream();</span><br><span class="line">        <span class="comment">//将Person对象写到输出流中。序列化为字节流</span></span><br><span class="line">        os.write(person.toByteArray());</span><br><span class="line">        os.flush();</span><br><span class="line">        <span class="comment">//这里注意一定要关闭流，否则服务端会报错</span></span><br><span class="line">        os.close();</span><br><span class="line">        System.out.println(<span class="string">&quot;client send person&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面的PORT为常量，定义在Constants类中，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.demo.constant;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Constants</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PORT = <span class="number">9988</span>;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样，一个使用ProtocolBuffer来进行数据发送和接收的java程序就完成了。</p>
-<h3 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h3><p>前面的例子中，序列化只是序列化为了字节流，反序列化也是字节流到java对象？</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Student.Builder buidler = Student.newBuilder();</span><br><span class="line">buidler.setName(<span class="string">&quot;Frank&quot;</span>);</span><br><span class="line">buidler.setNumber(<span class="number">123456</span>);</span><br><span class="line">buidler.setHobby(<span class="string">&quot;music&quot;</span>);</span><br><span class="line">Student student = buidler.build();</span><br><span class="line">System.out.println(student.toString());</span><br></pre></td></tr></table></figure>
-
-<p><code>student.toByteArray();</code>  Student是pb文件名，而不是java文件名。builder是啥？</p>
-<p>这个方法会得到byte[]，我们可以将它送到文件流中进行传输，这也是它的终极目的。也就是我们将protoc对象序列化成了字节流数据。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] array = student.toByteArray();</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Student student1 = Student.parseFrom(array);</span><br><span class="line">    System.out.println(student1.toString());</span><br><span class="line">&#125; <span class="keyword">catch</span> (InvalidProtocolBufferException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;   </span><br></pre></td></tr></table></figure>
-
-<p>array是之前序列化后产生的byte数据，现在通过Student的静态方法parseFrom()可以数据反序列成Student对象。</p>
-<p>除了开始的阶段编写.proto文件，然后再把.proto文件编译成java文件麻烦点，其余的步骤甚至比json转换的更便利。</p>
-<h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><p>明白了，使用pb之前，是一定要使用本地转换的，在socket中传输的一定是字节流。在字节流与java对象中间应该是有pb文件的。  PersonBean.Person。用的都是pb的文件名。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/briblue/article/details/53187780">https://blog.csdn.net/briblue/article/details/53187780</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yubo_725/article/details/52219489">https://blog.csdn.net/yubo_725/article/details/52219489</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2222,7 +2394,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">100</span>
+          <span class="site-state-item-count">101</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
