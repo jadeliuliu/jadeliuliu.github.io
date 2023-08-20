@@ -23,21 +23,21 @@
   <meta name="description" content="机器学习与深度学习的区别机器学习—拥有找一个函数的能力，根据输出的不同，分为regression回归、分类classification，以及很少提及的结构化学习structured learning（输出图像，文本）。 1.找一个带有未知参数的函数：y&#x3D;b+wx，b偏置，w权重，机器学习中，未知的参数是通过数据来学习的。带有未知参数的函数称为model模型。 2.从训练数据中定义Loss（损失），">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习与深度学习入门">
-<meta property="og:url" content="http://example.com/2022/01/09/myblog/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:url" content="http://example.com/2022/01/09/myblog/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
 <meta property="og:description" content="机器学习与深度学习的区别机器学习—拥有找一个函数的能力，根据输出的不同，分为regression回归、分类classification，以及很少提及的结构化学习structured learning（输出图像，文本）。 1.找一个带有未知参数的函数：y&#x3D;b+wx，b偏置，w权重，机器学习中，未知的参数是通过数据来学习的。带有未知参数的函数称为model模型。 2.从训练数据中定义Loss（损失），">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/db4301aa58234ae881c7774fb1472f4f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_18,color_FFFFFF,t_70,g_se,x_16">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/b57fe006fd424401b0976b630ed3331b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/f293d52326fb423aa007de3748b7598e.png">
+<meta property="og:image" content="http://example.com/images/sigmoid.png">
+<meta property="og:image" content="http://example.com/images/sigmoid2.png">
+<meta property="og:image" content="http://example.com/images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AD%A6%E4%B9%A0.png">
 <meta property="article:published_time" content="2022-01-09T03:26:33.867Z">
-<meta property="article:modified_time" content="2023-02-16T01:27:04.627Z">
+<meta property="article:modified_time" content="2023-08-20T07:56:42.333Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="MachineLearning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/db4301aa58234ae881c7774fb1472f4f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_18,color_FFFFFF,t_70,g_se,x_16">
+<meta name="twitter:image" content="http://example.com/images/sigmoid.png">
 
-<link rel="canonical" href="http://example.com/2022/01/09/myblog/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+<link rel="canonical" href="http://example.com/2022/01/09/myblog/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
 
 
 <script id="page-configurations">
@@ -193,7 +193,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/09/myblog/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/09/myblog/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.gif">
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-16 09:27:04" itemprop="dateModified" datetime="2023-02-16T09:27:04+08:00">2023-02-16</time>
+                <time title="Modified: 2023-08-20 15:56:42" itemprop="dateModified" datetime="2023-08-20T15:56:42+08:00">2023-08-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -231,7 +231,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
                 </span>
             </span>
 
@@ -263,9 +263,9 @@
 <p>有时是分段线性折线函数=常数+一些列的分段斜线。</p>
 <p>有时是曲线：可以用分段线性折线逼近连续曲线，需要足够的切分。（也可以用max(0,斜线)叠加表示）</p>
 <p>分段斜线可以用sigmoid函数来逼近。</p>
-<p><img src="https://img-blog.csdnimg.cn/db4301aa58234ae881c7774fb1472f4f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_18,color_FFFFFF,t_70,g_se,x_16"></p>
+<p><img src="/images/sigmoid.png"></p>
 <p>改变w，可以改变坡度。改变b可以左右移动。改变c可以改变高度。</p>
-<p><img src="https://img-blog.csdnimg.cn/b57fe006fd424401b0976b630ed3331b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p><img src="/images/sigmoid2.png"></p>
 <p>来源：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1qP4y147PJ/?spm_id_from=333.788.recommend_more_video.-1">https://www.bilibili.com/video/BV1qP4y147PJ/?spm_id_from=333.788.recommend_more_video.-1</a></p>
 <p>总结来讲：首先选择模型，线性模型或者复杂逼近曲线，最小化损失函数，用梯度下降法，选择初始值迭代计算进行逼近。</p>
 <p>Sigmold函数和ReLU在机器学习中，称为激活函数。可以将激活函数过程重复几次，来优化模型。激活函数的部分叫做神经元，很多神经元组成神经网络。每一列神经元称为隐藏层，很多层影藏层形成深度学习。</p>
@@ -391,7 +391,7 @@
 <p>pandas可以读取csv文件</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line">data = pd.read_csv(“./route”)</span><br><span class="line">table3 = pd.merge(table1, table2, on=[“uid”, “uid”]) //用来合并表，默认内连接</span><br><span class="line"></span><br><span class="line">3、交叉表处理，把user_id和aisle进行分组</span><br><span class="line">table = pd.crosstab(tab3[&quot;user_id&quot;], tab3[&quot;aisle&quot;])</span><br><span class="line"></span><br><span class="line">4、主成分分析的方法进行降维</span><br><span class="line"> 1）实例化一个转换器类PCA</span><br><span class="line">transfer = PCA(n_components=0.95)</span><br><span class="line"> 2）fit_transform</span><br><span class="line">data = transfer.fit_transform(table)</span><br><span class="line"></span><br><span class="line">data.shape</span><br></pre></td></tr></table></figure>
 <p>Jupiter 处理数据的工具，可视化数据。</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p><img src="https://img-blog.csdnimg.cn/f293d52326fb423aa007de3748b7598e.png"></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p><img src="/images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AD%A6%E4%B9%A0.png"></p>
 <h3 id="3-分类算法"><a href="#3-分类算法" class="headerlink" title="3.分类算法"></a>3.分类算法</h3><p>目标值：类别</p>
 <h4 id="3-1-sklearn转换器和预估器-estimator"><a href="#3-1-sklearn转换器和预估器-estimator" class="headerlink" title="3.1 sklearn转换器和预估器(estimator)"></a>3.1 sklearn转换器和预估器(estimator)</h4><p>  3.1.1 转换器-特征工程的父类<br>    1 实例化（实例化的是一个转换器类（Transformer））<br>    2 调用fit_transform 标准化，是fit计算每一列平均值和标准差 transform进行计算转换</p>
 <p>  3.1.2 估计器-sklearn机器学习算法的实现<br>    1 实例化一个eatimator<br>    2 estimator.fit(x_train, y_train) 计算 — 调用完毕，模型生成<br>    3 模型评估<br>      1）直接对比真实值和预测值<br>        y_predict = estimator.predictor(x_test)<br>        y_test = y_predict<br>      2）计算准确率<br>      accuracy = estimator.score(x_test, y_test)</p>
@@ -671,7 +671,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -684,7 +684,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

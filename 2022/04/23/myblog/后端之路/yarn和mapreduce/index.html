@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
 <meta property="og:description" content="mapreduce谷歌三剑客：GFS（高富帅）、bigtable、mapreduce（名人） 层次：GFS最底层文件系统、在往上是BigTable文件模型、再往上是算法MapReduce map：拆解reduce：组合 mapreduce类似于赛百味：得到数据（input）、切分（split）、把数据归类（map）、组装（shuffle）、交付（reduce） 例子：mapreduce做单词出现数">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/f7410910fe5e4976b6496ee312260cf4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/55a12ac4d4a949d18ebc39338fdb0a39.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/6e02cd00a6b543d9bed5d582a23af7f3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/9d376a8d36394947951162090fcd08a2.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="http://example.com/images/mapreduce.png">
+<meta property="og:image" content="http://example.com/images/mapreduce%E4%BE%8B%E5%AD%90.png">
+<meta property="og:image" content="http://example.com/images/mapreduce%E6%9E%B6%E6%9E%84.png">
+<meta property="og:image" content="http://example.com/images/yarn%E6%B5%81%E7%A8%8B.png">
 <meta property="article:published_time" content="2022-04-23T04:45:14.500Z">
-<meta property="article:modified_time" content="2022-04-23T10:55:54.355Z">
+<meta property="article:modified_time" content="2023-08-20T07:28:57.758Z">
 <meta property="article:author" content="Jade liu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/f7410910fe5e4976b6496ee312260cf4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta name="twitter:image" content="http://example.com/images/mapreduce.png">
 
 <link rel="canonical" href="http://example.com/2022/04/23/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/yarn%E5%92%8Cmapreduce/">
 
@@ -215,10 +215,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-04-23 12:45:14 / Modified: 18:55:54" itemprop="dateCreated datePublished" datetime="2022-04-23T12:45:14+08:00">2022-04-23</time>
+              <time title="Created: 2022-04-23 12:45:14" itemprop="dateCreated datePublished" datetime="2022-04-23T12:45:14+08:00">2022-04-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-08-20 15:28:57" itemprop="dateModified" datetime="2023-08-20T15:28:57+08:00">2023-08-20</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -252,10 +258,10 @@
 <p>map：拆解<br>reduce：组合</p>
 <p>mapreduce类似于赛百味：得到数据（input）、切分（split）、把数据归类（map）、组装（shuffle）、交付（reduce）</p>
 <p>例子：mapreduce做单词出现数的统计，每个步骤都是并行的过程。</p>
-<p><img src="https://img-blog.csdnimg.cn/f7410910fe5e4976b6496ee312260cf4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="tu"></p>
-<p>例子：mapreduce实现倒排索引，记录每个单词出现的位置<br><img src="https://img-blog.csdnimg.cn/55a12ac4d4a949d18ebc39338fdb0a39.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p><img src="/images/mapreduce.png"></p>
+<p>例子：mapreduce实现倒排索引，记录每个单词出现的位置<br><img src="/images/mapreduce%E4%BE%8B%E5%AD%90.png"></p>
 <p>mapreduce架构：<br>首先是用户进程（user program）协调和定义程序怎么运行，负责拆解worker，其中一个master worker（作为用户的代理来协调整个过程）。</p>
-<p><img src="https://img-blog.csdnimg.cn/6e02cd00a6b543d9bed5d582a23af7f3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p><img src="/images/mapreduce%E6%9E%B6%E6%9E%84.png"></p>
 <p>mapreduce本质就是分支法。</p>
 <h3 id="yarn"><a href="#yarn" class="headerlink" title="yarn"></a>yarn</h3><p>另一种资源协调者，hadoop1.x中负责资源管理的是一JobTracker。</p>
 <p>yarn负责大数据计算中的：资源管理、程序调度。</p>
@@ -265,7 +271,7 @@
 <p>3.任务分配阶段：ApplicationMaster向ResourceManager申请运行Task的任务资源，ResourceManager将Task任务分配给空闲的NodeManager，NodeManager创建用于执行Task的容器Container。</p>
 <p>4.任务运行阶段：ApplicationMaster通知所有接收到Task计算任务的NodeManager启动计算，NodeManager进行计算。执行完成后，向ResourceManager申请Container运行新的Task。所有的Task执行完毕后，ApplicationMaster向ResourceManager申请注销自己。</p>
 <p>5.作业完成阶段：框架更新任务的进度和状态。</p>
-<p><img src="https://img-blog.csdnimg.cn/9d376a8d36394947951162090fcd08a2.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p><img src="/images/yarn%E6%B5%81%E7%A8%8B.png"></p>
 <p>视频地址：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Pa4y1t7nf?spm_id_from=333.1007.top_right_bar_window_history.content.click">https://www.bilibili.com/video/BV1Pa4y1t7nf?spm_id_from=333.1007.top_right_bar_window_history.content.click</a></p>
 <h3 id="mapreduce与yarn"><a href="#mapreduce与yarn" class="headerlink" title="mapreduce与yarn"></a>mapreduce与yarn</h3><p>mapreduce的流程：</p>
 <p>1.首先用户程序 (JobClient) 提交了一个 job，job 的信息会发送到 Job Tracker 中，Job Tracker 是 Map-reduce 框架的中心，他需要与集群中的机器定时通信 (heartbeat), 需要管理哪些程序应该跑在哪些机器上，需要管理所有 job 失败、重启等操作，需要分配在每个 TaskTracker 上运行的 map 和 reduce 任务。</p>
@@ -387,7 +393,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -400,7 +406,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -183,6 +183,131 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/26/myblog/spring/BeanFactory%E5%92%8CApplicationContext/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/26/myblog/spring/BeanFactory%E5%92%8CApplicationContext/" class="post-title-link" itemprop="url">BeanFactory、ApplicationContext</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-26 22:12:06" itemprop="dateCreated datePublished" datetime="2022-04-26T22:12:06+08:00">2022-04-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-02-18 18:31:45" itemprop="dateModified" datetime="2023-02-18T18:31:45+08:00">2023-02-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring%E7%90%86%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">spring理解</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="BeanFactory与ApplicationContext"><a href="#BeanFactory与ApplicationContext" class="headerlink" title="BeanFactory与ApplicationContext"></a>BeanFactory与ApplicationContext</h3><p>BeanFactory使管理不同类型的java对象成为可能，应用上下文ApplacationContext建立在BeanFactor基础之上，提供了更多面向应用的功能，它提供了国际化支持和框架事件体系，更易于创建实际应用。我们一般称BeanFactory为IOC容器，而称ApplicationContext为应用上下文。但有时为了行文方便，我们也称ApplicationContext为Spring容器。</p>
+<p>对于二者的用途，可以进行简单的划分：BeanFactor是Spring框架的基础设施，面向Spring本身；ApplicationContext面向使用Spring框架的开发者，几乎所有的应用场合都可以直接使用ApplicationContext而非底层的BeanFactory。</p>
+<p>（1）BeanFactory：是Spring里面最底层的接口，包含了各种Bean的定义，读取bean配置文档，管理bean的加载、实例化，控制bean的生命周期，维护bean之间的依赖关系。ApplicationContext接口作为BeanFactory的派生，除了提供BeanFactory所具有的功能外，还提供了更完整的框架功能：<br>①继承MessageSource，因此支持国际化。<br>②统一的资源文件访问方式。<br>③提供在监听器中注册bean的事件。<br>④同时加载多个配置文件。<br>⑤载入多个（有继承关系）上下文 ，使得每一个上下文都专注于一个特定的层次，比如应用的web层。</p>
+<p>（2）BeanFactory通常是使用编程方式被创建的，而ApplicationContext可以用声明（就是用配置的方式）的方式创建，当然也可以使用ApplicationContext的实现类之一用编码方式来创建ApplicationContext的实例.</p>
+<p>（3）BeanFactory采用的是延迟加载形式来注入bean的，只有在使用到getBean() 时，才对该bean进行加载实例化，这样我们就不能发现一些bean的配置问题。而ApplicationContext则相反，它是在容器启动的时候，一次性创建所有的bean，这样在容器启动时就能发现spring 中存在的配置错误。这样有利于检查所依赖属性是否注入。 ApplicationContext启动后预载入所有的单实例Bean，通过预载入单实例bean ,确保当你需要的时候，你就不用等待，因为它们已经创建好了。相对于基本的BeanFactory，ApplicationContext 唯一的不足是占用内存空间。当应用程序配置Bean较多时，程序启动较慢。</p>
+<p>（4）BeanFactory和ApplicationContext都支持BeanPostProcesser、BeanFactoryPostProcessor的使用，但两者的区别是：BeanFactory是手动注册的，ApplicationContext是自动注册的.</p>
+<h3 id="ApplicationContext的创建方式"><a href="#ApplicationContext的创建方式" class="headerlink" title="ApplicationContext的创建方式"></a>ApplicationContext的创建方式</h3><h4 id="使用代码方式"><a href="#使用代码方式" class="headerlink" title="使用代码方式"></a>使用代码方式</h4><p>ApplicationContext接口常用实现类：</p>
+<p>1.ClassPathXmlApplicationContext</p>
+<p>a.加载单个配置文件方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext cxt = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>b.加载多个配置文件方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] configs = &#123;&quot;bean1.xml&quot;,&quot;bean2.xml&quot;,&quot;bean3.xml&quot;&#125;;</span><br><span class="line">ApplicationContext cxt = new ClassPathXmlApplicationContext(configs);</span><br></pre></td></tr></table></figure>
+
+<p>2.ConfigurableApplicationContext接口</p>
+<p>StartApplication中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 启动springboot应用，获取spring的ioc容器</span><br><span class="line">ConfigurableApplicationContext context = SpringApplication.run(StartApplication.class, args);</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用配置-声明"><a href="#使用配置-声明" class="headerlink" title="使用配置(声明)"></a>使用配置(声明)</h4><p>在javaee应用中向Servlet容器中注入Spring容器的方法</p>
+<p>ContextLoader 接口，它有两个实现 :ContextLoaderListener 和 ContextLoaderServlet. 其中常用的是 ContextLoaderListener. 从 spring 文档上可以查到，他们二者实现的功能基本一样，只是 ContextLoaderListener 不能在与 Servlet2.2 兼容的 web 容器中使用。另外，因为 ContextLoaderLitener 是一个 servlet Listener ，因此，它是在 servlet context 建立后立即执行，也就以为这 servlet 已建立， spring 的 ApplicationContext 就得到了初始化，并且能够相应第一个请求，所以首选 ContextLoaderListener.</p>
+<p>在web.xml中添加如下信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;? xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt; </span><br><span class="line"> &lt;! DOCTYPE web-app</span><br><span class="line">      PUBLIC &quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;</span><br><span class="line">      &quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot; &gt; </span><br><span class="line"> </span><br><span class="line"> &lt; web-app &gt; </span><br><span class="line">     &lt; display-name &gt; Baselib Application &lt;/ display-name &gt; </span><br><span class="line">    </span><br><span class="line">     &lt; context-param &gt; </span><br><span class="line">        &lt; param-name &gt; contextConfigLocation &lt;/ param-name &gt; </span><br><span class="line">        &lt; param-value &gt; </span><br><span class="line">        /WEB-INF/classes/spring-sup-middelbeans.xml</span><br><span class="line">        /WEB-INF/classes/spring-ueaac-action.xml</span><br><span class="line">        /WEB-INF/classes/spring-ueaac-beans.xml</span><br><span class="line">        /WEB-INF/classes/spring-ueaac-cm.xml</span><br><span class="line">        /WEB-INF/classes/spring-ueaac-hibernate.xml</span><br><span class="line">        /WEB-INF/classes/spring-ueaac-resource.xml</span><br><span class="line">        /WEB-INF/classes/spring-ueaac-sso.xml</span><br><span class="line">        /WEB-INF/classes/com/javaeye/jert/application_context.xml</span><br><span class="line">        &lt;/ param-value &gt; </span><br><span class="line">    &lt;/ context-param &gt; </span><br><span class="line"></span><br><span class="line">    &lt; listener &gt; </span><br><span class="line">        &lt; listener-class &gt; org.springframework.web.context.ContextLoaderListener &lt;/ listener-class &gt; </span><br><span class="line">    &lt;/ listener &gt; </span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt; param-value &gt; /WEB-INF/classes/spring-*.xml &lt;/ context-param &gt; </span><br></pre></td></tr></table></figure>
+
+<p>这里主要是配置了 spring 的监听器 ContextLoaderListener ，它检查 contextConfigLocation 这个参数。如果它不存在的话，它将用 /WEB-INF/applicationContext.xml 作为默认的配置文件。如果 contextConfigLocation 存在的话，它将根据该参数的值查找配置文件的位置，来一一读取 spring 参数。</p>
+<p>contextConfigLocation 是被 spring 固定的，专门用来查  找配置文件位置的.</p>
+<p>参考：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/sole_ghost/article/details/1389664">https://blog.csdn.net/sole_ghost/article/details/1389664</a></p>
+<h3 id="ApplicationContext-getBean"><a href="#ApplicationContext-getBean" class="headerlink" title="ApplicationContext.getBean"></a>ApplicationContext.getBean</h3><p>目的：获取Spring容器中已初始化的bean</p>
+<p>第一种：getBean(String name)<br>参数name表示IOC容器中已经实例化的bean的id或者name,<br>在IOC容器中是唯一的不能重名。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span><br><span class="line">Person p = (Person) ctx.getBean(&quot;p&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>第二种：getBean(Class<T> type)<br>type表示要加载的Bean的类型。<br>如果该类型没有继承任何父类(Object类除外)和实现接口的话，那么要求该类型的bean在IOC容器中也必须是唯一的.(比如定义同一类的两个bean，但是property注入的属性不一样)<br>不需要类型转换。</T></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span><br><span class="line">Person p = ctx.getBean(Person.class);</span><br></pre></td></tr></table></figure>
+
+<p>第三种：getBean(String name,Class<T> type)<br>这种方式比较适合接口/抽象类，有不同实现类或子类时，type写接口或父类，name写bean name。</T></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person p = ctx.getBean(&quot;person&quot;,BasePerson.class);</span><br></pre></td></tr></table></figure>
+
+<p>第四种： getBean(String name,Object[] args)<br>第二个参数Object[] args可以给bean的属性赋值，赋值的方式有两种：构造方法和工厂方法。但是通过这种方式获取的bean必须把scope属性设置为prototype，也就是非单例模式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">1.构造方法方式：</span><br><span class="line">&lt;bean name=&quot;p3&quot; class=&quot;com.bean.Person&quot; scope=&quot;prototype&quot;/&gt;</span><br><span class="line"></span><br><span class="line">Person p = (Person) ctx.getBean(&quot;p3&quot;,new Object[]&#123;&quot;王五&quot;,35&#125;);</span><br><span class="line"></span><br><span class="line">2.工厂注入方式：</span><br><span class="line">工厂类：</span><br><span class="line">public class PersonFactory &#123;</span><br><span class="line">//静态工厂注入</span><br><span class="line">public static Person getPersonInstance(String name,int age)throws Exception</span><br><span class="line">&#123;</span><br><span class="line">  Person p = (Person)Class.forName(&quot;com.bean.Person&quot;).newInstance();</span><br><span class="line">   Method m = p.getClass().getMethod(&quot;setName&quot;, java.lang.String.class);</span><br><span class="line">   m.invoke(p, name);</span><br><span class="line">   m = p.getClass().getMethod(&quot;setAge&quot;, int.class);</span><br><span class="line">   m.invoke(p, age);</span><br><span class="line">   return p;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">配置bean：</span><br><span class="line">&lt;bean name=&quot;p3&quot; class=&quot;com.factory.PersonFactory&quot; factory-method=&quot;getPersonInstance&quot; scope=&quot;prototype&quot;&gt;</span><br><span class="line">&lt;constructor-arg name=&quot;name&quot;&gt;</span><br><span class="line">&lt;null/&gt;</span><br><span class="line">&lt;/constructor-arg&gt;</span><br><span class="line">&lt;constructor-arg name=&quot;age&quot; value=&quot;0&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">Person p = (Person) ctx.getBean(&quot;p3&quot;,new Object[]&#123;&quot;王五&quot;,35&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_23927391/article/details/80625578">https://blog.csdn.net/qq_23927391/article/details/80625578</a></p>
+<h3 id="ApplicationContext-getBeanWithAnnotation"><a href="#ApplicationContext-getBeanWithAnnotation" class="headerlink" title="ApplicationContext.getBeanWithAnnotation"></a>ApplicationContext.getBeanWithAnnotation</h3><p>spring中可以通过getBeansWithAnnotation来获取ioc容器中使用了某个注解的所有bean,这个方法底层原理：我们知道可以通过反射来获取一个类中所有的注解，然后通过遍历spring容器中所有bean就能获取需要的结果。返回Map&lt;String, Object&gt;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//自定义@Auditable注解</span><br><span class="line">package com.yk.annotation;</span><br><span class="line"></span><br><span class="line">import java.lang.annotation.ElementType;</span><br><span class="line">import java.lang.annotation.Retention;</span><br><span class="line">import java.lang.annotation.RetentionPolicy;</span><br><span class="line">import java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Target(&#123;ElementType.METHOD,ElementType.TYPE&#125;)</span><br><span class="line">public @interface Auditable &#123;</span><br><span class="line">    String[] value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//在person类中我们引入@Auditable，并通过@Component将其注入spring容器</span><br><span class="line">package com.yk.annotation;</span><br><span class="line"></span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">@Auditable(&quot;person.sleep&quot;)</span><br><span class="line">public class Person &#123;</span><br><span class="line"></span><br><span class="line">    void sleep()&#123;</span><br><span class="line">        System.out.println(&quot;睡觉了&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class TestApplicationContext implements ApplicationContextAware &#123;</span><br><span class="line"> </span><br><span class="line">    protected ApplicationContext applicationContext;</span><br><span class="line">	</span><br><span class="line">    @Override</span><br><span class="line">    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException &#123;</span><br><span class="line">        this.applicationContext = applicationContext;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    @PostConstruct</span><br><span class="line">    public void init() throws Exception &#123;</span><br><span class="line">        Class aClass = Class.forName(&quot;com.yk.annotation.Auditable&quot;);</span><br><span class="line">        //boolean b = aClass.isAnnotation();</span><br><span class="line">        //System.out.println(b);</span><br><span class="line">        //Person person = applicationContext.getBean(Person.class);</span><br><span class="line">        Map beansWithAnnotation = applicationContext.getBeansWithAnnotation(aClass);</span><br><span class="line"></span><br><span class="line">        Iterator entries = beansWithAnnotation.entrySet().iterator();</span><br><span class="line"></span><br><span class="line">        while (entries.hasNext()) &#123;</span><br><span class="line"></span><br><span class="line">            Map.Entry entry = (Map.Entry) entries.next();</span><br><span class="line">            System.out.println(&quot;Key = &quot; + entry.getKey() + &quot;, Value = &quot; + entry.getValue());</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42374693/article/details/115374179">https://blog.csdn.net/weixin_42374693/article/details/115374179</a></p>
+<h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><p>一个使用工厂模式管理多个类实现同一个接口的例子：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33898233/article/details/91414228">https://blog.csdn.net/weixin_33898233/article/details/91414228</a></p>
+<p><code>applicationContext.getBeansOfType(Sort.class);</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/23/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/yarn%E5%92%8Cmapreduce/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -206,10 +331,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-04-23 12:45:14 / Modified: 18:55:54" itemprop="dateCreated datePublished" datetime="2022-04-23T12:45:14+08:00">2022-04-23</time>
+              <time title="Created: 2022-04-23 12:45:14" itemprop="dateCreated datePublished" datetime="2022-04-23T12:45:14+08:00">2022-04-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-08-20 15:28:57" itemprop="dateModified" datetime="2023-08-20T15:28:57+08:00">2023-08-20</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -236,10 +367,10 @@
 <p>map：拆解<br>reduce：组合</p>
 <p>mapreduce类似于赛百味：得到数据（input）、切分（split）、把数据归类（map）、组装（shuffle）、交付（reduce）</p>
 <p>例子：mapreduce做单词出现数的统计，每个步骤都是并行的过程。</p>
-<p><img src="https://img-blog.csdnimg.cn/f7410910fe5e4976b6496ee312260cf4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="tu"></p>
-<p>例子：mapreduce实现倒排索引，记录每个单词出现的位置<br><img src="https://img-blog.csdnimg.cn/55a12ac4d4a949d18ebc39338fdb0a39.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p><img src="/images/mapreduce.png"></p>
+<p>例子：mapreduce实现倒排索引，记录每个单词出现的位置<br><img src="/images/mapreduce%E4%BE%8B%E5%AD%90.png"></p>
 <p>mapreduce架构：<br>首先是用户进程（user program）协调和定义程序怎么运行，负责拆解worker，其中一个master worker（作为用户的代理来协调整个过程）。</p>
-<p><img src="https://img-blog.csdnimg.cn/6e02cd00a6b543d9bed5d582a23af7f3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p><img src="/images/mapreduce%E6%9E%B6%E6%9E%84.png"></p>
 <p>mapreduce本质就是分支法。</p>
 <h3 id="yarn"><a href="#yarn" class="headerlink" title="yarn"></a>yarn</h3><p>另一种资源协调者，hadoop1.x中负责资源管理的是一JobTracker。</p>
 <p>yarn负责大数据计算中的：资源管理、程序调度。</p>
@@ -249,7 +380,7 @@
 <p>3.任务分配阶段：ApplicationMaster向ResourceManager申请运行Task的任务资源，ResourceManager将Task任务分配给空闲的NodeManager，NodeManager创建用于执行Task的容器Container。</p>
 <p>4.任务运行阶段：ApplicationMaster通知所有接收到Task计算任务的NodeManager启动计算，NodeManager进行计算。执行完成后，向ResourceManager申请Container运行新的Task。所有的Task执行完毕后，ApplicationMaster向ResourceManager申请注销自己。</p>
 <p>5.作业完成阶段：框架更新任务的进度和状态。</p>
-<p><img src="https://img-blog.csdnimg.cn/9d376a8d36394947951162090fcd08a2.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p><img src="/images/yarn%E6%B5%81%E7%A8%8B.png"></p>
 <p>视频地址：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Pa4y1t7nf?spm_id_from=333.1007.top_right_bar_window_history.content.click">https://www.bilibili.com/video/BV1Pa4y1t7nf?spm_id_from=333.1007.top_right_bar_window_history.content.click</a></p>
 <h3 id="mapreduce与yarn"><a href="#mapreduce与yarn" class="headerlink" title="mapreduce与yarn"></a>mapreduce与yarn</h3><p>mapreduce的流程：</p>
 <p>1.首先用户程序 (JobClient) 提交了一个 job，job 的信息会发送到 Job Tracker 中，Job Tracker 是 Map-reduce 框架的中心，他需要与集群中的机器定时通信 (heartbeat), 需要管理哪些程序应该跑在哪些机器上，需要管理所有 job 失败、重启等操作，需要分配在每个 TaskTracker 上运行的 map 和 reduce 任务。</p>
@@ -1050,7 +1181,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-30 15:48:31" itemprop="dateModified" datetime="2022-10-30T15:48:31+08:00">2022-10-30</time>
+                <time title="Modified: 2023-08-20 15:34:30" itemprop="dateModified" datetime="2023-08-20T15:34:30+08:00">2023-08-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1092,7 +1223,7 @@
 </ol>
 <h3 id="2-SLF4J"><a href="#2-SLF4J" class="headerlink" title="2.SLF4J"></a>2.SLF4J</h3><h4 id="接口与包关系"><a href="#接口与包关系" class="headerlink" title="接口与包关系"></a>接口与包关系</h4><p>Simple logging Facade for Java，意思为简单日志门面，它是把不同的日志系统的实现进行了具体的抽象化，只提供了统一的日志使用接口，使用时只需要按照其提供的接口方法进行调用即可，由于<strong>它只是一个接口</strong>，并不是一个具体的可以直接单独使用的日志框架，所以最终日志的格式、记录级别、输出方式等都要<strong>通过接口绑定的具体的日志系统来实现</strong>，这些具体的日志系统就有log4j、logback、java.util.logging等，它们才实现了具体的日志系统的功能。</p>
 <p>SLF4J只是一个接口，实际使用时必须要结合具体的日志系统来使用，我们首先来看SLF4J和各个具体的日志系统进行绑定时的框架原理图：</p>
-<p><img src="https://img-blog.csdnimg.cn/img_convert/e5308c09a82e0c57889adea715d6a602.png"></p>
+<p><img src="/images/logback.png"></p>
 <p>slf4j原理很简单，他只提供一个核心slf4j api(就是slf4j-api.jar包)，这个包只有日志的接口，并没有实现，所以如果要使用就得<strong>再给它提供一个实现了些接口的日志包</strong>，比 如：log4j、common logging、jdk log日志实现包等，但是<strong>这些日志实现又不能通过接口直接调用</strong>，实现上他们根本就和slf4j-api不一致，因此slf4j又增加了一层来<strong>转换各日志实现包的使用</strong>，当然slf4j-simple除外。其结构如下： </p>
 <blockquote>
 <p>slf4j-api(接口层)<br> | |<br>各日志实现包的连接层( slf4j-jdk14, slf4j-log4j)<br> | |<br>各日志实现包     </p>
@@ -1506,7 +1637,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-04-05 14:06:38" itemprop="dateModified" datetime="2023-04-05T14:06:38+08:00">2023-04-05</time>
+                <time title="Modified: 2023-08-20 15:36:37" itemprop="dateModified" datetime="2023-08-20T15:36:37+08:00">2023-08-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1626,7 +1757,7 @@
 <p>2⃣️service 方法，每次有请求到达某个 Servlet 方法时执行，用来处理请求（证明该Servlet 进行服务了）</p>
 <p>3⃣️destroy 方法，Servlet 实例销毁时执行（证明该 Servlet 的实例被销毁了）</p>
 <p>Servlet 的生命周期，简单的概括这就分为四步：servlet 类加载–&gt;实例化–&gt;服务–&gt;销毁。<br>下面描述一下 Tomcat 与 Servlet 是如何工作的,看看下面的时序图：</p>
-<p><img src="https://img-blog.csdnimg.cn/95e97377049b47058831a2b7cbfe442d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<p><img src="/images/servlet%E6%97%B6%E5%BA%8F%E5%9B%BE.png"></p>
 <ol>
 <li>Web Client 向 Servlet 容器（Tomcat）发出 Http 请求</li>
 <li>Servlet 容器接收 Web Client 的请求</li>
@@ -1691,7 +1822,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.liuxuan.servlet.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletOutputStream;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: liuxuan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2022-03-22 08:50</span></span><br><span class="line"><span class="comment"> * 重定向 302</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="meta">@WebServlet(&quot;/ser08&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Servlet8</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;ser08&quot;</span>);</span><br><span class="line">        String uname = req.getParameter(<span class="string">&quot;uname&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;ser08:&quot;</span>+uname);</span><br><span class="line">        resp.sendRedirect(<span class="string">&quot;ser07&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>通过观察浏览器我们发现第一次请求获得的响应码为 302，并且含有一个 location 头信息。并且地址栏最终看到的地址是和第一次请求地址不同的，地址栏已经发生了变化。</p>
-<h4 id="请求转发与重定向的区别"><a href="#请求转发与重定向的区别" class="headerlink" title="请求转发与重定向的区别"></a><strong>请求转发与重定向的区别</strong></h4><p><img src="https://img-blog.csdnimg.cn/60cc937f78be4bff8e93f84aebea79f2.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
+<h4 id="请求转发与重定向的区别"><a href="#请求转发与重定向的区别" class="headerlink" title="请求转发与重定向的区别"></a><strong>请求转发与重定向的区别</strong></h4><p><img src="/images/%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91%E4%B8%8E%E9%87%8D%E5%AE%9A%E5%90%91.png"></p>
 <p>对于请求转发，举个例子，前端页面输入用户名和密码，req.getAttribute获取参数，或是req.setAttribute设置参数，使用请求转发可以将参数传递到jsp页面，jsp页面使用req.getAttribute进行获取。</p>
 <p>而重定向是返回一个新的页面，两个页面之间没有参数传递。</p>
 <p>请求转发的地址只能是当前站点下（字符串参数就是加载项目根目录后面的字符串），重定向地址可以是任意地址。跨域跳转只能用重定向。</p>
@@ -2021,150 +2152,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/19/myblog/JAVA/java%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/19/myblog/JAVA/java%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3/" class="post-title-link" itemprop="url">java实现自定义注解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-03-19 10:22:13" itemprop="dateCreated datePublished" datetime="2022-03-19T10:22:13+08:00">2022-03-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-09 22:43:27" itemprop="dateModified" datetime="2022-04-09T22:43:27+08:00">2022-04-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="关于注解"><a href="#关于注解" class="headerlink" title="关于注解"></a>关于注解</h3><p>Annotation，注解是Java SE 5.0版本开始引入的概念，它是对java源代码的说明，是一种元数据（描述数据的数据）。</p>
-<ul>
-<li>注释<br>   注释是对代码的说明，给代码的读者看，便于帮读者梳理业务逻辑；</li>
-<li>注解<br>  注解也是对代码的说明，需要配合工具（解析它的代码）使用，参与代码的编译，给应用程序看的。</li>
-</ul>
-<p>注解的渊源：</p>
-<p>在频繁使用注解之前，是用xml 来作为元数据使用，在最开始使用ssm(Spring,SpringMVC,Mybatis)框架时，bean与bean之间的依赖关系是通过xml文件来配置，这个xml文件和源代码分散，当微服务、分布式注解流行，系统越来越大，需要越来越多的xml文件来配置管理，文件配置冗长，而且类型不安全（运行期才会发现错误）,此时就需要一种比较简单直观而且类型安全的配置方式，注解就应运而生了，按照Springboot“约定大于配置”的方式，通过注解来约定其含义，更是减少了xml配置文件的数量。<br>     对于一些经常变动或者配置复杂的配置，使用xml文件来说是比较合适的，所以现在经常是注解和xml方式共存。<br>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zt15732625878/article/details/99671586">https://blog.csdn.net/zt15732625878/article/details/99671586</a></p>
-<p>————————————————</p>
-<h3 id="注解分类"><a href="#注解分类" class="headerlink" title="注解分类"></a>注解分类</h3><p>按照来源划分，可以分为 JDK的注解，第三方的注解，自定义注解。</p>
-<p>JDK注解</p>
-<p>Java 内置三大注解<br>@Override （标记重写方法）<br>@Deprecated （标记过时）<br>@SuppressWarnings （忽略警告）</p>
-<p>元注解 (注解的注解)<br>@Target （注解的作用目标）<br>@Retention （注解的生命周期）<br>@Document （注解是否被包含在JavaDoc中）<br>@Inherited （是否允许子类集成该注解）</p>
-<p>第三方注解（主要来源于各种框架）<br>Spring注解<br>@RequestMapping,@RestController,@Configuration,@Value,@Controller,@Service,@Repository,@Component等<br>SpringBoot注解<br>@SpringBootApplication,@EnableAutoConfiguration等<br>JPA注解<br>@Table,@Entity,@Column,@Id等<br>……</p>
-<p>自定义注解<br>使用元注解自己定义的注解</p>
-<h3 id="注解的定义"><a href="#注解的定义" class="headerlink" title="注解的定义"></a>注解的定义</h3><p>1&gt;.每一个方法实际上是声明了一个配置参数,<br>2&gt;.方法的名称就是参数的名称,<br>3&gt;.返回值类型就是参数的类型,(返回值类型只能是基本类型、Class、String、enum)<br>4&gt;.可以通过default来声明参数的默认值</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">修饰符 <span class="meta">@interface</span> 注解名 &#123;</span><br><span class="line">    注解元素的声明<span class="number">1</span> </span><br><span class="line">    注解元素的声明<span class="number">2</span></span><br><span class="line">    <span class="function">type <span class="title">elementName</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">type <span class="title">elementName</span><span class="params">()</span> <span class="keyword">default</span> value</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>@Service的定义：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ElementType.TYPE 代表在类上使用</span></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="comment">// RetentionPolicy.RUNTIME 代表运行时使用，可以通过反射获取到</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="comment">//包含在JavaDoc中</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="comment">//允许通过包扫描的方式自动检测</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Service &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * The value may indicate a suggestion for a logical component name,</span></span><br><span class="line"><span class="comment">	 * to be turned into a Spring bean in case of an autodetected component.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the suggested component name, if any (or empty String otherwise)</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@AliasFor(annotation = Component.class)</span></span><br><span class="line">	<span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Annotation：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Annotation</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>所有注解</strong>，<strong>默认是一个实现了Annotation接口的接口。</strong></p>
-<h3 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a>自定义注解</h3><p>注解是一种能被添加到java源代码中的元数据，可以看作是一种特殊的标记，可以用在方法、类、参数和包上，程序在编译或者运行时可以检测到这些标记而进行一些特殊的处理。</p>
-<p>注解的基本元素：</p>
-<ul>
-<li>修饰符<br> 访问修饰符必须为public,不写默认为pubic；</li>
-<li>关键字<br> 关键字为@interface；</li>
-<li>注解名称<br> 注解名称为自定义注解的名称，使用时还会用到；</li>
-<li>注解类型元素<br> 注解类型元素是注解中内容，可以理解成自定义接口的实现部分；</li>
-</ul>
-<p>使用元注解修饰注解：</p>
-<p>@Target，@Retention,@Document,@Inherited用来修饰注解。</p>
-<p><strong>@Target</strong><br> 表明该注解可以应用的java元素类型。<br>ElementType.TYPE    应用于类、接口（包括注解类型）、枚举<br>ElementType.FIELD    应用于属性（包括枚举中的常量）<br>ElementType.METHOD    应用于方法<br>ElementType.PARAMETER    应用于方法的形参<br>ElementType.CONSTRUCTOR    应用于构造函数<br>ElementType.LOCAL_VARIABLE    应用于局部变量<br>ElementType.ANNOTATION_TYPE    应用于注解类型<br>ElementType.PACKAGE    应用于包<br>ElementType.TYPE_PARAMETER    1.8版本新增，应用于类型变量<br>ElementType.TYPE_USE    1.8版本新增，应用于任何使用类型的语句中（例如声明语句、泛型和强制转换语句中的类型）</p>
-<p>@Retention<br>  表明该注解的生命周期<br>RetentionPolicy.SOURCE    编译时被丢弃，不包含在类文件中<br>RetentionPolicy.CLASS    JVM加载时被丢弃，包含在类文件中，默认值<br>RetentionPolicy.RUNTIME    由JVM 加载，包含在类文件中，在运行时可以被获取到</p>
-<p>@Document<br>  表明该注解标记的元素可以被Javadoc 或类似的工具文档化</p>
-<p>@Inherited<br>  表明使用了@Inherited注解的注解，所标记的类的子类也会拥有这个注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.FIELD, ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Info &#123;</span><br><span class="line">      <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;tracy&quot;</span>;</span><br><span class="line">      <span class="function"><span class="keyword">boolean</span> <span class="title">isDelete</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用自定义注解"><a href="#使用自定义注解" class="headerlink" title="使用自定义注解"></a>使用自定义注解</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Builder</span></span><br><span class="line"><span class="comment">// 为Person类配置了刚刚定义的注解@Info</span></span><br><span class="line"><span class="meta">@Info(isDelete = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用反射解析注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnnotationTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//获取Person的Class对象(类)</span></span><br><span class="line">            Person person = Person.builder().build();</span><br><span class="line">            Class clazz = person.getClass();</span><br><span class="line">            <span class="comment">//判断类上是否有Info注解</span></span><br><span class="line">            <span class="keyword">if</span> (clazz.isAnnotationPresent(Info.class)) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;Person类上配置了Info注解！&quot;</span>);</span><br><span class="line">                <span class="comment">//获取该对象上Info类型的注解</span></span><br><span class="line">                Info infoAnno = (Info) clazz.getAnnotation(Info.class);</span><br><span class="line">                System.out.println(<span class="string">&quot;infoAnno.value :&quot;</span> + infoAnno.value() + <span class="string">&quot;,infoAnno.isDelete:&quot;</span> + infoAnno.isDelete());</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;Person类上没有配置Info注解！&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对于一个类或者接口来说，Class类(java.lang包下)中提供了一些方法用于反射注解，当然对于字段、方法来说反射注解的方式很类似。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回指定的注解</span></span><br><span class="line">getAnnotation</span><br><span class="line"><span class="comment">//判断当前元素是否被指定注解修饰</span></span><br><span class="line">isAnnotationPresent</span><br><span class="line"><span class="comment">//返回所有的注解</span></span><br><span class="line">getAnnotations</span><br></pre></td></tr></table></figure>
-
-<p>————————————————</p>
-<p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zt15732625878/article/details/100061528">https://blog.csdn.net/zt15732625878/article/details/100061528</a></p>
-<p>————————————————</p>
-<h3 id="使用自定义注解例子2"><a href="#使用自定义注解例子2" class="headerlink" title="使用自定义注解例子2"></a>使用自定义注解例子2</h3><p>&lt;1&gt;.作用在属性上注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.FIELD)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> FiledAnnotation &#123;</span><br><span class="line">	 <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;GetFiledAnnotation&quot;</span>;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>&lt;2&gt;.作用在方法上注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.METHOD)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MethodAnnotation &#123;</span><br><span class="line">	<span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> &quot;MethodAnnotation&quot;</span>;   </span><br><span class="line">    <span class="function">String <span class="title">url</span><span class="params">()</span> <span class="keyword">default</span> &quot;https:<span class="comment">//www.cnblogs.com&quot;;</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>&lt;3&gt;.作用在类上注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> TypeAnnotation &#123;</span><br><span class="line">	<span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> &quot;Is-TypeAnnotation&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>&lt;4&gt;.使用自定义注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@TypeAnnotation(value = &quot;doWork&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Worker</span> </span>&#123;</span><br><span class="line"><span class="meta">@FiledAnnotation(value = &quot;CSDN博客&quot;)</span></span><br><span class="line"><span class="keyword">private</span> String myfield = <span class="string">&quot;&quot;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@MethodAnnotation()</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getDefaultInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;do the getDefaultInfo method&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@MethodAnnotation(name = &quot;百度&quot;, url = &quot;www.baidu.com&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getDefineInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;do the getDefineInfo method&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&lt;5&gt;.测试自定义注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestMain</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	</span><br><span class="line">    Class cls = Class.forName(<span class="string">&quot;com.zbz.annotation.pattern3.Worker&quot;</span>);</span><br><span class="line">    Method[] method = cls.getMethods();</span><br><span class="line">    <span class="comment">/**判断Worker类上是否有TypeAnnotation注解*/</span></span><br><span class="line">    <span class="keyword">boolean</span> flag = cls.isAnnotationPresent(TypeAnnotation.class);</span><br><span class="line">    <span class="comment">/**获取Worker类上是TypeAnnotation注解值*/</span></span><br><span class="line">    <span class="keyword">if</span> (flag) &#123;</span><br><span class="line">    	TypeAnnotation typeAnno = (TypeAnnotation) cls.getAnnotation(TypeAnnotation.class);</span><br><span class="line">    	System.out.println(<span class="string">&quot;@TypeAnnotation值:&quot;</span> + typeAnno.value());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**方法上注解*/</span></span><br><span class="line">    List&lt;Method&gt; list = <span class="keyword">new</span> ArrayList&lt;Method&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; method.length; i++) &#123;</span><br><span class="line">        list.add(method[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (Method m : list) &#123;</span><br><span class="line">    	MethodAnnotation methodAnno = m.getAnnotation(MethodAnnotation.class);</span><br><span class="line">        <span class="keyword">if</span> (methodAnno == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        System.out.println( <span class="string">&quot;方法名称:&quot;</span> + m.getName());</span><br><span class="line">        System.out.println(<span class="string">&quot;方法上注解name = &quot;</span> + methodAnno.name());</span><br><span class="line">        System.out.println(<span class="string">&quot;方法上注解url = &quot;</span> + methodAnno.url());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**属性上注解*/</span></span><br><span class="line">    List&lt;Field&gt; fieldList = <span class="keyword">new</span> ArrayList&lt;Field&gt;();  <span class="comment">//Field表示属性</span></span><br><span class="line">    <span class="keyword">for</span> (Field f : cls.getDeclaredFields()) &#123;<span class="comment">// 访问所有字段</span></span><br><span class="line">    	FiledAnnotation filedAno = f.getAnnotation(FiledAnnotation.class);</span><br><span class="line">    	System.out.println( <span class="string">&quot;属性名称:&quot;</span> + f.getName());</span><br><span class="line">    	System.out.println(<span class="string">&quot;属性注解值FiledAnnotation = &quot;</span> + filedAno.value());</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangbeizhen18/article/details/87885441/">https://blog.csdn.net/zhangbeizhen18/article/details/87885441/</a></p>
-<p>————————————————</p>
-<h3 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h3><p>自定义注解像是为类或者什么的新增加了属性，可以有默认值，通过类可以获得类上的自定义注解，然后通过注解获得注解中的值。注解不是属于对象的。定义在属性上的，可以用属性注解来区别这些属性，相当于属性名的别名。</p>
-<h3 id="其他参考"><a href="#其他参考" class="headerlink" title="其他参考"></a>其他参考</h3><p>自定义注解+AOP：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/283936459">https://zhuanlan.zhihu.com/p/283936459</a></p>
-<p>使用方法上的注解，实现通过注解来唤醒一个类里方法的效果：</p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b5b79434d3b5">https://www.jianshu.com/p/b5b79434d3b5</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2235,7 +2222,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -2248,7 +2235,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

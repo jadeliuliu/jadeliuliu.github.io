@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
 <meta property="og:description" content="规范1、sql（dao层）返回的，尽量不要用VO，而使用DO。除非联表查询？dao层查出来的do需要加其他表的一两个字段，可以在原表do的基础上继承封装一下，如果要传入，可以直接输入子类，dao层处理时会自动解析为父类。 2、service里面不要调不想干的dao层方法，而是调dao所在service的方法。 3、继承自同一抽象类的类方法，需要对同一返回处理，并且是串行的，可以输入中用contex">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2019101117003396.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5MjI5NTY3,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="http://example.com/images/java%E5%BC%82%E5%B8%B8.png">
 <meta property="article:published_time" content="2022-04-30T04:00:26.926Z">
-<meta property="article:modified_time" content="2023-06-04T07:51:40.444Z">
+<meta property="article:modified_time" content="2023-08-20T07:33:35.862Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2019101117003396.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5MjI5NTY3,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="http://example.com/images/java%E5%BC%82%E5%B8%B8.png">
 
 <link rel="canonical" href="http://example.com/2022/04/30/myblog/JAVA/java/">
 
@@ -221,7 +221,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-06-04 15:51:40" itemprop="dateModified" datetime="2023-06-04T15:51:40+08:00">2023-06-04</time>
+                <time title="Modified: 2023-08-20 15:33:35" itemprop="dateModified" datetime="2023-08-20T15:33:35+08:00">2023-08-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1167,7 +1167,7 @@
 <p>背景：什么时候需要在方法上throws异常，一定要throws吗？<br>🤔运行时异常，可以不在方法上throws，虚拟机会自动捕获抛出去。编译时异常通常在编译时就要求throws出去异常，或者用try…catch进行异常处理（打log之类）。</p>
 <p>背景：什么时候需要try..catch..throw..throws<br>🤔首先运行时异常可以不throws，如果没有try..catch，会自动throws出去，所以如果不是try..catch..对特殊异常捕获，没必要try..catch..throws。编译型异常如果是try..catch..打log了，就不用throws了。如果想抛出去，就直接throws就行。所以不需要try..catch..throw..throws。如果即想用try..catch..finally..还想throws出去，就用。</p>
 <h4 id="✅java的异常体系"><a href="#✅java的异常体系" class="headerlink" title="✅java的异常体系"></a>✅java的异常体系</h4><p>首先Exception和Error都是继承于Throwable 类，在 Java 中只有 Throwable 类型的实例才可以被抛出（throw）或者捕获（catch），它是异常处理机制的基本组成类型。</p>
-<p><img src="https://img-blog.csdnimg.cn/2019101117003396.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5MjI5NTY3,size_16,color_FFFFFF,t_70"></p>
+<p><img src="/images/java%E5%BC%82%E5%B8%B8.png"></p>
 <p>Error是编译时错误和系统错误，系统错误在除特殊情况下，都不需要你来关心，基本不会出现。而编译时错误，如果你使用了编译器，那么编译器会提示。</p>
 <p>Exception则是可以被抛出的基本类型，我们需要主要关心的也是这个类。<br>Exception又分为RunTimeException和其他Exception。</p>
 <p>RunTimeException：运行时异常，又称不受检查异常，不受检查，因为不受检查，所以在代码中可能会有RunTimeException时Java编译检查时不会告诉你有这个异常，但是在实际运行代码时则会暴露出来，比如经典的1/0，空指针等。如果不处理也会被Java自己处理。</p>
@@ -1614,7 +1614,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1627,7 +1627,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

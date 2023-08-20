@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
 <meta property="og:description" content="工作中需要将应用部署在本地，想来之前用go的时候貌似是直接编译运行就在本地部署了，但是java需要用到maven打包，还没打包过，学习一下。顺便工作中查看日志对log4j、sjf4j、logback、lomback这几个东西有点迷糊，所以先学一下日志相关的，然后建工程打包部署在本地看下效果。 1.lombok自然不必多说，lombok可以通过简单的注解的形式来帮助我们简化和消除一些必须有但显得很臃">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/e5308c09a82e0c57889adea715d6a602.png">
+<meta property="og:image" content="http://example.com/images/logback.png">
 <meta property="article:published_time" content="2022-04-03T03:02:33.734Z">
-<meta property="article:modified_time" content="2022-10-30T07:48:31.931Z">
+<meta property="article:modified_time" content="2023-08-20T07:34:30.951Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="maven">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/img_convert/e5308c09a82e0c57889adea715d6a602.png">
+<meta name="twitter:image" content="http://example.com/images/logback.png">
 
 <link rel="canonical" href="http://example.com/2022/04/03/myblog/JAVA/log%E6%97%A5%E5%BF%97%E4%B8%8Emaven%E6%89%93%E5%8C%85/">
 
@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-10-30 15:48:31" itemprop="dateModified" datetime="2022-10-30T15:48:31+08:00">2022-10-30</time>
+                <time title="Modified: 2023-08-20 15:34:30" itemprop="dateModified" datetime="2023-08-20T15:34:30+08:00">2023-08-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -271,7 +271,7 @@
 </ol>
 <h3 id="2-SLF4J"><a href="#2-SLF4J" class="headerlink" title="2.SLF4J"></a>2.SLF4J</h3><h4 id="接口与包关系"><a href="#接口与包关系" class="headerlink" title="接口与包关系"></a>接口与包关系</h4><p>Simple logging Facade for Java，意思为简单日志门面，它是把不同的日志系统的实现进行了具体的抽象化，只提供了统一的日志使用接口，使用时只需要按照其提供的接口方法进行调用即可，由于<strong>它只是一个接口</strong>，并不是一个具体的可以直接单独使用的日志框架，所以最终日志的格式、记录级别、输出方式等都要<strong>通过接口绑定的具体的日志系统来实现</strong>，这些具体的日志系统就有log4j、logback、java.util.logging等，它们才实现了具体的日志系统的功能。</p>
 <p>SLF4J只是一个接口，实际使用时必须要结合具体的日志系统来使用，我们首先来看SLF4J和各个具体的日志系统进行绑定时的框架原理图：</p>
-<p><img src="https://img-blog.csdnimg.cn/img_convert/e5308c09a82e0c57889adea715d6a602.png"></p>
+<p><img src="/images/logback.png"></p>
 <p>slf4j原理很简单，他只提供一个核心slf4j api(就是slf4j-api.jar包)，这个包只有日志的接口，并没有实现，所以如果要使用就得<strong>再给它提供一个实现了些接口的日志包</strong>，比 如：log4j、common logging、jdk log日志实现包等，但是<strong>这些日志实现又不能通过接口直接调用</strong>，实现上他们根本就和slf4j-api不一致，因此slf4j又增加了一层来<strong>转换各日志实现包的使用</strong>，当然slf4j-simple除外。其结构如下： </p>
 <blockquote>
 <p>slf4j-api(接口层)<br> | |<br>各日志实现包的连接层( slf4j-jdk14, slf4j-log4j)<br> | |<br>各日志实现包     </p>
@@ -734,7 +734,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -747,7 +747,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

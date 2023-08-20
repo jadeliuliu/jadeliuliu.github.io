@@ -27,14 +27,11 @@
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
 <meta property="og:description" content="本书介绍如何使用Spring和Spring Boot开发基于Web、数据库作为后端的Java应用。如何与其他应用进行集成，使用反应式类型进行编程，以及将应用拆分成离散的微服务。最后如何准备应用的部署。 Spring5.0和Spring Boot2.0 第一章 Spring起步什么是springspring支持：面向云的由微服务组成的应用，反应式编程，致力于通过非阻塞操作提供更好的扩展性并提升性能。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/15e1c5c2492e4dbdb6f01e76bdd87b00.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/f285480b152f4c6bb537a8b6dc309f46.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
 <meta property="article:published_time" content="2021-12-15T10:52:13.995Z">
-<meta property="article:modified_time" content="2022-05-10T13:39:58.250Z">
+<meta property="article:modified_time" content="2023-08-20T07:37:37.270Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/15e1c5c2492e4dbdb6f01e76bdd87b00.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16">
 
 <link rel="canonical" href="http://example.com/2021/12/15/myblog/spring/%E3%80%8ASpring%E5%AE%9E%E6%88%98%E3%80%8B/">
 
@@ -222,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-10 21:39:58" itemprop="dateModified" datetime="2022-05-10T21:39:58+08:00">2022-05-10</time>
+                <time title="Modified: 2023-08-20 15:37:37" itemprop="dateModified" datetime="2023-08-20T15:37:37+08:00">2023-08-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -363,7 +360,6 @@
 <p>Spring Boot 应用程序倾向于裹挟所有需要的东西，而不需要部署到某个应用服务器。你从未将应用程序部署到 Tomcat… 其实 Tomcat 是应用程序的一部分！(将在 1.3.6 小节中详细描述 Tomcat 如何成为应用程序的一部分的。)</p>
 <p>现在应用程序已经启动，将 web 浏览器指向 <a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080</a>（或单击 Spring Boot Dashboard 中地球仪样子的按钮)。</p>
 <p>同一共有网下，可以通过ip访问到。<code>ifconfig en0</code></p>
-<p><img src="https://img-blog.csdnimg.cn/15e1c5c2492e4dbdb6f01e76bdd87b00.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
 <h3 id="Spring-Boot-DevTools"><a href="#Spring-Boot-DevTools" class="headerlink" title="Spring Boot DevTools"></a>Spring Boot DevTools</h3><p>在初始化项目时将其作为依赖项进行选择。Spring Boot DevTools作为一个依赖项出现在生成的 pom.xml 文件中。Spring Boot Dashboard 甚至显示项目已经启用了 DevTools。但是什么是 DevTools，它能为您做什么？</p>
 <p>DevTools 为 Spring 开发人员提供了一些方便的开发同步工具。这些是：</p>
 <ul>
@@ -664,7 +660,6 @@
 <p>showDesignForm() 方法的第 2 行现在调用了注入的 IngredientRepository 的 findAll() 方法。findAll() 方法从数据库中提取所有 Ingredient，然后将它们对应到到模型的不同类型中。</p>
 <h3 id="写表并预加载数据"><a href="#写表并预加载数据" class="headerlink" title="写表并预加载数据"></a>写表并预加载数据</h3><p>在开始从查询中引用的 Ingredient 表读取数据之前，应该创建这个表并写一些 Ingredient 数据进去。</p>
 <p>除了 Ingredient 表之外，还需要一些保存订单和设计信息的表。也就是要定义数据库数据规则。create语句。</p>
-<p><img src="https://img-blog.csdnimg.cn/f285480b152f4c6bb537a8b6dc309f46.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAamFkZWxsbGx4eHg=,size_20,color_FFFFFF,t_70,g_se,x_16"></p>
 <ul>
 <li>Ingredient - 保存着原料信息</li>
 <li>Taco - 保存着关于 taco 设计的重要信息</li>
@@ -891,7 +886,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -904,7 +899,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

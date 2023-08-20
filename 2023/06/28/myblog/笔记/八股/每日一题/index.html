@@ -22,13 +22,13 @@
 
   <meta name="description" content="mysql查询慢怎么优化1.建索引，where order by涉及的列建立索引2.索引优化，最左匹配原则3.建立分区，如时间字段4.利用缓存redis，缓存热数据5.查询限定数据范围，如查询一个月内的6.读写分离7.分库分表，垂直拆分水平拆分8.数据异构到es9.冷热数据分离10.升级OceanBase 1 使用索引：建立合适的索引可以大大提高查询效率，可以使用explain命令查看查询执行计划">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网络八股文">
+<meta property="og:title" content="每日一题">
 <meta property="og:url" content="http://example.com/2023/06/28/myblog/%E7%AC%94%E8%AE%B0/%E5%85%AB%E8%82%A1/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/index.html">
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
 <meta property="og:description" content="mysql查询慢怎么优化1.建索引，where order by涉及的列建立索引2.索引优化，最左匹配原则3.建立分区，如时间字段4.利用缓存redis，缓存热数据5.查询限定数据范围，如查询一个月内的6.读写分离7.分库分表，垂直拆分水平拆分8.数据异构到es9.冷热数据分离10.升级OceanBase 1 使用索引：建立合适的索引可以大大提高查询效率，可以使用explain命令查看查询执行计划">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-06-28T01:28:04.231Z">
-<meta property="article:modified_time" content="2023-07-03T14:53:00.512Z">
+<meta property="article:modified_time" content="2023-07-07T15:34:16.831Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="八股">
 <meta name="twitter:card" content="summary">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>网络八股文 | Jadeliu's blog</title>
+  <title>每日一题 | Jadeliu's blog</title>
   
 
 
@@ -202,7 +202,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          网络八股文
+          每日一题
         </h1>
 
         <div class="post-meta">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-07-03 22:53:00" itemprop="dateModified" datetime="2023-07-03T22:53:00+08:00">2023-07-03</time>
+                <time title="Modified: 2023-07-07 23:34:16" itemprop="dateModified" datetime="2023-07-07T23:34:16+08:00">2023-07-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -320,6 +320,42 @@
 <p>在运行过程中，任意一个类，知道这个类的属性、方法；任意一个对象，可以调用它的方法/属性。</p>
 <p>反射应用场景：<br>1.JDBC连接数据库时使用Class.forName()，通过反射加载数据库的驱动程序。<br>2.IDEA利用反射动态解析对象类型、结果，提示对象属性、方法。<br>3.Web服务器中利用反射调用Servlet的service方法。<br>4.JDK动态代理底层依赖反射实现。</p>
 <h3 id="String、StringBuilder、StringBuffer"><a href="#String、StringBuilder、StringBuffer" class="headerlink" title="String、StringBuilder、StringBuffer"></a>String、StringBuilder、StringBuffer</h3><p>1.可变性：String不可变<br>2.线程安全：String线程安全，StringBuilder非线程安全，StringBuffer线程安全，内部使用synchronized同步。</p>
+<h3 id="Hashmap的底层原理"><a href="#Hashmap的底层原理" class="headerlink" title="Hashmap的底层原理"></a>Hashmap的底层原理</h3><p>HahMap集合存储键值映射关系，该集合的键和值允许为空，但键不能重复，且集合中的元素是<strong>无序的</strong>。</p>
+<p>HashMap底层：哈希表结构=数组+链表。数组是HashMap的主体结构，链表则是为了解决哈希值冲突而存在的分支结构。因此HashMap对元素的增删改查表现出的效率都很高。</p>
+<p>水平方向上数组的长度称为HashMap集合的容量（capacity），竖直方向每个元素对应的链表结构称为一个桶（bucket），每个桶的位置在集合中都有对应的桶值，用于快速定位。每个链表结构是&lt;key,value&gt;的键值对。</p>
+<h3 id="ArrayList的底层原理"><a href="#ArrayList的底层原理" class="headerlink" title="ArrayList的底层原理"></a>ArrayList的底层原理</h3><p>ArrayList内部封装了一个长度可变的数组对象，当存入的元素超过数组长度时，ArrayList会在内存中分配一个更大的数组来存储这些元素，因此ArrayList可以看作是一个长度可变的数组。</p>
+<p>正是由于ArrayList内部的数据存储结构是数组形式，在增加和删除指定位置的元素时，会创建新的数组，效率比较低，因此不适合做大量的增删操作。但是在遍历和查找元素时显得非常高效。</p>
+<h3 id="ArrayList和LinkedList的区别"><a href="#ArrayList和LinkedList的区别" class="headerlink" title="ArrayList和LinkedList的区别"></a>ArrayList和LinkedList的区别</h3><p>1.底层数据结构不同，ArrayList底层基于动态数组实现，连续内存存储的。LinkedList底层是基于链表实现的，可以存储在分散的内存中。</p>
+<p>2.适用场景不同，ArrayList更适合随机查找，LinkedList更适合插入和删除操作，不适合查询。</p>
+<h3 id="List和Set的区别"><a href="#List和Set的区别" class="headerlink" title="List和Set的区别"></a>List和Set的区别</h3><p>1.List有序，可重复，Set无序，不可重复</p>
+<p>2.List允许多个Null元素对象，Set最多允许有一个Null元素对象。</p>
+<p>3.List可以使用Iterator取出所有元素，再逐一遍历，也可以使用get()获取指定下标的元素，Set取元素只能使用Iterator取出所有元素，再逐一遍历。</p>
+<h3 id="线程安全怎么理解，哪些场景会有，怎么解决"><a href="#线程安全怎么理解，哪些场景会有，怎么解决" class="headerlink" title="线程安全怎么理解，哪些场景会有，怎么解决"></a>线程安全怎么理解，哪些场景会有，怎么解决</h3><p>线程安全指的是多线程环境下的程序，保证在多个线程同时执行时，不会出现数据竞争、死锁等问题，保证程序的正确性。<br>线程安全问题通常出现在多个线程同时访问共享的资源（如全局变量、静态变量、堆内存等）时，可能会出现数据不一致或者数据错误的情况。比如多个线程同时访问同一个对象的属性或者方法，就可能会导致数据错误。<br>解决线程安全问题的常见方法包括以下几种：</p>
+<ol>
+<li>锁机制：通过加锁的方式，保证共享资源在同一时刻只能被一个线程访问，其他线程需要等待锁释放后再访问。</li>
+<li>原子操作：使用原子操作可以保证对共享资源的操作是不可分劃的，避免了多个线程同时修改共享资源导致的数据竞争问题。</li>
+<li>无锁算法：通过设计无锁的算法来避免锁带来的性能瓶颈和死锁问题，比如使用CAS操作等。</li>
+<li>线程本地存储：将共享资源复制到各 个线程的本地存储中，避免了多线程同时访问共享资源的问题，提高了程序的并发性能。</li>
+<li>使用线程安全的数据结构：Java提供了一些线程安全的数据结构，如ConcurrentHashMap• CopyOnWriteArrayList<br>等，这些数据结构可以保证多线程并发访问时的数据安全。</li>
+</ol>
+<h3 id="分库分表怎么做到不停机扩容"><a href="#分库分表怎么做到不停机扩容" class="headerlink" title="分库分表怎么做到不停机扩容"></a>分库分表怎么做到不停机扩容</h3><p>分库分表是为了解決单个数据库存储和查询性能瓶颈的问题，但是在数据量增大时，也可能会出现分库分表的扩容需求。为了不停机，可以采取以下几种方法。</p>
+<p>1.垂直拆分：垂直拆分是把一个大的数据库按照业务逻辑分为多个小的数据库，比如一个数据库中包含用户信息、订单信息．商品信息等，可以垂直拆分 成三个小数据库来存储。这样就可以对每个小的数据库进行独立的扩容，而不会影响其他数据库的正常运行。</p>
+<p>2.水平拆分：水平拆分是把一个大的表按照某个规则（比如按照订单号的后几位）拆分成多个小表，这样可以将数据均匀地分布在多个表中，避免单个表数据过大。在水平拆分时，可以采用分区表技术，将表按照一定规则分为多个分区，每个分区可以独立进行扩容操作。</p>
+<p>3.数据库中问件：数据库中问件可以通过代理和分发数据库请求的方式来实现对多个数据库的负载均衡和水平扩展，如MyCAT、Sharding Sphere等，这些中间件可以自动将数据分散到多个数据库中，实现读写分离和负载均衡，并支持在线扩容和缩容。</p>
+<p>4.数据库主从同步：数据库主从同步是通过将主数据库的数据同步到多个从数据库中，实现读写分离和扩容的目的。在扩容时，可以先增加新的从数据库，然后将主数据库的数据同之到新的从数据库中，然后再将新的从数据库提升为主数据库，这样就可以实现在线扩容。</p>
+<p>总之，在分库分表扩容时，需要考虑数据一致性、负载均衡和性能等方面的问题，通过合理的设计和实现可以避免停机扩容<br>带来的业务中断和数据丢失问题。</p>
+<h3 id="双写数据丢失怎么办"><a href="#双写数据丢失怎么办" class="headerlink" title="双写数据丢失怎么办"></a>双写数据丢失怎么办</h3><p>双写数据丢失是指在分布式系统中，当数据写入成功后，由于多个副本之间的同步存在延迟或者错误导致的数据不一致，甚至数据丟失的情况。为了避免双写数据丢失，可以采取以下措施：</p>
+<p>1.强一致性模型：强一致性模型可以保证每个写操作都会被其他节点立即感知到，并保证所有节点上的数据一致性。不过强一致性模型会影响系统的性能和可用性，需要在系统的性能和一致性之问进行权衡。</p>
+<p>2.乐观锁机制：乐观锁机制可以避免多个节点同时修改同一个数据，通过增加版本号或者时间戳等机制来判断数据是否过期，从而避免了双写问题。但是这种方式需要考虑到并发更新导致的重试机制和性能问题。</p>
+<p>3.写前复制：写前复制是指当数据写入时，先将数据复制到所有 节点，然后再进行写操作。这种方式可以保证数据的-致性，但是会增加系统的延迟和存储开销。</p>
+<p>4.Paxos算法：Paxos算法是一种保证一致性的分布式算法，在分布式系统中广泛应用。Paxos算法可以保证在网络分区或者节点宕机的情況下仍然能够保证数据一致性。</p>
+<p>总之，在分布式系统中，为了避免双写数据丢失，需要采取适当的措施来保证系统的一致性和可用性。在选择方案时，需要根据系统的性能、可用性和一致性等需求来进行权衡，选择最适合的方案。</p>
+<h3 id="数据库事务，垮库事务怎么解决"><a href="#数据库事务，垮库事务怎么解决" class="headerlink" title="数据库事务，垮库事务怎么解决"></a>数据库事务，垮库事务怎么解决</h3><p>数据库事务是一组操作，这些操作要么全部成功执行，要么全部失败回滚，保证数据库的一致性和完整性。事务通常具有四个关键属性：ACID，即原子性 (Atomicity)）、一致性 (Consistency）、隔离性 (solation） 和持久性 (Durabilty)。<br>ACID属性保证了数据库事务的可靠性和一致性。</p>
+<p>在分布式环境下，由于数据分布在多个节点上，可能会出现垮库事务的问题。垮库事务是指涉及到多个数据库的一组操作，这些操作要么全部成功，要么全部失败回滚，保证数据库的一致性和完整性。解决垮库事务问题可以采取以下几种方式：</p>
+<p>1． 两阶段提交：两阶段提交是一种经典的垮库事务解决方案，它通过协调者和参与者的交互，保证所有节点的事务操作要么全部提交，要么全部回滚。在两阶段提交中，协调者负责协调所有参与者提交和回滚操作，确保所有节点的事务<br>操作一致性。在两阶段提交中，分为投票阶段和提交阶段。在投票阶段中，协调器会向所有参与者询问是否可以提交事务，如果所有参与者都同意，则进入提交阶段，否则回滚事务。</p>
+<p>2．补偿事务：补偿事务是一种通过补偿操作来回滚垮库事务的机制。当一个事务涉及多个数据库时，可以在每个数据库上执行补偿操作，将事务回滚到原始状态。补偿事务的实现需要考虑到多个操作之间的依赖关系和执行顺序。</p>
+<p>3.分布式锁：分布式锁可以保证在多个节点上只有一个节点能够执行事务操作，避免多个节点同时修改同一个数据导致的冲突问题。在垮库事务中，可以通过分布式锁来保证同一时刻只有一个节点能够执行事务操作。</p>
+<p>总之，在分布式环境下，垮库事务是非常常见的问题，需要采取合适的措施来保证数据库的一致性和完整性。在解决垮库事务问题时，需要根据系统的需求和性能来选择合适的方案。</p>
 
     </div>
 
@@ -341,7 +377,10 @@
     <a href="/2023/05/01/myblog/%E7%AC%94%E8%AE%B0/%E5%85%AB%E8%82%A1/java%E5%B9%B6%E5%8F%91/" rel="prev" title="java并发">
       <i class="fa fa-chevron-left"></i> java并发
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/08/20/myblog/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E4%BA%8Etensorflow%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="next" title="基于tensorflow的深度学习">
+      基于tensorflow的深度学习 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -400,7 +439,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql%E6%9F%A5%E8%AF%A2%E6%85%A2%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">mysql查询慢怎么优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">2.</span> <span class="nav-text">微服务是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B9%8B%E9%97%B4%E6%98%AF%E5%A6%82%E4%BD%95%E9%80%9A%E8%AE%AF%E7%9A%84"><span class="nav-number">3.</span> <span class="nav-text">微服务之间是如何通讯的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPC%E5%92%8CHTTP%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">RPC和HTTP的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88RPC%E6%9C%89%E7%9A%84%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89TCP%E5%8D%8F%E8%AE%AE%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AFHTTP"><span class="nav-number">5.</span> <span class="nav-text">为什么RPC有的用自定义TCP协议进行远程通信，而不是HTTP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grpc%E5%92%8Crpc%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">6.</span> <span class="nav-text">grpc和rpc的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9"><span class="nav-number">7.</span> <span class="nav-text">HTTP有什么特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E9%95%BF%E8%BF%9E%E6%8E%A5"><span class="nav-number">8.</span> <span class="nav-text">HTTP长连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP1-1%E5%92%8CHTTP2-0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">9.</span> <span class="nav-text">HTTP1.1和HTTP2.0的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E9%80%9A%E4%BF%A1%E5%AE%89%E5%85%A8%E5%90%97"><span class="nav-number">10.</span> <span class="nav-text">HTTP通信安全吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RESTFUL%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">11.</span> <span class="nav-text">RESTFUL是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">12.</span> <span class="nav-text">正向代理和反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82%EF%BC%9A"><span class="nav-number">13.</span> <span class="nav-text">网络分层：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GET%E5%92%8CPOST%E5%8C%BA%E5%88%AB"><span class="nav-number">14.</span> <span class="nav-text">GET和POST区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Autowired%E5%92%8C-Resource%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">15.</span> <span class="nav-text">@Autowired和@Resource的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java%E5%8F%8D%E5%B0%84%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">16.</span> <span class="nav-text">java反射是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E3%80%81StringBuilder%E3%80%81StringBuffer"><span class="nav-number">17.</span> <span class="nav-text">String、StringBuilder、StringBuffer</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql%E6%9F%A5%E8%AF%A2%E6%85%A2%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">mysql查询慢怎么优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">2.</span> <span class="nav-text">微服务是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B9%8B%E9%97%B4%E6%98%AF%E5%A6%82%E4%BD%95%E9%80%9A%E8%AE%AF%E7%9A%84"><span class="nav-number">3.</span> <span class="nav-text">微服务之间是如何通讯的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPC%E5%92%8CHTTP%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">RPC和HTTP的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88RPC%E6%9C%89%E7%9A%84%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89TCP%E5%8D%8F%E8%AE%AE%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AFHTTP"><span class="nav-number">5.</span> <span class="nav-text">为什么RPC有的用自定义TCP协议进行远程通信，而不是HTTP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grpc%E5%92%8Crpc%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">6.</span> <span class="nav-text">grpc和rpc的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9"><span class="nav-number">7.</span> <span class="nav-text">HTTP有什么特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E9%95%BF%E8%BF%9E%E6%8E%A5"><span class="nav-number">8.</span> <span class="nav-text">HTTP长连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP1-1%E5%92%8CHTTP2-0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">9.</span> <span class="nav-text">HTTP1.1和HTTP2.0的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E9%80%9A%E4%BF%A1%E5%AE%89%E5%85%A8%E5%90%97"><span class="nav-number">10.</span> <span class="nav-text">HTTP通信安全吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RESTFUL%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">11.</span> <span class="nav-text">RESTFUL是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">12.</span> <span class="nav-text">正向代理和反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82%EF%BC%9A"><span class="nav-number">13.</span> <span class="nav-text">网络分层：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GET%E5%92%8CPOST%E5%8C%BA%E5%88%AB"><span class="nav-number">14.</span> <span class="nav-text">GET和POST区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Autowired%E5%92%8C-Resource%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">15.</span> <span class="nav-text">@Autowired和@Resource的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java%E5%8F%8D%E5%B0%84%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">16.</span> <span class="nav-text">java反射是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String%E3%80%81StringBuilder%E3%80%81StringBuffer"><span class="nav-number">17.</span> <span class="nav-text">String、StringBuilder、StringBuffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hashmap%E7%9A%84%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="nav-number">18.</span> <span class="nav-text">Hashmap的底层原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ArrayList%E7%9A%84%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="nav-number">19.</span> <span class="nav-text">ArrayList的底层原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ArrayList%E5%92%8CLinkedList%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">20.</span> <span class="nav-text">ArrayList和LinkedList的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List%E5%92%8CSet%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">21.</span> <span class="nav-text">List和Set的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3%EF%BC%8C%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E4%BC%9A%E6%9C%89%EF%BC%8C%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3"><span class="nav-number">22.</span> <span class="nav-text">线程安全怎么理解，哪些场景会有，怎么解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E6%80%8E%E4%B9%88%E5%81%9A%E5%88%B0%E4%B8%8D%E5%81%9C%E6%9C%BA%E6%89%A9%E5%AE%B9"><span class="nav-number">23.</span> <span class="nav-text">分库分表怎么做到不停机扩容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E5%86%99%E6%95%B0%E6%8D%AE%E4%B8%A2%E5%A4%B1%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="nav-number">24.</span> <span class="nav-text">双写数据丢失怎么办</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%EF%BC%8C%E5%9E%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3"><span class="nav-number">25.</span> <span class="nav-text">数据库事务，垮库事务怎么解决</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -415,7 +454,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -428,7 +467,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

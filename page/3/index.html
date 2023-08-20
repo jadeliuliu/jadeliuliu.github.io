@@ -183,6 +183,99 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/25/myblog/JAVA/ssm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/25/myblog/JAVA/ssm/" class="post-title-link" itemprop="url">ssm是什么</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-06-25 16:32:52 / Modified: 17:38:44" itemprop="dateCreated datePublished" datetime="2022-06-25T16:32:52+08:00">2022-06-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>SSM框架：Spring + SpringMVC + MyBatis</p>
+<p>Spring和SpringMVC是当前企业开发必用框架之一，MyBatis则是与数据库交互的持久层框架之一，由于易用性和轻便性，则被大多互联网公司所选用。SSM基础框架的掌握是当前企业开发最基本的要求，也是其他技术学习和进阶的必要基础。</p>
+<p>b站视频地址：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1WZ4y1P7Bp?p=42">https://www.bilibili.com/video/BV1WZ4y1P7Bp?p=42</a></p>
+<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><h3 id="SpringMVC简介"><a href="#SpringMVC简介" class="headerlink" title="SpringMVC简介"></a>SpringMVC简介</h3><p>MVC模式是什么？</p>
+<p>MVC 模式代表 Model-View-Controller（模型-视图-控制器） 模式。这种模式用于应用程序的分层开发。</p>
+<ul>
+<li><strong>Model（模型）</strong> - 模型代表一个存取数据的对象或 JAVA POJO。它也可以带有逻辑，在数据变化时更新控制器。</li>
+<li><strong>View（视图）</strong> - 视图代表模型包含的数据的可视化。</li>
+<li><strong>Controller（控制器）</strong> - 控制器作用于模型和视图上。它控制数据流向模型对象，并在数据变化时更新视图。它使视图与模型分离开。</li>
+</ul>
+<p>SpringMVC概述？</p>
+<p>SpringMVC是一种基于Java实现的MVC设计模型的请求驱动类型的轻量级Web框架，属于SpringFrameWork的后续产品，已经融合在Spring Web Flow中。</p>
+<p>SpringMVC已经成为目前最主流的MVC框架之一，并且随着Spring3.0的发布，全面超越Structs2，成为最优秀的MVC框架。它通过一套注解，让一个简单的Java类成为处理请求的控制器，而无须实现任何接口。同时它还支持RESTful编程风格的请求。web文件夹内servelet？</p>
+<h3 id="MyBatis简介"><a href="#MyBatis简介" class="headerlink" title="MyBatis简介"></a>MyBatis简介</h3><p>持久层框架，方便数据库操作的。</p>
+<p>原始比较繁琐的jdbc操作：注册驱动–获得连接–获得statement–执行查询–遍历结果集（封装实体，传递）–释放资源。</p>
+<p>缺点：代码重复（比如获得连接资源），资源频繁连接关闭，消耗资源，sql语句比较死，得解耦合，用配置文件。</p>
+<p>jdbc缺点：（1）数据库创建、释放资源造成系统资源浪费从而影响系统性能。（2）sql语句在代码中硬编码，造成代码不易维护，实际应用sql变化的可能较大，sql变动需要改变java代码，耦合性高。（3）查询操作时，需要手动将结果集中的数据手动封装到实体中，插入操作时，需要手动将实体的数据设置到sql语句的占位符位置。</p>
+<p>应对上述问题给出的解决方案：（1）使用数据库连接池初始化连接资源。（2）将sql语句抽到xml配置文件中。（3）使用反射、内省等底层技术，自动将实体与表进行属性与字段的自动映射。</p>
+<p>MyBatis是一个优秀的基于java的持久层框架，它内部封装了jdbc，使开发者只需要关注sql语句本身，而不需要花费精力去处理加载驱动、创建连接、创建statement等繁杂的过程，</p>
+<p>MyBatis通过xml或注解的方式将要执行的各种statement配置起来，并通过java对象和statement中的sql的动态参数进行映射生成最终执行的sql语句。</p>
+<p>MyBatis框架执行sql并将结果集映射为java对象并返回，采用ORM（对象关系映射）思想解决了实体和数据库映射的问题，对jdbc进行封装，屏蔽jdbc api底层访问细节，不与jdbc打交道就可以完成对数据库的持久化操作。</p>
+<h3 id="mvc和servlet的关系"><a href="#mvc和servlet的关系" class="headerlink" title="mvc和servlet的关系"></a>mvc和servlet的关系</h3><p>1、Servlet与JSP一起为Web应用开发带来了巨大的贡献，后来出现的众多Java Web应用开发框架都是基于这两种技术的，更确切的说，都是基于Servlet技术的。</p>
+<p>2、Springmvc的核心是一个DispatcherServlet，并且DispatcherServlet继承自 FrameworkServlet继承自HttpServletBean 继承自HttpServlet（也就是你说的servelt） 本质上是一样的东西。其实就是基于tomcat等这些web容器对我们的CS请求能做更多的事情，如校验，拦截（AOP思想），后期渲染等等，好让我们专注于业务的开发。</p>
+<p>总结</p>
+<p>1、servlet就是一个Java接口，是JavaEE规范的一种<br>2、Servlet容器也叫做Servlet引擎：全称server applet，意为服务程序。主要作用是给上级容器(Tomcat)提供doGet()和doPost()等方法。其生命周期实例化、初始化、调用、销毁受控于 Tomcat容器。<br>3、而Tcomcat、webLogic等web容器包含servlet容器。<br>4、Tomcat容器属于web容器的一种，web容器还包括weblogic容器、JBoss容器等。<br>5、web容器：可以部署多个WEB应用程序的环境。<br>6、Spring MVC （SpringBoot）其实就是基于tomcat等这些web容器对我们的CS请求能做更多的事情</p>
+<p>转自：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/295173834">https://zhuanlan.zhihu.com/p/295173834</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/04/myblog/JAVA/war%E5%8C%85jar%E5%8C%85%E6%89%93%E5%8C%85tomcat%E9%83%A8%E7%BD%B2servlet%E5%BA%94%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1171,7 +1264,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-06-04 15:51:40" itemprop="dateModified" datetime="2023-06-04T15:51:40+08:00">2023-06-04</time>
+                <time title="Modified: 2023-08-20 15:33:35" itemprop="dateModified" datetime="2023-08-20T15:33:35+08:00">2023-08-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2110,7 +2203,7 @@
 <p>背景：什么时候需要在方法上throws异常，一定要throws吗？<br>🤔运行时异常，可以不在方法上throws，虚拟机会自动捕获抛出去。编译时异常通常在编译时就要求throws出去异常，或者用try…catch进行异常处理（打log之类）。</p>
 <p>背景：什么时候需要try..catch..throw..throws<br>🤔首先运行时异常可以不throws，如果没有try..catch，会自动throws出去，所以如果不是try..catch..对特殊异常捕获，没必要try..catch..throws。编译型异常如果是try..catch..打log了，就不用throws了。如果想抛出去，就直接throws就行。所以不需要try..catch..throw..throws。如果即想用try..catch..finally..还想throws出去，就用。</p>
 <h4 id="✅java的异常体系"><a href="#✅java的异常体系" class="headerlink" title="✅java的异常体系"></a>✅java的异常体系</h4><p>首先Exception和Error都是继承于Throwable 类，在 Java 中只有 Throwable 类型的实例才可以被抛出（throw）或者捕获（catch），它是异常处理机制的基本组成类型。</p>
-<p><img src="https://img-blog.csdnimg.cn/2019101117003396.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5MjI5NTY3,size_16,color_FFFFFF,t_70"></p>
+<p><img src="/images/java%E5%BC%82%E5%B8%B8.png"></p>
 <p>Error是编译时错误和系统错误，系统错误在除特殊情况下，都不需要你来关心，基本不会出现。而编译时错误，如果你使用了编译器，那么编译器会提示。</p>
 <p>Exception则是可以被抛出的基本类型，我们需要主要关心的也是这个类。<br>Exception又分为RunTimeException和其他Exception。</p>
 <p>RunTimeException：运行时异常，又称不受检查异常，不受检查，因为不受检查，所以在代码中可能会有RunTimeException时Java编译检查时不会告诉你有这个异常，但是在实际运行代码时则会暴露出来，比如经典的1/0，空指针等。如果不处理也会被Java自己处理。</p>
@@ -2830,7 +2923,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-18 14:12:26" itemprop="dateModified" datetime="2023-02-18T14:12:26+08:00">2023-02-18</time>
+                <time title="Modified: 2023-08-20 15:33:54" itemprop="dateModified" datetime="2023-08-20T15:33:54+08:00">2023-08-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -3014,7 +3107,7 @@
 <p>使用方法：<br>1.需要在启动类上添加@EnableTransactionManagement注解。<br>2.当作用在类上，该类所以public方法都具有该类型的事务属性。也可以加在public方法上。</p>
 <p><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_9177933/2978291">https://blog.51cto.com/u_9177933/2978291</a></p>
 <h3 id="SneakyThrows"><a href="#SneakyThrows" class="headerlink" title="@SneakyThrows"></a>@SneakyThrows</h3><p>✅java的异常体系</p>
-<p><img src="https://img-blog.csdnimg.cn/2019101117003396.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5MjI5NTY3,size_16,color_FFFFFF,t_70"></p>
+<p><img src="/images/java%E5%BC%82%E5%B8%B8.png"></p>
 <p>Error是编译时错误和系统错误，系统错误在除特殊情况下，都不需要你来关心，基本不会出现。而编译时错误，如果你使用了编译器，那么编译器会提示。</p>
 <p>Exception则是可以被抛出的基本类型，我们需要主要关心的也是这个类。<br>Exception又分为RunTimeException和其他Exception。</p>
 <p>RunTimeException：运行时异常，又称不受检查异常，不受检查，因为不受检查，所以在代码中可能会有RunTimeException时Java编译检查时不会告诉你有这个异常，但是在实际运行代码时则会暴露出来，比如经典的1/0，空指针等。如果不处理也会被Java自己处理。</p>
@@ -3054,131 +3147,6 @@
 <p>参考：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1677759">https://cloud.tencent.com/developer/article/1677759</a></p>
 <p>✅<code>Unchecked call to ... </code> 调用未经检查</p>
 <p>比如上面add的时候就会提示，表示未检查add的参数的类型，因为定义list的时候没指定类型，如果指定类型就不报了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/26/myblog/spring/BeanFactory%E5%92%8CApplicationContext/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/26/myblog/spring/BeanFactory%E5%92%8CApplicationContext/" class="post-title-link" itemprop="url">BeanFactory、ApplicationContext</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-04-26 22:12:06" itemprop="dateCreated datePublished" datetime="2022-04-26T22:12:06+08:00">2022-04-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-18 18:31:45" itemprop="dateModified" datetime="2023-02-18T18:31:45+08:00">2023-02-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/spring%E7%90%86%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">spring理解</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="BeanFactory与ApplicationContext"><a href="#BeanFactory与ApplicationContext" class="headerlink" title="BeanFactory与ApplicationContext"></a>BeanFactory与ApplicationContext</h3><p>BeanFactory使管理不同类型的java对象成为可能，应用上下文ApplacationContext建立在BeanFactor基础之上，提供了更多面向应用的功能，它提供了国际化支持和框架事件体系，更易于创建实际应用。我们一般称BeanFactory为IOC容器，而称ApplicationContext为应用上下文。但有时为了行文方便，我们也称ApplicationContext为Spring容器。</p>
-<p>对于二者的用途，可以进行简单的划分：BeanFactor是Spring框架的基础设施，面向Spring本身；ApplicationContext面向使用Spring框架的开发者，几乎所有的应用场合都可以直接使用ApplicationContext而非底层的BeanFactory。</p>
-<p>（1）BeanFactory：是Spring里面最底层的接口，包含了各种Bean的定义，读取bean配置文档，管理bean的加载、实例化，控制bean的生命周期，维护bean之间的依赖关系。ApplicationContext接口作为BeanFactory的派生，除了提供BeanFactory所具有的功能外，还提供了更完整的框架功能：<br>①继承MessageSource，因此支持国际化。<br>②统一的资源文件访问方式。<br>③提供在监听器中注册bean的事件。<br>④同时加载多个配置文件。<br>⑤载入多个（有继承关系）上下文 ，使得每一个上下文都专注于一个特定的层次，比如应用的web层。</p>
-<p>（2）BeanFactory通常是使用编程方式被创建的，而ApplicationContext可以用声明（就是用配置的方式）的方式创建，当然也可以使用ApplicationContext的实现类之一用编码方式来创建ApplicationContext的实例.</p>
-<p>（3）BeanFactory采用的是延迟加载形式来注入bean的，只有在使用到getBean() 时，才对该bean进行加载实例化，这样我们就不能发现一些bean的配置问题。而ApplicationContext则相反，它是在容器启动的时候，一次性创建所有的bean，这样在容器启动时就能发现spring 中存在的配置错误。这样有利于检查所依赖属性是否注入。 ApplicationContext启动后预载入所有的单实例Bean，通过预载入单实例bean ,确保当你需要的时候，你就不用等待，因为它们已经创建好了。相对于基本的BeanFactory，ApplicationContext 唯一的不足是占用内存空间。当应用程序配置Bean较多时，程序启动较慢。</p>
-<p>（4）BeanFactory和ApplicationContext都支持BeanPostProcesser、BeanFactoryPostProcessor的使用，但两者的区别是：BeanFactory是手动注册的，ApplicationContext是自动注册的.</p>
-<h3 id="ApplicationContext的创建方式"><a href="#ApplicationContext的创建方式" class="headerlink" title="ApplicationContext的创建方式"></a>ApplicationContext的创建方式</h3><h4 id="使用代码方式"><a href="#使用代码方式" class="headerlink" title="使用代码方式"></a>使用代码方式</h4><p>ApplicationContext接口常用实现类：</p>
-<p>1.ClassPathXmlApplicationContext</p>
-<p>a.加载单个配置文件方式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext cxt = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span><br></pre></td></tr></table></figure>
-
-<p>b.加载多个配置文件方式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] configs = &#123;&quot;bean1.xml&quot;,&quot;bean2.xml&quot;,&quot;bean3.xml&quot;&#125;;</span><br><span class="line">ApplicationContext cxt = new ClassPathXmlApplicationContext(configs);</span><br></pre></td></tr></table></figure>
-
-<p>2.ConfigurableApplicationContext接口</p>
-<p>StartApplication中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 启动springboot应用，获取spring的ioc容器</span><br><span class="line">ConfigurableApplicationContext context = SpringApplication.run(StartApplication.class, args);</span><br></pre></td></tr></table></figure>
-
-<h4 id="使用配置-声明"><a href="#使用配置-声明" class="headerlink" title="使用配置(声明)"></a>使用配置(声明)</h4><p>在javaee应用中向Servlet容器中注入Spring容器的方法</p>
-<p>ContextLoader 接口，它有两个实现 :ContextLoaderListener 和 ContextLoaderServlet. 其中常用的是 ContextLoaderListener. 从 spring 文档上可以查到，他们二者实现的功能基本一样，只是 ContextLoaderListener 不能在与 Servlet2.2 兼容的 web 容器中使用。另外，因为 ContextLoaderLitener 是一个 servlet Listener ，因此，它是在 servlet context 建立后立即执行，也就以为这 servlet 已建立， spring 的 ApplicationContext 就得到了初始化，并且能够相应第一个请求，所以首选 ContextLoaderListener.</p>
-<p>在web.xml中添加如下信息：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;? xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt; </span><br><span class="line"> &lt;! DOCTYPE web-app</span><br><span class="line">      PUBLIC &quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;</span><br><span class="line">      &quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot; &gt; </span><br><span class="line"> </span><br><span class="line"> &lt; web-app &gt; </span><br><span class="line">     &lt; display-name &gt; Baselib Application &lt;/ display-name &gt; </span><br><span class="line">    </span><br><span class="line">     &lt; context-param &gt; </span><br><span class="line">        &lt; param-name &gt; contextConfigLocation &lt;/ param-name &gt; </span><br><span class="line">        &lt; param-value &gt; </span><br><span class="line">        /WEB-INF/classes/spring-sup-middelbeans.xml</span><br><span class="line">        /WEB-INF/classes/spring-ueaac-action.xml</span><br><span class="line">        /WEB-INF/classes/spring-ueaac-beans.xml</span><br><span class="line">        /WEB-INF/classes/spring-ueaac-cm.xml</span><br><span class="line">        /WEB-INF/classes/spring-ueaac-hibernate.xml</span><br><span class="line">        /WEB-INF/classes/spring-ueaac-resource.xml</span><br><span class="line">        /WEB-INF/classes/spring-ueaac-sso.xml</span><br><span class="line">        /WEB-INF/classes/com/javaeye/jert/application_context.xml</span><br><span class="line">        &lt;/ param-value &gt; </span><br><span class="line">    &lt;/ context-param &gt; </span><br><span class="line"></span><br><span class="line">    &lt; listener &gt; </span><br><span class="line">        &lt; listener-class &gt; org.springframework.web.context.ContextLoaderListener &lt;/ listener-class &gt; </span><br><span class="line">    &lt;/ listener &gt; </span><br><span class="line"> </span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt; param-value &gt; /WEB-INF/classes/spring-*.xml &lt;/ context-param &gt; </span><br></pre></td></tr></table></figure>
-
-<p>这里主要是配置了 spring 的监听器 ContextLoaderListener ，它检查 contextConfigLocation 这个参数。如果它不存在的话，它将用 /WEB-INF/applicationContext.xml 作为默认的配置文件。如果 contextConfigLocation 存在的话，它将根据该参数的值查找配置文件的位置，来一一读取 spring 参数。</p>
-<p>contextConfigLocation 是被 spring 固定的，专门用来查  找配置文件位置的.</p>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/sole_ghost/article/details/1389664">https://blog.csdn.net/sole_ghost/article/details/1389664</a></p>
-<h3 id="ApplicationContext-getBean"><a href="#ApplicationContext-getBean" class="headerlink" title="ApplicationContext.getBean"></a>ApplicationContext.getBean</h3><p>目的：获取Spring容器中已初始化的bean</p>
-<p>第一种：getBean(String name)<br>参数name表示IOC容器中已经实例化的bean的id或者name,<br>在IOC容器中是唯一的不能重名。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span><br><span class="line">Person p = (Person) ctx.getBean(&quot;p&quot;);</span><br></pre></td></tr></table></figure>
-
-<p>第二种：getBean(Class<T> type)<br>type表示要加载的Bean的类型。<br>如果该类型没有继承任何父类(Object类除外)和实现接口的话，那么要求该类型的bean在IOC容器中也必须是唯一的.(比如定义同一类的两个bean，但是property注入的属性不一样)<br>不需要类型转换。</T></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</span><br><span class="line">Person p = ctx.getBean(Person.class);</span><br></pre></td></tr></table></figure>
-
-<p>第三种：getBean(String name,Class<T> type)<br>这种方式比较适合接口/抽象类，有不同实现类或子类时，type写接口或父类，name写bean name。</T></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person p = ctx.getBean(&quot;person&quot;,BasePerson.class);</span><br></pre></td></tr></table></figure>
-
-<p>第四种： getBean(String name,Object[] args)<br>第二个参数Object[] args可以给bean的属性赋值，赋值的方式有两种：构造方法和工厂方法。但是通过这种方式获取的bean必须把scope属性设置为prototype，也就是非单例模式。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">1.构造方法方式：</span><br><span class="line">&lt;bean name=&quot;p3&quot; class=&quot;com.bean.Person&quot; scope=&quot;prototype&quot;/&gt;</span><br><span class="line"></span><br><span class="line">Person p = (Person) ctx.getBean(&quot;p3&quot;,new Object[]&#123;&quot;王五&quot;,35&#125;);</span><br><span class="line"></span><br><span class="line">2.工厂注入方式：</span><br><span class="line">工厂类：</span><br><span class="line">public class PersonFactory &#123;</span><br><span class="line">//静态工厂注入</span><br><span class="line">public static Person getPersonInstance(String name,int age)throws Exception</span><br><span class="line">&#123;</span><br><span class="line">  Person p = (Person)Class.forName(&quot;com.bean.Person&quot;).newInstance();</span><br><span class="line">   Method m = p.getClass().getMethod(&quot;setName&quot;, java.lang.String.class);</span><br><span class="line">   m.invoke(p, name);</span><br><span class="line">   m = p.getClass().getMethod(&quot;setAge&quot;, int.class);</span><br><span class="line">   m.invoke(p, age);</span><br><span class="line">   return p;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">配置bean：</span><br><span class="line">&lt;bean name=&quot;p3&quot; class=&quot;com.factory.PersonFactory&quot; factory-method=&quot;getPersonInstance&quot; scope=&quot;prototype&quot;&gt;</span><br><span class="line">&lt;constructor-arg name=&quot;name&quot;&gt;</span><br><span class="line">&lt;null/&gt;</span><br><span class="line">&lt;/constructor-arg&gt;</span><br><span class="line">&lt;constructor-arg name=&quot;age&quot; value=&quot;0&quot;/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">Person p = (Person) ctx.getBean(&quot;p3&quot;,new Object[]&#123;&quot;王五&quot;,35&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_23927391/article/details/80625578">https://blog.csdn.net/qq_23927391/article/details/80625578</a></p>
-<h3 id="ApplicationContext-getBeanWithAnnotation"><a href="#ApplicationContext-getBeanWithAnnotation" class="headerlink" title="ApplicationContext.getBeanWithAnnotation"></a>ApplicationContext.getBeanWithAnnotation</h3><p>spring中可以通过getBeansWithAnnotation来获取ioc容器中使用了某个注解的所有bean,这个方法底层原理：我们知道可以通过反射来获取一个类中所有的注解，然后通过遍历spring容器中所有bean就能获取需要的结果。返回Map&lt;String, Object&gt;</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//自定义@Auditable注解</span><br><span class="line">package com.yk.annotation;</span><br><span class="line"></span><br><span class="line">import java.lang.annotation.ElementType;</span><br><span class="line">import java.lang.annotation.Retention;</span><br><span class="line">import java.lang.annotation.RetentionPolicy;</span><br><span class="line">import java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Target(&#123;ElementType.METHOD,ElementType.TYPE&#125;)</span><br><span class="line">public @interface Auditable &#123;</span><br><span class="line">    String[] value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//在person类中我们引入@Auditable，并通过@Component将其注入spring容器</span><br><span class="line">package com.yk.annotation;</span><br><span class="line"></span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">@Auditable(&quot;person.sleep&quot;)</span><br><span class="line">public class Person &#123;</span><br><span class="line"></span><br><span class="line">    void sleep()&#123;</span><br><span class="line">        System.out.println(&quot;睡觉了&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class TestApplicationContext implements ApplicationContextAware &#123;</span><br><span class="line"> </span><br><span class="line">    protected ApplicationContext applicationContext;</span><br><span class="line">	</span><br><span class="line">    @Override</span><br><span class="line">    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException &#123;</span><br><span class="line">        this.applicationContext = applicationContext;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    @PostConstruct</span><br><span class="line">    public void init() throws Exception &#123;</span><br><span class="line">        Class aClass = Class.forName(&quot;com.yk.annotation.Auditable&quot;);</span><br><span class="line">        //boolean b = aClass.isAnnotation();</span><br><span class="line">        //System.out.println(b);</span><br><span class="line">        //Person person = applicationContext.getBean(Person.class);</span><br><span class="line">        Map beansWithAnnotation = applicationContext.getBeansWithAnnotation(aClass);</span><br><span class="line"></span><br><span class="line">        Iterator entries = beansWithAnnotation.entrySet().iterator();</span><br><span class="line"></span><br><span class="line">        while (entries.hasNext()) &#123;</span><br><span class="line"></span><br><span class="line">            Map.Entry entry = (Map.Entry) entries.next();</span><br><span class="line">            System.out.println(&quot;Key = &quot; + entry.getKey() + &quot;, Value = &quot; + entry.getValue());</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42374693/article/details/115374179">https://blog.csdn.net/weixin_42374693/article/details/115374179</a></p>
-<h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><p>一个使用工厂模式管理多个类实现同一个接口的例子：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33898233/article/details/91414228">https://blog.csdn.net/weixin_33898233/article/details/91414228</a></p>
-<p><code>applicationContext.getBeansOfType(Sort.class);</code></p>
 
       
     </div>
@@ -3264,7 +3232,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -3277,7 +3245,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
