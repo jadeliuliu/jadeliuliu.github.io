@@ -183,122 +183,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/22/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/sqlite/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/12/22/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/sqlite/" class="post-title-link" itemprop="url">sqlite</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-12-22 11:49:15" itemprop="dateCreated datePublished" datetime="2022-12-22T11:49:15+08:00">2022-12-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-05 12:19:43" itemprop="dateModified" datetime="2023-02-05T12:19:43+08:00">2023-02-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">java开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="什么是sqlite"><a href="#什么是sqlite" class="headerlink" title="什么是sqlite"></a>什么是sqlite</h2><p>SQLite 是一个软件库，实现了自给自足的、无服务器的、零配置的、事务性的 SQL 数据库引擎。SQLite 是在世界上最广泛部署的 SQL 数据库引擎。</p>
-<p>它是一个零配置的数据库，这意味着与其他数据库不一样，您不需要在系统中配置。</p>
-<hr>
-<p>sqlite的优点：</p>
-<p>&lt;1&gt; 不需要一个单独的服务器进程或操作的系统（无服务器的）<br>&lt;2&gt; SQLite 不需要配置，这意味着不需要安装或管理。<br>&lt;3&gt; 一个完整的 SQLite 数据库是存储在一个单一的跨平台的磁盘文件。<br>&lt;4&gt; SQLite 是非常小的，是轻量级的，完全配置时小于 400KB<br>&lt;5&gt; SQLite 是自给自足的，这意味着不需要任何外部的依赖。<br>&lt;6&gt; SQLite 事务是完全兼容 ACID 的，允许从多个进程或线程安全访问。</p>
-<h2 id="安装sqlite"><a href="#安装sqlite" class="headerlink" title="安装sqlite"></a>安装sqlite</h2><p>linux和macOS，基本都系统预装了。<br>输入<code>sqlite3</code>检查是否安装。</p>
-<p>如果未安装，下载网址：<a target="_blank" rel="noopener" href="https://www.sqlite.org/download.html">https://www.sqlite.org/download.html</a><br>下载<code>sqlite-autoconf-*.tar.gz。</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ tar xvzf sqlite-autoconf-3071502.tar.gz</span><br><span class="line">$ cd sqlite-autoconf-3071502</span><br><span class="line">$ ./configure --prefix=/usr/local</span><br><span class="line">$ make</span><br><span class="line">$ make install</span><br></pre></td></tr></table></figure>
-
-<h2 id="sqlite命令"><a href="#sqlite命令" class="headerlink" title="sqlite命令"></a>sqlite命令</h2><p><code>.show </code>命名，查看 SQLite 命令提示符的默认设置。</p>
-<p>更改配置：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sqlite&gt;.header on    </span><br><span class="line">sqlite&gt;.mode column</span><br><span class="line">sqlite&gt;.timer on</span><br></pre></td></tr></table></figure>
-
-<p>创建数据库：<br><code>$ sqlite3 DatabaseName.db </code> 或 <code>sqlite&gt;.open test.db </code></p>
-<p>创建的数据库文件位于 sqlite3 命令同一目录下。<br>打开已存在数据库也是用 .open 命令，以上命令如果 test.db 存在则直接会打开，不存在就创建它。</p>
-<p><code>.databases</code> 展示数据库列表<br><code>.quit</code> 退出<br><code>testDB.db .dump &gt; testDB.sql</code> 导出完整的数据库到文本文件中<br><code>testDB.db &lt; testDB.sql</code> 恢复db文件</p>
-<p><code>attach database file_name AS database_name;</code> 将同一文件夹下的db文件附加进来，并给个别名。<br>数据库名称 main 和 temp 被保留用于主数据库和存储临时表及其他临时数据对象的数据库。这两个数据库名称可用于每个数据库连接，且不应该被用于附加。</p>
-<p><code>detach database &#39;database_name&#39;;</code> 断开给定名称的连接，而其余的仍然有效</p>
-<p>创建表：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE database_name.table_name(</span><br><span class="line">   ID INT PRIMARY KEY     NOT NULL,</span><br><span class="line">   NAME           TEXT    NOT NULL,</span><br><span class="line">   AGE            INT     NOT NULL,</span><br><span class="line">   ADDRESS        CHAR(50),</span><br><span class="line">   SALARY         REAL</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<p><code>.tables</code> 查看创建的表</p>
-<p><code>.schema tableName</code> 得到表的完整信息（建表语句）</p>
-<h2 id="java使用sqlite"><a href="#java使用sqlite" class="headerlink" title="java使用sqlite"></a>java使用sqlite</h2><p>SQLite相比大多数数据库而言，具有免安装等优势，广泛应用于测试、Android等领域。通过一个.db文件就能实现数据库连接、DDL操作语句、DML命令。</p>
-<p>导入<code>sqlite-jdbc</code>依赖:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.xerial&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;sqlite-jdbc&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;3.40.0.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<p>软件：DB Browser for SQLite</p>
-<p>sqlite没有像mysql使用comment增加字段/表名注释，使用–注释内容。</p>
-<p>✅建表、插入、查询</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line">package com.liuxuan.service;</span><br><span class="line"></span><br><span class="line">import lombok.Getter;</span><br><span class="line">import lombok.Setter;</span><br><span class="line">import lombok.ToString;</span><br><span class="line">import org.apache.commons.dbutils.QueryRunner;</span><br><span class="line">import org.apache.commons.dbutils.handlers.BeanListHandler;</span><br><span class="line">import org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line">import java.sql.*;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author: liuxuan</span><br><span class="line"> * @date: 2023-01-20 09:41</span><br><span class="line"> **/</span><br><span class="line">@Service</span><br><span class="line">public class SqliteService &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        String filePath = &quot;/Users/liuxuan/Downloads/test.db&quot;;</span><br><span class="line">        Connection conn = createConnection(filePath);</span><br><span class="line">        // 创建表</span><br><span class="line">        String query = &quot;create table if not exists table_test (\n&quot; +</span><br><span class="line">                &quot;id integer PRIMARY KEY AUTOINCREMENT,\n&quot; +</span><br><span class="line">                &quot;num INTEGER(11),\n&quot; +</span><br><span class="line">                &quot;`desc` varchar(10) not null);&quot;;</span><br><span class="line">        try &#123;</span><br><span class="line">            Statement stmt = conn.createStatement();</span><br><span class="line">            stmt.executeUpdate(query);</span><br><span class="line">            stmt.close();</span><br><span class="line">//            conn.commit();</span><br><span class="line">//            conn.close();</span><br><span class="line">        &#125; catch (SQLException e)&#123;</span><br><span class="line">            System.out.println(&quot;建立表存在异常！&quot; + e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 插入数据</span><br><span class="line">        String sql = &quot;insert into table_test (num, desc) &quot; +</span><br><span class="line">                &quot;values(1, &#x27;one&#x27;);&quot;;</span><br><span class="line">        try &#123;</span><br><span class="line">            Statement stmt = conn.createStatement();</span><br><span class="line">            stmt.executeUpdate(sql);</span><br><span class="line">            stmt.close();</span><br><span class="line">        &#125; catch (SQLException e)&#123;</span><br><span class="line">            System.out.println(&quot;插入数据存在异常！&quot; + e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 查询数据</span><br><span class="line">        try &#123;</span><br><span class="line">            Statement stmt = conn.createStatement();</span><br><span class="line">            ResultSet rs = stmt.executeQuery( &quot;SELECT * FROM table_test;&quot; );</span><br><span class="line">            while (rs.next() ) &#123;</span><br><span class="line">                int id = rs.getInt(&quot;id&quot;);</span><br><span class="line">                int num = rs.getInt(&quot;num&quot;);</span><br><span class="line">                String desc = rs.getString(&quot;desc&quot;);</span><br><span class="line">                System.out.println(id + &quot;,&quot; + num + &quot;,&quot; + desc);</span><br><span class="line">            &#125;</span><br><span class="line">            rs.close();</span><br><span class="line">        &#125; catch (SQLException e)&#123;</span><br><span class="line">            System.out.println(&quot;查询数据存在异常！&quot; + e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 分页查询 用commons-dbutils包下的QueryRunner</span><br><span class="line">        String selectSql = &quot;select * from table_test&quot;;</span><br><span class="line">        try &#123;</span><br><span class="line">            List&lt;SqliteDO&gt; list = selectList(selectSql, conn, SqliteDO.class, 1, 10);</span><br><span class="line">            System.out.println(list);</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            System.out.println(&quot;查询数据list存在异常！&quot; + e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取数据库连接</span><br><span class="line">     **/</span><br><span class="line">    public static Connection createConnection(String filePath) &#123;</span><br><span class="line">        Connection conn = null;</span><br><span class="line">        try&#123;</span><br><span class="line">            Class.forName(&quot;org.sqlite.JDBC&quot;);</span><br><span class="line">            conn = DriverManager.getConnection(String.format(&quot;jdbc:sqlite:%s&quot;, filePath));</span><br><span class="line">        &#125;catch(ClassNotFoundException e)&#123;</span><br><span class="line">            System.out.println(&quot;不存在sqlite驱动包！&quot;);</span><br><span class="line">        &#125;catch (SQLException e)&#123;</span><br><span class="line">            System.out.println(&quot;与sqlite数据库连接失败！&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        return conn;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static &lt;T&gt; List&lt;T&gt; selectList(String sql, Connection connection, Class&lt;T&gt;objType, int currentPage, int pageSize) throws SQLException &#123;</span><br><span class="line">        sql = sql + &quot; limit ?,?&quot;;</span><br><span class="line">        QueryRunner queryRunner = new QueryRunner();</span><br><span class="line">        List&lt;T&gt; dataList = queryRunner.query(connection, sql, new BeanListHandler&lt;&gt;(objType), pageSize * (currentPage - 1), pageSize);</span><br><span class="line">        return dataList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @ToString</span><br><span class="line">    @Getter</span><br><span class="line">    @Setter</span><br><span class="line">    public static class SqliteDO &#123;</span><br><span class="line">        private Integer id;</span><br><span class="line">        private Integer num;</span><br><span class="line">        private String desc;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>✅线程安全</p>
-<p>sqlite是线程安全的，可以多线程插入。</p>
-<p>✅sqlite在java中批量插入数据巨慢</p>
-<p>开始是插入一条就构造一条insert语句，一条一条插入，慢。<br>后来改成多线程插入，还是慢。<br>再后来，一条insert语句插入1000条，快了很多。</p>
-<p>一个说事务控制批量插入的：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiao-tangyuan/p/9556114.html">https://www.cnblogs.com/xiao-tangyuan/p/9556114.html</a></p>
-<hr>
-<p>SQLite——Java使用：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38322527/article/details/125717093">https://blog.csdn.net/qq_38322527/article/details/125717093</a></p>
-<p>SQLite数据库基本使用（Java）：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44102521/article/details/119884521">https://blog.csdn.net/weixin_44102521/article/details/119884521</a></p>
-<p>查询获取list：<br><a target="_blank" rel="noopener" href="https://m.runoob.com/sqlite/sqlite-java.html?ivk_sa=1024320u">https://m.runoob.com/sqlite/sqlite-java.html?ivk_sa=1024320u</a></p>
-<p>sqlite没有comment：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qinxu0611/article/details/128609756">https://blog.csdn.net/qinxu0611/article/details/128609756</a></p>
-<p>SQLite 线程安全和并发：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/feng9exe/p/10682567.html">https://www.cnblogs.com/feng9exe/p/10682567.html</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/10/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/elasticsearch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -662,7 +546,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-08-20 14:39:33" itemprop="dateModified" datetime="2023-08-20T14:39:33+08:00">2023-08-20</time>
+                <time title="Modified: 2023-09-08 22:57:49" itemprop="dateModified" datetime="2023-09-08T22:57:49+08:00">2023-09-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -727,8 +611,38 @@
 <h2 id="整数反转"><a href="#整数反转" class="headerlink" title="整数反转"></a>整数反转</h2><p>题目：给你一个 32 位的有符号整数 x ，返回将 x 中的数字部分反转后的结果。-123 变 -321<br>Integer整数区间：[−2^31,  2^31 − 1]<br>思路1：变成一个字符串，然后反转，然后加符号。<br>思路2：对int一步一步/10，然后拿到结果一步一步*10<br>思路3：用栈stack，也得先变字符串，本质上也是字符串反转。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">package leeco.nums;</span><br><span class="line"></span><br><span class="line">import java.util.Stack;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author: liuxuan</span><br><span class="line"> * @date: 2022-11-12 22:38</span><br><span class="line"> **/</span><br><span class="line">public class IntegerReverse &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(Integer.MAX_VALUE);</span><br><span class="line">        System.out.println(Math.pow(2, 31) - 1);</span><br><span class="line">        int i = -33;</span><br><span class="line">        System.out.println(~(i-1));  //和-i一样</span><br><span class="line">        Solution s = new Solution();</span><br><span class="line">        System.out.println(s.reverse(-123));</span><br><span class="line">        System.out.println(s.reverse2(-123));</span><br><span class="line">        System.out.println(s.reverse2(-123));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static class Solution &#123;</span><br><span class="line">        public int reverse(int x) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                boolean flag = false;</span><br><span class="line">                if (x &lt; 0) &#123;</span><br><span class="line">                    flag = true;</span><br><span class="line">                    x = -x;</span><br><span class="line">                &#125;</span><br><span class="line">                String old = String.valueOf(x);</span><br><span class="line">                String newS = new StringBuilder(old).reverse().toString();</span><br><span class="line">                int res = Integer.parseInt(newS);</span><br><span class="line">                if (flag) res = -res;</span><br><span class="line">                return res;</span><br><span class="line">            &#125; catch (NumberFormatException e) &#123;</span><br><span class="line">                return 0;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public int reverse2(int x) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                boolean flag = false;</span><br><span class="line">                if (x &lt; 0) &#123;</span><br><span class="line">                    flag = true;</span><br><span class="line">                    x = -x;</span><br><span class="line">                &#125;</span><br><span class="line">                int res = 0;</span><br><span class="line">                while (x &gt; 0) &#123;</span><br><span class="line">                    res = res * 10 + x % 10;</span><br><span class="line">                    x = x / 10;</span><br><span class="line">                &#125;</span><br><span class="line">                if (flag) res = - res;</span><br><span class="line">                return res;</span><br><span class="line">            &#125; catch (NumberFormatException e) &#123;</span><br><span class="line">                return 0;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public int reverse3(int x) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                boolean flag = false;</span><br><span class="line">                if (x &lt; 0) &#123;</span><br><span class="line">                    flag = true;</span><br><span class="line">                    x = -x;</span><br><span class="line">                &#125;</span><br><span class="line">                String old = String.valueOf(x);</span><br><span class="line">                Stack&lt;Character&gt; stack = new Stack&lt;&gt;();</span><br><span class="line">                for (char c : old.toCharArray()) stack.push(c);</span><br><span class="line">                StringBuilder sb = new StringBuilder();</span><br><span class="line">                while (!stack.empty()) sb.append(stack.pop());</span><br><span class="line">                int res = Integer.parseInt(sb.toString());</span><br><span class="line">                if (flag) res = -res;</span><br><span class="line">                return res;</span><br><span class="line">            &#125; catch (NumberFormatException e) &#123;</span><br><span class="line">                return 0;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int reverse(int x) &#123;</span><br><span class="line">        // 用String进行反转，java的幂运算用Math.pow(2,2)</span><br><span class="line">        boolean isFu = false;</span><br><span class="line">        if(x &lt; 0) &#123;</span><br><span class="line">            isFu = true;</span><br><span class="line">            // 如果是-2^31，负的接不住。</span><br><span class="line">            if (x == Integer.MIN_VALUE) return 0;</span><br><span class="line">            x = -x;</span><br><span class="line">        &#125;</span><br><span class="line">        String s = new StringBuilder(String.valueOf(x)).reverse().toString();</span><br><span class="line">        long l = Long.valueOf(s);</span><br><span class="line">        // 原来正的，反过来正的，不能大于2^ 31-1</span><br><span class="line">        if ((isFu &amp;&amp; l &gt; Math.pow(2, 31)) || !isFu &amp;&amp; l &gt; Math.pow(2, 31)-1)</span><br><span class="line">            return 0;</span><br><span class="line">        return isFu? -Integer.valueOf(String.valueOf(l)) : Integer.valueOf(String.valueOf(l));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
 <h2 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class ErFen &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(&quot;输入有序数组，逗号分隔：&quot;);</span><br><span class="line">        Scanner sc = new Scanner(System.in);</span><br><span class="line">        String str = sc.nextLine();</span><br><span class="line">        str = str.replace(&quot; &quot;, &quot;&quot;);</span><br><span class="line">        String[] strArray = str.split(&quot;,&quot;);</span><br><span class="line">        int[] array = new int[strArray.length];</span><br><span class="line">        for(int i = 0; i &lt; array.length; i++) &#123;</span><br><span class="line">            array[i] = Integer.parseInt(strArray[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;输入目标值：&quot;);</span><br><span class="line">        int target = sc.nextInt();</span><br><span class="line">        System.out.println(&quot;array:&quot; + Arrays.toString(array));</span><br><span class="line">        int min = 0;</span><br><span class="line">        int max = array.length - 1;</span><br><span class="line">        int middle = min + (max - min) / 2; //防止越界</span><br><span class="line">        while(min &lt;= max) &#123;</span><br><span class="line">            if (array[middle] == target) &#123;</span><br><span class="line">                System.out.println(middle);</span><br><span class="line">                return;</span><br><span class="line">            &#125; else if (array[middle] &lt; target) &#123;</span><br><span class="line">                min = middle + 1;</span><br><span class="line">                middle = min + (max - min) / 2;</span><br><span class="line">            &#125; else if (array[middle] &gt; target) &#123;</span><br><span class="line">                max = middle - 1;</span><br><span class="line">                middle = min + (max - min) / 2;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="字符串转换为整数"><a href="#字符串转换为整数" class="headerlink" title="字符串转换为整数"></a>字符串转换为整数</h2><p>“   -42” 变为-42.<br>“4193 with words” 变为4193。<br>遇到非数字的字符串就停止，如果超过int表示范围了就返回正负的最大值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int myAtoi(String s) &#123;</span><br><span class="line">        // 去掉头尾空白符，中间的不去</span><br><span class="line">        char[] c = s.trim().toCharArray();</span><br><span class="line">        if (c.length == 0) return 0;</span><br><span class="line">        int res = 0, bndry = Integer.MAX_VALUE / 10; //最大是2147483647</span><br><span class="line">        int i = 1, sign = 1;</span><br><span class="line">        if (c[0] == &#x27;-&#x27;) sign = -1;</span><br><span class="line">        else if (c[0] != &#x27;+&#x27;) i = 0; //从0开始</span><br><span class="line">        for (int j = i; j &lt; c.length; j++) &#123;</span><br><span class="line">            if (c[j] &lt; &#x27;0&#x27; || c[j] &gt; &#x27;9&#x27;) break;</span><br><span class="line">            if (res &gt; bndry || res == bndry &amp;&amp; c[j] &gt; &#x27;7&#x27;) &#123;</span><br><span class="line">                return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;</span><br><span class="line">            &#125;</span><br><span class="line">            res = res * 10 + (c[j] - &#x27;0&#x27;); //字符变数字</span><br><span class="line">        &#125;</span><br><span class="line">        return sign * res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="到最近的人的最大距离"><a href="#到最近的人的最大距离" class="headerlink" title="到最近的人的最大距离"></a>到最近的人的最大距离</h2><p>给你一个数组 seats 表示一排座位，其中 seats[i] = 1 代表有人坐在第 i 个座位上，seats[i] = 0 代表座位 i 上是空的（下标从 0 开始）。</p>
+<p>找一个距离两边人最近的一个位置，找坑位。返回他到离他最近的人的最大距离。</p>
+<p>双指针。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int maxDistToClosest(int[] seats) &#123;</span><br><span class="line">        //双指针：左右指针为相邻的有人座位，则最大距离是r-l/2</span><br><span class="line">        //但是要考虑两边没座位的情况</span><br><span class="line">        int res = 0;</span><br><span class="line">        int l = 0;</span><br><span class="line">        while(seats[l] == 0) &#123;</span><br><span class="line">            l ++;</span><br><span class="line">        &#125;</span><br><span class="line">        res = Math.max(res, l);</span><br><span class="line">        while(l &lt; seats.length - 1) &#123;</span><br><span class="line">            int r = l + 1;</span><br><span class="line">            while(r &lt; seats.length &amp;&amp; seats[r] == 0) &#123;</span><br><span class="line">                r ++;</span><br><span class="line">            &#125;</span><br><span class="line">            if (r == seats.length) &#123;</span><br><span class="line">                res = Math.max(res, r - l - 1);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                res = Math.max(res, (r - l)/2);</span><br><span class="line">            &#125;</span><br><span class="line">            l = r;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="回文数"><a href="#回文数" class="headerlink" title="回文数"></a>回文数</h2><p>1.变成String之后反转比较是否跟之前的数相等，但是要注意Integer溢出。<br>2.变成String之后，双指针</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean isPalindrome(int x) &#123;</span><br><span class="line">        if (x &lt; 0) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        long y = Long.valueOf(new StringBuilder(new Long(x).toString()).reverse().toString());</span><br><span class="line">        return x == y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="盛最多水的容器"><a href="#盛最多水的容器" class="headerlink" title="盛最多水的容器"></a>盛最多水的容器</h2><p>给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。</p>
+<p>找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p>
+<p>返回容器可以储存的最大水量。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int maxArea(int[] height) &#123;</span><br><span class="line">        // 双指针：一个最前一个最后，谁小就移动谁</span><br><span class="line">        int l = 0, r = height.length-1;</span><br><span class="line">        int max = 0;</span><br><span class="line">        while(l &lt; r) &#123;</span><br><span class="line">            // 选择小的移动</span><br><span class="line">            if (height[l] &lt; height[r]) &#123;</span><br><span class="line">                max = Math.max(max, (r - l) * height[l]);</span><br><span class="line">                l ++;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                max = Math.max(max, (r - l) * height[r]);</span><br><span class="line">                r --;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="整数转罗马数字"><a href="#整数转罗马数字" class="headerlink" title="整数转罗马数字"></a>整数转罗马数字</h2><p>1.5.10.50…有特定的符号，但是4.9.40.90…也比较特殊，所以把它们也作为特定的符号。从大到小遍历。不会出现80变为两个40的情况，因为之前一定会先拆出一个50.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    int[] values = &#123;1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1&#125;;</span><br><span class="line">    String[] symbols = &#123;&quot;M&quot;, &quot;CM&quot;, &quot;D&quot;, &quot;CD&quot;, &quot;C&quot;, &quot;XC&quot;, &quot;L&quot;, &quot;XL&quot;, &quot;X&quot;, &quot;IX&quot;, &quot;V&quot;, &quot;IV&quot;, &quot;I&quot;&#125;;</span><br><span class="line"></span><br><span class="line">    public String intToRoman(int num) &#123;</span><br><span class="line">        StringBuffer roman = new StringBuffer();</span><br><span class="line">        for (int i = 0; i &lt; values.length; ++i) &#123;</span><br><span class="line">            int value = values[i];</span><br><span class="line">            String symbol = symbols[i];</span><br><span class="line">            while (num &gt;= value) &#123;</span><br><span class="line">                num -= value;</span><br><span class="line">                roman.append(symbol);</span><br><span class="line">            &#125;</span><br><span class="line">            if (num == 0) &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return roman.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="合并两个有序数组"><a href="#合并两个有序数组" class="headerlink" title="合并两个有序数组"></a>合并两个有序数组</h2><p>给两个递增的数组，其中nums1后面的nums2的长度是有的，填充的0.将nums2填充到nums1中，并且是排好序的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public void merge(int[] nums1, int m, int[] nums2, int n) &#123;</span><br><span class="line">        //用双指针进行替换，如果是第二个队列的元素大，就替换</span><br><span class="line">        //替换出来的第一个队列的元素放在哪，放哪都不行，所以从后往前移动</span><br><span class="line">        // 方法一：先合并，直接Arrays.sort(nums1)</span><br><span class="line">        // 方法二：开一个新数组，从前往后双指针</span><br><span class="line">        // 方法三：不用重开，直接从后往前双指针</span><br><span class="line">        int tail = m + n - 1;</span><br><span class="line">        int p1 = m - 1;</span><br><span class="line">        int p2 = n - 1;</span><br><span class="line">        while(p1 &gt;= 0 || p2 &gt;= 0) &#123;</span><br><span class="line">            if (p1 &lt; 0) &#123;</span><br><span class="line">                nums1[tail] = nums2[p2--];</span><br><span class="line">            &#125; else if (p2 &lt; 0) &#123;</span><br><span class="line">                nums1[tail] = nums1[p1--];</span><br><span class="line">            &#125; else if (nums1[p1] &gt; nums2[p2]) &#123;</span><br><span class="line">                nums1[tail] = nums1[p1--];</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                nums1[tail] = nums2[p2--];</span><br><span class="line">            &#125;</span><br><span class="line">            tail--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="移除元素"><a href="#移除元素" class="headerlink" title="移除元素"></a>移除元素</h2><p>给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。不能使用额外的空间。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int removeElement(int[] nums, int val) &#123;</span><br><span class="line">        //双指针，一前一后，前面的不是val，就往后走，如果是就替换，并前后都移动，其实不用替换</span><br><span class="line">        int l = 0;</span><br><span class="line">        int r = nums.length - 1;</span><br><span class="line">        while(l &lt;= r) &#123;</span><br><span class="line">            if (l == r) &#123;</span><br><span class="line">                if (nums[l] != val) l ++;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            if (nums[l] == val &amp;&amp; nums[r] != val) &#123;</span><br><span class="line">                nums[l] = nums[r];</span><br><span class="line">                l ++;</span><br><span class="line">                r --;</span><br><span class="line">            &#125; else if (nums[l] == val &amp;&amp; nums[r] == val) &#123;</span><br><span class="line">                r --;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                l ++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return l;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -2689,10 +2603,110 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/03/myblog/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/03/myblog/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/python/" class="post-title-link" itemprop="url">python语言</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-07-03 16:22:40" itemprop="dateCreated datePublished" datetime="2022-07-03T16:22:40+08:00">2022-07-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-08-20 15:56:58" itemprop="dateModified" datetime="2023-08-20T15:56:58+08:00">2023-08-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>✅计算机组成：<br>硬件：中央处理器CPU（处理指令、运算数据的）、存储器（内存（存临时数据读写速度快）、外存（硬盘、U盘））、输入设备、输出设备<br>软件：应用软件、系统软件（操作系统）</p>
+<p>✅编译型语言和解释型语言：</p>
+<ul>
+<li><p>编译型语言：在执行之前要先经过编译过程，编译成为一个可执行的机器语言的文件，比如exe。因为翻译只做一遍，以后都不需要翻译，所以执行效率高。<br>  代表：C、C++<br>  优缺点：执行速度快、跨平台差（操作一步，与操作系统联系紧密）、不便调试。</p>
+</li>
+<li><p>解释型语言：解释性语言编写的程序不进行预先编译，以文本方式存储程序代码。执行时才翻译执行。程序每执行一次就要翻译一遍。解释一句，执行一句，直至结束。<br>  代表：Java、C#、Python、JavaScript<br>  优缺点：速度较慢、跨平台好（操作两步，跨平台有优势，可在windows上运行，也可在linux上运行）、易于调试</p>
+</li>
+</ul>
+<p>怎么选：<br>编译型语言由于程序执行速度快，同等条件下对系统要求较低，因此像开发操作系统、大型应用程序、数据库系统等时都采用它，像C/C++、Pascal/Object Pascal（Delphi）等都是编译语言。</p>
+<p>而一些网页脚本、服务器脚本及辅助开发接口这样的对速度要求不高、对不同系统平台间的兼容性有一定要求的程序则通常使用解释性语言，如Java、JavaScript、VBScript、Perl、Python、Ruby、MATLAB等等。</p>
+<p>一个比较好的例子：编译型语言就像炒菜吃饭，只有将全部的菜炒好了才能吃饭，解释型语言就像吃火锅，边放菜边吃，不需要将菜全部放在火锅里面。</p>
+<p>✅java是解释型语言，javac编译成.class字节码文件是？<br>java的编译器（javac.exe）先将java文件编译为class文件，也就是字节码；然后将字节码交由jvm(java虚拟机)解释执行；<br>所以很多地方都说“java是一种半编译、半解释执行”的语言；</p>
+<p>java是解释型的语言，因为虽然java也需要编译，编译成.class文件，<br>但是并不是机器可以识别的语言，而是字节码，最终还是需要 jvm的解释（逐行解释为特定平台机器码），才能在各个平台执行，这同时也是java跨平台的原因。<br>所以可以说java即是编译型的，也是解释型，但是假如非要归类的话，从概念上的定义，恐怕java应该归到解释型的语言中。</p>
+<p>✅编译器和解释器之间的主要区别<br>1、编译器将一个程序作为一个整体进行翻译，而解释器则一条一条地翻译一个程序<br>2、在编译器的情况下生成中间代码或目标代码。而解释器不创建中间代码<br>3、编译器比解释器要快得多，因为编译器一次完成整个程序，而解释器则是依次编译每一行代码<br>4、由于要生成目标代码，编译器比解释器需要更多的内存<br>5、编译器同时显示所有错误，很难检测错误，而解释器则逐个显示每条语句的错误，更容易检测错误<br>6、在编译器中，当程序中出现错误时，它会停止翻译，并在删除错误后重新翻译整个程序。相反，当解释器中发生错误时，它会阻止其翻译，在删除错误后，翻译将继续<br>7、在编译器中，这个过程需要两个步骤，首先将源代码翻译成目标程序，然后执行。而在解释器中，这是一个一次性的过程，源代码在编译的同时执行<br>8、编译器用于编程语言，如C、c++、c#、Scala等。解释器用于PHP、Ruby、Python等语言。<br>————————————————<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/CodeHouse/article/details/121846119">https://blog.csdn.net/CodeHouse/article/details/121846119</a></p>
+<p>✅脚本语言（动态语言）和静态语言</p>
+<p>脚本语言:又被称为扩建的语言，或者动态语言，用来控制软件应用程序，脚本通常以文本保存，只 在被调用时进行解释或编译。脚本语言有:PHP、Python、JavaScript、Lua、Scala、VBScript， ActionScript，MAXScript，ASP，JSP，SQL，Perl，Shell，Ruby，JavaFX，AutoIt等 脚本语言是一种解释性的语言，它不象c/c++等可以编译成二进制代码，以可执行文件的形式存在，脚本 语言不需要编译，可以直接用，由解释器来负责解释。在运行时才确定数据类型的语言。</p>
+<p>静态语言:要求在使用变量之前必须声明数据类型。 例如:C、C++、Golang、Java、C#等。 </p>
+<p>so：脚本语言一定是解释型语言，解释型语言不一定是脚本语言。</p>
+<p>✅Python解释器：<br>CPU不能直接处理 Python 语言，只能直接处理机器指令语言，那是一种由0和1数字组成的语言。.py结尾的文件需要解释器去运行执行。解释器就是能够执行用其他计算机语言编写的程序的系统软件，它是一种翻译程序。它的执行方式是一边翻译一边执行，因此其执行效率一般偏低，但是解释器的实现较为简单，而且编写源程序的高级语言可以使用更加灵活和富于表现力的语法。</p>
+<p>常见的Python解释器：</p>
+<p>　　1、CPython：这个解释器是用C语言开发的，所以叫CPython。在命令行下运行Python就是启动CPython解释器。CPython是使用最广的Python解释器。</p>
+<p>2、IPython：IPython是基于CPython之上的一个交互解释器，也就是说，IPython只是在交互方式上有所增强，但是执行Python代码的功能和CPython是完全一样的。</p>
+<p>　　3、PyPy：PyPy是另一个解释器，它的目标是执行速度。采用JIT技术，对Python代码进行动态编译，所以可以显著提高Python代码的执行速度。</p>
+<p>　　4.Jython：Jython是运行在Java平台上的Python解释器，可以直接把Python代码编译成Java字节码执行。</p>
+<h3 id="mac安装python环境"><a href="#mac安装python环境" class="headerlink" title="mac安装python环境"></a>mac安装python环境</h3><p>终端输入python，跳出的是2.7版本<br>终端输入python3，跳出的是3.9版本<br>就没安装了，要找解析器去官网下载安装</p>
+<p>终端执行.py文件：<br>1、写文件，前面要加个注释<br><code>#!/usr/bin/env python3</code><br><code>print(&quot;hello!&quot;)</code><br>2、给文件以执行权限<br><code>chmod a+x hi.py</code><br>3、运行文件<br><code>./hi.py</code></p>
+<p>✅安装pycharm<br>官网下载：<a target="_blank" rel="noopener" href="https://www.jetbrains.com.cn/en-us/pycharm/download">https://www.jetbrains.com.cn/en-us/pycharm/download</a><br>下载的社区版本。破解太费劲。<br>新建工程，选择解析器，不选虚拟的那个，选previously configured nterpret.<br>警告：PEP 8: W292 no newline at end of file，因为没有换行，换个行就好了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2759,7 +2773,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">101</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
