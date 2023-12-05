@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="第一章第一章 Numpy常用操作tensorflow：深度学习框架python本身含有列表list和数组array。list列表的元素可以是任何对象，因此列表中保存的是对象的指针，浪费内存和CPU计算时间。array不支持多维，没有各种运算函数。 numpy提供ndarray（存储单一数据类型的多维数组）和ufunc（对数组进行处理的函数） 1.将列表转换为ndarray。2.np函数，截取nda">
+  <meta name="description" content="第一章 Numpy常用操作tensorflow：深度学习框架python本身含有列表list和数组array。list列表的元素可以是任何对象，因此列表中保存的是对象的指针，浪费内存和CPU计算时间。array不支持多维，没有各种运算函数。 numpy提供ndarray（存储单一数据类型的多维数组）和ufunc（对数组进行处理的函数） 1.将列表转换为ndarray。2.np函数，截取ndarra">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于tensorflow的深度学习">
 <meta property="og:url" content="http://example.com/2023/08/20/myblog/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E4%BA%8Etensorflow%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Jadeliu&#39;s blog">
-<meta property="og:description" content="第一章第一章 Numpy常用操作tensorflow：深度学习框架python本身含有列表list和数组array。list列表的元素可以是任何对象，因此列表中保存的是对象的指针，浪费内存和CPU计算时间。array不支持多维，没有各种运算函数。 numpy提供ndarray（存储单一数据类型的多维数组）和ufunc（对数组进行处理的函数） 1.将列表转换为ndarray。2.np函数，截取nda">
+<meta property="og:description" content="第一章 Numpy常用操作tensorflow：深度学习框架python本身含有列表list和数组array。list列表的元素可以是任何对象，因此列表中保存的是对象的指针，浪费内存和CPU计算时间。array不支持多维，没有各种运算函数。 numpy提供ndarray（存储单一数据类型的多维数组）和ufunc（对数组进行处理的函数） 1.将列表转换为ndarray。2.np函数，截取ndarra">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-08-20T07:57:17.596Z">
-<meta property="article:modified_time" content="2023-08-20T08:47:01.630Z">
+<meta property="article:modified_time" content="2023-12-02T07:16:48.336Z">
 <meta property="article:author" content="Jade liu">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -211,10 +211,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-08-20 15:57:17 / Modified: 16:47:01" itemprop="dateCreated datePublished" datetime="2023-08-20T15:57:17+08:00">2023-08-20</time>
+              <time title="Created: 2023-08-20 15:57:17" itemprop="dateCreated datePublished" datetime="2023-08-20T15:57:17+08:00">2023-08-20</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-02 15:16:48" itemprop="dateModified" datetime="2023-12-02T15:16:48+08:00">2023-12-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -243,13 +249,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h3><p>第一章 Numpy常用操作<br>tensorflow：深度学习框架<br>python本身含有列表list和数组array。<br>list列表的元素可以是任何对象，因此列表中保存的是对象的指针，浪费内存和CPU计算时间。<br>array不支持多维，没有各种运算函数。</p>
+        <h2 id="第一章-Numpy常用操作"><a href="#第一章-Numpy常用操作" class="headerlink" title="第一章 Numpy常用操作"></a>第一章 Numpy常用操作</h2><p>tensorflow：深度学习框架<br>python本身含有列表list和数组array。<br>list列表的元素可以是任何对象，因此列表中保存的是对象的指针，浪费内存和CPU计算时间。<br>array不支持多维，没有各种运算函数。</p>
 <p>numpy提供ndarray（存储单一数据类型的多维数组）和ufunc（对数组进行处理的函数）</p>
 <p>1.将列表转换为ndarray。<br>2.np函数，截取ndarray<br>3.numpy中的random函数<br>4.numpy中的矩阵操作<br>5.ndarray的合并和展平<br>6.使用numpy和math的比较，使用向量化矩阵运算可以避免循环语句<br>7.numpy的广播机制：方便不同shape的数组进行数学运算。原则是对齐维度，对数组进行扩充到可以进行运算，利用自动复制等方法把低维数据补齐。</p>
-<h3 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h3><p>第二章 Theano基础<br>Theano是python的一个库，对于解决大量数据的问题，使用Theano可以获取与手工用C实现差不多的性能。符号计算图。<br>conda install theano<br>符号变量=张量Tensor。<br>张量是标量、向量、矩阵的统称。<br>Theano是一个通用的符号计算框架，将复杂的符号表达式编译成函数模型。<br>1.定义符号变量<br>import theano<br>from theano import tensor<br>2.符号计算图模型来描述变量间的运算关系，把符号表达式转换为一个计算图来处理。<br>3.函数：提供一个接口，把函数计算图编译为可调用的函数对象。Theano进行了编译优化，执行的是优化后保存在图结构中的模型，提升速度，不好调试。<br>自动求导：对于每个op都定义了根据输入计算出偏导数，使用链式法则，就可以计算出梯度了。<br>更新共享变量参数：深度学习中通常需要迭代多次，每次迭代都需要更新参数。theano.function中的updates参数就是包含两个元素的列表或tuple。<br>条件：ifelse、switch<br>循环：scan用来构建循环Graph的方法<br>4.共享变量：是实现机器学习算法参数更新的重要机制。shared函数会返回共享变量，这种变量的值可以在多个函数中直接使用。用function中的updates参数进行更新。</p>
-<h3 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h3><p>第三章 线性代数<br>1.标量、向量、矩阵、张量<br>2.可逆矩阵、对角矩阵、对称矩阵、单位向量、正交向量、正交矩阵<br>0范数(L0范数)-向量中非0元素的个数。<br>1范数(L1范数)-向量中各个元素绝对值之和。<br>2范数(L2范数)-向量的模长。<br>无穷范数(最大范数)-向量中各个元素绝对值的最大值。</p>
-<p>3.向量组、线性组合、向量空间。向量组线性相关。最大线性无关组、向量组的秩。矩阵的行秩和列秩相等。<br>4.向量的大小用范数来表示。<br>5.特征值分解，特征值，特征向量。<br>6.奇异值分解：分解成三个矩阵的乘积。可以拓展矩阵求逆到非方矩阵上。SVD<br>7.迹运算：矩阵对角元素的和 Tr<br>8.主成分分析：PCA：通过正交变换将一组可能存在相关性的变量转换为一组线性不相关的变量，转换后的这组变量叫做主成分。属于特征降维。<br>在减少需要分析的指标或维度的同时，尽量减少原指标所含信息的损失，以达到对所收集数据进行全面分析的目的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">print(np.arange(10))</span><br><span class="line">print(np.arange(0, 10))</span><br><span class="line">print(np.arange(1, 4, 0.5))</span><br><span class="line">print(np.arange(9, -1, -1))</span><br><span class="line"></span><br><span class="line">nd1 = np.arange(10)</span><br><span class="line">print(nd1)</span><br><span class="line">print(nd1[3:6])</span><br><span class="line">print(nd1[1:6:2])</span><br><span class="line">print(nd1[::-2])</span><br><span class="line"></span><br><span class="line">np2 = np.arange(25).reshape([5,5])</span><br><span class="line">print(np2)</span><br><span class="line">print(np2[[1,2]]) #1、2行</span><br><span class="line">print(np2[1:3, :])</span><br><span class="line">print(np2[:, 1:3])</span><br><span class="line">import numpy as np</span><br><span class="line">from numpy import random</span><br><span class="line"></span><br><span class="line">a = np.arange(1, 25, dtype=float)</span><br><span class="line">print(a)</span><br><span class="line">c1 = random.choice(a, size=(3,4))</span><br><span class="line">print(c1)</span><br><span class="line">print(np.sum(a))</span><br><span class="line">print(a / np.sum(a))</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">nd3 = np.arange(9).reshape([3,3])</span><br><span class="line">print(np.transpose(nd3))</span><br><span class="line">print(nd3.trace)</span><br><span class="line">print(np.linalg.det(nd3))</span><br><span class="line">print(np.linalg.solve(nd3, np.eye(3)))</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">print(time.process_time())</span><br></pre></td></tr></table></figure>
 
+<h2 id="第二章-Theano基础"><a href="#第二章-Theano基础" class="headerlink" title="第二章 Theano基础"></a>第二章 Theano基础</h2><p>Theano是python的一个库，对于解决大量数据的问题，使用Theano可以获取与手工用C实现差不多的性能。符号计算图。<br>conda install theano<br>符号变量=张量Tensor。<br>张量是标量、向量、矩阵的统称。<br>Theano是一个通用的符号计算框架，将复杂的符号表达式编译成函数模型。<br>1.定义符号变量<br>import theano<br>from theano import tensor<br>2.符号计算图模型来描述变量间的运算关系，把符号表达式转换为一个计算图来处理。<br>3.函数：提供一个接口，把函数计算图编译为可调用的函数对象。Theano进行了编译优化，执行的是优化后保存在图结构中的模型，提升速度，不好调试。<br>自动求导：对于每个op都定义了根据输入计算出偏导数，使用链式法则，就可以计算出梯度了。<br>更新共享变量参数：深度学习中通常需要迭代多次，每次迭代都需要更新参数。theano.function中的updates参数就是包含两个元素的列表或tuple。<br>条件：ifelse、switch<br>循环：scan用来构建循环Graph的方法<br>4.共享变量：是实现机器学习算法参数更新的重要机制。shared函数会返回共享变量，这种变量的值可以在多个函数中直接使用。用function中的updates参数进行更新。</p>
+<h2 id="第三章-线性代数"><a href="#第三章-线性代数" class="headerlink" title="第三章 线性代数"></a>第三章 线性代数</h2><p>1.标量、向量、矩阵、张量<br>2.可逆矩阵、对角矩阵、对称矩阵、单位向量、正交向量、正交矩阵<br>0范数(L0范数)-向量中非0元素的个数。<br>1范数(L1范数)-向量中各个元素绝对值之和。<br>2范数(L2范数)-向量的模长。<br>无穷范数(最大范数)-向量中各个元素绝对值的最大值。</p>
+<p>3.向量组、线性组合、向量空间。向量组线性相关。最大线性无关组、向量组的秩。矩阵的行秩和列秩相等。<br>4.向量的大小用范数来表示。<br>5.特征值分解，特征值，特征向量。<br>6.奇异值分解：分解成三个矩阵的乘积。可以拓展矩阵求逆到非方矩阵上。SVD<br>7.迹运算：矩阵对角元素的和 Tr<br>8.主成分分析：PCA：通过正交变换将一组可能存在相关性的变量转换为一组线性不相关的变量，转换后的这组变量叫做主成分。属于特征降维。<br>在减少需要分析的指标或维度的同时，尽量减少原指标所含信息的损失，以达到对所收集数据进行全面分析的目的。<br>for i in range(10):<br>    print(i)</p>
+<h2 id="第四章-概率与信息论"><a href="#第四章-概率与信息论" class="headerlink" title="第四章 概率与信息论"></a>第四章 概率与信息论</h2><p>机器学习、深度学习的三大基石：线性代数、概率与信息论、数值分析。<br>机器学习大部分时候处理的都是不确定量或随机量。</p>
+<p>1.信息论主要研究对一个信号包含信息的多少进行量化。<br>样本空间：一个实验或随机试验所有可能结果的集合，每个可能结果为一个样本点。<br>随机变量：随机事件的结果：离散随机变量、连续随机变量。n维随机变量/随机向量。</p>
+<p>2.概率分布<br>通常关心随机变量落在某一区间的概率：分布函数F<br>离散型随机变量：两点分布、二项分布、poisson分布<br>连续型随机变量：用概率密度函数来描述变量的概率分布fx。正态分布=高斯分布，钟形曲线，平均值和标准差，标准差大的更分散。正态分布是一种理想分布。<br>scipy库进行统计</p>
+<p>3.边缘概率：定义在多维随机变量的子集上的概率分布称为边缘概率分布。对于连续型随机变量，可以通过联合密度函数来得到边缘密度函数。<br>4.条件概率，条件概率的链式法则<br>5.独立性与条件独立性<br>6.期望、方差、协方差。<br>期望描述数据的大小，但无法描述数据的离散程度。<br>方差可以用来衡量随机变量取值的离散程度。<br>协方差可以衡量随机变量间的相关性强度。如果X和Y独立，那么它们的协方差为0.反之不一定成立，独立性比协方差为0的条件更强。如果X和Y都是正态分布，此时独立和协方差为0是一个概念。<br>相关系数将每个变量的贡献进行归一化，在协方差的基础上进行正则化，把相关系数限制在-1到1之间。如果等于1，表示线性正相关。<br>协方差推广到n个随机或n维随机变量的情况，对于n维，就是n*n的协方差矩阵。协方差矩阵是对称矩阵，协方差矩阵的对角元素为方差。<br>用numpy的相关函数、数据分析库pandas、画图库matplotlib、sns。<br>7.贝叶斯定理<br>与条件概率和边缘概率有关，通过已知的三个概率函数推出第四个。<br>分类器：近邻分类器、线性分类器、支撑向量机分类器、神经网络分类器、随机森林分类器<br>损失函数：多类支撑向量机损失、交叉熵损失、L1损失、L2损失<br>线性分类器，层级结构形成神经网络，高纬映射形成支撑向量机 - 非线性模型<br>线性分类器的权值：可以看作是一种模版，分界面（决策边界）<br>分类器的损失函数：搭建了模型性能与模型参数之间的桥梁。<br>多类支撑向量机损失：正确类别的得分比不正确类别的得分高出1分，就无损失，否则产生损失。</p>
+<h2 id="第五章-概率图模型"><a href="#第五章-概率图模型" class="headerlink" title="第五章 概率图模型"></a>第五章 概率图模型</h2><p>1.概率图模型是一种用图的形式表示随机变量之间条件依赖关系的概率模型，是概率论与图论的结合。<br>有向概率图模型：贝叶斯网络：表达随机变量间的依赖关系和相互关系<br>无向概率图模型：马尔可夫网络：表达随机变量间的相互关系</p>
+<p>2.贝叶斯网络分为静态贝叶斯网络和动态贝叶斯网络<br>动态贝叶斯网络可用于处理随时间变化的动态系统中的推断和预测等问题。其中隐马尔可夫模型HMM，被广泛用于语音识别、自动分词与词性标注和统计机器翻译等领域。</p>
+<p>3.隐马尔可夫模型<br>初始状态项链、状态转移概率矩阵、观测概率矩阵<br>状态序列（标记序列）和观测序列。<br>隐马尔可夫模型可解决三个基本问题：评估问题、解码问题、学习问题<br>实例：掷骰子，多种骰子<br>解码问题：知道骰子有几种（隐含状态数量），每种骰子是什么（转换概率），根据掷骰子的结果（可见状态链），想知道每次掷出来的都是哪种骰子（隐含状态链）。</p>
+<p>4.马尔可夫网络<br>无向概率图模型，关于一组有马尔可夫性质随机变量X的全联合概率分布模型。<br>重点是其中的一种：马尔可夫随机场MRF。<br>马尔可夫随机场有一组势函数，也称因子，是定义在变量子集上的非负函数。<br>条件随机场。</p>
+<h2 id="第六章-机器学习基础"><a href="#第六章-机器学习基础" class="headerlink" title="第六章 机器学习基础"></a>第六章 机器学习基础</h2><p>机器学习分为监督学习、无监督学习、半监督学习（强化学习）。</p>
+<h3 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h3>
     </div>
 
     
@@ -332,7 +349,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="nav-number">1.</span> <span class="nav-text">第一章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0"><span class="nav-number">2.</span> <span class="nav-text">第二章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0"><span class="nav-number">3.</span> <span class="nav-text">第三章</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-Numpy%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">第一章 Numpy常用操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-Theano%E5%9F%BA%E7%A1%80"><span class="nav-number">2.</span> <span class="nav-text">第二章 Theano基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">第三章 线性代数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E6%A6%82%E7%8E%87%E4%B8%8E%E4%BF%A1%E6%81%AF%E8%AE%BA"><span class="nav-number">4.</span> <span class="nav-text">第四章 概率与信息论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">第五章 概率图模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80"><span class="nav-number">6.</span> <span class="nav-text">第六章 机器学习基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="nav-number">6.1.</span> <span class="nav-text">线性模型</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
