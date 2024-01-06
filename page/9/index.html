@@ -183,6 +183,282 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/git%E5%BA%94%E7%94%A8%E4%B8%8Egithub/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.gif">
+      <meta itemprop="name" content="Jade liu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jadeliu's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/02/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/git%E5%BA%94%E7%94%A8%E4%B8%8Egithub/" class="post-title-link" itemprop="url">git与github应用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-02 14:43:27" itemprop="dateCreated datePublished" datetime="2021-09-02T14:43:27+08:00">2021-09-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-05-01 18:32:38" itemprop="dateModified" datetime="2023-05-01T18:32:38+08:00">2023-05-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="case"><a href="#case" class="headerlink" title="case"></a>case</h3><p>1、git pull只是将远程本分支上的更新pull下来，如果要pull远程master，需要：git pull origin master</p>
+<h3 id="git"><a href="#git" class="headerlink" title="git"></a>git</h3><p>Git 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。</p>
+<p>是一个开源的分布式版本控制系统，可以有效、高速地处理从很小到非常大的项目版本管理。也是[Linus Torvalds]为了帮助管理Linux内核开发而开发的一个开放源码的版本控制软件。</p>
+<h3 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h3><p>SSH 为 [Secure Shell](<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Secure">https://baike.baidu.com/item/Secure</a> Shell) 的缩写，是建立在应用层基础上的安全协议。SSH 是较可靠，专为远程登录会话和其他网络服务提供安全性的协议。利用 SSH 协议可以有效防止远程管理过程中的信息泄露问题。SSH最初是UNIX系统上的一个程序，后来又迅速扩展到其他操作平台。SSH在正确使用时可弥补网络中的漏洞。</p>
+<p>传统的网络服务程序，如：ftp、pop和telnet在本质上都是不安全的，因为它们在网络上用明文传送口令和数据，别有用心的人非常容易就可以截获这些口令和数据。而且，这些服务程序的安全验证方式也是有其弱点的， 就是很容易受到“中间人”（man-in-the-middle）这种方式的攻击。所谓“中间人”的攻击方式， 就是“中间人”冒充真正的服务器接收你传给服务器的数据，然后再冒充你把数据传给真正的服务器。服务器和你之间的数据传送被“中间人”一转手做了手脚之后，就会出现很严重的问题。<strong>通过使用SSH，你可以把所有传输的数据进行加密，这样”中间人”这种攻击方式就不可能实现了，而且也能够防止DNS欺骗和IP欺骗</strong>。使用SSH，还有一个额外的好处就是传输的数据是经过压缩的，所以<strong>可以加快传输的速度</strong>。SSH有很多功能，它既可以代替Telnet，又可以为FTP、PoP、甚至为PPP提供一个安全的”通道”   。</p>
+<p>git 使用 rsa，rsa 要解决的一个核心问题是，如何使用一对特定的数字，使其中一个数字可以用来加密，而另外一个数字可以用来解密。这两个数字就是你在使用 git 和 github 的时候所遇到的 public key 也就是公钥以及 private key 私钥。本地用私钥，上传公钥。</p>
+<h4 id="本地创建ssh-key"><a href="#本地创建ssh-key" class="headerlink" title="本地创建ssh key"></a>本地创建ssh key</h4><p><code>$ ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot;</code></p>
+<p><code>~/下生成.ssh文件夹，进去，打开id_rsa.pub，复制里面的key。标题建议和仓库名一致, 便于区分. </code></p>
+<p>验证：<code>$ ssh -T git@github.com</code></p>
+<p>本地设置git：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;jadeliuliu&quot;</span><br><span class="line">git config --global user.email &quot;xxxxx@163.com&quot;</span><br><span class="line">git config --list</span><br></pre></td></tr></table></figure>
+
+<h3 id="与github建立连接"><a href="#与github建立连接" class="headerlink" title="与github建立连接"></a>与github建立连接</h3><p>1.github上建立仓库</p>
+<p>2.本地建立仓库 <code>git init // 把这个目录变成Git可以管理的仓库，本地多一个.git文件夹，用来跟踪管理版本库</code></p>
+<p><code>mac第一次建仓库出现问题：xcode-select --install</code></p>
+<p><code>git clone git@github.com:jadeliuliu/HelloWorld.git（复制自项目的链接）    相当于创建一个远程仓库的克隆版本</code></p>
+<p>3.关联github仓库 <code>git remote add origin git@github.com:Hexagon-Man/HelloWorld.git</code></p>
+<p>4.提交代码</p>
+<p><code>git add 添加文件</code></p>
+<p><code>git add . // 将当前目录下修改的所有代码从工作区添加到暂存区 . 代表当前目录</code></p>
+<p><code>git remote add origin git@github.com:xxx/xxx.git // 关联远程仓库</code></p>
+<p><code>git commit -m &quot;&quot;  // 提交到了 HEAD，但是还没到你的远端仓库 </code></p>
+<p><code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;  &lt;远程分支名&gt; ，例如 git push origin HEAD：refs/for/master  // refs/for 的意义在于我们提交代码到服务器之后是需要经过code review 之后才能进行merge的 </code> </p>
+<p><code>git push -u origin master // 把本地库的所有内容推送到远程库上</code></p>
+<h3 id="git仓库结构"><a href="#git仓库结构" class="headerlink" title="git仓库结构"></a>git仓库结构</h3><p>本地仓库由 git 维护的三部分组成。第一个是 <code>工作目录</code>，它持有实际文件；第二个是 <code>暂存区（Index）</code>，它像个缓存区域，临时保存改动；最后是 <code>HEAD</code>，它指向你最后一次提交的结果。</p>
+<h3 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h3><p><code>git checkout -b f  //创建并切换分支</code></p>
+<p><code>git branch -d f    //删除分支</code></p>
+<p><code>git branch -a     # 查看本地和远程的所有分支</code></p>
+<p><code>git push origin &lt;branch&gt;    //分支推送到远端</code></p>
+<p><code>git pull   //获取fetch并合并到本地</code></p>
+<p><code>git rm 文件  //将文件从暂存区和工作区中删除，加-f强制删除</code></p>
+<p><code>git rm --cached 文件  //将文件从暂存区中删除</code></p>
+<p><code>删除缓存区所有文件命令:  git rm -r --cached .   #主要这个点一定要写</code></p>
+<p><code>git log --oneline</code></p>
+<h4 id="✅三个git-add"><a href="#✅三个git-add" class="headerlink" title="✅三个git add"></a>✅三个git add</h4><p>git add -u &lt;==&gt; git add –update<br>提交所有被删除和修改的文件到数据暂存区</p>
+<p>git add .<br>提交所有修改的和新建的数据暂存区</p>
+<p>git add -A &lt;==&gt;git add –all   （用它就wans）<br>提交所有被删除、被替换、被修改和新增的文件到数据暂存区</p>
+<h4 id="✅git-restore"><a href="#✅git-restore" class="headerlink" title="✅git restore"></a>✅git restore</h4><p>git restore命令是撤销的意思。<br>有git restore <file>和git restore –staged <file>两种常用的用法。</file></file></p>
+<p>新建文件，没add，git status后，前面显示？？，这种文件未被跟踪，在add之前git啥都干不了。<br>对新建文件进行git add，就到了暂存区，使用git restore –staged 文件，它就又回到了本地工作区。</p>
+<p>对于已有的文件进行修改，修改的文件从暂存区跑到了本地工作区，此时可以对这个修改的文件git add到暂存区，然后才能git commit到本地版本库，也可以使用git restore，修改的文件就恢复了，没修改了，叫撤销修改。</p>
+<p>git pull，有冲突，这时冲突文件里有===head之类的，这时候不想解决冲突了，想恢复，用：git restore –staged</p>
+<p>❗️几种工作区：<br>1、新建的，也就是未跟踪的（Untracked files）：本地工作区<br>2、更改的(modified)和删除的(deleted) 还没add的（Changes not staged for commit）：本地工作区，可以使用git restore取消更改。<br>3、更改/新增之后add的（Changes to be committed）：暂存区，可以使用git restore –stage使得文件回到本地工作区。<br>4、git commit 后到本地版本库。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">On branch main</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git restore --staged &lt;file&gt;...&quot; to unstage)</span><br><span class="line">	modified:   2022.md</span><br><span class="line"></span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add/rm &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line">	modified:   aaa.md</span><br><span class="line">	deleted:    hello.go</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line">	1.md</span><br></pre></td></tr></table></figure>
+
+<p>总结：<br>1、git restore –staged的作用是将暂存区的文件从暂存区撤出，回到本地工作区，但不会更改文件的内容。就是已经git add的文件，新建的使用该命令后，回到untracked，更改的回到changes not staged for commit。</p>
+<p>2、git restore指令使得在工作空间但是不在暂存区的文件撤销更改(内容恢复到没修改之前的状态). 对新加的文件不能使用。对更改的文件使用</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38158479/article/details/106972138">https://blog.csdn.net/qq_38158479/article/details/106972138</a></p>
+<h3 id="git空间与命令"><a href="#git空间与命令" class="headerlink" title="git空间与命令"></a>git空间与命令</h3><p>Working Directory：即工作区。操作系统层面的目录树结构，也可以理解为一个tree目录对象</p>
+<p>Stage(Index)：即暂存区，为等待Commit的文件列表。是以扁平的文件清单实现的，不过从理解层面上也可以理解为tree目录对象</p>
+<p>Local Repository(History)：本地版本库。有向无环图，其每一个节点都是一个tree目录对象</p>
+<p>Remote Repository：远程版本库。有向无环图，其每一个节点都是一个tree目录对象</p>
+<p><img src="/images/git%E5%B7%A5%E4%BD%9C%E5%8C%BA.png"><br>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/kekec/p/9248487.html">https://www.cnblogs.com/kekec/p/9248487.html</a></p>
+<p>git status 是看暂存区的改动，如果commit了，暂存区就空了。</p>
+<h3 id="应用：在本地进行了add-commit还未push，想要撤销本地的本次commit"><a href="#应用：在本地进行了add-commit还未push，想要撤销本地的本次commit" class="headerlink" title="应用：在本地进行了add-commit还未push，想要撤销本地的本次commit"></a>应用：在本地进行了add-commit还未push，想要撤销本地的本次commit</h3><p>git log 查看commit id，拿上一个commit id，而不是最新的commit id（这是要回退的id）<br>git reset ：回退到某个版本，不清空暂存区，工作区也不变，需要再提交的话需要add后commit<br>git reset –soft：回退到某个版本，不清空暂存区，工作区也不变，需要再提交的话直接commit<br>git reset –hard：彻底回退到某个版本，撤销的commit中的所有更改都被冲掉，暂存区为空了，工作区也恢复为版本库版本。</p>
+<h3 id="应用：本地修改了，没有add，想撤销修改变为版本库里的"><a href="#应用：本地修改了，没有add，想撤销修改变为版本库里的" class="headerlink" title="应用：本地修改了，没有add，想撤销修改变为版本库里的"></a>应用：本地修改了，没有add，想撤销修改变为版本库里的</h3><p>用git reset –hard 解决  //恢复为本地库里的内容</p>
+<p>用  git checkout – hello.go  比较好，相当于清空了暂存区内容，工作区内容也变为修改前的。</p>
+<p>用  git rm –cached hello.go  不行，从暂存区中删除文件，会显示delete，修改的也会记录，只不过还需要add，不改变工作区。<br>不懂了，不管是有没有add，都会加一条delete，而不是把原本的删掉。</p>
+<h3 id="应用：本地版本恢复为远程版本"><a href="#应用：本地版本恢复为远程版本" class="headerlink" title="应用：本地版本恢复为远程版本"></a>应用：本地版本恢复为远程版本</h3><p>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;  </p>
+<p>git pull origin master</p>
+<p>git pull 默认拉去远程当前分支到本地当前分支</p>
+<h3 id="应用：本地只有master分支，本地拉取线上其他分支"><a href="#应用：本地只有master分支，本地拉取线上其他分支" class="headerlink" title="应用：本地只有master分支，本地拉取线上其他分支"></a>应用：本地只有master分支，本地拉取线上其他分支</h3><p>git branch -a  //查看要拉取线上的什么分支</p>
+<p>git pull origin 分支名：本地分支名  //直接git pull origin 分支名，本地新建该分支</p>
+<p>git checkout 分支名  //切换</p>
+<h3 id="应用：想新开发一版，但又不想保留目前"><a href="#应用：想新开发一版，但又不想保留目前" class="headerlink" title="应用：想新开发一版，但又不想保留目前"></a>应用：想新开发一版，但又不想保留目前</h3><p>想的再建一个仓库来的，没必要。</p>
+<p>在不同分支上开发就行？</p>
+<p>1.远程创建分支</p>
+<p>2.创建完成后<code>git branch -a </code>并没有看到新分支</p>
+<p>3.本地创建并切换新分支<code>git checkout -b mbox-7354 </code>，代码之前分支一样，并不是master代码。</p>
+<p>4.切换分支并不会更改代码。是因为没有<code>git add + git commit</code>，修改的代码在本地工作区，执行commit操作后代码修改到了本地版本库，这时再切换分支，代码没有提现另一个分支的修改了。</p>
+<p>5.切换到mbox-7354分支，pull 代码</p>
+<p><code>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;  </code></p>
+<p><code>git pull origin mbox-7354 : mbox-7354</code> 被拒绝</p>
+<p>出现<code>non-fast-forward</code>的错误，证明本地库跟远程库的提交记录不一致，即本地库版本需要更新</p>
+<p>6.pull不行，换从远程拉取分支</p>
+<p>删除分支，先切换到别的分支，再<code>git brqanch -d name</code> -D强制删除</p>
+<p><code>git checkout -b mbox-7354 origin/master</code> 创建</p>
+<p><code>git pull origin master</code>  把远程分支上的内容都拉取到本地</p>
+<p>7.拉取了和线上master一样的代码，接下来可以修改代码</p>
+<h3 id="应用：commit之后想改commit的名字"><a href="#应用：commit之后想改commit的名字" class="headerlink" title="应用：commit之后想改commit的名字"></a>应用：commit之后想改commit的名字</h3><p><code>git commit -m &quot;v2&quot;</code></p>
+<p><code>git commit --amend -m &quot;v2 add two interfaces&quot;</code></p>
+<h3 id="应用：本地创建多个分支互不干扰"><a href="#应用：本地创建多个分支互不干扰" class="headerlink" title="应用：本地创建多个分支互不干扰"></a>应用：本地创建多个分支互不干扰</h3><p>（1）本地已有分支dev，写了需求a，但是不要提交。</p>
+<p>（2）执行git stash命令，将工作区的内容“储存起来”</p>
+<p>（3）接着在dev分支上修改bug，并提交，push</p>
+<p>（4）执行git stash pop，恢复工作区原来的内容。</p>
+<h3 id="应用：本地代码提交到另一分支上"><a href="#应用：本地代码提交到另一分支上" class="headerlink" title="应用：本地代码提交到另一分支上"></a>应用：本地代码提交到另一分支上</h3><p>开发过程中难免切换分支，不管是开发另一个需求，还是提交到另一个分支。git checkout 切换分支之后，本地工作区的代码会不会变？ 之前切换到新建的分支，本地的代码还在，可以提交到新分支；可是再切回去，出现问题。因此有必要用stash解决。</p>
+<p><code>git stash save &quot;save message&quot;</code>：执行存储时，添加备注，方便查找，只有 git stash 也是可以的</p>
+<p><code>git stash list</code>：查看stash了哪些存储</p>
+<p><code>git stash show</code>：显示做了哪些改动，默认show第一个存储,如果要显示其他存贮，后面加 stash@{$num}，比如第二个 git stash show stash@{1}</p>
+<p><code>git stash apply</code>：应用某个存储，但不会把存储从存储列表中删除，默认使用第一个存储,即 stash@{0}，如果要使用其他的，git stash apply stash@{$num}， 比如第二个：git stash apply stash@{1}</p>
+<p><code>git stash pop</code>：恢复之前缓存的工作目录，将缓存堆栈中的对应stash删除，并将对应修改应用到当前的工作目录下，默认为第一个 stash，即 stash@{0}，如果要应用并删除其他stash，命令：git stash pop stash@{$num}，比如应用并删除第二个：git stash pop stash@{1}</p>
+<p><code>git stash drop stash@&#123;$num&#125;</code>：丢弃 stash@{$num} 存储，从列表中删除这个存储</p>
+<p><code>git stash clear</code>：删除所有缓存的stash</p>
+<p>但是对于新增的文件，<code>git stash</code> 是不会存进去的，因为新增的文件没有被git托管，需要先执行下 <code>git add</code> 加到git版本控制中，然后再 <code>git stash</code> 就可以了</p>
+<p>只备份部分文件怎么办？</p>
+<ol>
+<li>add 那些你不想备份的文件（例如： git add file1.js, file2.js）</li>
+<li>调用 <code>git stash –keep-index</code>。只会备份那些没有被add的文件。</li>
+<li>调用 <code>git reset</code> 取消已经 add 的文件的备份，继续自己的工作。</li>
+</ol>
+<p>✅Git如何stash部分文件：<br>想要stash部分代码，其他的要push。<br>用git stash -p，它是一个交互式命令,我们可以一个文件一个文件的遍历,决定每个文件的操作方式.<br>到我们需要stash的文件,我们就y,不需要stash需要commit的文件,我们就n,如果接下来没有需要stash的文件,则直接q。<br>将文件保存好后,我们就可以commit和push剩下的代码了.</p>
+<p>✅stash pop后有冲突，想取消stash怎么办</p>
+<p>如果使用 git stash pop 后有冲突时，如何撤销?<br>可以使用 git reset –hard ，即可撤销 git stash pop 操作，将当前分支状态恢复。<br>而该操作后，git stash 暂存区的记录也不会被删除，可通过 git stash show 查看。</p>
+<p>###git merge<br><code>git merge A</code>  是将A代码合并到当前分支，不会改变A分支的</p>
+<p>当master代码改动了，需要更新开发分支（dev）上的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git checkout master </span><br><span class="line">git pull </span><br><span class="line">git checkout dev</span><br><span class="line">git merge master </span><br><span class="line">git push -u origin dev</span><br></pre></td></tr></table></figure>
+
+<p>开发分支开发完了，需要在迭代分支上上线，合并到迭代分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout 迭代</span><br><span class="line">git merge 开发</span><br><span class="line">git push -u origin 迭代</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="查看git配置"><a href="#查看git配置" class="headerlink" title="查看git配置"></a>查看git配置</h3><p>git config –list</p>
+<h3 id="commit之后，追加提交"><a href="#commit之后，追加提交" class="headerlink" title="commit之后，追加提交"></a>commit之后，追加提交</h3><p>1.如果还没有push到远程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &#x27;initial commit&#x27;</span><br><span class="line">$ git add forgotten_file</span><br><span class="line">$ git commit --amend   //wq保存</span><br></pre></td></tr></table></figure>
+<p>最终你只会有一个提交——第二次提交将代替第一次提交的结果。<br>先git add提交修改的文件<br>再git commit –amend<br>也叫追加提交，它可以在不增加一个新的commit的情况下，将新修改的代码追加到前一次的commit中。<br>使用该命令的好处，是避免许多无用的提交。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">常用参数：</span><br><span class="line"></span><br><span class="line">--no-edit：使用选定的提交消息而无需启动编辑器。（追加提交，且不修改message信息。）</span><br><span class="line"></span><br><span class="line">--reset-author：加载提交用户的信息。</span><br><span class="line"></span><br><span class="line">比如你从新配置本地用户的信息，然后使用该参数可以重新加载新用户的信息，并且更新在追加提交中。</span><br><span class="line"></span><br><span class="line">--author=：可修改Git 的 author 和 email 信息。</span><br><span class="line">示例：git commit --amend --author=&#x27;xxx &lt;xxxx@xxx.xxx&gt;&#x27;</span><br><span class="line"></span><br><span class="line">摘自：http://events.jianshu.io/p/f015b97bda53</span><br><span class="line"></span><br><span class="line">-m: 执行git commit --amend -m &quot;这里填写提交的注释&quot;命令进行提交。</span><br><span class="line"></span><br><span class="line">使用git commit --amend命令，表面上没有生成新的提交，只是进行了内容的追加。但实际上通过git reflog命令查看历史提交记录，我们还是看到了，其实是新生成了一个commit。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2.已经push到远程了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git commit --amend     // 修改上一次的提交</span><br><span class="line"></span><br><span class="line">// 进入提交信息编辑界面</span><br><span class="line">// 修改保存退出</span><br><span class="line"></span><br><span class="line">// 强制推送 (本地分支:远程分支)</span><br><span class="line">git push -f origin master:master</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">***git commit --amend 命令原理:***</span><br><span class="line">git commit --amend这个命令给人的感觉，是用新提交的数据，追加到了前一个commit上。</span><br><span class="line"></span><br><span class="line">其实git commit --amend命令底层原理如下：</span><br><span class="line"></span><br><span class="line">前提：你把遗漏提交的文件，或者修改的文件先提交到暂存区。</span><br><span class="line"></span><br><span class="line">1. git reset --soft HEAD^：回退一个版本，且工作区和暂存区中的内容不会退。</span><br><span class="line"></span><br><span class="line">2. git commit -c ORIG_HEAD：提交操作。在根据此时的暂存区生成一个新的提交对象，代替原来提交的位置。</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">-C &lt;commit&gt;，全称--reuse-message=&lt;commit&gt;：获取现有的提交对象，并在创建提交时重用现有提交对象的日志消息和作者信息（包括时间戳）。</span><br><span class="line">-c &lt;commit&gt;，全称--reedit-message=&lt;commit&gt;：与-C类似，但是-c会调用编辑器，以便用户可以进一步编辑提交消息。</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="git如何撤销已提交的commit重新提交"><a href="#git如何撤销已提交的commit重新提交" class="headerlink" title="git如何撤销已提交的commit重新提交"></a>git如何撤销已提交的commit重新提交</h3><p>1、首先，使用git log -n 3 –stat命令，可以查看最近3次提交的详细信息，并且会显示每次commit的哈希值。</p>
+<blockquote>
+<p>git log 会显示：commit 哈希id、提交的Author信息、提交的日期和时间、commit info信息<br>–oneline： 只显示提交的 SHA1 值和提交信息，SHA1 还是缩短显示前几位，一般为前七位（commit id的前七位？）<br>–graph：绘制一个 ASCII 图像来展示提交历史的分支结构，类似于一个树形结构，很方便很好看<br>–stat参数: 主要可以在git log 的基础上输出文件增删改的统计数据<br>-p参数与–stat类似，不过-p参数更为详细，可以看到每个文件更为详细的修改内容<br>–author用来过滤commit,限定输出给定的用户:git log –author=”Stephen Curry”<br>–after和–before:  限定指定日期范围的log : git log –after ‘08-12-2020’</p>
+</blockquote>
+<p>漂亮log命令：<code>git log --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit --date=relative --all</code></p>
+<p>2、接着使用如下命令来回到某次提交：git reset –soft 某次commit哈希值的任意前缀</p>
+<blockquote>
+<p>最近一次commit了，但是不想要了，git log 获得这次提交的上一次的commit id，然后git reset，本地代码改动就回到本地工作空间了。可以重新改了再提交。<br>reset之后，最近一次的commit就在log里消失了。</p>
+</blockquote>
+<p>3、回到那次commit之后，接着使用如下命令强制提交到master分支：git push origin master –force执行结束后，可以看到远程git仓库的希望撤回的commit已经不见了。</p>
+<p>4、强制提交之后，那次commit之后所有的修改都处于没有提交的状态，可以再修改文件，然后将他们都再添加提交即可。</p>
+<p>5、使用git commit -m命令再提交新的commit。</p>
+<p>6、最终是希望撤回的commit已经消失，换成了新提交的commit。</p>
+<h3 id="git-commit还没push，想将修改的代码回到本地工作区"><a href="#git-commit还没push，想将修改的代码回到本地工作区" class="headerlink" title="git commit还没push，想将修改的代码回到本地工作区"></a>git commit还没push，想将修改的代码回到本地工作区</h3><p>可以使用命令 <code>git reset HEAD~</code>，将最近一次的commit回退到本地工作区。<br>执行完这个命令之后，最近一次的commit就会被删除，修改的代码会回到本地工作区，可以继续进行修改和提交。如果需要撤销多个commit，可以使用<code>git reset HEAD~n</code>，其中n为需要回退的commit次数。</p>
+<h3 id="细说git-reset"><a href="#细说git-reset" class="headerlink" title="细说git reset"></a>细说git reset</h3><p>git reset命令用于将当前分支的HEAD指针指向指定的提交，并根据指定的模式重置索引和工作树。有三种模式：–soft –mixed –hard</p>
+<p>1、git reset –soft: 将当前分支的HEAD指针指向指定的提交，不修改索引和工作树。用于取消上次提交，并将修改保留在索引中（保留在暂存区，可以直接commit）以便在此进行提交。</p>
+<p>2、git reset –mixed：将当前分支的HEAD指针指向指定的提交，重置索引，但不修改工作树。用于取消上次提交，并将修改还原到索引中（保存在本地工作区，需要add再commit）以便重新提交或修改后再提交。【默认】</p>
+<p>3、git reset –hard：将当前分支的HEAD指针指向指定的提交，并且将索引和工作树都重置为该提交的状态。这种模式用于完全取消上一次提交，并将修改还原到工作树，比便重新开始。</p>
+<p>git reset –soft HEAD~ 和 git reset –soft HEAD^ 的区别：<br>大多情况下是等价的，它们都可以让当前分支的HEAD指针指向当前提交的父提交。<br>但是有多个父提交的情况下略有不同：<br>git reset –soft HEAD^ 表示第一个父提交，git reset –soft HEAD^2表示第二个父提交。<br>git reset –soft HEAD~ 表示当前提交的父提交，git reset –soft HEAD~2表示当前提交的父提交的父提交。</p>
+<h3 id="feature分支和release分支"><a href="#feature分支和release分支" class="headerlink" title="feature分支和release分支"></a>feature分支和release分支</h3><p>1⃣️ master 分支：<br>master 为主分支，也是用于部署生产环境的分支，确保master分支稳定性，master 分支一般由develop以及hotfix分支合并，任何时间都不能直接修改代码。</p>
+<p>2⃣️ develop 分支：<br>develop 为开发分支，始终保持最新完成以及bug修复后的代码<br>一般开发的新功能时，feature分支都是基于develop分支下创建的</p>
+<p>3⃣️ feature 分支：<br>开发新功能时，以develop为基础创建feature分支<br>分支命名: feature/ 开头的为特性分支， 命名规则: feature/user_module、 feature/cart_module</p>
+<p>4⃣️ release分支：<br>release 为预上线分支，发布提测阶段，会release分支代码为基准提测</p>
+<blockquote>
+<p>当有一组feature开发完成，首先会合并到develop分支，进入提测时，会创建release分支。<br>如果测试过程中若存在bug需要修复，则直接由开发者在release分支修复并提交。<br>当测试完成之后，合并release分支到master和develop分支，此时master为最新代码，用作上线。</p>
+</blockquote>
+<p>5⃣️ hotfix 分支：<br>分支命名: hotfix/ 开头的为修复分支，它的命名规则与 feature 分支类似<br>线上出现紧急问题时，需要及时修复，以master分支为基线，创建hotfix分支，修复完成后，需要合并到master分支和develop分支</p>
+<h3 id="git冲突"><a href="#git冲突" class="headerlink" title="git冲突"></a>git冲突</h3><p>1⃣️ 产生冲突的原因：</p>
+<p>简单来说就是本地修改的文件和目标远程库的同一个文件都有修改。这时无论是pull/push/merge时都会产生冲突。</p>
+<p>场景1：多个分支代码合并到一个分支时：<br>开发a分支对某文件进行了修改，并提交到了master分支，这时开发b分支也对该文件进行了修改，然后合并到master分支，这时可能会发生冲入。（同一文件不同部分的修改，git会自动合并，同一文件同一行或是连续的一部分，git无法自动合并，需要手动解决冲突后合并）</p>
+<p>场景2：同一分支下本地和远程的冲突：<br>比如a和b开发同一分支，a改了某文件，并且merge上去了，b也改了这个文件，此时b要pull或push，都会发生冲突，代表本地和远程分支的代码是不同步的。</p>
+<p>其实类似，第一种基准是master分支，往里合并的是两个远程分支；第二种基准是远程分支，往里合并的是两个人的本地分支。</p>
+<hr>
+<p>2⃣️ 如何解决冲突：</p>
+<p>场景1:<br>修改谁：修改要合并的那个分支</p>
+<p>1、merge/pull 远程master分支到本地当前分支，修改冲突，然后add commit push</p>
+<p>场景2:<br>首先尽量避免第二种的发生：开发之前先git pull一下最新的代码。</p>
+<p>冲突了修改谁：修改本地的文件。案例：提交代码，cv之后，显示冲突，需要本地解决再push。</p>
+<p>1、git pull更新代码，发现CONFLICT：Merge conflict in 文件<br>Automatic merge failed：fix conficts…<br>这说明你的该文件与远程有冲突，此时暂停merge，远程改动都到了本地暂存区（add前），需要先提交本地的修改然后更新。</p>
+<p>2、找到冲突文件，并打开你会在文件中发现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD </span><br><span class="line">我的代码</span><br><span class="line">======= </span><br><span class="line">别人的代码</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; ae9a0f6b7e42fda2ce9b14a21a7a03cfc5344d61这种标记。</span><br><span class="line"></span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD和=======中间的是你自己的代码，</span><br><span class="line">======= 和&gt;&gt;&gt;&gt;&gt;&gt;&gt;中间的是其他人修改的代码，</span><br><span class="line">改好之后，最后删除&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD ，======= ，&gt;&gt;&gt;&gt;&gt;&gt;&gt;这种标志。</span><br></pre></td></tr></table></figure>
+<p>改好了，git status -s看到冲突文件前面有个UU</p>
+<p>3、git add 冲突文件<br>git commit -m ‘冲突解决’<br>提交本地的pom.xml文件，不进行推送远程</p>
+<p>4、然后都不用git pull，自动就pull了，然后再push就好了，push之前也不用再commit。</p>
+<p>总结：解决冲突的原则是修改要提交/正在开发的那个分支，将基准分支的代码pull过来，解决冲突后进行提交。</p>
+<p>问题：git pull 有冲突，改动到了本地暂存区，冲突解决之后，commit了冲突文件之后，再git pull就会把本地暂存区的文件合并到本地 ？</p>
+<p>答：解决冲突，提交了冲突文件之后，暂存区的文件不见了，之前自己加的文件也不见了…应该是提交冲突之后，自动git pull了。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/mrwangisgoodboy/article/details/123245194">https://blog.csdn.net/mrwangisgoodboy/article/details/123245194</a></p>
+<p><a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1711887140444140945&amp;wfr=spider&amp;for=pc">https://baijiahao.baidu.com/s?id=1711887140444140945&amp;wfr=spider&amp;for=pc</a></p>
+<hr>
+<p>用idea处理冲突：</p>
+<p>1、点右上角蓝箭头：<br>（一）Merge the incoming changes into the current branch</p>
+<pre><code>将传入的更改合并到当前分支中（常用） 相当于git pull
+</code></pre>
+<p>（二）Rebase the current branch on top of the incoming changes</p>
+<pre><code>把你当前分支的 commit 放到公共分支的最后面,所以叫变基
+</code></pre>
+<p>master与rebase：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41231928/article/details/107040880">https://blog.csdn.net/weixin_41231928/article/details/107040880</a></p>
+<p>2、选择merge the incoming…（等同于git pull）</p>
+<p>3、点master，点merge into current</p>
+<p>4、处理冲突：左边是自己的，这件是merge的，右边是别人的，绿色可以自动处理，红色需要手动处理。</p>
+<p>5、git add commit push</p>
+<hr>
+<p>202207用idea解决冲突：<br>push之后，cr代码冲突了，本地git pull，然后代码区域右键git - git resolve merge。挨个文件点merge。先点左上角all，然后左右点箭头，都要的两边都点，不要的点x。 左边是当前分支的，右边是master分支的。</p>
+<h3 id="cherry-pick"><a href="#cherry-pick" class="headerlink" title="cherry-pick"></a>cherry-pick</h3><p>使用场景：对于多分支的代码库，将代码从一个分支转移到另一个分支，并且，只需要部分代码变动（某几个提交），这时可以采用 Cherry pick。</p>
+<p>用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">1.首先查出要用的提交的commit id（哈希值）</span><br><span class="line">git log --oneline</span><br><span class="line"></span><br><span class="line">2.切换到现在要写的分支</span><br><span class="line">git checkout feature1</span><br><span class="line"></span><br><span class="line">3.合并到当前分支</span><br><span class="line">git cherry-pick f</span><br><span class="line">//git cherry-pick命令的参数，不一定是提交的哈希值，分支名也是可以的，表示转移该分支的最新提交。</span><br><span class="line"></span><br><span class="line">4.如果合并时候冲突了，Cherry pick 会停下来，让用户决定如何继续操作。</span><br><span class="line">1）--continue</span><br><span class="line">用户解决代码冲突后，第一步将修改的文件重新加入暂存区（git add .），第二步使用下面的命令，让 Cherry pick 过程继续执行</span><br><span class="line">git cherry-pick --continue</span><br><span class="line"></span><br><span class="line">2）--abort</span><br><span class="line">发生代码冲突后，放弃合并，回到操作前的样子</span><br><span class="line">git cherry-pick --abort</span><br><span class="line"></span><br><span class="line">3）--quit</span><br><span class="line">发生代码冲突后，退出 Cherry pick，但是不回到操作前的样子。</span><br></pre></td></tr></table></figure>
+
+<p>更多：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35432904/article/details/107232691">https://blog.csdn.net/qq_35432904/article/details/107232691</a></p>
+<p>实操步骤：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、git log --oneline 查看要cherry-pick过来的commit id</span><br><span class="line">2、git cherry-pick commit id</span><br><span class="line">3、有冲突，解决冲突</span><br><span class="line">4、解决完，git cherry-pick --continue</span><br></pre></td></tr></table></figure>
+
+<h3 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/183131156">https://zhuanlan.zhihu.com/p/183131156</a></p>
+<h3 id="回退到某次提交"><a href="#回退到某次提交" class="headerlink" title="回退到某次提交"></a>回退到某次提交</h3><p>git reset –hard commit id</p>
+<h3 id="总结：几种放弃修改"><a href="#总结：几种放弃修改" class="headerlink" title="总结：几种放弃修改"></a>总结：几种放弃修改</h3><p>1、未使用 git add 缓存代码时</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout --&lt;文件名称&gt;</span><br><span class="line">放弃单个文件的修改</span><br><span class="line"></span><br><span class="line">$ git checkout .</span><br><span class="line">放弃全部文件的修改</span><br><span class="line"> </span><br><span class="line">注：此命令不会删除新建的文件，因为刚新建的文件还没已有加入到 git 的管理系统中，所以对于git是未知的。自己手动删除就好了</span><br></pre></td></tr></table></figure>
+
+<p>2、已经使用了 git add 缓存了代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD &lt;文件名称&gt;</span><br><span class="line">放弃指定文件的缓存</span><br><span class="line"> </span><br><span class="line">$ git reset HEAD .</span><br><span class="line">放弃全部文件缓存</span><br><span class="line"> </span><br><span class="line">注：此命令用来清除git add的缓存，相当于撤销git add命令，使用本命令后本地修改的文件并不会发生变化，继续使用git checkout命令可放弃修改</span><br></pre></td></tr></table></figure>
+
+<p>3、已经用 git commit 提交了代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard HEAD^</span><br><span class="line">回退到上一次commit状态</span><br><span class="line"> </span><br><span class="line">$ git reset --hard &lt;commitid&gt;</span><br><span class="line">回退到任意版本</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/27/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/MAC%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1243,92 +1519,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/19/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.gif">
-      <meta itemprop="name" content="Jade liu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jadeliu's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/19/myblog/%E5%90%8E%E7%AB%AF%E4%B9%8B%E8%B7%AF/%E9%AB%98%E5%B9%B6%E5%8F%91%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/" class="post-title-link" itemprop="url">高并发压测工具</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-08-19 19:55:06" itemprop="dateCreated datePublished" datetime="2021-08-19T19:55:06+08:00">2021-08-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-09-25 21:39:41" itemprop="dateModified" datetime="2021-09-25T21:39:41+08:00">2021-09-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">后端开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="1-ab压测工具"><a href="#1-ab压测工具" class="headerlink" title="1.ab压测工具"></a>1.ab压测工具</h2><p>ab是apache自带的压力测试工具。ab进行的一切测试本质上是基于HTTP的。</p>
-<h3 id="linux下安装"><a href="#linux下安装" class="headerlink" title="linux下安装"></a>linux下安装</h3><p>yum -y install httpd-tools</p>
-<p>版本信息：ab -V</p>
-<p>ab -n1000 -c100 <a target="_blank" rel="noopener" href="https://www.imooc.com/">https://www.imooc.com/</a>   请求1000次,每次并发100;</p>
-<h3 id="输出信息说明"><a href="#输出信息说明" class="headerlink" title="输出信息说明"></a>输出信息说明</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Server Software:        web服务器软件及版本</span><br><span class="line">Server Hostname:        表示请求的URL中的主机部分名称</span><br><span class="line">Server Port:            被测试的Web服务器的监听端口</span><br><span class="line"> </span><br><span class="line">Document Path:          请求的页面路径</span><br><span class="line">Document Length:        页面大小</span><br><span class="line"> </span><br><span class="line">Concurrency Level:      并发数</span><br><span class="line">Time taken for tests:   测试总共花费的时间</span><br><span class="line">Complete requests:      完成的请求数</span><br><span class="line">Failed requests:        失败的请求数，这里的失败是指请求的连接服务器、发送数据、接收数据等环节发生异常，以及无响应后超时的情况。对于超时时间的设置可以用ab的-t参数。如果接受到的http响应数据的头信息中含有2xx以外的状态码，则会在测试结果显示另一个名为“Non-2xx responses”的统计项，用于统计这部分请求数，这些请求并不算是失败的请求。</span><br><span class="line">Write errors:           写入错误</span><br><span class="line">Total transferred:      总共传输字节数，包含http的头信息等。使用ab的-v参数即可查看详细的http头信息。</span><br><span class="line">HTML transferred:       html字节数，实际的页面传递字节数。也就是减去了Total transferred中http响应数据中头信息的长度。</span><br><span class="line">Requests per second:    每秒处理的请求数，服务器的吞吐量，等于：Complete requests / Time taken for tests</span><br><span class="line">Time per request:       平均数，用户平均请求等待时间</span><br><span class="line">Time per request:       服务器平均处理时间</span><br><span class="line">Transfer rate:          平均传输速率（每秒收到的速率）。可以很好的说明服务器在处理能力达到限制时，其出口带宽的需求量。</span><br><span class="line"> </span><br><span class="line">Connection Times (ms)	压力测试时的连接处理时间。</span><br><span class="line">              min  mean[+/-sd] median   max</span><br><span class="line">Connect:        0   67 398.4      9    3009			</span><br><span class="line">Processing:    49 2904 2327.2   2755   12115</span><br><span class="line">Waiting:       48 2539 2075.1   2418   12110</span><br><span class="line">Total:         53 2972 2385.3   2789   12119</span><br></pre></td></tr></table></figure>
-
-<p>Connect 无法送出要求、目标主机连接失败、要求的过程中被中断。<br>Length 响应的内容长度不一致 ( 以 Content-Length 头值为判断依据 )。<br>Exception 发生无法预期的错误。 </p>
-<h3 id="发生错误"><a href="#发生错误" class="headerlink" title="发生错误"></a>发生错误</h3><p>并发大时：apr_socket_recv: Connection reset by peer (104)</p>
-<p>解决：ab -n 100000 -c20000 <strong>-r <a target="_blank" rel="noopener" href="http://xxxxurl/">http://xxxxurl/</a></strong></p>
-<h2 id="2-charles"><a href="#2-charles" class="headerlink" title="2.charles"></a>2.charles</h2><p>使用 Charles 的 Repeat 功能来简单地测试服务器的并发处理能力。<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/linjpg/article/details/77839281">https://blog.csdn.net/linjpg/article/details/77839281</a></p>
-<p>参考:</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/feiwutudou/article/details/80334099">https://blog.csdn.net/feiwutudou/article/details/80334099</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_34381666/article/details/91546268">https://blog.csdn.net/weixin_34381666/article/details/91546268</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1399,7 +1589,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">103</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1453,7 +1643,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
